@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TherapyLog — Hormone Therapy and Peptide Tracking</title>
+  <meta name="description" content="The most comprehensive hormone therapy and peptide tracking app. Track TRT, peptides, bloodwork, and body composition with AI-powered tools.">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#0a0c0f; color:#e8edf5; line-height:1.6; }
+
+    /* Nav */
+    nav { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); position:sticky; top:0; background:rgba(10,12,15,0.95); backdrop-filter:blur(20px); z-index:100; }
+    .logo { font-size:22px; font-weight:700; color:#fff; font-family:Georgia,serif; }
+    .logo span { color:#4ade9a; font-style:italic; }
+    .nav-links { display:flex; gap:20px; }
+    .nav-links a { color:#8a95a3; text-decoration:none; font-size:14px; font-weight:500; }
+    .nav-cta { background:#4ade9a; color:#0a0c0f; padding:8px 18px; border-radius:8px; font-weight:700; text-decoration:none; font-size:14px; }
+
+    /* Hero */
+    .hero { text-align:center; padding:80px 24px 60px; max-width:680px; margin:0 auto; }
+    .hero-badge { display:inline-block; background:rgba(74,222,154,0.12); border:1px solid rgba(74,222,154,0.3); color:#4ade9a; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:20px; }
+    .hero h1 { font-size:42px; font-weight:800; letter-spacing:-0.02em; line-height:1.15; margin-bottom:16px; font-family:Georgia,serif; }
+    .hero h1 span { color:#4ade9a; font-style:italic; }
+    .hero p { font-size:17px; color:#8a95a3; margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto; }
+    .hero-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .btn-primary { background:#4ade9a; color:#0a0c0f; padding:14px 28px; border-radius:12px; font-weight:700; text-decoration:none; font-size:16px; }
+    .btn-secondary { background:rgba(255,255,255,0.06); color:#e8edf5; padding:14px 28px; border-radius:12px; font-weight:600; text-decoration:none; font-size:16px; border:1px solid rgba(255,255,255,0.1); }
+
+    /* Stats */
+    .stats { display:flex; justify-content:center; gap:40px; padding:40px 24px; border-top:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(255,255,255,0.06); flex-wrap:wrap; }
+    .stat { text-align:center; }
+    .stat-num { font-size:32px; font-weight:800; color:#4ade9a; font-family:Georgia,serif; }
+    .stat-label { font-size:12px; color:#4a5568; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; margin-top:4px; }
+
+    /* Features */
+    .features { max-width:900px; margin:0 auto; padding:60px 24px; }
+    .features h2 { font-size:28px; font-weight:700; text-align:center; margin-bottom:40px; font-family:Georgia,serif; }
+    .feature-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+    .feature-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:24px; }
+    .feature-icon { font-size:28px; margin-bottom:12px; }
+    .feature-card h3 { font-size:16px; font-weight:700; margin-bottom:8px; }
+    .feature-card p { font-size:14px; color:#8a95a3; line-height:1.6; }
+    .feature-card.accent { border-color:rgba(74,222,154,0.25); background:rgba(74,222,154,0.04); }
+
+    /* For who */
+    .for-who { background:rgba(255,255,255,0.02); padding:60px 24px; text-align:center; }
+    .for-who h2 { font-size:28px; font-weight:700; margin-bottom:12px; font-family:Georgia,serif; }
+    .for-who p { color:#8a95a3; max-width:540px; margin:0 auto 40px; }
+    .audience-grid { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; max-width:700px; margin:0 auto; }
+    .audience-pill { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:30px; padding:10px 20px; font-size:14px; font-weight:600; }
+
+    /* CTA */
+    .cta { text-align:center; padding:80px 24px; }
+    .cta h2 { font-size:32px; font-weight:700; margin-bottom:12px; font-family:Georgia,serif; }
+    .cta p { color:#8a95a3; margin-bottom:28px; font-size:16px; }
+
+    /* Disclaimer */
+    .disclaimer { max-width:680px; margin:0 auto; padding:0 24px 40px; font-size:12px; color:#4a5568; text-align:center; line-height:1.7; }
+
+    /* Footer */
+    footer { border-top:1px solid rgba(255,255,255,0.06); padding:30px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+    footer .logo { font-size:18px; }
+    .footer-links { display:flex; gap:20px; }
+    .footer-links a { color:#4a5568; text-decoration:none; font-size:13px; }
+    .footer-links a:hover { color:#8a95a3; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Therapy<span>Log</span></div>
+    <div class="nav-links">
+      <a href="/support">Support</a>
+      <a href="/privacy">Privacy</a>
+    </div>
+    <a class="nav-cta" href="https://apps.apple.com/app/therapylog" target="_blank">Download</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge">Now on the App Store</div>
+    <h1>Your hormone therapy<br><span>command center</span></h1>
+    <p>Track TRT, peptides, bloodwork, and body composition with AI-powered tools built for the modern patient and clinic.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="https://apps.apple.com/app/therapylog" target="_blank">Download on App Store</a>
+      <a class="btn-secondary" href="/support">Learn More</a>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">106</div><div class="stat-label">Compounds</div></div>
+    <div class="stat"><div class="stat-num">130+</div><div class="stat-label">Data Points</div></div>
+    <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Lab Markers</div></div>
+    <div class="stat"><div class="stat-num">11</div><div class="stat-label">Protocol Templates</div></div>
+  </div>
+
+  <div class="features">
+    <h2>Everything you need in one app</h2>
+    <div class="feature-grid">
+      <div class="feature-card accent">
+        <div class="feature-icon">🔬</div>
+        <h3>AI Lab Scanner</h3>
+        <p>Take a photo of your lab report. Claude AI reads every value and fills in all 50+ fields automatically. Works with Quest, LabCorp, and most clinic formats.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>106-Compound Encyclopedia</h3>
+        <p>Research-backed reference for TRT, peptides, GLP-1, senolytics, thyroid hormones, longevity compounds, and more — each with dosing, stacking, and monitoring protocols.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🩺</div>
+        <h3>Clinical Reports</h3>
+        <p>Generate a professional clinical summary with protocol, labs, blood pressure, adherence, and body composition — formatted for your physician appointment.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💉</div>
+        <h3>Dose Calculator</h3>
+        <p>Reconstitution calculator, draw calculator with visual syringe diagram, and vial planner. Never miscalculate a peptide dose again.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Bloodwork Trends</h3>
+        <p>Track 50+ lab markers with age and sex-adjusted reference ranges. Visualize trends over time with color-coded optimal zones.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌸</div>
+        <h3>Female Cycle Tracker</h3>
+        <p>Menstrual cycle tracking integrated with hormone protocol data. Phase guide with protocol timing recommendations. Automatically enabled for female users.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💊</div>
+        <h3>Smart Reminders</h3>
+        <p>Personalized dose reminders with injection site rotation guidance. Export to iPhone Calendar for native push notifications.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Research Assistant</h3>
+        <p>Ask questions about your protocol, labs, or any compound. The AI has full context of your health data and responds with evidence-based guidance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="for-who">
+    <h2>Built for serious health optimization</h2>
+    <p>TherapyLog is designed for informed adults working with qualified healthcare providers on evidence-based hormone and peptide protocols.</p>
+    <div class="audience-grid">
+      <div class="audience-pill">TRT Patients</div>
+      <div class="audience-pill">Peptide Protocol Users</div>
+      <div class="audience-pill">GLP-1 / Weight Loss</div>
+      <div class="audience-pill">Longevity Focused</div>
+      <div class="audience-pill">Female BHRT</div>
+      <div class="audience-pill">Athletes and Performers</div>
+      <div class="audience-pill">Anti-aging Medicine</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h2>Start tracking your health journey</h2>
+    <p>Free to download. No account required. Your data stays on your device.</p>
+    <a class="btn-primary" href="https://apps.apple.com/app/therapylog" target="_blank">Download on the App Store</a>
+  </div>
+
+  <div class="disclaimer">
+    TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol. The information in this app is for educational purposes only.
+  </div>
+
+  <footer>
+    <div class="logo">Therapy<span>Log</span></div>
+    <div class="footer-links">
+      <a href="/support">Support</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="mailto:feedback@therapylog.app">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>
