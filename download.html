@@ -193,14 +193,24 @@
       <div class="form-row" style="margin-top:16px">
         <label class="form-label">Email address</label>
         <input type="email" id="customer-email" placeholder="you@example.com"
-          style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 14px;color:#e8edf5;font-size:14px;font-family:-apple-system,sans-serif;outline:none">
+          style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 14px;color:#e8edf5;font-size:14px;font-family:-apple-system,sans-serif;outline:none;box-sizing:border-box">
         <div style="font-size:11px;color:#4a5568;margin-top:5px">Download link sent here after purchase</div>
       </div>
       <div class="form-row">
-        <label class="form-label">Card details</label>
-        <div class="stripe-element" id="card-element"></div>
-        <div id="card-errors"></div>
+        <label class="form-label">Card Number</label>
+        <div class="stripe-element" id="card-number-element"></div>
       </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="form-row">
+          <label class="form-label">Expiry Date</label>
+          <div class="stripe-element" id="card-expiry-element"></div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">CVC</label>
+          <div class="stripe-element" id="card-cvc-element"></div>
+        </div>
+      </div>
+      <div id="card-errors" style="color:#f87171;font-size:12px;margin-top:6px;min-height:18px"></div>
       <button class="plan-btn btn-purple pay-btn" id="pay-btn" onclick="handlePayment()">
         Pay $49.99 — Get Download Link
       </button>
@@ -299,33 +309,42 @@ const STRIPE_KEY = 'pk_live_51TdiI9FwxOceIOZwnJntWtK6ZdxA0M66ipCWRcoTrguMc0OHt0B
 let stripe, cardElement, formOpen = false;
 
 function initStripe() {
-  if (typeof Stripe === 'undefined') return;
+  if (typeof Stripe === 'undefined') {
+    setTimeout(initStripe, 500);
+    return;
+  }
   stripe = Stripe(STRIPE_KEY);
-  const elements = stripe.elements({
-    appearance: {
-      theme: 'night',
-      variables: {
-        colorPrimary: '#4ade9a',
-        colorBackground: 'rgba(255,255,255,0.06)',
-        colorText: '#e8edf5',
-        colorDanger: '#f87171',
-        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-        borderRadius: '10px',
-      }
-    }
-  });
-  cardElement = elements.create('card', {
-    style: {
-      base: {
-        fontSize: '15px',
-        color: '#e8edf5',
-        '::placeholder': { color: '#4a5568' }
-      }
-    }
-  });
-  cardElement.mount('#card-element');
-  cardElement.on('change', (e) => {
-    document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+  const elements = stripe.elements();
+
+  const style = {
+    base: {
+      fontSize: '15px',
+      color: '#e8edf5',
+      fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+      '::placeholder': { color: '#4a5568' },
+      backgroundColor: 'transparent'
+    },
+    invalid: { color: '#f87171' }
+  };
+
+  const cardNumber = elements.create('cardNumber', { style });
+  cardNumber.mount('#card-number-element');
+
+  const cardExpiry = elements.create('cardExpiry', { style });
+  cardExpiry.mount('#card-expiry-element');
+
+  const cardCvc = elements.create('cardCvc', { style });
+  cardCvc.mount('#card-cvc-element');
+
+  // Store for payment use
+  cardElement = cardNumber;
+  window._cardExpiry = cardExpiry;
+  window._cardCvc = cardCvc;
+
+  [cardNumber, cardExpiry, cardCvc].forEach(el => {
+    el.on('change', (e) => {
+      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+    });
   });
 }
 
@@ -333,7 +352,9 @@ function toggleStripeForm() {
   const form = document.getElementById('stripe-form');
   formOpen = !formOpen;
   form.classList.toggle('visible', formOpen);
-  if (formOpen && !cardElement) initStripe();
+  if (formOpen && !stripe) {
+    setTimeout(initStripe, 100);
+  }
 }
 
 async function handlePayment() {
