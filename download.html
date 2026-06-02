@@ -295,7 +295,7 @@
 <script>
 // ── Stripe Integration ──
 // Replace with your actual Stripe publishable key from dashboard.stripe.com
-const STRIPE_KEY = 'pk_live_YOUR_STRIPE_PUBLISHABLE_KEY_HERE';
+const STRIPE_KEY = 'pk_live_51TdiI9FwxOceIOZwnJntWtK6ZdxA0M66ipCWRcoTrguMc0OHt0BDkhBK7Z0Rn9GFEgY1QEEc8SVC8zxwfHdC0RvD00lfSnOvW6';
 let stripe, cardElement, formOpen = false;
 
 function initStripe() {
@@ -351,7 +351,8 @@ async function handlePayment() {
     // Create Payment Intent via your backend
     // IMPORTANT: You need a simple backend endpoint to create the payment intent
     // See setup instructions below for how to create this with a free Vercel function
-    const response = await fetch('/api/create-payment-intent', {
+    // TODO: Replace URL below with your Vercel function URL after deployment
+      const response = await fetch('https://therapylog-36sdmvfvy-therapylogs-projects.vercel.app/api/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: 4999, email, product: 'TherapyLog APK' })
@@ -389,7 +390,7 @@ STRIPE SETUP INSTRUCTIONS:
 
 1. Create a Stripe account at dashboard.stripe.com (free)
 2. Get your Publishable Key from Developers → API Keys
-3. Replace 'pk_live_YOUR_STRIPE_PUBLISHABLE_KEY_HERE' above with your real key
+3. Replace 'pk_live_51TdiI9FwxOceIOZwnJntWtK6ZdxA0M66ipCWRcoTrguMc0OHt0BDkhBK7Z0Rn9GFEgY1QEEc8SVC8zxwfHdC0RvD00lfSnOvW6' above with your real key
 4. Create a Vercel account (free) at vercel.com
 5. Deploy a simple serverless function to handle payment intents
    (I can build this for you — just ask)
