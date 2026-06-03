@@ -383,8 +383,6 @@ body.light-mode .gb,.light-mode .dcb,.light-mode .dli,.light-mode .dh,.light-mod
 
 </head>
 <body>
-
-<!-- Web version banner -->
 <div id="web-banner" style="background:linear-gradient(135deg,#0d1117,#111820);border-bottom:1px solid rgba(74,222,154,0.2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:-apple-system,sans-serif;">
   <div style="display:flex;align-items:center;gap:8px;">
     <span style="font-size:12px;color:#8a95a3;">You're using the <strong style="color:#4ade9a">free web version</strong> of TherapyLog</span>
@@ -402,7 +400,6 @@ body.light-mode .gb,.light-mode .dcb,.light-mode .dli,.light-mode .dh,.light-mod
        style="background:transparent;border:none;color:#4a5568;font-size:16px;cursor:pointer;padding:0 4px;">×</button>
   </div>
 </div>
-
 <div id="app">
 <div class="toast" id="toast"></div>
 
@@ -412,7 +409,7 @@ body.light-mode .gb,.light-mode .dcb,.light-mode .dli,.light-mode .dh,.light-mod
   <!-- Step 1: Welcome -->
   <div class="ob-step active" id="ob-step-1">
     <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center">
-      <div style="font-size:64px;margin-bottom:20px;animation:bounce-in 0.6s ease">🧬</div>
+      <div style="margin-bottom:20px;animation:bounce-in 0.6s ease;display:flex;justify-content:center;"><svg width="88" height="88" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><rect width="1024" height="1024" rx="224" fill="#111418"/><line x1="392" y1="304" x2="632" y2="304" stroke="#4ade9a" stroke-width="16" stroke-linecap="round"/><line x1="632" y1="304" x2="752" y2="512" stroke="#2dd4bf" stroke-width="16" stroke-linecap="round"/><line x1="752" y1="512" x2="632" y2="720" stroke="#3bc4ff" stroke-width="16" stroke-linecap="round"/><line x1="632" y1="720" x2="392" y2="720" stroke="#3bc4ff" stroke-width="16" stroke-linecap="round"/><line x1="392" y1="720" x2="272" y2="512" stroke="#2dd4bf" stroke-width="16" stroke-linecap="round"/><line x1="272" y1="512" x2="392" y2="304" stroke="#4ade9a" stroke-width="16" stroke-linecap="round"/><line x1="392" y1="304" x2="337" y2="209" stroke="#4ade9a" stroke-width="11" stroke-linecap="round"/><line x1="632" y1="304" x2="687" y2="209" stroke="#4ade9a" stroke-width="11" stroke-linecap="round"/><line x1="752" y1="512" x2="862" y2="512" stroke="#2dd4bf" stroke-width="11" stroke-linecap="round"/><line x1="632" y1="720" x2="687" y2="815" stroke="#3bc4ff" stroke-width="11" stroke-linecap="round"/><line x1="392" y1="720" x2="337" y2="815" stroke="#3bc4ff" stroke-width="11" stroke-linecap="round"/><line x1="272" y1="512" x2="162" y2="512" stroke="#2dd4bf" stroke-width="11" stroke-linecap="round"/><circle cx="337" cy="209" r="28" fill="#4ade9a"/><circle cx="687" cy="209" r="28" fill="#4ade9a"/><circle cx="862" cy="512" r="28" fill="#2dd4bf"/><circle cx="687" cy="815" r="28" fill="#3bc4ff"/><circle cx="337" cy="815" r="28" fill="#3bc4ff"/><circle cx="162" cy="512" r="28" fill="#2dd4bf"/><circle cx="392" cy="304" r="14" fill="#4ade9a"/><circle cx="632" cy="304" r="14" fill="#4ade9a"/><circle cx="752" cy="512" r="14" fill="#2dd4bf"/><circle cx="632" cy="720" r="14" fill="#3bc4ff"/><circle cx="392" cy="720" r="14" fill="#3bc4ff"/><circle cx="272" cy="512" r="14" fill="#2dd4bf"/><text x="430" y="580" font-family="Georgia,serif" font-size="210" font-weight="700" fill="#ffffff" text-anchor="middle">T</text><text x="594" y="580" font-family="Georgia,serif" font-size="210" font-weight="400" font-style="italic" fill="#4ade9a" text-anchor="middle">L</text></svg></div>
       <div style="font-family:'DM Serif Display',serif;font-size:34px;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px">
         Welcome to<br><span style="color:var(--accent);font-style:italic">TherapyLog</span>
       </div>
@@ -2129,6 +2126,9 @@ body.light-mode .gb,.light-mode .dcb,.light-mode .dli,.light-mode .dh,.light-mod
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
+
+
+
 <script>
 // ═══════════════════════════════════════════
 // DRUG DATABASE
@@ -2156,7 +2156,18 @@ const DB = {
           stacks:[{g:"All goals",d:["Protocols identical to Testosterone Cypionate"]}],
           mon:"Same panel as Testosterone Cypionate.",
           approval:"Off-label dosing above TRT levels. TRT itself requires prescription."
-        }
+        },
+        { id:"progesterone", name:"Progesterone", aka:"Prometrium, Utrogestan", cls:"Androgens / TRT", cc:"#ec4899",
+          summary:"Endogenous progestogen critical for female reproductive health, pregnancy, and neuroprotection. Beyond its reproductive role, progesterone acts as a neurosteroid (via allopregnanolone metabolite) improving sleep, reducing anxiety, and protecting brain tissue. Used in BHRT, sleep optimization, and as a DHT modulator in men.",
+          pros:["Neuroprotective via allopregnanolone","Improves sleep quality significantly","Balances estrogen in female BHRT","Anti-anxiety via GABA potentiation","Reduces DHT conversion in men (modest)","FDA-approved oral and vaginal formulations"],
+          cons:["Sedating — must be used at night for most","Can cause bloating and breast tenderness","Synthetic progestins have different effects — bioidentical preferred","Weight gain in some users","Progesterone creams have variable absorption"],
+          doses:[{l:"Female BHRT",d:"100–200mg",f:"Oral at bedtime or vaginal",c:"Ongoing, cyclically or continuously"},{l:"Sleep Optimization",d:"100–200mg",f:"Oral at bedtime",c:"Ongoing"},{l:"Men (adjunct)",d:"10–20mg",f:"Topical cream, nightly",c:"Assess every 3 months"}],
+          prog:"Women: 100mg orally at bedtime for sleep and neuroprotection. 200mg cyclically for BHRT. Men: 10–20mg topical only — excess can cause sedation and progesterone accumulation.",
+          stacks:[{g:"Female BHRT",d:["Progesterone 100–200mg at bedtime","Estradiol patch or cream","DHEA 10–25mg/day"]},{g:"Sleep Stack (men/women)",d:["Progesterone 100mg at bedtime","Magnesium glycinate 400mg","Glycine 3g"]}],
+          monitoring:"Serum progesterone, estradiol, SHBG, breast exam, PAP smear. In men: testosterone, estradiol, comprehensive hormone panel.",
+          interactions:"Potentiates sedatives and benzodiazepines. Can modulate cortisol and aldosterone pathways. May alter thyroid binding proteins.",
+          sideEffects:"Sedation (dose-dependent, use at bedtime), bloating, mood changes, breast tenderness, weight gain in some users.",
+          approvalStatus:"FDA Approved (Prometrium)" }
       ]
     },
     { id:"peptides", name:"Peptides", icon:"🔬", color:"#3bc4ff", desc:"Short-chain amino acids with targeted biological activity",
@@ -2210,8 +2221,8 @@ const DB = {
           stacks:[{g:"Longevity Protocol",d:["Epithalon 5mg/day x 10 days 2x/year","Testosterone TRT dose","BPC-157 continuous low dose","Sermorelin + Ipamorelin pre-bed"]}],
           mon:"General health panel. Telomere length testing optional via specialty labs.",
           approval:"Research compound — no FDA approval. Approved for clinical use in Russia."
-        }
-        ,
+        },
+
         { id:"pda", name:"Pentadeca Arginate", aka:"PDA, PC-15", cls:"Peptides", cc:"#3bc4ff",
           summary:"Pentadeca Arginate (PDA) is a newer synthetic peptide derived from BPC-157 with an arginine substitution that increases stability and bioavailability. Emerging research (2022-2024) suggests superior tissue regeneration and nitric oxide pathway modulation compared to standard BPC-157. It appears to have enhanced activity at the NO synthase pathway, making it particularly promising for vascular healing, wound repair, and inflammation resolution. Considered by some researchers as a next-generation evolution of BPC-157.",
           pros:["Enhanced stability vs standard BPC-157","Superior nitric oxide pathway modulation","Promising vascular and wound healing activity","May have faster onset than BPC-157","Excellent preliminary safety profile","Synergistic with TB-500"],
@@ -2430,9 +2441,33 @@ const DB = {
           stacks:[{g:"Anti-aging / Longevity",d:["Sermorelin 300mcg + Ipamorelin 300mcg pre-bed","Testosterone TRT dose","BPC-157 for systemic repair"]}],
           mon:"IGF-1 at baseline and every 3 months. Fasting glucose.",
           approval:"Research compound — no FDA approval for general use. Used in anti-aging medicine."
-        }
+        },
+        { id:"tesamorelin", name:"Tesamorelin", aka:"Egrifta", cls:"GH Secretagogues", cc:"#a78bfa",
+          summary:"FDA-approved GHRH analogue indicated for HIV-associated lipodystrophy. Stimulates pulsatile GH release by binding GHRH receptors. Strong body composition effects including visceral fat reduction and improved lean mass. Increasingly used off-label in longevity protocols.",
+          pros:["FDA-approved with human clinical data","Reduces visceral adiposity significantly","Improves lipid profiles","Increases IGF-1 without exogenous HGH","Once-daily dosing","Well-studied safety profile"],
+          cons:["Expensive compared to other GH peptides","Can induce insulin resistance","Requires physician prescription","Not widely available","Injection site reactions common"],
+          doses:[{l:"Standard",d:"1mg/day",f:"SubQ injection, morning",c:"3–6 months"},{l:"Body Composition",d:"2mg/day",f:"SubQ injection, morning fasted",c:"3–6 months"}],
+          prog:"Start at 1mg/day subcutaneous. Check IGF-1 at 6 weeks — target 200–300 ng/mL. Monitor fasting glucose. Cycle 3–6 months with break.",
+          stacks:[{g:"GH Optimization",d:["Tesamorelin 1–2mg/day","Ipamorelin 200mcg 3x/day","Testosterone TRT dose"]},{g:"Longevity Stack",d:["Tesamorelin 1mg/day","GHK-Cu 1mg/day","NMN 500mg/day"]}],
+          monitoring:"IGF-1 every 6–8 weeks, fasting glucose, HbA1c, lipid panel, body composition.",
+          interactions:"Monitor blood glucose with insulin or diabetic medications. May reduce effectiveness of cortisol replacement.",
+          sideEffects:"Injection site reactions, fluid retention, joint pain, elevated fasting glucose, glucose intolerance.",
+          approvalStatus:"FDA Approved (on-label for lipodystrophy)" },
+
+        { id:"mk677", name:"MK-677 / Ibutamoren", aka:"Nutrobal", cls:"GH Secretagogues", cc:"#a78bfa",
+          summary:"Orally active, non-peptide ghrelin receptor agonist that potently stimulates GH and IGF-1 secretion. Mimics ghrelin to activate the GH secretagogue receptor. Once-daily oral dosing is its primary advantage over injectable GH peptides. Long half-life of 24+ hours provides sustained GH elevation with sleep-related pulse preservation.",
+          pros:["Oral administration — no injections","Once daily dosing","Increases both GH and IGF-1 significantly","Improves sleep quality and REM","Long half-life","Relatively inexpensive"],
+          cons:["Significant appetite stimulation","Water retention and bloating","Elevated cortisol and prolactin","Can raise blood glucose — insulin resistance risk","Numbness and tingling (carpal tunnel like)","Not FDA approved"],
+          doses:[{l:"Starting",d:"10mg/day",f:"Oral at bedtime",c:"4–8 weeks"},{l:"Standard",d:"15–25mg/day",f:"Oral at bedtime",c:"3–6 months, then break"}],
+          prog:"Start at 10mg at bedtime. Assess appetite and sleep changes at 2 weeks. Increase to 15–25mg if tolerated. Monitor IGF-1 at 6 weeks — target 200–350 ng/mL. Take 4–6 month breaks.",
+          stacks:[{g:"GH Optimization",d:["MK-677 25mg at bedtime","CJC-1295 No DAC 100mcg 3x/day","Testosterone TRT dose"]},{g:"Lean Muscle",d:["MK-677 15mg at bedtime","Enclomiphene or TRT","High protein diet 2g/kg"]}],
+          monitoring:"IGF-1 every 6–8 weeks, fasting glucose, HbA1c, prolactin, cortisol, lipid panel. Baseline before starting.",
+          interactions:"May exacerbate insulin resistance — monitor blood glucose with metformin or insulin. Can increase cortisol and prolactin levels significantly.",
+          sideEffects:"Increased appetite (significant), water retention, fatigue (especially initially), elevated blood glucose, carpal tunnel symptoms, elevated prolactin, vivid dreams.",
+          approvalStatus:"Research" }
       ]
     },
+
     { id:"ancil", name:"Ancillaries — AIs and SERMs", icon:"🛡️", color:"#f472b6", desc:"Side effect management and hormonal balance compounds",
       drugs: [
         { id:"ai1", name:"Anastrozole", aka:"Arimidex", cls:"Ancillaries", cc:"#f472b6",
@@ -2474,9 +2509,21 @@ const DB = {
           stacks:[{g:"TRT + Fertility",d:["Testosterone Cypionate 100-150mg/week","HCG 250IU 2x/week","Anastrozole 0.25mg E3D only if E2 elevated"]}],
           mon:"E2 (HCG aromatizes significantly), Total T. LH/FSH will be suppressed — this is expected.",
           approval:"FDA approved for female infertility and cryptorchidism. Off-label for male TRT support."
-        }
+        },
+        { id:"enclomiphene", name:"Enclomiphene", aka:"Androxal, NF-1010", cls:"Ancillaries — AIs and SERMs", cc:"#f97316",
+          summary:"Trans-isomer of clomiphene that selectively modulates estrogen receptors in the hypothalamus and pituitary to increase LH and FSH secretion, stimulating endogenous testosterone production. Unlike racemic clomiphene (Clomid), enclomiphene lacks the vision-disrupting zuclomiphene isomer and has better tolerability.",
+          pros:["Preserves fertility unlike TRT","Raises endogenous testosterone","Better tolerated than Clomid","Once-daily oral dosing","Useful for younger men not ready for TRT","Testosterone restoration after cycle"],
+          cons:["Cannot achieve testosterone levels as high as TRT","Daily oral medication","Less available than Clomid","Insurance typically does not cover","Requires intact HPG axis"],
+          doses:[{l:"Testosterone Restoration",d:"12.5–25mg/day",f:"Oral, morning",c:"3–6 months"},{l:"TRT Alternative",d:"25mg/day",f:"Oral, morning",c:"Ongoing under physician care"},{l:"PCT",d:"25mg/day",f:"Oral, morning",c:"6–8 weeks"}],
+          prog:"Start at 12.5mg daily. Check testosterone, LH, FSH at 4 weeks. Titrate to 25mg if response inadequate. Monitor estradiol — AI may be needed at higher doses.",
+          stacks:[{g:"TRT Alternative",d:["Enclomiphene 25mg/day","HCG 500 IU 2x/week","Anastrozole 0.25mg 2x/week if needed"]},{g:"PCT Protocol",d:["Enclomiphene 25mg/day for 6–8 weeks","HCG 1000 IU 3x/week for first 2 weeks","Omega-3 for lipid support"]}],
+          monitoring:"Total testosterone, LH, FSH at 4 and 8 weeks, estradiol, SHBG, CBC, lipid panel, PSA.",
+          interactions:"Antagonizes estrogenic effects. Monitor with aromatase inhibitors — may need dose adjustment. Does not interact with most medications.",
+          sideEffects:"Visual disturbances (much rarer than Clomid), mood changes, hot flashes, elevated estradiol at higher doses. Well tolerated overall.",
+          approvalStatus:"Investigational (NDA filed)" }
       ]
     },
+
     { id:"pct", name:"PCT Protocols", icon:"🔄", color:"#4ade9a", desc:"Post Cycle Therapy — restoring the natural hormonal axis",
       drugs: [
         { id:"pct1", name:"Standard PCT — Testosterone Cycle", aka:"HPTA Restart Protocol", cls:"PCT Protocols", cc:"#4ade9a",
@@ -2576,9 +2623,33 @@ const DB = {
           stacks:[{g:"Endurance / Fat Loss (risk acknowledged)",d:["Cardarine 10-20mg/day","Testosterone TRT dose (if on TRT)","BPC-157 for tissue support"]}],
           mon:"Liver enzymes, general cancer screening awareness, lipid panel.",
           approval:"Research compound — development abandoned by GSK due to carcinogenicity. No FDA approval. Banned in sport."
-        }
+        },
+        { id:"rad140", name:"RAD-140 / Testolone", aka:"RAD140", cls:"SARMs", cc:"#ef4444",
+          summary:"Highly selective nonsteroidal androgen receptor modulator with one of the highest anabolic-to-androgenic ratios of any SARM. Developed by Radius Health for muscle wasting and breast cancer. Significant lean mass gains with minimal prostate or hair follicle stimulation. Requires PCT.",
+          pros:["Highest anabolic potency among SARMs","Minimal prostate stimulation","Neuroprotective in animal models","Being investigated for ER+ breast cancer","Strong lean mass gains","No aromatization"],
+          cons:["Significant testosterone suppression","Hepatotoxicity reports","Altered lipid profile (HDL reduction)","PCT required","Not FDA approved","Aggression in some users"],
+          doses:[{l:"Conservative",d:"5mg/day",f:"Oral, morning",c:"8 weeks, then PCT"},{l:"Standard",d:"10mg/day",f:"Oral, morning",c:"8–12 weeks, then PCT"},{l:"Advanced",d:"15mg/day",f:"Oral, morning",c:"8 weeks max, then PCT"}],
+          prog:"Start at 5mg daily for first cycle to assess tolerance. Bloodwork at week 4 and end of cycle. Begin PCT (enclomiphene or Clomid) 24–48 hours after last dose. Run PCT 6–8 weeks.",
+          stacks:[{g:"Recomposition",d:["RAD-140 10mg/day","Cardarine 10mg/day (optional)","Anastrozole 0.5mg 2x/week (if needed)","PCT planned: Enclomiphene 25mg/day 6 weeks"]},{g:"Lean Bulk",d:["RAD-140 10mg/day","MK-677 15mg at bedtime","High protein diet 2.2g/kg"]}],
+          monitoring:"Total testosterone, LH, FSH (suppression), lipid panel (HDL), liver enzymes (ALT/AST, bilirubin), CBC. Baseline and at cycle end.",
+          interactions:"Suppresses endogenous testosterone — PCT essential. HDL reduction — cardiovascular risk monitoring. May interact with medications metabolized by CYP450.",
+          sideEffects:"Testosterone suppression (significant), HDL reduction, elevated liver enzymes (hepatotoxicity risk), aggression, hair thinning, acne.",
+          approvalStatus:"Research" },
+
+        { id:"lgd4033", name:"LGD-4033 / Ligandrol", aka:"VK5211", cls:"SARMs", cc:"#ef4444",
+          summary:"Selective androgen receptor modulator with Phase II clinical trial data demonstrating 1mg/day produces statistically significant lean mass gains and stair climb power improvements. Developed by Ligand Pharmaceuticals. One of the most studied SARMs in human trials.",
+          pros:["Clinical trial data in humans (Phase II)","Effective at very low doses (1mg)","Strong lean mass gains","Bone density benefits","Oral administration","Better tolerated than many SARMs"],
+          cons:["Significant testosterone suppression even at 1mg","HDL reduction","PCT required","Long half-life means slow washout","Hepatotoxicity in rare case reports","Not FDA approved"],
+          doses:[{l:"Clinical Dose",d:"1mg/day",f:"Oral, morning",c:"12 weeks (Phase II protocol)"},{l:"Standard",d:"5mg/day",f:"Oral, morning",c:"8–12 weeks, then PCT"},{l:"Advanced",d:"10mg/day",f:"Oral, morning",c:"8 weeks, then PCT"}],
+          prog:"Beginners: 1mg/day following clinical trial protocol. Experienced: 5–10mg/day. Bloodwork at week 6 and end. PCT essential: begin 1 week after last dose with enclomiphene 25mg/day for 6–8 weeks.",
+          stacks:[{g:"Lean Mass Cycle",d:["LGD-4033 5mg/day","MK-677 15mg at bedtime","PCT planned: Enclomiphene 25mg/day × 8 weeks"]},{g:"Cutting Stack",d:["LGD-4033 5mg/day","Cardarine 10mg/day","Caloric deficit 300–500kcal"]}],
+          monitoring:"Total testosterone, LH, FSH, lipid panel, liver enzymes (ALT/AST), CBC, SHBG. Baseline required. At week 6 and post-cycle.",
+          interactions:"Significant HPG axis suppression — PCT mandatory. HDL reduction increases cardiovascular risk. Prolonged half-life means long washout period.",
+          sideEffects:"Testosterone suppression (dose-dependent), HDL reduction, water retention, elevated liver enzymes in some users.",
+          approvalStatus:"Research (Phase II completed)" }
       ]
     },
+
     { id:"hghclass", name:"HGH and IGF-1", icon:"📈", color:"#a78bfa", desc:"Growth hormone and insulin-like growth factor compounds",
       drugs: [
         { id:"rhgh", name:"Recombinant HGH", aka:"Somatropin, rHGH, Human Growth Hormone", cls:"HGH and IGF-1", cc:"#a78bfa",
@@ -2688,8 +2759,8 @@ const DB = {
           stacks:[{g:"Longevity / Metabolic",d:["MOTS-c 5-10mg 3x/week","NMN 500-1000mg/day","Testosterone TRT dose","Epithalon pulse cycles"]}],
           mon:"Fasting glucose, HbA1c, metabolic panel. Self-assessment of energy and exercise capacity.",
           approval:"Research compound — no FDA approval. Very early human research stage."
-        }
-        ,
+        },
+
         { id:"p21pep", name:"P21", aka:"P21 peptide, CNTF fragment", cls:"Additional Peptides", cc:"#22d3ee",
           summary:"P21 is a synthetic peptide derived from ciliary neurotrophic factor (CNTF) that promotes neurogenesis — the formation of new neurons and neural connections. Research demonstrates it increases hippocampal neurogenesis, improves synaptic plasticity, and enhances spatial learning and memory. Unlike Dihexa which works via HGF and synaptogenesis, P21 works via CNTF receptors to promote new neuron formation. Particularly promising for cognitive decline and neurodegenerative conditions. Some researchers combine it with Dihexa for a comprehensive neuroplasticity approach.",
           pros:["Promotes neurogenesis — new neuron formation","Hippocampal neuroplasticity enhancement","Improves learning and spatial memory","Different mechanism than Dihexa — potentially complementary","Promising for neurodegeneration research","Low doses required"],
@@ -2699,10 +2770,34 @@ const DB = {
           stacks:[{g:"Neuroplasticity Stack cautious",d:["P21 100mcg SubQ daily","Semax 600mcg intranasal AM","BPC-157 250mcg/day"]}],
           mon:"Cognitive function assessment, mood tracking. Neurological evaluation if any concerning symptoms.",
           approval:"Research compound — no FDA approval. Very early research stage."
-        }
+        },
 
+        { id:"aod9604", name:"AOD-9604", aka:"HGH Fragment 176-191", cls:"Additional Peptides", cc:"#06b6d4",
+          summary:"Fragment of the HGH C-terminus (amino acids 176–191) that retains fat-mobilizing properties without affecting IGF-1 or blood glucose. Targets adipose tissue via beta-3 adrenergic receptor stimulation. No androgenic or proliferative effects. Popular in body recomposition stacks.",
+          pros:["No effect on blood glucose or IGF-1","Targeted fat mobilization","Excellent safety profile","Compatible with all other peptides","Cost-effective for fat loss"],
+          cons:["Limited human clinical data","Subcutaneous injection required","Not FDA approved","Results modest without diet optimization","Short half-life requires precise timing"],
+          doses:[{l:"Fat Loss",d:"250–500mcg/day",f:"SubQ injection, fasted AM",c:"3–6 months"},{l:"Recomposition",d:"500mcg/day",f:"Split AM/PM, fasted",c:"3–6 months"}],
+          prog:"Inject 250–500mcg subcutaneously in the morning, fasted. Wait 30 minutes before eating. Stack with CJC-1295 and Ipamorelin for enhanced effect.",
+          stacks:[{g:"Recomposition Stack",d:["AOD-9604 500mcg AM fasted","CJC-1295 No DAC 100mcg","Ipamorelin 200mcg","Testosterone TRT dose"]},{g:"Fat Loss",d:["AOD-9604 300mcg 2x/day","Cardarine 10mg/day","Caloric deficit protocol"]}],
+          monitoring:"Body composition tracking, waist circumference. No specific bloodwork required. Fasting glucose baseline recommended.",
+          interactions:"No significant drug interactions. Synergistic with other GH secretagogues. Compatible with TRT.",
+          sideEffects:"Mild injection site irritation. No significant systemic side effects reported in literature.",
+          approvalStatus:"Research" },
+
+        { id:"ss31", name:"SS-31 / Elamipretide", aka:"MTP-131, Bendavia", cls:"Additional Peptides", cc:"#06b6d4",
+          summary:"Mitochondria-targeted tetrapeptide that binds cardiolipin on the inner mitochondrial membrane. Stabilizes electron transport chain complexes I–IV, reducing ROS production and improving ATP synthesis. Human trials show benefits for cardiac function, mitochondrial disease, and exercise performance.",
+          pros:["Direct mitochondrial membrane targeting","Reduces ROS at the source","Clinical trial data in cardiac conditions","Improves exercise capacity","Synergistic with CoQ10 and NMN","Novel mechanism of action"],
+          cons:["Very expensive","Limited availability","Optimal longevity dosing not established","Injectable","Limited long-term human data"],
+          doses:[{l:"Research Protocol",d:"1–3mg/day",f:"SubQ injection",c:"4–12 weeks"},{l:"Performance",d:"3–5mg pre-training",f:"SubQ injection",c:"As needed"}],
+          prog:"1–3mg subcutaneous daily for chronic mitochondrial support. Can be used acutely 3–5mg pre-exercise for performance. Very limited established protocols.",
+          stacks:[{g:"Mitochondrial Support",d:["SS-31 2mg/day SubQ","CoQ10 400mg/day","NMN 1g/day","PQQ 20mg/day"]},{g:"Cardiac Support",d:["SS-31 3mg/day SubQ","Omega-3 EPA/DHA 4g/day","CoQ10 400mg/day"]}],
+          monitoring:"VO2 max testing, mitochondrial function markers, cardiac echo if cardiac indication. Energy and performance subjective tracking.",
+          interactions:"May synergize with CoQ10, NAD+ precursors, and other mitochondrial support compounds. No adverse drug interactions documented.",
+          sideEffects:"Very well tolerated in Phase I/II trials. Mild injection site reactions. No serious adverse effects at therapeutic doses.",
+          approvalStatus:"Research (Phase II trials completed)" }
       ]
     },
+
     { id:"addlancil", name:"Additional Ancillaries", icon:"⚙️", color:"#fb923c", desc:"Additional compounds for hormonal management and health optimization",
       drugs: [
         { id:"exemest", name:"Exemestane", aka:"Aromasin", cls:"Additional Ancillaries", cc:"#fb923c",
@@ -2812,7 +2907,18 @@ const DB = {
           stacks:[{g:"Metabolic Optimization",d:["7-Keto DHEA 100mg 2x/day","DHEA 25mg/day AM","Testosterone TRT dose","Tirzepatide if GLP-1 desired"]}],
           mon:"Metabolic markers (weight, body composition), thyroid function, DHEA-S. No testosterone or estrogen monitoring required.",
           approval:"Dietary supplement in US. Not FDA approved as drug. Considered safe with good tolerability profile."
-        }
+        },
+        { id:"pregnenolone", name:"Pregnenolone", aka:"3β-hydroxy-5-pregnen-20-one", cls:"DHEA and Adrenal", cc:"#a78bfa",
+          summary:"The master precursor steroid synthesized from cholesterol in the adrenal glands and nervous system. Serves as the precursor to all steroid hormones including DHEA, progesterone, cortisol, aldosterone, testosterone, and estrogen. Neurosteroid with direct effects on GABA and NMDA receptors.",
+          pros:["Precursor to all steroid hormones","Neurosteroid with direct CNS effects","Supports memory and cognitive function","May improve mood and energy","Commonly used as TRT adjunct","Low cost and widely available OTC"],
+          cons:["Downstream conversion unpredictable","Can increase cortisol","May worsen anxiety in some individuals","Conversion to unwanted hormones possible","Monitoring essential at higher doses"],
+          doses:[{l:"Neurological Support",d:"10–30mg/day",f:"Oral with fat-containing meal",c:"Ongoing"},{l:"Hormone Precursor",d:"50–100mg/day",f:"Oral with fat-containing meal",c:"3–6 months, then reassess"}],
+          prog:"Start at 10mg daily with meals. Assess energy, mood, and cognitive effects at 4 weeks. Increase to 50mg if well tolerated. Monitor downstream hormones — DHEA-S, testosterone, estradiol.",
+          stacks:[{g:"TRT Adjunct",d:["Pregnenolone 50mg/day","DHEA 25–50mg/day","Testosterone protocol"]},{g:"Neurological",d:["Pregnenolone 30mg/day","Semax 300mcg AM","Lion's Mane 1g/day"]}],
+          monitoring:"DHEA-S, testosterone, estradiol, progesterone, cortisol (AM fasted), comprehensive hormone panel at baseline and 8 weeks.",
+          interactions:"Can increase downstream androgen and estrogen levels — monitor with TRT and BHRT. May affect cortisol — use caution with adrenal conditions.",
+          sideEffects:"Acne, hair thinning, irritability at high doses (androgenic conversion). Some report anxiety (GABA modulation). Generally well tolerated at low doses.",
+          approvalStatus:"OTC Supplement" }
       ]
     },
     { id:"metabolic", name:"Metabolic and Cardiovascular", icon:"❤️", color:"#f87171", desc:"Compounds for metabolic health, longevity, and cardioprotection",
@@ -2866,10 +2972,20 @@ const DB = {
           stacks:[{g:"Inflammatory / CIRS Protocol",d:["VIP 50mcg intranasal 4x/day","BPC-157 500mcg/day (gut support)","LDN 4.5mg at bedtime","Thymosin Alpha-1 1.6mg 2x/week"]}],
           mon:"Inflammatory markers (TGF-beta1, C4a, MMP-9 for CIRS), MSH (melanocyte stimulating hormone), VIP levels if testable, blood pressure.",
           approval:"Research compound — no FDA approval. Compounded from specialized pharmacies. Cornerstone of Shoemaker CIRS protocol."
-        }
+        },
+        { id:"acarbose", name:"Acarbose", aka:"Precose, Glucobay", cls:"Metabolic and Cardiovascular", cc:"#0ea5e9",
+          summary:"Alpha-glucosidase inhibitor that competitively inhibits intestinal enzymes that break down complex carbohydrates, slowing glucose absorption and blunting postprandial glucose spikes. FDA-approved for type 2 diabetes. Extended lifespan in National Institute on Aging ITP mouse studies, particularly in males. Popular in longevity protocols for glycemic control.",
+          pros:["Reduces postprandial glucose spikes","Extended lifespan in ITP mouse studies","No hypoglycemia risk as monotherapy","Improves gut microbiome composition","Reduces advanced glycation end products","Additive with metformin for longevity"],
+          cons:["GI side effects (gas, bloating) especially initially","Must be taken with first bite of meal — timing critical","Reduces absorption of some medications","Not useful without carbohydrate intake","Uncomfortable GI effects at higher doses"],
+          doses:[{l:"Starting",d:"25mg",f:"Oral with first bite of carb meals",c:"2–4 weeks then titrate"},{l:"Therapeutic",d:"50–100mg",f:"Oral with first bite of each main meal",c:"Ongoing"}],
+          prog:"Start at 25mg with the largest carbohydrate meal of the day. Titrate slowly — the GI side effects diminish over 2–4 weeks as gut microbiome adapts. Increase to 50mg 3x/day as tolerated.",
+          stacks:[{g:"Longevity Metabolic Stack",d:["Acarbose 50–100mg with meals","Metformin 500mg 2x/day","Berberine 500mg 2x/day","NMN 1g/day"]},{g:"Glucose Control",d:["Acarbose 100mg with main meals","CGM monitoring","Low glycemic index diet"]}],
+          monitoring:"HbA1c, fasting glucose, postprandial glucose (CGM ideal), liver enzymes (ALT/AST).",
+          interactions:"Reduces absorption of digoxin, propranolol, ranitidine, and other medications — separate by 2+ hours. Synergistic with metformin and berberine for glucose control.",
+          sideEffects:"Flatulence, bloating, diarrhea — especially initially and dose-dependent. Diminishes significantly after 2–4 weeks of use. Rare: hepatotoxicity at high doses.",
+          approvalStatus:"FDA Approved (Type 2 diabetes)" }
       ]
-    }
-    ,
+    },
     { id:"longevity2", name:"Longevity Compounds", icon:"🔬", color:"#818cf8", desc:"mTOR inhibitors, sirtuin activators, and evidence-based longevity agents",
       drugs:[
         { id:"rapamycin", name:"Rapamycin", aka:"Sirolimus, Rapamune, mTOR inhibitor", cls:"Longevity Compounds", cc:"#818cf8",
@@ -2901,7 +3017,18 @@ const DB = {
           stacks:[{g:"Sirtuin / NAD+ Stack",d:["Pterostilbene 100mg/day","NMN 1000mg/day AM","TMG 500mg/day (methyl donor)","Testosterone TRT dose"]}],
           mon:"No specific labs required. General health panel. Liver enzymes if using high doses long-term.",
           approval:"Dietary supplement — no FDA drug approval. Pterostilbene available OTC. Well-established safety profile."
-        }
+        },
+        { id:"rapamycin", name:"Rapamycin / Sirolimus", aka:"Rapamune", cls:"Longevity Compounds", cc:"#6366f1",
+          summary:"mTOR complex 1 inhibitor FDA-approved for organ transplant rejection. The most studied longevity drug in geroscience — extends lifespan in every model organism tested including mice (ITP studies). Promotes autophagy, reduces cellular senescence, and has demonstrated immune rejuvenation in humans. Pulsed weekly dosing used in longevity protocols to capture benefits while minimizing immunosuppression.",
+          pros:["Extends lifespan in all organisms tested","Promotes autophagy and cellular cleanup","Reduces senescent cell burden","Immune system rejuvenation data in humans","mTORC1 selective at pulsed low doses","Most evidence-backed longevity intervention"],
+          cons:["Immunosuppression at transplant doses","Impairs wound healing","Elevated triglycerides","Must be physician prescribed and supervised","Significant drug interactions","Long-term longevity use safety data still emerging"],
+          doses:[{l:"Longevity Protocol",d:"2–6mg",f:"Oral weekly, fasted",c:"Ongoing with physician supervision"},{l:"Conservative Start",d:"1–2mg",f:"Oral weekly",c:"3 months, then reassess"}],
+          prog:"Start at 1–2mg weekly. Monitor lipids and wound healing. Increase to 5–6mg/week if tolerated. Take on the same day each week, fasted. Avoid grapefruit. Regular physician monitoring essential.",
+          stacks:[{g:"Longevity Core Stack",d:["Rapamycin 5–6mg weekly (physician supervised)","Metformin 500–1000mg/day","NMN 1g/day","Urolithin A 1g/day"]},{g:"mTOR Cycling",d:["Rapamycin 5mg weekly","16:8 intermittent fasting","Resistance training 3x/week","Adequate protein 1.6g/kg/day"]}],
+          monitoring:"Lipid panel (monthly initially — triglycerides can rise), CBC, fasting glucose, wound healing assessment, complete metabolic panel quarterly.",
+          interactions:"CRITICAL: Strong CYP3A4 interactions with hundreds of medications. Avoid grapefruit. Consult physician before combining with any prescription medications.",
+          sideEffects:"Mouth sores (aphthous ulcers), impaired wound healing, elevated triglycerides, increased infection susceptibility at higher doses, edema. Dose-dependent.",
+          approvalStatus:"FDA Approved (transplant rejection)" }
       ]
     },
     { id:"collagen", name:"Collagen and Skin Peptides", icon:"✨", color:"#f9a8d4", desc:"Peptides for skin, hair, collagen synthesis, and anti-aging aesthetics",
@@ -2925,7 +3052,18 @@ const DB = {
           stacks:[{g:"Joint and Skin Protocol",d:["Collagen peptides 15g/day","Vitamin C 1000mg/day (cofactor)","GHK-Cu topical","BPC-157 250mcg/day (tissue repair synergy)"]}],
           mon:"Skin and joint symptom self-assessment. No blood monitoring needed.",
           approval:"Dietary supplement — no FDA drug approval. Well-evidenced by clinical trial data."
-        }
+        },
+        { id:"ghkcu", name:"GHK-Cu (Copper Peptide)", aka:"GHK-Copper", cls:"Collagen and Skin Peptides", cc:"#84cc16",
+          summary:"Naturally occurring copper-binding peptide that activates over 4,000 human genes involved in tissue repair, anti-inflammation, and regeneration. Stimulates collagen, elastin, and GAG synthesis. Potent antioxidant and anti-inflammatory. Used for skin rejuvenation, hair loss, wound healing, and systemic longevity.",
+          pros:["Extremely broad tissue repair effects","Anti-inflammatory and antioxidant","Stimulates collagen and elastin","Hair follicle regeneration","Excellent safety profile","Available topical and injectable"],
+          cons:["Multiple administration routes can be confusing","Quality control varies widely by source","Research mostly in vitro or animal models","Not FDA approved","Optimal dosing protocols still being established"],
+          doses:[{l:"Subcutaneous",d:"1–2mg/day",f:"SubQ injection",c:"1–3 months"},{l:"Intranasal",d:"100–200mcg/day",f:"Nasal spray",c:"Ongoing"},{l:"Topical",d:"As directed",f:"Topical cream/serum",c:"Ongoing"}],
+          prog:"Start with topical application for skin benefits. Add subcutaneous 1mg/day for systemic effects. Intranasal for cognitive and systemic benefits. Cycle 1–3 months.",
+          stacks:[{g:"Longevity Stack",d:["GHK-Cu 1mg/day SubQ","Epithalon 5mg/day (cycled)","NMN 500mg/day","BPC-157 250mcg/day"]},{g:"Skin and Hair",d:["GHK-Cu topical 2x/day","GHK-Cu 1mg SubQ/day","Biotin 5mg/day"]}],
+          monitoring:"General health markers. Copper levels with extended high-dose use. Hair and skin photographic documentation.",
+          interactions:"Theoretical competition with zinc supplementation. Separate GHK-Cu and zinc dosing by several hours.",
+          sideEffects:"Extremely well tolerated. Mild injection site reactions. No serious adverse effects in literature.",
+          approvalStatus:"Research" }
       ]
     },
     { id:"neuro2", name:"Neurological and Cognitive", icon:"🧠", color:"#c084fc", desc:"Neuroprotective compounds and cognitive enhancement agents",
@@ -2949,7 +3087,30 @@ const DB = {
           stacks:[{g:"Antioxidant and Cognitive Support",d:["NAC 600mg 2x/day","NALT 300mg AM fasted","Vitamin C 1000mg/day","Alpha-lipoic acid 300mg/day"]}],
           mon:"Liver enzymes (especially if on oral AAS — NAC is hepatoprotective). General wellness tracking.",
           approval:"NAC: OTC supplement (regulatory status in flux in US). NALT: dietary supplement. Both widely available."
-        }
+        },
+        { id:"selank", name:"Selank", aka:"TP-7", cls:"Neurological and Cognitive", cc:"#f59e0b",
+          summary:"Synthetic heptapeptide analogue of tuftsin developed by the Institute of Molecular Genetics (Russia). GABA-A receptor modulator with anxiolytic properties comparable to benzodiazepines without dependency or cognitive impairment. Also upregulates BDNF for neuroprotection.",
+          pros:["Anxiolytic without dependency or tolerance","Cognitive enhancement","Immune modulation","BDNF upregulation","Fast-acting intranasal administration","No withdrawal symptoms"],
+          cons:["Limited Western clinical trials","Intranasal administration can cause nasal irritation","Effects vary significantly by individual","Not FDA approved","Source quality varies"],
+          doses:[{l:"Anxiolytic",d:"250–500mcg/dose",f:"Intranasal, 2–3x/day",c:"2–4 weeks as needed"},{l:"Nootropic",d:"750–1500mcg/day",f:"Intranasal, split doses",c:"2–4 weeks on, 2 weeks off"}],
+          prog:"Start at 250mcg intranasal twice daily. Assess at 1 week. Increase to 500mcg 3x/day if needed. Cycle 2–4 weeks on, 2 weeks off.",
+          stacks:[{g:"Anxiety and Focus",d:["Selank 500mcg 2x/day","Semax 300mcg AM","Magnesium l-threonate 144mg/day"]},{g:"Cognitive Stack",d:["Selank 500mcg AM/PM","NAD+ 500mg/day","GHK-Cu intranasal 100mcg/day"]}],
+          monitoring:"Mood and anxiety self-assessment. No bloodwork required for standard use.",
+          interactions:"May potentiate GABA-ergic compounds and benzodiazepines — reduce dose if combining. Additive with alcohol.",
+          sideEffects:"Nasal irritation, mild sedation at high doses. No dependency, withdrawal, or serious adverse effects reported.",
+          approvalStatus:"Research" },
+
+        { id:"semax", name:"Semax", aka:"ACTH(4-7)PGP", cls:"Neurological and Cognitive", cc:"#f59e0b",
+          summary:"Synthetic ACTH 4–7 fragment with added PGP sequence for stability. Upregulates BDNF, NGF, and VEGF. Neuroprotective, nootropic, and anti-inflammatory. Clinically used in Russia for stroke, TBI, and cognitive disorders. Popular in Western biohacking for focus and neuroprotection.",
+          pros:["Potent BDNF and NGF upregulation","Neuroprotective after stroke or injury","Improves focus and working memory","Anti-inflammatory in the CNS","Fast-acting intranasal delivery","No dependency reported"],
+          cons:["Stimulating — can cause anxiety at high doses","Vivid dreams reported","Limited Western RCT data","Intranasal irritation","Not FDA approved","Source quality variable"],
+          doses:[{l:"Nootropic",d:"200–600mcg/day",f:"Intranasal, AM",c:"2–4 weeks on, 2 weeks off"},{l:"Neuroprotective",d:"600–900mcg/day",f:"Intranasal, 2x/day",c:"2–4 weeks"}],
+          prog:"Start at 200mcg intranasal in the AM. Assess stimulatory effects. Increase to 300–600mcg as tolerated. Avoid evening dosing — interferes with sleep at higher doses.",
+          stacks:[{g:"Focus Stack",d:["Semax 300mcg AM","Selank 500mcg PM","NAD+ 500mg/day"]},{g:"Neuroprotection",d:["Semax 600mcg 2x/day","GHK-Cu 1mg/day","NMN 1g/day"]}],
+          monitoring:"Cognitive performance tracking. No bloodwork required. Monitor mood and sleep quality.",
+          interactions:"Potentiates stimulants and dopaminergic compounds. Avoid with high-dose caffeine or amphetamines.",
+          sideEffects:"Anxiety or overstimulation at high doses, vivid dreams, nasal irritation. No serious adverse effects.",
+          approvalStatus:"Research" }
       ]
     },
     { id:"muscle", name:"Muscle and Myostatin", icon:"💪", color:"#f87171", desc:"Myostatin inhibitors and anabolic support compounds",
@@ -2965,9 +3126,8 @@ const DB = {
           approval:"Research compound — no FDA approval. Gene therapy versions in clinical trials for muscular dystrophy. Extreme caution warranted."
         }
       ]
-    }
+    },
 
-    ,
     { id:"khavinson2", name:"Khavinson Bioregulators", icon:"🔬", color:"#6ee7b7", desc:"Short regulatory peptides targeting specific organs and tissues",
       drugs:[
         { id:"cardiogen", name:"Cardiogen", aka:"Lys-Glu-Asp-Trp, KEDW tetrapeptide", cls:"Khavinson Bioregulators", cc:"#6ee7b7",
@@ -3029,7 +3189,18 @@ const DB = {
           stacks:[{g:"Complete Immune Longevity",d:["Crystagen 10mg/day x 10 days","Thymalin 10mg/day x 10 days","Epithalon 10mg/day x 10 days","Thymosin Alpha-1 1.6mg 2x/week (ongoing)"]}],
           mon:"CBC with differential, CD4/CD8 ratio if available, inflammatory markers (CRP, IL-6).",
           approval:"Research compound — no FDA approval. Used in Russian clinical and longevity research."
-        }
+        },
+        { id:"epithalon", name:"Epithalon", aka:"Epitalon, Epithalone", cls:"Khavinson Bioregulators", cc:"#8b5cf6",
+          summary:"Synthetic tetrapeptide (Ala-Glu-Asp-Gly) developed by Prof. Khavinson at the St. Petersburg Institute. Stimulates telomerase activity, promotes telomere elongation, and regulates the production of melatonin. Decades of Russian clinical research show benefits for longevity, sleep, and immune function.",
+          pros:["Telomerase activation and telomere support","Decades of clinical research","Improves sleep via melatonin regulation","Immune modulation","Antioxidant and anti-tumor effects in studies","Excellent safety profile"],
+          cons:["Limited Western peer-reviewed data","Primarily Russian research base","Long-term effects in healthy subjects not fully established","Requires injection or intranasal administration","Not FDA approved"],
+          doses:[{l:"Standard Cycle",d:"5–10mg/day",f:"SubQ injection",c:"10–20 days, 1–2x/year"},{l:"Intranasal",d:"2–3mg/day",f:"Nasal spray",c:"10–20 days"}],
+          prog:"Standard protocol: 5–10mg subcutaneous daily for 10–20 days, repeated 1–2 times per year. Spring and fall cycles most common.",
+          stacks:[{g:"Longevity Protocol",d:["Epithalon 10mg/day (cycled 10–20 days)","GHK-Cu 1mg/day","NMN 1g/day","Rapamycin 5mg/week (physician supervised)"]},{g:"Sleep Optimization",d:["Epithalon 5mg/night SubQ","DSIP 100mcg at bedtime","Magnesium glycinate 400mg"]}],
+          monitoring:"Telomere length testing (optional, expensive). General longevity panel. No mandatory monitoring.",
+          interactions:"No significant drug interactions documented. May enhance effects of melatonin and other sleep compounds.",
+          sideEffects:"Extremely well tolerated in clinical studies. Mild sedation reported by some users. No serious adverse effects.",
+          approvalStatus:"Research" }
       ]
     },
     { id:"metabolic2", name:"Metabolic Peptides", icon:"🔥", color:"#fb923c", desc:"Advanced metabolic, appetite regulation, and body composition peptides",
@@ -3087,7 +3258,18 @@ const DB = {
           stacks:[{g:"TRT Testicular Function",d:["Gonadorelin 100mcg SubQ 2x/day (pulsatile)","Testosterone Cypionate TRT dose","Anastrozole only if E2 elevated on labs"]}],
           mon:"LH, FSH (will show some activity unlike HCG protocols), Total T, E2, testicular volume assessment. LH response 30-60 min post-injection confirms pituitary response.",
           approval:"FDA APPROVED as Factrel for diagnostic use and Lutrepulse pump for hypogonadotropic hypogonadism. Off-label SubQ pulsatile use for TRT testicular maintenance."
-        }
+        },
+        { id:"pt141", name:"PT-141 / Bremelanotide", aka:"Vyleesi", cls:"Sexual Health Peptides", cc:"#ec4899",
+          summary:"Melanocortin receptor 3/4 agonist FDA-approved for HSDD in premenopausal women. Works centrally in the CNS — not via vasodilation — making it uniquely effective when other ED treatments fail. Used off-label in men for libido and ED with strong anecdotal and emerging clinical support.",
+          pros:["FDA-approved for women (Vyleesi)","CNS mechanism works when Viagra fails","Rapid onset 30–60 minutes","Effective for both libido and erectile function","No cardiovascular contraindications of PDE5 inhibitors"],
+          cons:["Nausea is common especially first use","Transient blood pressure increase","Cannot use with nitrates","Expensive","Facial flushing and hyperpigmentation with repeated use"],
+          doses:[{l:"Starting Dose",d:"0.5mg",f:"SubQ injection 45 min before",c:"As needed"},{l:"Standard",d:"1.75mg",f:"SubQ injection 45 min before",c:"Max 1x per 24 hours"},{l:"High Response",d:"1mg",f:"SubQ injection 45 min before",c:"Titrate based on response"}],
+          prog:"First dose: 0.5mg to assess tolerance. Pre-treat with ondansetron 4mg oral 1 hour before to reduce nausea. Titrate to 1–1.75mg based on response and side effects.",
+          stacks:[{g:"Male Libido",d:["PT-141 1mg 45 min before","Testosterone optimized (600+ ng/dL)","Zinc 30mg daily"]},{g:"Female HSDD",d:["PT-141 1.75mg 45 min before (FDA approved protocol)","DHEA 25mg daily","Estradiol (if appropriate)"]}],
+          monitoring:"Blood pressure before and after first dose, nausea severity tracking, skin hyperpigmentation assessment with long-term use.",
+          interactions:"Contraindicated with nitrates. Use caution with antihypertensives. Synergistic with optimized testosterone.",
+          sideEffects:"Nausea (most common, 40%), flushing, transient hypertension, headache, spontaneous erections in men, hyperpigmentation with chronic use.",
+          approvalStatus:"FDA Approved (women, HSDD)" }
       ]
     },
     { id:"antiinflam", name:"Anti-Inflammatory Peptides", icon:"🛡️", color:"#34d399", desc:"Specialized peptides for systemic inflammation, autoimmunity, and immune regulation",
@@ -3121,11 +3303,21 @@ const DB = {
           stacks:[{g:"Systemic Repair Maintenance",d:["TB-500 2.5mg weekly","BPC-157 250mcg/day (synergistic)","Testosterone TRT dose","Collagen peptides 15g/day"]}],
           mon:"General health panel. Given theoretical cancer concern, periodic comprehensive health screening appropriate for long-term use.",
           approval:"Research compound — no FDA approval. Growing clinical use for injury recovery and systemic protocols."
-        }
+        },
+        { id:"kpv", name:"KPV", aka:"α-MSH(11-13)", cls:"Anti-Inflammatory Peptides", cc:"#10b981",
+          summary:"C-terminal tripeptide of alpha-MSH (Lys-Pro-Val) that acts directly on melanocortin receptors to suppress NF-κB inflammatory pathways. Particularly potent for gut inflammation. Being studied for IBD, Crohn's, and colitis. Penetrates gut epithelium to act locally.",
+          pros:["Powerful gut anti-inflammatory","Systemic NF-κB suppression","Oral bioavailability for gut-specific use","Excellent safety profile","Synergistic with BPC-157","Immune modulation"],
+          cons:["Limited human clinical data","Not FDA approved","Optimal dosing not yet established","Multiple administration routes can be confusing","Short half-life"],
+          doses:[{l:"Gut Protocol (Oral)",d:"500mcg–2mg",f:"Oral capsule, twice daily fasted",c:"4–12 weeks"},{l:"Systemic",d:"500mcg–1mg",f:"SubQ injection daily",c:"4–8 weeks"}],
+          prog:"For gut-specific use, oral capsules preferred. 500mcg twice daily fasted. For systemic inflammation, 500mcg–1mg subcutaneous daily. Combine with BPC-157 for synergistic gut healing.",
+          stacks:[{g:"Gut Healing Stack",d:["KPV 1mg oral 2x/day","BPC-157 250mcg SubQ or oral","Glutamine 10g/day","Zinc carnosine 75mg"]},{g:"Systemic Anti-Inflammatory",d:["KPV 500mcg SubQ daily","TB-500 2.5mg 2x/week","Omega-3 EPA/DHA 3g/day"]}],
+          monitoring:"Gut symptom scoring (CDAI or Harvey-Bradshaw), CRP, calprotectin (if available), IL-6.",
+          interactions:"Synergistic with BPC-157 for gut healing. No significant drug interactions documented.",
+          sideEffects:"Extremely well tolerated. Mild injection site reactions. No serious adverse effects in current literature.",
+          approvalStatus:"Research" }
       ]
-    }
+    },
 
-    ,
     { id:"senolytics", name:"Senolytics and Autophagy", icon:"🔄", color:"#a78bfa", desc:"Senolytic compounds that clear zombie cells and autophagy inducers for cellular cleanup",
       drugs:[
         { id:"fisetin", name:"Fisetin", aka:"7,3',4'-flavon-3-ol, senolytic flavonoid", cls:"Senolytics and Autophagy", cc:"#a78bfa",
@@ -3167,7 +3359,30 @@ const DB = {
           stacks:[{g:"Autophagy and Longevity",d:["Spermidine 5mg/day fasted","Rapamycin 6mg weekly (synergistic autophagy)","NMN 1000mg/day","Fisetin quarterly pulse"]}],
           mon:"No specific blood monitoring. Cognitive self-assessment, hair health, energy tracking. Inflammatory markers optionally.",
           approval:"Dietary supplement — no FDA drug approval. Well-tolerated with strong mechanistic and growing human evidence."
-        }
+        },
+        { id:"urolithina", name:"Urolithin A", aka:"UA", cls:"Senolytics and Autophagy", cc:"#84cc16",
+          summary:"Postbiotic compound produced by gut bacteria metabolizing ellagitannins from pomegranates and berries. Potent inducer of mitophagy — selective clearance of damaged mitochondria via the PINK1/Parkin pathway. Phase I and II clinical trials demonstrate improved muscle function, exercise endurance, and mitochondrial gene expression in older adults.",
+          pros:["Human clinical trial data (Phase I/II)","Improves mitochondrial function","Increases muscle endurance","Reduces inflammatory markers","Safe and well-tolerated","Available as commercial supplement"],
+          cons:["Expensive as commercial supplement (Timeline)","Can produce via diet (pomegranate) with variable absorption","Not all humans are urolithin A producers","Long-term data still emerging","Optimal dosing not fully established"],
+          doses:[{l:"Clinical Dose",d:"500mg/day",f:"Oral with or without food",c:"Ongoing"},{l:"Therapeutic",d:"1000mg/day",f:"Oral with or without food",c:"Ongoing"}],
+          prog:"500mg daily is the Phase II clinical dose. 1000mg/day for more aggressive mitophagy support. Take consistently — effects build over 4+ weeks. Combine with exercise for synergistic mitochondrial benefits.",
+          stacks:[{g:"Mitochondrial Health",d:["Urolithin A 1g/day","CoQ10 300mg/day","PQQ 20mg/day","SS-31 1mg/day SubQ"]},{g:"Longevity Core",d:["Urolithin A 1g/day","Spermidine 1mg/day","NMN 1g/day","Rapamycin 5mg/week (physician supervised)"]}],
+          monitoring:"VO2 max or 6-minute walk test, grip strength, inflammatory markers (CRP, IL-6). No specific bloodwork required.",
+          interactions:"No significant drug interactions documented. Synergistic with exercise training and other mitophagy inducers.",
+          sideEffects:"Extremely well tolerated in clinical trials. Mild GI discomfort at high doses in some individuals.",
+          approvalStatus:"Generally Recognized Safe (GRAS)" },
+
+        { id:"spermidine", name:"Spermidine", aka:"N-(3-Aminopropyl)putrescine", cls:"Senolytics and Autophagy", cc:"#84cc16",
+          summary:"Naturally occurring polyamine found in wheat germ, aged cheese, soy, and mushrooms. Declines significantly with age. Potent autophagy inducer via EP300 acetyltransferase inhibition. Epidemiological studies link high dietary spermidine to reduced cardiovascular mortality and cognitive preservation. Emerging as a core longevity supplement.",
+          pros:["Potent autophagy inducer","Reduced cardiovascular mortality in studies","Cognitive preservation data","Natural compound found in foods","Well-tolerated supplement","Synergistic with fasting and rapamycin"],
+          cons:["Effective food doses require large quantities of wheat germ","Supplement standardization varies","Long-term human intervention data limited","Mechanism complex and not fully understood","Relatively expensive for quality supplements"],
+          doses:[{l:"Dietary",d:"1–2mg/day",f:"High spermidine foods",c:"Ongoing"},{l:"Supplement",d:"1–5mg/day",f:"Oral supplement",c:"Ongoing"}],
+          prog:"1–2mg daily from food sources (wheat germ is richest source). Supplement 1–5mg/day if dietary intake is low. Consistent daily use for cumulative autophagy benefits. Best combined with time-restricted eating.",
+          stacks:[{g:"Autophagy Stack",d:["Spermidine 5mg/day","Urolithin A 1g/day","Fasting 16:8 protocol","Rapamycin 5mg/week (physician supervised)"]},{g:"Cardiovascular Longevity",d:["Spermidine 5mg/day","Omega-3 EPA/DHA 3g/day","Coenzyme Q10 300mg/day"]}],
+          monitoring:"No specific monitoring required. General longevity biomarker panel. Cardiovascular markers if primary indication.",
+          interactions:"No significant drug interactions documented. Synergistic with autophagy inducers (rapamycin, urolithin A, fasting).",
+          sideEffects:"Extremely well tolerated. Mild GI discomfort at higher supplement doses. No serious adverse effects reported.",
+          approvalStatus:"Generally Recognized Safe (GRAS)" }
       ]
     },
     { id:"supps", name:"Supplements and Nutraceuticals", icon:"💊", color:"#34d399", desc:"Evidence-based supplements for longevity, metabolic health, and performance",
@@ -3213,9 +3428,8 @@ const DB = {
           approval:"NAD+ is not FDA approved as a drug for wellness indications. Used in research contexts for addiction. Clinical infusions are off-label wellness services."
         }
       ]
-    }
+    },
 
-    ,
     { id:"sleep-neuro", name:"Sleep and Neurological", icon:"🌙", color:"#818cf8", desc:"Sleep optimization peptides and neurological compounds",
       drugs:[
         { id:"dsip", name:"DSIP", aka:"Delta Sleep-Inducing Peptide, DSIP nonapeptide", cls:"Sleep and Neurological", cc:"#818cf8",
@@ -3316,6 +3530,100 @@ const DB = {
           mon:"Morning energy levels (avoid grogginess at current dose). Cortisol AM if adrenal concerns. Reproductive hormones if using very high doses long-term.",
           approval:"Dietary supplement in US — no FDA drug approval. Available OTC. Melatonin is a hormone — physician consultation recommended for therapeutic high-dose use."
         }
+      ]
+    },
+
+    { id:"newcompounds", name:"Additional Compounds", icon:"⚗️", color:"#a78bfa", desc:"Extended compound library — AAS, SARM variants, and specialized compounds",
+      drugs: [
+        { id:"amino1mq", name:"5-Amino-1MQ", aka:"5-Amino-1-methylquinolinium, AMQ", cls:"Metabolic / Longevity", cc:"#a78bfa",
+          summary:"5-Amino-1MQ is a small molecule inhibitor of NNMT (nicotinamide N-methyltransferase), an enzyme that regulates NAD+ metabolism and fat cell differentiation. By blocking NNMT it raises intracellular NAD+ levels and activates SIRT1, promoting fat oxidation and improving metabolic function. Preclinical research (2021-2024) shows significant fat loss and improved insulin sensitivity. Growing use in longevity and body recomposition protocols.",
+          pros:["Elevates intracellular NAD+ levels","Activates SIRT1 longevity pathway","Promotes fat oxidation","Improves insulin sensitivity in models","Synergistic with NMN/NR","Oral bioavailability"],
+          cons:["Limited human clinical data","Research primarily preclinical","Long-term safety not established","Requires compounding pharmacy","Dosing not standardized","Potential interactions with NAD+ pathways"],
+          doses:[{l:"Longevity / Fat Loss",d:"50-100mg/day",f:"Oral, once daily with food",c:"8 weeks on / 4 weeks off"}],
+          prog:"Stack with NMN or NR for synergistic NAD+ elevation. Monitor body composition, energy, and metabolic markers. Best combined with resistance training.",
+          stacks:[{g:"Metabolic Stack",d:["5-Amino-1MQ 50mg/day","NMN 500mg/day","Berberine 500mg 3x/day"]}],
+          mon:["Body composition","Fasting glucose / insulin","HbA1c","Energy levels"],
+          hl:"~4-6 hours", status:"Research", rx:false, legal:"Legal (research compound)" },
+
+        { id:"estriol", name:"Estriol", aka:"E3, Oestriol", cls:"Female Hormones / BHRT", cc:"#f472b6",
+          summary:"Estriol is the weakest of the three main estrogens and the predominant estrogen during pregnancy. Used in bioidentical HRT for peri/postmenopausal women. Has shorter receptor binding duration than estradiol and is considered relatively breast-safe. Compounded as topical cream or vaginal preparation. Research supports use for urogenital atrophy, hot flashes, and bone density.",
+          pros:["Relieves menopausal symptoms","Improves vaginal and urogenital health","Lower systemic exposure than estradiol","Considered relatively breast-safe","Improves skin hydration","Available topical or vaginal"],
+          cons:["Weaker systemic effect than estradiol","May require more frequent dosing","Not FDA approved as standalone oral","Requires progesterone if uterus intact","Compounding required","Individual response variability"],
+          doses:[{l:"Topical BHRT",d:"0.5-2mg/day",f:"Topical cream or gel",c:"Ongoing with progesterone"},{l:"Vaginal Atrophy",d:"0.5mg 3x/week",f:"Vaginal cream or suppository",c:"Maintenance dosing"}],
+          prog:"Always pair with progesterone if uterus intact. Dose to symptom relief. Monitor E2, E3, and progesterone.",
+          stacks:[{g:"Female BHRT",d:["Estriol 1mg/day topical","Progesterone 100mg oral at night","DHEA 5-10mg/day"]}],
+          mon:["Estradiol (E2)","Estriol (E3)","Progesterone","FSH / LH","Bone density annually","Breast exam / mammogram"],
+          hl:"~20 hours", status:"Compounded", rx:true, legal:"Prescription (compounded)" },
+
+        { id:"yk11", name:"YK-11", aka:"YK11, Myostatin inhibitor SARM", cls:"SARMs", cc:"#f59e0b",
+          summary:"YK-11 is a unique steroidal SARM that also functions as a myostatin inhibitor. Myostatin limits muscle growth; blocking it theoretically removes the genetic ceiling on muscle development. Shows strong anabolic activity in vitro and high AR affinity. Despite significant community interest, human clinical trials are absent and long-term safety is unknown.",
+          pros:["Dual action: SARM plus myostatin inhibitor","Potentially removes genetic muscle ceiling","High anabolic potency in vitro","Significant anecdotal lean mass gains","Popular in advanced recomposition cycles","May spare prostate tissue (early data)"],
+          cons:["Zero human clinical trials","Potential hepatotoxicity reported","Testosterone suppression","Requires PCT","Long-term safety unknown","Difficult to source reliably"],
+          doses:[{l:"Beginner",d:"5mg/day",f:"Oral, split dose",c:"6-8 weeks"},{l:"Intermediate",d:"10-15mg/day",f:"Oral, split dose",c:"8 weeks plus PCT"}],
+          prog:"Never use without PCT plan. Monitor LFTs before, during, and after. Start low. Bloodwork at 4 weeks.",
+          stacks:[{g:"Recomposition",d:["YK-11 10mg/day","RAD-140 10mg/day","PCT after cycle"]}],
+          mon:["Liver function LFTs monthly","Total and Free Testosterone","LH / FSH","Lipid panel","Hematocrit"],
+          hl:"~12 hours", status:"Research", rx:false, legal:"Legal (research compound)" },
+
+        { id:"andarine", name:"Andarine", aka:"S-4, GTx-007", cls:"SARMs", cc:"#f59e0b",
+          summary:"Andarine (S-4) is one of the earliest developed SARMs, showing strong affinity for muscle and bone androgen receptors. Produces significant strength and lean mass gains, a hardening effect, and modest fat loss. Notable for a distinctive and reversible side effect: a yellow tint to vision at higher doses that reverses after discontinuation.",
+          pros:["Strong anabolic effect on muscle and bone","Body hardening and vascularity","Modest fat loss properties","Relatively fast-acting","Strength gains often rapid","Better studied than newer SARMs"],
+          cons:["Yellow vision tint at higher doses","Moderate testosterone suppression","Requires PCT at most doses","Short half-life requires split dosing","Vision effects concerning for some","Limited human safety data"],
+          doses:[{l:"Beginner",d:"25mg/day",f:"Oral, split into 2 doses",c:"6-8 weeks"},{l:"Intermediate",d:"50mg/day",f:"Oral, split doses",c:"8 weeks plus PCT"}],
+          prog:"Split dose morning and evening. If yellow vision appears, reduce dose. Always plan PCT before starting.",
+          stacks:[{g:"Cutting Stack",d:["Andarine 25-50mg/day","Cardarine 10mg/day","Ostarine 25mg/day"]}],
+          mon:["Testosterone","LH / FSH","Lipid panel","Liver function","Vision changes"],
+          hl:"~4-6 hours", status:"Research", rx:false, legal:"Legal (research compound)" },
+
+        { id:"proviron", name:"Proviron", aka:"Mesterolone, 1-Methyl-DHT", cls:"Androgens / TRT", cc:"#4ade9a",
+          summary:"Proviron (mesterolone) is a DHT-derived oral androgen that does not aromatize and reduces estrogen activity by displacing estradiol from SHBG. Increases free testosterone, reduces estrogen, improves libido, and enhances muscle hardness. Unlike most oral AAS it has low hepatotoxicity. Widely used as a TRT adjunct for men with high SHBG or low libido before resorting to aromatase inhibitors.",
+          pros:["Increases free testosterone via SHBG displacement","Does not aromatize","Anti-estrogenic properties","Significantly improves libido","Low hepatotoxicity vs other orals","Hardens physique and reduces water retention"],
+          cons:["Can accelerate male pattern baldness","Not suitable for females","Mildly suppresses LH","Reduces HDL cholesterol","Minimal anabolic effect alone","Oral dosing requires consistency"],
+          doses:[{l:"TRT Adjunct",d:"25-50mg/day",f:"Oral with meals",c:"Ongoing or cycled"},{l:"Cycle Support",d:"50-75mg/day",f:"Oral with meals",c:"Duration of cycle"}],
+          prog:"Excellent before resorting to AIs for men with high SHBG or low libido on TRT. Monitor free T, SHBG, and E2.",
+          stacks:[{g:"TRT Optimization",d:["Testosterone 150mg/wk","Proviron 25-50mg/day","Monitor free T and E2"]}],
+          mon:["Free Testosterone","SHBG","Estradiol (E2)","Lipid panel","DHT"],
+          hl:"~12-13 hours", status:"Prescription", rx:true, legal:"Prescription required" },
+
+        { id:"stanozolol", name:"Stanozolol", aka:"Winstrol, Winny, Stan", cls:"AAS", cc:"#ef4444",
+          summary:"Stanozolol is a DHT-derived anabolic steroid available in oral and injectable forms. Produces lean, dry muscle without water retention, significant strength increases, and fat loss. Does not aromatize and reduces SHBG. Historically used medically for hereditary angioedema. Popular in cutting phases but oral form is notably hepatotoxic requiring short cycles and liver support.",
+          pros:["No aromatization","Significant strength increases","Lean dry muscle gains","Reduces SHBG","Excellent for cutting","Oral and injectable options"],
+          cons:["Highly hepatotoxic especially oral","Severe joint dryness and pain","Strongly suppresses testosterone","Worsens lipid profile and drops HDL","Not suitable for bulking","Requires liver support"],
+          doses:[{l:"Cutting",d:"25-50mg/day oral or 50mg EOD injectable",f:"Oral or IM",c:"6 weeks maximum"},{l:"Strength",d:"10-25mg/day",f:"Oral with meals",c:"4-6 weeks"}],
+          prog:"Short cycles only due to hepatotoxicity. Monitor LFTs every 2 weeks. TUDCA or UDCA essential. Never exceed 6 weeks oral.",
+          stacks:[{g:"Cutting",d:["Testosterone 200mg/wk base","Stanozolol 50mg/day","TUDCA 500mg/day"]}],
+          mon:["Liver enzymes LFTs every 2 weeks","Lipid panel HDL","Testosterone","Joint pain","Blood pressure"],
+          hl:"~9 hours oral / ~24 hours injectable", status:"Controlled", rx:true, legal:"Schedule III (USA)" },
+
+        { id:"npp", name:"Nandrolone Phenylpropionate", aka:"NPP, Durabolin, Short Deca", cls:"AAS", cc:"#ef4444",
+          summary:"NPP is the shorter ester version of Nandrolone Decanoate offering identical benefits with faster onset and clearance. Nandrolone has a long medical history for treating anemia, muscle wasting, and osteoporosis. Known for significant joint lubrication, lean mass gains, and collagen synthesis support. Faster clearance than Deca allows more control and quicker protocol adjustment.",
+          pros:["Significant lean muscle gains","Notable joint lubrication and reduces pain","Supports collagen and bone density","Lower androgenic than testosterone","Faster clearance than Deca","Extensive medical research history"],
+          cons:["Significant testosterone suppression","Prolactin elevation possible","Must run with testosterone base","Long detection time","Progesterone-related sides possible","Cabergoline may be needed"],
+          doses:[{l:"Joint Support",d:"100-200mg/week",f:"IM injection 2-3x/week",c:"12-16 weeks"},{l:"Mass Building",d:"300-400mg/week",f:"IM injection 3x/week",c:"12-16 weeks plus PCT"}],
+          prog:"Always run with testosterone base. Have cabergoline on hand. Monitor prolactin at 4 weeks. Joint benefit typically felt within 2-3 weeks.",
+          stacks:[{g:"Joint Support plus Mass",d:["Testosterone Cypionate 300mg/wk","NPP 200mg/wk","Monitor prolactin monthly"]}],
+          mon:["Prolactin monthly","Testosterone","Estradiol","Lipid panel","Hematocrit","Liver function"],
+          hl:"~4-5 days", status:"Controlled", rx:true, legal:"Schedule III (USA)" },
+
+        { id:"tprop", name:"Testosterone Propionate", aka:"Test Prop, TP", cls:"Androgens / TRT", cc:"#4ade9a",
+          summary:"Testosterone Propionate is the shortest ester testosterone with a half-life of approximately 2-3 days, requiring every-other-day or daily injections. Provides the fastest onset, most precise dosing control, and quickest clearance of all testosterone esters. Valuable for those who react poorly to longer esters or need rapid protocol adjustment.",
+          pros:["Fastest-acting testosterone ester","Precise dose control","Clears quickly","Rapid protocol adjustment possible","Identical anabolic profile to other esters","Preferred by some for fewer fluctuation side effects"],
+          cons:["EOD or daily injections required","Injection site discomfort common","More frequent bloodwork","Water retention fluctuations with EOD","Higher pin frequency inconvenient","Same systemic risks as all testosterone"],
+          doses:[{l:"TRT",d:"25-50mg EOD or 15-20mg daily",f:"IM or SubQ",c:"Ongoing"},{l:"Performance",d:"100mg EOD",f:"IM injection",c:"8-12 weeks"}],
+          prog:"Pin at consistent times. Monitor E2 as shorter ester can cause more fluctuation. Ideal for those metabolizing longer esters poorly.",
+          stacks:[{g:"TRT Precision",d:["Testosterone Propionate 25mg EOD","Anastrozole only if E2 elevated on labs"]}],
+          mon:["Total and Free Testosterone","Estradiol","Hematocrit","PSA men over 40","Lipid panel"],
+          hl:"~2-3 days", status:"Prescription", rx:true, legal:"Prescription (USA)" },
+
+        { id:"boldenone", name:"Boldenone Undecylenate", aka:"Equipoise, EQ, Bold", cls:"AAS", cc:"#ef4444",
+          summary:"Boldenone Undecylenate (Equipoise) is a modified testosterone derivative known for slow steady lean mass gains, dramatic vascularity, significant appetite increase, and notable red blood cell elevation. Lower aromatization than testosterone makes estrogen management easier. Very long half-life requires once-weekly injection and long cycles of 16-20 weeks for full benefit.",
+          pros:["Lean quality gains with minimal water","Significant vascularity increase","Raises RBC for endurance and recovery","Once weekly injection","Moderate aromatization","Dramatic appetite useful for hard gainers"],
+          cons:["Requires very long cycles","Can raise hematocrit significantly","High appetite unwanted in cuts","Very long detection time","Slow onset under 8 weeks","Estrogen can become issue at high doses"],
+          doses:[{l:"Mass / Performance",d:"300-600mg/week",f:"IM injection once or twice weekly",c:"16-20 weeks plus PCT"},{l:"Lean Mass",d:"200-300mg/week",f:"IM weekly",c:"16 weeks"}],
+          prog:"Monitor hematocrit closely as EQ raises RBC significantly and may require therapeutic phlebotomy. Long cycle requires patience. Plan PCT before starting.",
+          stacks:[{g:"Lean Mass",d:["Testosterone Enanthate 400mg/wk","Boldenone 400mg/wk","16-week cycle"]}],
+          mon:["Hematocrit monthly minimum","Hemoglobin","RBC count","Estradiol","Testosterone","Lipid panel"],
+          hl:"~14 days", status:"Controlled", rx:true, legal:"Schedule III (USA)" }
       ]
     }
 
@@ -5507,8 +5815,6 @@ function printReport() {
     win.document.write(`<!DOCTYPE html><html><head><title>TherapyLog Report</title>
       <style>body{margin:0;padding:20px;font-family:sans-serif;background:#fff}@media print{body{padding:0}}</style>
       </head><body>
-
-<!-- Web version banner -->
 <div id="web-banner" style="background:linear-gradient(135deg,#0d1117,#111820);border-bottom:1px solid rgba(74,222,154,0.2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:-apple-system,sans-serif;">
   <div style="display:flex;align-items:center;gap:8px;">
     <span style="font-size:12px;color:#8a95a3;">You're using the <strong style="color:#4ade9a">free web version</strong> of TherapyLog</span>
@@ -5525,8 +5831,9 @@ function printReport() {
     <button onclick="document.getElementById('web-banner').style.display='none'"
        style="background:transparent;border:none;color:#4a5568;font-size:16px;cursor:pointer;padding:0 4px;">×</button>
   </div>
-</div>
-${reportEl.outerHTML}<scr"+"ipt>window.print();<\/scr"+"ipt></body></html>`);
+</div>${reportEl.outerHTML}<scr"+"ipt>window.print();<\/scr"+"ipt>
+
+</body></html>`);
     win.document.close();
   }, 300);
 }
@@ -8355,5 +8662,234 @@ setTimeout(() => {
 }, 800);
 // Adjusted ranges loaded when rendering bloodwork
 </script>
+
+<script>
+// TherapyLog Subscription Tier System
+window.TLTier = {
+  get: function() {
+    try { return localStorage.getItem('tl_tier') || 'free'; } catch(e) { return 'free'; }
+  },
+  set: function(t) {
+    try { localStorage.setItem('tl_tier', t); } catch(e) {}
+  },
+  isPro: function() { return this.get() === 'pro'; },
+  isStd: function() { return ['standard','pro'].includes(this.get()); },
+  check: function(feat) {
+    var pro = ['ai_scanner','ai_assistant'];
+    var std = ['bloodwork_trends','clinical_reports','blood_pressure','symptoms','cycle_tracker','refill_tracker','progress_photos'];
+    if (pro.indexOf(feat) >= 0 && !this.isPro()) { this.prompt('pro', feat); return false; }
+    if (std.indexOf(feat) >= 0 && !this.isStd()) { this.prompt('std', feat); return false; }
+    return true;
+  },
+  names: {
+    ai_scanner: 'AI Lab Scanner',
+    ai_assistant: 'AI Research Assistant',
+    bloodwork_trends: 'Bloodwork Trends',
+    clinical_reports: 'Clinical Reports',
+    blood_pressure: 'Blood Pressure Tracker',
+    symptoms: 'Symptom Logging',
+    cycle_tracker: 'Cycle Tracker',
+    refill_tracker: 'Refill Tracker',
+    progress_photos: 'Progress Photos'
+  },
+  prompt: function(tier, feat) {
+    var name = this.names[feat] || feat;
+    var isPro = tier === 'pro';
+    var div = document.createElement('div');
+    div.id = 'tl-upgrade-overlay';
+    div.style.position = 'fixed';
+    div.style.inset = '0';
+    div.style.background = 'rgba(0,0,0,0.85)';
+    div.style.zIndex = '9999';
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.justifyContent = 'center';
+    div.style.padding = '24px';
+
+    var box = document.createElement('div');
+    box.style.background = '#111418';
+    box.style.border = '1px solid rgba(74,222,154,0.25)';
+    box.style.borderRadius = '20px';
+    box.style.padding = '32px';
+    box.style.maxWidth = '360px';
+    box.style.width = '100%';
+    box.style.textAlign = 'center';
+
+    var icon = document.createElement('div');
+    icon.style.fontSize = '40px';
+    icon.style.marginBottom = '16px';
+    icon.textContent = isPro ? '🤖' : '📊';
+
+    var title = document.createElement('div');
+    title.style.fontFamily = 'Georgia,serif';
+    title.style.fontSize = '20px';
+    title.style.fontWeight = '700';
+    title.style.color = '#fff';
+    title.style.marginBottom = '8px';
+    title.textContent = name;
+
+    var desc = document.createElement('div');
+    desc.style.fontSize = '14px';
+    desc.style.color = '#8a95a3';
+    desc.style.lineHeight = '1.6';
+    desc.style.marginBottom = '24px';
+    desc.textContent = isPro ? 'This feature requires TherapyLog Pro.' : 'This feature requires TherapyLog Standard or Pro.';
+
+    var btn = document.createElement('a');
+    btn.href = 'https://therapylog.app/download';
+    btn.target = '_blank';
+    btn.style.display = 'block';
+    btn.style.background = '#4ade9a';
+    btn.style.color = '#0a0c0f';
+    btn.style.padding = '14px';
+    btn.style.borderRadius = '12px';
+    btn.style.fontWeight = '700';
+    btn.style.fontSize = '15px';
+    btn.style.textDecoration = 'none';
+    btn.style.marginBottom = '10px';
+    btn.textContent = isPro ? 'Upgrade to Pro — $7.99/mo' : 'Get Full Access — from $34.99';
+
+    var cancel = document.createElement('button');
+    cancel.style.display = 'block';
+    cancel.style.width = '100%';
+    cancel.style.background = 'transparent';
+    cancel.style.border = '1px solid #1a2030';
+    cancel.style.color = '#4a5568';
+    cancel.style.padding = '12px';
+    cancel.style.borderRadius = '12px';
+    cancel.style.fontSize = '14px';
+    cancel.style.cursor = 'pointer';
+    cancel.textContent = 'Maybe later';
+    cancel.onclick = function() { document.getElementById('tl-upgrade-overlay').remove(); };
+
+    var activate = document.createElement('div');
+    activate.style.fontSize = '11px';
+    activate.style.color = '#2a3040';
+    activate.style.marginTop = '12px';
+    activate.innerHTML = 'Already purchased? <span style="color:#4ade9a;cursor:pointer;" id="tl-activate-link">Activate here</span>';
+
+    box.appendChild(icon);
+    box.appendChild(title);
+    box.appendChild(desc);
+    box.appendChild(btn);
+    box.appendChild(cancel);
+    box.appendChild(activate);
+    div.appendChild(box);
+    document.body.appendChild(div);
+
+    document.getElementById('tl-activate-link').onclick = function() {
+      document.getElementById('tl-upgrade-overlay').remove();
+      window.TLTier.showActivation();
+    };
+  },
+  showActivation: function() {
+    var div = document.createElement('div');
+    div.id = 'tl-activate-overlay';
+    div.style.position = 'fixed';
+    div.style.inset = '0';
+    div.style.background = 'rgba(0,0,0,0.85)';
+    div.style.zIndex = '9999';
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.justifyContent = 'center';
+    div.style.padding = '24px';
+
+    var box = document.createElement('div');
+    box.style.background = '#111418';
+    box.style.border = '1px solid rgba(74,222,154,0.25)';
+    box.style.borderRadius = '20px';
+    box.style.padding = '32px';
+    box.style.maxWidth = '360px';
+    box.style.width = '100%';
+    box.style.textAlign = 'center';
+
+    var title = document.createElement('div');
+    title.style.fontFamily = 'Georgia,serif';
+    title.style.fontSize = '20px';
+    title.style.fontWeight = '700';
+    title.style.color = '#fff';
+    title.style.marginBottom = '8px';
+    title.textContent = 'Activate Your Plan';
+
+    var sub = document.createElement('div');
+    sub.style.fontSize = '13px';
+    sub.style.color = '#8a95a3';
+    sub.style.marginBottom = '20px';
+    sub.textContent = 'Select your plan to unlock features';
+
+    var stdBtn = document.createElement('button');
+    stdBtn.style.display = 'block';
+    stdBtn.style.width = '100%';
+    stdBtn.style.background = 'rgba(45,212,191,0.12)';
+    stdBtn.style.border = '1px solid rgba(45,212,191,0.3)';
+    stdBtn.style.color = '#2dd4bf';
+    stdBtn.style.padding = '14px';
+    stdBtn.style.borderRadius = '12px';
+    stdBtn.style.fontSize = '14px';
+    stdBtn.style.fontWeight = '600';
+    stdBtn.style.cursor = 'pointer';
+    stdBtn.style.marginBottom = '10px';
+    stdBtn.textContent = 'Standard — One-Time APK ($34.99)';
+    stdBtn.onclick = function() {
+      window.TLTier.set('standard');
+      document.getElementById('tl-activate-overlay').remove();
+      location.reload();
+    };
+
+    var proBtn = document.createElement('button');
+    proBtn.style.display = 'block';
+    proBtn.style.width = '100%';
+    proBtn.style.background = '#4ade9a';
+    proBtn.style.border = 'none';
+    proBtn.style.color = '#0a0c0f';
+    proBtn.style.padding = '14px';
+    proBtn.style.borderRadius = '12px';
+    proBtn.style.fontSize = '14px';
+    proBtn.style.fontWeight = '700';
+    proBtn.style.cursor = 'pointer';
+    proBtn.style.marginBottom = '10px';
+    proBtn.textContent = 'Pro — Subscription ($7.99/mo)';
+    proBtn.onclick = function() {
+      window.TLTier.set('pro');
+      document.getElementById('tl-activate-overlay').remove();
+      location.reload();
+    };
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.style.display = 'block';
+    cancelBtn.style.width = '100%';
+    cancelBtn.style.background = 'transparent';
+    cancelBtn.style.border = '1px solid #1a2030';
+    cancelBtn.style.color = '#4a5568';
+    cancelBtn.style.padding = '12px';
+    cancelBtn.style.borderRadius = '12px';
+    cancelBtn.style.fontSize = '13px';
+    cancelBtn.style.cursor = 'pointer';
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.onclick = function() { document.getElementById('tl-activate-overlay').remove(); };
+
+    box.appendChild(title);
+    box.appendChild(sub);
+    box.appendChild(stdBtn);
+    box.appendChild(proBtn);
+    box.appendChild(cancelBtn);
+    div.appendChild(box);
+    document.body.appendChild(div);
+  }
+};
+
+// Gate AI features
+var _origScanLabImage = window.scanLabImage;
+var _origSendChat = window.sendChat;
+window.scanLabImage = function() {
+  if (!window.TLTier.check('ai_scanner')) return;
+  if (_origScanLabImage) _origScanLabImage.apply(this, arguments);
+};
+window.sendChat = function() {
+  if (!window.TLTier.check('ai_assistant')) return;
+  if (_origSendChat) _origSendChat.apply(this, arguments);
+};
+</script>
+
 </body>
 </html>
