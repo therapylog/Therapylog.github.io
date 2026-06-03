@@ -133,21 +133,20 @@
   <!-- Free Tier -->
   <div class="plan free">
     <div class="plan-icon">🌐</div>
-    <div class="plan-name">Web App — Free Forever</div>
+    <div class="plan-name">Free Forever</div>
     <div class="plan-price"><span class="currency">$</span>0<span class="period"> free</span></div>
     <div class="plan-alt">No download required · Works in any browser</div>
-    <div class="plan-desc">Try TherapyLog instantly in your browser. No account, no download, no credit card. Core features available free forever.</div>
+    <div class="plan-desc">Try TherapyLog instantly in your browser. No account, no download, no credit card. Core features free forever.</div>
     <ul class="features-list">
-      <li>106-compound encyclopedia</li>
+      <li>134-compound encyclopedia</li>
       <li>Injection and medication logging</li>
       <li>Body and weight tracking</li>
-      <li>Blood pressure tracker</li>
-      <li>Symptom logging</li>
-      <li>Dose calculator</li>
+      <li>Dose calculator with syringe diagram</li>
       <li>Works on any device</li>
-      <li class="muted">No AI lab scanner</li>
+      <li class="muted">No bloodwork tracking</li>
       <li class="muted">No clinical reports</li>
-      <li class="muted">No bloodwork trends</li>
+      <li class="muted">No AI features</li>
+      <li class="muted">No symptom logging</li>
     </ul>
     <a class="plan-btn btn-free" href="/app" target="_blank">Open Free Web App →</a>
   </div>
@@ -159,13 +158,13 @@
     <div class="plan-name">iOS — App Store</div>
     <div class="plan-price"><span class="currency">$</span>7.99<span class="period">/month</span></div>
     <div class="plan-alt">or $59.99/year — save 37%</div>
-    <div class="plan-desc">Full TherapyLog experience on iPhone and iPad. Automatic updates, native push notifications, and Apple Health integration.</div>
+    <div class="plan-desc">Full TherapyLog Pro on iPhone and iPad. All features including AI lab scanner, bloodwork trends, and clinical reports. Automatic updates and Apple Health integration.</div>
     <ul class="features-list">
-      <li>All 106 compounds encyclopedia</li>
-      <li>AI Lab Scanner and Research Assistant</li>
+      <li>134-compound encyclopedia</li>
+      <li>AI lab scanner — photo to auto-fill</li>
+      <li>AI research assistant</li>
       <li>Full bloodwork tracking (50+ markers)</li>
       <li>Blood pressure and cycle tracking</li>
-      <li>Dose calculator and reminders</li>
       <li>Clinical reports and clinic mode</li>
       <li>Apple Health integration</li>
       <li>Automatic updates</li>
@@ -180,9 +179,9 @@
     <div class="plan-name">Android — Google Play</div>
     <div class="plan-price"><span class="currency">$</span>7.99<span class="period">/month</span></div>
     <div class="plan-alt">or $59.99/year — save 37%</div>
-    <div class="plan-desc">Full TherapyLog experience on Android devices. Automatic updates and Google Fit integration.</div>
+    <div class="plan-desc">Full TherapyLog Pro on Android. All features including AI lab scanner, bloodwork trends, and clinical reports. Automatic updates and Google Fit integration.</div>
     <ul class="features-list">
-      <li>All 106 compounds encyclopedia</li>
+      <li>All 134 compounds encyclopedia</li>
       <li>AI Lab Scanner and Research Assistant</li>
       <li>Full bloodwork tracking (50+ markers)</li>
       <li>Blood pressure and cycle tracking</li>
@@ -199,20 +198,22 @@
   <div class="plan direct">
     <div class="plan-icon">📦</div>
     <div class="plan-name">Android — Direct Download</div>
-    <div class="plan-price"><span class="currency">$</span>49.99<span class="period"> once</span></div>
+    <div class="plan-price"><span class="currency">$</span>34.99<span class="period"> once</span></div>
     <div class="plan-alt">Lifetime access — no subscription</div>
-    <div class="plan-desc">One-time purchase for Android. Download the APK directly — no Google account required. Manual updates via email when new versions release.</div>
+    <div class="plan-desc">One-time purchase for Android. Full features except AI tools. No Google account required. Manual updates via email when new versions release.</div>
     <ul class="features-list">
-      <li>All 106 compounds encyclopedia</li>
-      <li>AI Lab Scanner and Research Assistant</li>
+      <li>134-compound encyclopedia</li>
       <li>Full bloodwork tracking (50+ markers)</li>
       <li>Blood pressure and cycle tracking</li>
+      <li>Symptom and side effect logging</li>
       <li>Dose calculator and reminders</li>
       <li>Clinical reports and clinic mode</li>
+      <li>Refill tracker and progress photos</li>
       <li>Lifetime access — pay once</li>
       <li>Email updates when new versions release</li>
+      <li class="muted">No AI lab scanner</li>
+      <li class="muted">No AI research assistant</li>
       <li class="muted">Manual installation required</li>
-      <li class="muted">No automatic updates</li>
     </ul>
 
     <button class="plan-btn btn-purple" onclick="toggleStripeForm()">Buy Now — $49.99</button>
@@ -241,7 +242,7 @@
       </div>
       <div id="card-errors" style="color:#f87171;font-size:12px;margin-top:6px;min-height:18px"></div>
       <button class="plan-btn btn-purple pay-btn" id="pay-btn" onclick="handlePayment()">
-        Pay $49.99 — Get Download Link
+        Pay $34.99 — Get Download Link
       </button>
       <div class="secure-note">
         🔒 Secured by Stripe &nbsp;·&nbsp; No card data touches our servers
@@ -401,7 +402,7 @@ async function handlePayment() {
       const response = await fetch('https://api.therapylog.app/api/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: 4999, email, product: 'TherapyLog APK' })
+      body: JSON.stringify({ amount: 3499, email, product: 'TherapyLog APK' })
     });
 
     const { clientSecret } = await response.json();
@@ -416,7 +417,7 @@ async function handlePayment() {
     if (result.error) {
       document.getElementById('card-errors').textContent = result.error.message;
       btn.disabled = false;
-      btn.textContent = 'Pay $49.99 — Get Download Link';
+      btn.textContent = 'Pay $34.99 — Get Download Link';
     } else {
       // Payment succeeded
       document.getElementById('stripe-form').style.display = 'none';
@@ -426,7 +427,7 @@ async function handlePayment() {
   } catch (err) {
     document.getElementById('card-errors').textContent = 'Payment failed. Please try again or contact support.';
     btn.disabled = false;
-    btn.textContent = 'Pay $49.99 — Get Download Link';
+    btn.textContent = 'Pay $34.99 — Get Download Link';
   }
 }
 </script>
