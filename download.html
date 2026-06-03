@@ -7,6 +7,7 @@
   <script src="https://js.stripe.com/v3/"></script>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { background:#0a0c0f !important; background-color:#0a0c0f !important; }
     body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#0a0c0f; color:#e8edf5; min-height:100vh; }
 
     /* Nav */
@@ -82,6 +83,11 @@
     .footer { text-align:center; padding:30px 24px; border-top:1px solid rgba(255,255,255,0.06); font-size:13px; color:#4a5568; }
     .footer a { color:#4a5568; text-decoration:none; margin:0 10px; }
 
+
+    .plan.free { border-color:rgba(167,139,250,0.35); background:rgba(167,139,250,0.06); }
+    .btn-free { background:rgba(167,139,250,0.15); color:#a78bfa; border:1px solid rgba(167,139,250,0.3); }
+    .btn-free:hover { background:rgba(167,139,250,0.25); }
+
     @media(max-width:600px) {
       .plan-price { font-size:36px; }
       .hero h1 { font-size:26px; }
@@ -110,7 +116,7 @@
 
   </style>
 </head>
-<body>
+<body style="background:#0a0c0f;background-color:#0a0c0f;color:#e8edf5;">
 
 <nav>
   <a class="logo" href="/">Therapy<span>Log</span></a>
@@ -122,6 +128,29 @@
 </div>
 
 <div class="pricing">
+
+
+  <!-- Free Tier -->
+  <div class="plan free">
+    <div class="plan-icon">🌐</div>
+    <div class="plan-name">Web App — Free Forever</div>
+    <div class="plan-price"><span class="currency">$</span>0<span class="period"> free</span></div>
+    <div class="plan-alt">No download required · Works in any browser</div>
+    <div class="plan-desc">Try TherapyLog instantly in your browser. No account, no download, no credit card. Core features available free forever.</div>
+    <ul class="features-list">
+      <li>106-compound encyclopedia</li>
+      <li>Injection and medication logging</li>
+      <li>Body and weight tracking</li>
+      <li>Blood pressure tracker</li>
+      <li>Symptom logging</li>
+      <li>Dose calculator</li>
+      <li>Works on any device</li>
+      <li class="muted">No AI lab scanner</li>
+      <li class="muted">No clinical reports</li>
+      <li class="muted">No bloodwork trends</li>
+    </ul>
+    <a class="plan-btn btn-free" href="/app" target="_blank">Open Free Web App →</a>
+  </div>
 
   <!-- iOS App Store -->
   <div class="plan featured">
