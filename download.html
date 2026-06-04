@@ -151,14 +151,14 @@
     <a class="plan-btn btn-free" href="/app" target="_blank">Open Free Web App →</a>
   </div>
 
-  <!-- iOS App Store -->
+  <!-- iOS + Android App Store (Combined) -->
   <div class="plan featured">
     <div class="badge">Most Popular</div>
-    <div class="plan-icon">🍎</div>
-    <div class="plan-name">iOS — App Store</div>
+    <div class="plan-icon" style="display:flex;gap:12px;justify-content:center;font-size:36px;">🍎🤖</div>
+    <div class="plan-name">iOS &amp; Android — App Store</div>
     <div class="plan-price"><span class="currency">$</span>7.99<span class="period">/month</span></div>
     <div class="plan-alt">or $59.99/year — save 37%</div>
-    <div class="plan-desc">Full TherapyLog Pro on iPhone and iPad. All features including AI lab scanner, bloodwork trends, and clinical reports. Automatic updates and Apple Health integration.</div>
+    <div class="plan-desc">Full TherapyLog Pro on iPhone, iPad, and Android. All features including AI lab scanner, bloodwork trends, and clinical reports. Automatic updates included.</div>
     <ul class="features-list">
       <li>134-compound encyclopedia</li>
       <li>AI lab scanner — photo to auto-fill</li>
@@ -166,36 +166,23 @@
       <li>Full bloodwork tracking (50+ markers)</li>
       <li>Blood pressure and cycle tracking</li>
       <li>Clinical reports and clinic mode</li>
-      <li>Apple Health integration</li>
+      <li>Apple Health &amp; Google Fit integration</li>
       <li>Automatic updates</li>
       <li>Cancel anytime</li>
     </ul>
-    <a class="plan-btn btn-green" href="https://apps.apple.com/app/therapylog" target="_blank">Download on App Store</a>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <a class="plan-btn btn-green" href="https://apps.apple.com/app/therapylog/id6776446116" target="_blank">
+        🍎 Download on the App Store
+      </a>
+      <a class="plan-btn" href="https://play.google.com/store/apps/details?id=com.therapylog.app" target="_blank"
+         style="background:rgba(59,196,255,0.12);color:#3bc4ff;border:1px solid rgba(59,196,255,0.3);">
+        🤖 Get it on Google Play
+      </a>
+    </div>
   </div>
 
-  <!-- Android Google Play -->
-  <div class="plan android">
-    <div class="plan-icon">🤖</div>
-    <div class="plan-name">Android — Google Play</div>
-    <div class="plan-price"><span class="currency">$</span>7.99<span class="period">/month</span></div>
-    <div class="plan-alt">or $59.99/year — save 37%</div>
-    <div class="plan-desc">Full TherapyLog Pro on Android. All features including AI lab scanner, bloodwork trends, and clinical reports. Automatic updates and Google Fit integration.</div>
-    <ul class="features-list">
-      <li>All 134 compounds encyclopedia</li>
-      <li>AI Lab Scanner and Research Assistant</li>
-      <li>Full bloodwork tracking (50+ markers)</li>
-      <li>Blood pressure and cycle tracking</li>
-      <li>Dose calculator and reminders</li>
-      <li>Clinical reports and clinic mode</li>
-      <li>Google Fit integration</li>
-      <li>Automatic updates</li>
-      <li>Cancel anytime</li>
-    </ul>
-    <a class="plan-btn btn-blue" href="https://play.google.com/store/apps/details?id=com.therapylog.app" target="_blank">Get it on Google Play</a>
-  </div>
-
-  <!-- Direct APK -->
-  <div class="plan direct">
+  <!-- Android Direct Download -->
+  <div class="plan apk">
     <div class="plan-icon">📦</div>
     <div class="plan-name">Android — Direct Download</div>
     <div class="plan-price"><span class="currency">$</span>34.99<span class="period"> once</span></div>
@@ -215,264 +202,24 @@
       <li class="muted">No AI research assistant</li>
       <li class="muted">Manual installation required</li>
     </ul>
-
     <button class="plan-btn btn-purple" onclick="toggleStripeForm()">Buy Now — $34.99</button>
-
-    <!-- Stripe payment form -->
-    <div class="stripe-form" id="stripe-form">
-      <div class="form-row" style="margin-top:16px">
-        <label class="form-label">Email address</label>
-        <input type="email" id="customer-email" placeholder="you@example.com"
-          style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 14px;color:#e8edf5;font-size:14px;font-family:-apple-system,sans-serif;outline:none;box-sizing:border-box">
-        <div style="font-size:11px;color:#4a5568;margin-top:5px">Download link sent here after purchase</div>
+    <div class="stripe-form" id="stripe-form" style="display:none;">
+      <div class="stripe-field">
+        <label>Email address</label>
+        <input type="email" id="customer-email" placeholder="you@email.com">
       </div>
-      <div class="form-row">
-        <label class="form-label">Card Number</label>
-        <div class="stripe-element" id="card-number-element"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div class="form-row">
-          <label class="form-label">Expiry Date</label>
-          <div class="stripe-element" id="card-expiry-element"></div>
-        </div>
-        <div class="form-row">
-          <label class="form-label">CVC</label>
-          <div class="stripe-element" id="card-cvc-element"></div>
-        </div>
-      </div>
-      <div id="card-errors" style="color:#f87171;font-size:12px;margin-top:6px;min-height:18px"></div>
-      <button class="plan-btn btn-purple pay-btn" id="pay-btn" onclick="handlePayment()">
-        Pay $34.99 — Get Download Link
-      </button>
-      <div class="secure-note">
-        🔒 Secured by Stripe &nbsp;·&nbsp; No card data touches our servers
-      </div>
+      <div id="card-element" class="stripe-input"></div>
+      <div id="card-errors" style="color:#ef4444;font-size:12px;margin-top:6px;"></div>
+      <button class="pay-btn" id="pay-btn" onclick="handlePayment()">Pay $34.99 — Get Download Link</button>
     </div>
-
-    <!-- Success message -->
-    <div class="success-msg" id="success-msg">
-      <h3>✓ Payment successful!</h3>
-      <p>Check your email for your download link. The APK file will arrive within a few minutes.<br><br>Installation instructions are included in the email.</p>
-    </div>
-
   </div>
 
 </div>
 
-<!-- FAQ -->
-<div class="faq-section">
-  <h2>Common questions</h2>
-
-  <div class="faq-item">
-    <div class="faq-q">What's the difference between App Store and Direct APK?</div>
-    <div class="faq-a">The App Store version updates automatically and integrates with Apple Health. The Direct APK is a one-time Android purchase — you own it forever but install updates manually when we notify you by email. Both have identical features.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Is my payment information secure?</div>
-    <div class="faq-a">Yes. All payments are processed by Stripe — one of the most trusted payment processors in the world. Your card details never touch our servers. We only see that a payment was completed.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">How do I install the Android APK?</div>
-    <div class="faq-a">After purchase you'll receive an email with the APK file and step-by-step instructions. On your Android device go to Settings → Security → enable "Install from unknown sources", then open the downloaded file to install. Takes about 2 minutes.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Can I cancel my subscription?</div>
-    <div class="faq-a">Yes, anytime. For App Store subscriptions cancel through your iPhone Settings → Apple ID → Subscriptions. For Google Play cancel in the Play Store. No cancellation fees, no questions asked.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Is there a free trial?</div>
-    <div class="faq-a">TherapyLog has a free tier that includes core logging and encyclopedia access. The subscription unlocks AI features, clinical tools, and advanced analytics. Download the app first and try the free tier before subscribing.</div>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q">Questions or problems?</div>
-    <div class="faq-a">Email us at <a href="mailto:feedback@therapylog.app" style="color:#4ade9a">feedback@therapylog.app</a> and we'll get back to you within 24 hours.</div>
-  </div>
+<!-- footer -->
+<div style="text-align:center;padding:40px 24px;border-top:1px solid rgba(255,255,255,0.06);">
+  <p style="font-size:12px;color:#2a3040;">© 2026 TherapyLog · <a href="/privacy" style="color:#4a5568;text-decoration:none;">Privacy</a> · <a href="/support" style="color:#4a5568;text-decoration:none;">Support</a></p>
 </div>
 
-  <!-- EMAIL CAPTURE -->
-  <div class="email-section">
-    <div class="email-inner">
-      <div class="email-badge">Stay in the loop</div>
-      <h2 class="email-title">Get notified about new features,<br>compounds, and protocol updates</h2>
-      <p class="email-sub">Join the TherapyLog community. No spam — only meaningful updates when we launch new features or add new compounds to the encyclopedia.</p>
-
-      <form class="mc-form" action="https://app.us16.list-manage.com/subscribe/post?u=c833964d025114e8d7894562a&amp;id=077b4c0168&amp;f_id=0096c2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
-        <div class="mc-fields">
-          <input type="text" name="FNAME" placeholder="First name" class="mc-input mc-name">
-          <input type="email" name="EMAIL" placeholder="Email address" class="mc-input mc-email" required>
-        </div>
-        <!-- Mailchimp honeypot anti-bot field - do not remove -->
-        <div style="position:absolute;left:-5000px" aria-hidden="true">
-          <input type="text" name="b_c833964d025114e8d7894562a_077b4c0168" tabindex="-1" value="">
-        </div>
-        <button type="submit" class="mc-btn" id="mc-subscribe-btn">
-          <span class="mc-btn-text">Notify Me</span>
-          <span class="mc-btn-icon">→</span>
-        </button>
-        <div class="mc-success" id="mc-success" style="display:none">
-          ✓ You're on the list — we'll be in touch!
-        </div>
-        <div class="mc-error" id="mc-error" style="display:none"></div>
-        <p class="mc-legal">No spam, ever. Unsubscribe anytime.</p>
-      </form>
-    </div>
-  </div>
-
-<div class="footer">
-  &copy; 2026 TherapyLog &nbsp;
-  <a href="/">Home</a>
-  <a href="/privacy">Privacy</a>
-  <a href="/support">Support</a>
-  <a href="mailto:feedback@therapylog.app">Contact</a>
-</div>
-
-<script>
-// ── Stripe Integration ──
-// Replace with your actual Stripe publishable key from dashboard.stripe.com
-const STRIPE_KEY = 'pk_live_51TdiI9FwxOceIOZwnJntWtK6ZdxA0M66ipCWRcoTrguMc0OHt0BDkhBK7Z0Rn9GFEgY1QEEc8SVC8zxwfHdC0RvD00lfSnOvW6';
-let stripe, cardElement, formOpen = false;
-
-function initStripe() {
-  if (typeof Stripe === 'undefined') {
-    setTimeout(initStripe, 500);
-    return;
-  }
-  stripe = Stripe(STRIPE_KEY);
-  const elements = stripe.elements();
-
-  const style = {
-    base: {
-      fontSize: '15px',
-      color: '#e8edf5',
-      fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-      '::placeholder': { color: '#4a5568' },
-      backgroundColor: 'transparent'
-    },
-    invalid: { color: '#f87171' }
-  };
-
-  const cardNumber = elements.create('cardNumber', { style });
-  cardNumber.mount('#card-number-element');
-
-  const cardExpiry = elements.create('cardExpiry', { style });
-  cardExpiry.mount('#card-expiry-element');
-
-  const cardCvc = elements.create('cardCvc', { style });
-  cardCvc.mount('#card-cvc-element');
-
-  // Store for payment use
-  cardElement = cardNumber;
-  window._cardExpiry = cardExpiry;
-  window._cardCvc = cardCvc;
-
-  [cardNumber, cardExpiry, cardCvc].forEach(el => {
-    el.on('change', (e) => {
-      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-    });
-  });
-}
-
-function toggleStripeForm() {
-  const form = document.getElementById('stripe-form');
-  formOpen = !formOpen;
-  form.classList.toggle('visible', formOpen);
-  if (formOpen && !stripe) {
-    setTimeout(initStripe, 100);
-  }
-}
-
-async function handlePayment() {
-  const email = document.getElementById('customer-email').value.trim();
-  if (!email || !email.includes('@')) {
-    document.getElementById('card-errors').textContent = 'Please enter a valid email address.';
-    return;
-  }
-
-  const btn = document.getElementById('pay-btn');
-  btn.disabled = true;
-  btn.textContent = 'Processing...';
-
-  try {
-    // Create Payment Intent via your backend
-      const response = await fetch('https://api.therapylog.app/api/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: 3499, email, product: 'TherapyLog APK' })
-    });
-
-    const { clientSecret } = await response.json();
-
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: { email }
-      }
-    });
-
-    if (result.error) {
-      document.getElementById('card-errors').textContent = result.error.message;
-      btn.disabled = false;
-      btn.textContent = 'Pay $34.99 — Get Download Link';
-    } else {
-      // Payment succeeded
-      document.getElementById('stripe-form').style.display = 'none';
-      document.getElementById('success-msg').style.display = 'block';
-      // In production: your backend sends the APK download link to the email
-    }
-  } catch (err) {
-    document.getElementById('card-errors').textContent = 'Payment failed. Please try again or contact support.';
-    btn.disabled = false;
-    btn.textContent = 'Pay $34.99 — Get Download Link';
-  }
-}
-</script>
-
-<script>
-    // Mailchimp AJAX submission — stays on page, no redirect
-    document.getElementById('mc-embedded-subscribe-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('mc-subscribe-btn');
-      const success = document.getElementById('mc-success');
-      const error = document.getElementById('mc-error');
-      const email = this.querySelector('input[name="EMAIL"]').value.trim();
-
-      if (!email || !email.includes('@')) {
-        error.textContent = 'Please enter a valid email address.';
-        error.style.display = 'block';
-        return;
-      }
-
-      btn.disabled = true;
-      btn.querySelector('.mc-btn-text').textContent = 'Subscribing...';
-      error.style.display = 'none';
-      success.style.display = 'none';
-
-      // Use JSONP for cross-origin Mailchimp submission
-      const url = this.action.replace('/post?', '/post-json?') + '&c=mcCallback';
-      const script = document.createElement('script');
-      script.src = url + '&EMAIL=' + encodeURIComponent(email) +
-        '&FNAME=' + encodeURIComponent(this.querySelector('input[name="FNAME"]').value.trim());
-
-      window.mcCallback = function(data) {
-        script.remove();
-        delete window.mcCallback;
-        btn.disabled = false;
-        btn.querySelector('.mc-btn-text').textContent = 'Notify Me';
-        if (data.result === 'success') {
-          success.style.display = 'block';
-          document.getElementById('mc-embedded-subscribe-form').reset();
-        } else {
-          error.textContent = data.msg.replace(/<[^>]*>/g, '').replace('0 - ', '');
-          error.style.display = 'block';
-        }
-      };
-      document.head.appendChild(script);
-    });
-</script>
 </body>
 </html>
