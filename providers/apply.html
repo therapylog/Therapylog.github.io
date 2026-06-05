@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply for Verified Listing — TherapyLog</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#0a0c0f !important; color:#e8edf5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+  nav { padding:20px 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); }
+  .nav-logo { font-family:Georgia,serif; font-size:22px; color:#fff; text-decoration:none; }
+  .nav-logo span { color:#4ade9a; font-style:italic; }
+  .nav-links a { color:#8a95a3; text-decoration:none; font-size:14px; margin-left:20px; }
+  .btn-nav { background:#4ade9a; color:#0a0c0f; padding:8px 18px; border-radius:8px; font-size:13px; font-weight:700; text-decoration:none; margin-left:20px; }
+
+  .page-wrap { max-width:960px; margin:0 auto; padding:60px 24px; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+
+  /* LEFT COLUMN — VALUE */
+  .value-col {}
+  .badge { display:inline-flex; align-items:center; gap:8px; background:rgba(74,222,154,0.1); border:1px solid rgba(74,222,154,0.3); color:#4ade9a; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:20px; }
+  .value-col h1 { font-family:Georgia,serif; font-size:40px; font-weight:700; color:#fff; line-height:1.15; margin-bottom:16px; }
+  .value-col h1 span { color:#4ade9a; font-style:italic; }
+  .value-col > p { font-size:15px; color:#8a95a3; line-height:1.7; margin-bottom:32px; }
+
+  .app-preview { background:#111418; border:1px solid #1a2030; border-radius:14px; overflow:hidden; margin-bottom:28px; }
+  .app-preview-header { background:#0d1117; padding:12px 16px; border-bottom:1px solid #1a2030; }
+  .app-preview-header span { font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#4a5568; }
+  .app-stat-row { display:flex; padding:16px; gap:16px; }
+  .app-stat { flex:1; text-align:center; }
+  .app-stat-num { font-family:Georgia,serif; font-size:28px; font-weight:700; }
+  .app-stat-num.g { color:#4ade9a; }
+  .app-stat-num.t { color:#2dd4bf; }
+  .app-stat-num.b { color:#3bc4ff; }
+  .app-stat-label { font-size:10px; color:#4a5568; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; margin-top:2px; }
+
+  .feature-list { list-style:none; }
+  .feature-list li { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid #1a2030; font-size:14px; color:#c8d0db; line-height:1.5; }
+  .feature-list li:last-child { border-bottom:none; }
+  .feature-list li::before { content:"✓"; color:#4ade9a; font-weight:700; flex-shrink:0; margin-top:1px; }
+
+  .pricing-summary { background:#111418; border:1px solid rgba(74,222,154,0.2); border-radius:12px; padding:20px; margin-top:24px; }
+  .pricing-summary h3 { font-size:14px; font-weight:700; color:#fff; margin-bottom:12px; }
+  .pricing-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #1a2030; font-size:13px; }
+  .pricing-row:last-child { border-bottom:none; }
+  .pricing-row .plan { color:#8a95a3; }
+  .pricing-row .price { font-weight:700; color:#4ade9a; font-family:Georgia,serif; }
+
+  /* RIGHT COLUMN — FORM */
+  .form-col {}
+  .form-card { background:#111418; border:1px solid #1a2030; border-radius:16px; padding:32px; }
+  .form-card h2 { font-family:Georgia,serif; font-size:24px; color:#fff; margin-bottom:6px; }
+  .form-card > p { font-size:13px; color:#4a5568; margin-bottom:28px; line-height:1.6; }
+
+  .form-section { margin-bottom:24px; }
+  .form-section-title { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#4ade9a; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid #1a2030; }
+
+  label { display:block; font-size:12px; font-weight:600; color:#8a95a3; margin-bottom:6px; letter-spacing:0.03em; }
+  input, select, textarea { width:100%; background:#0d1117; border:1px solid #1a2030; border-radius:8px; color:#e8edf5; font-size:14px; padding:10px 12px; margin-bottom:14px; outline:none; font-family:inherit; }
+  input:focus, select:focus, textarea:focus { border-color:rgba(74,222,154,0.4); }
+  select option { background:#0d1117; }
+  textarea { resize:vertical; min-height:90px; }
+
+  .checkbox-group { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+  .checkbox-item { display:flex; align-items:center; gap:10px; cursor:pointer; }
+  .checkbox-item input[type=checkbox] { width:16px; height:16px; margin:0; cursor:pointer; accent-color:#4ade9a; }
+  .checkbox-item span { font-size:13px; color:#c8d0db; }
+
+  .plan-select { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:14px; }
+  .plan-opt { border:1px solid #1a2030; border-radius:8px; padding:12px 8px; text-align:center; cursor:pointer; transition:all 0.15s; }
+  .plan-opt:hover { border-color:rgba(74,222,154,0.3); }
+  .plan-opt input { display:none; }
+  .plan-opt.selected { border-color:#4ade9a; background:rgba(74,222,154,0.05); }
+  .plan-name { font-size:11px; font-weight:700; color:#4a5568; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px; }
+  .plan-price-sm { font-family:Georgia,serif; font-size:18px; font-weight:700; color:#4ade9a; }
+  .plan-price-sm span { font-size:10px; color:#4a5568; font-weight:400; }
+
+  .submit-btn { width:100%; background:#4ade9a; color:#0a0c0f; border:none; padding:14px; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; margin-top:8px; }
+  .submit-btn:hover { background:#22c55e; }
+  .form-note { font-size:11px; color:#2a3040; text-align:center; margin-top:12px; line-height:1.6; }
+
+  .success-msg { display:none; background:rgba(74,222,154,0.08); border:1px solid rgba(74,222,154,0.3); border-radius:12px; padding:24px; text-align:center; }
+  .success-msg h3 { font-family:Georgia,serif; font-size:22px; color:#4ade9a; margin-bottom:8px; }
+  .success-msg p { font-size:14px; color:#8a95a3; line-height:1.6; }
+
+  footer { padding:32px 24px; text-align:center; border-top:1px solid #1a2030; }
+  footer p { font-size:12px; color:#2a3040; }
+  footer a { color:#4a5568; text-decoration:none; }
+
+  @media(max-width:700px) {
+    .page-wrap { grid-template-columns:1fr; gap:32px; }
+    .plan-select { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Therapy<span>Log</span></a>
+  <div class="nav-links">
+    <a href="/providers">← Provider Directory</a>
+    <a href="/app" target="_blank">Try Free</a>
+    <a href="/download" class="btn-nav">Download</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- LEFT: VALUE PROP -->
+  <div class="value-col">
+    <div class="badge">✓ TherapyLog Verified Network</div>
+    <h1>Reach patients who are <span>already invested</span></h1>
+    <p>TherapyLog users are actively managing TRT, peptide, and longevity protocols. They're already looking for trusted sources — and they're in your app every day.</p>
+
+    <div class="app-preview">
+      <div class="app-preview-header"><span>TherapyLog platform stats</span></div>
+      <div class="app-stat-row">
+        <div class="app-stat"><div class="app-stat-num g">148</div><div class="app-stat-label">Compounds</div></div>
+        <div class="app-stat"><div class="app-stat-num t">50+</div><div class="app-stat-label">Lab Markers</div></div>
+        <div class="app-stat"><div class="app-stat-num b">AI</div><div class="app-stat-label">Powered</div></div>
+      </div>
+    </div>
+
+    <ul class="feature-list">
+      <li>Your listing seen by active TRT and peptide protocol users daily</li>
+      <li>TherapyLog Verified badge signals legitimacy in a trust-sensitive market</li>
+      <li>Global reach — telehealth and online pharmacies welcome</li>
+      <li>In-app provider references visible while users manage their protocol</li>
+      <li>Patient review system — let your customers vouch for you</li>
+      <li>Launching on iOS App Store now, Google Play coming soon</li>
+      <li>Founding member pricing locked in for life of your listing</li>
+    </ul>
+
+    <div class="pricing-summary">
+      <h3>Listing plans at a glance</h3>
+      <div class="pricing-row"><span class="plan">Basic Listing</span><span class="price">$49/mo</span></div>
+      <div class="pricing-row"><span class="plan">Verified Listing ⭐</span><span class="price">$149/mo</span></div>
+      <div class="pricing-row"><span class="plan">Featured Sponsor</span><span class="price">$299/mo</span></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: APPLICATION FORM -->
+  <div class="form-col">
+    <div class="form-card">
+      <h2>Apply for a listing</h2>
+      <p>Fill out the form below and we'll review your application and reach out within 2 business days.</p>
+
+      <div id="application-form">
+
+        <!-- BUSINESS INFO -->
+        <div class="form-section">
+          <div class="form-section-title">Business Information</div>
+          <label>Business Name *</label>
+          <input type="text" id="biz-name" placeholder="Your clinic or company name">
+          <label>Business Type *</label>
+          <select id="biz-type">
+            <option value="">Select type...</option>
+            <option>TRT / Men's Health Clinic</option>
+            <option>Women's Health / BHRT Clinic</option>
+            <option>Longevity / Anti-Aging Clinic</option>
+            <option>Compounding Pharmacy</option>
+            <option>Peptide Research Supplier</option>
+            <option>Telehealth Practice</option>
+            <option>Functional Medicine Practice</option>
+            <option>Other</option>
+          </select>
+          <label>Website URL *</label>
+          <input type="url" id="biz-website" placeholder="https://yourwebsite.com">
+          <label>Location (City, State/Country) *</label>
+          <input type="text" id="biz-location" placeholder="e.g. Austin, TX or Nationwide / Online">
+        </div>
+
+        <!-- CONTACT INFO -->
+        <div class="form-section">
+          <div class="form-section-title">Contact Information</div>
+          <label>Contact Name *</label>
+          <input type="text" id="contact-name" placeholder="Your full name">
+          <label>Email Address *</label>
+          <input type="email" id="contact-email" placeholder="you@yourcompany.com">
+          <label>Phone Number</label>
+          <input type="tel" id="contact-phone" placeholder="+1 (555) 000-0000">
+        </div>
+
+        <!-- SERVICES -->
+        <div class="form-section">
+          <div class="form-section-title">Services Offered</div>
+          <label>Select all that apply</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" value="TRT"><span>Testosterone Replacement Therapy (TRT)</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="Peptides"><span>Peptide Therapy</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="GLP1"><span>GLP-1 / Weight Loss</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="BHRT"><span>Bioidentical HRT (BHRT)</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="Longevity"><span>Longevity / Anti-Aging</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="Bloodwork"><span>Lab Testing / Bloodwork</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="Compounding"><span>Compounding / Custom Formulations</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="Telehealth"><span>Telehealth / Online Consultations</span></label>
+          </div>
+        </div>
+
+        <!-- PLAN -->
+        <div class="form-section">
+          <div class="form-section-title">Listing Plan</div>
+          <div class="plan-select" id="plan-select">
+            <div class="plan-opt" onclick="selectPlan(this,'basic')">
+              <input type="radio" name="plan" value="basic">
+              <div class="plan-name">Basic</div>
+              <div class="plan-price-sm">$49<span>/mo</span></div>
+            </div>
+            <div class="plan-opt selected" onclick="selectPlan(this,'verified')">
+              <input type="radio" name="plan" value="verified" checked>
+              <div class="plan-name">Verified ⭐</div>
+              <div class="plan-price-sm">$149<span>/mo</span></div>
+            </div>
+            <div class="plan-opt" onclick="selectPlan(this,'featured')">
+              <input type="radio" name="plan" value="featured">
+              <div class="plan-name">Featured</div>
+              <div class="plan-price-sm">$299<span>/mo</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADDITIONAL -->
+        <div class="form-section">
+          <div class="form-section-title">Tell Us More</div>
+          <label>Briefly describe your business and what makes you stand out</label>
+          <textarea id="biz-description" placeholder="e.g. We're a telehealth TRT clinic serving patients in all 50 states. We offer comprehensive hormone panels, physician oversight, and compounded testosterone and peptide protocols..."></textarea>
+          <label>How did you hear about TherapyLog?</label>
+          <select id="referral">
+            <option value="">Select...</option>
+            <option>Social media (Facebook/Instagram)</option>
+            <option>Referred by a patient</option>
+            <option>Referred by a colleague</option>
+            <option>Google search</option>
+            <option>TRT community / forum</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <button class="submit-btn" onclick="submitForm()">Submit Application →</button>
+        <p class="form-note">We review all applications within 2 business days. You'll hear from us at hello@therapylog.app. No payment is collected until your listing is approved and live.</p>
+
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="success-msg" id="success-msg">
+        <h3>Application received! 🎉</h3>
+        <p>Thanks for applying to the TherapyLog Verified Network. We'll review your application and reach out within 2 business days at the email you provided.<br><br>In the meantime, try the app free at <a href="/app" style="color:#4ade9a;">therapylog.app/app</a></p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 TherapyLog · <a href="/privacy">Privacy</a> · <a href="/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a></p>
+</footer>
+
+<script>
+function selectPlan(el, plan) {
+  document.querySelectorAll('.plan-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input[type=radio]').checked = true;
+}
+
+function submitForm() {
+  // Gather values
+  const name     = document.getElementById('biz-name').value.trim();
+  const type     = document.getElementById('biz-type').value;
+  const website  = document.getElementById('biz-website').value.trim();
+  const location = document.getElementById('biz-location').value.trim();
+  const contact  = document.getElementById('contact-name').value.trim();
+  const email    = document.getElementById('contact-email').value.trim();
+  const phone    = document.getElementById('contact-phone').value.trim();
+  const desc     = document.getElementById('biz-description').value.trim();
+  const referral = document.getElementById('referral').value;
+  const plan     = document.querySelector('input[name=plan]:checked')?.value || 'verified';
+
+  const services = [...document.querySelectorAll('.checkbox-group input:checked')].map(c => c.value).join(', ');
+
+  // Basic validation
+  if (!name || !type || !website || !location || !contact || !email) {
+    alert('Please fill in all required fields marked with *');
+    return;
+  }
+  if (!email.includes('@')) {
+    alert('Please enter a valid email address');
+    return;
+  }
+
+  // Build mailto with all form data
+  const subject = encodeURIComponent('TherapyLog Verified Listing Application — ' + name);
+  const body = encodeURIComponent(
+    'THERAPYLOG VERIFIED LISTING APPLICATION\n' +
+    '=========================================\n\n' +
+    'BUSINESS INFORMATION\n' +
+    'Business Name: ' + name + '\n' +
+    'Business Type: ' + type + '\n' +
+    'Website: ' + website + '\n' +
+    'Location: ' + location + '\n\n' +
+    'CONTACT\n' +
+    'Name: ' + contact + '\n' +
+    'Email: ' + email + '\n' +
+    'Phone: ' + (phone || 'Not provided') + '\n\n' +
+    'SERVICES OFFERED\n' +
+    (services || 'None selected') + '\n\n' +
+    'SELECTED PLAN\n' +
+    plan.toUpperCase() + '\n\n' +
+    'BUSINESS DESCRIPTION\n' +
+    (desc || 'Not provided') + '\n\n' +
+    'REFERRAL SOURCE\n' +
+    (referral || 'Not provided') + '\n\n' +
+    '=========================================\n' +
+    'Sent from therapylog.app/providers/apply'
+  );
+
+  // Open mailto
+  window.location.href = 'mailto:hello@therapylog.app?subject=' + subject + '&body=' + body;
+
+  // Show success
+  document.getElementById('application-form').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
