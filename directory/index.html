@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verified Provider Directory — TherapyLog</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#0a0c0f !important; color:#e8edf5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+
+  nav { padding:20px 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.06); position:sticky; top:0; background:rgba(10,12,15,0.92); backdrop-filter:blur(12px); z-index:50; }
+  .nav-logo { font-family:Georgia,serif; font-size:22px; color:#fff; text-decoration:none; }
+  .nav-logo span { color:#4ade9a; font-style:italic; }
+  .nav-links { display:flex; gap:18px; align-items:center; }
+  .nav-links a { color:#8a95a3; text-decoration:none; font-size:14px; }
+  .btn-nav { background:#4ade9a; color:#0a0c0f; padding:8px 18px; border-radius:8px; font-size:13px; font-weight:700; text-decoration:none; }
+
+  .hero { text-align:center; padding:56px 24px 36px; max-width:720px; margin:0 auto; }
+  .verified-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(74,222,154,0.1); border:1px solid rgba(74,222,154,0.3); color:#4ade9a; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:6px 16px; border-radius:20px; margin-bottom:20px; }
+  .hero h1 { font-family:Georgia,serif; font-size:44px; font-weight:700; color:#fff; line-height:1.1; margin-bottom:14px; }
+  .hero h1 span { color:#4ade9a; font-style:italic; }
+  .hero p { font-size:16px; color:#8a95a3; line-height:1.7; }
+
+  /* CONTROLS */
+  .controls { max-width:1000px; margin:0 auto; padding:0 24px 24px; }
+  .search-wrap { position:relative; margin-bottom:16px; }
+  .search-input { width:100%; background:#111418; border:1px solid #1a2030; border-radius:12px; color:#e8edf5; font-size:15px; padding:14px 16px 14px 46px; outline:none; font-family:inherit; }
+  .search-input:focus { border-color:rgba(74,222,154,0.4); }
+  .search-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:#4a5568; font-size:16px; }
+  .filters { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .filter-pill { background:#111418; border:1px solid #1a2030; color:#8a95a3; font-size:13px; font-weight:600; padding:8px 16px; border-radius:20px; cursor:pointer; transition:all 0.15s; }
+  .filter-pill:hover { border-color:rgba(74,222,154,0.3); color:#e8edf5; }
+  .filter-pill.active { background:rgba(74,222,154,0.1); border-color:#4ade9a; color:#4ade9a; }
+
+  /* DIRECTORY GRID */
+  .directory { max-width:1000px; margin:0 auto; padding:16px 24px 60px; }
+  .dir-count { font-size:12px; color:#4a5568; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:18px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
+
+  /* PARTNER CARD */
+  .card { background:#111418; border:1px solid #1a2030; border-radius:16px; padding:24px; display:flex; flex-direction:column; transition:border-color 0.15s, transform 0.15s; position:relative; }
+  .card:hover { border-color:rgba(74,222,154,0.25); transform:translateY(-2px); }
+  .card.featured { border-color:rgba(74,222,154,0.4); background:linear-gradient(160deg,rgba(74,222,154,0.05),#111418 60%); }
+  .featured-tag { position:absolute; top:-10px; left:24px; background:#4ade9a; color:#0a0c0f; font-size:10px; font-weight:700; padding:3px 12px; border-radius:20px; letter-spacing:0.05em; }
+
+  .card-top { display:flex; align-items:flex-start; gap:14px; margin-bottom:14px; }
+  .card-icon { width:52px; height:52px; border-radius:13px; background:rgba(255,255,255,0.04); display:flex; align-items:center; justify-content:center; font-size:26px; flex-shrink:0; }
+  .card-titlewrap { flex:1; min-width:0; }
+  .card-name { font-size:17px; font-weight:700; color:#fff; line-height:1.2; margin-bottom:4px; }
+  .card-type { font-size:12px; color:#8a95a3; font-weight:500; }
+  .badge-verified { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; color:#4ade9a; background:rgba(74,222,154,0.1); border:1px solid rgba(74,222,154,0.25); padding:3px 8px; border-radius:8px; margin-top:6px; }
+
+  .card-location { font-size:12px; color:#4a5568; margin-bottom:12px; display:flex; align-items:center; gap:5px; }
+  .card-desc { font-size:13px; color:#c8d0db; line-height:1.6; margin-bottom:14px; flex:1; }
+
+  .card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  .tag { font-size:11px; font-weight:600; padding:3px 9px; border-radius:8px; background:rgba(59,196,255,0.08); color:#3bc4ff; border:1px solid rgba(59,196,255,0.18); }
+
+  .verified-items { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; padding-top:14px; border-top:1px solid #1a2030; }
+  .vitem { font-size:10px; font-weight:600; color:#4ade9a; display:flex; align-items:center; gap:4px; }
+  .vitem::before { content:"✓"; }
+
+  .card-actions { display:flex; gap:8px; margin-top:auto; }
+  .btn-store { flex:1; background:#4ade9a; color:#0a0c0f; text-align:center; padding:11px; border-radius:9px; font-size:13px; font-weight:700; text-decoration:none; }
+  .btn-store:hover { background:#22c55e; }
+  .btn-contact { background:transparent; border:1px solid #1a2030; color:#8a95a3; padding:11px 14px; border-radius:9px; font-size:13px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:5px; }
+  .btn-contact:hover { border-color:rgba(255,255,255,0.2); color:#e8edf5; }
+
+  .card-contact-row { display:flex; gap:14px; margin-top:12px; padding-top:12px; border-top:1px solid #1a2030; }
+  .contact-link { font-size:12px; color:#8a95a3; text-decoration:none; display:flex; align-items:center; gap:5px; }
+  .contact-link:hover { color:#4ade9a; }
+
+  /* EMPTY STATE */
+  .empty { text-align:center; padding:60px 24px; }
+  .empty-icon { font-size:48px; margin-bottom:16px; opacity:0.5; }
+  .empty h3 { font-size:18px; color:#fff; margin-bottom:8px; }
+  .empty p { font-size:14px; color:#8a95a3; max-width:420px; margin:0 auto 24px; line-height:1.6; }
+
+  /* APPLY CTA */
+  .apply-cta { max-width:1000px; margin:0 auto; padding:0 24px 60px; }
+  .apply-box { background:linear-gradient(135deg,rgba(74,222,154,0.07),rgba(59,196,255,0.04)); border:1px solid rgba(74,222,154,0.25); border-radius:16px; padding:36px; text-align:center; }
+  .apply-box h2 { font-family:Georgia,serif; font-size:26px; color:#fff; margin-bottom:10px; }
+  .apply-box p { font-size:14px; color:#8a95a3; max-width:480px; margin:0 auto 22px; line-height:1.6; }
+  .apply-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn-primary { background:#4ade9a; color:#0a0c0f; padding:13px 26px; border-radius:10px; font-size:14px; font-weight:700; text-decoration:none; }
+  .btn-secondary { background:transparent; border:1px solid rgba(255,255,255,0.15); color:#e8edf5; padding:13px 26px; border-radius:10px; font-size:14px; font-weight:600; text-decoration:none; }
+
+  footer { padding:32px 24px; text-align:center; border-top:1px solid #1a2030; }
+  footer p { font-size:12px; color:#2a3040; }
+  footer a { color:#4a5568; text-decoration:none; }
+
+  @media(max-width:600px){
+    .hero h1 { font-size:32px; }
+    .grid { grid-template-columns:1fr; }
+    .nav-links a:not(.btn-nav) { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Therapy<span>Log</span></a>
+  <div class="nav-links">
+    <a href="/app" target="_blank">Try Free</a>
+    <a href="/partnership">Partner Program</a>
+    <a href="/providers/apply" class="btn-nav">List Your Business</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="verified-badge">✓ TherapyLog Verified Network</div>
+  <h1>Verified <span>provider directory</span></h1>
+  <p>Every clinic, supplier, and coach below has passed TherapyLog's verification process — licenses confirmed, products tested, credentials checked. Connect with trusted partners with confidence.</p>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="search" placeholder="Search by name, service, or product..." oninput="renderDirectory()">
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-pill active" data-filter="all" onclick="setFilter('all', this)">All Partners</button>
+    <button class="filter-pill" data-filter="clinic" onclick="setFilter('clinic', this)">🏥 Clinics</button>
+    <button class="filter-pill" data-filter="retailer" onclick="setFilter('retailer', this)">⚗️ Suppliers</button>
+    <button class="filter-pill" data-filter="coach" onclick="setFilter('coach', this)">💪 Coaches</button>
+  </div>
+</div>
+
+<div class="directory">
+  <div class="dir-count" id="dir-count"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">
+    <div class="empty-icon">🔍</div>
+    <h3>No matches found</h3>
+    <p>Try a different search term or filter. New verified partners are added regularly.</p>
+  </div>
+</div>
+
+<div class="apply-cta">
+  <div class="apply-box">
+    <h2>Want to be listed here?</h2>
+    <p>Join the TherapyLog Verified Network. Founding partner pricing is locked in for life, and listing fees can be offset by affiliate commissions.</p>
+    <div class="apply-btns">
+      <a href="/providers/apply" class="btn-primary">Apply for a Listing</a>
+      <a href="/partnership" class="btn-secondary">See the Partner Program →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 TherapyLog · <a href="/privacy">Privacy</a> · <a href="/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a></p>
+</footer>
+
+<script src="providers-data.js"></script>
+<script>
+let currentFilter = 'all';
+
+function setFilter(filter, el) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  renderDirectory();
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function tierRank(t) { return t === 'featured' ? 0 : t === 'verified' ? 1 : 2; }
+
+function renderDirectory() {
+  const partners = window.PARTNERS || [];
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  const countEl = document.getElementById('dir-count');
+
+  // Filter
+  let filtered = partners.filter(p => {
+    if (currentFilter !== 'all' && p.type !== currentFilter) return false;
+    if (!q) return true;
+    const haystack = [p.name, p.typeLabel, p.description, p.products, (p.services||[]).join(' '), p.location].join(' ').toLowerCase();
+    return haystack.includes(q);
+  });
+
+  // Sort: featured first, then verified, then basic; alpha within tier
+  filtered.sort((a, b) => {
+    const r = tierRank(a.tier) - tierRank(b.tier);
+    return r !== 0 ? r : a.name.localeCompare(b.name);
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    countEl.textContent = '';
+    return;
+  }
+  empty.style.display = 'none';
+  countEl.textContent = `${filtered.length} verified partner${filtered.length > 1 ? 's' : ''}`;
+
+  grid.innerHTML = filtered.map(p => {
+    const isVerified = p.tier === 'verified' || p.tier === 'featured';
+    const tags = (p.services || []).map(s => `<span class="tag">${escapeHtml(s)}</span>`).join('');
+    const vitems = (p.verifiedItems || []).map(v => `<span class="vitem">${escapeHtml(v)}</span>`).join('');
+
+    // Contact links
+    const contactLinks = [];
+    if (p.website) contactLinks.push(`<a class="contact-link" href="${escapeHtml(p.website)}" target="_blank" rel="noopener">🌐 Website</a>`);
+    if (p.email) contactLinks.push(`<a class="contact-link" href="mailto:${escapeHtml(p.email)}">✉️ Email</a>`);
+    if (p.phone) contactLinks.push(`<a class="contact-link" href="tel:${escapeHtml(p.phone.replace(/[^0-9+]/g,''))}">📞 ${escapeHtml(p.phone)}</a>`);
+
+    return `
+    <div class="card ${p.tier === 'featured' ? 'featured' : ''}">
+      ${p.tier === 'featured' ? '<div class="featured-tag">★ Featured Partner</div>' : ''}
+      <div class="card-top">
+        <div class="card-icon">${escapeHtml(p.icon || '🏢')}</div>
+        <div class="card-titlewrap">
+          <div class="card-name">${escapeHtml(p.name)}</div>
+          <div class="card-type">${escapeHtml(p.typeLabel || '')}</div>
+          ${isVerified ? '<div class="badge-verified">✓ TherapyLog Verified</div>' : ''}
+        </div>
+      </div>
+      ${p.location ? `<div class="card-location">📍 ${escapeHtml(p.location)}</div>` : ''}
+      <div class="card-desc">${escapeHtml(p.description || '')}</div>
+      ${tags ? `<div class="card-tags">${tags}</div>` : ''}
+      ${vitems ? `<div class="verified-items">${vitems}</div>` : ''}
+      <div class="card-actions">
+        ${p.storeUrl ? `<a class="btn-store" href="${escapeHtml(p.storeUrl)}" target="_blank" rel="noopener">Visit ${p.type === 'clinic' ? 'Clinic' : p.type === 'coach' ? 'Coaching' : 'Store'} →</a>` : ''}
+      </div>
+      ${contactLinks.length ? `<div class="card-contact-row">${contactLinks.join('')}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// Initial render
+document.addEventListener('DOMContentLoaded', renderDirectory);
+renderDirectory();
+</script>
+
+</body>
+</html>
