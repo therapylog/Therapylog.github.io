@@ -177,7 +177,10 @@ function renderDirectory() {
 
   // Filter
   let filtered = partners.filter(p => {
-    if (currentFilter !== 'all' && p.type !== currentFilter) return false;
+    if (currentFilter !== 'all') {
+      const cats = p.types || (p.type ? [p.type] : []);
+      if (!cats.includes(currentFilter)) return false;
+    }
     if (!q) return true;
     const haystack = [p.name, p.typeLabel, p.description, p.products, (p.services||[]).join(' '), p.location].join(' ').toLowerCase();
     return haystack.includes(q);
@@ -225,7 +228,7 @@ function renderDirectory() {
       ${tags ? `<div class="card-tags">${tags}</div>` : ''}
       ${vitems ? `<div class="verified-items">${vitems}</div>` : ''}
       <div class="card-actions">
-        ${p.storeUrl ? `<a class="btn-store" href="${escapeHtml(p.storeUrl)}" target="_blank" rel="noopener">Visit ${p.type === 'clinic' ? 'Clinic' : p.type === 'coach' ? 'Coaching' : 'Store'} →</a>` : ''}
+        ${p.storeUrl ? `<a class="btn-store" href="${escapeHtml(p.storeUrl)}" target="_blank" rel="noopener">Visit Website →</a>` : ''}
       </div>
       ${contactLinks.length ? `<div class="card-contact-row">${contactLinks.join('')}</div>` : ''}
     </div>`;
