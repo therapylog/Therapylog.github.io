@@ -108,8 +108,8 @@
   <!-- LEFT: VALUE PROP -->
   <div class="value-col">
     <div class="badge">✓ TherapyLog Verified Network</div>
-    <h1>Reach patients who are <span>already invested</span></h1>
-    <p>TherapyLog users are actively managing TRT, peptide, and longevity protocols. They're already looking for trusted sources — and they're in your app every day.</p>
+    <h1>Reach customers who are <span>already invested</span></h1>
+    <p>TherapyLog users are actively managing hormone protocols, peptide stacks, fitness programs, and longevity routines. They're your ideal customer — already looking for trusted partners. Clinics, suppliers, and coaches all welcome.</p>
 
     <div class="app-preview">
       <div class="app-preview-header"><span>TherapyLog platform stats</span></div>
@@ -161,6 +161,10 @@
             <option>Peptide Research Supplier</option>
             <option>Telehealth Practice</option>
             <option>Functional Medicine Practice</option>
+            <option>Fitness / Performance Coach</option>
+            <option>Online Training / Coaching Service</option>
+            <option>Bodybuilding Consultant</option>
+            <option>Nutrition / Diet Coach</option>
             <option>Other</option>
           </select>
           <label>Website URL *</label>
@@ -193,6 +197,10 @@
             <label class="checkbox-item"><input type="checkbox" value="Bloodwork"><span>Lab Testing / Bloodwork</span></label>
             <label class="checkbox-item"><input type="checkbox" value="Compounding"><span>Compounding / Custom Formulations</span></label>
             <label class="checkbox-item"><input type="checkbox" value="Telehealth"><span>Telehealth / Online Consultations</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="FitnessCoaching"><span>Fitness / Strength Coaching</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="OnlineCoaching"><span>Online Programming / Coaching</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="Bodybuilding"><span>Bodybuilding Prep / Consulting</span></label>
+            <label class="checkbox-item"><input type="checkbox" value="Nutrition"><span>Nutrition / Diet Coaching</span></label>
           </div>
         </div>
 
@@ -235,7 +243,7 @@
           </select>
         </div>
 
-        <button class="submit-btn" onclick="submitForm()">Submit Application →</button>
+        <button class="submit-btn" id="submit-btn" onclick="submitForm()">Submit Application →</button>
         <p class="form-note">We review all applications within 2 business days. You'll hear from us at hello@therapylog.app. No payment is collected until your listing is approved and live.</p>
 
       </div>
@@ -243,7 +251,7 @@
       <!-- SUCCESS STATE -->
       <div class="success-msg" id="success-msg">
         <h3>Application received! 🎉</h3>
-        <p>Thanks for applying to the TherapyLog Verified Network. We'll review your application and reach out within 2 business days at the email you provided.<br><br>In the meantime, try the app free at <a href="/app" style="color:#4ade9a;">therapylog.app/app</a></p>
+        <p>Your application has been received! We'll review everything and reach out within 2 business days at the email you provided.<br><br>In the meantime, try the app free at <a href="/app" style="color:#4ade9a;">therapylog.app/app</a></p>
       </div>
 
     </div>
@@ -262,8 +270,7 @@ function selectPlan(el, plan) {
   el.querySelector('input[type=radio]').checked = true;
 }
 
-function submitForm() {
-  // Gather values
+async function submitForm() {
   const name     = document.getElementById('biz-name').value.trim();
   const type     = document.getElementById('biz-type').value;
   const website  = document.getElementById('biz-website').value.trim();
@@ -274,10 +281,8 @@ function submitForm() {
   const desc     = document.getElementById('biz-description').value.trim();
   const referral = document.getElementById('referral').value;
   const plan     = document.querySelector('input[name=plan]:checked')?.value || 'verified';
-
   const services = [...document.querySelectorAll('.checkbox-group input:checked')].map(c => c.value).join(', ');
 
-  // Basic validation
   if (!name || !type || !website || !location || !contact || !email) {
     alert('Please fill in all required fields marked with *');
     return;
@@ -287,38 +292,46 @@ function submitForm() {
     return;
   }
 
-  // Build mailto with all form data
-  const subject = encodeURIComponent('TherapyLog Verified Listing Application — ' + name);
-  const body = encodeURIComponent(
-    'THERAPYLOG VERIFIED LISTING APPLICATION\n' +
-    '=========================================\n\n' +
-    'BUSINESS INFORMATION\n' +
-    'Business Name: ' + name + '\n' +
-    'Business Type: ' + type + '\n' +
-    'Website: ' + website + '\n' +
-    'Location: ' + location + '\n\n' +
-    'CONTACT\n' +
-    'Name: ' + contact + '\n' +
-    'Email: ' + email + '\n' +
-    'Phone: ' + (phone || 'Not provided') + '\n\n' +
-    'SERVICES OFFERED\n' +
-    (services || 'None selected') + '\n\n' +
-    'SELECTED PLAN\n' +
-    plan.toUpperCase() + '\n\n' +
-    'BUSINESS DESCRIPTION\n' +
-    (desc || 'Not provided') + '\n\n' +
-    'REFERRAL SOURCE\n' +
-    (referral || 'Not provided') + '\n\n' +
-    '=========================================\n' +
-    'Sent from therapylog.app/providers/apply'
-  );
+  const btn = document.getElementById('submit-btn');
+  const origText = btn.textContent;
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
 
-  // Open mailto
-  window.location.href = 'mailto:hello@therapylog.app?subject=' + subject + '&body=' + body;
+  try {
+    const response = await fetch('https://api.therapylog.app/api/provider-application', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        formType: 'Provider Application',
+        businessName: name,
+        businessType: type,
+        website: website,
+        location: location,
+        contactName: contact,
+        email: email,
+        phone: phone,
+        description: desc,
+        referral: referral,
+        tier: plan,
+        services: services,
+      })
+    });
 
-  // Show success
-  document.getElementById('application-form').style.display = 'none';
-  document.getElementById('success-msg').style.display = 'block';
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      document.getElementById('application-form').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+      window.scrollTo(0, 0);
+    } else {
+      throw new Error(result.error || 'Submission failed');
+    }
+  } catch (err) {
+    console.error('Submission error:', err);
+    btn.textContent = origText;
+    btn.disabled = false;
+    alert('There was a problem submitting. Please email hello@therapylog.app directly or try again.');
+  }
 }
 </script>
 
