@@ -21,12 +21,20 @@
   .hint { font-size:11px; color:#4a5568; font-weight:400; }
   input, select, textarea { width:100%; background:#0d1117; border:1px solid #1a2030; border-radius:8px; color:#e8edf5; font-size:14px; padding:10px 12px; margin-bottom:14px; outline:none; font-family:inherit; }
   input:focus, select:focus, textarea:focus { border-color:rgba(74,222,154,0.4); }
-  textarea { resize:vertical; min-height:60px; }
   .two-col { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
-  .icon-picker { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
-  .icon-opt { width:44px; height:44px; border:1px solid #1a2030; border-radius:10px; background:#0d1117; display:flex; align-items:center; justify-content:center; font-size:22px; cursor:pointer; }
-  .icon-opt.selected { border-color:#4ade9a; background:rgba(74,222,154,0.08); }
+  /* MULTI-SELECT CATEGORY CHIPS */
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+  .chip { border:1px solid #1a2030; border-radius:20px; background:#0d1117; padding:8px 14px; font-size:13px; color:#8a95a3; cursor:pointer; user-select:none; transition:all 0.12s; display:flex; align-items:center; gap:6px; }
+  .chip:hover { border-color:rgba(74,222,154,0.3); }
+  .chip.on { border-color:#4ade9a; background:rgba(74,222,154,0.1); color:#4ade9a; }
+  .chip .ck { font-weight:700; opacity:0; }
+  .chip.on .ck { opacity:1; }
+
+  .icon-picker { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px; }
+  .icon-opt { width:46px; height:46px; border:1px solid #1a2030; border-radius:10px; background:#0d1117; display:flex; align-items:center; justify-content:center; font-size:23px; cursor:pointer; user-select:none; transition:all 0.12s; }
+  .icon-opt:hover { border-color:rgba(74,222,154,0.3); }
+  .icon-opt.selected { border-color:#4ade9a; background:rgba(74,222,154,0.12); transform:scale(1.05); }
 
   .gen-btn { width:100%; background:#4ade9a; color:#0a0c0f; border:none; padding:15px; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; margin-top:8px; }
   .gen-btn:active { transform:scale(0.99); }
@@ -51,7 +59,7 @@
 <div class="header">
   <div class="tag">🔒 Internal Tool</div>
   <h1>Add a <span>Partner</span></h1>
-  <div class="sub">Fill in an approved partner's details and click Generate. Copy the output and paste it into <code style="font-family:monospace;background:#0d1117;padding:1px 5px;border-radius:4px;color:#4ade9a">providers-data.js</code>. This tool runs entirely on your device — nothing is sent anywhere.</div>
+  <div class="sub">Fill in an approved partner's details and click Generate. Copy the output and paste it into <code style="font-family:monospace;background:#0d1117;padding:1px 5px;border-radius:4px;color:#4ade9a">providers-data.js</code>. Runs entirely on your device — nothing is sent anywhere.</div>
 </div>
 
 <div id="form">
@@ -59,21 +67,18 @@
   <div class="form-section">
     <div class="section-title">Business Basics</div>
     <label>Business Name *</label>
-    <input type="text" id="name" placeholder="e.g. Apex Peptides">
-    <div class="two-col">
-      <div>
-        <label>Type *</label>
-        <select id="type" onchange="updateTypeLabel()">
-          <option value="retailer">Retailer / Supplier</option>
-          <option value="clinic">Clinic / Medical</option>
-          <option value="coach">Coach / Trainer</option>
-        </select>
-      </div>
-      <div>
-        <label>Display Label *</label>
-        <input type="text" id="typeLabel" placeholder="e.g. Peptide Supplier">
-      </div>
+    <input type="text" id="name" placeholder="e.g. Apex Health & Peptides">
+
+    <label>Categories — pick all that apply *<br><span class="hint">A business can be more than one. These set which directory filters it appears under.</span></label>
+    <div class="chips" id="typeChips">
+      <div class="chip" data-type="clinic" onclick="toggleChip(this)"><span class="ck">✓</span>🏥 Clinic / Medical</div>
+      <div class="chip" data-type="retailer" onclick="toggleChip(this)"><span class="ck">✓</span>⚗️ Retailer / Supplier</div>
+      <div class="chip" data-type="coach" onclick="toggleChip(this)"><span class="ck">✓</span>💪 Coach / Trainer</div>
     </div>
+
+    <label>Display Label *<br><span class="hint">What shows under the business name. e.g. "Men's Clinic + Peptides" or "ISSA Coach + Peptide Supplier"</span></label>
+    <input type="text" id="typeLabel" placeholder="e.g. Men's Clinic + Peptide Supplier">
+
     <div class="two-col">
       <div>
         <label>Tier *</label>
@@ -88,29 +93,46 @@
         <input type="text" id="joined" placeholder="2026-06">
       </div>
     </div>
-    <label>Icon <span class="hint">— pick one that fits</span></label>
+
+    <label>Icon <span class="hint">— tap one to select it</span></label>
     <div class="icon-picker" id="iconPicker">
-      <div class="icon-opt selected" data-icon="⚗️">⚗️</div>
-      <div class="icon-opt" data-icon="🏥">🏥</div>
-      <div class="icon-opt" data-icon="💊">💊</div>
-      <div class="icon-opt" data-icon="💪">💪</div>
-      <div class="icon-opt" data-icon="🧬">🧬</div>
-      <div class="icon-opt" data-icon="🔬">🔬</div>
-      <div class="icon-opt" data-icon="🌿">🌿</div>
-      <div class="icon-opt" data-icon="⚕️">⚕️</div>
-      <div class="icon-opt" data-icon="🏋️">🏋️</div>
-      <div class="icon-opt" data-icon="🥼">🥼</div>
+      <div class="icon-opt selected" data-icon="⚗️" onclick="pickIcon(this)">⚗️</div>
+      <div class="icon-opt" data-icon="🏥" onclick="pickIcon(this)">🏥</div>
+      <div class="icon-opt" data-icon="💊" onclick="pickIcon(this)">💊</div>
+      <div class="icon-opt" data-icon="💪" onclick="pickIcon(this)">💪</div>
+      <div class="icon-opt" data-icon="🧬" onclick="pickIcon(this)">🧬</div>
+      <div class="icon-opt" data-icon="🔬" onclick="pickIcon(this)">🔬</div>
+      <div class="icon-opt" data-icon="🌿" onclick="pickIcon(this)">🌿</div>
+      <div class="icon-opt" data-icon="⚕️" onclick="pickIcon(this)">⚕️</div>
+      <div class="icon-opt" data-icon="🏋️" onclick="pickIcon(this)">🏋️</div>
+      <div class="icon-opt" data-icon="🥼" onclick="pickIcon(this)">🥼</div>
     </div>
-    <label>Location *</label>
-    <input type="text" id="location" placeholder="e.g. Austin, TX  ·  Telehealth nationwide   —or—   Nationwide / Online">
+
+    <label style="margin-top:14px">Location *</label>
+    <input type="text" id="location" placeholder="e.g. Austin, TX · Telehealth nationwide   —or—   Nationwide / Online">
     <label>Short Description *</label>
-    <textarea id="description" placeholder="One or two sentences about the business."></textarea>
+    <textarea id="description" placeholder="One or two sentences about the business and everything they offer."></textarea>
   </div>
 
   <div class="form-section">
     <div class="section-title">Services &amp; Products</div>
-    <label>Service Tags <span class="hint">— comma separated</span></label>
-    <input type="text" id="services" placeholder="e.g. Peptides, GLP-1, TRT, Bloodwork">
+    <label>Service Tags — pick all that apply *<br><span class="hint">These show as tags on the listing card. A multi-service business can have many.</span></label>
+    <div class="chips" id="serviceChips">
+      <div class="chip" data-svc="TRT" onclick="toggleChip(this)"><span class="ck">✓</span>TRT</div>
+      <div class="chip" data-svc="HRT" onclick="toggleChip(this)"><span class="ck">✓</span>HRT</div>
+      <div class="chip" data-svc="Peptides" onclick="toggleChip(this)"><span class="ck">✓</span>Peptides</div>
+      <div class="chip" data-svc="GLP-1" onclick="toggleChip(this)"><span class="ck">✓</span>GLP-1</div>
+      <div class="chip" data-svc="Bloodwork" onclick="toggleChip(this)"><span class="ck">✓</span>Bloodwork</div>
+      <div class="chip" data-svc="Longevity" onclick="toggleChip(this)"><span class="ck">✓</span>Longevity</div>
+      <div class="chip" data-svc="Coaching" onclick="toggleChip(this)"><span class="ck">✓</span>Coaching</div>
+      <div class="chip" data-svc="Contest Prep" onclick="toggleChip(this)"><span class="ck">✓</span>Contest Prep</div>
+      <div class="chip" data-svc="Nutrition" onclick="toggleChip(this)"><span class="ck">✓</span>Nutrition</div>
+      <div class="chip" data-svc="Research Compounds" onclick="toggleChip(this)"><span class="ck">✓</span>Research Compounds</div>
+      <div class="chip" data-svc="Telehealth" onclick="toggleChip(this)"><span class="ck">✓</span>Telehealth</div>
+      <div class="chip" data-svc="SARMs" onclick="toggleChip(this)"><span class="ck">✓</span>SARMs</div>
+    </div>
+    <label>Custom service tags <span class="hint">— optional, comma-separated, for anything not above</span></label>
+    <input type="text" id="customServices" placeholder="e.g. IV Therapy, Sermorelin">
     <label>Products <span class="hint">— optional, for retailers</span></label>
     <textarea id="products" placeholder="e.g. BPC-157, TB-500, Semaglutide, Tirzepatide"></textarea>
   </div>
@@ -119,7 +141,7 @@
     <div class="section-title">Links &amp; Contact</div>
     <label>Website URL *</label>
     <input type="url" id="website" placeholder="https://example.com">
-    <label>Store / Booking URL <span class="hint">— the "Visit Store" button</span></label>
+    <label>Store / Booking URL <span class="hint">— the "Visit" button</span></label>
     <input type="url" id="storeUrl" placeholder="https://example.com/shop">
     <div class="two-col">
       <div><label>Contact Email</label><input type="email" id="email" placeholder="contact@example.com"></div>
@@ -128,15 +150,14 @@
   </div>
 
   <div class="form-section">
-    <div class="section-title">Verification Badges</div>
+    <div class="section-title">Verification Badges &amp; Affiliate</div>
     <label>What was verified? <span class="hint">— comma separated, shows as ✓ items</span></label>
-    <input type="text" id="verifiedItems" placeholder="e.g. COA Verified, Product Tested, License Verified">
-    <div style="font-size:11px;color:#4a5568;line-height:1.6;margin-top:4px">
-      Examples by type:<br>
-      <b style="color:#8a95a3">Retailer:</b> COA Verified, Product Tested, Reliable Shipping<br>
-      <b style="color:#8a95a3">Clinic:</b> License Verified, Board Certified, DEA Registered<br>
-      <b style="color:#8a95a3">Coach:</b> Certified (NASM), IFBB Pro, Client Results Verified
+    <input type="text" id="verifiedItems" placeholder="e.g. License Verified, COA Verified, Board Certified">
+    <div style="font-size:11px;color:#4a5568;line-height:1.6;margin:4px 0 14px">
+      For multi-category businesses, verify EACH category: e.g. a clinic+peptide store gets "License Verified, DEA Registered, COA Verified, Product Tested"
     </div>
+    <label>Affiliate Referral Code <span class="hint">— the code/slug for their Stripe referral link</span></label>
+    <input type="text" id="refCode" placeholder="e.g. apexhealth (becomes ?ref=apexhealth)">
   </div>
 
   <button class="gen-btn" onclick="generate()">Generate Partner Entry →</button>
@@ -145,19 +166,16 @@
 <div class="output-section" id="output">
   <div class="form-section">
     <div class="section-title">✅ Your Partner Entry</div>
-    <div class="output-box">
-      <pre id="code"></pre>
-    </div>
+    <div class="output-box"><pre id="code"></pre></div>
     <button class="copy-btn" id="copyBtn" onclick="copyCode()">📋 Copy This Code</button>
-
     <div class="instructions">
       <h3>How to add this partner</h3>
       <ol>
         <li>Tap <b>Copy This Code</b> above</li>
-        <li>Open <code>providers-data.js</code> in your GitHub repo (providers/ folder)</li>
+        <li>Open <code>providers-data.js</code> in your GitHub repo (directory/ folder)</li>
         <li>Click the pencil/edit icon</li>
-        <li>Paste the code right after the line that says <code>ADD YOUR APPROVED PARTNERS BELOW THIS LINE</code></li>
-        <li>Commit the change — the directory updates automatically in ~1 minute</li>
+        <li>Paste right after <code>ADD YOUR APPROVED PARTNERS BELOW THIS LINE</code></li>
+        <li>Commit — the directory updates in ~1 minute</li>
       </ol>
     </div>
     <button class="gen-btn" style="background:transparent;border:1px solid #1a2030;color:#8a95a3;margin-top:16px" onclick="resetForm()">← Add Another Partner</button>
@@ -167,26 +185,15 @@
 <div class="footer">© 2026 TherapyLog · Internal Directory Tool · Runs locally, nothing transmitted</div>
 
 <script>
-// Icon picker
-document.getElementById('iconPicker').addEventListener('click', e => {
-  const opt = e.target.closest('.icon-opt');
-  if (!opt) return;
-  document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('selected'));
-  opt.classList.add('selected');
-});
+// ---- Multi-select chips ----
+function toggleChip(el) {
+  el.classList.toggle('on');
+}
 
-function updateTypeLabel() {
-  const type = document.getElementById('type').value;
-  const labelEl = document.getElementById('typeLabel');
-  if (!labelEl.value) {
-    labelEl.value = type === 'clinic' ? 'TRT / Men\\'s Health' : type === 'coach' ? 'Performance Coach' : 'Peptide Supplier';
-  }
-  // Auto-select a fitting icon
-  const iconMap = { clinic:'🏥', coach:'💪', retailer:'⚗️' };
-  const want = iconMap[type];
-  document.querySelectorAll('.icon-opt').forEach(o => {
-    o.classList.toggle('selected', o.getAttribute('data-icon') === want);
-  });
+// ---- Icon picker (fixed — direct onclick) ----
+function pickIcon(el) {
+  document.querySelectorAll('.icon-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
 }
 
 function val(id){ return document.getElementById(id).value.trim(); }
@@ -199,51 +206,40 @@ function generate() {
   if (!val('description')) { alert('Description is required'); return; }
   if (!val('website')) { alert('Website is required'); return; }
 
+  // Collect selected categories (types)
+  const types = [...document.querySelectorAll('#typeChips .chip.on')].map(c => c.getAttribute('data-type'));
+  if (types.length === 0) { alert('Pick at least one category'); return; }
+
+  // Collect services (chips + custom)
+  const chipServices = [...document.querySelectorAll('#serviceChips .chip.on')].map(c => c.getAttribute('data-svc'));
+  const customServices = listify(val('customServices'));
+  const services = [...chipServices, ...customServices];
+
   const icon = document.querySelector('.icon-opt.selected')?.getAttribute('data-icon') || '🏢';
-  const services = listify(val('services'));
   const vitems = listify(val('verifiedItems'));
 
-  const obj = {
-    id: slugify(name),
-    name: name,
-    type: val('type'),
-    typeLabel: val('typeLabel'),
-    tier: val('tier'),
-    location: val('location'),
-    description: val('description'),
-    services: services,
-    products: val('products'),
-    website: val('website'),
-    storeUrl: val('storeUrl') || val('website'),
-    email: val('email'),
-    phone: val('phone'),
-    icon: icon,
-    verifiedItems: vitems,
-    joined: val('joined') || new Date().toISOString().slice(0,7)
-  };
-
-  // Build clean JS code string
   const esc = s => String(s).replace(/\\\\/g,'\\\\\\\\').replace(/"/g,'\\\\"');
   const arr = a => '[' + a.map(x => `"${esc(x)}"`).join(', ') + ']';
 
   const code =
 `  {
-    id: "${esc(obj.id)}",
-    name: "${esc(obj.name)}",
-    type: "${esc(obj.type)}",
-    typeLabel: "${esc(obj.typeLabel)}",
-    tier: "${esc(obj.tier)}",
-    location: "${esc(obj.location)}",
-    description: "${esc(obj.description)}",
-    services: ${arr(obj.services)},
-    products: "${esc(obj.products)}",
-    website: "${esc(obj.website)}",
-    storeUrl: "${esc(obj.storeUrl)}",
-    email: "${esc(obj.email)}",
-    phone: "${esc(obj.phone)}",
-    icon: "${obj.icon}",
-    verifiedItems: ${arr(obj.verifiedItems)},
-    joined: "${esc(obj.joined)}"
+    id: "${esc(slugify(name))}",
+    name: "${esc(name)}",
+    types: ${arr(types)},
+    typeLabel: "${esc(val('typeLabel'))}",
+    tier: "${esc(val('tier'))}",
+    location: "${esc(val('location'))}",
+    description: "${esc(val('description'))}",
+    services: ${arr(services)},
+    products: "${esc(val('products'))}",
+    website: "${esc(val('website'))}",
+    storeUrl: "${esc(val('storeUrl') || val('website'))}",
+    email: "${esc(val('email'))}",
+    phone: "${esc(val('phone'))}",
+    icon: "${icon}",
+    verifiedItems: ${arr(vitems)},
+    refCode: "${esc(val('refCode'))}",
+    joined: "${esc(val('joined') || new Date().toISOString().slice(0,7))}"
   },`;
 
   document.getElementById('code').textContent = code;
@@ -256,8 +252,7 @@ function copyCode() {
   const code = document.getElementById('code').textContent;
   navigator.clipboard.writeText(code).then(() => {
     const btn = document.getElementById('copyBtn');
-    btn.textContent = '✓ Copied!';
-    btn.classList.add('copied');
+    btn.textContent = '✓ Copied!'; btn.classList.add('copied');
     setTimeout(() => { btn.textContent = '📋 Copy This Code'; btn.classList.remove('copied'); }, 1800);
   }).catch(() => {
     const ta = document.createElement('textarea');
@@ -268,8 +263,9 @@ function copyCode() {
 }
 
 function resetForm() {
-  document.getElementById('form').reset?.();
-  ['name','typeLabel','location','description','services','products','website','storeUrl','email','phone','verifiedItems','joined'].forEach(id => document.getElementById(id).value='');
+  ['name','typeLabel','location','description','customServices','products','website','storeUrl','email','phone','verifiedItems','refCode','joined'].forEach(id => document.getElementById(id).value='');
+  document.querySelectorAll('.chip.on').forEach(c => c.classList.remove('on'));
+  document.querySelectorAll('.icon-opt').forEach((o,i) => o.classList.toggle('selected', i===0));
   document.getElementById('output').style.display = 'none';
   document.getElementById('form').style.display = 'block';
   window.scrollTo(0,0);
