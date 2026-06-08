@@ -8,7 +8,7 @@
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body { background:#0a0c0f !important; background-color:#0a0c0f !important; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#0a0c0f; color:#e8edf5; line-height:1.6; }
+    body { font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#0a0c0f; color:#e8edf5; line-height:1.6; }
 
     /* Nav */
     nav { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); position:sticky; top:0; background:rgba(10,12,15,0.95); backdrop-filter:blur(20px); z-index:100; }
@@ -43,12 +43,13 @@
     .feature-card h3 { font-size:16px; font-weight:700; margin-bottom:8px; }
     .feature-card p { font-size:14px; color:#8a95a3; line-height:1.6; }
     .feature-card.accent { border-color:rgba(74,222,154,0.25); background:rgba(74,222,154,0.04); }
+    .feature-card.accent2 { border-color:rgba(59,196,255,0.2); background:rgba(59,196,255,0.03); }
 
     /* For who */
     .for-who { background:rgba(255,255,255,0.02); padding:60px 24px; text-align:center; }
     .for-who h2 { font-size:28px; font-weight:700; margin-bottom:12px; font-family:Georgia,serif; }
     .for-who p { color:#8a95a3; max-width:540px; margin:0 auto 40px; }
-    .audience-grid { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; max-width:700px; margin:0 auto; }
+    .audience-grid { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; max-width:760px; margin:0 auto; }
     .audience-pill { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:30px; padding:10px 20px; font-size:14px; font-weight:600; }
 
     /* CTA */
@@ -72,21 +73,17 @@
     .email-badge { display:inline-block; background:rgba(74,222,154,0.15); border:1px solid rgba(74,222,154,0.3); color:#4ade9a; padding:5px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
     .email-title { font-size:26px; font-weight:700; font-family:Georgia,serif; line-height:1.3; margin-bottom:12px; }
     .email-sub { font-size:15px; color:#8a95a3; line-height:1.6; margin-bottom:28px; max-width:440px; margin-left:auto; margin-right:auto; }
-    .mc-form { position:relative; }
-    .mc-fields { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
-    .mc-input { flex:1; min-width:160px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; color:#e8edf5; font-size:15px; font-family:-apple-system,sans-serif; outline:none; transition:border-color 0.2s; }
-    .mc-input:focus { border-color:rgba(74,222,154,0.5); }
-    .mc-input::placeholder { color:#4a5568; }
-    .mc-btn { width:100%; background:#4ade9a; color:#0a0c0f; border:none; border-radius:12px; padding:15px 24px; font-size:16px; font-weight:700; cursor:pointer; font-family:-apple-system,sans-serif; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; }
-    .mc-btn:hover { background:#22c55e; transform:translateY(-1px); }
-    .mc-btn:active { transform:translateY(0); }
-    .mc-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-    .mc-btn-icon { font-size:18px; transition:transform 0.2s; }
-    .mc-btn:hover .mc-btn-icon { transform:translateX(3px); }
-    .mc-success { background:rgba(74,222,154,0.1); border:1px solid rgba(74,222,154,0.3); color:#4ade9a; border-radius:10px; padding:12px 16px; font-size:14px; font-weight:600; margin-top:10px; }
-    .mc-error { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); color:#f87171; border-radius:10px; padding:12px 16px; font-size:13px; margin-top:10px; }
-    .mc-legal { font-size:11px; color:#4a5568; margin-top:10px; }
-
+    .nl-fields { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+    .nl-input { flex:1; min-width:200px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; color:#e8edf5; font-size:15px; font-family:-apple-system,sans-serif; outline:none; transition:border-color 0.2s; }
+    .nl-input:focus { border-color:rgba(74,222,154,0.5); }
+    .nl-input::placeholder { color:#4a5568; }
+    .nl-btn { width:100%; background:#4ade9a; color:#0a0c0f; border:none; border-radius:12px; padding:15px 24px; font-size:16px; font-weight:700; cursor:pointer; font-family:-apple-system,sans-serif; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; }
+    .nl-btn:hover { background:#22c55e; transform:translateY(-1px); }
+    .nl-btn:active { transform:translateY(0); }
+    .nl-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .nl-success { background:rgba(74,222,154,0.1); border:1px solid rgba(74,222,154,0.3); color:#4ade9a; border-radius:10px; padding:12px 16px; font-size:14px; font-weight:600; margin-top:10px; display:none; }
+    .nl-error { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); color:#f87171; border-radius:10px; padding:12px 16px; font-size:13px; margin-top:10px; display:none; }
+    .nl-legal { font-size:11px; color:#4a5568; margin-top:10px; }
   </style>
 </head>
 <body style="background:#0a0c0f;background-color:#0a0c0f;color:#e8edf5;">
@@ -102,19 +99,19 @@
   </nav>
 
   <div class="hero">
-    <div class="hero-badge">Now on the App Store</div>
+    <div class="hero-badge">Coming Soon to App Stores</div>
     <h1>Your hormone therapy<br><span>command center</span></h1>
     <p>Track TRT, peptides, bloodwork, and body composition with AI-powered tools built for the modern patient and clinic.</p>
     <div class="hero-btns">
       <a class="btn-primary" href="/download">Download TherapyLog</a>
       <a class="btn-secondary" href="/app" target="_blank">Try Free in Browser</a>
-      <a class="btn-secondary" href="/pro" style="border-color:rgba(167,139,250,0.4);color:#a78bfa;">🤖 Go Pro — $7.99/mo</a>
+      <a class="btn-secondary" href="/pro" style="border-color:rgba(74,222,154,0.4);color:#4ade9a;">🤖 Go Pro — $9.99/mo</a>
     </div>
   </div>
 
   <div class="stats">
     <div class="stat"><div class="stat-num">148</div><div class="stat-label">Compounds</div></div>
-    <div class="stat"><div class="stat-num">130+</div><div class="stat-label">Data Points</div></div>
+    <div class="stat"><div class="stat-num">29</div><div class="stat-label">Classifications</div></div>
     <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Lab Markers</div></div>
     <div class="stat"><div class="stat-num">11</div><div class="stat-label">Protocol Templates</div></div>
   </div>
@@ -122,46 +119,61 @@
   <div class="features">
     <h2>Everything you need in one app</h2>
     <div class="feature-grid">
+
+      <div class="feature-card accent">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Research Assistant</h3>
+        <p>Ask anything about your protocol, a compound, your labs, training, nutrition, or injury rehab. Gets full context from your logged data. Every answer is grounded in real research — PubMed citations, clinical references, and practitioner knowledge, clearly tiered by evidence quality. 145 questions/month included with Pro, or bring your own key for unlimited.</p>
+      </div>
+
       <div class="feature-card accent">
         <div class="feature-icon">🔬</div>
         <h3>AI Lab Scanner</h3>
-        <p>Take a photo of your lab report. Claude AI reads every value and fills in all 50+ fields automatically. Works with Quest, LabCorp, and most clinic formats.</p>
+        <p>Take a photo of your lab report. The AI reads every value and fills in all 50+ fields automatically. Works with Quest, LabCorp, and most clinic report formats. The AI then flags any values that are out of range or trending in the wrong direction — so you know what to ask your provider about.</p>
       </div>
-      <div class="feature-card">
+
+      <div class="feature-card accent2">
         <div class="feature-icon">📚</div>
         <h3>148-Compound Encyclopedia</h3>
-        <p>Research-backed reference for TRT, peptides, GLP-1, senolytics, thyroid hormones, longevity compounds, and more — each with dosing, stacking, and monitoring protocols.</p>
+        <p>Research-backed reference for TRT, peptides, GLP-1s, senolytics, thyroid hormones, longevity compounds, and more — 148 entries across 29 classifications. Each with mechanism, documented dosing ranges, half-life, side-effect profile, interactions, and required monitoring. The most comprehensive PED and peptide database available in an app.</p>
       </div>
+
       <div class="feature-card">
         <div class="feature-icon">🩺</div>
         <h3>Clinical Reports</h3>
-        <p>Generate a professional clinical summary with protocol, labs, blood pressure, adherence, and body composition — formatted for your physician appointment.</p>
+        <p>Generate a professional clinical summary covering your active protocol, recent labs, blood pressure history, adherence, and body composition — formatted for a physician appointment. Built for the conversation between patient and provider, not to replace it.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">💉</div>
-        <h3>Dose Calculator</h3>
-        <p>Reconstitution calculator, draw calculator with visual syringe diagram, and vial planner. Never miscalculate a peptide dose again.</p>
-      </div>
+
       <div class="feature-card">
         <div class="feature-icon">📊</div>
         <h3>Bloodwork Trends</h3>
-        <p>Track 50+ lab markers with age and sex-adjusted reference ranges. Visualize trends over time with color-coded optimal zones.</p>
+        <p>Track 50+ lab markers with age- and sex-adjusted reference ranges and color-coded optimal zones. Visualize trends over time so you can see how your protocol is affecting your panels. The AI uses this data to give personalized context when you ask about your labs.</p>
       </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💉</div>
+        <h3>Dose Calculator</h3>
+        <p>Full reconstitution calculator with visual syringe diagram. Enter your vial size, BAC water, and target dose — get the exact draw in units and mL. Includes vial planner, cost-per-injection math, and a supply tracker. Never miscalculate a peptide dose or run dry without warning.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏋️</div>
+        <h3>AI Training & Rehab Plans</h3>
+        <p>The AI builds training programs and injury-rehabilitation plans grounded in evidence-based methods — periodization, progressive loading, mobility work, return-to-training progressions. It knows your protocol and can factor compounds into your programming. Ask it to build a plan around your goals, equipment, and injury history.</p>
+      </div>
+
       <div class="feature-card">
         <div class="feature-icon">🌸</div>
-        <h3>Female Cycle Tracker</h3>
-        <p>Menstrual cycle tracking integrated with hormone protocol data. Phase guide with protocol timing recommendations. Automatically enabled for female users.</p>
+        <h3>Female Hormone Tracking</h3>
+        <p>Menstrual cycle tracking integrated with your hormone protocol data. Phase guide with protocol timing guidance for women on BHRT, GLP-1, peptides, or other protocols. Automatically enabled for female users. Symptom logging, body composition, and bloodwork all correlate with your cycle phase.</p>
       </div>
+
       <div class="feature-card">
         <div class="feature-icon">💊</div>
-        <h3>Smart Reminders</h3>
-        <p>Personalized dose reminders with injection site rotation guidance. Export to iPhone Calendar for native push notifications.</p>
+        <h3>Smart Dose Reminders</h3>
+        <p>Personalized dose reminders with injection site rotation guidance. Tracks your last injection site so you always know where to pin next. Export your protocol schedule to iPhone Calendar or Google Calendar for native push notifications on any device.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🤖</div>
-        <h3>AI Research Assistant</h3>
-        <p>Ask questions about your protocol, labs, or any compound. The AI has full context of your health data and responds with evidence-based guidance.</p>
-      </div>
+
     </div>
   </div>
 
@@ -174,46 +186,36 @@
       <div class="audience-pill">GLP-1 / Weight Loss</div>
       <div class="audience-pill">Longevity Focused</div>
       <div class="audience-pill">Female BHRT</div>
-      <div class="audience-pill">Athletes and Performers</div>
+      <div class="audience-pill">Athletes &amp; Performers</div>
       <div class="audience-pill">Anti-aging Medicine</div>
+      <div class="audience-pill">Clinics &amp; Practitioners</div>
     </div>
   </div>
-
 
   <!-- EMAIL CAPTURE -->
   <div class="email-section">
     <div class="email-inner">
       <div class="email-badge">Stay in the loop</div>
-      <h2 class="email-title">Get notified about new features,<br>compounds, and protocol updates</h2>
-      <p class="email-sub">Join the TherapyLog community. No spam — only meaningful updates when we launch new features or add new compounds to the encyclopedia.</p>
-
-      <form class="mc-form" action="https://app.us16.list-manage.com/subscribe/post?u=c833964d025114e8d7894562a&amp;id=077b4c0168&amp;f_id=0096c2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
-        <div class="mc-fields">
-          <input type="text" name="FNAME" placeholder="First name" class="mc-input mc-name">
-          <input type="email" name="EMAIL" placeholder="Email address" class="mc-input mc-email" required>
-        </div>
-        <!-- Mailchimp honeypot anti-bot field - do not remove -->
-        <div style="position:absolute;left:-5000px" aria-hidden="true">
-          <input type="text" name="b_c833964d025114e8d7894562a_077b4c0168" tabindex="-1" value="">
-        </div>
-        <button type="submit" class="mc-btn" id="mc-subscribe-btn">
-          <span class="mc-btn-text">Notify Me</span>
-          <span class="mc-btn-icon">→</span>
-        </button>
-        <div class="mc-success" id="mc-success" style="display:none">
-          ✓ You're on the list — we'll be in touch!
-        </div>
-        <div class="mc-error" id="mc-error" style="display:none"></div>
-        <p class="mc-legal">No spam, ever. Unsubscribe anytime.</p>
-      </form>
+      <h2 class="email-title">Get notified about new features,<br>compounds &amp; the app launch</h2>
+      <p class="email-sub">Join the TherapyLog community. We'll notify you when the iOS and Android apps go live, and send occasional updates when we add new compounds or launch new features. No spam — unsubscribe anytime.</p>
+      <div class="nl-fields">
+        <input type="email" id="nl-email" placeholder="Email address" class="nl-input" autocomplete="email" required>
+      </div>
+      <button class="nl-btn" id="nl-btn" onclick="nlSubmit()">
+        <span id="nl-btn-text">Notify Me</span>
+        <span>→</span>
+      </button>
+      <div class="nl-success" id="nl-success">✓ You're on the list — we'll be in touch!</div>
+      <div class="nl-error" id="nl-error"></div>
+      <p class="nl-legal">No spam, ever. Unsubscribe anytime.</p>
     </div>
   </div>
 
   <div class="cta">
     <h2>Start tracking your health journey</h2>
-    <p>Free to download. No account required. Your data stays on your device.</p>
+    <p>Free to use in any browser. No account required. Your data stays on your device.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a class="btn-primary" href="/download">Download TherapyLog</a>
+      <a class="btn-primary" href="/download">Get TherapyLog</a>
       <a class="btn-secondary" href="/app" target="_blank">Try Free in Browser</a>
     </div>
   </div>
@@ -222,14 +224,13 @@
     TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol. The information in this app is for educational purposes only.
   </div>
 
-  
   <!-- PRICING -->
-  <section style="padding:80px 24px;max-width:960px;margin:0 auto;text-align:center;">
+  <section style="padding:80px 24px;max-width:1020px;margin:0 auto;text-align:center;">
     <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4ade9a;margin-bottom:12px">Simple Pricing</div>
     <h2 style="font-family:Georgia,serif;font-size:38px;font-weight:700;color:#fff;margin-bottom:12px">Free to start. <span style="color:#4ade9a;font-style:italic">Pro when you're ready.</span></h2>
-    <p style="font-size:16px;color:#8a95a3;max-width:520px;margin:0 auto 48px;line-height:1.7">Every tracking feature is free. Upgrade to Pro to unlock the AI tools — the lab scanner and research assistant that works with your own health data.</p>
+    <p style="font-size:16px;color:#8a95a3;max-width:560px;margin:0 auto 48px;line-height:1.7">Every tracking feature is free. Upgrade to unlock AI tools — the research assistant and lab scanner that works with your own health data.</p>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:860px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:940px;margin:0 auto;">
 
       <!-- Free -->
       <div style="background:#111418;border:1px solid #1a2030;border-radius:16px;padding:28px;text-align:left;">
@@ -239,39 +240,56 @@
         <ul style="list-style:none;margin-bottom:24px;">
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>148-compound encyclopedia</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Injection &amp; dose logging</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Bloodwork tracking (50+ markers)</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Dose reminders + calendar export</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Body composition &amp; progress photos</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Body &amp; weight tracking</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Dose calculator + syringe diagram</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Works in any browser — no download</li>
         </ul>
         <a href="/app" target="_blank" style="display:block;text-align:center;padding:12px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;background:transparent;border:1px solid #1a2030;color:#8a95a3;">Try Free in Browser</a>
       </div>
 
-      <!-- Pro -->
+      <!-- Pro Managed -->
       <div style="background:linear-gradient(160deg,rgba(74,222,154,0.06),#111418 60%);border:1px solid rgba(74,222,154,0.4);border-radius:16px;padding:28px;text-align:left;position:relative;">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#4ade9a;color:#0a0c0f;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap;">Most Popular</div>
-        <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4a5568;margin-bottom:10px">Pro</div>
-        <div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#fff;margin-bottom:4px">$7.99<span style="font-size:18px;color:#4a5568;font-weight:400">/mo</span></div>
-        <div style="font-size:13px;color:#4ade9a;margin-bottom:20px;font-weight:600">or $59.99/year — save 37%</div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4a5568;margin-bottom:10px">Pro — Managed AI</div>
+        <div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#fff;margin-bottom:4px">$9.99<span style="font-size:18px;color:#4a5568;font-weight:400">/mo</span></div>
+        <div style="font-size:13px;color:#4ade9a;margin-bottom:20px;font-weight:600">or $99.99/yr — save 17%</div>
         <ul style="list-style:none;margin-bottom:24px;">
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Everything in Free</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#a78bfa;font-weight:700">🤖</span>AI lab scanner — photo to auto-fill</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#a78bfa;font-weight:700">🤖</span>AI research assistant</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#a78bfa;font-weight:700">🏋️</span>AI training &amp; goal programming</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;display:flex;align-items:center;gap:8px;"><span style="color:#a78bfa;font-weight:700">🩹</span>Injury-aware exercise plans</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">🤖</span>AI research assistant — 145 questions/mo</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">🔬</span>AI lab scanner — photo to auto-fill</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Full bloodwork tracking &amp; trends</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Clinical reports + all tracking features</li>
         </ul>
-        <a href="/pro" style="display:block;text-align:center;padding:12px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;background:#4ade9a;color:#0a0c0f;">Get Pro — $7.99/mo</a>
+        <a href="/pro" style="display:block;text-align:center;padding:12px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;background:#4ade9a;color:#0a0c0f;">Get Pro — $9.99/mo</a>
+      </div>
+
+      <!-- BYOK -->
+      <div style="background:linear-gradient(160deg,rgba(45,212,191,0.06),#111418 60%);border:1px solid rgba(45,212,191,0.3);border-radius:16px;padding:28px;text-align:left;position:relative;">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#2dd4bf;color:#0a0c0f;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap;">Best Value</div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4a5568;margin-bottom:10px">BYOK — Unlimited AI</div>
+        <div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#fff;margin-bottom:4px">$8.99<span style="font-size:18px;color:#4a5568;font-weight:400">/mo</span></div>
+        <div style="font-size:13px;color:#2dd4bf;margin-bottom:20px;font-weight:600">or $89.99/yr — save 17%</div>
+        <ul style="list-style:none;margin-bottom:24px;">
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#2dd4bf;font-weight:700">✓</span>Everything in Pro</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#2dd4bf;font-weight:700">∞</span><strong>Unlimited AI</strong> — no monthly question cap</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#2dd4bf;font-weight:700">🔑</span>Uses your own Anthropic API key</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;"><span style="color:#2dd4bf;font-weight:700">✓</span>Web &amp; Android — cancel anytime</li>
+          <li style="font-size:13px;color:#8a95a3;padding:6px 0;display:flex;align-items:center;gap:8px;"><span style="color:#4a5568;font-weight:700">—</span>Not available on App Store</li>
+        </ul>
+        <a href="/pro" style="display:block;text-align:center;padding:12px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;background:#2dd4bf;color:#0a0c0f;">Get BYOK — $8.99/mo</a>
       </div>
 
       <!-- Android APK -->
       <div style="background:#111418;border:1px solid #1a2030;border-radius:16px;padding:28px;text-align:left;">
         <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4a5568;margin-bottom:10px">Android One-Time</div>
         <div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#fff;margin-bottom:4px">$34.99<span style="font-size:18px;color:#4a5568;font-weight:400"> once</span></div>
-        <div style="font-size:13px;color:#8a95a3;margin-bottom:20px">Lifetime access · AI available as add-on</div>
+        <div style="font-size:13px;color:#8a95a3;margin-bottom:20px">Lifetime access · no subscription</div>
         <ul style="list-style:none;margin-bottom:24px;">
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>All tracking features — lifetime</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>148-compound encyclopedia</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>No Google account required</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;display:flex;align-items:center;gap:8px;"><span style="color:#a78bfa;font-weight:700">+</span>Add Pro AI anytime ($7.99/mo)</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Email updates with new versions</li>
+          <li style="font-size:13px;color:#8a95a3;padding:6px 0;display:flex;align-items:center;gap:8px;"><span style="color:#4a5568;font-weight:700">—</span>No AI features included</li>
         </ul>
         <a href="/download" style="display:block;text-align:center;padding:12px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;background:transparent;border:1px solid #1a2030;color:#8a95a3;">Get Android APK</a>
       </div>
@@ -279,56 +297,66 @@
     </div>
   </section>
 
-<footer>
+  <footer>
     <div class="logo">Therapy<span>Log</span></div>
     <div class="footer-links">
       <a href="/support">Support</a>
       <a href="/privacy">Privacy Policy</a>
-      <a href="mailto:feedback@therapylog.app">Contact</a>
+      <a href="mailto:hello@therapylog.app">Contact</a>
     </div>
   </footer>
 
-<script>
-    // Mailchimp AJAX submission — stays on page, no redirect
-    document.getElementById('mc-embedded-subscribe-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('mc-subscribe-btn');
-      const success = document.getElementById('mc-success');
-      const error = document.getElementById('mc-error');
-      const email = this.querySelector('input[name="EMAIL"]').value.trim();
+  <script>
+    var NOTIFY_ENDPOINT = "https://api.therapylog.app/api/launch-notify";
 
-      if (!email || !email.includes('@')) {
-        error.textContent = 'Please enter a valid email address.';
-        error.style.display = 'block';
+    function nlSubmit() {
+      var email = (document.getElementById("nl-email").value || "").trim();
+      var btn   = document.getElementById("nl-btn");
+      var txt   = document.getElementById("nl-btn-text");
+      var succ  = document.getElementById("nl-success");
+      var err   = document.getElementById("nl-error");
+
+      succ.style.display = "none";
+      err.style.display  = "none";
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        err.textContent = "Please enter a valid email address.";
+        err.style.display = "block";
         return;
       }
 
       btn.disabled = true;
-      btn.querySelector('.mc-btn-text').textContent = 'Subscribing...';
-      error.style.display = 'none';
-      success.style.display = 'none';
+      txt.textContent = "Subscribing…";
 
-      // Use JSONP for cross-origin Mailchimp submission
-      const url = this.action.replace('/post?', '/post-json?') + '&c=mcCallback';
-      const script = document.createElement('script');
-      script.src = url + '&EMAIL=' + encodeURIComponent(email) +
-        '&FNAME=' + encodeURIComponent(this.querySelector('input[name="FNAME"]').value.trim());
-
-      window.mcCallback = function(data) {
-        script.remove();
-        delete window.mcCallback;
+      fetch(NOTIFY_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, source: "landing_page" })
+      })
+      .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+      .then(function(r){
         btn.disabled = false;
-        btn.querySelector('.mc-btn-text').textContent = 'Notify Me';
-        if (data.result === 'success') {
-          success.style.display = 'block';
-          document.getElementById('mc-embedded-subscribe-form').reset();
+        txt.textContent = "Notify Me";
+        if (r.ok && r.d && r.d.ok) {
+          succ.style.display = "block";
+          document.getElementById("nl-email").value = "";
         } else {
-          error.textContent = data.msg.replace(/<[^>]*>/g, '').replace('0 - ', '');
-          error.style.display = 'block';
+          err.textContent = (r.d && r.d.error) ? r.d.error : "Something went wrong. Please try again.";
+          err.style.display = "block";
         }
-      };
-      document.head.appendChild(script);
+      })
+      .catch(function(){
+        btn.disabled = false;
+        txt.textContent = "Notify Me";
+        err.textContent = "Connection error. Please try again.";
+        err.style.display = "block";
+      });
+    }
+
+    // Allow Enter key in email field
+    document.getElementById("nl-email").addEventListener("keydown", function(e){
+      if (e.key === "Enter") nlSubmit();
     });
-</script>
+  </script>
 </body>
 </html>
