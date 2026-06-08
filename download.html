@@ -1,225 +1,461 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download TherapyLog</title>
-  <script src="https://js.stripe.com/v3/"></script>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { background:#0a0c0f !important; background-color:#0a0c0f !important; }
-    body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#0a0c0f; color:#e8edf5; min-height:100vh; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Get TherapyLog — Plans & Pricing</title>
+<meta name="description" content="Choose how you use TherapyLog. Free forever, Pro with AI, unlimited BYOK, or a one-time Android purchase. No account required to get started.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c0f;
+  --s1: #111418;
+  --s2: #181c22;
+  --s3: #1e242d;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --accent: #4ade9a;
+  --accent2: #3bc4ff;
+  --accent3: #2dd4bf;
+  --warn: #fb923c;
+  --text: #e8edf5;
+  --text2: #8a95a3;
+  --text3: #4a5568;
+  --danger: #f87171;
+  --st: env(safe-area-inset-top,0px);
+  --sb: env(safe-area-inset-bottom,0px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-    /* Nav */
-    nav { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); }
-    .logo { font-size:22px; font-weight:700; color:#fff; font-family:Georgia,serif; text-decoration:none; }
-    .logo span { color:#4ade9a; font-style:italic; }
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-    /* Hero */
-    .hero { text-align:center; padding:60px 24px 40px; }
-    .hero h1 { font-size:32px; font-weight:800; font-family:Georgia,serif; margin-bottom:10px; }
-    .hero h1 span { color:#4ade9a; font-style:italic; }
-    .hero p { font-size:16px; color:#8a95a3; max-width:480px; margin:0 auto; }
+/* Ambient background glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 10%, rgba(74,222,154,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 80%, rgba(59,196,255,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(45,212,191,0.03) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
 
-    /* Pricing grid */
-    .pricing { max-width:900px; margin:0 auto; padding:20px 20px 60px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: calc(var(--st) + 48px) 20px calc(var(--sb) + 64px);
+}
 
-    .plan { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:28px 24px; display:flex; flex-direction:column; position:relative; transition:transform 0.2s; }
-    .plan:hover { transform:translateY(-3px); }
-    .plan.featured { border-color:rgba(74,222,154,0.4); background:rgba(74,222,154,0.04); }
-    .plan.android { border-color:rgba(59,196,255,0.3); background:rgba(59,196,255,0.03); }
-    .plan.direct { border-color:rgba(167,139,250,0.3); background:rgba(167,139,250,0.03); }
+/* ── Header ── */
+.brand {
+  font-family: "DM Serif Display", serif;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 6px;
+}
+.brand span { color: var(--accent); font-style: italic; }
+h1 {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(28px, 5vw, 42px);
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin: 8px 0 10px;
+  line-height: 1.1;
+}
+.sub {
+  text-align: center;
+  color: var(--text2);
+  font-size: 15px;
+  max-width: 480px;
+  margin: 0 auto 48px;
+  line-height: 1.6;
+}
 
-    .badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#4ade9a; color:#0a0c0f; font-size:11px; font-weight:800; padding:4px 14px; border-radius:20px; letter-spacing:0.06em; text-transform:uppercase; white-space:nowrap; }
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+}
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
 
-    .plan-icon { font-size:32px; margin-bottom:12px; }
-    .plan-name { font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8a95a3; margin-bottom:6px; }
-    .plan-price { font-family:Georgia,serif; font-size:42px; font-weight:800; line-height:1; margin-bottom:4px; }
-    .plan-price .currency { font-size:22px; vertical-align:top; margin-top:6px; display:inline-block; }
-    .plan-price .period { font-size:14px; font-weight:400; color:#8a95a3; font-family:-apple-system,sans-serif; }
-    .plan-alt { font-size:12px; color:#4ade9a; margin-bottom:16px; font-weight:600; }
-    .plan-desc { font-size:13px; color:#8a95a3; line-height:1.6; margin-bottom:20px; flex:1; }
+/* ── Cards ── */
+.card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 26px 22px 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.18s;
+}
+.card:hover { transform: translateY(-2px); }
+.card.featured { border-color: rgba(74,222,154,0.35); }
+.card.byok-card { border-color: rgba(45,212,191,0.25); }
 
-    .features-list { list-style:none; margin-bottom:24px; }
-    .features-list li { font-size:13px; color:#c8d0db; padding:5px 0; display:flex; align-items:flex-start; gap:8px; line-height:1.4; }
-    .features-list li::before { content:'✓'; color:#4ade9a; font-weight:700; flex-shrink:0; margin-top:1px; }
-    .features-list li.muted { color:#4a5568; }
-    .features-list li.muted::before { content:'–'; color:#4a5568; }
+/* badge */
+.badge {
+  position: absolute;
+  top: -12px;
+  left: 22px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.badge-green  { background: var(--accent);  color: #0a0c0f; }
+.badge-teal   { background: var(--accent3); color: #0a0c0f; }
+.badge-orange { background: var(--warn);    color: #0a0c0f; }
 
-    .plan-btn { display:block; text-align:center; padding:14px 20px; border-radius:12px; font-weight:700; font-size:15px; text-decoration:none; cursor:pointer; border:none; font-family:-apple-system,sans-serif; transition:all 0.2s; }
-    .btn-green { background:#4ade9a; color:#0a0c0f; }
-    .btn-green:hover { background:#22c55e; }
-    .btn-blue { background:rgba(59,196,255,0.15); color:#3bc4ff; border:1px solid rgba(59,196,255,0.3); }
-    .btn-blue:hover { background:rgba(59,196,255,0.25); }
-    .btn-purple { background:rgba(167,139,250,0.15); color:#a78bfa; border:1px solid rgba(167,139,250,0.3); }
-    .btn-purple:hover { background:rgba(167,139,250,0.25); }
+/* tier name */
+.tier-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+.tier-name {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 10px;
+}
 
-    /* Stripe form */
-    .stripe-form { display:none; margin-top:16px; }
-    .stripe-form.visible { display:block; }
-    .form-row { margin-bottom:12px; }
-    .form-label { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#8a95a3; margin-bottom:6px; display:block; }
-    .stripe-element { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:12px 14px; }
-    .stripe-element.focused { border-color:rgba(74,222,154,0.5); }
-    #card-errors { color:#f87171; font-size:12px; margin-top:6px; min-height:18px; }
-    .pay-btn { width:100%; margin-top:4px; }
-    .pay-btn:disabled { opacity:0.6; cursor:not-allowed; }
-    .secure-note { font-size:11px; color:#4a5568; text-align:center; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:5px; }
+/* price */
+.price {
+  font-family: "DM Serif Display", serif;
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 2px;
+  letter-spacing: -0.02em;
+}
+.price .per {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text2);
+  letter-spacing: 0;
+}
+.price-note {
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 4px;
+  min-height: 16px;
+}
+.price-sub {
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 20px;
+  min-height: 16px;
+}
 
-    /* Success */
-    .success-msg { display:none; text-align:center; padding:20px; background:rgba(74,222,154,0.08); border:1px solid rgba(74,222,154,0.25); border-radius:12px; margin-top:16px; }
-    .success-msg h3 { color:#4ade9a; margin-bottom:8px; font-size:16px; }
-    .success-msg p { font-size:13px; color:#8a95a3; line-height:1.6; }
-    .download-link { display:inline-block; margin-top:12px; background:#4ade9a; color:#0a0c0f; padding:10px 20px; border-radius:10px; font-weight:700; text-decoration:none; font-size:14px; }
+/* features */
+.feats {
+  list-style: none;
+  flex: 1;
+  margin-bottom: 22px;
+}
+.feats li {
+  font-size: 12.5px;
+  color: var(--text);
+  padding: 5px 0 5px 22px;
+  position: relative;
+  line-height: 1.45;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.feats li:last-child { border-bottom: none; }
+.feats li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 13px;
+  height: 13px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ade9a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.feats li.no {
+  color: var(--text3);
+}
+.feats li.no::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+}
+.feats li strong { color: var(--text); font-weight: 600; }
 
-    /* FAQ */
-    .faq-section { max-width:680px; margin:0 auto; padding:0 24px 60px; }
-    .faq-section h2 { font-size:22px; font-weight:700; font-family:Georgia,serif; margin-bottom:20px; text-align:center; }
-    .faq-item { border-bottom:1px solid rgba(255,255,255,0.06); padding:16px 0; }
-    .faq-q { font-size:14px; font-weight:600; margin-bottom:6px; }
-    .faq-a { font-size:13px; color:#8a95a3; line-height:1.6; }
+/* buttons */
+.btn {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: none;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  transition: opacity 0.15s, transform 0.12s;
+  letter-spacing: 0.01em;
+}
+.btn:active { transform: scale(0.98); }
+.btn-green  { background: var(--accent);  color: #0a0c0f; }
+.btn-teal   { background: var(--accent3); color: #0a0c0f; }
+.btn-ghost  { background: var(--s3); color: var(--text); }
+.btn-outline {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border2);
+}
+.btn-disabled {
+  background: var(--s2);
+  color: var(--text3);
+  cursor: default;
+  border: 1px solid var(--border);
+}
+.btn + .btn { margin-top: 8px; }
 
-    /* Footer */
-    .footer { text-align:center; padding:30px 24px; border-top:1px solid rgba(255,255,255,0.06); font-size:13px; color:#4a5568; }
-    .footer a { color:#4a5568; text-decoration:none; margin:0 10px; }
+/* coming soon badge on button */
+.btn-soon {
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  color: var(--text3);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: default;
+}
 
+/* notify inline */
+.notify-inline {
+  margin-top: 8px;
+  display: flex;
+  gap: 6px;
+}
+.notify-inline input {
+  flex: 1;
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  border-radius: 9px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: "DM Sans", sans-serif;
+  padding: 10px 12px;
+  min-width: 0;
+}
+.notify-inline input::placeholder { color: var(--text3); }
+.notify-inline input:focus { outline: none; border-color: rgba(74,222,154,0.4); }
+.notify-inline button {
+  background: var(--s3);
+  border: 1px solid var(--border2);
+  border-radius: 9px;
+  color: var(--text);
+  font-size: 12px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  padding: 10px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.notify-inline button:hover { background: rgba(74,222,154,0.12); }
+.notify-msg { font-size: 11px; color: var(--accent); margin-top: 6px; min-height: 14px; }
 
-    .plan.free { border-color:rgba(167,139,250,0.35); background:rgba(167,139,250,0.06); }
-    .btn-free { background:rgba(167,139,250,0.15); color:#a78bfa; border:1px solid rgba(167,139,250,0.3); }
-    .btn-free:hover { background:rgba(167,139,250,0.25); }
+/* ── Comparison note ── */
+.compare-note {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.compare-note strong { color: var(--text); font-weight: 600; }
 
-    @media(max-width:600px) {
-      .plan-price { font-size:36px; }
-      .hero h1 { font-size:26px; }
-    }
-
-    /* EMAIL CAPTURE */
-    .email-section { background:linear-gradient(135deg,rgba(74,222,154,0.06) 0%,rgba(59,196,255,0.04) 100%); border-top:1px solid rgba(74,222,154,0.12); border-bottom:1px solid rgba(74,222,154,0.12); padding:60px 24px; }
-    .email-inner { max-width:560px; margin:0 auto; text-align:center; }
-    .email-badge { display:inline-block; background:rgba(74,222,154,0.15); border:1px solid rgba(74,222,154,0.3); color:#4ade9a; padding:5px 14px; border-radius:20px; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
-    .email-title { font-size:26px; font-weight:700; font-family:Georgia,serif; line-height:1.3; margin-bottom:12px; }
-    .email-sub { font-size:15px; color:#8a95a3; line-height:1.6; margin-bottom:28px; max-width:440px; margin-left:auto; margin-right:auto; }
-    .mc-form { position:relative; }
-    .mc-fields { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
-    .mc-input { flex:1; min-width:160px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:14px 16px; color:#e8edf5; font-size:15px; font-family:-apple-system,sans-serif; outline:none; transition:border-color 0.2s; }
-    .mc-input:focus { border-color:rgba(74,222,154,0.5); }
-    .mc-input::placeholder { color:#4a5568; }
-    .mc-btn { width:100%; background:#4ade9a; color:#0a0c0f; border:none; border-radius:12px; padding:15px 24px; font-size:16px; font-weight:700; cursor:pointer; font-family:-apple-system,sans-serif; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; }
-    .mc-btn:hover { background:#22c55e; transform:translateY(-1px); }
-    .mc-btn:active { transform:translateY(0); }
-    .mc-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-    .mc-btn-icon { font-size:18px; transition:transform 0.2s; }
-    .mc-btn:hover .mc-btn-icon { transform:translateX(3px); }
-    .mc-success { background:rgba(74,222,154,0.1); border:1px solid rgba(74,222,154,0.3); color:#4ade9a; border-radius:10px; padding:12px 16px; font-size:14px; font-weight:600; margin-top:10px; }
-    .mc-error { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); color:#f87171; border-radius:10px; padding:12px 16px; font-size:13px; margin-top:10px; }
-    .mc-legal { font-size:11px; color:#4a5568; margin-top:10px; }
-
-  </style>
+/* ── Footer ── */
+.foot {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 36px;
+  line-height: 1.9;
+}
+.foot a { color: var(--text2); text-decoration: none; }
+.foot a:hover { color: var(--text); }
+</style>
 </head>
-<body style="background:#0a0c0f;background-color:#0a0c0f;color:#e8edf5;">
+<body>
+<div class="wrap">
 
-<nav>
-  <a class="logo" href="/">Therapy<span>Log</span></a>
-</nav>
+  <div class="brand">Therapy<span>Log</span></div>
+  <h1>Choose your plan</h1>
+  <p class="sub">Start free in any browser — no download, no account. Upgrade whenever you're ready.</p>
 
-<div class="hero">
-  <h1>Choose your <span>plan</span></h1>
-  <p>All plans include the full TherapyLog experience. Pick the option that works best for you.</p>
-</div>
+  <div class="grid">
 
-<div class="pricing">
-
-
-  <!-- Free Tier -->
-  <div class="plan free">
-    <div class="plan-icon">🌐</div>
-    <div class="plan-name">Free Forever</div>
-    <div class="plan-price"><span class="currency">$</span>0<span class="period"> free</span></div>
-    <div class="plan-alt">No download required · Works in any browser</div>
-    <div class="plan-desc">Try TherapyLog instantly in your browser. No account, no download, no credit card. Core features free forever.</div>
-    <ul class="features-list">
-      <li>148-compound encyclopedia</li>
-      <li>Injection and medication logging</li>
-      <li>Body and weight tracking</li>
-      <li>Dose calculator with syringe diagram</li>
-      <li>Works on any device</li>
-      <li class="muted">No bloodwork tracking</li>
-      <li class="muted">No clinical reports</li>
-      <li class="muted">No AI features</li>
-      <li class="muted">No symptom logging</li>
-    </ul>
-    <a class="plan-btn btn-free" href="/app" target="_blank">Open Free Web App →</a>
-  </div>
-
-  <!-- iOS + Android App Store (Combined) -->
-  <div class="plan featured">
-    <div class="badge">Most Popular</div>
-    <div class="plan-icon" style="display:flex;gap:12px;justify-content:center;font-size:36px;">🍎🤖</div>
-    <div class="plan-name">iOS &amp; Android — App Store</div>
-    <div class="plan-price"><span class="currency">$</span>7.99<span class="period">/month</span></div>
-    <div class="plan-alt">or $59.99/year — save 37%</div>
-    <div class="plan-desc">Full TherapyLog Pro on iPhone, iPad, and Android. All features including AI lab scanner, bloodwork trends, and clinical reports. Automatic updates included.</div>
-    <ul class="features-list">
-      <li>148-compound encyclopedia</li>
-      <li>AI lab scanner — photo to auto-fill</li>
-      <li>AI research assistant</li>
-      <li>Full bloodwork tracking (50+ markers)</li>
-      <li>Blood pressure and cycle tracking</li>
-      <li>Clinical reports and clinic mode</li>
-      <li>Apple Health &amp; Google Fit integration</li>
-      <li>Automatic updates</li>
-      <li>Cancel anytime</li>
-    </ul>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <a class="plan-btn btn-green" href="https://apps.apple.com/app/therapylog/id6776446116" target="_blank">
-        🍎 Download on the App Store
-      </a>
-      <a class="plan-btn" href="https://play.google.com/store/apps/details?id=com.therapylog.app" target="_blank"
-         style="background:rgba(59,196,255,0.12);color:#3bc4ff;border:1px solid rgba(59,196,255,0.3);">
-        🤖 Get it on Google Play
-      </a>
+    <!-- FREE -->
+    <div class="card">
+      <span class="tier-icon">🌐</span>
+      <div class="tier-name">Free Forever</div>
+      <div class="price">$0<span class="per"></span></div>
+      <div class="price-note"></div>
+      <div class="price-sub">No account required</div>
+      <ul class="feats">
+        <li>Works in any browser — no download</li>
+        <li>Protocol &amp; injection logging</li>
+        <li>Body and weight tracking</li>
+        <li>Dose calculator + syringe diagram</li>
+        <li>148-compound encyclopedia</li>
+        <li class="no">No bloodwork tracking</li>
+        <li class="no">No AI research assistant</li>
+        <li class="no">No clinical reports</li>
+      </ul>
+      <a href="https://therapylog.app/app" class="btn btn-ghost">Launch the free app →</a>
     </div>
-  </div>
 
-  <!-- Android Direct Download -->
-  <div class="plan apk">
-    <div class="plan-icon">📦</div>
-    <div class="plan-name">Android — Direct Download</div>
-    <div class="plan-price"><span class="currency">$</span>34.99<span class="period"> once</span></div>
-    <div class="plan-alt">Lifetime access — no subscription</div>
-    <div class="plan-desc">One-time purchase for Android. Full features except AI tools. No Google account required. Manual updates via email when new versions release.</div>
-    <ul class="features-list">
-      <li>148-compound encyclopedia</li>
-      <li>Full bloodwork tracking (50+ markers)</li>
-      <li>Blood pressure and cycle tracking</li>
-      <li>Symptom and side effect logging</li>
-      <li>Dose calculator and reminders</li>
-      <li>Clinical reports and clinic mode</li>
-      <li>Refill tracker and progress photos</li>
-      <li>Lifetime access — pay once</li>
-      <li>Email updates when new versions release</li>
-      <li class="muted">No AI lab scanner</li>
-      <li class="muted">No AI research assistant</li>
-      <li class="muted">Manual installation required</li>
-    </ul>
-    <button class="plan-btn btn-purple" onclick="toggleStripeForm()">Buy Now — $34.99</button>
-    <div class="stripe-form" id="stripe-form" style="display:none;">
-      <div class="stripe-field">
-        <label>Email address</label>
-        <input type="email" id="customer-email" placeholder="you@email.com">
-      </div>
-      <div id="card-element" class="stripe-input"></div>
-      <div id="card-errors" style="color:#ef4444;font-size:12px;margin-top:6px;"></div>
-      <button class="pay-btn" id="pay-btn" onclick="handlePayment()">Pay $34.99 — Get Download Link</button>
+    <!-- PRO MANAGED -->
+    <div class="card featured">
+      <span class="badge badge-green">Most popular</span>
+      <span class="tier-icon">🤖</span>
+      <div class="tier-name">Pro — Managed AI</div>
+      <div class="price">$9.99<span class="per">/mo</span></div>
+      <div class="price-note">or $99.99/yr — save 17%</div>
+      <div class="price-sub">Web subscription · Stripe · cancel anytime</div>
+      <ul class="feats">
+        <li><strong>AI research assistant</strong> — 145 questions/month</li>
+        <li>AI lab scanner — photo to auto-fill bloodwork</li>
+        <li>Full bloodwork tracking (50+ markers)</li>
+        <li>Blood pressure and cycle tracking</li>
+        <li>Clinical reports and clinic mode</li>
+        <li>Symptom and side-effect logging</li>
+        <li>Automatic updates included</li>
+        <li>No API key needed</li>
+      </ul>
+      <a href="https://therapylog.app/pro" class="btn btn-green">Get Pro — subscribe now</a>
     </div>
+
+    <!-- BYOK -->
+    <div class="card byok-card">
+      <span class="badge badge-teal">Best value</span>
+      <span class="tier-icon">🔑</span>
+      <div class="tier-name">BYOK — Unlimited AI</div>
+      <div class="price">$8.99<span class="per">/mo</span></div>
+      <div class="price-note">or $89.99/yr — save 17%</div>
+      <div class="price-sub">Web &amp; Android only · cancel anytime</div>
+      <ul class="feats">
+        <li><strong>Unlimited AI</strong> — no monthly question cap</li>
+        <li>AI lab scanner &amp; full clinical tools</li>
+        <li>Full bloodwork tracking (50+ markers)</li>
+        <li>Blood pressure and cycle tracking</li>
+        <li>Clinical reports and clinic mode</li>
+        <li>Symptom and side-effect logging</li>
+        <li>Uses your own Anthropic API key</li>
+        <li class="no">Not available on App Store</li>
+      </ul>
+      <a href="https://therapylog.app/pro" class="btn btn-teal">Get BYOK — subscribe now</a>
+    </div>
+
+    <!-- ANDROID APK -->
+    <div class="card">
+      <span class="badge badge-orange">Android only</span>
+      <span class="tier-icon">📦</span>
+      <div class="tier-name">Android — Direct Download</div>
+      <div class="price">$34.99<span class="per"> once</span></div>
+      <div class="price-note">Lifetime access — no subscription</div>
+      <div class="price-sub">One-time purchase · manual updates via email</div>
+      <ul class="feats">
+        <li>Native Android app — installs to home screen</li>
+        <li>Full tracking suite — all 50+ lab markers</li>
+        <li>148-compound encyclopedia</li>
+        <li>Blood pressure and cycle tracking</li>
+        <li>Clinical reports and clinic mode</li>
+        <li>Refill tracker and progress photos</li>
+        <li>Lifetime access — pay once</li>
+        <li class="no">No AI assistant or lab scanner</li>
+      </ul>
+      <a href="https://drive.google.com/uc?export=download&id=1bZNvrzWfHqwvy252rFnqSZroE5fAfhBG" class="btn btn-outline">Download Android APK</a>
+    </div>
+
   </div>
 
+  <!-- App Store coming soon -->
+  <div class="compare-note">
+    <strong>iOS App Store &amp; Google Play — coming very soon.</strong>
+    The native apps are in review and launching shortly. The managed Pro plan ($9.99/mo) will be available in both stores. You can subscribe on the web right now and your access carries over when the apps launch. Leave your email below and we'll notify you the moment they're live.
+    <div class="notify-inline" style="margin-top:12px">
+      <input type="email" id="notify-email" placeholder="your@email.com" autocomplete="email">
+      <button id="notify-btn" onclick="notifyMe()">Notify me</button>
+    </div>
+    <div class="notify-msg" id="notify-msg"></div>
+  </div>
+
+  <div class="foot">
+    Web subscriptions are processed securely by Stripe · Cancel anytime<br>
+    <a href="https://therapylog.app">Home</a> ·
+    <a href="https://therapylog.app/pro">Subscription page</a> ·
+    <a href="https://therapylog.app/privacy">Privacy</a> ·
+    <a href="https://therapylog.app/support">Support</a> ·
+    <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+  </div>
 </div>
 
-<!-- footer -->
-<div style="text-align:center;padding:40px 24px;border-top:1px solid rgba(255,255,255,0.06);">
-  <p style="font-size:12px;color:#2a3040;">© 2026 TherapyLog · <a href="/privacy" style="color:#4a5568;text-decoration:none;">Privacy</a> · <a href="/support" style="color:#4a5568;text-decoration:none;">Support</a></p>
-</div>
+<script>
+var NOTIFY_ENDPOINT = "https://api.therapylog.app/api/launch-notify";
 
+function notifyMe() {
+  var input = document.getElementById("notify-email");
+  var btn   = document.getElementById("notify-btn");
+  var msg   = document.getElementById("notify-msg");
+  var email = (input.value || "").trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.style.color = "#f87171";
+    msg.textContent = "Please enter a valid email address.";
+    return;
+  }
+  btn.disabled = true;
+  var orig = btn.textContent;
+  btn.textContent = "…";
+  fetch(NOTIFY_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, source: "download_page" })
+  })
+  .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+  .then(function(r){
+    if (r.ok && r.d && r.d.ok) {
+      msg.style.color = "#4ade9a";
+      msg.textContent = r.d.already
+        ? "You're already on the list — we'll be in touch."
+        : "You're on the list. We'll email you when the apps launch.";
+      input.value = "";
+    } else {
+      msg.style.color = "#f87171";
+      msg.textContent = (r.d && r.d.error) ? r.d.error : "Something went wrong. Please try again.";
+    }
+  })
+  .catch(function(){
+    msg.style.color = "#f87171";
+    msg.textContent = "Connection error. Please try again.";
+  })
+  .finally(function(){ btn.disabled = false; btn.textContent = orig; });
+}
+</script>
 </body>
 </html>
