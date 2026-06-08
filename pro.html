@@ -1,86 +1,281 @@
-// api/launch-notify.js
-// ============================================================
-//  TherapyLog launch-notify capture  →  api.therapylog.app/api/launch-notify
-// ============================================================
-//  Accepts an email from the "notify me at launch" / newsletter signup
-//  and adds it as a contact in a Resend audience. Used for the launch
-//  waitlist and the monthly newsletter list.
-//
-//  Vercel env vars:
-//    RESEND_API_KEY        (required — from resend.com/api-keys)
-//    RESEND_AUDIENCE_ID    (required — the audience to add contacts to)
-// ------------------------------------------------------------
-
-function setCors(res, origin) {
-  res.setHeader("Access-Control-Allow-Origin", origin);
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>TherapyLog Pro — Choose Your Plan</title>
+<meta name="description" content="Unlock the TherapyLog AI research assistant, lab scanner, and clinical tools. Choose managed AI or bring your own key.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --accent:#4ade9a;--accent2:#3bc4ff;--accent3:#2dd4bf;
+  --text:#e8edf5;--text2:#8a95a3;--text3:#4a5568;--danger:#f87171;
+  --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
 }
-function originAllowed(origin) {
-  if (!origin) return true;
-  if (origin.startsWith("https://therapylog.app")) return true;
-  if (origin.startsWith("https://www.therapylog.app")) return true;
-  if (origin === "capacitor://localhost") return true;
-  if (origin === "http://localhost") return true;
-  if (origin === "https://localhost") return true;
-  return false;
-}
-// Basic, permissive email shape check. Not a validator — just a sanity gate.
-function looksLikeEmail(s) {
-  return typeof s === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim()) && s.length <= 254;
-}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 0%,rgba(74,222,154,0.06) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 10% 90%,rgba(59,196,255,0.05) 0%,transparent 60%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:calc(var(--safe-top) + 40px) 20px calc(var(--safe-bottom) + 60px)}
+.brand{font-family:"DM Serif Display",serif;font-size:30px;letter-spacing:-0.02em;text-align:center;margin-bottom:6px}
+.brand span{color:var(--accent);font-style:italic}
+.tagline{text-align:center;color:var(--text2);font-size:14px;margin-bottom:8px}
+.referred{text-align:center;font-size:12px;color:var(--accent);background:rgba(74,222,154,0.08);border:1px solid rgba(74,222,154,0.2);border-radius:30px;padding:6px 16px;display:none;width:fit-content;margin:0 auto 8px}
+.referred.show{display:block}
 
-module.exports = async (req, res) => {
-  const origin = req.headers.origin || "";
-  const allowed = originAllowed(origin);
-  setCors(res, allowed ? (origin || "https://therapylog.app") : "https://therapylog.app");
+.toggles{display:flex;flex-direction:column;gap:12px;align-items:center;margin:32px 0 24px}
+.seg{display:inline-flex;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:4px;gap:3px}
+.seg-btn{border:none;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:13px;font-weight:600;padding:9px 20px;border-radius:9px;cursor:pointer;transition:all 0.18s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.seg-btn .save{font-size:10px;color:var(--accent);margin-left:5px;font-weight:700}
 
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-  if (!allowed) return res.status(403).json({ error: "Origin not allowed" });
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+@media(max-width:560px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px 22px;position:relative;transition:border-color 0.2s,transform 0.2s}
+.plan.featured{border-color:rgba(74,222,154,0.4)}
+.plan-tag{position:absolute;top:-11px;left:22px;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 11px;border-radius:20px;background:var(--accent);color:#0a0c0f}
+.plan-tag.byok{background:var(--accent3)}
+.plan-name{font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--text2);margin-bottom:10px}
+.plan-price{font-family:"DM Serif Display",serif;font-size:38px;line-height:1;margin-bottom:2px}
+.plan-price .per{font-family:"DM Sans",sans-serif;font-size:14px;color:var(--text2);font-weight:400}
+.plan-sub{font-size:12px;color:var(--text2);margin-bottom:18px;min-height:18px}
+.plan-feats{list-style:none;margin-bottom:22px}
+.plan-feats li{font-size:13px;color:var(--text);padding:6px 0 6px 24px;position:relative;line-height:1.45}
+.plan-feats li::before{content:"";position:absolute;left:0;top:9px;width:14px;height:14px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ade9a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat}
+.plan-feats li.muted{color:var(--text2)}
+.plan-feats li.muted::before{filter:grayscale(1) opacity(0.5)}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:transform 0.12s,opacity 0.2s}
+.btn:active{transform:scale(0.98)}
+.btn:disabled{opacity:0.6;cursor:wait}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-b{background:var(--accent3);color:#0a0c0f}
+.coupon-note{font-size:11px;color:var(--accent);text-align:center;margin-top:10px;min-height:14px}
 
-  let data;
-  try { data = typeof req.body === "string" ? JSON.parse(req.body) : req.body; }
-  catch (e) { return res.status(400).json({ error: "Invalid request body" }); }
+.note{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px}
+.note strong{color:var(--text)}
+.platform{display:flex;align-items:flex-start;gap:10px}
+.platform-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.foot{text-align:center;font-size:11px;color:var(--text3);margin-top:30px;line-height:1.7}
+.foot a{color:var(--text2);text-decoration:none}
+.err{display:none;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.25);color:var(--danger);border-radius:12px;padding:12px 16px;font-size:13px;text-align:center;margin-bottom:16px}
+.err.show{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Therapy<span>Log</span> Pro</div>
+  <div class="tagline">The AI research assistant, lab scanner, and clinical tools — unlocked.</div>
+  <div class="referred" id="referred"></div>
 
-  const email = data && data.email ? String(data.email).trim().toLowerCase() : "";
-  const source = data && data.source ? String(data.source).slice(0, 40) : "web";
+  <div class="err" id="err"></div>
 
-  if (!looksLikeEmail(email)) {
-    return res.status(400).json({ error: "Please enter a valid email address." });
-  }
+  <div class="toggles">
+    <div class="seg" id="billing-seg">
+      <button class="seg-btn active" data-billing="monthly" onclick="setBilling('monthly')">Monthly</button>
+      <button class="seg-btn" data-billing="annual" onclick="setBilling('annual')">Annual <span class="save">1 month free</span></button>
+    </div>
+  </div>
 
-  if (!process.env.RESEND_API_KEY || !process.env.RESEND_AUDIENCE_ID) {
-    console.error("launch-notify: Resend env vars not configured");
-    return res.status(500).json({ error: "Signups aren't configured yet. Email hello@therapylog.app" });
-  }
+  <div class="plans">
+    <div class="plan featured" id="plan-managed">
+      <div class="plan-tag">Most popular</div>
+      <div class="plan-name">Pro — Managed AI</div>
+      <div class="plan-price" id="managed-price">$9.99<span class="per">/mo</span></div>
+      <div class="plan-sub" id="managed-sub">Billed monthly · cancel anytime</div>
+      <ul class="plan-feats">
+        <li>AI research assistant — up to 145 questions/month</li>
+        <li>AI lab scanner — snap a photo, auto-fill bloodwork</li>
+        <li>Bloodwork trends &amp; clinical reports</li>
+        <li>Everything in the app, fully unlocked</li>
+        <li>No API key needed — we handle the AI</li>
+      </ul>
+      <button class="btn btn-p" id="managed-btn" onclick="checkout('managed')">Get Pro</button>
+      <div class="coupon-note" id="managed-coupon"></div>
+    </div>
 
-  try {
-    const r = await fetch(
-      `https://api.resend.com/audiences/${process.env.RESEND_AUDIENCE_ID}/contacts`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`
-        },
-        body: JSON.stringify({ email: email, unsubscribed: false })
-      }
-    );
-    const out = await r.json().catch(() => ({}));
+    <div class="plan" id="plan-byok">
+      <div class="plan-tag byok">Best value</div>
+      <div class="plan-name">BYOK — Bring Your Own Key</div>
+      <div class="plan-price" id="byok-price">$8.99<span class="per">/mo</span></div>
+      <div class="plan-sub" id="byok-sub">Billed monthly · cancel anytime</div>
+      <ul class="plan-feats">
+        <li><strong>Unlimited</strong> AI — no monthly question cap</li>
+        <li>AI lab scanner &amp; full clinical tools</li>
+        <li>Bloodwork trends &amp; clinical reports</li>
+        <li>Everything in the app, fully unlocked</li>
+        <li class="muted">Uses your own Anthropic API key (billed to you)</li>
+      </ul>
+      <button class="btn btn-b" id="byok-btn" onclick="checkout('byok')">Get BYOK</button>
+      <div class="coupon-note" id="byok-coupon"></div>
+    </div>
+  </div>
 
-    // Resend returns an error if the contact already exists — treat that as success.
-    if (!r.ok) {
-      const msg = (out && out.message) ? String(out.message).toLowerCase() : "";
-      if (msg.includes("already") || r.status === 409) {
-        return res.status(200).json({ ok: true, already: true });
-      }
-      console.error("Resend contact error:", r.status, out);
-      return res.status(502).json({ error: "Couldn't save your email right now. Please try again." });
-    }
-    return res.status(200).json({ ok: true, source: source });
-  } catch (e) {
-    console.error("launch-notify fetch failed:", e);
-    return res.status(502).json({ error: "Couldn't reach the signup service. Please try again." });
-  }
+  <div class="note platform">
+    <div class="platform-icon">📱</div>
+    <div><strong>App Store &amp; Google Play are coming very soon.</strong> The native iOS and Android apps are on their way. For now, subscribe here on the web to get full access today — your account carries over when the apps land. Note: the BYOK plan will always be web &amp; Android only, never sold through the App Store, so subscribing here keeps your full savings.</div>
+  </div>
+
+  <div class="note">
+    <strong>What's BYOK?</strong> If you already have an Anthropic API key, you can power the AI with your own key for unlimited use — you pay Anthropic directly for what you use (typically pennies per question). If you'd rather not deal with keys, the managed plan includes everything with no setup.
+  </div>
+
+  <div class="note" id="notify-card">
+    <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px">Want a heads-up at launch?</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:12px">Leave your email and we'll let you know when the iOS and Android apps go live. We'll only email you about the launch and the occasional product update — no spam, unsubscribe anytime.</div>
+    <div style="display:flex;gap:8px">
+      <input type="email" id="notify-email" placeholder="you@example.com" style="flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-size:14px;padding:11px 13px;font-family:'DM Sans',sans-serif" autocomplete="email">
+      <button class="btn btn-p" id="notify-btn" style="width:auto;padding:11px 18px" onclick="notifyMe()">Notify me</button>
+    </div>
+    <div id="notify-msg" style="font-size:12px;margin-top:8px;min-height:16px"></div>
+  </div>
+
+  <div class="foot">
+    Secure checkout powered by Stripe. Cancel anytime.<br>
+    <a href="https://therapylog.app/privacy">Privacy</a> · <a href="https://therapylog.app/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+  </div>
+</div>
+
+<script>
+// ── Config ──
+var CHECKOUT_ENDPOINT = "https://api.therapylog.app/api/create-pro-subscription";
+var PRICES = {
+  managed: { monthly: "$9.99", annual: "$99.99", annualPerMo: "$8.33" },
+  byok:    { monthly: "$8.99", annual: "$89.99", annualPerMo: "$7.50" }
 };
+// plan keys sent to the checkout endpoint
+var PLAN_KEYS = {
+  managed: { monthly: "pro_monthly",  annual: "pro_annual"  },
+  byok:    { monthly: "byok_monthly", annual: "byok_annual" }
+};
+
+var billing = "monthly";
+
+// ── Capture affiliate ref from URL and persist it ──
+function getRef() {
+  try {
+    var url = new URL(window.location.href);
+    var ref = url.searchParams.get("ref");
+    if (ref) { ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, ""); }
+    if (ref) { try { localStorage.setItem("tl_ref", ref); } catch(e){} return ref; }
+    try { return localStorage.getItem("tl_ref") || ""; } catch(e){ return ""; }
+  } catch(e) { return ""; }
+}
+var REF = getRef();
+if (REF) {
+  var r = document.getElementById("referred");
+  r.textContent = "Referred by " + REF.toUpperCase();
+  r.classList.add("show");
+}
+
+// ── Billing toggle ──
+function setBilling(b) {
+  billing = b;
+  document.querySelectorAll("#billing-seg .seg-btn").forEach(function(btn){
+    btn.classList.toggle("active", btn.getAttribute("data-billing") === b);
+  });
+  render();
+}
+
+function render() {
+  var m = PRICES.managed, k = PRICES.byok;
+  var annualLabel = REF ? 'Annual <span class="save">1 month free</span>' : 'Annual <span class="save">save 17%</span>';
+  var annualBtn = document.querySelector('#billing-seg [data-billing="annual"]');
+  if (annualBtn) annualBtn.innerHTML = annualLabel;
+  if (billing === "monthly") {
+    document.getElementById("managed-price").innerHTML = m.monthly + '<span class="per">/mo</span>';
+    document.getElementById("managed-sub").textContent = "Billed monthly · cancel anytime";
+    document.getElementById("byok-price").innerHTML = k.monthly + '<span class="per">/mo</span>';
+    document.getElementById("byok-sub").textContent = "Billed monthly · cancel anytime";
+    document.getElementById("managed-coupon").textContent = "";
+    document.getElementById("byok-coupon").textContent = "";
+  } else {
+    document.getElementById("managed-price").innerHTML = m.annual + '<span class="per">/yr</span>';
+    document.getElementById("managed-sub").textContent = "Just " + m.annualPerMo + "/mo, billed yearly";
+    document.getElementById("byok-price").innerHTML = k.annual + '<span class="per">/yr</span>';
+    document.getElementById("byok-sub").textContent = "Just " + k.annualPerMo + "/mo, billed yearly";
+    var couponMsg = REF ? "Your first month is free with this link" : "Have an affiliate code? Enter it at checkout";
+    document.getElementById("managed-coupon").textContent = couponMsg;
+    document.getElementById("byok-coupon").textContent = couponMsg;
+  }
+}
+
+// ── Checkout ──
+function showErr(msg) {
+  var e = document.getElementById("err");
+  e.textContent = msg; e.classList.add("show");
+  setTimeout(function(){ e.classList.remove("show"); }, 6000);
+}
+
+function checkout(tier) {
+  var btn = document.getElementById(tier + "-btn");
+  var planKey = PLAN_KEYS[tier][billing];
+  btn.disabled = true;
+  var original = btn.textContent;
+  btn.textContent = "Redirecting…";
+
+  var body = { plan: planKey, billing: billing };
+  if (REF) body.ref = REF;
+
+  fetch(CHECKOUT_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  })
+  .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+  .then(function(r){
+    if (r.ok && r.data && r.data.url) {
+      window.location.href = r.data.url;
+    } else {
+      showErr((r.data && r.data.error) ? r.data.error : "Could not start checkout. Please try again.");
+      btn.disabled = false; btn.textContent = original;
+    }
+  })
+  .catch(function(){
+    showErr("Connection error. Please check your network and try again.");
+    btn.disabled = false; btn.textContent = original;
+  });
+}
+
+render();
+
+// ── Launch-notify signup ──
+var NOTIFY_ENDPOINT = "https://api.therapylog.app/api/launch-notify";
+function notifyMe() {
+  var input = document.getElementById("notify-email");
+  var btn = document.getElementById("notify-btn");
+  var msg = document.getElementById("notify-msg");
+  var email = (input.value || "").trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.style.color = "var(--danger)";
+    msg.textContent = "Please enter a valid email address.";
+    return;
+  }
+  btn.disabled = true;
+  var original = btn.textContent;
+  btn.textContent = "…";
+  fetch(NOTIFY_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, source: "pro_page" })
+  })
+  .then(function(res){ return res.json().then(function(d){ return { ok: res.ok, d: d }; }); })
+  .then(function(r){
+    if (r.ok && r.d && r.d.ok) {
+      msg.style.color = "var(--accent)";
+      msg.textContent = r.d.already ? "You're already on the list — thanks!" : "You're on the list. We'll be in touch at launch.";
+      input.value = "";
+    } else {
+      msg.style.color = "var(--danger)";
+      msg.textContent = (r.d && r.d.error) ? r.d.error : "Something went wrong. Please try again.";
+    }
+  })
+  .catch(function(){
+    msg.style.color = "var(--danger)";
+    msg.textContent = "Connection error. Please try again.";
+  })
+  .finally(function(){ btn.disabled = false; btn.textContent = original; });
+}
+</script>
+</body>
+</html>
