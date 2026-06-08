@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Affiliate Program — TherapyLog</title>
+<meta name="description" content="Partner with TherapyLog and earn recurring commissions promoting the most comprehensive hormone therapy and peptide tracking app available.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c0f;
+  --s1: #111418;
+  --s2: #181c22;
+  --s3: #1e242d;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --accent: #4ade9a;
+  --accent2: #3bc4ff;
+  --accent3: #2dd4bf;
+  --gold: #f59e0b;
+  --text: #e8edf5;
+  --text2: #8a95a3;
+  --text3: #4a5568;
+  --st: env(safe-area-inset-top,0px);
+  --sb: env(safe-area-inset-bottom,0px);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(74,222,154,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 90% 60%, rgba(59,196,255,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 30% 25% at 5% 80%, rgba(245,158,11,0.04) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+
+.wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: calc(var(--st) + 52px) 22px calc(var(--sb) + 72px); }
+
+/* ── Nav ── */
+nav { position: sticky; top: 0; z-index: 100; background: rgba(10,12,15,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: "DM Serif Display", serif; font-size: 20px; color: var(--text); text-decoration: none; }
+.logo span { color: var(--accent); font-style: italic; }
+.nav-cta { background: var(--accent); color: #0a0c0f; padding: 8px 18px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 13px; }
+
+/* ── Hero ── */
+.hero { text-align: center; padding: 72px 0 56px; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: var(--gold); padding: 6px 16px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 24px; }
+.hero h1 { font-family: "DM Serif Display", serif; font-size: clamp(32px, 6vw, 52px); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 18px; }
+.hero h1 em { color: var(--accent); font-style: italic; }
+.hero-sub { font-size: 17px; color: var(--text2); max-width: 520px; margin: 0 auto 40px; line-height: 1.7; }
+.hero-apply { display: inline-block; background: var(--accent); color: #0a0c0f; padding: 16px 36px; border-radius: 14px; font-weight: 700; font-size: 16px; text-decoration: none; transition: transform 0.15s, background 0.15s; letter-spacing: 0.01em; }
+.hero-apply:hover { background: #22c55e; transform: translateY(-2px); }
+.hero-apply:active { transform: translateY(0); }
+
+/* ── Divider ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 56px 0; }
+
+/* ── Section headings ── */
+.sec-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.sec-title { font-family: "DM Serif Display", serif; font-size: clamp(24px, 4vw, 34px); letter-spacing: -0.02em; margin-bottom: 14px; }
+.sec-sub { font-size: 15px; color: var(--text2); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
+
+/* ── Tier cards ── */
+.tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
+@media (max-width: 600px) { .tiers { grid-template-columns: 1fr; } }
+
+.tier-card { background: var(--s1); border: 1px solid var(--border); border-radius: 20px; padding: 28px 24px; position: relative; }
+.tier-card.founding { border-color: rgba(245,158,11,0.4); background: linear-gradient(160deg, rgba(245,158,11,0.06), var(--s1) 60%); }
+.tier-card.standard { border-color: rgba(74,222,154,0.25); }
+
+.tier-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; }
+.founding .tier-badge { background: var(--gold); color: #0a0c0f; }
+.standard .tier-badge { background: var(--accent); color: #0a0c0f; }
+
+.tier-spots { font-size: 12px; color: var(--text2); margin-bottom: 16px; }
+.tier-spots strong { color: var(--text); }
+
+.tier-rate { font-family: "DM Serif Display", serif; font-size: 52px; line-height: 1; letter-spacing: -0.02em; margin-bottom: 4px; }
+.founding .tier-rate { color: var(--gold); }
+.standard .tier-rate { color: var(--accent); }
+
+.tier-rate-sub { font-size: 13px; color: var(--text2); margin-bottom: 20px; font-weight: 500; }
+
+.tier-feats { list-style: none; }
+.tier-feats li { font-size: 13px; color: var(--text); padding: 7px 0 7px 22px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.45; }
+.tier-feats li:last-child { border-bottom: none; }
+.tier-feats li::before { content: ""; position: absolute; left: 0; top: 10px; width: 13px; height: 13px; background-size: contain; background-repeat: no-repeat; }
+.founding .tier-feats li::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); }
+.standard .tier-feats li::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ade9a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); }
+
+/* ── How it works ── */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 48px; }
+.step { background: var(--s1); border: 1px solid var(--border); border-radius: 16px; padding: 22px 18px; }
+.step-num { font-family: "DM Mono", monospace; font-size: 11px; font-weight: 500; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 10px; }
+.step-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.step-body { font-size: 13px; color: var(--text2); line-height: 1.55; }
+
+/* ── Earnings example ── */
+.earnings { background: var(--s1); border: 1px solid var(--border); border-radius: 20px; padding: 28px 24px; margin-bottom: 48px; }
+.earnings-title { font-family: "DM Serif Display", serif; font-size: 20px; margin-bottom: 20px; }
+.earnings-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.earnings-row:last-child { border-bottom: none; font-weight: 700; font-size: 15px; }
+.earnings-row .lbl { color: var(--text2); }
+.earnings-row .val { color: var(--text); font-weight: 600; font-family: "DM Mono", monospace; }
+.earnings-row .val.gold { color: var(--gold); }
+.earnings-row .val.green { color: var(--accent); }
+.earnings-note { font-size: 12px; color: var(--text3); margin-top: 14px; line-height: 1.6; }
+
+/* ── Who we want ── */
+.who-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 48px; }
+.who-card { background: var(--s1); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+.who-icon { font-size: 24px; margin-bottom: 8px; }
+.who-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.who-body { font-size: 12px; color: var(--text2); line-height: 1.55; }
+
+/* ── FAQ ── */
+.faq { margin-bottom: 48px; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-q { font-size: 15px; font-weight: 600; margin-bottom: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.faq-q::after { content: "+"; font-size: 20px; color: var(--accent); font-weight: 300; flex-shrink: 0; margin-left: 12px; transition: transform 0.2s; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a { font-size: 14px; color: var(--text2); line-height: 1.7; display: none; }
+.faq-item.open .faq-a { display: block; }
+
+/* ── CTA bottom ── */
+.cta-bottom { background: linear-gradient(135deg, rgba(74,222,154,0.08), rgba(59,196,255,0.05)); border: 1px solid rgba(74,222,154,0.2); border-radius: 24px; padding: 48px 32px; text-align: center; }
+.cta-bottom h2 { font-family: "DM Serif Display", serif; font-size: clamp(24px, 4vw, 36px); margin-bottom: 12px; }
+.cta-bottom p { color: var(--text2); font-size: 15px; max-width: 440px; margin: 0 auto 28px; line-height: 1.7; }
+.cta-btn { display: inline-block; background: var(--accent); color: #0a0c0f; padding: 16px 40px; border-radius: 14px; font-weight: 700; font-size: 16px; text-decoration: none; transition: transform 0.15s, background 0.15s; }
+.cta-btn:hover { background: #22c55e; transform: translateY(-2px); }
+
+/* ── Footer ── */
+.foot { margin-top: 56px; text-align: center; font-size: 12px; color: var(--text3); line-height: 1.9; }
+.foot a { color: var(--text2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://therapylog.app" class="logo">Therapy<span>Log</span></a>
+  <a href="https://therapylog.app/pro" class="nav-cta">Get Pro</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">⚡ Affiliate Program</div>
+    <h1>Earn <em>recurring commissions</em><br>on every renewal</h1>
+    <p class="hero-sub">Partner with TherapyLog and earn a percentage of every subscription payment — not just the first one. The longer your audience stays subscribed, the more you earn.</p>
+    <a href="mailto:hello@therapylog.app?subject=TherapyLog%20Affiliate%20Application&body=Hi%20Joel%2C%0A%0AI%27d%20like%20to%20apply%20for%20the%20TherapyLog%20affiliate%20program.%0A%0AAbout%20me%20and%20my%20audience%3A%0A%0AName%3A%20%0APlatform%2Fchannel%20(YouTube%2C%20Instagram%2C%20podcast%2C%20etc.)%3A%20%0AApproximate%20audience%20size%3A%20%0AHow%20your%20audience%20relates%20to%20TRT%2Fpeptides%2Flongevity%3A%20%0A%0AThank%20you!" class="hero-apply">Apply to Join the Program →</a>
+  </div>
+
+  <hr class="divider">
+
+  <!-- COMMISSION TIERS -->
+  <div class="sec-eyebrow">Commission Structure</div>
+  <h2 class="sec-title">Two tiers. Both recurring forever.</h2>
+  <p class="sec-sub">We don't do 12-month cliffs. You earn a percentage of every payment your subscribers make — month after month, year after year.</p>
+
+  <div class="tiers">
+    <div class="tier-card founding">
+      <span class="tier-badge">Founding Affiliate</span>
+      <div class="tier-spots">First <strong>20 affiliates only</strong> — locked in at this rate forever</div>
+      <div class="tier-rate">30%</div>
+      <div class="tier-rate-sub">of every payment, recurring forever</div>
+      <ul class="tier-feats">
+        <li>Highest rate — locked in permanently</li>
+        <li>Earns on monthly and annual plans</li>
+        <li>Your audience gets 1 month free on annual</li>
+        <li>Personal affiliate link + promo code</li>
+        <li>Monthly payouts via Stripe</li>
+        <li>Early access to new features</li>
+      </ul>
+    </div>
+
+    <div class="tier-card standard">
+      <span class="tier-badge">Standard Affiliate</span>
+      <div class="tier-spots">Open to all — after the first 20 spots are filled</div>
+      <div class="tier-rate">25%</div>
+      <div class="tier-rate-sub">of every payment, recurring forever</div>
+      <ul class="tier-feats">
+        <li>Still recurring — no expiry</li>
+        <li>Earns on monthly and annual plans</li>
+        <li>Your audience gets 1 month free on annual</li>
+        <li>Personal affiliate link + promo code</li>
+        <li>Monthly payouts via Stripe</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- HOW IT WORKS -->
+  <div class="sec-eyebrow">How It Works</div>
+  <h2 class="sec-title">Simple as it gets.</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01 — Apply</div>
+      <div class="step-title">Submit your application</div>
+      <div class="step-body">Email us with a brief intro and your platform. We'll review and get back to you within 48 hours.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02 — Get your link</div>
+      <div class="step-title">Receive your affiliate link</div>
+      <div class="step-body">You get a unique link (therapylog.app/pro?ref=yourname) and a promo code. Your audience gets 1 month free on annual plans.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03 — Promote</div>
+      <div class="step-title">Share with your audience</div>
+      <div class="step-body">Post, mention, review — whatever fits your style. No scripts required. The app sells itself to anyone on a protocol.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04 — Earn</div>
+      <div class="step-title">Collect recurring commissions</div>
+      <div class="step-body">Every month your referrals renew, you earn. Tracked automatically via Stripe — transparent and auditable.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EARNINGS EXAMPLE -->
+  <div class="sec-eyebrow">Earnings Example</div>
+  <h2 class="sec-title">What does this look like in practice?</h2>
+  <p class="sec-sub">A founding affiliate with a modest TRT/peptide audience sending 50 annual subscribers.</p>
+
+  <div class="earnings">
+    <div class="earnings-title">Founding Affiliate — 50 annual subscribers</div>
+    <div class="earnings-row">
+      <span class="lbl">Annual plan price</span>
+      <span class="val">$99.99/yr</span>
+    </div>
+    <div class="earnings-row">
+      <span class="lbl">Your commission (30%)</span>
+      <span class="val gold">$30.00 per subscriber / year</span>
+    </div>
+    <div class="earnings-row">
+      <span class="lbl">50 active annual subscribers</span>
+      <span class="val gold">$1,500 / year</span>
+    </div>
+    <div class="earnings-row">
+      <span class="lbl">Year 2 (same 50 subscribers renew)</span>
+      <span class="val gold">$1,500 more</span>
+    </div>
+    <div class="earnings-row">
+      <span class="lbl">3-year total from one promotion</span>
+      <span class="val gold">$4,500+</span>
+    </div>
+    <p class="earnings-note">This assumes zero new referrals after the initial promotion — in practice your commissions grow as you keep sharing. Standard affiliates earn 25% ($25/sub/yr) under the same math.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHO WE WANT -->
+  <div class="sec-eyebrow">Who We're Looking For</div>
+  <h2 class="sec-title">The right fit matters more than size.</h2>
+  <p class="sec-sub">We'd rather have 20 genuine voices in the space than 200 generic promoters. Audience quality beats audience size every time.</p>
+
+  <div class="who-grid">
+    <div class="who-card">
+      <div class="who-icon">📹</div>
+      <div class="who-title">TRT / Peptide Creators</div>
+      <div class="who-body">YouTube channels, podcasts, and social accounts focused on hormone optimization, TRT protocols, or peptide use.</div>
+    </div>
+    <div class="who-card">
+      <div class="who-icon">🏋️</div>
+      <div class="who-title">Performance & Longevity</div>
+      <div class="who-body">Coaches, athletes, and longevity-focused creators whose audience actively tracks health metrics and protocols.</div>
+    </div>
+    <div class="who-card">
+      <div class="who-icon">🩺</div>
+      <div class="who-title">Healthcare Practitioners</div>
+      <div class="who-body">Clinics, doctors, and NPs who work with TRT or peptide patients and want a tracking tool to recommend.</div>
+    </div>
+    <div class="who-card">
+      <div class="who-icon">📝</div>
+      <div class="who-title">Newsletter Writers</div>
+      <div class="who-body">Substack authors and email newsletter writers covering health optimization, biohacking, or men's health.</div>
+    </div>
+    <div class="who-card">
+      <div class="who-icon">💊</div>
+      <div class="who-title">Peptide Suppliers</div>
+      <div class="who-body">Research chemical and peptide suppliers whose customers are exactly the people who need a tracking app.</div>
+    </div>
+    <div class="who-card">
+      <div class="who-icon">🌐</div>
+      <div class="who-title">Community Moderators</div>
+      <div class="who-body">Reddit mods, Discord admins, and forum owners running TRT, peptide, or hormone optimization communities.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- FAQ -->
+  <div class="sec-eyebrow">Questions</div>
+  <h2 class="sec-title" style="margin-bottom:28px">Frequently asked.</h2>
+
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">How does the "1 month free" work for my audience?</div>
+      <div class="faq-a">When someone clicks your affiliate link and chooses the annual plan, they automatically get their first month free — paying $91.66 instead of $99.99 in year one. This discount is exclusive to affiliate links. People who find TherapyLog directly don't get it, which gives your audience a genuine reason to use your link.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">When and how do I get paid?</div>
+      <div class="faq-a">Payouts are processed monthly via Stripe. You'll receive a summary of active referrals and the commission owed. We handle the calculation — you just confirm and receive. Minimum payout threshold is $20.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">What if a subscriber cancels?</div>
+      <div class="faq-a">You earn commissions on active subscriptions only. If a subscriber cancels, their commission stops. If they resubscribe later using your link, commissions resume. There's no clawback on commissions already paid.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">Is the founding 30% rate really locked forever?</div>
+      <div class="faq-a">Yes. The first 20 affiliates who join are locked in at 30% for as long as TherapyLog exists and they remain active affiliates. It's our way of rewarding the people who bet on us early. After the founding spots are filled, the standard rate is 25% — still recurring forever, just lower.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">Does the affiliate program work with App Store subscriptions?</div>
+      <div class="faq-a">No — the affiliate program is web-only (Stripe checkout). App Store and Google Play purchases don't go through our affiliate tracking. Your link directs people to therapylog.app/pro where they subscribe directly. This also means no Apple or Google cut, which is how we can sustain a 30% affiliate commission.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">How many founding spots are left?</div>
+      <div class="faq-a">We're in the early launch phase — the founding spots are available now. Apply soon if you want the 30% rate locked in. Once all 20 spots are filled, new affiliates join at 25%.</div>
+    </div>
+  </div>
+
+  <!-- CTA BOTTOM -->
+  <div class="cta-bottom">
+    <h2>Ready to partner with us?</h2>
+    <p>Send us a quick intro — your platform, your audience, and how TherapyLog fits. We'll respond within 48 hours.</p>
+    <a href="mailto:hello@therapylog.app?subject=TherapyLog%20Affiliate%20Application&body=Hi%20Joel%2C%0A%0AI%27d%20like%20to%20apply%20for%20the%20TherapyLog%20affiliate%20program.%0A%0AAbout%20me%20and%20my%20audience%3A%0A%0AName%3A%20%0APlatform%2Fchannel%20(YouTube%2C%20Instagram%2C%20podcast%2C%20etc.)%3A%20%0AApproximate%20audience%20size%3A%20%0AHow%20your%20audience%20relates%20to%20TRT%2Fpeptides%2Flongevity%3A%20%0A%0AThank%20you!" class="cta-btn">Apply Now — hello@therapylog.app</a>
+  </div>
+
+  <div class="foot">
+    <a href="https://therapylog.app">TherapyLog</a> ·
+    <a href="https://therapylog.app/pro">Get Pro</a> ·
+    <a href="https://therapylog.app/privacy">Privacy</a> ·
+    <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+  </div>
+
+</div>
+
+<script>
+function toggle(el) {
+  var item = el.parentElement;
+  item.classList.toggle("open");
+}
+</script>
+</body>
+</html>
