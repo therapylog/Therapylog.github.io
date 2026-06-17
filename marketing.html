@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>TherapyLog — Marketing Suite</title>
+<style>
+:root{
+  --bg:#07090c;--panel:#0f1219;--panel2:#141820;--panel3:#1a2030;
+  --border:#1e2535;--border2:#263040;
+  --accent:#4ade9a;--accent-dim:rgba(74,222,154,0.12);--accent-glow:rgba(74,222,154,0.35);
+  --blue:#60a5fa;--purple:#a78bfa;--amber:#fbbf24;--red:#f87171;--orange:#fb923c;
+  --text:#e8edf5;--text2:#8a95a3;--text3:#4a5568;
+  --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
+  --sidebar:220px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+.app{display:grid;grid-template-columns:var(--sidebar) 1fr;height:100vh;overflow:hidden}
+@media(max-width:768px){.app{grid-template-columns:1fr}.sidebar{display:none}.sidebar.open{display:flex;position:fixed;inset:0;z-index:200;width:80vw;max-width:260px}.main{padding-top:56px}.mobile-nav{display:flex}}
+.sidebar{display:flex;flex-direction:column;background:var(--panel);border-right:1px solid var(--border);padding:0;overflow:hidden;padding-top:var(--st)}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:18px 16px 14px;border-bottom:1px solid var(--border)}
+.logo-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow);flex-shrink:0}
+.logo-text{font-size:15px;font-weight:700;letter-spacing:-0.01em}
+.logo-text span{color:var(--accent)}
+.logo-badge{font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-left:2px}
+.nav-items{flex:1;overflow-y:auto;padding:8px 0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:var(--panel2);color:var(--text)}
+.nav-item.active{background:var(--accent-dim);color:var(--accent)}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:.7}
+.nav-item.active svg{opacity:1}
+.nav-section{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);padding:12px 16px 4px}
+.sync-bar{padding:10px 14px;border-top:1px solid var(--border);font-size:11px;color:var(--text3);display:flex;align-items:center;gap:7px;padding-bottom:calc(10px + var(--sb))}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);flex-shrink:0}
+.sync-dot.ok{background:var(--accent)}
+.sync-dot.syncing{background:var(--amber);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.mobile-nav{display:none;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,9,12,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:56px;padding:0 16px;padding-top:var(--st);align-items:center;justify-content:space-between}
+.mobile-logo{font-size:15px;font-weight:700}
+.mobile-logo span{color:var(--accent)}
+.icon-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px}
+.mob-tab-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(7,9,12,0.97);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:8px 0;padding-bottom:calc(8px + var(--sb))}
+@media(max-width:768px){.mob-tab-bar{display:flex;justify-content:space-around}}
+.mob-tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;font-weight:600;color:var(--text3);padding:6px 12px;border:none;background:none;cursor:pointer}
+.mob-tab.active{color:var(--accent)}
+.mob-tab svg{width:20px;height:20px}
+.main{display:flex;flex-direction:column;overflow:hidden;height:100vh}
+.view{display:none;flex:1;overflow-y:auto;padding:24px;padding-bottom:calc(24px + var(--sb))}
+.view.active{display:block}
+@media(max-width:768px){.view{padding:16px;padding-bottom:calc(80px + var(--sb))}}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px}
+.section-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.page-title{font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text2);margin-bottom:20px}
+input,textarea,select{width:100%;background:var(--panel2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:13px;padding:9px 12px;transition:border .15s;outline:none}
+input:focus,textarea:focus,select:focus{border-color:rgba(74,222,154,.4)}
+textarea{resize:vertical;min-height:80px;line-height:1.55}
+label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px}
+.form-row{margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.form-grid{grid-template-columns:1fr}}
+.btn{font-family:inherit;font-size:13px;font-weight:600;padding:9px 16px;border-radius:8px;border:none;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:#0a0c0f}
+.btn-primary:hover{filter:brightness(1.1)}
+.btn-secondary{background:var(--panel2);border:1px solid var(--border);color:var(--text2)}
+.btn-secondary:hover{border-color:var(--border2);color:var(--text)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}
+.btn-danger{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.btn-full{width:100%;justify-content:center}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-size:12px;font-weight:600;padding:5px 11px;border-radius:20px;border:1px solid var(--border);background:var(--panel2);color:var(--text2);cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.active{background:var(--accent-dim);border-color:rgba(74,222,154,.4);color:var(--accent)}
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:8px;margin-bottom:16px}
+.platform-tile{display:flex;flex-direction:column;align-items:center;gap:5px;padding:11px 8px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s;font-size:11px;font-weight:600;color:var(--text2)}
+.platform-tile:hover{border-color:var(--border2);color:var(--text)}
+.platform-tile.active{background:var(--accent-dim);border-color:rgba(74,222,154,.35);color:var(--accent)}
+.platform-tile .emoji{font-size:20px}
+.output-box{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:16px;min-height:120px;font-size:13px;line-height:1.7;color:var(--text);white-space:pre-wrap;word-break:break-word}
+.variant-card{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-word;margin-bottom:10px}
+.variant-label{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.action-bar{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.lib-item{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.lib-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.lib-platform{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-dim);padding:2px 8px;border-radius:10px}
+.lib-date{font-size:11px;color:var(--text3)}
+.lib-content{font-size:12.5px;color:var(--text2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.lib-actions{display:flex;gap:6px;margin-top:10px}
+.campaign-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:10px}
+.campaign-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.campaign-name{font-size:14px;font-weight:700}
+.campaign-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--accent-dim);color:var(--accent)}
+.campaign-body{padding:14px 16px;font-size:12px;color:var(--text2)}
+.key-row{display:flex;gap:8px;align-items:center}
+.key-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:10px;white-space:nowrap}
+.key-status.ok{background:rgba(74,222,154,.1);color:var(--accent)}
+.key-status.missing{background:rgba(248,113,113,.1);color:var(--red)}
+.info-box{background:var(--panel2);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12px;color:var(--text2);line-height:1.6;margin:12px 0}
+.info-box b{color:var(--text)}
+.char-bar{height:3px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
+.char-fill{height:100%;background:var(--accent);transition:width .2s,background .2s;border-radius:2px}
+.char-fill.warn{background:var(--amber)}
+.char-fill.over{background:var(--red)}
+.char-count{font-size:10px;color:var(--text3);text-align:right;margin-top:3px}
+.toast{position:fixed;bottom:calc(80px + var(--sb));left:50%;transform:translateX(-50%) translateY(10px);background:var(--accent);color:#0a0c0f;font-size:13px;font-weight:700;padding:10px 18px;border-radius:9px;opacity:0;pointer-events:none;transition:all .25s;z-index:500;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:sp .6s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.search-bar{position:relative;margin-bottom:14px}
+.search-bar input{padding-left:34px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3)}
+.divider{border:none;border-top:1px solid var(--border);margin:18px 0}
+.settings-section{margin-bottom:24px}
+.settings-section h3{font-size:14px;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.brief-box{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;color:var(--text2)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;display:none}
+.overlay.open{display:block}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-dot"></div>
+    <div><div class="logo-text">Therapy<span>Log</span></div><div class="logo-badge">Marketing Suite</div></div>
+  </div>
+  <nav class="nav-items">
+    <div class="nav-section">Create</div>
+    <button class="nav-item active" onclick="showView('generate',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Generate
+    </button>
+    <button class="nav-item" onclick="showView('campaigns',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Campaigns
+    </button>
+    <button class="nav-item" onclick="showView('visuals',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Visuals
+    </button>
+    <div class="nav-section">Manage</div>
+    <button class="nav-item" onclick="showView('library',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>Library
+    </button>
+    <button class="nav-item" onclick="showView('schedule',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Send to Postiz
+    </button>
+    <div class="nav-section">System</div>
+    <button class="nav-item" onclick="showView('settings',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings
+    </button>
+  </nav>
+  <div class="sync-bar">
+    <div class="sync-dot" id="sync-dot"></div>
+    <span id="sync-label">Not synced</span>
+    <button class="btn btn-ghost" onclick="syncNow()" style="margin-left:auto;padding:4px 8px;font-size:11px">↻ Sync</button>
+  </div>
+</aside>
+
+<div class="mobile-nav">
+  <button class="icon-btn" onclick="toggleSidebar()">☰</button>
+  <div class="mobile-logo">Therapy<span>Log</span> <span style="color:var(--text3);font-size:10px">MKT</span></div>
+  <button class="icon-btn" onclick="syncNow()">↻</button>
+</div>
+
+<main class="main">
+
+<!-- GENERATE -->
+<div class="view active" id="view-generate">
+  <div class="page-title">Generate Content</div>
+  <div class="page-sub">Pick a platform, describe your angle, generate and refine.</div>
+  <div class="section-title">Platform</div>
+  <div class="platform-grid" id="platform-grid">
+    <div class="platform-tile active" data-platform="facebook" onclick="selectPlatform(this)"><div class="emoji">👥</div>Facebook/IG</div>
+    <div class="platform-tile" data-platform="instagram_story" onclick="selectPlatform(this)"><div class="emoji">📸</div>IG Story</div>
+    <div class="platform-tile" data-platform="twitter" onclick="selectPlatform(this)"><div class="emoji">𝕏</div>X/Twitter</div>
+    <div class="platform-tile" data-platform="reddit" onclick="selectPlatform(this)"><div class="emoji">🟠</div>Reddit</div>
+    <div class="platform-tile" data-platform="tiktok" onclick="selectPlatform(this)"><div class="emoji">🎵</div>TikTok</div>
+    <div class="platform-tile" data-platform="youtube" onclick="selectPlatform(this)"><div class="emoji">▶️</div>YouTube</div>
+    <div class="platform-tile" data-platform="email" onclick="selectPlatform(this)"><div class="emoji">📧</div>Email</div>
+    <div class="platform-tile" data-platform="newsletter" onclick="selectPlatform(this)"><div class="emoji">📰</div>Newsletter</div>
+    <div class="platform-tile" data-platform="ad_copy" onclick="selectPlatform(this)"><div class="emoji">🎯</div>Ad Copy</div>
+    <div class="platform-tile" data-platform="affiliate" onclick="selectPlatform(this)"><div class="emoji">🤝</div>Affiliate</div>
+    <div class="platform-tile" data-platform="review_reply" onclick="selectPlatform(this)"><div class="emoji">⭐</div>Review Reply</div>
+    <div class="platform-tile" data-platform="community" onclick="selectPlatform(this)"><div class="emoji">💬</div>Community</div>
+  </div>
+  <div class="form-grid">
+    <div class="form-row"><label>Audience</label>
+      <select id="gen-audience">
+        <option value="general">General TRT/peptide community</option>
+        <option value="trt">TRT users — testosterone management</option>
+        <option value="peptides">Peptide protocol users</option>
+        <option value="women">Women — BHRT / female hormones</option>
+        <option value="glp1">GLP-1 / weight management</option>
+        <option value="longevity">Longevity / anti-aging</option>
+        <option value="athletes">Performance athletes</option>
+        <option value="clinic">Clinics / providers (B2B)</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Tone</label>
+      <select id="gen-tone">
+        <option value="community">Community-native (peer voice)</option>
+        <option value="professional">Professional, still human</option>
+        <option value="educational">Educational / informative</option>
+        <option value="hype">Launch energy / exciting</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row"><label>Brief / angle <span style="color:var(--text3);font-weight:400">(or leave blank for general)</span></label>
+    <textarea id="gen-topic" rows="3" placeholder="e.g. Announce iOS App Store launch  •  Tease wearable sync  •  Explain AI lab scanner  •  Women's BHRT angle  •  Compare to manual tracking"></textarea>
+  </div>
+  <div class="form-grid">
+    <div class="form-row"><label>Feature focus</label>
+      <select id="gen-feature">
+        <option value="">No specific feature</option>
+        <option value="ai_assistant">AI Research Assistant</option>
+        <option value="lab_scanner">AI Lab Scanner</option>
+        <option value="encyclopedia">148-Compound Encyclopedia</option>
+        <option value="bloodwork">Bloodwork Tracking</option>
+        <option value="clinical_reports">Clinical Reports</option>
+        <option value="ios_launch">🆕 iOS App Store Launch</option>
+        <option value="wearable_tease">📡 Wearable Sync — Coming Soon</option>
+        <option value="lyt_band">⌚ LYT Band — Coming Soon</option>
+        <option value="affiliate">Affiliate Program (30% recurring)</option>
+        <option value="free_tier">Free Tier (no signup needed)</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Affiliate code <span style="color:var(--text3);font-weight:400">(optional)</span></label>
+      <input type="text" id="gen-affiliate" placeholder="e.g. DEREK" style="text-transform:uppercase">
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+    <span class="section-title" style="margin-bottom:0">Variants:</span>
+    <div class="chip-row" style="margin-bottom:0">
+      <div class="chip active" data-v="1" onclick="selectVariants(this)">1</div>
+      <div class="chip" data-v="3" onclick="selectVariants(this)">3 variants</div>
+    </div>
+  </div>
+  <button class="btn btn-primary btn-full" id="gen-btn" onclick="generate()">
+    <span id="gen-btn-text">✨ Generate</span>
+  </button>
+  <div id="gen-error" style="display:none;margin-top:10px;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:var(--red);border-radius:8px;padding:10px 12px;font-size:12px"></div>
+  <div id="gen-output-wrap" style="display:none">
+    <hr class="divider">
+    <div id="gen-output"></div>
+    <div class="action-bar">
+      <button class="btn btn-secondary" onclick="copyOutput()">📋 Copy</button>
+      <button class="btn btn-secondary" onclick="saveToLibrary()">💾 Save</button>
+      <button class="btn btn-secondary" onclick="sendToSchedule()">📅 Schedule</button>
+      <button class="btn btn-secondary" onclick="refine('shorter')">✂ Shorter</button>
+      <button class="btn btn-secondary" onclick="refine('punchier')">⚡ Punchier</button>
+      <button class="btn btn-secondary" onclick="refine('angle')">🔄 New angle</button>
+    </div>
+    <div class="char-bar"><div class="char-fill" id="char-fill" style="width:0%"></div></div>
+    <div class="char-count" id="char-count"></div>
+  </div>
+</div>
+
+<!-- CAMPAIGNS -->
+<div class="view" id="view-campaigns">
+  <div class="page-title">Campaigns</div>
+  <div class="page-sub">Pre-built and custom campaigns. Load any into the generator.</div>
+  <button class="btn btn-primary" onclick="showNewCampaign()" style="margin-bottom:16px">+ New Campaign</button>
+  <div id="campaigns-list">
+    <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">🚀 App Store Launch</div><div class="campaign-badge">Active</div></div><div class="campaign-body">iOS App Store is live — announce across all platforms, drive downloads, build legitimacy for the app.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('launch')">Generate content →</button></div></div></div>
+    <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">📡 Wearable Sync Tease</div><div class="campaign-badge" style="background:rgba(251,191,36,.1);color:var(--amber)">Coming Soon</div></div><div class="campaign-body">Build anticipation for HealthKit, BLE devices, LYT Band. Soon your BP cuff, scale, and CGM all flow in automatically.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('wearable')">Generate teasers →</button></div></div></div>
+    <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">👩 Women's BHRT</div><div class="campaign-badge" style="background:rgba(167,139,250,.1);color:var(--purple)">Opportunity</div></div><div class="campaign-body">Female hormone tracking is massively underserved. Estrogen, progesterone, testosterone for women — TherapyLog tracks all of it.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('women')">Generate content →</button></div></div></div>
+    <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">🤖 AI Feature Spotlight</div><div class="campaign-badge">Active</div></div><div class="campaign-body">AI research assistant + lab scanner are the #1 value props. Showcase them to drive Pro conversions.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('ai')">Generate content →</button></div></div></div>
+    <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">⌚ LYT Band Partnership</div><div class="campaign-badge" style="background:rgba(96,165,250,.1);color:var(--blue)">Partnership</div></div><div class="campaign-body">Partnership conversation active. Tease the integration: smart wristband → BP, glucose, biometrics flowing directly into TherapyLog.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('lyt')">Generate content →</button></div></div></div>
+    <div id="custom-campaigns"></div>
+  </div>
+  <div id="new-campaign-modal" style="display:none;margin-top:16px">
+    <div class="card">
+      <div class="section-title">New Campaign</div>
+      <div class="form-row"><label>Campaign name</label><input type="text" id="nc-name" placeholder="e.g. Q3 Growth Push"></div>
+      <div class="form-row"><label>Goal / content arc</label><textarea id="nc-goal" rows="3" placeholder="What's the hook? What features or angles? What do you want the audience to do?"></textarea></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="createCampaign()">Create & Generate</button>
+        <button class="btn btn-ghost" onclick="hideNewCampaign()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VISUALS -->
+<div class="view" id="view-visuals">
+  <div class="page-title">Visual Briefs</div>
+  <div class="page-sub">Generate detailed image prompts for DALL-E 3, Midjourney, or Ideogram. Add an OpenAI key in Settings to generate images directly.</div>
+  <div class="info-box"><b>Image AI:</b> Add your OpenAI key in Settings → DALL-E 3 generates directly here. Or copy the prompt to <b>Midjourney</b> or <b>Ideogram</b> (Ideogram is best when you want the TherapyLog name visible in the graphic).</div>
+  <div class="form-grid">
+    <div class="form-row"><label>Image type</label>
+      <select id="vis-type">
+        <option value="lifestyle">Lifestyle — person using the app</option>
+        <option value="data">Health data visualization aesthetic</option>
+        <option value="announcement">Feature announcement graphic</option>
+        <option value="ad">Ad creative — clean, minimal</option>
+        <option value="story">Story/Reels background</option>
+        <option value="product">App UI mockup</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Platform / size</label>
+      <select id="vis-size">
+        <option value="square">Square 1:1 — Feed post</option>
+        <option value="portrait">Portrait 4:5 — IG feed</option>
+        <option value="story">Story 9:16 — Stories/Reels</option>
+        <option value="landscape">Landscape 16:9 — YouTube/Twitter</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row"><label>Scene / concept <span style="color:var(--text3);font-weight:400">(optional)</span></label>
+    <textarea id="vis-concept" rows="2" placeholder="e.g. Man reviewing bloodwork results on phone  •  Woman at gym checking hormone app  •  Clean dark data visualization of health trends"></textarea>
+  </div>
+  <button class="btn btn-primary btn-full" id="vis-btn" onclick="generateBrief()"><span id="vis-btn-text">🎨 Generate Image Brief</span></button>
+  <div id="vis-output" style="display:none;margin-top:14px">
+    <div class="section-title">Generated Prompt</div>
+    <div class="brief-box" id="vis-brief"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="copyBrief()">📋 Copy prompt</button>
+      <button class="btn btn-primary" id="dalle-btn" onclick="generateDalle()" style="display:none">🤖 Generate with DALL-E 3</button>
+    </div>
+    <div id="dalle-output"></div>
+    <hr class="divider">
+    <div class="section-title">Brand Reference</div>
+    <div class="brief-box" style="font-size:11px"><b>Background:</b> #07090c or #0a0c0f (near-black)<br><b>Accent:</b> #4ade9a (bright green — use for highlights, glows, UI elements)<br><b>Text:</b> #e8edf5 on dark<br><b>Feel:</b> Clinical precision meets personal wellness. Dark, data-driven, warm, trusted.<br><b>Avoid:</b> Superhero physiques, obvious steroid/pharma imagery, white clinical backgrounds, generic stock photos. Real adults, realistic health data, modern UI.</div>
+  </div>
+</div>
+
+<!-- LIBRARY -->
+<div class="view" id="view-library">
+  <div class="page-title">Content Library</div>
+  <div class="page-sub">All saved content. Synced to GitHub Gist across devices.</div>
+  <div class="search-bar"><span class="search-icon">🔍</span><input type="text" id="lib-search" placeholder="Search saved content..." oninput="renderLibrary()"></div>
+  <div class="chip-row" id="lib-filters">
+    <div class="chip active" data-filter="all" onclick="filterLibrary(this)">All</div>
+    <div class="chip" data-filter="facebook" onclick="filterLibrary(this)">FB/IG</div>
+    <div class="chip" data-filter="twitter" onclick="filterLibrary(this)">X</div>
+    <div class="chip" data-filter="reddit" onclick="filterLibrary(this)">Reddit</div>
+    <div class="chip" data-filter="email" onclick="filterLibrary(this)">Email</div>
+    <div class="chip" data-filter="ad_copy" onclick="filterLibrary(this)">Ads</div>
+  </div>
+  <div id="library-list"><div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">No saved content yet. Generate something and hit Save.</div></div>
+</div>
+
+<!-- SCHEDULE -->
+<div class="view" id="view-schedule">
+  <div class="page-title">Send to Postiz</div>
+  <div class="page-sub">Schedule content directly to your Postiz queue.</div>
+  <div class="info-box"><b>Setup:</b> Add your Postiz API key and base URL in Settings. Then paste content or load from Library and hit Send.</div>
+  <div class="form-row"><label>Content</label><textarea id="sched-content" rows="6" placeholder="Paste content here or load from Library..."></textarea></div>
+  <div class="form-grid">
+    <div class="form-row"><label>Platform</label>
+      <select id="sched-platform">
+        <option value="facebook">Facebook</option>
+        <option value="instagram">Instagram</option>
+        <option value="twitter">X / Twitter</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="tiktok">TikTok</option>
+        <option value="reddit">Reddit</option>
+        <option value="youtube">YouTube</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Schedule date/time</label><input type="datetime-local" id="sched-date"></div>
+  </div>
+  <button class="btn btn-primary btn-full" id="sched-btn" onclick="sendPostiz()"><span id="sched-btn-text">📅 Send to Postiz</span></button>
+  <div id="sched-status" style="display:none;margin-top:10px;font-size:13px;padding:10px 12px;border-radius:8px"></div>
+</div>
+
+<!-- SETTINGS -->
+<div class="view" id="view-settings">
+  <div class="page-title">Settings</div>
+  <div class="page-sub">API keys, sync, and preferences.</div>
+  <div class="settings-section"><h3>🤖 Anthropic (Content Generation)</h3>
+    <div class="form-row"><label>API Key — use your "Command Center" key for separate billing</label>
+      <div class="key-row"><input type="password" id="s-anthropic" placeholder="sk-ant-..." autocomplete="off"><span class="key-status missing" id="s-anthropic-status">Missing</span></div>
+    </div>
+    <div class="form-row"><label>Model</label>
+      <select id="s-model">
+        <option value="claude-sonnet-4-6">Claude Sonnet 4.6 — best quality (recommended)</option>
+        <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 — faster, cheaper</option>
+      </select>
+    </div>
+  </div>
+  <div class="settings-section"><h3>🎨 Image Generation — DALL-E 3 (optional)</h3>
+    <div class="form-row"><label>OpenAI API Key</label>
+      <div class="key-row"><input type="password" id="s-openai" placeholder="sk-..." autocomplete="off"><span class="key-status missing" id="s-openai-status">Missing</span></div>
+    </div>
+    <div class="info-box"><b>Setup:</b> platform.openai.com → API keys → create key. ~$0.04/image with DALL-E 3. Once set, a "Generate with DALL-E 3" button appears in Visuals. Alternatively use <b>Midjourney</b> or <b>Ideogram</b> with the generated prompt.</div>
+  </div>
+  <div class="settings-section"><h3>📅 Postiz</h3>
+    <div class="form-row"><label>Postiz API Key</label>
+      <div class="key-row"><input type="password" id="s-postiz-key" placeholder="Your Postiz API key" autocomplete="off"><span class="key-status missing" id="s-postiz-status">Missing</span></div>
+    </div>
+    <div class="form-row"><label>Postiz Base URL</label><input type="url" id="s-postiz-url" placeholder="https://app.postiz.com"></div>
+  </div>
+  <div class="settings-section"><h3>🔄 Cross-Device Sync — GitHub Gist</h3>
+    <div class="info-box"><b>How it works:</b> Your content library and campaigns save to a private GitHub Gist. Open this page on any device with the same GitHub token and everything is there automatically.</div>
+    <div class="form-row"><label>GitHub Personal Access Token (needs Gist write scope)</label>
+      <div class="key-row"><input type="password" id="s-github" placeholder="github_pat_... or ghp_..." autocomplete="off"><span class="key-status missing" id="s-github-status">Missing</span></div>
+    </div>
+    <div class="form-row"><label>Gist ID <span style="color:var(--text3);font-weight:400">(auto-created on first connect)</span></label><input type="text" id="s-gist-id" placeholder="Auto-populated" readonly style="color:var(--text3)"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="initSync()">Connect & Sync Now</button>
+      <button class="btn btn-ghost" onclick="syncNow()">Push to Gist</button>
+    </div>
+  </div>
+  <div class="settings-section"><h3>🎯 Brand Defaults</h3>
+    <div class="form-grid">
+      <div class="form-row"><label>Default affiliate code</label><input type="text" id="s-default-affiliate" placeholder="Your promo code (optional)"></div>
+      <div class="form-row"><label>Extra voice notes</label><input type="text" id="s-voice-notes" placeholder="Any extra brand guidance..."></div>
+    </div>
+  </div>
+  <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+  <button class="btn btn-danger" style="margin-left:8px" onclick="clearData()">Clear all data</button>
+</div>
+
+</main>
+</div>
+
+<div class="mob-tab-bar">
+  <button class="mob-tab active" onclick="showView('generate',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Generate
+  </button>
+  <button class="mob-tab" onclick="showView('library',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>Library
+  </button>
+  <button class="mob-tab" onclick="showView('campaigns',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Campaigns
+  </button>
+  <button class="mob-tab" onclick="showView('schedule',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Postiz
+  </button>
+  <button class="mob-tab" onclick="showView('settings',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings
+  </button>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<script>
+const STATE={platform:'facebook',variants:1,lastOutput:'',lastBrief:'',library:[],campaigns:[]};
+const SK='tl_mkt_v3';
+let CFG={};
+
+// ── SETTINGS ──────────────────────────────────────────────
+function loadSettings(){
+  try{CFG=JSON.parse(localStorage.getItem(SK)||'{}');}catch(e){CFG={};}
+  const set=(id,val)=>{const el=document.getElementById(id);if(el&&val!=null)el.value=val;};
+  set('s-anthropic',CFG.anthropic);set('s-openai',CFG.openai);
+  set('s-postiz-key',CFG.postizKey);set('s-postiz-url',CFG.postizUrl);
+  set('s-github',CFG.github);set('s-gist-id',CFG.gistId);
+  set('s-model',CFG.model);set('s-default-affiliate',CFG.defaultAffiliate);
+  set('s-voice-notes',CFG.voiceNotes);
+  updateKS('s-anthropic-status',!!CFG.anthropic);updateKS('s-openai-status',!!CFG.openai);
+  updateKS('s-postiz-status',!!CFG.postizKey);updateKS('s-github-status',!!CFG.github);
+  if(CFG.library)STATE.library=CFG.library;
+  if(CFG.campaigns)STATE.campaigns=CFG.campaigns;
+  updateDalleBtn();
+}
+function saveSettings(){
+  CFG.anthropic=g('s-anthropic');CFG.openai=g('s-openai');
+  CFG.postizKey=g('s-postiz-key');CFG.postizUrl=g('s-postiz-url');
+  CFG.github=g('s-github');CFG.model=g('s-model');
+  CFG.defaultAffiliate=g('s-default-affiliate');CFG.voiceNotes=g('s-voice-notes');
+  persist();toast('Settings saved ✓');
+  updateKS('s-anthropic-status',!!CFG.anthropic);updateKS('s-openai-status',!!CFG.openai);
+  updateKS('s-postiz-status',!!CFG.postizKey);updateKS('s-github-status',!!CFG.github);
+  updateDalleBtn();
+}
+function g(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+function updateKS(id,ok){const el=document.getElementById(id);if(!el)return;el.textContent=ok?'✓ Set':'Missing';el.className='key-status '+(ok?'ok':'missing');}
+function updateDalleBtn(){const b=document.getElementById('dalle-btn');if(b)b.style.display=CFG.openai?'inline-flex':'none';}
+function persist(){CFG.library=STATE.library;CFG.campaigns=STATE.campaigns;try{localStorage.setItem(SK,JSON.stringify(CFG));}catch(e){}}
+function clearData(){if(!confirm('Clear all local data?'))return;try{localStorage.removeItem(SK);}catch(e){}location.reload();}
+
+// ── SYSTEM PROMPT ─────────────────────────────────────────
+const BASE_SYSTEM=`You are the marketing AI for TherapyLog, a hormone therapy and peptide tracking app.
+Write compelling, authentic content for the TRT, peptide, and longevity community.
+
+=== PRODUCT — CURRENT ===
+TherapyLog is a personal health tracking app for adults managing:
+- Testosterone Replacement Therapy (TRT)
+- Peptide protocols (BPC-157, TB-500, GHK-Cu, Ipamorelin, CJC-1295, Semaglutide, etc.)
+- GLP-1 medications (Semaglutide/Ozempic, Tirzepatide/Mounjaro)
+- Female BHRT (estrogen, progesterone, testosterone for women — UNDERSERVED, key differentiator)
+- Longevity/anti-aging protocols (senolytics, NAD+, growth hormone peptides)
+
+KEY FEATURES:
+- AI research assistant: 148-compound knowledge, answers grounded in PubMed, personalized to logged data, 145 questions/month Pro
+- AI lab scanner: photograph any bloodwork report, auto-fills 50+ fields, flags out-of-range values
+- 148-compound encyclopedia: mechanism, dosing, half-life, side effects, interactions, monitoring
+- Full bloodwork tracking: 50+ markers with trend visualization
+- Injection/dose logging with site rotation and reconstitution calculator
+- Clinical reports: formatted summaries for doctor appointments
+- Body composition, symptom, and side-effect logging
+- Dose calculator with syringe diagram
+
+PLATFORMS: Web (therapylog.app/app), iOS App Store (NOW LIVE), Android (Google Play + direct APK $34.99 one-time)
+
+PRICING:
+- Free: core tracking, no AI, no signup required — try at therapylog.app/app
+- Pro Managed: $9.99/month or $99.99/year (AI included)
+- BYOK: $8.99/month or $89.99/year (unlimited AI, own Anthropic key)
+- Affiliate perk: referral links give customers 1 month free on annual
+
+=== UPCOMING FEATURES (tease — don't overpromise) ===
+- Apple HealthKit + Google Health Connect: wearable data auto-imports (BP, glucose, weight, heart rate, sleep)
+- Bluetooth device support: BP cuffs, smart scales, CGMs, pulse oximeters
+- LYT Band integration (partnership in active conversation): smart wristband tracking BP, glucose, biometrics passively
+- CSV import: import data from any device
+
+=== AUDIENCE SEGMENTS ===
+- TRT users (primary): men 28-55, testosterone management, bloodwork monitoring critical
+- Peptide users: biohackers, performance athletes, injury recovery
+- GLP-1/weight management: tracking weight, glucose, body composition
+- Women's BHRT: estrogen, progesterone, testosterone — UNDERSERVED, major differentiator
+- Longevity/anti-aging: senolytics, NAD+, growth hormone protocols
+- Clinics/providers: B2B — physicians tracking patient protocols
+
+COMMUNITIES: r/Testosterone, r/PEDs, r/Peptides, r/longevity, r/TRT, r/semaglutide, r/firstcycle, TRT Revolution, TRT and Hormones Facebook groups
+
+=== BRAND VOICE ===
+- Direct, clinical, warm — lead with the answer
+- Community-native: write like someone who actually uses TRT/peptides, not a marketer
+- Never preachy, condescending, or pharma-ad stiff
+- Evidence-aware: reference research without inventing specific stats
+- Harm-reduction mindset: informed adults making their own decisions
+
+=== META/INSTAGRAM COMPLIANCE ===
+- Advertise the TRACKER, not the therapy
+- Never encourage purchasing substances
+- No invented statistics
+- No medical advice or treatment claims
+- Safe angles: "track," "log," "monitor," "manage" — not medical claims
+- Avoid compound names in ad headlines; okay in body text
+
+=== KEY URLS ===
+App: therapylog.app/app | Pro: therapylog.app/pro | Download: therapylog.app/download | Affiliates: therapylog.app/partnership
+Affiliate link format: therapylog.app/pro?ref=CODE`;
+
+const CHAR_LIMITS={facebook:2200,instagram_story:2200,twitter:280,reddit:40000,tiktok:2200,youtube:5000,email:0,newsletter:0,ad_copy:500,affiliate:0,review_reply:1000,community:0};
+
+const PLATFORM_GUIDES={
+  facebook:'Facebook/Instagram post. 1-3 natural paragraphs. Clear CTA at end. 5-8 relevant hashtags.',
+  instagram_story:'Instagram Story — short and punchy, max 3 sentences. High energy. CTA like "Link in bio". 3-5 hashtags.',
+  twitter:'Tweet — max 280 characters. Direct and punchy. 2-3 hashtags max.',
+  reddit:'Reddit post — no hashtags, no corporate speak, peer-to-peer. First line is post title, then body.',
+  tiktok:'TikTok caption — punchy hook first line, 2-3 sentences, 5-8 hashtags.',
+  youtube:'YouTube description — first 2 lines show before "more". Include timestamps, keywords, CTA to subscribe.',
+  email:'Marketing email. Line 1: SUBJECT: [subject]. Line 2: PREHEADER: [preheader]. Then body with clear CTA.',
+  newsletter:'Newsletter section — 2-3 paragraphs, educational and informative, links naturally to app.',
+  ad_copy:'Meta ad. Line 1: HEADLINE (under 40 chars). Line 2: PRIMARY TEXT (under 125 chars — hook). Body (under 500). CTA. Advertise the tracker, not the therapy.',
+  affiliate:'Content for an affiliate to share with their audience. Authentic to their voice. Include referral link.',
+  review_reply:'App Store/Google Play review response. Professional, warm, personal. Under 200 words.',
+  community:'Community reply or post. Genuine founder voice. Answer first, mention app naturally. No hard sell.',
+};
+
+const AUDIENCE_GUIDES={
+  general:'General TRT/peptide community — broad appeal.',
+  trt:'TRT users — emphasize bloodwork monitoring, hematocrit/E2 management, testosterone tracking.',
+  peptides:'Peptide protocol users — injury recovery, BPC-157/TB-500, performance optimization.',
+  women:'Women managing BHRT — estrogen, progesterone, testosterone. Lead with their experience. This audience is underserved and TherapyLog was built for them too.',
+  glp1:'GLP-1 users (Semaglutide/Tirzepatide) — tracking weight, glucose, body composition journey.',
+  longevity:'Longevity/anti-aging community — senolytics, NAD+, healthspan optimization.',
+  athletes:'Performance athletes — training enhancement, recovery protocols, body composition.',
+  clinic:'Clinic owners and physicians — patient monitoring efficiency, liability reduction, clinical workflow.',
+};
+
+const TONE_GUIDES={
+  community:'Casual, peer-to-peer voice. Sound like a genuine community member, not a brand.',
+  professional:'Professional and polished, but still warm and human. Not corporate-stiff.',
+  educational:'Informative and clear. Lead with value/knowledge.',
+  hype:'Launch energy — exciting, compelling, creates urgency. Big moment.',
+};
+
+const FEATURE_BRIEFS={
+  ai_assistant:'FOCUS ON: AI research assistant. It knows your protocol, your labs. Answers grounded in real research. Like a knowledgeable friend on call 24/7.',
+  lab_scanner:'FOCUS ON: AI lab scanner. Photograph any lab report → auto-fills everything in seconds. Flags what matters.',
+  encyclopedia:'FOCUS ON: 148-compound encyclopedia. Everything about every compound — mechanism, dosing, half-life, interactions. Harm reduction as a core value.',
+  bloodwork:'FOCUS ON: Bloodwork trend tracking. 50+ markers, visualized. See where things are heading before they become problems.',
+  clinical_reports:'FOCUS ON: Clinical reports. Show up to your doctor appointment actually informed, with data formatted they understand.',
+  ios_launch:'ANGLE: iOS App Store launch. TherapyLog is officially in the App Store. Legitimate, searchable, easy to share.',
+  wearable_tease:'ANGLE: Tease upcoming wearable sync. HealthKit, BLE devices, LYT Band. Your BP cuff, scale, CGM — data flowing in automatically. No more manual entry.',
+  lyt_band:'ANGLE: LYT Band integration coming. Smart wristband tracking BP, glucose, biometrics passively — syncing directly into TherapyLog.',
+  affiliate:'ANGLE: Affiliate program. First 20 partners get 30% recurring forever. Audience gets 1 month free on annual. Real recurring income for a tool they\'d recommend anyway.',
+  free_tier:'ANGLE: Free tier. Core tracking, no download, no account, no credit card. Try right now at therapylog.app/app.',
+};
+
+function buildSystem(platform,audience,tone,feature,affiliate,variants,voiceNotes){
+  let sys=BASE_SYSTEM;
+  sys+='\n\n=== TASK ===\nPlatform: '+platform.toUpperCase()+'. Format: '+(PLATFORM_GUIDES[platform]||PLATFORM_GUIDES.facebook);
+  sys+='\nAudience: '+(AUDIENCE_GUIDES[audience]||AUDIENCE_GUIDES.general);
+  sys+='\nTone: '+(TONE_GUIDES[tone]||TONE_GUIDES.community);
+  if(feature&&FEATURE_BRIEFS[feature])sys+='\n\n'+FEATURE_BRIEFS[feature];
+  if(affiliate)sys+='\n\nAFFILIATE: Content for affiliate "'+affiliate.toUpperCase()+'". Link: therapylog.app/pro?ref='+affiliate.toLowerCase()+'. Audience gets 1 month free on annual.';
+  if(voiceNotes)sys+='\n\nEXTRA VOICE NOTES: '+voiceNotes;
+  if(variants===3)sys+='\n\nGenerate exactly 3 DISTINCT variants with different angles. Separate each with: =====';
+  sys+='\n\nWrite only the content — no meta-commentary, no "here\'s your post:", no preamble.';
+  return sys;
+}
+
+// ── GENERATE ──────────────────────────────────────────────
+async function generate(){
+  const key=CFG.anthropic;
+  if(!key){showErr('No Anthropic API key. Go to Settings.');return;}
+  const topic=g('gen-topic'),audience=g('gen-audience'),tone=g('gen-tone'),
+        feature=g('gen-feature'),rawAffiliate=g('gen-affiliate'),
+        model=CFG.model||'claude-sonnet-4-6';
+  const affiliate=rawAffiliate||CFG.defaultAffiliate||'';
+  setGenLoading(true);hideErr();
+  const system=buildSystem(STATE.platform,audience,tone,feature,affiliate,STATE.variants,CFG.voiceNotes);
+  const userMsg=topic||'Write a strong general-purpose introduction to TherapyLog for this audience.';
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model,max_tokens:STATE.variants===3?2000:1000,system,messages:[{role:'user',content:userMsg}]}),
+    });
+    const data=await resp.json();
+    if(!resp.ok){
+      if(resp.status===401)throw new Error('API key rejected — check your Anthropic key in Settings.');
+      if(resp.status===429)throw new Error('Rate limited — wait a moment and retry.');
+      throw new Error((data.error&&data.error.message)||'Request failed');
+    }
+    const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+    STATE.lastOutput=text;
+    renderOutput(text);
+  }catch(e){showErr(e.message);}
+  finally{setGenLoading(false);}
+}
+
+async function refine(dir){
+  if(!STATE.lastOutput||!CFG.anthropic)return;
+  const dirMap={shorter:'Make this significantly shorter and more punchy. Keep the best parts.',punchier:'Make this more punchy, energetic, and compelling. Stronger hook.',angle:'Rewrite from a completely different angle. Same topic, fresh approach.'};
+  setGenLoading(true);
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'content-type':'application/json','x-api-key':CFG.anthropic,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:CFG.model||'claude-sonnet-4-6',max_tokens:800,system:BASE_SYSTEM+'\nRefine the content as instructed. Return only the refined content.',messages:[{role:'user',content:dirMap[dir]+'\n\nOriginal:\n'+STATE.lastOutput}]}),
+    });
+    const data=await resp.json();
+    if(resp.ok){
+      const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+      STATE.lastOutput=text;renderOutput(text);toast('Refined ✓');
+    }
+  }catch(e){toast('Refine error: '+e.message);}
+  finally{setGenLoading(false);}
+}
+
+function setGenLoading(on){const btn=document.getElementById('gen-btn'),t=document.getElementById('gen-btn-text');btn.disabled=on;t.innerHTML=on?'<span class="spin"></span> Generating…':'✨ Generate';}
+function showErr(m){const el=document.getElementById('gen-error');el.textContent=m;el.style.display='block';}
+function hideErr(){document.getElementById('gen-error').style.display='none';}
+
+function renderOutput(text){
+  const wrap=document.getElementById('gen-output-wrap');
+  const out=document.getElementById('gen-output');
+  wrap.style.display='block';
+  const parts=text.split(/={3,}/);
+  if(parts.length>1){
+    out.innerHTML=parts.map((p,i)=>{const t=p.trim();if(!t)return'';return`<div class="variant-card"><div class="variant-label">Variant ${i+1}</div>${esc(t)}</div>`;}).join('');
+  }else{
+    out.innerHTML=`<div class="output-box">${esc(text)}</div>`;
+  }
+  const limit=CHAR_LIMITS[STATE.platform],len=text.length;
+  const fill=document.getElementById('char-fill'),count=document.getElementById('char-count');
+  if(limit>0){
+    const pct=Math.min(100,(len/limit)*100);
+    fill.style.width=pct+'%';
+    fill.className='char-fill'+(pct>100?' over':pct>80?' warn':'');
+    count.textContent=len.toLocaleString()+' / '+limit.toLocaleString()+' chars';
+  }else{fill.style.width='0%';count.textContent=len.toLocaleString()+' chars';}
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+function copyOutput(){if(STATE.lastOutput)navigator.clipboard.writeText(STATE.lastOutput).then(()=>toast('Copied ✓'));}
+
+// ── LIBRARY ───────────────────────────────────────────────
+function saveToLibrary(){
+  if(!STATE.lastOutput)return;
+  STATE.library.unshift({id:Date.now(),platform:STATE.platform,content:STATE.lastOutput,date:new Date().toLocaleDateString(),audience:g('gen-audience')});
+  if(STATE.library.length>300)STATE.library=STATE.library.slice(0,300);
+  persist();toast('Saved ✓');renderLibrary();
+}
+function filterLibrary(chip){
+  document.querySelectorAll('#lib-filters .chip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');STATE.libFilter=chip.dataset.filter;renderLibrary();
+}
+function renderLibrary(){
+  const search=(document.getElementById('lib-search')?.value||'').toLowerCase();
+  const filter=STATE.libFilter||'all';
+  const items=STATE.library.filter(item=>(filter==='all'||item.platform===filter)&&(!search||item.content.toLowerCase().includes(search)));
+  const list=document.getElementById('library-list');
+  if(!items.length){list.innerHTML='<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">No content found.</div>';return;}
+  list.innerHTML=items.map(item=>`<div class="lib-item"><div class="lib-item-top"><span class="lib-platform">${item.platform}</span><span class="lib-date">${item.date}</span></div><div class="lib-content">${esc(item.content)}</div><div class="lib-actions"><button class="btn btn-secondary" onclick="copyLibItem(${item.id})">📋 Copy</button><button class="btn btn-secondary" onclick="sendLibToSchedule(${item.id})">📅 Schedule</button><button class="btn btn-danger" onclick="deleteLibItem(${item.id})">🗑</button></div></div>`).join('');
+}
+function copyLibItem(id){const item=STATE.library.find(i=>i.id===id);if(item)navigator.clipboard.writeText(item.content).then(()=>toast('Copied ✓'));}
+function sendLibToSchedule(id){const item=STATE.library.find(i=>i.id===id);if(!item)return;document.getElementById('sched-content').value=item.content;showView('schedule',document.querySelector('[onclick*="schedule"]'));}
+function deleteLibItem(id){STATE.library=STATE.library.filter(i=>i.id!==id);persist();renderLibrary();toast('Deleted');}
+function sendToSchedule(){const content=STATE.lastOutput;if(!content)return;document.getElementById('sched-content').value=content;showView('schedule',null);}
+
+// ── POSTIZ ────────────────────────────────────────────────
+async function sendPostiz(){
+  const content=g('sched-content'),platform=g('sched-platform'),dateVal=g('sched-date');
+  const key=CFG.postizKey,baseUrl=(CFG.postizUrl||'https://app.postiz.com').replace(/\/$/,'');
+  if(!content){showSchedStatus('Add content first.','error');return;}
+  if(!key){showSchedStatus('Add Postiz API key in Settings.','error');return;}
+  const btn=document.getElementById('sched-btn'),t=document.getElementById('sched-btn-text');
+  btn.disabled=true;t.innerHTML='<span class="spin"></span> Sending…';
+  const postDate=dateVal?new Date(dateVal).toISOString():new Date(Date.now()+3600000).toISOString();
+  try{
+    const resp=await fetch(`${baseUrl}/api/posts`,{method:'POST',headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({type:'post',date:postDate,shortLink:false,content:[{content,id:platform}]})});
+    if(resp.ok){showSchedStatus('✓ Scheduled for '+new Date(postDate).toLocaleString(),'ok');toast('Sent to Postiz ✓');}
+    else{const err=await resp.json().catch(()=>({}));showSchedStatus('Postiz error: '+(err.message||resp.status),'error');}
+  }catch(e){showSchedStatus('Could not reach Postiz — check URL and key in Settings.','error');}
+  finally{btn.disabled=false;t.textContent='📅 Send to Postiz';}
+}
+function showSchedStatus(msg,type){const el=document.getElementById('sched-status');el.style.display='block';el.textContent=msg;el.style.cssText+=`;background:${type==='ok'?'rgba(74,222,154,.08)':'rgba(248,113,113,.08)'};border:1px solid ${type==='ok'?'rgba(74,222,154,.2)':'rgba(248,113,113,.2)'};color:${type==='ok'?'var(--accent)':'var(--red)'}`;}
+
+// ── VISUALS ───────────────────────────────────────────────
+async function generateBrief(){
+  const key=CFG.anthropic;if(!key){toast('Add Anthropic key in Settings');return;}
+  const type=g('vis-type'),size=g('vis-size'),concept=g('vis-concept');
+  const btn=document.getElementById('vis-btn'),t=document.getElementById('vis-btn-text');
+  btn.disabled=true;t.innerHTML='<span class="spin"></span> Generating…';
+  const sizeMap={square:'1:1 (1024x1024px)',portrait:'4:5 (1080x1350px)',story:'9:16 (1080x1920px)',landscape:'16:9 (1920x1080px)'};
+  const typeGuide={lifestyle:'Lifestyle photo of a real person using the TherapyLog app on phone. Natural setting — home, gym, morning routine. Not posed. Real adult, health-conscious, modern.',data:'Abstract health data visualization — glowing green lines, charts, on near-black background. Scientific, clean, modern. No real person.',announcement:'Bold feature announcement graphic. TherapyLog branding prominent. Text-ready background. Clean, high contrast.',ad:'Clean minimal ad creative. Fast-read. Clear visual hierarchy. Platform-native feel.',story:'Full-bleed vertical Story background. Dark, atmospheric. Space for text overlay at top and bottom.',product:'Clean app UI mockup on dark background showing bloodwork tracking or AI chat screen.'};
+  const system=`You are an expert art director creating image prompts for TherapyLog marketing.\n\nBRAND:\n- Background: #07090c or #0a0c0f (near-black)\n- Accent: #4ade9a (bright green — UI highlights, subtle glow)\n- Feel: Clinical precision + personal wellness. Dark, data-driven, warm, trusted.\n- Avoid: Superhero physiques, obvious pharma imagery, white clinical backgrounds, clichéd stock photos. Real adults, realistic health data.\n\nOutput exactly:\n1. DALL-E 3 Prompt: [detailed prompt]\n2. Midjourney Prompt: [adapted with --ar flag]\n3. Ideogram Prompt: [for text-in-image]\n4. Avoid: [what not to include]`;
+  const userMsg=`Type: ${typeGuide[type]||typeGuide.lifestyle}\nSize: ${sizeMap[size]||sizeMap.square}\nConcept: ${concept||'general TherapyLog brand visual'}`;
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:CFG.model||'claude-sonnet-4-6',max_tokens:800,system,messages:[{role:'user',content:userMsg}]})});
+    const data=await resp.json();
+    if(resp.ok){
+      const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+      STATE.lastBrief=text;
+      document.getElementById('vis-brief').innerHTML=text.replace(/\n/g,'<br>');
+      document.getElementById('vis-output').style.display='block';
+      updateDalleBtn();
+    }
+  }catch(e){toast('Error: '+e.message);}
+  finally{btn.disabled=false;t.textContent='🎨 Generate Image Brief';}
+}
+async function generateDalle(){
+  const key=CFG.openai;if(!key)return;
+  const prompt=STATE.lastBrief.split('\n').find(l=>l.startsWith('1.')||l.toLowerCase().includes('dall-e'))||STATE.lastBrief.slice(0,400);
+  toast('Generating with DALL-E 3…');
+  try{
+    const resp=await fetch('https://api.openai.com/v1/images/generations',{method:'POST',headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({model:'dall-e-3',prompt:prompt.replace(/^.*?:\s*/,''),n:1,size:'1024x1024'})});
+    const data=await resp.json();
+    if(data.data?.[0]?.url){
+      const out=document.getElementById('dalle-output');
+      out.innerHTML=`<img src="${data.data[0].url}" style="width:100%;border-radius:10px;margin-top:12px"><a href="${data.data[0].url}" download class="btn btn-secondary" style="margin-top:8px;display:inline-flex">⬇ Download</a>`;
+      toast('Generated ✓');
+    }else toast('DALL-E error: '+(data.error?.message||'Unknown'));
+  }catch(e){toast('Error: '+e.message);}
+}
+function copyBrief(){if(STATE.lastBrief)navigator.clipboard.writeText(STATE.lastBrief).then(()=>toast('Prompt copied ✓'));}
+
+// ── CAMPAIGNS ─────────────────────────────────────────────
+const PRESETS={
+  launch:{brief:'TherapyLog is now live on the iOS App Store. Announce this milestone — legitimate, searchable, accessible. Drive downloads. Build excitement. Angle: this is the tracker the TRT/peptide community has been waiting for, now officially in the App Store.',feature:'ios_launch',tone:'hype'},
+  wearable:{brief:'Tease upcoming Apple HealthKit, Bluetooth device sync, and LYT Band integration. Build anticipation. Your BP cuff, scale, CGM, and smart wristband will all feed data into TherapyLog automatically. No more manual entry. Coming soon.',feature:'wearable_tease',tone:'hype'},
+  women:{brief:"Women managing hormone therapy (estrogen, progesterone, testosterone) have almost nothing built for them. TherapyLog tracks all of it. This is an underserved audience that deserves a real tool.",feature:'',audience:'women',tone:'community'},
+  ai:{brief:'The AI research assistant is the star feature — it knows your protocol, your labs. Answers questions grounded in real published research. The lab scanner reads any bloodwork photo. Showcase these.',feature:'ai_assistant',tone:'educational'},
+  lyt:{brief:'LYT Band integration is coming — a smart wristband tracking BP, glucose, and biometrics passively, syncing directly into TherapyLog. Build anticipation for this partnership.',feature:'lyt_band',tone:'hype'},
+};
+function loadCampaign(id){
+  const p=PRESETS[id];if(!p)return;
+  if(p.brief)document.getElementById('gen-topic').value=p.brief;
+  if(p.feature)document.getElementById('gen-feature').value=p.feature;
+  if(p.tone)document.getElementById('gen-tone').value=p.tone;
+  if(p.audience)document.getElementById('gen-audience').value=p.audience;
+  showView('generate',null);toast('Campaign loaded → Generate');
+}
+function showNewCampaign(){document.getElementById('new-campaign-modal').style.display='block';}
+function hideNewCampaign(){document.getElementById('new-campaign-modal').style.display='none';}
+function createCampaign(){
+  const name=g('nc-name'),goal=g('nc-goal');
+  if(!name||!goal){toast('Add name and goal');return;}
+  STATE.campaigns.push({id:Date.now(),name,goal});persist();hideNewCampaign();
+  document.getElementById('gen-topic').value=goal;showView('generate',null);toast('Campaign created → Generate');
+}
+
+// ── SYNC ──────────────────────────────────────────────────
+async function initSync(){
+  const token=g('s-github');if(!token){toast('Add GitHub token first');return;}
+  CFG.github=token;setSyncStatus('syncing','Connecting…');
+  try{
+    let gistId=CFG.gistId||g('s-gist-id');
+    if(!gistId){
+      const resp=await fetch('https://api.github.com/gists',{method:'POST',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({description:'TherapyLog Marketing Suite — Data',public:false,files:{'tl-marketing-data.json':{content:JSON.stringify({v:3,library:[],campaigns:[]})}}})});
+      const data=await resp.json();
+      if(!data.id)throw new Error('Failed to create Gist: '+(data.message||'unknown'));
+      gistId=data.id;CFG.gistId=gistId;
+      document.getElementById('s-gist-id').value=gistId;
+      persist();setSyncStatus('ok','Created & synced');toast('Gist created ✓');
+    }else{
+      await pullGist(token,gistId);setSyncStatus('ok','Synced · '+new Date().toLocaleTimeString());toast('Synced ✓');
+    }
+  }catch(e){setSyncStatus('','Sync failed');toast('Sync error: '+e.message);}
+}
+async function syncNow(){
+  const token=CFG.github,gistId=CFG.gistId;
+  if(!token||!gistId){toast('Set up sync in Settings first');return;}
+  setSyncStatus('syncing','Syncing…');
+  try{
+    await fetch(`https://api.github.com/gists/${gistId}`,{method:'PATCH',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({files:{'tl-marketing-data.json':{content:JSON.stringify({v:3,library:STATE.library,campaigns:STATE.campaigns})}}})});
+    setSyncStatus('ok','Synced · '+new Date().toLocaleTimeString());toast('Synced ✓');
+  }catch(e){setSyncStatus('','Sync failed');toast('Sync error: '+e.message);}
+}
+async function pullGist(token,gistId){
+  const resp=await fetch(`https://api.github.com/gists/${gistId}`,{headers:{'Authorization':`Bearer ${token}`}});
+  const data=await resp.json();
+  const content=data.files?.['tl-marketing-data.json']?.content;
+  if(content){const p=JSON.parse(content);if(p.library)STATE.library=p.library;if(p.campaigns)STATE.campaigns=p.campaigns;persist();renderLibrary();}
+}
+function setSyncStatus(state,label){
+  const dot=document.getElementById('sync-dot'),lbl=document.getElementById('sync-label');
+  dot.className='sync-dot'+(state==='ok'?' ok':state==='syncing'?' syncing':'');
+  if(lbl)lbl.textContent=label;
+}
+
+// ── UI ────────────────────────────────────────────────────
+function showView(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const v=document.getElementById('view-'+id);if(v)v.classList.add('active');
+  document.querySelectorAll('.nav-item, .mob-tab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  if(id==='library')renderLibrary();
+  closeSidebar();
+}
+function selectPlatform(tile){document.querySelectorAll('.platform-tile').forEach(t=>t.classList.remove('active'));tile.classList.add('active');STATE.platform=tile.dataset.platform;}
+function selectVariants(chip){document.querySelectorAll('[data-v]').forEach(c=>c.classList.remove('active'));chip.classList.add('active');STATE.variants=parseInt(chip.dataset.v);}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('open');}
+let _tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),2600);}
+
+// ── INIT ──────────────────────────────────────────────────
+loadSettings();
+renderLibrary();
+if(CFG.github&&CFG.gistId){setSyncStatus('ok','Ready');pullGist(CFG.github,CFG.gistId).catch(()=>{});}
+const dt=document.getElementById('sched-date');
+if(dt){const d=new Date(Date.now()+3600000);d.setMinutes(0,0,0);dt.value=d.toISOString().slice(0,16);}
+</script>
+</body>
+</html>
