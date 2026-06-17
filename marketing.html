@@ -122,6 +122,85 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
 </style>
 </head>
 <body>
+<!-- PIN GATE -->
+<div id="pin-gate" style="position:fixed;inset:0;background:#07090c;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px">
+  <div style="width:100%;max-width:320px;text-align:center">
+    <div style="font-size:28px;margin-bottom:12px">🔒</div>
+    <div style="font-family:-apple-system,sans-serif;font-size:22px;font-weight:700;color:#e8edf5;margin-bottom:6px;letter-spacing:-0.01em">Marketing Suite</div>
+    <div style="font-size:13px;color:#4a5568;margin-bottom:32px">Enter your PIN to continue</div>
+    <div style="display:flex;justify-content:center;gap:10px;margin-bottom:24px" id="pin-dots">
+      <div style="width:14px;height:14px;border-radius:50%;background:#1e2535;border:2px solid #263040" id="d0"></div>
+      <div style="width:14px;height:14px;border-radius:50%;background:#1e2535;border:2px solid #263040" id="d1"></div>
+      <div style="width:14px;height:14px;border-radius:50%;background:#1e2535;border:2px solid #263040" id="d2"></div>
+      <div style="width:14px;height:14px;border-radius:50%;background:#1e2535;border:2px solid #263040" id="d3"></div>
+      <div style="width:14px;height:14px;border-radius:50%;background:#1e2535;border:2px solid #263040" id="d4"></div>
+      <div style="width:14px;height:14px;border-radius:50%;background:#1e2535;border:2px solid #263040" id="d5"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:240px;margin:0 auto" id="pin-pad">
+      <button onclick="pinKey('1')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">1</button>
+      <button onclick="pinKey('2')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">2</button>
+      <button onclick="pinKey('3')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">3</button>
+      <button onclick="pinKey('4')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">4</button>
+      <button onclick="pinKey('5')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">5</button>
+      <button onclick="pinKey('6')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">6</button>
+      <button onclick="pinKey('7')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">7</button>
+      <button onclick="pinKey('8')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">8</button>
+      <button onclick="pinKey('9')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">9</button>
+      <button onclick="pinKey('del')" style="font-family:-apple-system,sans-serif;font-size:15px;font-weight:600;color:#8a95a3;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">⌫</button>
+      <button onclick="pinKey('0')" style="font-family:-apple-system,sans-serif;font-size:20px;font-weight:600;color:#e8edf5;background:#0f1219;border:1px solid #1e2535;border-radius:12px;padding:18px;cursor:pointer">0</button>
+      <div></div>
+    </div>
+    <div id="pin-error" style="margin-top:18px;font-size:13px;color:#f87171;min-height:18px"></div>
+    <div style="margin-top:24px;font-size:11px;color:#2a3040">therapylog.app/marketing</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var PIN = '070917';
+  var PKEY = 'tl_mkt_pin_ok';
+  var entered = '';
+  // Check if already unlocked this session
+  if(sessionStorage.getItem(PKEY) === '1'){
+    document.getElementById('pin-gate').style.display = 'none';
+    return;
+  }
+  function pinKey(k){
+    if(k==='del'){entered=entered.slice(0,-1);}
+    else if(entered.length<PIN.length){entered+=k;}
+    updateDots();
+    if(entered.length===PIN.length){
+      if(entered===PIN){
+        sessionStorage.setItem(PKEY,'1');
+        var gate=document.getElementById('pin-gate');
+        gate.style.transition='opacity 0.3s';
+        gate.style.opacity='0';
+        setTimeout(function(){gate.style.display='none';},300);
+      } else {
+        document.getElementById('pin-error').textContent='Incorrect PIN — try again';
+        var dots=document.querySelectorAll('#pin-dots div');
+        dots.forEach(function(d){d.style.background='#f87171';d.style.borderColor='#f87171';});
+        setTimeout(function(){entered='';updateDots();document.getElementById('pin-error').textContent='';},800);
+      }
+    }
+  }
+  function updateDots(){
+    for(var i=0;i<PIN.length;i++){
+      var d=document.getElementById('d'+i);
+      if(i<entered.length){d.style.background='#4ade9a';d.style.borderColor='#4ade9a';}
+      else{d.style.background='#1e2535';d.style.borderColor='#263040';}
+    }
+  }
+  window.pinKey=pinKey;
+  // Also allow keyboard input
+  document.addEventListener('keydown',function(e){
+    if(!document.getElementById('pin-gate')||document.getElementById('pin-gate').style.display==='none')return;
+    if(e.key>='0'&&e.key<='9')pinKey(e.key);
+    else if(e.key==='Backspace')pinKey('del');
+  });
+})();
+</script>
+
 <div class="app" id="app">
 
 <aside class="sidebar" id="sidebar">
