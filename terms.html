@@ -2,401 +2,453 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Terms of Service — TherapyLog</title>
-<meta name="description" content="TherapyLog Terms of Service. Read our terms for using the TherapyLog health tracking app and AI research assistant.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Use — TherapyLog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0a0c0f; --surface:#111418; --surface2:#181c22;
-  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
-  --accent:#4ade9a; --accent2:#3bc4ff;
-  --text:#e8edf5; --text2:#a4adba; --text3:#6b7585;
-  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: "DM Sans", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.75;
-  font-size: 15px;
-}
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse 60% 40% at 80% 0%, rgba(74,222,154,0.04) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
-.wrap {
-  position: relative;
-  z-index: 1;
-  max-width: 740px;
-  margin: 0 auto;
-  padding: calc(var(--safe-top) + 52px) 24px calc(var(--safe-bottom) + 72px);
-}
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 48px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-.brand {
-  font-family: "DM Serif Display", serif;
-  font-size: 24px;
-  letter-spacing: -0.02em;
-  text-decoration: none;
-  color: var(--text);
-}
-.brand span { color: var(--accent); font-style: italic; }
-.nav-link {
-  font-size: 13px;
-  color: var(--text3);
-  text-decoration: none;
-}
-.nav-link:hover { color: var(--text2); }
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111418;
+    --surface2: #161a20;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8edf5;
+    --text2: #8a95a3;
+    --text3: #4a5568;
+    --accent: #4ade9a;
+    --accent2: #3bc4ff;
+    --accent3: #f59e0b;
+  }
 
-/* Header */
-.doc-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-h1 {
-  font-family: "DM Serif Display", serif;
-  font-size: clamp(30px, 5vw, 42px);
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin-bottom: 12px;
-}
-.doc-meta {
-  font-size: 13px;
-  color: var(--text3);
-  margin-bottom: 40px;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* TOC */
-.toc {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px 24px;
-  margin-bottom: 44px;
-}
-.toc-title {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 12px;
-}
-.toc ol {
-  list-style: decimal;
-  padding-left: 18px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px 20px;
-}
-@media (max-width: 520px) { .toc ol { grid-template-columns: 1fr; } }
-.toc li { font-size: 13px; color: var(--text2); }
-.toc a { color: var(--text2); text-decoration: none; }
-.toc a:hover { color: var(--accent); }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* Sections */
-.section {
-  margin-bottom: 44px;
-  padding-top: 8px;
-}
-.section-num {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 6px;
-}
-h2 {
-  font-family: "DM Serif Display", serif;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-}
-h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text);
-  margin: 20px 0 8px;
-}
-p { color: var(--text2); margin-bottom: 14px; }
-p:last-child { margin-bottom: 0; }
-ul, ol {
-  color: var(--text2);
-  padding-left: 22px;
-  margin-bottom: 14px;
-}
-li { margin-bottom: 6px; line-height: 1.65; }
-a { color: var(--accent2); text-decoration: none; }
-a:hover { text-decoration: underline; }
-strong { color: var(--text); font-weight: 600; }
+  /* Ambient glow */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(74,222,154,0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-/* Callout boxes */
-.callout {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 12px 12px 0;
-  padding: 16px 20px;
-  margin: 18px 0;
-}
-.callout.warn {
-  border-left-color: #fb923c;
-}
-.callout p { margin-bottom: 0; }
+  /* Header */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,12,15,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-/* Footer */
-.doc-footer {
-  margin-top: 56px;
-  padding-top: 22px;
-  border-top: 1px solid var(--border);
-  font-size: 13px;
-  color: var(--text3);
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.doc-footer a { color: var(--text2); text-decoration: none; }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .logo span { color: var(--accent); font-style: italic; }
+
+  .back-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  /* Main layout */
+  .page-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 52px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Page heading */
+  .page-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  h1 em { color: var(--accent); font-style: italic; }
+
+  .page-meta {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 36px;
+  }
+
+  /* Medical disclaimer banner */
+  .medical-banner {
+    background: linear-gradient(135deg, rgba(74,222,154,0.08), rgba(59,196,255,0.04));
+    border: 1px solid rgba(74,222,154,0.25);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 40px;
+  }
+  .medical-banner-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .medical-banner p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 48px;
+  }
+  .toc-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 12px;
+  }
+  .toc ol {
+    padding-left: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+  }
+  .toc li { font-size: 13px; color: var(--text2); }
+  .toc a { color: var(--text2); text-decoration: none; transition: color 0.15s; }
+  .toc a:hover { color: var(--accent); }
+
+  /* Sections */
+  .section {
+    margin-bottom: 44px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text3);
+    flex-shrink: 0;
+  }
+
+  p { margin-bottom: 14px; color: var(--text2); font-size: 14px; }
+  p:last-child { margin-bottom: 0; }
+
+  strong { color: var(--text); font-weight: 600; }
+
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 14px;
+  }
+  li {
+    color: var(--text2);
+    font-size: 14px;
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+
+  /* Inline highlight box */
+  .note-box {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 14px 0;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .note-box strong { color: var(--accent3); }
+
+  /* Contact card */
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-top: 40px;
+  }
+  .contact-card-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+  .contact-card p { margin: 0; font-size: 14px; }
+  .contact-card a { color: var(--accent); text-decoration: none; }
+  .contact-card a:hover { text-decoration: underline; }
+
+  /* Footer */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .site-footer a { color: var(--text3); text-decoration: none; }
+  .site-footer a:hover { color: var(--text2); }
+
+  @media (max-width: 560px) {
+    .toc ol { grid-template-columns: 1fr; }
+    .page-wrap { padding: 32px 18px 60px; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <nav>
-    <a href="https://therapylog.app" class="brand">Therapy<span>Log</span></a>
-    <a href="https://therapylog.app/privacy" class="nav-link">Privacy Policy →</a>
-  </nav>
+<header class="site-header">
+  <a href="https://therapylog.app" class="logo">Therapy<span>Log</span></a>
+  <a href="https://therapylog.app" class="back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to app
+  </a>
+</header>
 
-  <div class="doc-eyebrow">Legal</div>
-  <h1>Terms of Service</h1>
-  <p class="doc-meta">Last updated: June 17, 2026 &nbsp;·&nbsp; Effective: June 17, 2026</p>
+<main class="page-wrap">
 
-  <div class="toc">
-    <div class="toc-title">Contents</div>
-    <ol>
-      <li><a href="#agreement">Agreement to Terms</a></li>
-      <li><a href="#service">Description of Service</a></li>
-      <li><a href="#disclaimer">Health Disclaimer</a></li>
-      <li><a href="#accounts">Accounts &amp; Access</a></li>
-      <li><a href="#subscriptions">Subscriptions &amp; Billing</a></li>
-      <li><a href="#iap">Apple &amp; Google Billing</a></li>
-      <li><a href="#byok">Bring Your Own Key</a></li>
-      <li><a href="#conduct">Acceptable Use</a></li>
-      <li><a href="#data">Your Data</a></li>
-      <li><a href="#ip">Intellectual Property</a></li>
-      <li><a href="#warranties">Disclaimer of Warranties</a></li>
-      <li><a href="#liability">Limitation of Liability</a></li>
-      <li><a href="#governing">Governing Law</a></li>
-      <li><a href="#changes">Changes to Terms</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ol>
+  <div class="page-eyebrow">Legal</div>
+  <h1>Terms of <em>Use</em></h1>
+  <p class="page-meta">Effective: June 10, 2026 &nbsp;·&nbsp; TherapyLog LLC &nbsp;·&nbsp; Floresville, Texas</p>
+
+  <!-- Medical disclaimer banner -->
+  <div class="medical-banner">
+    <div class="medical-banner-label">⚕ Important — Read First</div>
+    <p><strong>TherapyLog is a personal tracking and informational tool only.</strong> It does not provide medical advice, diagnosis, or treatment recommendations. No content generated by TherapyLog — including its AI assistant — constitutes medical advice or establishes a provider-patient relationship. Always consult a qualified, licensed healthcare provider before making any decision about medications, protocols, or your health.</p>
   </div>
 
+  <!-- Table of contents -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#description">What TherapyLog Is</a></li>
+      <li><a href="#not-medical">Not Medical Advice</a></li>
+      <li><a href="#eligibility">Eligibility</a></li>
+      <li><a href="#data">Your Data and Privacy</a></li>
+      <li><a href="#ai">AI Assistant</a></li>
+      <li><a href="#subscriptions">Subscriptions and Payment</a></li>
+      <li><a href="#prohibited">Prohibited Uses</a></li>
+      <li><a href="#ip">Intellectual Property</a></li>
+      <li><a href="#disclaimers">Disclaimers</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#governing-law">Governing Law</a></li>
+      <li><a href="#changes">Changes to These Terms</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
   <!-- 1 -->
-  <div class="section" id="agreement">
-    <div class="section-num">01</div>
-    <h2>Agreement to Terms</h2>
-    <p>By downloading, installing, or using TherapyLog (the "App") or any of our services available at therapylog.app (the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.</p>
-    <p>These Terms apply to all users of the Service, including users of the free tier, paid subscribers, and anyone accessing the Service through a web browser, iOS app, or Android app.</p>
-    <p>TherapyLog is operated by Joel Gonzales, a sole proprietor based in Conroe, Texas, United States ("we," "us," or "our").</p>
+  <div class="section" id="acceptance">
+    <h2><span class="section-num">01</span> Acceptance of Terms</h2>
+    <p>By accessing or using TherapyLog — whether through the web app at <strong>therapylog.app</strong>, the iOS application, the Android application, or any other platform we support — you agree to be bound by these Terms of Use ("Terms"). If you do not agree, do not use TherapyLog.</p>
+    <p>These Terms constitute a legally binding agreement between you and <strong>TherapyLog LLC</strong>, a Texas limited liability company ("TherapyLog," "we," "us," or "our").</p>
   </div>
 
   <!-- 2 -->
-  <div class="section" id="service">
-    <div class="section-num">02</div>
-    <h2>Description of Service</h2>
-    <p>TherapyLog is a personal health and wellness tracking application designed for adults managing hormone therapy, peptide protocols, GLP-1 medications, anabolic compounds, and related longevity regimens. The Service includes:</p>
+  <div class="section" id="description">
+    <h2><span class="section-num">02</span> What TherapyLog Is</h2>
+    <p>TherapyLog is a <strong>personal health tracking and reference tool</strong> that allows individuals to:</p>
     <ul>
-      <li>Protocol and injection logging tools</li>
-      <li>Bloodwork and lab value tracking</li>
-      <li>Body composition and symptom logging</li>
-      <li>A 148-compound reference encyclopedia</li>
-      <li>An AI-powered research assistant (Pro tier)</li>
-      <li>An AI lab scanner for automatic value extraction (Pro tier)</li>
-      <li>Clinical report generation tools</li>
+      <li>Log and track personal health data (weight, medications, lab values, body measurements, symptoms, and related metrics)</li>
+      <li>Set reminders for self-administered protocols</li>
+      <li>Browse an informational compound encyclopedia for educational reference</li>
+      <li>Access an AI-powered research assistant for general informational queries</li>
+      <li>Generate personal summaries and reports for their own use or to share with a healthcare provider</li>
     </ul>
-    <p>The Service is intended for personal informational and tracking use only. It is not a medical device, electronic health record system, or clinical tool, and is not intended to diagnose, treat, cure, or prevent any disease or medical condition.</p>
+    <p>TherapyLog is a <strong>personal journaling and organizational tool</strong>. It is not a medical device, electronic health record, clinical decision support system, or telehealth platform. It is not affiliated with, endorsed by, or a substitute for any licensed healthcare provider or medical institution.</p>
   </div>
 
   <!-- 3 -->
-  <div class="section" id="disclaimer">
-    <div class="section-num">03</div>
-    <h2>Health Disclaimer</h2>
-    <div class="callout warn">
-      <p><strong>TherapyLog is not a medical service and does not provide medical advice.</strong> All content, AI-generated responses, reference information, and tracking tools are for informational and educational purposes only. Nothing in the Service constitutes medical advice, diagnosis, or treatment recommendations.</p>
-    </div>
-    <p>Always consult a qualified healthcare provider before starting, changing, or discontinuing any hormone therapy, medication, supplement, or health protocol. Never disregard professional medical advice or delay seeking it because of information obtained through TherapyLog.</p>
-    <p>The AI research assistant provides research summaries grounded in published literature. It is not a physician, pharmacist, or clinical advisor. Its responses should not be used as a substitute for professional medical judgment.</p>
-    <p>You acknowledge that use of this Service involves personal health decisions that are entirely your own responsibility.</p>
+  <div class="section" id="not-medical">
+    <h2><span class="section-num">03</span> Not Medical Advice</h2>
+    <p><strong>Nothing in TherapyLog constitutes medical advice.</strong> This includes, without limitation:</p>
+    <ul>
+      <li>All compound, peptide, hormone, and medication reference information in the encyclopedia</li>
+      <li>Protocol templates and stack suggestions</li>
+      <li>Lab value reference ranges and interpretations</li>
+      <li>AI assistant responses</li>
+      <li>Any summaries, reports, or notifications generated by the app</li>
+    </ul>
+    <p>This information is provided for <strong>educational and organizational purposes only</strong>. It is not intended to diagnose, treat, cure, or prevent any disease or health condition. Reliance on any information provided by TherapyLog is solely at your own risk.</p>
+    <div class="note-box"><strong>Always consult your physician.</strong> Before starting, stopping, or modifying any medication, supplement, hormone therapy, peptide protocol, or health regimen, consult a qualified, licensed healthcare provider who knows your full medical history.</div>
   </div>
 
   <!-- 4 -->
-  <div class="section" id="accounts">
-    <div class="section-num">04</div>
-    <h2>Accounts &amp; Access</h2>
-    <p>TherapyLog does not require account creation for basic use. The Service stores all personal health data locally on your device. We do not maintain user accounts or cloud-hosted health records.</p>
-    <p>For subscription management, your account is held by the payment processor (Stripe, Apple, or Google depending on your purchase method). You are responsible for maintaining the security of your device and any subscription credentials.</p>
-    <p>You must be at least 18 years old to use the Service. By using the Service, you represent that you meet this age requirement.</p>
+  <div class="section" id="eligibility">
+    <h2><span class="section-num">04</span> Eligibility</h2>
+    <p>You must be <strong>at least 18 years of age</strong> to use TherapyLog. By using the app, you represent and warrant that you are 18 or older. TherapyLog is not intended for use by minors. If you become aware that a minor has used the app, please contact us immediately at <a href="mailto:hello@therapylog.app" style="color:var(--accent)">hello@therapylog.app</a>.</p>
+    <p>You must have the legal capacity to enter into a binding contract under applicable law. If you are accessing TherapyLog on behalf of a business or clinical practice, you represent that you are authorized to bind that entity to these Terms.</p>
   </div>
 
   <!-- 5 -->
-  <div class="section" id="subscriptions">
-    <div class="section-num">05</div>
-    <h2>Subscriptions &amp; Billing</h2>
-
-    <h3>Web Subscriptions (Stripe)</h3>
-    <p>Pro subscriptions purchased at therapylog.app/pro are processed by Stripe. Available plans:</p>
-    <ul>
-      <li><strong>Pro Managed Monthly</strong> — $9.99/month</li>
-      <li><strong>Pro Managed Annual</strong> — $99.99/year (~$8.33/month)</li>
-      <li><strong>BYOK Monthly</strong> — $8.99/month (web &amp; Android only)</li>
-      <li><strong>BYOK Annual</strong> — $89.99/year (web &amp; Android only)</li>
-    </ul>
-    <p>Subscriptions automatically renew at the end of each billing period. You may cancel at any time through your Stripe customer portal. Cancellation takes effect at the end of the current billing period — you retain access until then. We do not offer refunds for partial billing periods.</p>
-
-    <h3>Affiliate Referrals</h3>
-    <p>If you subscribe through an affiliate referral link, you may receive a promotional discount on your first annual billing period. This discount applies only to the first payment and only when the referral link is used at checkout. Affiliates earn a recurring commission as described in their affiliate agreement.</p>
-
-    <h3>Android APK (one-time purchase)</h3>
-    <p>The Android APK available at therapylog.app/download is a one-time purchase of $34.99 that provides lifetime access to the core tracking features. This purchase does not include the AI research assistant or lab scanner. Updates may be delivered manually by email.</p>
+  <div class="section" id="data">
+    <h2><span class="section-num">05</span> Your Data and Privacy</h2>
+    <p><strong>Local-first storage.</strong> By default, all personal health data you enter into TherapyLog is stored <strong>locally on your device</strong> using your browser's IndexedDB and localStorage. TherapyLog LLC does not have access to, collect, store, or transmit your personal health logs, measurements, medication entries, or lab values to any server.</p>
+    <p><strong>You own your data.</strong> Your data belongs to you. You can export a full backup at any time from Settings → Backup. You can delete all data at any time from Settings → Backup → Reset.</p>
+    <p><strong>No sale of personal data.</strong> TherapyLog LLC does not sell your personal data to any third party for any purpose.</p>
+    <p><strong>Texas privacy.</strong> TherapyLog LLC is a small business as defined by the U.S. Small Business Administration. As such, it is generally exempt from the full requirements of the Texas Data Privacy and Security Act (TDPSA), Texas Business and Commerce Code Ch. 541. Consistent with TDPSA Section 541.002, we do not sell sensitive personal data without consent — and as noted above, we do not sell personal data at all.</p>
+    <p><strong>Analytics and infrastructure.</strong> Limited technical data (such as session metadata for payment processing and API rate limiting) may be processed by our infrastructure partners (Stripe, Vercel, Upstash) in the ordinary course of providing the service. These providers process data under their own privacy policies and are not authorized to use it for their own purposes.</p>
+    <p><strong>Data security.</strong> While we take reasonable technical measures to protect the service, no system is perfectly secure. Because your health data is stored locally on your device, its security depends in part on the security of your device and browser. We strongly recommend enabling device-level passcode protection.</p>
   </div>
 
   <!-- 6 -->
-  <div class="section" id="iap">
-    <div class="section-num">06</div>
-    <h2>Apple App Store &amp; Google Play Billing</h2>
-    <p>Subscriptions purchased through the Apple App Store or Google Play are billed and managed by those platforms under their respective terms of service.</p>
-
-    <h3>Apple App Store (iOS)</h3>
-    <p>iOS subscriptions are auto-renewable subscriptions managed by Apple. Payment is charged to your Apple ID account at confirmation of purchase. Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. You can manage and cancel subscriptions in your iPhone Settings → [your name] → Subscriptions. Apple's standard subscription terms apply.</p>
-
-    <h3>Google Play (Android)</h3>
-    <p>Android subscriptions purchased through Google Play are managed by Google. You can cancel at any time through the Google Play app. Google's standard subscription terms apply.</p>
-
-    <p>We do not have access to your payment information when you purchase through Apple or Google. Refund requests for App Store or Google Play purchases must be made through Apple or Google respectively.</p>
+  <div class="section" id="ai">
+    <h2><span class="section-num">06</span> AI Assistant</h2>
+    <p>TherapyLog's AI research assistant is powered by <strong>Anthropic's Claude API</strong>. When you submit a query to the AI assistant, your message — which may include health context from your profile — is transmitted to Anthropic's servers for processing.</p>
+    <p><strong>What is sent:</strong> Your message, relevant profile context (such as your logged protocol or lab data, if you have enabled this), and a system prompt describing TherapyLog's purpose. <strong>Your full data history is not transmitted.</strong></p>
+    <p><strong>Anthropic's data handling:</strong> Queries sent to the AI assistant are subject to <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener" style="color:var(--accent)">Anthropic's Privacy Policy</a>. TherapyLog does not store AI query content on its own servers.</p>
+    <p><strong>AI limitations:</strong> AI assistant responses are informational only. They may be incomplete, inaccurate, or outdated. Do not make any health, medication, or treatment decision based solely on an AI response. The AI assistant does not know your complete medical history and is not a substitute for professional medical judgment.</p>
+    <p>If you use your own Anthropic API key (BYOK mode), your queries are billed to and governed by your own Anthropic account.</p>
   </div>
 
   <!-- 7 -->
-  <div class="section" id="byok">
-    <div class="section-num">07</div>
-    <h2>Bring Your Own Key (BYOK)</h2>
-    <p>The BYOK subscription tier allows you to connect your own Anthropic API key to power the AI research assistant. By using BYOK:</p>
-    <ul>
-      <li>Your API key is stored only on your local device and is never transmitted to our servers</li>
-      <li>AI requests made with your key are billed directly to your Anthropic account under Anthropic's pricing</li>
-      <li>You are responsible for your Anthropic account, its terms of service, and any associated costs</li>
-      <li>BYOK is available on the web app and Android only — it is not available through the Apple App Store</li>
-    </ul>
+  <div class="section" id="subscriptions">
+    <h2><span class="section-num">07</span> Subscriptions and Payment</h2>
+    <p>Certain features of TherapyLog require a paid subscription ("Pro"). By subscribing, you authorize us to charge the applicable fee to your selected payment method on a recurring basis (monthly or annually, depending on your plan).</p>
+    <p><strong>Pricing.</strong> Current pricing is displayed at checkout. We reserve the right to change pricing with reasonable advance notice. Price changes will not apply to your current billing period.</p>
+    <p><strong>Cancellation.</strong> You may cancel your subscription at any time. Cancellation takes effect at the end of the current billing period. No partial refunds are issued for unused time in a billing period, except where required by applicable law.</p>
+    <p><strong>Refunds.</strong> All purchases are generally final. If you believe you have been charged in error, contact us at <a href="mailto:hello@therapylog.app" style="color:var(--accent)">hello@therapylog.app</a> within 14 days of the charge.</p>
+    <p><strong>iOS subscriptions</strong> are managed through Apple and subject to Apple's payment terms. <strong>Web subscriptions</strong> are processed by Stripe, Inc. and subject to Stripe's terms of service. We do not store full payment card data.</p>
+    <p><strong>Free features.</strong> Core logging and tracking functionality is available without a subscription. Pro features (including managed AI access above free limits) require a paid plan.</p>
   </div>
 
   <!-- 8 -->
-  <div class="section" id="conduct">
-    <div class="section-num">08</div>
-    <h2>Acceptable Use</h2>
-    <p>You agree not to use the Service to:</p>
+  <div class="section" id="prohibited">
+    <h2><span class="section-num">08</span> Prohibited Uses</h2>
+    <p>You agree not to use TherapyLog to:</p>
     <ul>
-      <li>Violate any applicable law or regulation</li>
-      <li>Attempt to reverse engineer, decompile, or extract the source code of the app</li>
-      <li>Circumvent any rate limits, subscription gates, or access controls</li>
-      <li>Use the AI assistant to generate content intended to harm others</li>
-      <li>Resell, sublicense, or provide unauthorized access to the Service</li>
-      <li>Transmit malware, spam, or any harmful code</li>
+      <li>Violate any applicable federal, state, or local law or regulation</li>
+      <li>Provide false or misleading health information with intent to harm yourself or others</li>
+      <li>Attempt to reverse engineer, decompile, or extract the source code of the application</li>
+      <li>Use automated tools to scrape, crawl, or extract data from the application</li>
+      <li>Interfere with or disrupt the integrity or performance of the service or its infrastructure</li>
+      <li>Use the application in any manner that could constitute the unauthorized practice of medicine or healthcare</li>
+      <li>Re-sell, sublicense, or otherwise commercialize access to the application or its content without written authorization</li>
     </ul>
-    <p>We reserve the right to terminate or suspend access for violations of these Terms.</p>
   </div>
 
   <!-- 9 -->
-  <div class="section" id="data">
-    <div class="section-num">09</div>
-    <h2>Your Data</h2>
-    <p>TherapyLog is designed as a local-first application. Your health logs, bloodwork, photos, and protocol data are stored on your device and are not uploaded to our servers. You retain full ownership of your personal health data.</p>
-    <p>Data that does leave your device is limited to: AI assistant queries (sent to Anthropic), subscription processing (sent to Stripe, Apple, or Google), and email addresses you voluntarily provide for product updates. This is described in full in our <a href="https://therapylog.app/privacy">Privacy Policy</a>.</p>
-    <p>Because your health data is local, we cannot recover it if you uninstall the app or clear your device storage. We recommend using the in-app export feature to maintain backups.</p>
+  <div class="section" id="ip">
+    <h2><span class="section-num">09</span> Intellectual Property</h2>
+    <p>TherapyLog, its design, compound encyclopedia content, protocol templates, and all associated software are the property of TherapyLog LLC and are protected by applicable intellectual property law. You are granted a limited, non-exclusive, non-transferable license to use the application for your personal, non-commercial purposes in accordance with these Terms.</p>
+    <p><strong>Your content.</strong> You retain all rights to the health data and notes you enter into TherapyLog. You grant TherapyLog LLC no license to that content, consistent with the local-only storage architecture described in Section 5.</p>
   </div>
 
   <!-- 10 -->
-  <div class="section" id="ip">
-    <div class="section-num">10</div>
-    <h2>Intellectual Property</h2>
-    <p>The Service, including its design, interface, code, compound encyclopedia content, AI system prompts, and all associated materials, are owned by TherapyLog and protected by copyright and other intellectual property laws.</p>
-    <p>You are granted a limited, non-exclusive, non-transferable license to use the Service for your personal, non-commercial purposes in accordance with these Terms.</p>
+  <div class="section" id="disclaimers">
+    <h2><span class="section-num">10</span> Disclaimers of Warranty</h2>
+    <p>TherapyLog is provided on an <strong>"as is" and "as available"</strong> basis without warranty of any kind, either express or implied. To the fullest extent permitted by applicable law, TherapyLog LLC disclaims all warranties, including but not limited to:</p>
+    <ul>
+      <li>Implied warranties of merchantability, fitness for a particular purpose, and non-infringement</li>
+      <li>Any warranty that the application will be uninterrupted, error-free, or secure</li>
+      <li>Any warranty regarding the accuracy, completeness, or reliability of any compound, protocol, or reference information in the application</li>
+      <li>Any warranty that AI assistant responses are accurate, current, or appropriate for your individual circumstances</li>
+    </ul>
+    <p>You use TherapyLog entirely at your own risk.</p>
   </div>
 
   <!-- 11 -->
-  <div class="section" id="warranties">
-    <div class="section-num">11</div>
-    <h2>Disclaimer of Warranties</h2>
-    <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
-    <p>We do not warrant that the Service will be uninterrupted, error-free, or free of bugs or security vulnerabilities. We do not warrant the accuracy, completeness, or usefulness of any information provided by the AI research assistant or the compound encyclopedia.</p>
-    <p>Your use of the Service is at your sole risk.</p>
+  <div class="section" id="liability">
+    <h2><span class="section-num">11</span> Limitation of Liability</h2>
+    <p>To the fullest extent permitted by applicable law, <strong>TherapyLog LLC and its officers, employees, agents, and licensors shall not be liable</strong> for any indirect, incidental, special, consequential, or punitive damages — including but not limited to loss of health, physical injury, lost profits, loss of data, or goodwill — arising out of or in connection with your use of or inability to use TherapyLog.</p>
+    <p>In no event shall TherapyLog LLC's total cumulative liability to you for all claims arising from or relating to these Terms or your use of the service exceed the greater of (a) the amount you paid to TherapyLog LLC in the twelve months preceding the claim, or (b) one hundred U.S. dollars ($100.00).</p>
+    <p>Some jurisdictions do not allow certain limitations of liability. Where such limitations are not permitted under applicable law, TherapyLog LLC's liability shall be limited to the maximum extent permitted.</p>
   </div>
 
   <!-- 12 -->
-  <div class="section" id="liability">
-    <div class="section-num">12</div>
-    <h2>Limitation of Liability</h2>
-    <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL THERAPYLOG, ITS OWNER, OR AFFILIATES BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF DATA, PERSONAL INJURY, OR HEALTH-RELATED HARM, ARISING FROM YOUR USE OF OR INABILITY TO USE THE SERVICE.</p>
-    <p>Our total liability to you for any claims arising from these Terms or your use of the Service shall not exceed the amount you paid us in the twelve months prior to the claim.</p>
-    <p>Some jurisdictions do not allow limitations on certain implied warranties or liability, so some of the above limitations may not apply to you.</p>
+  <div class="section" id="governing-law">
+    <h2><span class="section-num">12</span> Governing Law and Disputes</h2>
+    <p>These Terms shall be governed by and construed in accordance with the laws of the <strong>State of Texas</strong>, without regard to its conflict of law provisions. You agree that any dispute arising out of or relating to these Terms or your use of TherapyLog shall be subject to the exclusive jurisdiction of the state and federal courts located in <strong>Wilson County, Texas</strong>.</p>
+    <p>Before initiating any formal dispute, you agree to first contact TherapyLog LLC at <a href="mailto:hello@therapylog.app" style="color:var(--accent)">hello@therapylog.app</a> and attempt to resolve the matter informally. Most concerns can be resolved quickly this way.</p>
   </div>
 
   <!-- 13 -->
-  <div class="section" id="governing">
-    <div class="section-num">13</div>
-    <h2>Governing Law</h2>
-    <p>These Terms are governed by and construed in accordance with the laws of the State of Texas, United States, without regard to its conflict of law provisions.</p>
-    <p>Any disputes arising under these Terms shall be resolved in the state or federal courts located in Montgomery County, Texas, and you consent to personal jurisdiction in those courts.</p>
-  </div>
-
-  <!-- 14 -->
   <div class="section" id="changes">
-    <div class="section-num">14</div>
-    <h2>Changes to Terms</h2>
-    <p>We reserve the right to modify these Terms at any time. When we make material changes, we will update the "Last updated" date at the top of this page. Your continued use of the Service after changes are posted constitutes acceptance of the updated Terms.</p>
-    <p>We will make reasonable efforts to notify subscribers of significant changes via email.</p>
+    <h2><span class="section-num">13</span> Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. When we do, we will update the effective date at the top of this page. For material changes, we will provide notice within the application. Your continued use of TherapyLog after the effective date of updated Terms constitutes your acceptance of those changes.</p>
+    <p>We encourage you to review these Terms periodically. If you do not agree to an updated version, you should stop using TherapyLog.</p>
   </div>
 
-  <!-- 15 -->
+  <!-- Contact -->
   <div class="section" id="contact">
-    <div class="section-num">15</div>
-    <h2>Contact</h2>
-    <p>Questions about these Terms? We're happy to help.</p>
-    <p>
-      <strong>TherapyLog</strong><br>
-      Email: <a href="mailto:hello@therapylog.app">hello@therapylog.app</a><br>
-      Website: <a href="https://therapylog.app">therapylog.app</a>
-    </p>
+    <h2><span class="section-num">14</span> Contact</h2>
+    <p>Questions about these Terms? We're reachable and responsive.</p>
+    <div class="contact-card">
+      <div class="contact-card-title">TherapyLog LLC</div>
+      <p>
+        Floresville, Texas<br>
+        Email: <a href="mailto:hello@therapylog.app">hello@therapylog.app</a><br>
+        Phone: <a href="tel:9362472310">(936) 247-2310</a>
+      </p>
+    </div>
   </div>
 
-  <div class="doc-footer">
-    <span>© 2026 TherapyLog · All rights reserved</span>
-    <span>
-      <a href="https://therapylog.app">Home</a> &nbsp;·&nbsp;
-      <a href="https://therapylog.app/privacy">Privacy Policy</a> &nbsp;·&nbsp;
-      <a href="mailto:hello@therapylog.app">Contact</a>
-    </span>
-  </div>
+</main>
 
-</div>
+<footer class="site-footer">
+  <p>© 2026 TherapyLog LLC · <a href="https://therapylog.app">therapylog.app</a> · These Terms do not constitute legal advice.</p>
+</footer>
+
 </body>
 </html>
