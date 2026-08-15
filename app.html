@@ -2130,9 +2130,15 @@ const score = d => (d.summary||'').length + ((d.doses||[]).length*50) + (((d.pro
 const parent = {};
 const find = k => { while (parent[k] !== k) { parent[k] = parent[parent[k]]; k = parent[k]; } return k; };
 const union = (a, b) => { if (parent[a] === undefined) parent[a] = a; if (parent[b] === undefined) parent[b] = b; const ra = find(a), rb = find(b); if (ra !== rb) parent[ra] = rb; };
+/* Same compound under two ids and two spellings. Listed by hand: matching on the
+   aka field instead would merge distinct compounds that share an alias string —
+   Ventfort and Chonluten both list the Lys-Glu-Asp sequence, Fisetin and
+   Quercetin are both "senolytic flavonoid". */
+const SAME = [['lgd', 'lgd4033'], ['rhgh', 'somatropin']];
 const entries = [];
 DB.classes.forEach(c => c.drugs.forEach(d => entries.push({ c, d })));
 entries.forEach((e, i) => { const k = 'e' + i; parent[k] = k; union(k, 'id:' + e.d.id); union(k, 'n:' + norm(e.d.name)); });
+SAME.forEach(([a, b]) => union('id:' + a, 'id:' + b));
 const groups = {};
 entries.forEach((e, i) => { const r = find('e' + i); (groups[r] = groups[r] || []).push(e); });
 const canonOf = new Map();
