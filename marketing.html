@@ -226,6 +226,9 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
     <button class="nav-item" onclick="showView('schedule',this)">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Send to Postiz
     </button>
+    <button class="nav-item" onclick="showView('bizdev',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Biz Dev
+    </button>
     <div class="nav-section">System</div>
     <button class="nav-item" onclick="showView('settings',this)">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings
@@ -365,9 +368,51 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
 
 <!-- VISUALS -->
 <div class="view" id="view-visuals">
-  <div class="page-title">Visual Briefs</div>
-  <div class="page-sub">Generate detailed image prompts for DALL-E 3, Midjourney, or Ideogram. Add an OpenAI key in Settings to generate images directly.</div>
-  <div class="info-box"><b>Image AI:</b> Add your OpenAI key in Settings → DALL-E 3 generates directly here. Or copy the prompt to <b>Midjourney</b> or <b>Ideogram</b> (Ideogram is best when you want the TherapyLog name visible in the graphic).</div>
+  <div class="page-title">Graphics Studio</div>
+  <div class="page-sub">Claude and Nano Banana working together: Claude drafts the prompt, Nano Banana renders it, Claude critiques the result and refines — including text rendered in the image.</div>
+  <div class="info-box"><b>Setup:</b> add your Gemini API key in Settings (aistudio.google.com → Get API key). Nano Banana Pro (gemini-3-pro-image) renders text in images reliably, so it can drop "TherapyLog" straight into the graphic.</div>
+
+  <div class="form-row"><label>Campaign brief — what is this graphic for?</label>
+    <textarea id="gs-brief" rows="3" placeholder="e.g. Instagram post announcing the new pharmacokinetic Levels feature — dark UI screenshot vibe, 'Know your levels' headline, TherapyLog branding"></textarea>
+  </div>
+  <div class="form-grid">
+    <div class="form-row"><label>Aspect</label>
+      <select id="gs-aspect">
+        <option value="1:1">Square 1:1 — feed</option>
+        <option value="4:5">Portrait 4:5 — IG feed</option>
+        <option value="9:16">Story 9:16</option>
+        <option value="16:9">Landscape 16:9</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Text in image</label>
+      <select id="gs-text">
+        <option value="yes">Yes — render headline/branding in the graphic</option>
+        <option value="no">No text — visual only</option>
+      </select>
+    </div>
+  </div>
+  <button class="btn btn-primary btn-full" id="gs-draft-btn" onclick="gsDraftPrompt()"><span id="gs-draft-txt">✍️ 1 · Claude drafts the image prompt</span></button>
+  <div id="gs-prompt-wrap" style="display:none;margin-top:12px">
+    <div class="section-title">Image prompt <span style="color:var(--text3);font-weight:400">(editable)</span></div>
+    <textarea id="gs-prompt" rows="5" style="width:100%"></textarea>
+    <div class="btn-row" style="margin-top:8px">
+      <button class="btn btn-primary" id="gs-gen-btn" onclick="gsGenerate(false)"><span id="gs-gen-txt">🍌 2 · Generate with Nano Banana</span></button>
+    </div>
+  </div>
+  <div id="gs-image-wrap" style="display:none;margin-top:12px">
+    <div class="section-title">Result</div>
+    <img id="gs-image" alt="Generated graphic" style="max-width:100%;border-radius:12px;border:1px solid var(--border)">
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn btn-secondary" id="gs-crit-btn" onclick="gsCritique()"><span id="gs-crit-txt">🔍 3 · Claude critiques &amp; refines</span></button>
+      <button class="btn btn-secondary" id="gs-regen-btn" onclick="gsGenerate(true)" style="display:none">♻️ 4 · Regenerate with revisions</button>
+      <button class="btn btn-secondary" onclick="gsDownload()">⬇️ Download</button>
+    </div>
+    <div id="gs-critique" class="brief-box" style="display:none;margin-top:10px"></div>
+  </div>
+  <div id="gs-error" class="info-box" style="display:none;margin-top:10px;border-color:rgba(248,113,113,0.4)"></div>
+
+  <hr class="divider">
+  <div class="section-title" style="margin-top:8px">Prompt-only briefs (Midjourney / Ideogram / DALL-E)</div>
   <div class="form-grid">
     <div class="form-row"><label>Image type</label>
       <select id="vis-type">
@@ -447,6 +492,13 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
 </div>
 
 <!-- SETTINGS -->
+<div class="view" id="view-bizdev">
+  <div class="page-title">Business Development</div>
+  <div class="page-sub">Every partnership and growth lead from the Aug 2026 research, ready to work through. Checked state saves locally (and syncs via Gist with the rest of your data).</div>
+  <div id="bizdev-progress" style="font-size:12px;color:var(--text3);margin-bottom:14px"></div>
+  <div id="bizdev-list"></div>
+</div>
+
 <div class="view" id="view-settings">
   <div class="page-title">Settings</div>
   <div class="page-sub">API keys, sync, and preferences.</div>
@@ -462,7 +514,20 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
       </select>
     </div>
   </div>
-  <div class="settings-section"><h3>🎨 Image Generation — DALL-E 3 (optional)</h3>
+  <div class="settings-section"><h3>🍌 Nano Banana — Gemini Image Generation</h3>
+    <div class="form-row"><label>Gemini API Key</label>
+      <div class="key-row"><input type="password" id="s-gemini" placeholder="AIza..." autocomplete="off"><span class="key-status missing" id="s-gemini-status">Missing</span></div>
+    </div>
+    <div class="form-row"><label>Image model</label>
+      <select id="s-gemini-model">
+        <option value="gemini-3-pro-image" selected>Nano Banana Pro (gemini-3-pro-image) — best, renders text</option>
+        <option value="gemini-3.1-flash-image">Nano Banana 2 (gemini-3.1-flash-image) — fast</option>
+        <option value="gemini-2.5-flash-image">Nano Banana 1 (gemini-2.5-flash-image) — legacy</option>
+      </select>
+    </div>
+    <div class="info-box"><b>Setup:</b> aistudio.google.com → Get API key. Powers the Graphics Studio loop: Claude drafts → Nano Banana renders → Claude critiques → Nano Banana revises the same image.</div>
+  </div>
+  <div class="settings-section"><h3>🎨 DALL-E 3 (optional, legacy)</h3>
     <div class="form-row"><label>OpenAI API Key</label>
       <div class="key-row"><input type="password" id="s-openai" placeholder="sk-..." autocomplete="off"><span class="key-status missing" id="s-openai-status">Missing</span></div>
     </div>
@@ -529,6 +594,8 @@ function loadSettings(){
   try{CFG=JSON.parse(localStorage.getItem(SK)||'{}');}catch(e){CFG={};}
   const set=(id,val)=>{const el=document.getElementById(id);if(el&&val!=null)el.value=val;};
   set('s-anthropic',CFG.anthropic);set('s-openai',CFG.openai);
+  set('s-gemini',CFG.gemini);set('s-gemini-model',CFG.geminiModel);
+  updateKS('s-gemini-status',!!CFG.gemini);
   set('s-postiz-key',CFG.postizKey);set('s-postiz-url',CFG.postizUrl);
   set('s-github',CFG.github);set('s-gist-id',CFG.gistId);
   set('s-model',CFG.model);set('s-default-affiliate',CFG.defaultAffiliate);
@@ -541,6 +608,7 @@ function loadSettings(){
 }
 function saveSettings(){
   CFG.anthropic=g('s-anthropic');CFG.openai=g('s-openai');
+  CFG.gemini=g('s-gemini');CFG.geminiModel=g('s-gemini-model');
   CFG.postizKey=g('s-postiz-key');CFG.postizUrl=g('s-postiz-url');
   CFG.github=g('s-github');CFG.model=g('s-model');
   CFG.defaultAffiliate=g('s-default-affiliate');CFG.voiceNotes=g('s-voice-notes');
@@ -909,6 +977,7 @@ function showView(id,btn){
   document.querySelectorAll('.nav-item, .mob-tab').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
   if(id==='library')renderLibrary();
+  if(id==='bizdev')renderBizdev();
   closeSidebar();
 }
 function selectPlatform(tile){document.querySelectorAll('.platform-tile').forEach(t=>t.classList.remove('active'));tile.classList.add('active');STATE.platform=tile.dataset.platform;}
@@ -924,6 +993,174 @@ renderLibrary();
 if(CFG.github&&CFG.gistId){setSyncStatus('ok','Ready');pullGist(CFG.github,CFG.gistId).catch(()=>{});}
 const dt=document.getElementById('sched-date');
 if(dt){const d=new Date(Date.now()+3600000);d.setMinutes(0,0,0);dt.value=d.toISOString().slice(0,16);}
+
+/* ── GRAPHICS STUDIO — Claude ↔ Nano Banana loop ─────────────── */
+const GS = { image: null, mime: 'image/png' };
+const BRAND_REF = 'Brand: TherapyLog — hormone & peptide tracking app. Background near-black (#0a0c0f), accent bright green (#4ade9a), secondary cyan (#3bc4ff), light text (#e8edf5). Feel: clinical precision meets personal wellness — dark, data-driven, trusted. Avoid: superhero physiques, pill/syringe clichés, white clinical backdrops, generic stock-photo energy.';
+
+async function gsClaude(messages, maxTokens) {
+  if (!CFG.anthropic) throw new Error('Add your Anthropic API key in Settings first.');
+  const r = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-api-key': CFG.anthropic, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+    body: JSON.stringify({ model: CFG.model || 'claude-sonnet-5', max_tokens: maxTokens || 900, messages })
+  });
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error && d.error.message || 'Claude request failed');
+  return d.content.filter(b => b.type === 'text').map(b => b.text).join('');
+}
+function gsErr(msg) { const e = document.getElementById('gs-error'); e.textContent = '⚠️ ' + msg; e.style.display = ''; }
+function gsBusy(btnId, txtId, on, label) { const b = document.getElementById(btnId), t = document.getElementById(txtId); if (b) b.disabled = on; if (t && label) t.textContent = label; }
+
+async function gsDraftPrompt() {
+  document.getElementById('gs-error').style.display = 'none';
+  const brief = (document.getElementById('gs-brief').value || '').trim();
+  if (!brief) { gsErr('Describe what the graphic is for first.'); return; }
+  const wantText = document.getElementById('gs-text').value === 'yes';
+  const aspect = document.getElementById('gs-aspect').value;
+  gsBusy('gs-draft-btn', 'gs-draft-txt', true, 'Claude is drafting…');
+  try {
+    const out = await gsClaude([{ role: 'user', content:
+`Write one detailed image-generation prompt for Google's Nano Banana Pro model.
+${BRAND_REF}
+Campaign brief: ${brief}
+Aspect ratio: ${aspect}. ${wantText ? 'The graphic SHOULD include short rendered text (headline and/or the word "TherapyLog") — specify the exact wording, placement, and typographic style in the prompt.' : 'No text in the image.'}
+Rules: describe composition, lighting, palette (use the brand colors), and mood concretely. One paragraph, no preamble, no options — return only the prompt text.` }]);
+    document.getElementById('gs-prompt').value = out.trim();
+    document.getElementById('gs-prompt-wrap').style.display = '';
+  } catch (e) { gsErr(e.message); }
+  gsBusy('gs-draft-btn', 'gs-draft-txt', false, '✍️ 1 · Claude drafts the image prompt');
+}
+
+async function gsGenerate(useRevision) {
+  document.getElementById('gs-error').style.display = 'none';
+  if (!CFG.gemini) { gsErr('Add your Gemini API key in Settings first.'); return; }
+  const prompt = (document.getElementById('gs-prompt').value || '').trim();
+  if (!prompt) { gsErr('No prompt yet — run step 1 or type one.'); return; }
+  const model = CFG.geminiModel || 'gemini-3-pro-image';
+  const parts = [];
+  if (useRevision && GS.image) parts.push({ inline_data: { mime_type: GS.mime, data: GS.image } });
+  parts.push({ text: useRevision && GS.image ? 'Revise this image per the following instructions, keeping everything else consistent: ' + prompt : prompt });
+  const btn = useRevision ? ['gs-regen-btn', null] : ['gs-gen-btn', 'gs-gen-txt'];
+  gsBusy(btn[0], btn[1], true, '🍌 Generating…');
+  try {
+    const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': CFG.gemini },
+      body: JSON.stringify({ contents: [{ parts }] })
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error && d.error.message || 'Gemini request failed (' + r.status + ')');
+    const cand = ((d.candidates || [])[0] || {}).content || {};
+    const img = (cand.parts || []).find(p => p.inlineData || p.inline_data);
+    if (!img) throw new Error('No image in the response — the model may have refused or returned text only.');
+    const inline = img.inlineData || img.inline_data;
+    GS.image = inline.data; GS.mime = inline.mimeType || inline.mime_type || 'image/png';
+    document.getElementById('gs-image').src = 'data:' + GS.mime + ';base64,' + GS.image;
+    document.getElementById('gs-image-wrap').style.display = '';
+    document.getElementById('gs-critique').style.display = 'none';
+    document.getElementById('gs-regen-btn').style.display = 'none';
+  } catch (e) { gsErr(e.message); }
+  gsBusy(btn[0], btn[1], false, '🍌 2 · Generate with Nano Banana');
+}
+
+async function gsCritique() {
+  document.getElementById('gs-error').style.display = 'none';
+  if (!GS.image) { gsErr('Generate an image first.'); return; }
+  const brief = (document.getElementById('gs-brief').value || '').trim();
+  gsBusy('gs-crit-btn', 'gs-crit-txt', true, '🔍 Claude is reviewing…');
+  try {
+    const out = await gsClaude([{ role: 'user', content: [
+      { type: 'image', source: { type: 'base64', media_type: GS.mime, data: GS.image } },
+      { type: 'text', text:
+`You are reviewing a marketing graphic against its brief.
+${BRAND_REF}
+Brief: ${brief}
+1. In 3-4 bullet points, critique the image against the brief and brand (composition, color fidelity, text legibility/spelling if any, overall pull).
+2. Then on a new line starting exactly with "REVISION:" write one concise instruction paragraph telling the image model what to change. If the image is already right, write "REVISION: none".` }
+    ] }], 700);
+    const critEl = document.getElementById('gs-critique');
+    critEl.textContent = out.trim();
+    critEl.style.display = '';
+    const m = out.match(/REVISION:\s*([\s\S]+)/);
+    if (m && m[1].trim().toLowerCase() !== 'none') {
+      document.getElementById('gs-prompt').value = m[1].trim();
+      document.getElementById('gs-regen-btn').style.display = '';
+    }
+  } catch (e) { gsErr(e.message); }
+  gsBusy('gs-crit-btn', 'gs-crit-txt', false, '🔍 3 · Claude critiques & refines');
+}
+function gsDownload() {
+  if (!GS.image) return;
+  const a = document.createElement('a');
+  a.href = 'data:' + GS.mime + ';base64,' + GS.image;
+  a.download = 'therapylog-graphic-' + Date.now() + '.' + (GS.mime.split('/')[1] || 'png');
+  a.click();
+}
+
+/* ── BIZ DEV CHECKLIST ───────────────────────────────────────── */
+const BIZDEV = [
+{ cat: '🩸 Bloodwork ordering — partners to contact', items: [
+  { id:'lab-lta', t:'Lab Testing API (labtestingapi.com)', n:'450+ DTC tests, affiliate program built for health apps. Ask: API access, commission %, state coverage.' },
+  { id:'lab-directlabs', t:'DirectLabs (directlabs.com/main/affiliate)', n:'Custom partner portal, monthly commission tracking.' },
+  { id:'lab-evexia', t:'Evexia Diagnostics', n:'30+ CLIA labs on one platform; physician-network add-on lets non-licensed operators offer orders. Ask about affiliate/white-label terms.' },
+  { id:'lab-rupa', t:'Rupa Health / Fullscript', n:'Wholesale pricing + 7% service fee; Rupa is merging into Fullscript through 2026 — ask which entity to sign with.' },
+  { id:'lab-ulta', t:'Ulta Lab Tests affiliate', n:'Established consumer DTC affiliate; TRT panels are a core seller.' },
+  { id:'lab-quest', t:'Quest (questhealth.com) affiliate', n:'Runs via affiliate networks; big brand-name trust for panels.' },
+  { id:'lab-marek', t:'Marek Health referral', n:'The name-brand optimization lab your audience already knows; ask about referral/affiliate.' },
+  { id:'lab-attorney', t:'⚠️ Healthcare attorney consult BEFORE signing', n:'Per-test commission structures brush anti-kickback rules even in cash-pay; a flat marketing fee is often cleaner. Also: NY/NJ/RI restrict DTC labs — partner must handle state gating.' } ] },
+{ cat: '🏥 White-label — clinics to pitch the tracking layer', items: [
+  { id:'wl-hone', t:'Hone Health', n:'Best-funded TRT telehealth, no native app, buggy portal per reviews. Pitch per-seat patient tracking.' },
+  { id:'wl-defy', t:'Defy Medical', n:'$400-650/mo patients, portal is essentially a med-ordering page.' },
+  { id:'wl-trtnation', t:'TRT Nation', n:'$99/mo volume play, no patient software at all.' },
+  { id:'wl-petermd', t:'PeterMD', n:'$79/mo budget tier, no tracking software.' },
+  { id:'wl-directory', t:'Your own directory providers', n:'Warmest leads: clinics already listed in the TherapyLog directory — offer white-label as an upsell to the $149/$299 tiers.' },
+  { id:'wl-coaches', t:'Peptide coaches & paid communities', n:'Skool/Discord group owners — white-label app as a member perk, priced per member.' },
+  { id:'wl-relayrx', t:'Study relayrx', n:'They white-label lab ordering to TRT/peptide clinics — study their pitch and pricing before writing yours.' } ] },
+{ cat: '🍃 Pouch manufacturers — smaller shops to inquire', items: [
+  { id:'pouch-cpm', t:'caffeinepouchmanufacturer.com', n:'Caffeine/nootropic/mushroom pouches, MOQ ~5,000 cans, 3-5 week turnaround from formula sign-off.' },
+  { id:'pouch-oem', t:'OEMNicotine (oemnicotine.com)', n:'Caffeine/energy/nootropic OEM for emerging brands; MOQ from 2,500 cans (natural caffeine).' },
+  { id:'pouch-nutraseller', t:'NutraSeller', n:'Custom nootropic formulations, GMP, MOQ ~2,500 units.' },
+  { id:'pouch-bvt', t:'British VitaTech', n:'Energy/nootropic pouch white-label, flexible MOQ — good for a small first run.' },
+  { id:'pouch-wonnda', t:'Wonnda marketplace', n:'B2B matching platform — post the brief, compare vetted pouch manufacturers.' },
+  { id:'pouch-caps-first', t:'Strategy: capsules before pouches', n:'Prove the funnel with 3-4 private-label supplement SKUs (low MOQ) sold to existing users before committing to pouch inventory.' } ] },
+{ cat: '📣 Growth — in order', items: [
+  { id:'gr-affiliates', t:'Activate the affiliate program', n:'Kit is built, zero recruited. Recruit the first 20 founding affiliates at 30% recurring.' },
+  { id:'gr-seo', t:'Comparison SEO pages', n:'"Best peptide tracker 2026", vs-Shotsy/Protocol/Regimen pages — every growing competitor does this.' },
+  { id:'gr-calc', t:'Free indexable calculator', n:'Expose the reconstitution calculator as a standalone SEO page (the PeptideCalc funnel).' },
+  { id:'gr-pr', t:'PR wire for the Levels launch', n:'PK curves are launch-worthy news; PRNewswire syndication is exactly how Peptide Tracker got visibility.' },
+  { id:'gr-share', t:'Share-ready charts', n:'One-tap share with a small TherapyLog watermark — Shotsy grew on screenshots circulating in communities.' },
+  { id:'gr-directory', t:'Directory listing sales push', n:'$49/$149/$299 tiers are built — needs outreach, not code.' } ] },
+{ cat: '⚖️ Legal & loose ends', items: [
+  { id:'lg-attorney', t:'Lab-commission attorney consult', n:'Blocks the bloodwork revenue line.' },
+  { id:'lg-arctos', t:'Arctos Labs: DBA vs LLC', n:'Unresolved since August; needed before the supplement line takes payments.' },
+  { id:'lg-terms', t:'Verify therapylog.app/terms is current', n:'Thirty seconds in a browser; two versions may have been deployed.' },
+  { id:'lg-lyt', t:'Email LYT Band', n:'SDK? Health Connect? One email decides whether Bluetooth work is worth scoping.' } ] }
+];
+function renderBizdev() {
+  const done = new Set(CFG.bizdevDone || []);
+  const total = BIZDEV.reduce((s, c) => s + c.items.length, 0);
+  document.getElementById('bizdev-progress').textContent = done.size + ' of ' + total + ' worked';
+  document.getElementById('bizdev-list').innerHTML = BIZDEV.map(c => `
+    <div class="settings-section"><h3>${c.cat}</h3>
+      ${c.items.map(it => `
+      <label style="display:flex;gap:10px;align-items:flex-start;padding:9px 2px;border-bottom:1px solid var(--border);cursor:pointer">
+        <input type="checkbox" ${done.has(it.id) ? 'checked' : ''} onchange="bizdevToggle('${it.id}')" style="margin-top:3px;accent-color:var(--accent)">
+        <span style="flex:1">
+          <span style="font-size:13px;font-weight:600;${done.has(it.id) ? 'text-decoration:line-through;color:var(--text3)' : ''}">${it.t}</span><br>
+          <span style="font-size:11.5px;color:var(--text3);line-height:1.5">${it.n}</span>
+        </span>
+      </label>`).join('')}
+    </div>`).join('');
+}
+function bizdevToggle(id) {
+  const done = new Set(CFG.bizdevDone || []);
+  done.has(id) ? done.delete(id) : done.add(id);
+  CFG.bizdevDone = Array.from(done);
+  localStorage.setItem(SK, JSON.stringify(CFG));
+  renderBizdev();
+}
+
 </script>
 </body>
 </html>
