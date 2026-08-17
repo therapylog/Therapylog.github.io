@@ -344,3 +344,7 @@ Class art filenames match the class ids in `compounds.json`, so lookup is one li
 **Compress before committing.** Run PNGs through `pngquant` or export WebP at ~85%.
 Class tiles should land at 40–80 KB each, not 400 KB — thirty full-size PNGs would add
 several megabytes to a repo whose entire app is one 718 KB file.
+
+**`favicon.ico` is currently missing from the repo (404).** Generate it from the
+chosen logo alongside `icons/icon.svg` and the derived app icons — browsers request
+it unconditionally, so until it exists every page load logs a 404.

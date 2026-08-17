@@ -11,6 +11,10 @@ of truth for content — that lives in `COMPOUNDS.md` (compound data) and
 `ART-DIRECTION.md` (visual prompt library). Link out to those rather than
 duplicating them here.
 
+**Day-to-day execution lives in the Marketing Suite → Focus board**, which shows
+one item at a time. This ledger holds direction; the Focus board holds sequence.
+When an item resolves there, reflect it here.
+
 **Last updated:** 17 August 2026
 
 ---
@@ -22,7 +26,8 @@ duplicating them here.
   compounds/dosing information the TRT/AAS community relies on, and doing that
   would compromise credibility in that community. A separate, store-compliant
   version is a possible *future* fork, not a current plan. Don't propose
-  App/Play Store submission as a near-term action.
+  App/Play Store submission as a near-term action, and never generate marketing
+  copy claiming store availability (the Suite's system prompt now enforces this).
 - **Mission is harm reduction**, not performance enhancement. Every side-effect
   workflow (e.g. high prolactin → cabergoline, elevated E2 → help pick an AI)
   ends with "consult your doctor." Keep that framing in any new feature or
@@ -30,38 +35,62 @@ duplicating them here.
   with the community.
 - **Pricing:** $9.99/mo, $99.99/yr, both live at therapylog.app/pro (Monthly/
   Annual tabs). Don't re-verify this or claim there's no annual tier — it exists.
-- **Encyclopedia is 130 unique compounds across 30 classes** (deduped from
-  raw list; see `COMPOUNDS.md`). Competitors (Regimen ~150+, Smart Peptide
+- **Encyclopedia is 130 unique compounds across 30 classes**, stored
+  deduplicated in `app.html`'s `DB` itself (synced 17 Aug 2026 — see §2).
+  `docs/compounds.json` mirrors it and `scripts/validate-encyclopedia.js`
+  fails CI on any drift between the app data, the JSON, the markdown, and the
+  counts claimed in page copy. Competitors (Regimen ~150+, Smart Peptide
   Tracker ~200+) beat pure count, so positioning is **per-entry depth**
   (PK curves, side-effect guidance, regulatory status), not raw compound count.
-  Don't market "300+ compounds" — that number was wrong and has been corrected
-  everywhere.
-- **Paid acquisition is not the growth channel** at this price point (mobile
-  CAC benchmarks make it upside-down; see research summary below). Growth
+  Never inflate the catalog to hit a marketing number.
+- **Paid acquisition is not the growth channel** at this price point. Growth
   channels in priority order: affiliates → SEO/free tools → community
   (Reddit/X) → newsletter partnerships → PR. Paid social only as retargeting.
+  With stores shelved *and* paid deprioritized, organic search and AI-answer
+  citation carry most of the acquisition load — which raises the stakes on
+  compound pages and the blog.
 - **Generated art never carries data or chemistry.** The in-app syringe fill
   indicator stays code-drawn (real ml/unit numbers). Molecular structures on
   compound pages are never AI-generated (chemically unreliable) — if wanted,
   generate from SMILES via RDKit instead. Stylized/abstract molecular art
-  (logo, class icons, hero renders) is fine and encouraged. Full detail in
-  `ART-DIRECTION.md`.
+  (logo, class icons, hero renders) is fine and encouraged. **No per-compound
+  images** — class art plus class color gets ~90% of the benefit without the
+  consistency and maintenance trap. Full detail in `ART-DIRECTION.md`.
 - **Model IDs in this codebase:** `claude-sonnet-5` (default) / `claude-opus-5`
   (quality option) in the Marketing Suite; `gemini-3-pro-image` ("Nano Banana
   Pro") for image generation. Don't downgrade these without being asked.
+- **Arctos Labs** (supplement/pouch side brand) has its own repo:
+  `therapylog/Arctos-Labs`. Brand and product context for it lives there, not
+  here — this repo briefly carried an `arctos-reference/` folder that has been
+  moved out.
 
 ---
 
-## 2. What's shipped (as of 17 Aug 2026)
+## 2. What's shipped (verified live 17 Aug 2026)
 
-All merged to `main`, deployed live on GitHub Pages (therapylog.app) and
-Vercel (production target, confirmed via deployment list).
+All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
 
 **Bug fixes**
 - Clinic Mode stack-overflow crash (function-hoisting self-reference)
 - Onboarding "Continue" button unreachable on 390px-wide screens
 - Light theme unreadable (dark-mode `!important` was overriding it)
-- Duplicate/hidden encyclopedia entries from inconsistent dedupe
+
+**Data integrity (17 Aug)**
+- **Encyclopedia stored deduplicated: 130 compounds in the data, not just at
+  runtime.** History and lesson: the first dedupe pass (16 Aug) shipped as a
+  load-time merge IIFE, so the *live app* showed 130 while the raw `const DB`
+  still carried 148 entries with 12 duplicate ids — and the docs, exported from
+  the merged view, disagreed with the source. An external verification read the
+  raw source and reasonably called it a live defect. The merge now lives in the
+  data itself: field-unioned entries, cross-class placements kept as `alsoIn`
+  (13 cross-listings, rendered in every listed class), retired ids
+  (epithalon→epi, tesamorelin→tesam, enclomiphene→enclo, lgd4033→lgd,
+  somatropin→rhgh, urolithina→urolithin, ketoDhea→keto-dhea) still resolve via
+  an alias map so old deep links work. `scripts/validate-encyclopedia.js` +
+  a GitHub Actions workflow fail the build on duplicate ids/names, dangling
+  `alsoIn` refs, and drift across app/JSON/markdown/page-copy counts.
+- Hardcoded "148-Compound" copy corrected to 130 in app onboarding and the
+  Marketing Suite prompts.
 
 **New app features**
 - PWA layer: manifest, service worker, install-to-home-screen, real push
@@ -77,77 +106,94 @@ Vercel (production target, confirmed via deployment list).
   proteins like HGH/IGF-1)
 - **Side-effect response guide** (Tools tab): symptom → management pathway,
   always ending in "consult your doctor"
+- **Sex-aware lab reference ranges** — verified working. `LAB_REF` is overridden
+  per sex with age banding; `isFemale()` and female cycle visibility present.
 
 **Marketing / ops**
-- Landing page revamp: real app screenshots, corrected compound counts,
-  dropped "Coming Soon to App Stores" badge
+- Landing page revamp: real app screenshots, dropped "Coming Soon to App Stores"
 - Open Graph share cards across all pages
 - Marketing Suite: **Graphics Studio** — Claude writes an image prompt →
   Gemini/Nano Banana renders → Claude critiques against the brief with
-  vision → Nano Banana revises via image+text input. Download button, brand
-  reference baked into every prompt.
-- Marketing Suite: **Biz Dev checklist** — 31-item working list (lab-ordering
-  partners, white-label clinic targets, pouch manufacturer leads, growth
-  actions, legal loose ends)
+  vision → Nano Banana revises via image+text input
+- Marketing Suite: **Biz Dev checklist** — 31-item working list
+- Marketing Suite: **Focus board (17 Aug)** — new default view; one actionable
+  card at a time from a 16-item seeded queue with Done/Skip, blocker
+  dependencies, decision resolutions, and an Add-item control. Persistence
+  bumped to `tl_mkt_v4` (v3 localStorage/gists migrate losslessly); Focus
+  state and the Biz Dev checklist now sync via Gist too.
+- Marketing Suite system prompt corrected: it claimed live App Store / Google
+  Play listings, which would have generated false store claims in content.
+  Now states the deliberate web-first/PWA position.
 - Regulatory freshness pass (BPC-157/TB-500/KPV/MOTS-c/Semax 503A status,
   retatrutide/tirzepatide updates, 19 stale references refreshed)
-- `docs/COMPOUNDS.md` + `docs/compounds.json` — machine-readable compound
-  inventory, source of truth for class ids/colors
-- `docs/ART-DIRECTION.md` — full Nano Banana prompt library (logo, 30 class
-  icons, hero renders, empty states, onboarding, social/ad creative)
+- `docs/COMPOUNDS.md` + `docs/compounds.json` — regenerated from the deduped
+  DB; machine-readable source of truth for class ids/colors/cross-listings
+- `docs/ART-DIRECTION.md` — full Nano Banana prompt library
+
+**Known not-shipped**
+- No art assets have been generated. Every `assets/art/*.png` returns 404 and
+  `favicon.ico` is missing. Prompts are ready; images are not.
 
 ---
 
 ## 3. Open questions — need a decision, not yet resolved
 
-Numbered so a chat can say "resolved #4" and update this section.
+Numbered so a chat can say "resolved #4" and update this section. These mirror
+the decision items on the Focus board; resolve in either place and sync.
 
 1. **Logo direction.** Four concepts drafted in `ART-DIRECTION.md` (shared
-   skeleton / conversion sequence / TL monogram / emblem wildcard), all built
-   on testosterone↔estradiol sharing a steroid backbone and diverging at the
-   A-ring. Need the user to generate all four in Nano Banana and pick one (or
-   ask for a synthesis) before vector tracing.
-2. **In-app lab ordering with commissions** — evaluated as a monetization
-   idea (Lab Testing API, DirectLabs, Evexia, Rupa/Fullscript, Quest, Marek
-   listed in the Biz Dev checklist as contacts to pursue) but no partner has
-   been contacted yet. Needs outreach + an attorney check on compliance
-   before building any in-app flow.
-3. **White-label / boutique pivot** — targets identified (Hone, Defy, TRT
-   Nation, PeterMD, directory providers, coaches) but zero conversations
-   started. Is this a near-term priority given the user is heading into a
-   contracting slow season with more time, or does app-feature work come
-   first?
-4. **Nootropic oral pouch + supplement line** as a second, side-by-side
-   business. Smaller pouch manufacturers to inquire with are listed in Biz
-   Dev; no outreach yet. Still exploratory — needs a decision on whether this
-   is worth pursuing in parallel or after TherapyLog's own growth channels
-   are further along.
-5. **Affiliate program** — built into the app/marketing infrastructure but
-   **zero affiliates recruited**. Flagged repeatedly in research as the
-   single biggest gap between current state and revenue. Whose job is
-   recruiting them, and is there a target list yet?
-6. **Higher-quality art assets** — prompts are ready (`ART-DIRECTION.md`) but
-   no images have been generated yet. Once generated, wiring into the app
-   (encyclopedia class tiles, empty states, onboarding) is unstarted but
-   scoped (file paths match `compounds.json` class ids).
-7. **SteroidPlotter / CycleVitals feature parity** — checked, no undiscovered
-   features found that TherapyLog lacks. Consider this question closed
-   unless a chat finds something new; if so, log it here.
+   skeleton / conversion sequence / TL monogram / emblem wildcard). Graphics
+   Studio is built, so generating all four is ~20 minutes. Need a pick before
+   vector tracing.
+2. **Named author for medical content.** Compound pages and the blog are YMYL.
+   Without an identifiable responsible party and a stated review process they
+   won't earn trust signals. Options: Joel with a disclosed non-clinical role
+   and a published review process, or a paid clinical reviewer. **Gates the
+   compound-page rollout.**
+3. **In-app lab ordering with commissions** — partners listed in the Biz Dev
+   checklist, none contacted. Needs outreach plus an attorney check; per-test
+   commission structures brush anti-kickback rules even cash-pay, and a flat
+   marketing fee is usually cleaner.
+4. **White-label / boutique pivot** — targets identified, zero conversations.
+   Near-term priority given the contracting slow season, or after app work?
+5. **Nootropic oral pouch + supplement line** (Arctos Labs) as a parallel
+   business. Still exploratory; brand context now lives in the
+   `therapylog/Arctos-Labs` repo. Decision needed on parallel vs deferred.
+6. **Affiliate program** — built, **zero affiliates recruited**. Still the
+   single biggest gap between current state and revenue, and the only item on
+   the board with a same-month revenue path.
+7. **Aggregate anonymized user stats** on compound pages ("of users tracking X,
+   62% also track Y") would be original data no competitor can replicate and the
+   strongest defense against a thin-content classification. Needs a minimum
+   cohort threshold and a check that the current Terms permit aggregate display.
+8. **SteroidPlotter / CycleVitals feature parity** — checked, nothing found that
+   TherapyLog lacks. Closed unless a chat finds something new.
+
+**Resolved and closed:**
+- *Female reference ranges* — raised as a possible live bug, verified working.
+  Sex-aware ranges with age banding are implemented. No action needed.
+- *Encyclopedia sync (was top open action)* — landed 17 Aug, see §2. The
+  Focus board's first card is a five-minute spot-check of the live result.
 
 ---
 
 ## 4. Next steps, roughly in priority order
 
-1. Generate the four logo concepts, pick a direction, vector-trace it,
-   replace `icons/icon.svg` and derived app icons/favicon.
-2. Generate the 30 class illustrations + 2 hero renders, wire into the
-   encyclopedia and landing page (paths: `/assets/art/class-{id}.png`, etc.
-   — see file plan in `ART-DIRECTION.md`).
-3. Start affiliate recruitment — this is the highest-leverage unstarted item.
-4. Begin outreach on lab-ordering partnerships (Biz Dev checklist has the
-   contact list) — gate behind attorney review before any in-app integration.
-5. Decide on white-label/boutique and pouch/supplement side-business
-   priority relative to core app growth (open questions #3–4).
+The Focus board holds the working sequence. This is the summary.
+
+1. Generate the four logo concepts, pick one, vector-trace, replace
+   `icons/icon.svg` and derived icons. Add the missing `favicon.ico`.
+2. **Start affiliate recruitment** — highest-leverage unstarted item, and the
+   only near-term revenue path.
+3. Submit sitemap to Bing Webmaster and Search Console, wire IndexNow. Thirty
+   minutes; indexation lags 4–8 weeks so the clock should start early.
+4. Generate the 30 class illustrations + hero renders, wire into the encyclopedia
+   and landing page (`/assets/art/class-{id}.png`, ids match `compounds.json`).
+5. Compliance pass module in the Marketing Suite — gates all content publishing.
+6. Compound pages, batches of 20 weekly with human review. Gated on #2 in §3
+   (named author) and #3 above.
+7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
+8. Decide white-label and pouch priority relative to core app growth.
 
 ---
 
@@ -158,13 +204,19 @@ Numbered so a chat can say "resolved #4" and update this section.
   direction, pricing, positioning, or compliance stance. Don't re-derive or
   re-question the "locked decisions" in §1 unless the user explicitly
   reopens one.
+- **Verify before asserting state.** The encyclopedia episode is the standing
+  example: the app's runtime behavior, its raw source data, and the docs told
+  three different stories, and each observer read a different one. Raw GitHub
+  responses also cache — cache-bust when checking file state, and measure the
+  runtime artifact, not just the documentation about it. Where a guarantee
+  matters, encode it as a check (`scripts/validate-encyclopedia.js`) rather
+  than a claim in a document.
 - **End of a chat that changed status:** update the relevant section —
   move a shipped item into §2, resolve or add an item in §3, reorder §4 if
   priorities shifted. Bump "Last updated" at the top.
 - **Detailed content lives elsewhere, referenced not duplicated:**
   `COMPOUNDS.md` / `compounds.json` for compound data,
-  `ART-DIRECTION.md` for image-generation prompts. Don't copy their content
-  in here — link to them.
+  `ART-DIRECTION.md` for image-generation prompts.
 - **This file is committed to the repo** (`therapylog/Therapylog.github.io`,
   `docs/LEDGER.md`) so any chat with repo access can read and edit it
   directly — no separate doc store to keep in sync.
