@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TherapyLog — Hormone Therapy and Peptide Tracking</title>
+  <title>TherapyLog — Hormone Therapy and Peptide Tracking</title><meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="TherapyLog — Hormone Therapy & Peptide Tracking"><meta property="og:description" content="The most comprehensive hormone therapy and peptide tracking app. Track TRT, peptides, bloodwork, and body composition with AI-powered tools."><meta property="og:url" content="https://therapylog.app/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="TherapyLog — Hormone Therapy & Peptide Tracking"><meta name="twitter:description" content="The most comprehensive hormone therapy and peptide tracking app. Track TRT, peptides, bloodwork, and body composition with AI-powered tools."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png"><link rel="canonical" href="https://therapylog.app/"><link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
   <meta name="description" content="The most comprehensive hormone therapy and peptide tracking app. Track TRT, peptides, bloodwork, and body composition with AI-powered tools.">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -33,6 +33,17 @@
     .stat { text-align:center; }
     .stat-num { font-size:32px; font-weight:800; color:#4ade9a; font-family:Georgia,serif; }
     .stat-label { font-size:12px; color:#4a5568; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; margin-top:4px; }
+
+    /* Screenshots */
+    .shots { padding:60px 0 20px; text-align:center; }
+    .shots h2 { font-size:28px; font-weight:700; font-family:Georgia,serif; margin-bottom:8px; }
+    .shots-sub { color:#8a95a3; font-size:14px; margin-bottom:32px; }
+    .shots-row { display:flex; gap:20px; overflow-x:auto; padding:6px 24px 22px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
+    .shot { flex:0 0 auto; scroll-snap-align:center; margin:0; }
+    .shot .phone { width:246px; border-radius:30px; border:1px solid rgba(255,255,255,0.14); overflow:hidden; background:#000; box-shadow:0 18px 50px rgba(0,0,0,0.55), inset 0 0 0 6px #000; }
+    .shot .phone img { width:100%; display:block; }
+    .shot figcaption { font-size:12px; color:#8a95a3; margin-top:12px; max-width:246px; line-height:1.5; }
+    @media (min-width:1400px){ .shots-row { justify-content:center; } }
 
     /* Features */
     .features { max-width:900px; margin:0 auto; padding:60px 24px; }
@@ -99,9 +110,9 @@
   </nav>
 
   <div class="hero">
-    <div class="hero-badge">Coming Soon to App Stores</div>
-    <h1>Your hormone therapy<br><span>command center</span></h1>
-    <p>Track TRT, peptides, bloodwork, and body composition with AI-powered tools built for the modern patient and clinic.</p>
+    <div class="hero-badge">Web-first · No account · Your data stays on your device</div>
+    <h1>Your hormone &amp; peptide<br><span>research command center</span></h1>
+    <p>Log every compound you're researching, watch estimated serum levels rise and fall, plan multi-compound draws with compatibility warnings, and track the bloodwork that keeps you honest.</p>
     <div class="hero-btns">
       <a class="btn-primary" href="/download">Download TherapyLog</a>
       <a class="btn-secondary" href="/app" target="_blank">Try Free in Browser</a>
@@ -110,15 +121,61 @@
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="stat-num">148</div><div class="stat-label">Compounds</div></div>
-    <div class="stat"><div class="stat-num">29</div><div class="stat-label">Classifications</div></div>
+    <div class="stat"><div class="stat-num">130+</div><div class="stat-label">Compounds</div></div>
+    <div class="stat"><div class="stat-num">30</div><div class="stat-label">Classifications</div></div>
+    <div class="stat"><div class="stat-num">60+</div><div class="stat-label">PK-Modeled Compounds</div></div>
     <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Lab Markers</div></div>
-    <div class="stat"><div class="stat-num">11</div><div class="stat-label">Protocol Templates</div></div>
   </div>
+
+  <!-- SCREENSHOTS -->
+  <section class="shots">
+    <h2>See it in action</h2>
+    <p class="shots-sub">Real screens from the live app — not mockups.</p>
+    <div class="shots-row">
+      <figure class="shot">
+        <div class="phone"><img src="/assets/screens/levels.png" alt="Estimated compound serum levels chart with per-compound half-lives" loading="lazy"></div>
+        <figcaption>Estimated serum levels — modeled from your logged doses</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="phone"><img src="/assets/screens/syringe.png" alt="Combined syringe builder with fill level and compatibility warnings" loading="lazy"></div>
+        <figcaption>Multi-compound syringe builder with mixing warnings</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="phone"><img src="/assets/screens/dashboard.png" alt="TherapyLog dashboard with refill alerts and logging streak" loading="lazy"></div>
+        <figcaption>Dashboard — refill alerts, streaks, one-tap logging</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="phone"><img src="/assets/screens/encyclopedia.png" alt="Compound encyclopedia entry with dosing table and regulatory status" loading="lazy"></div>
+        <figcaption>130+ compound reference with live regulatory status</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="phone"><img src="/assets/screens/bloodwork.png" alt="Bloodwork tracking with reference ranges" loading="lazy"></div>
+        <figcaption>Bloodwork trends across 50+ markers</figcaption>
+      </figure>
+    </div>
+  </section>
 
   <div class="features">
     <h2>Everything you need in one app</h2>
     <div class="feature-grid">
+
+      <div class="feature-card accent">
+        <div class="feature-icon">📈</div>
+        <h3>Pharmacokinetic Levels</h3>
+        <p>See estimated serum levels for everything you log — modeled per compound from published half-lives and time-to-peak, the way esters actually behave. Watch long esters stack toward steady state, see exactly how long a compound stays active after your last dose, and know when it has cleared. Every half-life is adjustable, and 60+ compounds are pre-loaded.</p>
+      </div>
+
+      <div class="feature-card accent">
+        <div class="feature-icon">🧪</div>
+        <h3>Combined Syringe Builder</h3>
+        <p>Plan multi-compound draws: pick compounds, doses, and vial concentrations, and see the exact fill level on your syringe — color-coded per compound. Built-in compatibility rules warn you when compounds shouldn't share a syringe: oil and water never mix, suspensions draw alone, and fragile proteins like HGH degrade in a blend. One tap logs the whole injection.</p>
+      </div>
+
+      <div class="feature-card accent2">
+        <div class="feature-icon">🛟</div>
+        <h3>Side-Effect Response Guide</h3>
+        <p>High prolactin, estrogen swings, rising hematocrit, early gyno signs, blood pressure, lipids, HPTA recovery — what each one looks like, which labs confirm it, and the responses commonly used in the literature, with the cautions that matter. Harm reduction for people who take their bloodwork seriously.</p>
+      </div>
 
       <div class="feature-card accent">
         <div class="feature-icon">🤖</div>
@@ -134,8 +191,8 @@
 
       <div class="feature-card accent2">
         <div class="feature-icon">📚</div>
-        <h3>148-Compound Encyclopedia</h3>
-        <p>Research-backed reference for TRT, peptides, GLP-1s, senolytics, thyroid hormones, longevity compounds, and more — 148 entries across 29 classifications. Each with mechanism, documented dosing ranges, half-life, side-effect profile, interactions, and required monitoring. The most comprehensive PED and peptide database available in an app.</p>
+        <h3>130+ Compound Encyclopedia</h3>
+        <p>Research-backed reference for TRT, peptides, GLP-1s, AAS, SARMs, senolytics, thyroid, and longevity compounds — 130+ entries across 30 classifications. This is the deepest per-entry reference in any tracker: mechanism, documented dosing ranges, pros and cons, interactions, required monitoring, and live regulatory status — including the FDA's 2026 compounding votes on BPC-157, TB-500, and more.</p>
       </div>
 
       <div class="feature-card">
@@ -171,7 +228,7 @@
       <div class="feature-card">
         <div class="feature-icon">💊</div>
         <h3>Smart Dose Reminders</h3>
-        <p>Personalized dose reminders with injection site rotation guidance. Tracks your last injection site so you always know where to pin next. Export your protocol schedule to iPhone Calendar or Google Calendar for native push notifications on any device.</p>
+        <p>Personalized dose reminders with injection site rotation guidance. Tracks your last injection site so you always know where to pin next. Install to your home screen for real push reminders (iOS 16.4+ and Android), or push your protocol schedule to Apple Calendar and Google Calendar in one tap.</p>
       </div>
 
     </div>
@@ -238,7 +295,7 @@
         <div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#fff;margin-bottom:4px">$0</div>
         <div style="font-size:13px;color:#8a95a3;margin-bottom:20px">No account needed</div>
         <ul style="list-style:none;margin-bottom:24px;">
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>148-compound encyclopedia</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>130+ compound encyclopedia</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Injection &amp; dose logging</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Body &amp; weight tracking</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Dose calculator + syringe diagram</li>
@@ -286,7 +343,7 @@
         <div style="font-size:13px;color:#8a95a3;margin-bottom:20px">Lifetime access · no subscription</div>
         <ul style="list-style:none;margin-bottom:24px;">
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>All tracking features — lifetime</li>
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>148-compound encyclopedia</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>130+ compound encyclopedia</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>No Google account required</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Email updates with new versions</li>
           <li style="font-size:13px;color:#8a95a3;padding:6px 0;display:flex;align-items:center;gap:8px;"><span style="color:#4a5568;font-weight:700">—</span>No AI features included</li>
