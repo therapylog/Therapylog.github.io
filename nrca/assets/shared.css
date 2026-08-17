@@ -1,0 +1,152 @@
+/* ==========================================================================
+   NRCA Brain — shared design tokens + base styles + common components.
+   Loaded by index.html and process.html BEFORE page-specific styles, so
+   pages may override anything here. Keep this file lean and generic.
+   Design language (contract): dark, high-contrast, job-site legible.
+   ========================================================================== */
+
+:root {
+  /* Palette */
+  --bg: #0f1115;
+  --surface: #171a21;
+  --surface-2: #1c202b;
+  --raised: #232837;
+  --border: #262b36;
+  --accent: #f59e0b;
+  --accent-ink: #16130a;
+  --text: #e8eaf0;
+  --muted: #9aa3b2;
+  --success: #4ade80;
+  --danger: #f87171;
+
+  /* Shape + type */
+  --radius: 12px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas,
+               "Liberation Mono", monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 var(--font);
+}
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+a { color: var(--accent); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+::selection { background: rgba(245, 158, 11, 0.35); }
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+
+.hidden { display: none !important; }
+
+.mono { font-family: var(--font-mono); font-size: 0.85em; }
+
+.muted { color: var(--muted); }
+
+.footnote { color: var(--muted); font-size: 0.72rem; line-height: 1.45; }
+
+/* --------------------------------------------------------------------------
+   Buttons — tap targets >= 44px
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--raised);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { border-color: var(--muted); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.btn.primary:hover { border-color: var(--accent); filter: brightness(1.06); }
+
+.btn.danger { color: var(--danger); }
+
+.btn.small { min-height: 40px; padding: 8px 14px; font-size: 0.88rem; }
+
+/* --------------------------------------------------------------------------
+   Inputs
+   -------------------------------------------------------------------------- */
+
+.input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.input:focus { outline: none; border-color: var(--accent); }
+.input::placeholder { color: #5c6572; }
+
+select.input { appearance: none; }
+
+label.field {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 12px 0 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Cards
+   -------------------------------------------------------------------------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Banners
+   -------------------------------------------------------------------------- */
+
+.banner {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin: 12px 0;
+  font-size: 0.95rem;
+}
+.banner.info    { border-left-color: var(--muted); }
+.banner.success { border-left-color: var(--success); }
+.banner.danger  { border-left-color: var(--danger); }

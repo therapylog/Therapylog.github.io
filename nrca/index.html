@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>NRCA Brain — TruPro Roofing</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./assets/shared.css">
+<style>
+  /* ---------- App shell (chat page only) ---------- */
+  html, body { height: 100%; }
+  body {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .app-head {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: calc(6px + env(safe-area-inset-top))
+             calc(10px + env(safe-area-inset-right))
+             6px
+             calc(14px + env(safe-area-inset-left));
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .app-head h1 { margin: 0; font-size: 1.15rem; letter-spacing: .02em; line-height: 1.2; }
+  .brand { color: var(--accent); }
+  .app-head .sub { color: var(--muted); font-size: .72rem; }
+
+  .icon-btn {
+    width: 44px; height: 44px; flex: 0 0 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: none; border-radius: 10px;
+    color: var(--muted); cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .icon-btn:hover { color: var(--text); background: var(--surface-2); }
+  .icon-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+  /* ---------- Thread ---------- */
+  #thread {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px calc(12px + env(safe-area-inset-right))
+             12px calc(12px + env(safe-area-inset-left));
+  }
+  .thread-inner { max-width: 720px; margin: 0 auto; }
+
+  .msg {
+    margin: 10px 0;
+    padding: 10px 14px;
+    border-radius: 14px;
+    max-width: 88%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    width: fit-content;
+  }
+  .msg.user {
+    margin-left: auto;
+    background: #2b3242;
+    border: 1px solid #343c50;
+    border-bottom-right-radius: 4px;
+    white-space: pre-wrap;
+  }
+  .msg.assistant {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+  }
+  .msg.assistant p { margin: .4em 0; }
+  .msg.assistant p:first-child, .msg.assistant h3:first-child,
+  .msg.assistant h4:first-child { margin-top: 0; }
+  .msg.assistant p:last-child, .msg.assistant ul:last-child,
+  .msg.assistant ol:last-child { margin-bottom: 0; }
+  .msg.assistant h3, .msg.assistant h4, .msg.assistant h5, .msg.assistant h6 {
+    margin: .8em 0 .3em; font-size: 1rem; font-weight: 700;
+  }
+  .msg.assistant ul, .msg.assistant ol { margin: .4em 0; padding-left: 1.35em; }
+  .msg.assistant li { margin: .2em 0; }
+  .msg.assistant code {
+    font-family: var(--font-mono); font-size: .85em;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 5px; padding: 1px 5px;
+  }
+  .msg.streaming::after {
+    content: "▍"; color: var(--accent);
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .user-imgs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+  .user-imgs img {
+    max-width: 128px; max-height: 128px;
+    border-radius: 8px; border: 1px solid var(--border); display: block;
+  }
+
+  /* Citation chips */
+  .cite {
+    position: relative;
+    display: inline-block;
+    padding: 4px 10px; margin: 0 2px;
+    border-radius: 999px;
+    border: 1px solid rgba(245, 158, 11, .55);
+    background: rgba(245, 158, 11, .12);
+    color: var(--accent);
+    font-size: .8em; font-weight: 600;
+    cursor: pointer; vertical-align: baseline;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Expand the touch target to ~44px without changing how the chip sits in
+     the line of text — these get tapped with gloves on a roof. */
+  .cite::after {
+    content: ""; position: absolute; left: 0; right: 0;
+    top: 50%; height: 44px; transform: translateY(-50%);
+  }
+  .cite:hover { background: rgba(245, 158, 11, .22); }
+
+  /* Tool status chips */
+  .tool-chip {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: .85rem; font-style: italic;
+    margin: 8px 0; padding-left: 2px;
+  }
+  .tool-chip .dot {
+    width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .tool-chip.done .dot { animation: none; background: var(--success); }
+  @keyframes pulse {
+    0%, 100% { opacity: .35; transform: scale(.8); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  .notice { margin: 10px auto; text-align: center; color: var(--muted); font-size: .85rem; max-width: 90%; }
+  .notice.warn { color: var(--danger); }
+
+  /* ---------- Scope card ---------- */
+  .scope-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  .scope-kicker { color: var(--accent); font-size: .7rem; font-weight: 700; letter-spacing: .14em; }
+  .scope-title { margin: .15em 0 .4em; font-size: 1.1rem; }
+  .scope-summary { margin: 0; color: var(--text); font-size: .95rem; }
+  .scope-sec-h {
+    margin: 14px 0 4px; font-size: .72rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  }
+  .scope-items { margin: 0; padding-left: 1.5em; font-size: .95rem; }
+  .scope-items li { margin: 5px 0; }
+  .scope-trade {
+    color: var(--accent); font-weight: 700; font-size: .78em;
+    text-transform: uppercase; letter-spacing: .05em; margin-right: 6px;
+  }
+  .scope-qty { color: var(--muted); }
+  .scope-list { margin: 0; padding-left: 1.25em; font-size: .92rem; }
+  .scope-list li { margin: 3px 0; }
+  .scope-list.safety li::marker { color: var(--danger); }
+  .scope-refs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+  .ref-chip {
+    border: 1px solid rgba(245, 158, 11, .55);
+    background: rgba(245, 158, 11, .12);
+    color: var(--accent); border-radius: 999px;
+    padding: 5px 12px; font-size: .8rem; font-weight: 600; cursor: pointer;
+    min-height: 44px;
+  }
+  .ref-chip:hover { background: rgba(245, 158, 11, .22); }
+  .scope-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+  /* ---------- Composer ---------- */
+  .composer-wrap {
+    flex: 0 0 auto;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 8px calc(10px + env(safe-area-inset-right))
+             calc(6px + env(safe-area-inset-bottom))
+             calc(10px + env(safe-area-inset-left));
+  }
+  #banners { max-width: 720px; margin: 0 auto; }
+  .app-banner {
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--border); border-left: 4px solid var(--accent);
+    background: var(--surface-2); border-radius: 10px;
+    padding: 8px 4px 8px 12px; margin: 6px 0; font-size: .88rem;
+  }
+  .app-banner.danger { border-left-color: var(--danger); }
+  .app-banner.success { border-left-color: var(--success); }
+  .app-banner > span { flex: 1 1 auto; }
+  .banner-x {
+    background: none; border: none; color: var(--muted);
+    font-size: 20px; line-height: 1; cursor: pointer;
+    width: 44px; height: 44px; flex: 0 0 44px; border-radius: 8px;
+  }
+  .banner-x:hover { color: var(--text); }
+
+  .attach-strip {
+    display: flex; gap: 10px; overflow-x: auto;
+    max-width: 720px; margin: 0 auto; padding: 6px 2px 8px;
+  }
+  .attach-thumb { position: relative; flex: 0 0 auto; }
+  .attach-thumb img {
+    width: 64px; height: 64px; object-fit: cover; display: block;
+    border-radius: 8px; border: 1px solid var(--border);
+  }
+  .attach-thumb button {
+    position: absolute; top: -7px; right: -7px;
+    width: 24px; height: 24px; border-radius: 50%; border: none;
+    background: var(--danger); color: #1a0b0b;
+    font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer;
+  }
+
+  .composer { display: flex; align-items: flex-end; gap: 8px; max-width: 720px; margin: 0 auto; }
+  #promptInput {
+    flex: 1 1 auto;
+    resize: none;
+    min-height: 44px; max-height: 132px;
+    padding: 10px 12px;
+    border-radius: 12px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text);
+    line-height: 1.4;
+  }
+  #promptInput:focus { outline: none; border-color: var(--accent); }
+  #promptInput::placeholder { color: #5c6572; }
+  .send-btn {
+    width: 44px; height: 44px; flex: 0 0 44px;
+    border-radius: 50%; border: none;
+    background: var(--accent); color: var(--accent-ink);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .send-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .send-btn.stop { background: var(--danger); color: #1a0b0b; }
+
+  .app-foot {
+    text-align: center; margin: 6px auto 0; max-width: 720px;
+    font-size: .64rem; color: #6b7383; line-height: 1.35;
+  }
+
+  /* ---------- Welcome ---------- */
+  .welcome { text-align: center; color: var(--muted); margin: 10vh auto 0; max-width: 460px; }
+  .welcome h2 { color: var(--text); font-size: 1.2rem; margin: 0 0 6px; }
+  .welcome p { font-size: .9rem; margin: 0; }
+  .examples { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+  .example {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); border-radius: 10px; padding: 12px 14px;
+    cursor: pointer; font-size: .92rem; text-align: left; min-height: 44px;
+  }
+  .example:hover { border-color: var(--accent); }
+
+  /* ---------- Settings drawer ---------- */
+  .backdrop {
+    position: fixed; inset: 0; z-index: 40;
+    background: rgba(0, 0, 0, .55);
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  body.drawer-open .backdrop { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 50;
+    width: min(420px, 100%);
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    transform: translateX(102%); transition: transform .25s ease;
+    display: flex; flex-direction: column;
+    padding-top: env(safe-area-inset-top);
+  }
+  body.drawer-open .drawer { transform: none; }
+  .drawer-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 { margin: 0; font-size: 1.1rem; }
+  .drawer-body { flex: 1 1 auto; overflow-y: auto; padding: 4px 16px 16px; }
+  .drawer-body section { padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .drawer-body section:last-child { border-bottom: none; }
+  .drawer-body h3 {
+    margin: 0 0 10px; font-size: .78rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+  }
+  .hint { color: var(--muted); font-size: .8rem; margin: 8px 0 0; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+  .row.spread { justify-content: space-between; margin-top: 0; margin-bottom: 4px; }
+  .row.spread h3 { margin: 0; }
+
+  .idx-status { font-size: .9rem; }
+  .idx-status .kv { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
+  .idx-status .k { color: var(--muted); flex: 0 0 auto; }
+  .idx-status .v { text-align: right; overflow-wrap: anywhere; }
+
+  .chat-list { list-style: none; margin: 4px 0 0; padding: 0; }
+  .chat-list li { display: flex; align-items: center; gap: 2px; }
+  .chat-empty { color: var(--muted); font-size: .88rem; padding: 8px 0; }
+  .chat-item {
+    flex: 1 1 auto; min-width: 0; min-height: 44px;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+    background: none; border: none; border-radius: 8px;
+    padding: 10px 8px; cursor: pointer; color: var(--text); text-align: left;
+  }
+  .chat-item:hover { background: var(--surface-2); }
+  .chat-item.active { background: var(--surface-2); box-shadow: inset 2px 0 0 var(--accent); }
+  .chat-title { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .92rem; }
+  .chat-date { flex: 0 0 auto; color: var(--muted); font-size: .74rem; }
+  .chat-del {
+    flex: 0 0 44px; width: 44px; height: 44px;
+    background: none; border: none; border-radius: 8px;
+    color: var(--muted); font-size: 17px; cursor: pointer;
+  }
+  .chat-del:hover { color: var(--danger); background: var(--surface-2); }
+  .drawer-foot {
+    margin: 0; border-top: 1px solid var(--border);
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  }
+
+  /* ---------- Page-text modal ---------- */
+  .modal {
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(0, 0, 0, .6);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .modal-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    width: min(680px, 100%); max-height: min(82dvh, 82vh);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .modal-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--border);
+  }
+  .modal-head h3 { margin: 0; font-size: 1rem; }
+  .page-text {
+    margin: 0; padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+    overflow-y: auto; white-space: pre-wrap;
+    font-family: var(--font); font-size: .92rem; line-height: 1.55;
+  }
+
+  /* ---------- Setup panel ---------- */
+  .setup {
+    position: fixed; inset: 0; z-index: 70;
+    background: var(--bg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 18px; overflow-y: auto;
+    padding: calc(24px + env(safe-area-inset-top)) 16px
+             calc(24px + env(safe-area-inset-bottom));
+  }
+  .setup-card {
+    width: min(460px, 100%);
+    display: flex; flex-direction: column; gap: 14px;
+    text-align: center; padding: 26px 20px;
+  }
+  .setup-card h2 { margin: 0; font-size: 1.5rem; }
+  .setup-card p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .setup-card .error { color: var(--danger); font-size: .9rem; margin: 0; }
+  .setup .footnote { max-width: 460px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header class="app-head">
+  <div>
+    <h1><span class="brand">NRCA</span> Brain</h1>
+    <div class="sub">TruPro Roofing — internal use only</div>
+  </div>
+  <button id="gearBtn" class="icon-btn" aria-label="Settings" title="Settings">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </button>
+</header>
+
+<main id="thread"><div class="thread-inner" id="threadInner"></div></main>
+
+<div class="composer-wrap">
+  <div id="banners"></div>
+  <div id="attachStrip" class="attach-strip hidden"></div>
+  <div class="composer">
+    <button id="photoBtn" class="icon-btn" aria-label="Attach photo" title="Attach photo">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+    </button>
+    <input id="photoInput" type="file" accept="image/*" capture="environment" multiple hidden>
+    <textarea id="promptInput" rows="1" placeholder="Ask the manual…" enterkeyhint="enter" aria-label="Message"></textarea>
+    <button id="sendBtn" class="send-btn" aria-label="Send" title="Send"></button>
+  </div>
+  <p class="app-foot">Internal tool. Manual content stays on this device — licensed copy, do not share the index file outside TruPro.</p>
+</div>
+
+<!-- Settings drawer -->
+<div id="backdrop" class="backdrop"></div>
+<aside id="drawer" class="drawer" aria-label="Settings">
+  <div class="drawer-head">
+    <h2>Settings</h2>
+    <button id="closeDrawer" class="icon-btn" aria-label="Close settings">✕</button>
+  </div>
+  <div class="drawer-body">
+    <section>
+      <h3>Anthropic API key</h3>
+      <input id="apiKeyInput" class="input" type="password" autocomplete="off"
+             spellcheck="false" placeholder="sk-ant-…" aria-label="Anthropic API key">
+      <p class="hint">Stored only in this browser.</p>
+    </section>
+    <section>
+      <h3>Model</h3>
+      <select id="modelSelect" class="input" aria-label="Model"></select>
+    </section>
+    <section>
+      <h3>Manual index</h3>
+      <div id="idxStatus" class="idx-status"></div>
+      <div class="row">
+        <label class="btn small">Re-import JSON
+          <input id="reimportInput" type="file" accept=".json,application/json" hidden>
+        </label>
+        <button id="deleteIndexBtn" class="btn small danger">Delete index</button>
+      </div>
+    </section>
+    <section>
+      <div class="row spread">
+        <h3>Chats</h3>
+        <button id="newChatBtn" class="btn small primary">New chat</button>
+      </div>
+      <ul id="chatList" class="chat-list"></ul>
+    </section>
+  </div>
+  <p class="footnote drawer-foot">Internal tool. Manual content stays on this device — licensed copy, do not share the index file outside TruPro.</p>
+</aside>
+
+<!-- Page-text modal -->
+<div id="pageModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="pageModalTitle">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="pageModalTitle">NRCA Manual</h3>
+      <button id="closeModal" class="icon-btn" aria-label="Close">✕</button>
+    </div>
+    <pre id="pageModalBody" class="page-text"></pre>
+  </div>
+</div>
+
+<!-- Setup panel (no index yet) -->
+<section id="setup" class="setup hidden">
+  <div class="setup-card card">
+    <h2><span class="brand">NRCA</span> Brain</h2>
+    <p>No manual index on this device yet. Import the team's
+      <span class="mono">nrca-index.json</span> (kept in Drive next to the manual PDF),
+      or process the PDF here once.</p>
+    <label class="btn primary">Import nrca-index.json
+      <input id="setupImport" type="file" accept=".json,application/json" hidden>
+    </label>
+    <a class="btn" href="./process.html">Process the manual PDF on this device →</a>
+    <p id="setupError" class="error hidden"></p>
+  </div>
+  <p class="footnote">Internal tool. Manual content stays on this device — licensed copy, do not share the index file outside TruPro.</p>
+</section>
+
+<script type="module">
+import { MODELS, streamMessage } from "./assets/anthropic.js";
+import {
+  loadIndex, saveIndex, clearIndex, clearCheckpoint,
+  saveChat, loadChat, listChats, deleteChat,
+} from "./assets/storage.js";
+import { buildSearchIndex, getPageText } from "./assets/retrieval.js";
+
+/* ========================================================================
+   Constants
+   ======================================================================== */
+
+const KEY_APIKEY = "nrca.apiKey";
+const KEY_MODEL = "nrca.model";
+const DEFAULT_MODEL = "claude-opus-5";
+const MAX_TOOL_ITERATIONS = 12;
+const MAX_IMAGE_EDGE = 1568;
+const JPEG_QUALITY = 0.85;
+const MAX_ATTACHMENTS = 6;
+const TOC_CHAR_LIMIT = 6000;
+
+/* Tool definitions — verbatim from the architecture contract. */
+const TOOLS = [
+  {
+    name: "search_manual",
+    description: "Full-text search over the NRCA Roofing Manual index. Call this before answering any technical question, and call it again with different phrasings if the first results don't settle the question.",
+    input_schema: { type: "object", properties: {
+        query: { type: "string", description: "Search terms — use roofing terminology" },
+        max_results: { type: "integer", minimum: 1, maximum: 15 } },
+      required: ["query"] } },
+  {
+    name: "read_pages",
+    description: "Read the exact text of a page range from the manual (max 8 pages per call). Use after search_manual to read the full context around a promising hit before citing it.",
+    input_schema: { type: "object", properties: {
+        start_page: { type: "integer", minimum: 1 },
+        end_page: { type: "integer", minimum: 1 } },
+      required: ["start_page", "end_page"] } },
+  {
+    name: "draft_repair_scope",
+    description: "Record a structured repair scope for the estimator once the diagnosis is settled. Call at most once per request, after the user confirms they want a scope (or asked for one outright).",
+    input_schema: { type: "object", properties: {
+        title: { type: "string" },
+        problem_summary: { type: "string" },
+        referenced_sections: { type: "array", items: { type: "object", properties: {
+            section: { type: "string" }, pages: { type: "string" } }, required: ["section"] } },
+        scope_items: { type: "array", items: { type: "object", properties: {
+            trade: { type: "string" }, description: { type: "string" },
+            quantity_hint: { type: "string" } }, required: ["description"] } },
+        materials: { type: "array", items: { type: "string" } },
+        safety_notes: { type: "array", items: { type: "string" } },
+        exclusions: { type: "array", items: { type: "string" } } },
+      required: ["title", "problem_summary", "scope_items"] } },
+];
+
+const SYSTEM_PROMPT = [
+  "You are NRCA Brain, the internal technical assistant for TruPro Roofing, built on the",
+  "company's licensed copy of the NRCA Roofing Manual. Your users are trained roofing",
+  "professionals — estimators and field crews, usually reading on a phone at a job site.",
+  "",
+  "Grounding rules:",
+  "- ALWAYS ground technical claims in the manual using your tools. Call search_manual",
+  "  before answering any technical question; call it again with different phrasings if the",
+  "  first results don't settle it. Use read_pages to read the full context around a",
+  "  promising hit before citing it.",
+  "- Cite as [NRCA p. <page>, <section>] inline immediately after each grounded claim.",
+  "- If the manual does not cover something, say so plainly instead of guessing.",
+  "",
+  "Photos:",
+  "- Analyze roof photos the user attaches: identify membrane type, flashing details, and",
+  "  damage patterns; connect what is visible to the relevant manual details. State",
+  "  uncertainty honestly, and note that photo-based diagnosis is preliminary pending",
+  "  field verification.",
+  "",
+  "Repair scopes:",
+  "- When the user asks for a repair scope (or confirms your offer of one), gather what",
+  "  you need from the manual and the conversation, then call draft_repair_scope. Keep",
+  "  scope items concrete and trade-ordered: tear-off → deck → insulation → membrane →",
+  "  flashing → sheet metal → cleanup.",
+  "",
+  "Style:",
+  "- Keep answers focused and practical; crews read these on phones. Short paragraphs,",
+  "  lists where they help, no filler.",
+].join("\n");
+
+const ICON_SEND = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+const ICON_STOP = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>';
+
+/* ========================================================================
+   State
+   ======================================================================== */
+
+let index = null;        // the loaded nrca-index object
+let searchIndex = null;  // BM25 index over index.chunks
+let systemBlocks = null; // system prompt blocks (stable; reused for caching)
+let chat = null;         // { id, title, createdAt, updatedAt, messages }
+let pendingImages = [];  // [{ data, dataUrl, width, height }]
+let draft = null;        // stashed composer state for restore-on-failure
+let busy = false;
+let controller = null;   // AbortController for the in-flight turn
+
+/* ========================================================================
+   DOM handles
+   ======================================================================== */
+
+const $ = (id) => document.getElementById(id);
+const thread = $("thread");
+const threadInner = $("threadInner");
+const banners = $("banners");
+const attachStrip = $("attachStrip");
+const promptInput = $("promptInput");
+const sendBtn = $("sendBtn");
+const photoBtn = $("photoBtn");
+const photoInput = $("photoInput");
+const drawerEl = $("drawer");
+const chatList = $("chatList");
+const idxStatus = $("idxStatus");
+const pageModal = $("pageModal");
+const setupPanel = $("setup");
+
+/* ========================================================================
+   Small helpers
+   ======================================================================== */
+
+function el(tag, cls, text) {
+  const node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text != null) node.textContent = text;
+  return node;
+}
+
+function mkBtn(label, extra) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "btn small" + (extra ? " " + extra : "");
+  b.textContent = label;
+  return b;
+}
+
+function clampInt(v, min, max, fallback) {
+  const n = Math.floor(Number(v));
+  if (!Number.isFinite(n)) return fallback;
+  return Math.min(max, Math.max(min, n));
+}
+
+function slug(s) {
+  const out = String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  return out || "repair-scope";
+}
+
+function fmtDate(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return "";
+  const now = new Date();
+  return d.toDateString() === now.toDateString()
+    ? d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+    : d.toLocaleDateString([], { month: "short", day: "numeric" });
+}
+
+function getModel() { return localStorage.getItem(KEY_MODEL) || DEFAULT_MODEL; }
+function getApiKey() { return (localStorage.getItem(KEY_APIKEY) || "").trim(); }
+
+async function copyText(t) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    await navigator.clipboard.writeText(t);
+    return;
+  }
+  const ta = document.createElement("textarea");
+  ta.value = t;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.append(ta);
+  ta.select();
+  document.execCommand("copy");
+  ta.remove();
+}
+
+function downloadTextFile(text, filename) {
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+
+/* ========================================================================
+   Markdown-lite renderer (escape first — no raw-HTML passthrough)
+   ======================================================================== */
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+const CITE_RE = /\[NRCA\s+pp?\.?\s*(\d+)(?:\s*[–—-]\s*(\d+))?([^\]\n]*)\]/g;
+
+/* Operates on ALREADY-ESCAPED text. Code spans → placeholders first so bold
+   and citation markup never fire inside them. */
+function renderInline(escaped) {
+  const codes = [];
+  let s = escaped.replace(/`([^`\n]+)`/g, (_, c) => {
+    codes.push(c);
+    return "\u0001" + (codes.length - 1) + "\u0001";
+  });
+  s = s.replace(CITE_RE, (m, p1, p2) =>
+    `<button type="button" class="cite" data-p1="${p1}" data-p2="${p2 || p1}">${m}</button>`);
+  s = s.replace(/\*\*([^\n]+?)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/\u0001(\d+)\u0001/g, (_, i) => `<code>${codes[+i]}</code>`);
+  return s;
+}
+
+function renderMarkdown(raw) {
+  const lines = escapeHtml(raw).split("\n");
+  const out = [];
+  let list = null; // "ul" | "ol" | null
+  let para = [];
+
+  const closeList = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  const flushPara = () => {
+    if (para.length) {
+      out.push(`<p>${para.map(renderInline).join("<br>")}</p>`);
+      para = [];
+    }
+  };
+
+  for (const line of lines) {
+    const t = line.trim();
+    let m;
+    if (!t) { flushPara(); closeList(); continue; }
+    if ((m = /^(#{1,6})\s+(.*)$/.exec(t))) {
+      flushPara(); closeList();
+      const lvl = Math.min(6, Math.max(3, m[1].length));
+      out.push(`<h${lvl}>${renderInline(m[2])}</h${lvl}>`);
+      continue;
+    }
+    if ((m = /^[-*•]\s+(.*)$/.exec(t))) {
+      flushPara();
+      if (list !== "ul") { closeList(); out.push("<ul>"); list = "ul"; }
+      out.push(`<li>${renderInline(m[1])}</li>`);
+      continue;
+    }
+    if ((m = /^\d{1,3}[.)]\s+(.*)$/.exec(t))) {
+      flushPara();
+      if (list !== "ol") { closeList(); out.push("<ol>"); list = "ol"; }
+      out.push(`<li>${renderInline(m[1])}</li>`);
+      continue;
+    }
+    closeList();
+    para.push(t);
+  }
+  flushPara();
+  closeList();
+  return out.join("");
+}
+
+/* ========================================================================
+   Thread rendering
+   ======================================================================== */
+
+function nearBottom() {
+  return thread.scrollHeight - thread.scrollTop - thread.clientHeight < 140;
+}
+
+function scrollFollow(force) {
+  if (force || nearBottom()) thread.scrollTop = thread.scrollHeight;
+}
+
+function clearThread() { threadInner.innerHTML = ""; }
+
+function showWelcome() {
+  clearThread();
+  const w = el("div", "welcome");
+  w.append(el("h2", "", "Ask the manual"));
+  w.append(el("p", "", "Grounded answers with page citations from TruPro's licensed NRCA Roofing Manual. Attach roof photos for a preliminary read."));
+  const ex = el("div", "examples");
+  for (const q of [
+    "What does the manual say about ponding water on a TPO roof?",
+    "Minimum base flashing height at a parapet wall?",
+    "Draft a repair scope for a split EPDM seam near a drain.",
+  ]) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "example";
+    b.textContent = q;
+    ex.append(b);
+  }
+  w.append(ex);
+  threadInner.append(w);
+}
+
+function removeWelcome() {
+  const w = threadInner.querySelector(".welcome");
+  if (w) w.remove();
+}
+
+function addUserBubbleFromBlocks(blocks) {
+  removeWelcome();
+  const bubble = el("div", "msg user");
+  const imgs = blocks.filter((b) => b.type === "image");
+  if (imgs.length) {
+    const strip = el("div", "user-imgs");
+    for (const b of imgs) {
+      const img = document.createElement("img");
+      img.alt = "Attached photo";
+      img.src = `data:${b.source && b.source.media_type || "image/jpeg"};base64,${b.source ? b.source.data : ""}`;
+      strip.append(img);
+    }
+    bubble.append(strip);
+  }
+  const text = blocks.filter((b) => b.type === "text").map((b) => b.text).join("\n").trim();
+  if (text) bubble.append(document.createTextNode(text));
+  threadInner.append(bubble);
+  scrollFollow(true);
+  return bubble;
+}
+
+function beginAssistantGroup() {
+  removeWelcome();
+  const g = el("div", "turn");
+  threadInner.append(g);
+  return g;
+}
+
+function addAssistantBubble(group) {
+  const bubble = el("div", "msg assistant streaming");
+  group.append(bubble);
+  let raw = "";
+  let raf = 0;
+  const paint = () => { raf = 0; bubble.innerHTML = renderMarkdown(raw); scrollFollow(); };
+  return {
+    el: bubble,
+    update(text) { raw = text; if (!raf) raf = requestAnimationFrame(paint); },
+    finish(text) {
+      raw = text;
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      bubble.classList.remove("streaming");
+      bubble.innerHTML = renderMarkdown(raw);
+      scrollFollow();
+    },
+  };
+}
+
+function addStatusChip(group, label) {
+  const chip = el("div", "tool-chip");
+  chip.append(el("span", "dot"), el("span", "label", label));
+  group.append(chip);
+  scrollFollow();
+  return {
+    el: chip,
+    setText(t) { chip.querySelector(".label").textContent = t; },
+    done() { chip.classList.add("done"); },
+  };
+}
+
+function addNotice(text, kind) {
+  const n = el("div", "notice" + (kind === "warn" ? " warn" : ""), text);
+  threadInner.append(n);
+  scrollFollow();
+  return n;
+}
+
+function toolChipLabel(block) {
+  const input = block.input || {};
+  if (block.name === "search_manual") return `Searching the manual — “${input.query ?? ""}”`;
+  if (block.name === "read_pages") return `Reading pages ${input.start_page ?? "?"}–${input.end_page ?? "?"}`;
+  if (block.name === "draft_repair_scope") return "Drafting repair scope";
+  return `Running ${block.name}`;
+}
+
+function genericChipLabel(name) {
+  if (name === "search_manual") return "Searching the manual…";
+  if (name === "read_pages") return "Reading manual pages…";
+  if (name === "draft_repair_scope") return "Drafting repair scope…";
+  return "Working…";
+}
+
+/* ---------- Scope card ---------- */
+
+function addScopeCard(group, sc) {
+  const card = el("div", "scope-card");
+  card.append(el("div", "scope-kicker", "REPAIR SCOPE"));
+  card.append(el("h3", "scope-title", sc.title || "Repair scope"));
+  if (sc.problem_summary) card.append(el("p", "scope-summary", sc.problem_summary));
+
+  const items = Array.isArray(sc.scope_items) ? sc.scope_items : [];
+  if (items.length) {
+    card.append(el("div", "scope-sec-h", "Scope of work"));
+    const ol = el("ol", "scope-items");
+    for (const it of items) {
+      const li = document.createElement("li");
+      if (it.trade) li.append(el("span", "scope-trade", it.trade));
+      li.append(document.createTextNode(it.description || ""));
+      if (it.quantity_hint) li.append(el("span", "scope-qty", " — " + it.quantity_hint));
+      ol.append(li);
+    }
+    card.append(ol);
+  }
+
+  const listSection = (label, arr, extraCls) => {
+    if (!Array.isArray(arr) || !arr.length) return;
+    card.append(el("div", "scope-sec-h", label));
+    const ul = el("ul", "scope-list" + (extraCls ? " " + extraCls : ""));
+    for (const x of arr) ul.append(el("li", "", String(x)));
+    card.append(ul);
+  };
+  listSection("Materials", sc.materials);
+  listSection("Safety", sc.safety_notes, "safety");
+  listSection("Exclusions", sc.exclusions);
+
+  const refs = Array.isArray(sc.referenced_sections) ? sc.referenced_sections : [];
+  if (refs.length) {
+    card.append(el("div", "scope-sec-h", "Referenced manual sections"));
+    const wrap = el("div", "scope-refs");
+    for (const r of refs) {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "ref-chip";
+      chip.textContent = (r.section || "") + (r.pages ? ` (p. ${r.pages})` : "");
+      const m = /(\d+)(?:\s*[–—-]\s*(\d+))?/.exec(r.pages || "");
+      if (m) {
+        chip.classList.add("cite");
+        chip.dataset.p1 = m[1];
+        chip.dataset.p2 = m[2] || m[1];
+      }
+      wrap.append(chip);
+    }
+    card.append(wrap);
+  }
+
+  const row = el("div", "scope-actions");
+  const copyBtn = mkBtn("Copy as text");
+  copyBtn.addEventListener("click", async () => {
+    try {
+      await copyText(scopeToText(sc));
+      copyBtn.textContent = "Copied ✓";
+      setTimeout(() => { copyBtn.textContent = "Copy as text"; }, 1600);
+    } catch {
+      showBanner("Copy failed — use Download .txt instead.", "danger");
+    }
+  });
+  const dlBtn = mkBtn("Download .txt");
+  dlBtn.addEventListener("click", () => downloadTextFile(scopeToText(sc), slug(sc.title) + ".txt"));
+  row.append(copyBtn, dlBtn);
+  card.append(row);
+
+  group.append(card);
+  scrollFollow(); // unforced — don't yank the view if the user scrolled up to read
+}
+
+function scopeToText(sc) {
+  const L = [];
+  L.push("REPAIR SCOPE — " + String(sc.title || "UNTITLED").toUpperCase());
+  L.push("TruPro Roofing — drafted with NRCA Brain, " + new Date().toLocaleDateString());
+  L.push("");
+  L.push("PROBLEM SUMMARY");
+  L.push(String(sc.problem_summary || "—"));
+  const items = Array.isArray(sc.scope_items) ? sc.scope_items : [];
+  if (items.length) {
+    L.push("");
+    L.push("SCOPE OF WORK");
+    items.forEach((it, i) => {
+      let line = `${String(i + 1).padStart(2, " ")}. `;
+      if (it.trade) line += `[${it.trade}] `;
+      line += it.description || "";
+      if (it.quantity_hint) line += ` (qty: ${it.quantity_hint})`;
+      L.push(line);
+    });
+  }
+  const block = (label, arr) => {
+    if (!Array.isArray(arr) || !arr.length) return;
+    L.push("");
+    L.push(label);
+    for (const x of arr) L.push(" - " + String(x));
+  };
+  block("MATERIALS", sc.materials);
+  block("SAFETY NOTES", sc.safety_notes);
+  block("EXCLUSIONS", sc.exclusions);
+  const refs = Array.isArray(sc.referenced_sections) ? sc.referenced_sections : [];
+  if (refs.length) {
+    L.push("");
+    L.push("REFERENCED MANUAL SECTIONS");
+    for (const r of refs) L.push(" - " + (r.section || "") + (r.pages ? ` (p. ${r.pages})` : ""));
+  }
+  L.push("");
+  L.push("Verify all details against the licensed NRCA Roofing Manual before use.");
+  return L.join("\n");
+}
+
+/* ---------- Render a stored chat ---------- */
+
+function renderChat() {
+  clearThread();
+  if (!chat || !chat.messages.length) { showWelcome(); return; }
+  for (const m of chat.messages) {
+    const blocks = Array.isArray(m.content)
+      ? m.content
+      : [{ type: "text", text: String(m.content) }];
+    if (m.role === "user") {
+      if (blocks.some((b) => b.type === "tool_result")) continue; // tool plumbing, not a bubble
+      addUserBubbleFromBlocks(blocks);
+    } else if (m.role === "assistant") {
+      const group = beginAssistantGroup();
+      for (const b of blocks) {
+        if (b.type === "text" && b.text && b.text.trim()) {
+          addAssistantBubble(group).finish(b.text);
+        } else if (b.type === "tool_use") {
+          addStatusChip(group, toolChipLabel(b)).done();
+          if (b.name === "draft_repair_scope") addScopeCard(group, b.input || {});
+        }
+        /* thinking blocks are never shown */
+      }
+    }
+  }
+  scrollFollow(true);
+}
+
+/* ========================================================================
+   Banners
+   ======================================================================== */
+
+function showBanner(text, kind = "warn", opts = {}) {
+  const b = el("div", "app-banner " + kind);
+  const span = el("span", "", text);
+  b.append(span);
+  if (opts.actionLabel) {
+    const btn = mkBtn(opts.actionLabel);
+    btn.addEventListener("click", () => { b.remove(); if (opts.onAction) opts.onAction(); });
+    b.append(btn);
+  }
+  const x = document.createElement("button");
+  x.className = "banner-x";
+  x.setAttribute("aria-label", "Dismiss");
+  x.textContent = "×";
+  x.addEventListener("click", () => { if (b._timer) clearInterval(b._timer); b.remove(); });
+  b.append(x);
+  banners.append(b);
+
+  if (opts.countdown) {
+    let s = Math.max(1, Math.ceil(opts.countdown));
+    const tick = () => {
+      if (s <= 0) {
+        clearInterval(b._timer);
+        span.textContent = opts.doneText || "You can try again now.";
+        return;
+      }
+      span.textContent = text.replace("{s}", String(s));
+      s--;
+    };
+    tick();
+    b._timer = setInterval(tick, 1000);
+  }
+  if (opts.ttl) setTimeout(() => b.remove(), opts.ttl);
+  return b;
+}
+
+function surfaceError(err) {
+  if (err && err.name === "AbortError") return;
+  const status = err && typeof err.status === "number" ? err.status : 0;
+  if (status === 401 || (err && err.type === "authentication_error")) {
+    showBanner("API key rejected — update it in Settings.", "danger",
+      { actionLabel: "Settings", onAction: openDrawer });
+  } else if (status === 429) {
+    const wait = Math.ceil((err && err.retryAfter) || 30);
+    showBanner("Rate limited — try again in {s}s.", "warn", { countdown: wait });
+  } else if (status === 529) {
+    showBanner("Claude is overloaded right now — try again in a minute.", "warn");
+  } else if (status === 0 || !navigator.onLine) {
+    showBanner("Network problem — check your connection and try again.", "danger");
+  } else {
+    showBanner("Request failed: " + ((err && err.message) || "unknown error"), "danger");
+  }
+}
+
+/* ========================================================================
+   System prompt
+   ======================================================================== */
+
+function formatToc(toc) {
+  if (!Array.isArray(toc) || !toc.length) return "";
+  let out = "Manual table of contents (page numbers):\n";
+  for (const t of toc) {
+    const indent = "  ".repeat(Math.max(0, (t.level || 1) - 1));
+    const line = `${indent}${t.title} — p. ${t.page}\n`;
+    if (out.length + line.length > TOC_CHAR_LIMIT) { out += "…(truncated)"; break; }
+    out += line;
+  }
+  return out.trimEnd();
+}
+
+function buildSystemBlocks() {
+  const blocks = [{ type: "text", text: SYSTEM_PROMPT }];
+  const tocText = formatToc(index && index.toc);
+  if (tocText) blocks.push({ type: "text", text: tocText });
+  blocks[blocks.length - 1].cache_control = { type: "ephemeral" };
+  return blocks;
+}
+
+/* ========================================================================
+   Tool execution (client side)
+   ======================================================================== */
+
+function execTool(block, group, chip) {
+  const { name, id } = block;
+  const input = block.input || {};
+  try {
+    if (name === "search_manual") {
+      const q = String(input.query ?? "");
+      if (chip) chip.setText(`Searching the manual — “${q}”`);
+      const k = clampInt(input.max_results, 1, 15, 8);
+      const hits = searchIndex ? searchIndex.search(q, k) : [];
+      const text = hits.length
+        ? hits.map((h, i) =>
+            `[${i + 1}] (pages ${h.chunk.p[0]}–${h.chunk.p[1]}) §${h.chunk.section}\n${h.chunk.text}`
+          ).join("\n\n")
+        : "No matches in the manual index for that query. Try different terms.";
+      return { type: "tool_result", tool_use_id: id, content: text };
+    }
+    if (name === "read_pages") {
+      let s = clampInt(input.start_page, 1, 1e9, 1);
+      let e = clampInt(input.end_page, 1, 1e9, s);
+      if (e < s) [s, e] = [e, s];
+      if (e - s > 7) e = s + 7; // max 8 pages per call
+      if (chip) chip.setText(`Reading pages ${s}–${e}`);
+      const text = getPageText(index.pages, s, e);
+      return {
+        type: "tool_result", tool_use_id: id,
+        content: text || "No text available for those pages.",
+      };
+    }
+    if (name === "draft_repair_scope") {
+      if (chip) chip.setText("Drafting repair scope");
+      addScopeCard(group, input);
+      return { type: "tool_result", tool_use_id: id, content: "Scope recorded and shown to the user." };
+    }
+    return { type: "tool_result", tool_use_id: id, content: "Unknown tool: " + name, is_error: true };
+  } catch (err) {
+    return {
+      type: "tool_result", tool_use_id: id,
+      content: "Tool failed: " + ((err && err.message) || String(err)),
+      is_error: true,
+    };
+  } finally {
+    if (chip) chip.done();
+  }
+}
+
+/* ========================================================================
+   Conversation engine — the agentic loop
+   ======================================================================== */
+
+function sanitizeAssistantContent(content) {
+  return (content || []).filter((b) => !(b.type === "text" && !(b.text || "").trim()));
+}
+
+function deriveTitle(c) {
+  for (const m of c.messages) {
+    if (m.role !== "user") continue;
+    const blocks = Array.isArray(m.content) ? m.content : [{ type: "text", text: String(m.content) }];
+    if (blocks.some((b) => b.type === "tool_result")) continue;
+    const t = blocks.filter((b) => b.type === "text").map((b) => b.text).join(" ")
+      .trim().replace(/\s+/g, " ");
+    if (t) {
+      if (t.length <= 48) return t;
+      let cut = t.slice(0, 48);
+      const sp = cut.lastIndexOf(" ");
+      if (sp > 24) cut = cut.slice(0, sp);
+      return cut + "…";
+    }
+    if (blocks.some((b) => b.type === "image")) return "Photo question";
+  }
+  return "New chat";
+}
+
+async function persistChat() {
+  if (!chat || !chat.messages.length) return;
+  chat.updatedAt = new Date().toISOString();
+  if (!chat.title) chat.title = deriveTitle(chat);
+  try { await saveChat(chat); } catch (err) { console.warn("saveChat failed:", err); }
+}
+
+function setBusy(on) {
+  busy = on;
+  sendBtn.classList.toggle("stop", on);
+  sendBtn.innerHTML = on ? ICON_STOP : ICON_SEND;
+  sendBtn.setAttribute("aria-label", on ? "Stop" : "Send");
+  sendBtn.title = on ? "Stop" : "Send";
+  photoBtn.disabled = on;
+}
+
+async function runTurn(userBubbleEl) {
+  setBusy(true);
+  controller = new AbortController();
+  const group = beginAssistantGroup();
+
+  let iterations = 0;
+  let producedAnything = false; // at least one streamMessage resolved
+  let liveBubble = null;
+  let liveAcc = "";
+  let pendingChips = []; // turn-scoped so the error/abort path can clear them too
+
+  try {
+    for (;;) {
+      iterations++;
+      if (iterations > MAX_TOOL_ITERATIONS) {
+        addNotice("Stopped after " + MAX_TOOL_ITERATIONS + " tool rounds — ask a follow-up to continue.", "warn");
+        break;
+      }
+
+      liveBubble = null;
+      liveAcc = "";
+      pendingChips = [];
+
+      const msg = await streamMessage({
+        apiKey: getApiKey(),
+        model: getModel(),
+        system: systemBlocks,
+        messages: chat.messages,
+        tools: TOOLS,
+        maxTokens: 16000,
+        signal: controller.signal,
+        onText: (delta) => {
+          liveAcc += delta;
+          if (!liveBubble) liveBubble = addAssistantBubble(group);
+          liveBubble.update(liveAcc);
+        },
+        onToolUse: (name) => {
+          pendingChips.push(addStatusChip(group, genericChipLabel(name)));
+        },
+      });
+
+      producedAnything = true;
+
+      if (msg.stop_reason === "refusal") {
+        // Don't parse or keep the content — friendly notice only.
+        if (liveBubble) liveBubble.el.remove();
+        liveBubble = null;
+        for (const c of pendingChips) c.el.remove();
+        addNotice("Claude declined to answer that request. Try rephrasing it.", "warn");
+        break;
+      }
+
+      let content = sanitizeAssistantContent(msg.content);
+      if (msg.stop_reason !== "tool_use") {
+        // A turn can end with tool_use blocks it never got to finish (length
+        // limit, dropped stream). Storing those unanswered would make every
+        // later request in this chat 400 — drop them from the saved history.
+        const kept = content.filter((b) => b.type !== "tool_use");
+        if (kept.length !== content.length) {
+          for (const c of pendingChips) c.el.remove();
+          pendingChips = [];
+        }
+        content = kept;
+      }
+      if (content.length) chat.messages.push({ role: "assistant", content });
+      if (liveBubble) liveBubble.finish(liveAcc);
+
+      if (msg.stop_reason === "tool_use") {
+        const results = [];
+        let chipIdx = 0;
+        for (const block of msg.content) {
+          if (block.type !== "tool_use") continue;
+          const chip = pendingChips[chipIdx++] || null;
+          results.push(execTool(block, group, chip));
+        }
+        // ONE user message carrying ALL tool_result blocks.
+        chat.messages.push({ role: "user", content: results });
+        continue;
+      }
+
+      if (msg.stop_reason === "max_tokens") {
+        addNotice("The answer was cut off at the length limit.", "warn");
+      }
+      break;
+    }
+    await persistChat();
+  } catch (err) {
+    const aborted = err && err.name === "AbortError";
+    // Clear any "Searching the manual…" chips still spinning from this round.
+    for (const c of pendingChips) { try { c.el.remove(); } catch {} }
+    pendingChips = [];
+    if (liveAcc.trim()) {
+      // Keep the partially-streamed text so UI and stored history match.
+      chat.messages.push({ role: "assistant", content: [{ type: "text", text: liveAcc }] });
+      if (liveBubble) liveBubble.finish(liveAcc);
+      if (aborted) addNotice("Stopped.");
+      else surfaceError(err);
+      await persistChat();
+    } else if (producedAnything) {
+      if (liveBubble) liveBubble.el.remove();
+      if (aborted) addNotice("Stopped.");
+      else surfaceError(err);
+      await persistChat();
+    } else {
+      // Nothing came back at all — roll the user turn back and restore the draft.
+      chat.messages.pop();
+      if (userBubbleEl) userBubbleEl.remove();
+      group.remove();
+      // A brand-new chat that never persisted anything goes away entirely.
+      if (!chat.messages.length && !chat.title) chat = null;
+      if (!aborted) surfaceError(err);
+      restoreDraft();
+      if (!chat || !chat.messages.length) renderChat();
+    }
+  } finally {
+    controller = null;
+    setBusy(false);
+    refreshChatList();
+  }
+}
+
+/* ========================================================================
+   Composer
+   ======================================================================== */
+
+function autoresize() {
+  promptInput.style.height = "auto";
+  promptInput.style.height = Math.min(promptInput.scrollHeight, 132) + "px";
+}
+
+function renderAttachStrip() {
+  attachStrip.innerHTML = "";
+  attachStrip.classList.toggle("hidden", !pendingImages.length);
+  pendingImages.forEach((img, i) => {
+    const t = el("div", "attach-thumb");
+    const im = document.createElement("img");
+    im.src = img.dataUrl;
+    im.alt = "Attached photo " + (i + 1);
+    const x = document.createElement("button");
+    x.type = "button";
+    x.textContent = "×";
+    x.setAttribute("aria-label", "Remove photo");
+    x.addEventListener("click", () => { pendingImages.splice(i, 1); renderAttachStrip(); });
+    t.append(im, x);
+    attachStrip.append(t);
+  });
+}
+
+async function downscaleImage(file) {
+  let bmp = null;
+  try {
+    bmp = await createImageBitmap(file);
+  } catch {
+    // Fallback path for formats createImageBitmap can't take directly.
+    bmp = await new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const im = new Image();
+      im.onload = () => { URL.revokeObjectURL(url); resolve(im); };
+      im.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Unreadable image")); };
+      im.src = url;
+    });
+  }
+  const w0 = bmp.width || bmp.naturalWidth;
+  const h0 = bmp.height || bmp.naturalHeight;
+  if (!w0 || !h0) throw new Error("Unreadable image");
+  const scale = Math.min(1, MAX_IMAGE_EDGE / Math.max(w0, h0));
+  const w = Math.max(1, Math.round(w0 * scale));
+  const h = Math.max(1, Math.round(h0 * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  canvas.getContext("2d").drawImage(bmp, 0, 0, w, h);
+  if (bmp.close) bmp.close();
+  const dataUrl = canvas.toDataURL("image/jpeg", JPEG_QUALITY);
+  return { data: dataUrl.slice(dataUrl.indexOf(",") + 1), dataUrl, width: w, height: h };
+}
+
+async function addFiles(files) {
+  for (const f of files) {
+    if (!f.type.startsWith("image/")) continue;
+    if (pendingImages.length >= MAX_ATTACHMENTS) {
+      showBanner(`Up to ${MAX_ATTACHMENTS} photos per message.`, "warn", { ttl: 4000 });
+      break;
+    }
+    try {
+      pendingImages.push(await downscaleImage(f));
+      renderAttachStrip();
+    } catch {
+      showBanner("Couldn't read that image file.", "danger", { ttl: 5000 });
+    }
+  }
+}
+
+function restoreDraft() {
+  if (!draft) return;
+  promptInput.value = draft.text || "";
+  pendingImages = draft.images || [];
+  renderAttachStrip();
+  autoresize();
+  draft = null;
+}
+
+async function onSend() {
+  if (busy) { if (controller) controller.abort(); return; }
+  const text = promptInput.value.trim();
+  if (!text && !pendingImages.length) return;
+
+  if (!index || !searchIndex) {
+    showBanner("Import the manual index first (Settings → Manual index).", "warn");
+    return;
+  }
+  if (!getApiKey()) {
+    showBanner("Add your Anthropic API key in Settings first.", "warn",
+      { actionLabel: "Settings", onAction: openDrawer });
+    return;
+  }
+  if (!navigator.onLine) {
+    showBanner("You're offline — reconnect and try again.", "danger");
+    return;
+  }
+
+  draft = { text, images: pendingImages.slice() };
+
+  // Images BEFORE text in the user content array.
+  const content = [];
+  for (const img of pendingImages) {
+    content.push({
+      type: "image",
+      source: { type: "base64", media_type: "image/jpeg", data: img.data },
+    });
+  }
+  if (text) content.push({ type: "text", text });
+
+  if (!chat) {
+    const now = new Date().toISOString();
+    chat = { id: crypto.randomUUID(), title: "", createdAt: now, updatedAt: now, messages: [] };
+  }
+  chat.messages.push({ role: "user", content });
+  const userBubbleEl = addUserBubbleFromBlocks(content);
+
+  promptInput.value = "";
+  pendingImages = [];
+  renderAttachStrip();
+  autoresize();
+
+  await runTurn(userBubbleEl);
+}
+
+/* ========================================================================
+   Settings drawer
+   ======================================================================== */
+
+function openDrawer() {
+  document.body.classList.add("drawer-open");
+  drawerEl.setAttribute("aria-hidden", "false");
+  $("apiKeyInput").value = getApiKey();
+  $("modelSelect").value = getModel();
+  refreshIndexStatus();
+  refreshChatList();
+}
+
+function closeDrawer() {
+  document.body.classList.remove("drawer-open");
+  drawerEl.setAttribute("aria-hidden", "true");
+}
+
+function refreshIndexStatus() {
+  idxStatus.innerHTML = "";
+  if (!index) {
+    idxStatus.append(el("div", "muted", "No index on this device."));
+    return;
+  }
+  const s = index.source || {};
+  const ex = index.extraction || {};
+  const rows = [
+    ["File", s.filename || "?"],
+    ["Pages", String(s.pages ?? (index.pages ? index.pages.length : "?"))],
+    ["Chunks", String(index.chunks ? index.chunks.length : "?")],
+    ["Processed", s.processedAt ? new Date(s.processedAt).toLocaleString() : "?"],
+    ["Method", ex.method || "?"],
+  ];
+  for (const [k, v] of rows) {
+    const kv = el("div", "kv");
+    kv.append(el("span", "k", k), el("span", "v", v));
+    idxStatus.append(kv);
+  }
+}
+
+async function refreshChatList() {
+  let items = [];
+  try { items = await listChats(); } catch { /* listing is best-effort */ }
+  chatList.innerHTML = "";
+  if (!items.length) {
+    chatList.append(el("li", "chat-empty", "No saved chats yet."));
+    return;
+  }
+  for (const c of items) {
+    const li = document.createElement("li");
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chat-item" + (chat && chat.id === c.id ? " active" : "");
+    b.append(el("span", "chat-title", c.title || "Untitled"),
+             el("span", "chat-date", fmtDate(c.updatedAt)));
+    b.addEventListener("click", async () => {
+      if (busy) return;
+      const full = await loadChat(c.id);
+      if (full) { chat = full; renderChat(); closeDrawer(); }
+    });
+    const del = document.createElement("button");
+    del.type = "button";
+    del.className = "chat-del";
+    del.textContent = "×";
+    del.setAttribute("aria-label", "Delete chat");
+    del.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      if (!confirm("Delete this chat?")) return;
+      await deleteChat(c.id);
+      if (chat && chat.id === c.id) { chat = null; renderChat(); }
+      refreshChatList();
+    });
+    li.append(b, del);
+    chatList.append(li);
+  }
+}
+
+/* ========================================================================
+   Index import / delete / setup
+   ======================================================================== */
+
+function validIndex(obj) {
+  return obj && obj.format === "nrca-index" && obj.version === 1 &&
+    Array.isArray(obj.pages) && Array.isArray(obj.chunks);
+}
+
+async function importIndexFile(file) {
+  const text = await file.text();
+  let obj;
+  try { obj = JSON.parse(text); } catch { throw new Error("That file isn't valid JSON."); }
+  if (!validIndex(obj)) {
+    throw new Error("That file isn't a valid NRCA index (expected format \"nrca-index\", version 1).");
+  }
+  await saveIndex(obj);
+  initWithIndex(obj);
+}
+
+function initWithIndex(obj) {
+  index = obj;
+  searchIndex = buildSearchIndex(obj.chunks || []);
+  systemBlocks = buildSystemBlocks();
+  setupPanel.classList.add("hidden");
+  refreshIndexStatus();
+  if (!chat) renderChat();
+}
+
+function showSetup() {
+  index = null;
+  searchIndex = null;
+  systemBlocks = null;
+  setupPanel.classList.remove("hidden");
+  refreshIndexStatus();
+}
+
+/* ========================================================================
+   Page-text modal
+   ======================================================================== */
+
+function openPageModal(p1, p2) {
+  if (!index) return;
+  const a = clampInt(p1, 1, 1e9, 1);
+  const b = clampInt(p2, a, 1e9, a);
+  $("pageModalTitle").textContent =
+    a === b ? `NRCA Manual — page ${a}` : `NRCA Manual — pages ${a}–${b}`;
+  $("pageModalBody").textContent =
+    getPageText(index.pages, a, b) || "No text stored for this page.";
+  pageModal.classList.remove("hidden");
+  $("pageModalBody").scrollTop = 0;
+}
+
+function closePageModal() { pageModal.classList.add("hidden"); }
+
+/* ========================================================================
+   Wiring + init
+   ======================================================================== */
+
+function wireEvents() {
+  sendBtn.innerHTML = ICON_SEND;
+  sendBtn.addEventListener("click", onSend);
+
+  promptInput.addEventListener("input", autoresize);
+  promptInput.addEventListener("keydown", (e) => {
+    // Enter sends on keyboard-and-mouse devices; on touch, Enter makes a newline
+    // (the composer's enterkeyhint says "enter" to match) and the arrow sends —
+    // field notes are often multi-line, and the send button is thumb-reachable.
+    if (e.key === "Enter" && !e.shiftKey && !e.isComposing &&
+        window.matchMedia("(pointer: fine)").matches) {
+      e.preventDefault();
+      onSend();
+    }
+  });
+
+  photoBtn.addEventListener("click", () => photoInput.click());
+  photoInput.addEventListener("change", async () => {
+    await addFiles([...photoInput.files]);
+    photoInput.value = "";
+  });
+
+  $("gearBtn").addEventListener("click", openDrawer);
+  $("closeDrawer").addEventListener("click", closeDrawer);
+  $("backdrop").addEventListener("click", closeDrawer);
+
+  // Citation chips + welcome examples (delegated — chips are re-created constantly).
+  threadInner.addEventListener("click", (e) => {
+    const cite = e.target.closest(".cite");
+    if (cite && cite.dataset.p1) {
+      openPageModal(+cite.dataset.p1, +cite.dataset.p2);
+      return;
+    }
+    const ex = e.target.closest(".example");
+    if (ex) {
+      promptInput.value = ex.textContent;
+      autoresize();
+      promptInput.focus();
+    }
+  });
+
+  $("closeModal").addEventListener("click", closePageModal);
+  pageModal.addEventListener("click", (e) => { if (e.target === pageModal) closePageModal(); });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    if (!pageModal.classList.contains("hidden")) closePageModal();
+    else if (document.body.classList.contains("drawer-open")) closeDrawer();
+  });
+
+  // Settings: API key + model
+  const apiKeyInput = $("apiKeyInput");
+  let keyDebounce = 0;
+  const saveKey = () => localStorage.setItem(KEY_APIKEY, apiKeyInput.value.trim());
+  apiKeyInput.addEventListener("change", saveKey);
+  apiKeyInput.addEventListener("input", () => {
+    clearTimeout(keyDebounce);
+    keyDebounce = setTimeout(saveKey, 400);
+  });
+
+  const modelSelect = $("modelSelect");
+  for (const m of MODELS) {
+    const opt = document.createElement("option");
+    opt.value = m.id;
+    opt.textContent = m.label;
+    modelSelect.append(opt);
+  }
+  modelSelect.value = getModel();
+  modelSelect.addEventListener("change", () => localStorage.setItem(KEY_MODEL, modelSelect.value));
+
+  // Settings: index re-import / delete
+  $("reimportInput").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+    try {
+      await importIndexFile(file);
+      showBanner("Manual index imported.", "success", { ttl: 4000 });
+    } catch (err) {
+      showBanner(err.message || "Import failed.", "danger");
+    }
+  });
+  $("deleteIndexBtn").addEventListener("click", async () => {
+    if (!confirm("Delete the manual index from this device? Chats are kept.")) return;
+    await clearIndex();
+    // An abandoned processing checkpoint holds manual page text too — "delete
+    // the manual from this device" has to mean all of it.
+    await clearCheckpoint();
+    closeDrawer();
+    showSetup();
+  });
+
+  // Settings: chats
+  $("newChatBtn").addEventListener("click", () => {
+    if (busy) return;
+    chat = null;
+    renderChat();
+    refreshChatList();
+    closeDrawer();
+  });
+
+  // Setup panel import
+  $("setupImport").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+    const errEl = $("setupError");
+    errEl.classList.add("hidden");
+    try {
+      await importIndexFile(file);
+    } catch (err) {
+      errEl.textContent = err.message || "Import failed.";
+      errEl.classList.remove("hidden");
+    }
+  });
+
+  // Offline is a state, not an event — keep the banner up until we're back,
+  // so someone in a dead zone still sees why nothing is sending.
+  let offlineBanner = null;
+  window.addEventListener("offline", () => {
+    if (offlineBanner) return;
+    offlineBanner = showBanner("You're offline. Answers need a connection to Claude.", "warn");
+  });
+  window.addEventListener("online", () => {
+    if (offlineBanner) {
+      try { offlineBanner.remove(); } catch {}
+      offlineBanner = null;
+      showBanner("Back online.", "success", { ttl: 3000 });
+    }
+  });
+}
+
+async function init() {
+  wireEvents();
+  autoresize();
+  let idx = null;
+  try { idx = await loadIndex(); } catch (err) { console.warn("loadIndex failed:", err); }
+  if (idx && validIndex(idx)) {
+    initWithIndex(idx);
+  } else {
+    showSetup();
+    renderChat();
+  }
+}
+
+init();
+</script>
+</body>
+</html>

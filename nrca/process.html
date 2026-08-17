@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>NRCA Brain — TruPro Roofing</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./assets/shared.css">
+<style>
+  /* Page-specific styles. Tokens duplicated from the contract design language so
+     this page also stands alone if shared.css hasn't loaded. */
+  :root {
+    --bg: #0f1115; --surface: #171a21; --accent: #f59e0b; --text: #e8eaf0;
+    --muted: #9aa3b2; --success: #4ade80; --danger: #f87171;
+    --radius: 12px; --border: #262b36;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    min-height: 100vh;
+  }
+  header.page {
+    padding: 20px 16px 8px; max-width: 760px; margin: 0 auto;
+  }
+  header.page h1 { margin: 0; font-size: 1.35rem; letter-spacing: .02em; }
+  header.page h1 .brand { color: var(--accent); }
+  header.page .sub { color: var(--muted); font-size: .9rem; margin-top: 2px; }
+  main { max-width: 760px; margin: 0 auto; padding: 8px 16px 40px; }
+
+  .banner {
+    border: 1px solid var(--border); border-left: 4px solid var(--accent);
+    background: var(--surface); border-radius: var(--radius);
+    padding: 12px 14px; margin: 12px 0; font-size: .95rem;
+  }
+  .banner.info { border-left-color: var(--muted); }
+  .banner .row { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .hidden { display: none !important; }
+
+  .step {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); margin: 14px 0; overflow: hidden;
+  }
+  .step-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+  .step-num {
+    width: 30px; height: 30px; flex: 0 0 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: #232837; color: var(--muted); font-weight: 700; font-size: .9rem;
+  }
+  .step-head h2 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+  .step-body { padding: 0 16px 16px; }
+  .step.idle { opacity: .45; }
+  .step.idle .step-body { display: none; }
+  .step.active { border-color: var(--accent); }
+  .step.active .step-num { background: var(--accent); color: #16130a; }
+  .step.done .step-num { background: var(--success); color: #0b1a10; }
+  .step.done .step-num::before { content: "✓"; }
+  .step.done .step-num span { display: none; }
+
+  .drop {
+    display: block; /* <label> is inline by default — without this the dashed
+                       border overlaps the card header and text spills out */
+    border: 2px dashed var(--border); border-radius: var(--radius);
+    padding: 26px 16px; text-align: center; color: var(--muted);
+    cursor: pointer; transition: border-color .15s, background .15s;
+  }
+  .drop.over { border-color: var(--accent); background: #1c202b; color: var(--text); }
+  .drop strong { color: var(--text); }
+  input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 10px 18px; border-radius: 10px;
+    border: 1px solid var(--border); background: #232837; color: var(--text);
+    font-size: .95rem; font-weight: 600; cursor: pointer; text-decoration: none;
+  }
+  .btn:hover { border-color: var(--muted); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #16130a; }
+  .btn.primary:disabled { opacity: .4; cursor: not-allowed; }
+  .btn.danger { color: var(--danger); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+  .alt { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+         color: var(--muted); font-size: .92rem; }
+  .filecard { margin-top: 12px; font-size: .92rem; color: var(--muted); }
+  .filecard b { color: var(--text); }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .85em; }
+
+  .prog { height: 10px; border-radius: 5px; background: #232837; overflow: hidden; margin-top: 12px; }
+  .prog-bar { height: 100%; width: 0%; background: var(--accent); border-radius: 5px; transition: width .3s; }
+  .prog-meta { display: flex; justify-content: space-between; gap: 10px;
+               color: var(--muted); font-size: .88rem; margin-top: 6px; }
+  .status { color: var(--muted); font-size: .92rem; margin-top: 10px; min-height: 1.3em; }
+  .error { color: var(--danger); font-size: .92rem; margin-top: 10px; }
+
+  .ocr-cards { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 8px; }
+  @media (min-width: 640px) { .ocr-cards { grid-template-columns: 1fr 1fr; } }
+  .ocr-card {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 14px; background: #131720;
+  }
+  .ocr-card.chosen { border-color: var(--accent); }
+  .ocr-card h3 { margin: 0 0 4px; font-size: 1rem; }
+  .ocr-card .desc { color: var(--muted); font-size: .9rem; margin-bottom: 10px; }
+  .ocr-card label.field { display: block; color: var(--muted); font-size: .85rem; margin: 10px 0 4px; }
+  .ocr-card input[type="password"], .ocr-card select {
+    width: 100%; min-height: 44px; padding: 8px 10px; border-radius: 8px;
+    border: 1px solid var(--border); background: #0f1115; color: var(--text); font-size: .95rem;
+    position: static; opacity: 1; height: auto;
+  }
+  .cost { margin-top: 10px; font-size: .95rem; }
+  .cost b { color: var(--accent); }
+  .ack { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0; cursor: pointer;
+         font-size: .9rem; color: var(--muted); }
+  .ack input { width: 22px; height: 22px; flex: 0 0 22px; position: static; opacity: 1;
+               accent-color: var(--accent); margin-top: 1px; }
+  .est { color: var(--muted); font-size: .9rem; margin: 8px 0 12px; }
+  .est b { color: var(--text); }
+
+  .keep-open {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    background: #2a2110; border-top: 1px solid var(--accent); color: var(--accent);
+    text-align: center; font-size: .9rem; font-weight: 600;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+           gap: 10px; margin: 12px 0; }
+  .stat { background: #131720; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .stat .v { font-size: 1.25rem; font-weight: 700; }
+  .stat .k { color: var(--muted); font-size: .8rem; }
+  .success-note { color: var(--success); font-weight: 600; }
+  .warnlist { color: var(--danger); font-size: .88rem; margin-top: 10px; }
+  .warnlist ul { margin: 6px 0 0; padding-left: 20px; }
+  .hint { color: var(--muted); font-size: .88rem; margin-top: 10px; }
+
+  footer.page {
+    max-width: 760px; margin: 0 auto; padding: 8px 16px calc(56px + env(safe-area-inset-bottom));
+    color: var(--muted); font-size: .82rem;
+  }
+</style>
+</head>
+<body>
+
+<header class="page">
+  <h1><span class="brand">NRCA Brain</span> — Manual Processor</h1>
+  <div class="sub">TruPro Roofing internal · one-time setup: turn the manual PDF into a searchable index</div>
+</header>
+
+<main>
+  <div id="existingNote" class="banner info hidden"></div>
+
+  <div id="resumeBanner" class="banner hidden">
+    <div id="resumeText"></div>
+    <div class="row">
+      <button id="finalizeCpBtn" class="btn primary hidden">Finalize from checkpoint</button>
+      <button id="discardCpBtn" class="btn danger">Discard checkpoint</button>
+    </div>
+  </div>
+
+  <!-- STEP 1 — load PDF / import index -->
+  <section class="step active" id="step1">
+    <div class="step-head"><span class="step-num"><span>1</span></span><h2>Load the manual PDF</h2></div>
+    <div class="step-body">
+      <label class="drop" id="dropZone" for="pdfInput">
+        <strong>Tap to choose the PDF</strong> or drag &amp; drop it here<br>
+        <span>NRCA-RoofMan26e-1082.pdf (~142&nbsp;MB)</span><br>
+        <span>Use a desktop or laptop — a file this large can crash a phone browser.</span>
+      </label>
+      <input type="file" id="pdfInput" accept="application/pdf,.pdf">
+      <div class="filecard hidden" id="fileInfo"></div>
+      <div class="status" id="loadStatus"></div>
+      <div class="error hidden" id="loadError"></div>
+
+      <div class="alt">
+        Already have an <span class="mono">nrca-index.json</span> from a teammate?
+        <span style="white-space:nowrap">
+          <label class="btn" for="importInput" style="margin-left:8px">Import it instead</label>
+        </span>
+        <input type="file" id="importInput" accept="application/json,.json">
+        <div class="error hidden" id="importError"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2 — text extraction -->
+  <section class="step idle" id="step2">
+    <div class="step-head"><span class="step-num"><span>2</span></span><h2>Extract text layer</h2></div>
+    <div class="step-body">
+      <div class="status" id="textStatus">Reading each page's embedded text…</div>
+      <div id="textProgress">
+        <div class="prog"><div class="prog-bar"></div></div>
+        <div class="prog-meta"><span class="prog-count"></span><span class="prog-eta"></span></div>
+      </div>
+      <div class="filecard hidden" id="textSummary"></div>
+    </div>
+  </section>
+
+  <!-- STEP 3 — OCR choice + run -->
+  <section class="step idle" id="step3">
+    <div class="step-head"><span class="step-num"><span>3</span></span><h2>OCR image-only pages</h2></div>
+    <div class="step-body">
+      <div id="ocrChoice">
+        <div class="status" id="ocrIntro"></div>
+        <div class="ocr-cards">
+          <div class="ocr-card" id="tessCard">
+            <h3>Free, on this device</h3>
+            <div class="desc">Tesseract OCR runs locally in your browser. No cost, decent quality on clean scans. Slower.</div>
+            <div class="est">Estimated time: <b id="tessEta">—</b></div>
+            <button class="btn primary" id="tessStartBtn">Start free OCR</button>
+          </div>
+          <div class="ocr-card" id="claudeCard">
+            <h3>Claude OCR (best quality)</h3>
+            <div class="desc">Each page image is sent to <span class="mono">api.anthropic.com</span> for transcription. Best on tables and dense layouts.</div>
+            <label class="field" for="ocrModel">Model</label>
+            <select id="ocrModel"></select>
+            <label class="field" for="apiKey">Anthropic API key</label>
+            <input type="password" id="apiKey" autocomplete="off" placeholder="sk-ant-…">
+            <div class="hint">Stored only in this browser.</div>
+            <div class="cost">Estimated cost: <b id="claudeCost">—</b> <span id="costDetail" class="hint" style="display:inline"></span></div>
+            <label class="ack" for="costAck">
+              <input type="checkbox" id="costAck">
+              <span id="costAckLabel">I understand this will cost approximately —</span>
+            </label>
+            <button class="btn primary" id="claudeStartBtn" disabled>Start Claude OCR</button>
+          </div>
+        </div>
+      </div>
+      <div id="ocrRun" class="hidden">
+        <div class="status" id="ocrStatus"></div>
+        <div id="ocrProgress">
+          <div class="prog"><div class="prog-bar"></div></div>
+          <div class="prog-meta"><span class="prog-count"></span><span class="prog-eta"></span></div>
+        </div>
+      </div>
+      <div class="error hidden" id="ocrError"></div>
+    </div>
+  </section>
+
+  <!-- STEP 4 — finalize -->
+  <section class="step idle" id="step4">
+    <div class="step-head"><span class="step-num"><span>4</span></span><h2>Finalize the index</h2></div>
+    <div class="step-body">
+      <div class="status" id="finStatus"></div>
+      <div class="error hidden" id="finError"></div>
+      <div id="successPanel" class="hidden">
+        <p class="success-note" id="successNote">Index built and saved to this browser.</p>
+        <div class="stats" id="statGrid"></div>
+        <div class="warnlist hidden" id="warnList"></div>
+        <div class="banner info" id="downloadRow">
+          <button class="btn primary" id="downloadBtn">Download nrca-index.json</button>
+          <div class="hint">Store it in your Google Drive next to the manual — teammates import it, nobody re-processes.</div>
+        </div>
+        <p><a class="btn" href="./index.html">Open NRCA Brain →</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="keep-open hidden" id="keepOpen">⚠ Keep this tab open &amp; device plugged in — processing in progress.</div>
+
+<footer class="page">
+  Internal tool. Manual content stays on this device — licensed copy, do not share the index file outside TruPro.
+</footer>
+
+<script type="module">
+import * as pdfjsLib from "./vendor/pdf.mjs";
+import { saveIndex, loadIndex, saveCheckpoint, loadCheckpoint, clearCheckpoint } from "./assets/storage.js";
+import { detectHeadings, chunkPages } from "./assets/retrieval.js";
+import { MODELS, estimateImageTokens, completeMessage } from "./assets/anthropic.js";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = "./vendor/pdf.worker.mjs";
+
+/* pdf.js 6.x calls Map.prototype.getOrInsertComputed (TC39 stage-3, not yet in
+   Safari/older Chromium) during canvas rendering. Without it every page render
+   rejects, which silently breaks BOTH OCR paths — the exact flow a scanned
+   manual depends on. Feature-detected, non-enumerable, no-op where supported. */
+for (const Ctor of [Map, WeakMap]) {
+  const proto = Ctor.prototype;
+  if (typeof proto.getOrInsertComputed !== "function") {
+    Object.defineProperty(proto, "getOrInsertComputed", {
+      value: function (key, callback) {
+        if (!this.has(key)) this.set(key, callback(key));
+        return this.get(key);
+      },
+      writable: true, configurable: true, enumerable: false,
+    });
+  }
+  if (typeof proto.getOrInsert !== "function") {
+    Object.defineProperty(proto, "getOrInsert", {
+      value: function (key, value) {
+        if (!this.has(key)) this.set(key, value);
+        return this.get(key);
+      },
+      writable: true, configurable: true, enumerable: false,
+    });
+  }
+}
+
+/* ---------------------------------------------------------------- helpers */
+
+const $ = (id) => document.getElementById(id);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const tick = () => new Promise((r) => setTimeout(r, 0));
+
+const OCR_PROMPT =
+  "Transcribe this scanned manual page faithfully as plain text. " +
+  "Preserve headings as their own lines and render tables as aligned text rows. " +
+  "Output ONLY the transcription, with no commentary. " +
+  "If the page is blank, output exactly [BLANK PAGE].";
+
+const NEEDS_OCR = "needs-ocr"; // checkpoint-internal marker, never leaves this page
+
+function fmtDur(sec) {
+  sec = Math.max(0, Math.round(sec));
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+  if (h) return `${h}h ${m}m`;
+  if (m) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+function fmtMoney(x) {
+  if (x > 0 && x < 0.01) return "<$0.01";
+  return "$" + x.toFixed(2);
+}
+function hex(buf) {
+  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+async function blobToBase64(blob) {
+  const bytes = new Uint8Array(await blob.arrayBuffer());
+  let s = "";
+  const CH = 0x8000;
+  for (let i = 0; i < bytes.length; i += CH) {
+    s += String.fromCharCode.apply(null, bytes.subarray(i, i + CH));
+  }
+  return btoa(s);
+}
+function showError(el, msg) { el.textContent = msg; el.classList.remove("hidden"); }
+function clearError(el) { el.textContent = ""; el.classList.add("hidden"); }
+
+function setStep(n, phase) { // phase: idle | active | done
+  const el = $("step" + n);
+  el.classList.remove("idle", "active", "done");
+  el.classList.add(phase);
+}
+
+function makeProgress(rootEl) {
+  const bar = rootEl.querySelector(".prog-bar");
+  const count = rootEl.querySelector(".prog-count");
+  const eta = rootEl.querySelector(".prog-eta");
+  let start = performance.now(), startDone = 0;
+  return {
+    begin(done) { start = performance.now(); startDone = done || 0; this.update(done || 0, 1); },
+    update(done, total) {
+      bar.style.width = total ? Math.min(100, (100 * done) / total).toFixed(1) + "%" : "0%";
+      const elapsed = (performance.now() - start) / 1000;
+      const rate = elapsed > 0.5 ? (done - startDone) / elapsed : 0;
+      count.textContent = `${done} / ${total} pages` + (rate > 0.01 ? ` — ${rate.toFixed(rate < 1 ? 2 : 1)} p/s` : "");
+      eta.textContent = done >= total ? "done" : rate > 0 ? "ETA " + fmtDur((total - done) / rate) : "";
+    },
+  };
+}
+
+/* ------------------------------------------------------- long-run comfort */
+
+let wakeLock = null;
+async function acquireWakeLock() {
+  try { wakeLock = await navigator.wakeLock?.request("screen"); } catch { /* best effort */ }
+}
+function releaseWakeLock() {
+  try { wakeLock?.release(); } catch { /* ignore */ }
+  wakeLock = null;
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && state.processing) acquireWakeLock();
+});
+window.addEventListener("beforeunload", (e) => {
+  if (state.processing) { e.preventDefault(); e.returnValue = ""; }
+});
+function setProcessing(on) {
+  state.processing = on;
+  $("keepOpen").classList.toggle("hidden", !on);
+  if (on) acquireWakeLock(); else releaseWakeLock();
+}
+
+/* ------------------------------------------------------------------ state */
+
+const state = {
+  pdf: null,            // pdf.js document (present whenever a PDF was picked this session)
+  cp: null,             // live checkpoint { sha256, filename, totalPages, settings, pages, updatedAt }
+  savedCp: null,        // checkpoint found at boot (before a PDF is picked)
+  ocrQueue: [],         // page numbers still needing OCR
+  ocrDims: null,        // {w,h} representative render size, for the cost estimate
+  processing: false,
+  warnings: [],
+  index: null,          // finished index (for download)
+};
+
+function newCheckpoint(sha256, filename, totalPages) {
+  return {
+    sha256, filename, totalPages,
+    settings: { ocrMethod: null, ocrModel: null },
+    pages: {},
+    updatedAt: new Date().toISOString(),
+  };
+}
+async function persistCheckpoint() {
+  if (!state.cp) return;
+  state.cp.updatedAt = new Date().toISOString();
+  try { await saveCheckpoint(state.cp); } catch { /* non-fatal; next save retries */ }
+}
+function rebuildOcrQueue() {
+  state.ocrQueue = [];
+  for (let p = 1; p <= state.cp.totalPages; p++) {
+    if (state.cp.pages[p] && state.cp.pages[p].method === NEEDS_OCR) state.ocrQueue.push(p);
+  }
+}
+
+/* ------------------------------------------------------------------- boot */
+
+(async function boot() {
+  let existing = null, cp = null;
+  try { [existing, cp] = await Promise.all([loadIndex(), loadCheckpoint()]); } catch { /* fresh */ }
+
+  if (existing && existing.source) {
+    const d = existing.source.processedAt ? new Date(existing.source.processedAt).toLocaleDateString() : "";
+    $("existingNote").textContent =
+      `An index is already installed in this browser (${existing.source.filename}, ` +
+      `${existing.source.pages} pages${d ? ", processed " + d : ""}). Processing or importing will replace it.`;
+    $("existingNote").classList.remove("hidden");
+  }
+
+  if (cp && cp.sha256 && cp.pages) {
+    state.savedCp = cp;
+    const captured = Object.keys(cp.pages).length;
+    const pendingOcr = Object.values(cp.pages).filter((r) => r.method === NEEDS_OCR).length;
+    $("resumeText").textContent =
+      `Checkpoint found for “${cp.filename}” — ${captured} of ${cp.totalPages} pages captured` +
+      (pendingOcr ? `, ${pendingOcr} still awaiting OCR` : "") +
+      `. Select the same PDF above to resume where you left off.`;
+    if (captured === cp.totalPages && pendingOcr === 0) {
+      $("resumeText").textContent =
+        `Checkpoint found for “${cp.filename}” — all ${cp.totalPages} pages are captured. ` +
+        `You can finalize the index right now, no PDF needed.`;
+      $("finalizeCpBtn").classList.remove("hidden");
+    }
+    $("resumeBanner").classList.remove("hidden");
+  }
+})();
+
+$("discardCpBtn").addEventListener("click", async () => {
+  if (!confirm("Discard the saved processing checkpoint? Completed pages will be lost.")) return;
+  await clearCheckpoint();
+  state.savedCp = null;
+  $("resumeBanner").classList.add("hidden");
+});
+
+$("finalizeCpBtn").addEventListener("click", async () => {
+  state.cp = state.savedCp;
+  $("resumeBanner").classList.add("hidden");
+  setStep(1, "done"); setStep(2, "done"); setStep(3, "done");
+  await finalize();
+});
+
+/* ------------------------------------------------- step 1: load / import */
+
+const dropZone = $("dropZone");
+dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.classList.add("over"); });
+dropZone.addEventListener("dragleave", () => dropZone.classList.remove("over"));
+dropZone.addEventListener("drop", (e) => {
+  e.preventDefault(); dropZone.classList.remove("over");
+  const f = e.dataTransfer?.files?.[0];
+  if (f) onFileChosen(f);
+});
+$("pdfInput").addEventListener("change", (e) => {
+  const f = e.target.files?.[0];
+  if (f) onFileChosen(f);
+});
+$("importInput").addEventListener("change", (e) => {
+  const f = e.target.files?.[0];
+  if (f) importIndexFile(f);
+});
+
+async function importIndexFile(file) {
+  clearError($("importError"));
+  try {
+    const obj = JSON.parse(await file.text());
+    const problem = validateIndex(obj);
+    if (problem) throw new Error(problem);
+    await saveIndex(obj);
+    // A finished index supersedes any half-done run — drop the checkpoint so no
+    // stale manual text lingers on the device and the resume banner disappears.
+    await clearCheckpoint();
+    state.savedCp = null;
+    const resumeEl = $("resumeBanner");
+    if (resumeEl) resumeEl.classList.add("hidden");
+    state.index = obj;
+    setStep(1, "done"); setStep(2, "done"); setStep(3, "done"); setStep(4, "done");
+    showSuccess(obj, { imported: true });
+  } catch (err) {
+    showError($("importError"), "Import failed: " + (err.message || err));
+  }
+}
+function validateIndex(o) {
+  if (!o || typeof o !== "object") return "not a JSON object";
+  if (o.format !== "nrca-index") return 'wrong file — expected format "nrca-index"';
+  if (o.version !== 1) return "unsupported index version: " + o.version;
+  if (!o.source || typeof o.source.filename !== "string" || typeof o.source.pages !== "number")
+    return "missing source metadata";
+  if (!o.extraction || typeof o.extraction.method !== "string") return "missing extraction metadata";
+  if (!Array.isArray(o.toc)) return "missing toc array";
+  if (!Array.isArray(o.pages) || o.pages.length === 0) return "missing pages";
+  if (!Array.isArray(o.chunks) || o.chunks.length === 0) return "missing chunks";
+  if (o.pages.some((pg) => typeof pg.p !== "number" || typeof pg.text !== "string")) return "malformed page entries";
+  if (o.chunks.some((c) => typeof c.text !== "string" || !Array.isArray(c.p))) return "malformed chunk entries";
+  return null;
+}
+
+async function onFileChosen(file) {
+  clearError($("loadError"));
+  if (!/\.pdf$/i.test(file.name) && file.type !== "application/pdf") {
+    showError($("loadError"), "That doesn't look like a PDF. Pick the NRCA manual PDF file.");
+    return;
+  }
+  const status = $("loadStatus");
+  try {
+    status.textContent = "Reading file…";
+    // Read once into an ArrayBuffer: hashed first, then handed to pdf.js.
+    const buffer = await file.arrayBuffer();
+
+    status.textContent = "Computing SHA-256 fingerprint…";
+    await tick();
+    let sha256;
+    try {
+      sha256 = hex(await crypto.subtle.digest("SHA-256", buffer));
+    } catch {
+      // Non-secure context or huge-buffer failure: fall back to a stable fingerprint.
+      sha256 = `fp-${file.size}-${file.name}`;
+    }
+
+    // Reconcile with any saved checkpoint.
+    if (state.savedCp) {
+      if (state.savedCp.sha256 === sha256) {
+        state.cp = state.savedCp;
+      } else {
+        const ok = confirm(
+          `A processing checkpoint exists for “${state.savedCp.filename}”, but this is a different file.\n\n` +
+          `Discard that checkpoint and start fresh with “${file.name}”?`
+        );
+        if (!ok) { status.textContent = ""; return; }
+        await clearCheckpoint();
+        state.savedCp = null;
+      }
+    }
+
+    status.textContent = "Opening PDF…";
+    const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
+    state.pdf = pdf;
+    const totalPages = pdf.numPages;
+
+    if (state.cp && state.cp.totalPages !== totalPages) {
+      // Same hash but different page count should be impossible; start clean.
+      await clearCheckpoint();
+      state.cp = null;
+    }
+    if (!state.cp) state.cp = newCheckpoint(sha256, file.name, totalPages);
+
+    const resumed = Object.keys(state.cp.pages).length;
+    $("fileInfo").innerHTML =
+      `<b>${escapeHtml(file.name)}</b> — ${totalPages} pages · ` +
+      `<span class="mono">${escapeHtml(sha256.slice(0, 12))}…</span>` +
+      (resumed ? ` · resuming (${resumed} pages already captured)` : "");
+    $("fileInfo").classList.remove("hidden");
+    $("resumeBanner").classList.add("hidden");
+    status.textContent = "";
+    setStep(1, "done");
+    await runTextPass();
+  } catch (err) {
+    status.textContent = "";
+    showError($("loadError"), "Could not open the PDF: " + (err.message || err));
+  }
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+/* ----------------------------------------------- step 2: text extraction */
+
+function linesFromTextContent(tc) {
+  // Group items into lines by transform[5] (y) with ~2px tolerance, order by x.
+  const items = [];
+  for (const it of tc.items) {
+    if (!it.str) continue;
+    items.push({ str: it.str, x: it.transform[4], y: it.transform[5], w: it.width || 0 });
+  }
+  if (!items.length) return "";
+  items.sort((a, b) => b.y - a.y || a.x - b.x); // top of page first (PDF y grows upward)
+  const lines = [];
+  let line = null;
+  for (const it of items) {
+    if (!line || Math.abs(it.y - line.y) > 2) {
+      line = { y: it.y, items: [it] };
+      lines.push(line);
+    } else {
+      line.items.push(it);
+    }
+  }
+  const out = [];
+  for (const ln of lines) {
+    ln.items.sort((a, b) => a.x - b.x);
+    let text = "", prevEnd = null;
+    for (const it of ln.items) {
+      if (prevEnd !== null && it.x - prevEnd > 1 && !text.endsWith(" ") && !it.str.startsWith(" ")) {
+        text += " ";
+      }
+      text += it.str;
+      prevEnd = it.x + it.w;
+    }
+    text = text.replace(/\s+$/g, "");
+    if (text.trim()) out.push(text);
+  }
+  return out.join("\n");
+}
+
+async function runTextPass() {
+  setStep(2, "active");
+  setProcessing(true);
+  const total = state.cp.totalPages;
+  const prog = makeProgress($("textProgress"));
+  let done = Object.keys(state.cp.pages).length;
+  prog.begin(done);
+  prog.update(done, total);
+
+  try {
+    for (let p = 1; p <= total; p++) {
+      if (state.cp.pages[p]) continue; // already captured (resume)
+      let text = "";
+      try {
+        const page = await state.pdf.getPage(p);
+        text = linesFromTextContent(await page.getTextContent());
+        page.cleanup();
+      } catch { text = ""; }
+      state.cp.pages[p] = text.trim().length < 40
+        ? { text: "", method: NEEDS_OCR }
+        : { text, method: "text" };
+      done++;
+      if (done % 25 === 0) await persistCheckpoint();
+      if (done % 5 === 0 || done === total) prog.update(done, total);
+    }
+    await persistCheckpoint();
+    prog.update(total, total);
+
+    rebuildOcrQueue();
+    const textCount = Object.values(state.cp.pages).filter((r) => r.method === "text").length;
+    $("textStatus").textContent = "Text pass complete.";
+    $("textSummary").innerHTML =
+      `<b>${textCount}</b> pages had a usable text layer · <b>${state.ocrQueue.length}</b> image-only pages need OCR.`;
+    $("textSummary").classList.remove("hidden");
+    setStep(2, "done");
+
+    if (state.ocrQueue.length === 0) {
+      setStep(3, "done");
+      setProcessing(false);
+      await finalize();
+    } else {
+      setProcessing(false); // idle while the user picks an OCR path (checkpoint is saved)
+      await prepareOcrStep();
+    }
+  } catch (err) {
+    setProcessing(false);
+    $("textStatus").textContent = "";
+    showError($("loadError"), "Text extraction failed: " + (err.message || err));
+  }
+}
+
+/* ------------------------------------------------- step 3: OCR the rest */
+
+const modelSel = $("ocrModel");
+for (const m of MODELS) {
+  const opt = document.createElement("option");
+  opt.value = m.id;
+  opt.textContent = `${m.label} ($${m.inPerM}/M in, $${m.outPerM}/M out)`;
+  modelSel.appendChild(opt);
+}
+modelSel.value = MODELS[MODELS.length - 1].id; // cheapest by default for bulk OCR
+
+$("apiKey").value = localStorage.getItem("nrca.apiKey") || "";
+$("apiKey").addEventListener("change", () => {
+  localStorage.setItem("nrca.apiKey", $("apiKey").value.trim());
+  refreshClaudeGate();
+});
+$("apiKey").addEventListener("input", refreshClaudeGate);
+modelSel.addEventListener("change", () => { $("costAck").checked = false; updateCostEstimate(); });
+$("costAck").addEventListener("change", refreshClaudeGate);
+
+function refreshClaudeGate() {
+  $("claudeStartBtn").disabled = !($("costAck").checked && $("apiKey").value.trim());
+}
+
+async function prepareOcrStep() {
+  setStep(3, "active");
+  const M = state.ocrQueue.length;
+  $("ocrIntro").textContent =
+    `${M} page${M === 1 ? "" : "s"} ha${M === 1 ? "s" : "ve"} no readable text layer and need OCR. Pick a method:`;
+  $("tessEta").textContent = "~" + fmtDur(M * 2.5);
+
+  // Representative render size for the cost estimate (first queued page).
+  try {
+    const page = await state.pdf.getPage(state.ocrQueue[0]);
+    const base = page.getViewport({ scale: 1 });
+    const scale = 1600 / Math.max(base.width, base.height);
+    state.ocrDims = { w: Math.ceil(base.width * scale), h: Math.ceil(base.height * scale) };
+    page.cleanup();
+  } catch {
+    state.ocrDims = { w: 1237, h: 1600 }; // letter-ish fallback
+  }
+  updateCostEstimate();
+
+  // If the user already chose a method before a reload, pre-highlight it.
+  const prev = state.cp.settings.ocrMethod;
+  if (prev === "tesseract") $("tessCard").classList.add("chosen");
+  if (prev === "claude") {
+    $("claudeCard").classList.add("chosen");
+    if (state.cp.settings.ocrModel && MODELS.some((m) => m.id === state.cp.settings.ocrModel)) {
+      modelSel.value = state.cp.settings.ocrModel;
+      updateCostEstimate();
+    }
+  }
+  refreshClaudeGate();
+}
+
+function updateCostEstimate() {
+  if (!state.ocrDims) return;
+  const M = state.ocrQueue.length;
+  const model = MODELS.find((m) => m.id === modelSel.value) || MODELS[0];
+  const imgTok = estimateImageTokens(state.ocrDims.w, state.ocrDims.h);
+  const inTok = imgTok + 250;   // image + short transcription prompt
+  const outTok = 1100;          // typical transcribed page
+  const cost = (M * (inTok * model.inPerM + outTok * model.outPerM)) / 1e6;
+  $("claudeCost").textContent = fmtMoney(cost);
+  $("costDetail").textContent = `(${M} pages × ~${inTok.toLocaleString()} in + ~${outTok.toLocaleString()} out tokens)`;
+  $("costAckLabel").textContent = `I understand this will cost approximately ${fmtMoney(cost)}`;
+  refreshClaudeGate();
+}
+
+$("tessStartBtn").addEventListener("click", () => startOcr("tesseract"));
+$("claudeStartBtn").addEventListener("click", () => {
+  const key = $("apiKey").value.trim();
+  if (!key) return;
+  localStorage.setItem("nrca.apiKey", key);
+  startOcr("claude");
+});
+
+async function startOcr(method) {
+  clearError($("ocrError"));
+  state.cp.settings.ocrMethod = method;
+  state.cp.settings.ocrModel = method === "claude" ? modelSel.value : null;
+  await persistCheckpoint();
+
+  $("ocrChoice").classList.add("hidden");
+  $("ocrRun").classList.remove("hidden");
+  setProcessing(true);
+
+  const queue = [...state.ocrQueue];
+  const total = queue.length;
+  const prog = makeProgress($("ocrProgress"));
+  prog.begin(0);
+  prog.update(0, total);
+  $("ocrStatus").textContent = method === "claude"
+    ? `Transcribing with ${modelLabel(state.cp.settings.ocrModel)}…`
+    : "Running Tesseract OCR on this device…";
+
+  let settled = 0, sinceCkpt = 0;
+  const onSettle = () => {
+    settled++;
+    prog.update(settled, total);
+    if (++sinceCkpt >= 10) { sinceCkpt = 0; persistCheckpoint(); }
+  };
+
+  const fn = method === "claude"
+    ? (p) => claudeOcrPage(p, $("apiKey").value.trim(), state.cp.settings.ocrModel)
+    : (p) => tessOcrPage(p);
+  const concurrency = method === "claude" ? 4 : 1;
+
+  try {
+    let failed = await runPool(queue, concurrency, fn, onSettle);
+
+    if (failed.length) {
+      $("ocrStatus").textContent = `Retrying ${failed.length} failed page${failed.length === 1 ? "" : "s"}…`;
+      failed = await runPool(failed, Math.min(concurrency, 2), fn, () => persistCheckpoint());
+    }
+    // Sanity gate: a handful of unreadable scans is normal, but a large share
+    // means something systemic (render bug, outage, revoked key). Never bake
+    // that into the index — keep the checkpoint so nothing has to be redone.
+    const failRatio = total ? failed.length / total : 0;
+    if (failed.length && (failRatio > 0.2 || failed.length === total)) {
+      await persistCheckpoint();
+      setProcessing(false);
+      $("ocrStatus").textContent = "";
+      $("ocrRun").classList.add("hidden");
+      $("ocrChoice").classList.remove("hidden");
+      showError($("ocrError"),
+        `OCR failed on ${failed.length} of ${total} page${total === 1 ? "" : "s"} — that's too many to be bad scans, ` +
+        `so nothing was saved and your progress is kept. Check your connection, API key, or try the other OCR method, then start again.`);
+      return;
+    }
+    for (const p of failed) {
+      state.cp.pages[p] = { text: "", method: "empty" };
+      state.warnings.push(`Page ${p}: OCR failed repeatedly — stored as empty.`);
+    }
+    await persistCheckpoint();
+
+    $("ocrStatus").textContent = "OCR complete." + (failed.length ? ` ${failed.length} page(s) could not be read.` : "");
+    setStep(3, "done");
+    await finalize();
+  } catch (err) {
+    setProcessing(false);
+    await persistCheckpoint();
+    if (err && err.fatalConfig) {
+      // Bad key / rejected request: send the user back to the choice screen with
+      // the queue intact so they can fix the key and pick up where they left off.
+      $("ocrRun").classList.add("hidden");
+      $("ocrChoice").classList.remove("hidden");
+      $("ocrStatus").textContent = "";
+      const status = err.status || err.statusCode;
+      showError($("ocrError"), status === 401 || status === 403
+        ? "Your API key was rejected — nothing was charged and no pages were lost. Re-enter a valid key below and start again."
+        : "The API rejected the request (" + (err.message || err) + "). Your progress is kept — fix the issue and start again.");
+    } else {
+      showError($("ocrError"), "OCR stopped: " + (err.message || err) +
+        " — your progress is checkpointed; reload this page and pick the same PDF to resume.");
+    }
+  } finally {
+    await destroyTessWorker();
+  }
+}
+function modelLabel(id) {
+  return (MODELS.find((m) => m.id === id) || { label: id }).label;
+}
+
+async function runPool(items, limit, fn, onSettle) {
+  let i = 0;
+  const failed = [];
+  let fatal = null;
+  async function worker() {
+    while (i < items.length && !fatal) {
+      const item = items[i++];
+      try { await fn(item); }
+      catch (err) {
+        failed.push(item);
+        // A config/auth failure applies to every page — stop the pool at once
+        // rather than grinding through the whole queue producing blanks.
+        if (err && err.fatalConfig && !fatal) { fatal = err; i = items.length; }
+      }
+      onSettle(item);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) || 1 }, worker));
+  if (fatal) { const e = fatal; e.remaining = items.slice(i); throw e; }
+  return failed;
+}
+
+async function renderPageToJpeg(p) {
+  const page = await state.pdf.getPage(p);
+  const base = page.getViewport({ scale: 1 });
+  const scale = 1600 / Math.max(base.width, base.height);
+  const vp = page.getViewport({ scale });
+  const width = Math.ceil(vp.width), height = Math.ceil(vp.height);
+  const canvas = document.createElement("canvas");
+  canvas.width = width; canvas.height = height;
+  const ctx = canvas.getContext("2d", { alpha: false });
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, width, height);
+  await page.render({ canvasContext: ctx, viewport: vp }).promise;
+  const blob = await new Promise((res, rej) =>
+    canvas.toBlob((b) => (b ? res(b) : rej(new Error("canvas.toBlob failed"))), "image/jpeg", 0.85));
+  page.cleanup();
+  canvas.width = canvas.height = 0; // free the backing store promptly
+  return { blob, width, height };
+}
+
+function storeOcrResult(p, rawText, method) {
+  const text = (rawText || "").trim();
+  const isBlank = !text || /^\[?BLANK PAGE\]?$/i.test(text);
+  state.cp.pages[p] = isBlank ? { text: "", method: "empty" } : { text, method };
+}
+
+/* Claude OCR — one image block + short instruction, per contract. */
+async function claudeOcrPage(p, apiKey, model) {
+  const { blob } = await renderPageToJpeg(p);
+  const data = await blobToBase64(blob);
+  let lastErr = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const msg = await completeMessage({
+        apiKey,
+        model,
+        maxTokens: 4000,
+        messages: [{
+          role: "user",
+          content: [
+            { type: "image", source: { type: "base64", media_type: "image/jpeg", data } },
+            { type: "text", text: OCR_PROMPT },
+          ],
+        }],
+      });
+      if (msg.stop_reason === "refusal") {
+        const e = new Error(`Page ${p}: model declined to transcribe`);
+        e.noRetry = true;
+        throw e;
+      }
+      const text = (msg.content || [])
+        .filter((b) => b.type === "text")
+        .map((b) => b.text)
+        .join("\n");
+      if (msg.stop_reason === "max_tokens") {
+        state.warnings.push(`Page ${p}: transcription hit the token limit and may be truncated.`);
+      }
+      storeOcrResult(p, text, "ocr-claude");
+      return;
+    } catch (err) {
+      lastErr = err;
+      // Auth/config errors never succeed on retry — surface them immediately so
+      // a mistyped key doesn't burn the whole queue into blank pages.
+      const status = err.status || err.statusCode;
+      if (status === 400 || status === 401 || status === 403 || status === 404) {
+        err.noRetry = true;
+        err.fatalConfig = true;
+      }
+      if (err.noRetry) break;
+      if (attempt < 2) await sleep(1000 * Math.pow(2, attempt)); // 1s, 2s (completeMessage retries 5xx itself)
+    }
+  }
+  throw lastErr || new Error(`Page ${p}: OCR failed`);
+}
+
+/* Tesseract OCR — one shared worker, loaded lazily from ./vendor/. */
+let tessWorker = null;
+let tessLoadPromise = null;
+
+function loadTesseractScript() {
+  if (window.Tesseract) return Promise.resolve();
+  if (!tessLoadPromise) {
+    tessLoadPromise = new Promise((res, rej) => {
+      const s = document.createElement("script");
+      s.src = "./vendor/tesseract.min.js";
+      s.onload = res;
+      s.onerror = () => rej(new Error("Failed to load ./vendor/tesseract.min.js"));
+      document.head.appendChild(s);
+    });
+  }
+  return tessLoadPromise;
+}
+async function getTessWorker() {
+  if (tessWorker) return tessWorker;
+  await loadTesseractScript();
+  const V = new URL("./vendor/", location.href).href;
+  tessWorker = await window.Tesseract.createWorker("eng", 1, {
+    workerPath: V + "worker.min.js",
+    corePath: V,               // worker picks tesseract-core-*-lstm.wasm.js itself
+    langPath: V + "lang",      // holds eng.traineddata.gz
+  });
+  return tessWorker;
+}
+async function destroyTessWorker() {
+  if (!tessWorker) return;
+  const w = tessWorker;
+  tessWorker = null;
+  try { await w.terminate(); } catch { /* ignore */ }
+}
+async function tessOcrPage(p) {
+  const worker = await getTessWorker();
+  const { blob } = await renderPageToJpeg(p);
+  let lastErr = null;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const { data } = await worker.recognize(blob);
+      storeOcrResult(p, data.text, "ocr-tesseract");
+      return;
+    } catch (err) {
+      lastErr = err;
+      await sleep(500);
+    }
+  }
+  throw lastErr || new Error(`Page ${p}: Tesseract failed`);
+}
+
+/* ------------------------------------------------------ step 4: finalize */
+
+function buildPagesArray() {
+  const pages = [];
+  for (let p = 1; p <= state.cp.totalPages; p++) {
+    const rec = state.cp.pages[p];
+    if (!rec || rec.method === NEEDS_OCR) pages.push({ p, text: "", method: "empty" });
+    else pages.push({ p, text: rec.text || "", method: rec.method });
+  }
+  return pages;
+}
+
+async function finalize() {
+  setStep(4, "active");
+  setProcessing(true);
+  const status = $("finStatus");
+  clearError($("finError"));
+  try {
+    const pages = buildPagesArray();
+
+    status.textContent = "Detecting headings…";
+    await tick();
+    let toc = [];
+    try { toc = detectHeadings(pages) || []; }
+    catch (err) { state.warnings.push("Heading detection failed: " + (err.message || err)); }
+
+    status.textContent = "Chunking pages for search…";
+    await tick();
+    const chunks = chunkPages(pages, toc);
+
+    const used = new Set(pages.filter((pg) => pg.method !== "empty").map((pg) => pg.method));
+    const method = used.size === 0 ? "text" : used.size === 1 ? [...used][0] : "mixed";
+    const model = pages.some((pg) => pg.method === "ocr-claude")
+      ? (state.cp.settings.ocrModel || null)
+      : null;
+
+    const index = {
+      format: "nrca-index",
+      version: 1,
+      source: {
+        filename: state.cp.filename,
+        pages: state.cp.totalPages,
+        sha256: state.cp.sha256,
+        processedAt: new Date().toISOString(),
+      },
+      extraction: { method, model },
+      toc,
+      pages,
+      chunks,
+    };
+
+    status.textContent = "Saving index to this browser…";
+    await saveIndex(index);
+    await clearCheckpoint();
+    state.savedCp = null;
+    state.index = index;
+
+    status.textContent = "";
+    setStep(4, "done");
+    setProcessing(false);
+    showSuccess(index, { imported: false });
+  } catch (err) {
+    setProcessing(false);
+    status.textContent = "";
+    showError($("finError"),
+      "Finalizing failed: " + (err.message || err) +
+      " — your page data is still checkpointed; reload to try again.");
+  }
+}
+
+function showSuccess(index, { imported }) {
+  const counts = { text: 0, "ocr-tesseract": 0, "ocr-claude": 0, empty: 0 };
+  for (const pg of index.pages) counts[pg.method] = (counts[pg.method] || 0) + 1;
+  const mix = [
+    counts.text ? `${counts.text} text` : "",
+    counts["ocr-tesseract"] ? `${counts["ocr-tesseract"]} Tesseract` : "",
+    counts["ocr-claude"] ? `${counts["ocr-claude"]} Claude` : "",
+    counts.empty ? `${counts.empty} blank` : "",
+  ].filter(Boolean).join(" · ") || "—";
+
+  $("successNote").textContent = imported
+    ? "Index imported and installed in this browser."
+    : "Index built and saved to this browser.";
+  $("statGrid").innerHTML = [
+    stat(index.source.pages, "pages"),
+    stat(index.chunks.length, "search chunks"),
+    stat(index.toc.length, "headings found"),
+    stat(mix, "page methods"),
+  ].join("");
+  $("downloadRow").classList.toggle("hidden", !!imported);
+
+  if (state.warnings.length) {
+    $("warnList").innerHTML = "<b>Warnings:</b><ul>" +
+      state.warnings.map((w) => `<li>${escapeHtml(w)}</li>`).join("") + "</ul>";
+    $("warnList").classList.remove("hidden");
+  }
+  $("successPanel").classList.remove("hidden");
+  $("successPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+  function stat(v, k) {
+    return `<div class="stat"><div class="v">${escapeHtml(String(v))}</div><div class="k">${escapeHtml(k)}</div></div>`;
+  }
+}
+
+$("downloadBtn").addEventListener("click", () => {
+  if (!state.index) return;
+  const blob = new Blob([JSON.stringify(state.index)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "nrca-index.json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+});
+</script>
+</body>
+</html>
