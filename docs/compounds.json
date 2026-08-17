@@ -52,19 +52,9 @@
     "aka": "Ipa, Selective GHRP"
    },
    {
-    "id": "epi",
-    "name": "Epithalon",
-    "aka": "Epithalamin"
-   },
-   {
     "id": "pda",
     "name": "Pentadeca Arginate",
     "aka": "PDA, PC-15"
-   },
-   {
-    "id": "kpv",
-    "name": "KPV",
-    "aka": "Lys-Pro-Val, Alpha-MSH C-terminal tripeptide"
    },
    {
     "id": "ll37",
@@ -74,17 +64,15 @@
    {
     "id": "aod9604",
     "name": "AOD-9604",
-    "aka": "Anti-Obesity Drug 9604, HGH Frag 177-191"
+    "aka": "Anti-Obesity Drug 9604, HGH Frag 177-191, HGH Fragment 176-191",
+    "alsoIn": [
+     "addlpeptides"
+    ]
    },
    {
     "id": "hghfrag",
     "name": "HGH Fragment 176-191",
     "aka": "HGH Frag, Fragment 176-191"
-   },
-   {
-    "id": "tesam",
-    "name": "Tesamorelin",
-    "aka": "Egrifta, TH9507"
    },
    {
     "id": "hexarelin",
@@ -104,7 +92,10 @@
    {
     "id": "ss31",
     "name": "SS-31",
-    "aka": "Elamipretide, MTP-131, Bendavia"
+    "aka": "Elamipretide, MTP-131, Bendavia",
+    "alsoIn": [
+     "addlpeptides"
+    ]
    },
    {
     "id": "humanin",
@@ -147,7 +138,23 @@
     "aka": "AT-1001, INN-202"
    }
   ],
-  "xrefs": []
+  "xrefs": [
+   {
+    "id": "tesam",
+    "name": "Tesamorelin",
+    "home": "ghs"
+   },
+   {
+    "id": "epi",
+    "name": "Epithalon",
+    "home": "khavinson2"
+   },
+   {
+    "id": "kpv",
+    "name": "KPV",
+    "home": "antiinflam"
+   }
+  ]
  },
  {
   "id": "glp1",
@@ -182,14 +189,20 @@
     "aka": "GHRH(1-29)"
    },
    {
+    "id": "tesam",
+    "name": "Tesamorelin",
+    "aka": "Egrifta, TH9507",
+    "alsoIn": [
+     "peptides"
+    ]
+   },
+   {
     "id": "mk677",
     "name": "MK-677 / Ibutamoren",
     "aka": "Nutrobal"
    }
   ],
-  "xrefs": [
-   "Tesamorelin"
-  ]
+  "xrefs": []
  },
  {
   "id": "ancil",
@@ -217,11 +230,17 @@
     "id": "hcg2",
     "name": "HCG",
     "aka": "Human Chorionic Gonadotropin"
+   },
+   {
+    "id": "enclo",
+    "name": "Enclomiphene",
+    "aka": "Androxal, Enclomifene, NF-1010",
+    "alsoIn": [
+     "addlancil"
+    ]
    }
   ],
-  "xrefs": [
-   "Enclomiphene"
-  ]
+  "xrefs": []
  },
  {
   "id": "pct",
@@ -288,7 +307,7 @@
    {
     "id": "rad140",
     "name": "RAD-140",
-    "aka": "Testolone"
+    "aka": "Testolone, RAD140"
    },
    {
     "id": "card",
@@ -308,7 +327,10 @@
    {
     "id": "rhgh",
     "name": "Recombinant HGH",
-    "aka": "Somatropin, rHGH, Human Growth Hormone"
+    "aka": "Somatropin, rHGH, Human Growth Hormone, Genotropin, Norditropin, Humatrope, Omnitrope, Somatropin (rhGH)",
+    "alsoIn": [
+     "bbcompounds"
+    ]
    },
    {
     "id": "igf1lr3",
@@ -326,16 +348,6 @@
   "desc": "Cognitive enhancement and cellular longevity compounds",
   "drugs": [
    {
-    "id": "selank",
-    "name": "Selank",
-    "aka": "TP-7"
-   },
-   {
-    "id": "semax",
-    "name": "Semax",
-    "aka": "ACTH(4-7)PGP, Heptapeptide"
-   },
-   {
     "id": "nad",
     "name": "NMN / NR (NAD+ Precursors)",
     "aka": "Nicotinamide Mononucleotide, Nicotinamide Riboside"
@@ -346,7 +358,18 @@
     "aka": "PNB-0408, HGF Modulator"
    }
   ],
-  "xrefs": []
+  "xrefs": [
+   {
+    "id": "selank",
+    "name": "Selank",
+    "home": "neuro2"
+   },
+   {
+    "id": "semax",
+    "name": "Semax",
+    "home": "neuro2"
+   }
+  ]
  },
  {
   "id": "addlpeptides",
@@ -355,16 +378,6 @@
   "color": "#22d3ee",
   "desc": "Specialized peptides for specific therapeutic targets",
   "drugs": [
-   {
-    "id": "pt141",
-    "name": "PT-141",
-    "aka": "Bremelanotide, Vyleesi"
-   },
-   {
-    "id": "ghkcu",
-    "name": "GHK-Cu",
-    "aka": "Copper Peptide, Glycyl-L-Histidyl-L-Lysine"
-   },
    {
     "id": "thymalpha",
     "name": "Thymosin Alpha-1",
@@ -382,8 +395,26 @@
    }
   ],
   "xrefs": [
-   "AOD-9604",
-   "SS-31 / Elamipretide"
+   {
+    "id": "aod9604",
+    "name": "AOD-9604",
+    "home": "peptides"
+   },
+   {
+    "id": "ss31",
+    "name": "SS-31",
+    "home": "peptides"
+   },
+   {
+    "id": "ghkcu",
+    "name": "GHK-Cu",
+    "home": "collagen"
+   },
+   {
+    "id": "pt141",
+    "name": "PT-141",
+    "home": "sexhealth"
+   }
   ]
  },
  {
@@ -404,17 +435,18 @@
     "aka": "Dostinex, Caber"
    },
    {
-    "id": "enclo",
-    "name": "Enclomiphene",
-    "aka": "Androxal, Enclomifene"
-   },
-   {
     "id": "dutast",
     "name": "Dutasteride / Finasteride",
     "aka": "Avodart (Duta), Propecia (Fina), 5-ARIs"
    }
   ],
-  "xrefs": []
+  "xrefs": [
+   {
+    "id": "enclo",
+    "name": "Enclomiphene",
+    "home": "ancil"
+   }
+  ]
  },
  {
   "id": "thyroid",
@@ -456,10 +488,10 @@
    {
     "id": "pregnenolone",
     "name": "Pregnenolone",
-    "aka": "Preg, Master Hormone"
+    "aka": "Preg, Master Hormone, 3β-hydroxy-5-pregnen-20-one"
    },
    {
-    "id": "ketoDhea",
+    "id": "keto-dhea",
     "name": "7-Keto DHEA",
     "aka": "7-Keto, 3-acetyl-7-oxo-DHEA"
    }
@@ -500,7 +532,11 @@
    }
   ],
   "xrefs": [
-   "Acarbose"
+   {
+    "id": "acarbose",
+    "name": "Acarbose",
+    "home": "longevity2"
+   }
   ]
  },
  {
@@ -518,7 +554,10 @@
    {
     "id": "acarbose",
     "name": "Acarbose",
-    "aka": "Precose, Glucobay, alpha-glucosidase inhibitor"
+    "aka": "Precose, Glucobay, alpha-glucosidase inhibitor",
+    "alsoIn": [
+     "metabolic"
+    ]
    },
    {
     "id": "resveratrol",
@@ -544,11 +583,17 @@
     "id": "collagen-pep",
     "name": "Collagen Peptides",
     "aka": "Hydrolyzed collagen, collagen hydrolysate, types I/II/III"
+   },
+   {
+    "id": "ghkcu",
+    "name": "GHK-Cu",
+    "aka": "Copper Peptide, Glycyl-L-Histidyl-L-Lysine, GHK-Copper, GHK-Cu (Copper Peptide)",
+    "alsoIn": [
+     "addlpeptides"
+    ]
    }
   ],
-  "xrefs": [
-   "GHK-Cu (Copper Peptide)"
-  ]
+  "xrefs": []
  },
  {
   "id": "neuro2",
@@ -566,12 +611,25 @@
     "id": "nalt",
     "name": "NAC / NALT",
     "aka": "N-Acetyl Cysteine, N-Acetyl L-Tyrosine, NAC"
+   },
+   {
+    "id": "selank",
+    "name": "Selank",
+    "aka": "TP-7",
+    "alsoIn": [
+     "nootroplonge"
+    ]
+   },
+   {
+    "id": "semax",
+    "name": "Semax",
+    "aka": "ACTH(4-7)PGP, Heptapeptide",
+    "alsoIn": [
+     "nootroplonge"
+    ]
    }
   ],
-  "xrefs": [
-   "Selank",
-   "Semax"
-  ]
+  "xrefs": []
  },
  {
   "id": "muscle",
@@ -624,11 +682,17 @@
     "id": "crystagen",
     "name": "Crystagen",
     "aka": "Lys-Glu-Asp-Gly, lymphocyte bioregulator"
+   },
+   {
+    "id": "epi",
+    "name": "Epithalon",
+    "aka": "Epithalamin, Epitalon, Epithalone",
+    "alsoIn": [
+     "peptides"
+    ]
    }
   ],
-  "xrefs": [
-   "Epithalon"
-  ]
+  "xrefs": []
  },
  {
   "id": "metabolic2",
@@ -671,11 +735,17 @@
     "id": "gonadorelin",
     "name": "Gonadorelin",
     "aka": "GnRH, LHRH, Factrel, Lutrepulse"
+   },
+   {
+    "id": "pt141",
+    "name": "PT-141",
+    "aka": "Bremelanotide, Vyleesi",
+    "alsoIn": [
+     "addlpeptides"
+    ]
    }
   ],
-  "xrefs": [
-   "PT-141 / Bremelanotide"
-  ]
+  "xrefs": []
  },
  {
   "id": "antiinflam",
@@ -698,11 +768,17 @@
     "id": "tbnouveau",
     "name": "TB-500 Systemic Protocol",
     "aka": "Thymosin Beta-4 systemic, TB-500 extended"
+   },
+   {
+    "id": "kpv",
+    "name": "KPV",
+    "aka": "Lys-Pro-Val, Alpha-MSH C-terminal tripeptide, α-MSH(11-13)",
+    "alsoIn": [
+     "peptides"
+    ]
    }
   ],
-  "xrefs": [
-   "KPV"
-  ]
+  "xrefs": []
  },
  {
   "id": "senolytics",
@@ -729,11 +805,15 @@
    {
     "id": "spermidine",
     "name": "Spermidine",
-    "aka": "Spermidine trihydrochloride, polyamine"
+    "aka": "Spermidine trihydrochloride, polyamine, N-(3-Aminopropyl)putrescine"
    }
   ],
   "xrefs": [
-   "Urolithin A"
+   {
+    "id": "urolithin",
+    "name": "Urolithin A",
+    "home": "performance"
+   }
   ]
  },
  {
@@ -806,7 +886,10 @@
    {
     "id": "urolithin",
     "name": "Urolithin A",
-    "aka": "UA, Mitopure, ellagitannin metabolite"
+    "aka": "UA, Mitopure, ellagitannin metabolite",
+    "alsoIn": [
+     "senolytics"
+    ]
    },
    {
     "id": "akglutarate",
@@ -970,7 +1053,11 @@
    }
   ],
   "xrefs": [
-   "Somatropin (rhGH)"
+   {
+    "id": "rhgh",
+    "name": "Recombinant HGH",
+    "home": "hghclass"
+   }
   ]
  }
 ]
