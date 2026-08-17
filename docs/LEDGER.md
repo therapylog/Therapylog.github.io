@@ -52,10 +52,16 @@ When an item resolves there, reflect it here.
 - **Generated art never carries data or chemistry.** The in-app syringe fill
   indicator stays code-drawn (real ml/unit numbers). Molecular structures on
   compound pages are never AI-generated (chemically unreliable) — if wanted,
-  generate from SMILES via RDKit instead. Stylized/abstract molecular art
-  (logo, class icons, hero renders) is fine and encouraged. **No per-compound
-  images** — class art plus class color gets ~90% of the benefit without the
-  consistency and maintenance trap. Full detail in `ART-DIRECTION.md`.
+  generate from SMILES via RDKit instead. **No per-compound images** — class art
+  plus class color gets ~90% of the benefit without the consistency and
+  maintenance trap. Full detail in `ART-DIRECTION.md`.
+- **Visual platform is "the observatory, not the laboratory"** (set 17 Aug after
+  the first direction was rejected). Dark but warming, solid forms with weight,
+  a low amber first-light source — never cold clinical studio lighting, never
+  thin luminous line work, never molecular lattices. Palette adds warm
+  `#F5A65B` to the existing `#4ADE9A` / `#3BC4FF` / `#0B1015`. Two separate
+  style blocks exist in `ART-DIRECTION.md` — one for marks, one for
+  photographic renders — and mixing them is what produced the failed logos.
 - **Model IDs in this codebase:** `claude-sonnet-5` (default) / `claude-opus-5`
   (quality option) in the Marketing Suite; `gemini-3-pro-image` ("Nano Banana
   Pro") for image generation. Don't downgrade these without being asked.
@@ -141,10 +147,15 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
 Numbered so a chat can say "resolved #4" and update this section. These mirror
 the decision items on the Focus board; resolve in either place and sync.
 
-1. **Logo direction.** Four concepts drafted in `ART-DIRECTION.md` (shared
-   skeleton / conversion sequence / TL monogram / emblem wildcard). Graphics
-   Studio is built, so generating all four is ~20 minutes. Need a pick before
-   vector tracing.
+1. **Logo direction.** The molecular/thin-line concepts were generated and
+   rejected — they rendered badly, and the diagnosis is now written into
+   `ART-DIRECTION.md`: image models paint light and texture rather than vector
+   geometry, so thin lines and fused-ring topology fail structurally. The kit
+   was rebuilt (17 Aug) on a new platform, **"the observatory, not the
+   laboratory"**, with five non-molecular marks — the Beacon (lighthouse,
+   guidance in dangerous conditions), the Peak (the asymmetric PK curve as a
+   solid form), the Ibex (sure-footed on lethal terrain), the Dial, and a heavy
+   TL lockup. Need a pick before vector tracing.
 2. **Named author for medical content.** Compound pages and the blog are YMYL.
    Without an identifiable responsible party and a stated review process they
    won't earn trust signals. Options: Joel with a disclosed non-clinical role
