@@ -209,8 +209,12 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
     <div><div class="logo-text">Therapy<span>Log</span></div><div class="logo-badge">Marketing Suite</div></div>
   </div>
   <nav class="nav-items">
+    <div class="nav-section">Today</div>
+    <button class="nav-item active" onclick="showView('focus',this)">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Focus
+    </button>
     <div class="nav-section">Create</div>
-    <button class="nav-item active" onclick="showView('generate',this)">
+    <button class="nav-item" onclick="showView('generate',this)">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Generate
     </button>
     <button class="nav-item" onclick="showView('campaigns',this)">
@@ -250,7 +254,7 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
 <main class="main">
 
 <!-- GENERATE -->
-<div class="view active" id="view-generate">
+<div class="view" id="view-generate">
   <div class="page-title">Generate Content</div>
   <div class="page-sub">Pick a platform, describe your angle, generate and refine.</div>
   <div class="section-title">Platform</div>
@@ -491,7 +495,27 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
   <div id="sched-status" style="display:none;margin-top:10px;font-size:13px;padding:10px 12px;border-radius:8px"></div>
 </div>
 
-<!-- SETTINGS -->
+<!-- FOCUS -->
+<div class="view active" id="view-focus">
+  <div class="page-title">Focus</div>
+  <div class="page-sub">One thing at a time. Finish it or skip it — the queue handles the rest.</div>
+  <div id="focus-card"></div>
+  <details id="focus-queue" style="margin-top:18px">
+    <summary id="focus-summary" style="font-size:12px;color:var(--text3);cursor:pointer;list-style:none;user-select:none"></summary>
+    <div id="focus-list" style="margin-top:10px"></div>
+  </details>
+  <div class="settings-section" style="margin-top:22px"><h3>＋ Add item</h3>
+    <div class="form-row" style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
+      <select id="focus-add-type" style="flex:0 0 130px"><option value="action">Action</option><option value="decision">Decision</option></select>
+      <input type="text" id="focus-add-title" placeholder="What needs doing?" style="flex:2 1 220px">
+      <input type="text" id="focus-add-why" placeholder="Why now? (optional)" style="flex:2 1 220px">
+      <button class="btn btn-ghost" onclick="focusAdd()">Add to queue</button>
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-top:6px">New work enters the board instead of accumulating in chat. New items join the end of the queue, unblocked.</div>
+  </div>
+</div>
+
+<!-- BIZ DEV -->
 <div class="view" id="view-bizdev">
   <div class="page-title">Business Development</div>
   <div class="page-sub">Every partnership and growth lead from the Aug 2026 research, ready to work through. Checked state saves locally (and syncs via Gist with the rest of your data).</div>
@@ -564,7 +588,10 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
 </div>
 
 <div class="mob-tab-bar">
-  <button class="mob-tab active" onclick="showView('generate',this)">
+  <button class="mob-tab active" onclick="showView('focus',this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Focus
+  </button>
+  <button class="mob-tab" onclick="showView('generate',this)">
     <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Generate
   </button>
   <button class="mob-tab" onclick="showView('library',this)">
@@ -586,12 +613,13 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
 
 <script>
 const STATE={platform:'facebook',variants:1,lastOutput:'',lastBrief:'',library:[],campaigns:[]};
-const SK='tl_mkt_v3';
+const SK='tl_mkt_v4';
+const SK_V3='tl_mkt_v3';
 let CFG={};
 
 // ── SETTINGS ──────────────────────────────────────────────
 function loadSettings(){
-  try{CFG=JSON.parse(localStorage.getItem(SK)||'{}');}catch(e){CFG={};}
+  try{CFG=JSON.parse(localStorage.getItem(SK)||'null')||JSON.parse(localStorage.getItem(SK_V3)||'{}');}catch(e){CFG={};}
   const set=(id,val)=>{const el=document.getElementById(id);if(el&&val!=null)el.value=val;};
   set('s-anthropic',CFG.anthropic);set('s-openai',CFG.openai);
   set('s-gemini',CFG.gemini);set('s-gemini-model',CFG.geminiModel);
@@ -645,7 +673,7 @@ KEY FEATURES:
 - Body composition, symptom, and side-effect logging
 - Dose calculator with syringe diagram
 
-PLATFORMS: Web (therapylog.app/app), iOS App Store (NOW LIVE), Android (Google Play + direct APK $34.99 one-time)
+PLATFORMS: Web only, on purpose (therapylog.app/app) — installable as a home-screen app (PWA) on iOS and Android with push dose reminders. NOT in the App Store or Google Play: listing would mean cutting the gray-area compound information the community relies on. Never claim store availability; frame web-first as the integrity position.
 
 PRICING:
 - Free: core tracking, no AI, no signup required — try at therapylog.app/app
@@ -938,7 +966,7 @@ async function initSync(){
   try{
     let gistId=CFG.gistId||g('s-gist-id');
     if(!gistId){
-      const resp=await fetch('https://api.github.com/gists',{method:'POST',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({description:'TherapyLog Marketing Suite — Data',public:false,files:{'tl-marketing-data.json':{content:JSON.stringify({v:3,library:[],campaigns:[]})}}})});
+      const resp=await fetch('https://api.github.com/gists',{method:'POST',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({description:'TherapyLog Marketing Suite — Data',public:false,files:{'tl-marketing-data.json':{content:JSON.stringify({v:4,library:[],campaigns:[],focus:{},focusCustom:[],bizdevDone:[]})}}})});
       const data=await resp.json();
       if(!data.id)throw new Error('Failed to create Gist: '+(data.message||'unknown'));
       gistId=data.id;CFG.gistId=gistId;
@@ -954,7 +982,7 @@ async function syncNow(){
   if(!token||!gistId){toast('Set up sync in Settings first');return;}
   setSyncStatus('syncing','Syncing…');
   try{
-    await fetch(`https://api.github.com/gists/${gistId}`,{method:'PATCH',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({files:{'tl-marketing-data.json':{content:JSON.stringify({v:3,library:STATE.library,campaigns:STATE.campaigns})}}})});
+    await fetch(`https://api.github.com/gists/${gistId}`,{method:'PATCH',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({files:{'tl-marketing-data.json':{content:JSON.stringify({v:4,library:STATE.library,campaigns:STATE.campaigns,focus:CFG.focus||{},focusCustom:CFG.focusCustom||[],bizdevDone:CFG.bizdevDone||[]})}}})});
     setSyncStatus('ok','Synced · '+new Date().toLocaleTimeString());toast('Synced ✓');
   }catch(e){setSyncStatus('','Sync failed');toast('Sync error: '+e.message);}
 }
@@ -962,7 +990,10 @@ async function pullGist(token,gistId){
   const resp=await fetch(`https://api.github.com/gists/${gistId}`,{headers:{'Authorization':`Bearer ${token}`}});
   const data=await resp.json();
   const content=data.files?.['tl-marketing-data.json']?.content;
-  if(content){const p=JSON.parse(content);if(p.library)STATE.library=p.library;if(p.campaigns)STATE.campaigns=p.campaigns;persist();renderLibrary();}
+  if(content){const p=JSON.parse(content);if(p.library)STATE.library=p.library;if(p.campaigns)STATE.campaigns=p.campaigns;
+    /* v4 payload keys — a v3 gist simply lacks these, local state is kept */
+    if(p.focus)CFG.focus=p.focus;if(p.focusCustom)CFG.focusCustom=p.focusCustom;if(p.bizdevDone)CFG.bizdevDone=p.bizdevDone;
+    persist();renderLibrary();if(document.getElementById('view-focus').classList.contains('active'))renderFocus();}
 }
 function setSyncStatus(state,label){
   const dot=document.getElementById('sync-dot'),lbl=document.getElementById('sync-label');
@@ -978,6 +1009,7 @@ function showView(id,btn){
   if(btn)btn.classList.add('active');
   if(id==='library')renderLibrary();
   if(id==='bizdev')renderBizdev();
+  if(id==='focus')renderFocus();
   closeSidebar();
 }
 function selectPlatform(tile){document.querySelectorAll('.platform-tile').forEach(t=>t.classList.remove('active'));tile.classList.add('active');STATE.platform=tile.dataset.platform;}
@@ -1160,6 +1192,138 @@ function bizdevToggle(id) {
   localStorage.setItem(SK, JSON.stringify(CFG));
   renderBizdev();
 }
+
+/* ── FOCUS BOARD — one thing at a time ───────────────────────── */
+const FOCUS = [
+  { id:'a-encsync', type:'action', title:'Spot-check the encyclopedia sync (shipped 17 Aug)',
+    why:'The 148→130 dedupe landed: the DB itself now stores 130 unique compounds with cross-listings, and a validator + CI guard block drift. Open the app, check KPV (Anti-Inflammatory, cross-listed in Peptides) and Somatropin (jumps to Recombinant HGH), then hit Done.',
+    effort:'~5 min', where:'therapylog.app/app → Encyclopedia', blockedBy:[] },
+  { id:'a-logogen', type:'action', title:'Generate the four logo concepts',
+    why:'Graphics Studio is already built and the prompts are written in ART-DIRECTION.md. This is clicking, not building — and it unblocks every other art asset.',
+    effort:'~20 min', where:'Marketing Suite → Graphics Studio', blockedBy:[] },
+  { id:'d-logo', type:'decision', title:'Pick a logo direction',
+    why:'Concepts A–D are shared-skeleton, conversion sequence, TL monogram, emblem. Everything visual downstream waits on this one call.',
+    effort:'10 min', where:'Your call', blockedBy:['a-logogen'] },
+  { id:'a-affiliates', type:'action', title:'Build a list of 20 affiliate prospects and send',
+    why:'The single biggest gap between current state and revenue. The kit is finished and has never been sent to anyone. Only same-month revenue path on the board.',
+    effort:'~2 hours', where:'Marketing Suite → Generate', blockedBy:[] },
+  { id:'a-icon', type:'action', title:'Vector-trace the logo, replace icon.svg and derived icons',
+    why:'Current mark is a placeholder hexagon. favicon.ico is missing entirely (404).',
+    effort:'~1 hour', where:'Claude Code', blockedBy:['d-logo'] },
+  { id:'a-indexing', type:'action', title:'Submit sitemap to Bing Webmaster and GSC, wire IndexNow',
+    why:'ChatGPT web search retrieves through Bing. Thirty minutes of setup, and indexation lags 4–8 weeks so the clock should start now.',
+    effort:'~30 min', where:'Browser + Claude Code', blockedBy:[] },
+  { id:'d-author', type:'decision', title:'Name the author for medical content',
+    why:'YMYL content without an identifiable responsible party and a stated review process does not earn trust signals. Gates compound pages and the blog.',
+    effort:'Think it over', where:'Your call', blockedBy:[] },
+  { id:'a-compliance', type:'action', title:'Build the compliance pass into the Suite',
+    why:'Second model call screening drafts against FTC health-claim rules and platform policy before publish. Hours of work, gates all publishing.',
+    effort:'~3 hours', where:'Claude Code', blockedBy:[] },
+  { id:'a-classart', type:'action', title:'Generate the 30 class illustrations',
+    why:'Replaces 30 emoji with a real system. Biggest visible upgrade per unit of effort in ART-DIRECTION.',
+    effort:'~2 hours', where:'Marketing Suite → Graphics Studio', blockedBy:['d-logo'] },
+  { id:'a-wireart', type:'action', title:'Wire class art into the encyclopedia and landing page',
+    why:'Paths already specced: /assets/art/class-{id}.png, matching compounds.json class ids.',
+    effort:'~2 hours', where:'Claude Code', blockedBy:['a-classart'] },
+  { id:'a-pages1', type:'action', title:'Ship compound pages — first batch of 20',
+    why:'With stores shelved and paid deprioritized, organic is the main scalable channel. Batches of 20 weekly with human review; 130 at once reads as scaled content abuse.',
+    effort:'~4 hours', where:'Claude Code', blockedBy:['a-encsync','a-indexing','d-author'] },
+  { id:'a-research', type:'action', title:'Add the research module to the Suite',
+    why:'Search Console + Bing Webmaster + PubMed as a data layer. Needs live pages first to return anything useful.',
+    effort:'~4 hours', where:'Claude Code', blockedBy:['a-pages1'] },
+  { id:'a-blog', type:'action', title:'Stand up the weekly blog pipeline',
+    why:'PubMed and ClinicalTrials queries into drafts. No blog exists on the site today.',
+    effort:'~4 hours', where:'Claude Code', blockedBy:['d-author','a-compliance'] },
+  { id:'d-whitelabel', type:'decision', title:'White-label pivot — near-term or later?',
+    why:'Targets identified, zero conversations started. Contracting slow season is coming.',
+    effort:'Think it over', where:'Your call', blockedBy:[] },
+  { id:'d-lab', type:'decision', title:'Lab ordering — book the attorney consult?',
+    why:'Per-test commissions brush anti-kickback rules even cash-pay. Attorney first, outreach second, build third.',
+    effort:'Think it over', where:'Your call', blockedBy:[] },
+  { id:'d-pouch', type:'decision', title:'Pouch and supplement line — parallel or defer?',
+    why:'Still exploratory. Running it beside TherapyLog splits attention you do not have much of.',
+    effort:'Think it over', where:'Your call', blockedBy:[] },
+];
+
+function focusItems(){ return FOCUS.concat(CFG.focusCustom||[]); }
+function focusState(id){ return (CFG.focus||{})[id] || {}; }
+function focusSetState(id, patch){
+  CFG.focus = CFG.focus || {};
+  CFG.focus[id] = Object.assign({}, CFG.focus[id]||{}, patch);
+  persist();
+}
+function focusIsDone(id){ return focusState(id).st === 'done'; }
+function focusIsBlocked(it){ return (it.blockedBy||[]).some(b => !focusIsDone(b)); }
+/* first todo whose blockers are all done; skipped items sink below never-skipped ones,
+   oldest skip resurfacing first */
+function focusPick(){
+  const eligible = focusItems().filter(it => !focusIsDone(it.id) && !focusIsBlocked(it));
+  eligible.sort((a,b) => (focusState(a.id).skippedAt||0) - (focusState(b.id).skippedAt||0));
+  return eligible[0] || null;
+}
+function renderFocus(){
+  const items = focusItems();
+  const done = items.filter(it => focusIsDone(it.id)).length;
+  const blocked = items.filter(it => !focusIsDone(it.id) && focusIsBlocked(it)).length;
+  const remaining = items.length - done;
+  document.getElementById('focus-summary').textContent = done+' done · '+remaining+' remaining · '+blocked+' blocked';
+  const cur = focusPick();
+  const card = document.getElementById('focus-card');
+  if(!cur){
+    card.innerHTML = '<div class="settings-section" style="text-align:center;padding:36px 20px"><div style="font-size:28px;margin-bottom:8px">🎉</div><div style="font-size:15px;font-weight:600">Queue is clear</div><div style="font-size:12.5px;color:var(--text3);margin-top:6px">Everything is done or waiting on a blocker. Add the next piece of work below.</div></div>';
+  } else {
+    const isDecision = cur.type === 'decision';
+    const badge = isDecision
+      ? '<span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a78bfa;background:#a78bfa1a;border:1px solid #a78bfa33;padding:3px 8px;border-radius:4px">Decision</span>'
+      : '<span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--accent);padding:3px 8px;border-radius:4px">Action</span>';
+    card.innerHTML = '<div class="settings-section" id="focus-card-inner" style="transition:opacity .18s">'
+      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'+badge+'<span style="font-size:11px;color:var(--text3)">'+cur.effort+' · '+cur.where+'</span></div>'
+      + '<div style="font-size:17px;font-weight:650;line-height:1.35;margin-bottom:8px">'+cur.title+'</div>'
+      + '<div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px">'+cur.why+'</div>'
+      + (isDecision ? '<textarea id="focus-resolution" placeholder="What did you decide? Captured when you hit Done." style="width:100%;min-height:64px;margin-bottom:12px;font-size:13px"></textarea>' : '')
+      + '<div style="display:flex;gap:8px">'
+      + '<button class="btn btn-primary" onclick="focusDone(\''+cur.id+'\')">✓ Done</button>'
+      + '<button class="btn btn-ghost" onclick="focusSkip(\''+cur.id+'\')">Skip for now</button>'
+      + '</div></div>';
+  }
+  const glyph = it => focusIsDone(it.id) ? '✓' : (cur && it.id===cur.id) ? '→' : focusIsBlocked(it) ? '🔒' : focusState(it.id).skippedAt ? '⏭' : '·';
+  document.getElementById('focus-list').innerHTML = items.map(it => {
+    const d = focusIsDone(it.id), res = focusState(it.id).res;
+    return '<div style="display:flex;gap:9px;align-items:baseline;padding:6px 2px;border-bottom:1px solid var(--border);font-size:12.5px">'
+      + '<span style="flex:0 0 16px;text-align:center;color:'+(d?'var(--accent)':'var(--text3)')+'">'+glyph(it)+'</span>'
+      + '<span style="flex:1;'+(d?'text-decoration:line-through;color:var(--text3)':'')+'">'+it.title
+      + (res ? '<span style="color:var(--text3);font-style:italic"> — '+res+'</span>' : '')+'</span>'
+      + '<span style="color:var(--text3);font-size:11px">'+(it.type==='decision'?'decision':'action')+'</span></div>';
+  }).join('');
+}
+function focusDone(id){
+  const items = focusItems(), it = items.find(x => x.id === id);
+  const patch = { st:'done', doneAt: Date.now() };
+  if(it && it.type === 'decision'){
+    const el = document.getElementById('focus-resolution');
+    if(el && el.value.trim()) patch.res = el.value.trim();
+  }
+  focusSetState(id, patch);
+  const inner = document.getElementById('focus-card-inner');
+  if(inner){ inner.style.opacity = '0'; setTimeout(renderFocus, 190); } else renderFocus();
+  toast('Done ✓ — next up');
+}
+function focusSkip(id){
+  focusSetState(id, { skippedAt: Date.now() });
+  const inner = document.getElementById('focus-card-inner');
+  if(inner){ inner.style.opacity = '0'; setTimeout(renderFocus, 190); } else renderFocus();
+}
+function focusAdd(){
+  const title = g('focus-add-title');
+  if(!title){ toast('Give the item a title'); return; }
+  CFG.focusCustom = CFG.focusCustom || [];
+  CFG.focusCustom.push({ id:'c-'+Date.now().toString(36), type:g('focus-add-type')||'action', title,
+    why:g('focus-add-why')||'Added from the board.', effort:'—', where:'—', blockedBy:[] });
+  persist();
+  document.getElementById('focus-add-title').value=''; document.getElementById('focus-add-why').value='';
+  renderFocus(); toast('Added to queue ✓');
+}
+renderFocus();
 
 </script>
 </body>
