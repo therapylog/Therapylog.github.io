@@ -51,9 +51,16 @@ const sandbox = {
   /* a request that never fires: openIDB() stays pending instead of logging a failure */
   indexedDB: { open: () => ({ onsuccess: null, onerror: null, onupgradeneeded: null }) },
   Chart: function () { this.destroy = () => {}; this.update = () => {}; },
+  /* replaced per-test; the default records nothing and fails loudly */
   fetch: () => Promise.reject(new Error('no network in harness')),
   matchMedia: () => ({ matches: false, addEventListener() {} }),
-  requestAnimationFrame: cb => setTimeout(cb, 0), FileReader: function () {},
+  requestAnimationFrame: cb => setTimeout(cb, 0),
+  /* reads a canned data URL off the fake file, so the intake path is testable */
+  FileReader: function () {
+    this.readAsDataURL = (file) => setTimeout(() => { this.result = file._dataUrl; this.onload && this.onload(); }, 0);
+  },
+  /* decode always fails: exercises the passthrough branch without a real codec */
+  Image: function () { Object.defineProperty(this, 'src', { set() { setTimeout(() => this.onerror && this.onerror(), 0); } }); },
   Notification: { permission: 'default' }, alert() {}, confirm: () => true, prompt: () => null
 };
 sandbox.window = sandbox; sandbox.globalThis = sandbox; sandbox.self = sandbox;
@@ -145,6 +152,105 @@ t('renderBW runs and shows the lab range label', () => { run(`renderBW()`); retu
 t('renderBW shows the generic label for manual markers', () => /Ref: 350-1000/.test(el('bw-grid').innerHTML));
 t('renderBW shows the assay method', () => /· sensitive/.test(el('bw-grid').innerHTML));
 
+/* ---------------------------------------------------------------------------
+   6. File intake and the scan round-trip — what actually leaves the browser
+   -------------------------------------------------------------------------- */
+const fakeFile = (name, type, bytes, b64) => ({
+  name, type, size: bytes, _dataUrl: `data:${type};base64,${b64 || 'AAAA'}`
+});
+
+async function asyncChecks() {
+  const tA = async (name, fn) => {
+    try { const r = await fn(); results.push([r === true ? 'PASS' : 'FAIL', name, r === true ? '' : JSON.stringify(r)]); }
+    catch (e) { results.push(['ERROR', name, e.message]); }
+  };
+
+  /* a PDF and an image picked from the device in one go */
+  await run(`handleLabFiles({ target: { files: [
+    { name: 'panel.pdf', type: 'application/pdf', size: 120000, _dataUrl: 'data:application/pdf;base64,JVBERi0x' },
+    { name: 'page2.png', type: 'image/png', size: 90000, _dataUrl: 'data:image/png;base64,iVBORw0KAA' }
+  ], value: '' } })`);
+  await tA('both a PDF and an image are accepted from one pick', () => run(`labFiles.length`) === 2);
+  await tA('the PDF keeps its media type', () => run(`labFiles[0].mediaType`) === 'application/pdf');
+  await tA('an undecodable image falls back to its original bytes', () => run(`labFiles[1].mediaType`) === 'image/png');
+  await tA('a file the API cannot take is rejected, not sent',
+    async () => { await run(`handleLabFiles({ target: { files: [{ name: 'scan.heic', type: 'image/heic', size: 10, _dataUrl: 'data:image/heic;base64,AAAA' }], value: '' } })`); return run(`labFiles.length`) === 2; });
+  await tA('files can be removed one at a time',
+    () => { run(`removeLabFile(1)`); return run(`labFiles.length`) === 1 && run(`labFiles[0].kind`) === 'pdf'; });
+
+  /* the scan itself: capture the request, answer with a canned report */
+  run(`
+  _memCache = { entries: [], proto: null, profile: { sex: 'Male', dob: '1988-04-02' } };
+  __sent = null;
+  fetch = (url, init) => { __sent = JSON.parse(init.body); return Promise.resolve({ ok: true, json: () => Promise.resolve({
+    content: [{ type: 'text', text: JSON.stringify({
+      markers: {
+        tott: { value: 20.8, unit: 'nmol/L', refLow: 8.6, refHigh: 29.0, method: 'LC/MS-MS', confidence: 'high' },
+        e2:   { value: 28, unit: 'pg/mL', confidence: 'low' },
+        labdate: { value: '2026-08-14', confidence: 'high' }
+      },
+      extras: [
+        { name: 'Uric Acid', value: 5.2, unit: 'mg/dL', refLow: 3.4, refHigh: 7.0, confidence: 'high' },
+        { name: 'SGPT', value: 31, unit: 'U/L', confidence: 'high' },
+        { name: 'Zonulin', value: 42, unit: 'ng/mL', confidence: 'low' }
+      ]
+    }) }]
+  }) }); };
+  `);
+  await run(`scanLabImage()`);
+  const sent = JSON.parse(run(`JSON.stringify(__sent)`));
+  const blocks = ((sent.messages || [])[0] || {}).content || [];
+  await tA('the request is a labscan', () => sent.mode === 'labscan');
+  await tA('a PDF is sent as a document block, not an image block',
+    () => blocks.some((b) => b.type === 'document' && b.source.media_type === 'application/pdf'));
+  await tA('no PDF is smuggled into an image block',
+    () => !blocks.some((b) => b.type === 'image' && b.source.media_type === 'application/pdf'));
+  await tA('the prompt block comes last', () => blocks[blocks.length - 1].type === 'text');
+  await tA('the prompt asks for every untracked result too', () => /extras/.test(blocks[blocks.length - 1].text));
+  await tA('a converted value lands in the form in canonical units',
+    () => Math.abs(parseFloat(run(`document.getElementById('ll-tott').value`)) - 599.87) < 0.02);
+  await tA("the lab's own range is captured for the converted marker",
+    () => Math.abs(run(`labScanMeta.tott.refLo`) - 248.02) < 0.05);
+  await tA('a scanned assay method fills the picker', () => run(`document.getElementById('ll-method-tott').value`) === 'lc-ms-ms');
+  await tA('the collection date is filled', () => run(`document.getElementById('ll-date').value`) === '2026-08-14');
+  await tA('an extra under a different name resolves to its tracked field (SGPT → ALT)',
+    () => parseFloat(run(`document.getElementById('ll-alt').value`)) === 31);
+  await tA('genuinely untracked extras are proposed, not dropped',
+    () => run(`labScanUnmapped.map(p => p.name).join('|')`) === 'Uric Acid|Zonulin');
+
+  /* accepting the proposals creates real fields with the lab's range */
+  run(`addScannedMarkers()`);
+  await tA('accepted extras become user-defined markers', () => run(`Object.keys(getCustomMarkers()).length`) === 2);
+  await tA('an accepted extra keeps its value', () => parseFloat(run(`document.getElementById('ll-cm_uricacid').value`)) === 5.2);
+  await tA("an accepted extra keeps the lab's range", () => run(`getCustomMarkers().cm_uricacid.hi`) === 7);
+  await tA('accepted extras render as form fields for next time',
+    () => /Uric Acid \(mg\/dL\)/.test(el('ll-custom-list').innerHTML));
+
+  /* saving carries them, and they flag and reach the AI like any other marker */
+  run(`saveBloodwork()`);
+  const entry = JSON.parse(run(`JSON.stringify(gd().entries[0])`));
+  await tA('a user-defined marker is saved with the panel', () => entry.labs.cm_uricacid === 5.2);
+  await tA("its lab range is saved too", () => entry.labMeta.cm_uricacid.refHi === 7);
+  await tA('a user-defined marker gets a range in the range table',
+    () => run(`getAdjustedLabRanges().cm_uricacid.hi`) === 7);
+  await tA('a user-defined marker flags against its own range', () => run(`labSt('cm_uricacid', 9.1, gd().entries[0])`) === 'bad');
+  await tA('a marker with no range set never flags', () => { run(`addCustomMarker('Zonulin', 'ng/mL', '', '')`); return run(`labSt('cm_zonulin', 999)`) === 'good'; });
+  const ctx2 = run(`getFullCtx()`);
+  await tA('a user-defined marker reaches the AI context', () => /Uric Acid: 5\.2 mg\/dL/.test(ctx2));
+  await tA('the AI is told which markers are the user\'s own',
+    () => /userDefined|entered by the user|named and recorded by the user/i.test(ctx2));
+  await tA('naming a marker the app already tracks points at the built-in field',
+    () => { const r = JSON.parse(run(`JSON.stringify(addCustomMarker('Hemoglobin A1c', '%', '', ''))`)); return r.builtIn === true && r.key === 'hba1c'; });
+
+  /* The stub has no query engine, so the filter's DOM work is not covered here —
+     only that it is wired up and survives being called. */
+  await tA('the marker filter is callable without a live DOM',
+    () => run(`document.getElementById('ll-filter').value = 'sgpt'; filterLabFields(); 'ok'`) === 'ok');
+  await tA('the filter input is wired to the filter function',
+    () => /id="ll-filter"[^>]*oninput="filterLabFields\(\)"/.test(html));
+}
+
+function report() {
 if (process.argv.includes('-v')) {
   const pad = Math.max(...results.map((r) => r[1].length));
   results.forEach(([s, n, extra]) => console.log(`${s === 'PASS' ? '✓' : '✗'} ${n.padEnd(pad)} ${extra}`));
@@ -155,8 +261,15 @@ if (bad.length) {
   bad.forEach(([status, name, extra]) => console.error(`  ✗ ${name} (${status}${extra ? ': ' + extra : ''})`));
   process.exit(1);
 }
-console.log(`bloodwork flow OK: ${results.length} assertions — scan provenance, lab-range precedence, ` +
-  'and the AI panel context all hold');
+console.log(`bloodwork flow OK: ${results.length} assertions — file intake, scan provenance, ` +
+  'lab-range precedence, user-defined markers and the AI panel context all hold');
 /* app.html schedules deferred UI work (chat memory, cost hints) that the stub has
    no reason to satisfy — stop here rather than let those timers run. */
 process.exit(0);
+}
+
+asyncChecks().then(report, (e) => {
+  console.error('BLOODWORK FLOW VALIDATION FAILED — the async checks threw:');
+  console.error('  ✗ ' + (e && e.stack ? e.stack : e));
+  process.exit(1);
+});

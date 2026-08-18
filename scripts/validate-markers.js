@@ -182,8 +182,7 @@ check('optimal band is labelled non-diagnostic',
    pipeline has nothing to honour. Each field has to appear both in the example
    JSON (so the shape is unambiguous) and in the rules (so it is actually asked
    for) — a half-removed field is how this silently regresses. */
-const scanPrompt = html.slice(html.indexOf('You are analyzing a medical lab report'),
-  html.indexOf('Decimal values are fine'));
+const scanPrompt = extractBlock(html, '/* LAB-SCAN-PROMPT:START', '/* LAB-SCAN-PROMPT:END */');
 const [scanExample, scanRules] = scanPrompt.split('Rules:');
 if (!scanRules) fail('scanner prompt has no "Rules:" section — cannot verify what it asks for');
 ['unit', 'refLow', 'refHigh', 'method'].forEach((k) => {
@@ -194,6 +193,29 @@ if (!/exactly as printed|as printed on the report/i.test(scanPrompt))
   fail('scanner prompt no longer tells the model to report units verbatim (it would convert, and guess)');
 if (!/NEVER convert|not convert|do not convert/i.test(scanPrompt))
   fail('scanner prompt no longer forbids the model from converting units itself');
+/* every marker on the report must come back, not just the ones with form fields —
+   comprehensive panels run past 100 analytes and the extras become custom markers */
+if (!/"extras"/.test(scanExample) || !/extras/.test(scanRules))
+  fail('scanner prompt no longer collects "extras" — results outside the tracked keys would be dropped');
+if (!/LAB_FIELDS\.map/.test(scanPrompt))
+  fail('scanner prompt no longer enumerates LAB_FIELDS — new form fields would never be scanned for');
+
+/* --- 7b. file intake: PDFs are document blocks, images are image blocks ---
+   A PDF sent as an image block is rejected by the API, which is exactly the bug
+   this guards; and an oversized request fails after the user has waited. */
+const scanFn = html.slice(html.indexOf('async function scanLabImage()'), html.indexOf('function showLabScanSuccess'));
+if (!/type: 'document', source: \{ type: 'base64', media_type: 'application\/pdf'/.test(scanFn))
+  fail('PDFs are no longer sent as document content blocks — the API rejects a PDF in an image block');
+if (!/type: 'image', source: \{ type: 'base64', media_type: f\.mediaType/.test(scanFn))
+  fail('images are no longer sent as image content blocks');
+if (!/labFilesBytes\(\) > LAB_MAX_UPLOAD_BYTES/.test(scanFn))
+  fail('the upload size guard is gone — an over-cap request fails only after the user waits for it');
+if (!/multiple/.test(html.slice(html.indexOf('id="lab-file-input"'), html.indexOf('id="lab-file-input"') + 240)))
+  fail('the file picker is no longer `multiple` — multi-page reports could not be uploaded in one go');
+[['lab-camera-input', 'capture="environment"'], ['lab-file-input', 'application/pdf']].forEach(([id, needle]) => {
+  const tag = html.slice(html.indexOf(`id="${id}"`), html.indexOf(`id="${id}"`) + 240);
+  if (!tag.includes(needle)) fail(`input #${id} lost ${needle} — device upload/camera path broken`);
+});
 
 /* --- 8. the form has to stay in step with the registry --- */
 LAB_FIELDS.forEach((f) => {
