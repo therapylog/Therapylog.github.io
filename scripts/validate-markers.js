@@ -232,6 +232,7 @@ pickers.forEach(([markup, key]) => {
   const m = MARKER_REGISTRY[key];
   if (!m) return fail(`assay picker "ll-method-${key}" has no registry entry`);
   if (!m.assay) return fail(`assay picker "ll-method-${key}" but ${key} declares no assay variants`);
+  if (!/<option value="">/.test(markup)) fail(`assay picker "ll-method-${key}" has no "not stated" default`);
   [...markup.matchAll(/value="([^"]*)"/g)].map((x) => x[1]).filter(Boolean).forEach((v) => {
     if (!m.assay.variants.includes(v))
       fail(`assay picker "ll-method-${key}" offers "${v}", which is not one of ${key}'s variants (${m.assay.variants.join(', ')})`);
