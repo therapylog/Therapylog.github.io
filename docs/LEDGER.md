@@ -44,7 +44,7 @@ When an item resolves there, reflect it here.
   (PK curves, side-effect guidance, regulatory status), not raw compound count.
   Never inflate the catalog to hit a marketing number.
 - **Lab results are normalized through one registry, keyed by LOINC.**
-  `MARKER_REGISTRY` in `app.html` (51 markers, docs/MARKERS.md) sits between
+  `MARKER_REGISTRY` in `app.html` (100 markers, docs/MARKERS.md) sits between
   every result source — manual form, photo/PDF scanner, a future lab API — and
   the rest of the app. Its rules are not preferences: unknown markers go to
   `unmapped` and are logged rather than guessed; a reference range printed on
@@ -55,6 +55,11 @@ When an item resolves there, reflect it here.
   and sensitive E2 — or immunoassay and LC/MS-MS testosterone — are not the same
   measurement. Don't add a marker path that bypasses it, and don't let a scanned
   value reach a form field without going through `normalizeValue()`.
+  Anything outside those 100 markers is logged as a **user-defined marker**
+  rather than dropped, so a 100+ analyte panel logs in full — those rows are
+  never unit-converted, never given an optimal band, and are labelled
+  `userDefined` to the AI. Manual entry is a first-class path, not a fallback:
+  every marker can be typed in, with or without a scan.
   ⚠️ The registry's LOINC codes are an **unverified seed** — verify against real
   vendor payloads before wiring a lab API.
 - **Paid acquisition is not the growth channel** at this price point. Growth
@@ -132,11 +137,28 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
   markers by hand and dropping the rest; it now sends every logged marker with
   its unit, range provenance and assay method, plus an explicit "NOT TESTED in
   this panel" list so the model can't comment on a marker that was never drawn.
+- **Lab intake takes PDFs, screenshots and multi-page uploads (18 Aug).** The
+  file picker was single-file, and a PDF — though the picker accepted it — was
+  sent as an image content block, which the API rejects, so PDF upload could
+  only ever fail. PDFs now go as `document` blocks, the picker is `multiple`
+  (photos, screenshots and PDFs together; the camera button is unchanged),
+  images are downscaled to a 1568px long edge before upload, and the request is
+  size-checked against the 32MB API cap first.
+- **The 50-field form became 100 built-in markers plus unlimited user-defined
+  ones (18 Aug).** Added the analytes comprehensive panels actually print (CBC
+  differential and indices, iron studies, GGT/LDH/CK/uric acid/magnesium/
+  phosphorus, DHT/progesterone/pregnenolone/PTH/aldosterone, total T3/T4,
+  ApoA1/LDL-P/homocysteine/fibrinogen/ESR/Omega-3, and more). The scanner now
+  returns every result on the report — untracked ones come back as `extras` and
+  can be added to the form in one tap. A filter box makes a 100-field form
+  navigable.
 - **Two more CI guards** (`scripts/validate-markers.js`,
   `scripts/validate-bloodwork-flow.js`, workflow `Validate bloodwork`): registry
   integrity and namespace/unit/optimal-band drift, plus 35 assertions that run
   `app.html`'s real functions behind a DOM stub to prove scan→save→flag→AI
-  context still holds. Both were fault-injection tested.
+  context still holds — 68 assertions, including a stubbed `fetch` that proves a
+  PDF leaves as a document block and untracked markers are proposed rather than
+  dropped. Both were fault-injection tested.
 
 **New app features**
 - PWA layer: manifest, service worker, install-to-home-screen, real push

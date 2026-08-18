@@ -1,9 +1,13 @@
 # Lab Marker Registry
 
 `MARKER_REGISTRY` in `app.html` is the normalization layer between a lab result
-and everything the app does with it. Results arrive from three places — the
-manual form, the photo/PDF scanner, and (later) a lab API — and all three go
-through the same path:
+and everything the app does with it. It holds **100 markers**, covering the core
+panel plus the analytes comprehensive Quest/LabCorp-style reports usually print.
+Anything beyond that is handled by user-defined markers (below), so a 100+
+analyte panel logs in full.
+
+Results arrive from three places — the manual form, the photo/PDF scanner, and
+(later) a lab API — and all three go through the same path:
 
 ```
 raw result → resolveMarker() → normalizeValue() → classify() → buildPanel() → buildAIPayload()
@@ -39,6 +43,54 @@ is: `scripts/validate-markers.js` (registry integrity) and
    `NOT TESTED in this panel: …` constraint (built from markers the previous
    panels had and this one doesn't) so the model cannot infer a marker that was
    never drawn.
+
+## Getting results in
+
+Three routes, and every one of them ends in the same normalization path:
+
+1. **Type them in.** The Lab Values form has a field per built-in marker, a
+   filter box that searches labels, keys, aliases and panel names (so "sgpt"
+   finds ALT), and per-marker assay pickers where the assay changes the reading.
+   Manual entry is never a fallback path — it is the primary one, and the
+   scanner is optional.
+2. **Scan a photo, screenshot, or PDF.** The picker takes multiple files at
+   once, so a six-page report goes up in one request; the camera button still
+   snaps a single page. Images are downscaled to Claude's recommended 1568px
+   long edge before upload (a phone photo drops from ~4MB to ~200KB), PDFs are
+   sent whole as `document` content blocks — the only shape the Messages API
+   accepts for a PDF — and the request is size-checked against the API's 32MB
+   cap before the user waits on it. An undecodable or unsupported file is
+   rejected at pick time, not silently dropped at send time.
+3. **Accept what the scan found.** The scanner is asked for *every* result on
+   the report: tracked markers by key, everything else as `extras`. Extras are
+   resolved against the registry first (so "SGPT" lands in ALT), and whatever is
+   left is offered as "add all N to my form".
+
+## User-defined markers
+
+A marker TherapyLog doesn't know is not a dead end. `d.customMarkers` holds
+user (or scanner) definitions — name, unit, and optionally the lab's own
+interval — keyed `cm_<slug>`:
+
+```js
+d.customMarkers = { cm_zonulin: { name: 'Zonulin', unit: 'ng/mL', lo: 0, hi: 40 } }
+```
+
+Values store in `labs` beside the built-ins, and `getAdjustedLabRanges()` merges
+the definitions into the same range table, so the bloodwork grid, Trends, the
+clinic summary and the AI context pick them up with no special-casing. What they
+deliberately do **not** get:
+
+- **No unit conversion.** The app has no conversion table for a marker it
+  doesn't know, so the value is stored exactly as recorded.
+- **No optimal band.** Inventing one would breach rule 4.
+- **No implied validation.** Rows go to the AI flagged `userDefined`, with a
+  constraint telling the model the unit and range are the user's own.
+
+Naming one that the registry already tracks returns the built-in key instead —
+you get the real field, with its units and range, rather than a duplicate.
+Removing one that has history hides it from the form and keeps the definition,
+so past panels stay readable.
 
 ## Units
 
@@ -83,6 +135,10 @@ ranges — nothing to migrate.
 
 ## Adding a marker
 
+Most of the time you don't need to: an unrecognized marker can be added from the
+form (or accepted from a scan) as a user-defined marker. Promote it to a
+built-in when the app should know its units and reference range.
+
 1. Add the field to `LAB_FIELDS` (`id` must be `ll-` + `key`) and a range to
    `LAB_REF`, then add the input to the Lab Values markup.
 2. Add the registry entry: `label`, `group`, `loinc`, `aliases`,
@@ -94,13 +150,24 @@ ranges — nothing to migrate.
    `extension: true`.
 5. If the assay changes interpretation, declare `assay.variants` **and** add a
    `ll-method-<key>` picker whose option values are exactly those variants.
-6. Run `node scripts/validate-markers.js && node scripts/validate-bloodwork-flow.js`.
+6. If the female reference differs enough that the male range would mislead, add
+   an override in `getAdjustedLabRanges()` (as `uricacid`, `iron`, `esr`, `dht`,
+   `estrone` and `progesterone` do).
+7. Run `node scripts/validate-markers.js && node scripts/validate-bloodwork-flow.js`.
+
+`validate-markers.js` fails if a form field has no registry entry (it would go
+`unmapped`), if units disagree with `LAB_FIELDS`, if an assay marker has no
+picker, if the scanner prompt stops asking for units/ranges/methods/extras, or
+if PDFs stop being sent as document blocks. `validate-bloodwork-flow.js` runs
+`app.html`'s real functions behind a DOM stub — including a stubbed `fetch`, so
+it asserts what actually leaves the browser.
 
 ## The LOINC caveat
 
 ⚠️ **The LOINC codes in the registry are an unverified seed.** They were written
 from memory, not from vendor payloads, and have not been checked against the
-LOINC database. Verify them against real payloads before trusting them for
+LOINC database, and nine markers carry none at all (the validator warns and
+lists them). Verify them against real payloads before trusting them for
 routing — particularly before wiring up a lab API. The design limits the damage
 (a wrong code falls through to name matching, and `logUnmapped()` surfaces every
 gap), but "it resolved correctly in the app" is not evidence the code is right.

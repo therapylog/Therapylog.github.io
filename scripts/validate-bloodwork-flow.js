@@ -192,7 +192,8 @@ async function asyncChecks() {
       extras: [
         { name: 'Uric Acid', value: 5.2, unit: 'mg/dL', refLow: 3.4, refHigh: 7.0, confidence: 'high' },
         { name: 'SGPT', value: 31, unit: 'U/L', confidence: 'high' },
-        { name: 'Zonulin', value: 42, unit: 'ng/mL', confidence: 'low' }
+        { name: 'Zonulin', value: 42, unit: 'ng/mL', refLow: 0, refHigh: 40, confidence: 'low' },
+        { name: 'Beta-2 Microglobulin', value: 1.8, unit: 'mg/L', confidence: 'high' }
       ]
     }) }]
   }) }); };
@@ -215,28 +216,35 @@ async function asyncChecks() {
   await tA('the collection date is filled', () => run(`document.getElementById('ll-date').value`) === '2026-08-14');
   await tA('an extra under a different name resolves to its tracked field (SGPT → ALT)',
     () => parseFloat(run(`document.getElementById('ll-alt').value`)) === 31);
+  await tA('a comprehensive-panel marker lands in its own field, not in extras',
+    () => parseFloat(run(`document.getElementById('ll-uricacid').value`)) === 5.2);
   await tA('genuinely untracked extras are proposed, not dropped',
-    () => run(`labScanUnmapped.map(p => p.name).join('|')`) === 'Uric Acid|Zonulin');
+    () => run(`labScanUnmapped.map(p => p.name).join('|')`) === 'Zonulin|Beta-2 Microglobulin');
 
   /* accepting the proposals creates real fields with the lab's range */
   run(`addScannedMarkers()`);
   await tA('accepted extras become user-defined markers', () => run(`Object.keys(getCustomMarkers()).length`) === 2);
-  await tA('an accepted extra keeps its value', () => parseFloat(run(`document.getElementById('ll-cm_uricacid').value`)) === 5.2);
-  await tA("an accepted extra keeps the lab's range", () => run(`getCustomMarkers().cm_uricacid.hi`) === 7);
+  await tA('an accepted extra keeps its value', () => parseFloat(run(`document.getElementById('ll-cm_zonulin').value`)) === 42);
+  await tA("an accepted extra keeps the lab's range", () => run(`getCustomMarkers().cm_zonulin.hi`) === 40);
   await tA('accepted extras render as form fields for next time',
-    () => /Uric Acid \(mg\/dL\)/.test(el('ll-custom-list').innerHTML));
+    () => /Zonulin \(ng\/mL\)/.test(el('ll-custom-list').innerHTML));
 
   /* saving carries them, and they flag and reach the AI like any other marker */
   run(`saveBloodwork()`);
   const entry = JSON.parse(run(`JSON.stringify(gd().entries[0])`));
-  await tA('a user-defined marker is saved with the panel', () => entry.labs.cm_uricacid === 5.2);
-  await tA("its lab range is saved too", () => entry.labMeta.cm_uricacid.refHi === 7);
+  await tA('a user-defined marker is saved with the panel', () => entry.labs.cm_zonulin === 42);
+  await tA("its lab range is saved too", () => entry.labMeta.cm_zonulin.refHi === 40);
   await tA('a user-defined marker gets a range in the range table',
-    () => run(`getAdjustedLabRanges().cm_uricacid.hi`) === 7);
-  await tA('a user-defined marker flags against its own range', () => run(`labSt('cm_uricacid', 9.1, gd().entries[0])`) === 'bad');
-  await tA('a marker with no range set never flags', () => { run(`addCustomMarker('Zonulin', 'ng/mL', '', '')`); return run(`labSt('cm_zonulin', 999)`) === 'good'; });
+    () => run(`getAdjustedLabRanges().cm_zonulin.hi`) === 40);
+  await tA('a user-defined marker flags against its own range', () => run(`labSt('cm_zonulin', 55, gd().entries[0])`) === 'bad');
+  await tA('a marker with no range recorded never flags',
+    () => run(`labSt('cm_beta2microglobulin', 999)`) === 'good');
+  await tA('the newly built-in markers are saved as built-ins, not duplicated',
+    () => entry.labs.uricacid === 5.2 && !('cm_uricacid' in entry.labs));
   const ctx2 = run(`getFullCtx()`);
-  await tA('a user-defined marker reaches the AI context', () => /Uric Acid: 5\.2 mg\/dL/.test(ctx2));
+  await tA('a user-defined marker reaches the AI context', () => /Zonulin: 42 ng\/mL/.test(ctx2));
+  await tA('a newly built-in marker reaches the AI context with its own range',
+    () => /Uric Acid: 5\.2 mg\/dL \| in-range \| ref 3\.4–7/.test(ctx2));
   await tA('the AI is told which markers are the user\'s own',
     () => /userDefined|entered by the user|named and recorded by the user/i.test(ctx2));
   await tA('naming a marker the app already tracks points at the built-in field',
