@@ -1336,7 +1336,7 @@ const hit = resolveMarker(r);
 if (!hit) { unmapped.push(r); logUnmapped(r); continue; }
 
 const norm = normalizeValue(hit.key, r.value, r.unit);
-if (!norm.ok) { errors.push({ key:hit.key, name:r.name || hit.key, ...norm }); continue; }
+if (!norm.ok) { errors.push({ key:hit.key, name:MARKER_REGISTRY[hit.key].label, ...norm }); continue; }
 
 /* CRITICAL: the lab's range arrives in the lab's unit. It must go through the
    SAME transform as the value, or every converted marker mis-flags. */
@@ -1345,7 +1345,7 @@ if (_isNum(parseFloat(r.refLow)) && _isNum(parseFloat(r.refHigh))) {
 const lo = normalizeValue(hit.key, r.refLow, r.unit);
 const hi = normalizeValue(hit.key, r.refHigh, r.unit);
 if (lo.ok && hi.ok) labRange = { lo:lo.value, hi:hi.value, unit:norm.unit };
-else errors.push({ key:hit.key, name:r.name || hit.key, reason:'range-conversion-failed' });
+else errors.push({ key:hit.key, name:MARKER_REGISTRY[hit.key].label, reason:'range-conversion-failed' });
 }
 
 const m = MARKER_REGISTRY[hit.key];
@@ -3802,8 +3802,8 @@ if (!name) { toast('Name the marker first'); return; }
 const added = addCustomMarker(name, unitEl.value, loEl.value, hiEl.value);
 if (!added) { toast('Give the marker a name'); return; }
 if (added.builtIn) {
-const field = LAB_FIELDS.find(f => f.key === added.key);
-toast(`${field ? field.label : name} is already tracked — use its field above`);
+const known = LAB_REF[added.key] || MARKER_REGISTRY[added.key] || {};
+toast(`${known.name || known.label || name} is already tracked — use its field above`);
 const input = document.getElementById('ll-' + added.key);
 if (input && valEl.value !== '') input.value = valEl.value;
 } else {
@@ -3921,13 +3921,18 @@ reader.readAsDataURL(file);
 }
 
 /* Returns null when the browser can't decode the image (e.g. HEIC on desktop),
-   so the caller can decide whether the original bytes are still sendable. */
-function shrinkLabImage(dataUrl) {
+   or when the original is already small enough to send untouched, so the caller
+   falls back to the original bytes. */
+function shrinkLabImage(dataUrl, mediaType, bytes) {
 return new Promise(resolve => {
 const img = new Image();
 img.onload = () => {
 try {
 const scale = Math.min(1, LAB_IMG_MAX_EDGE / Math.max(img.width, img.height));
+/* already within the useful resolution and a type the API takes: send as-is.
+   Re-encoding a screenshot to JPEG only softens the text. */
+if (scale === 1 && LAB_IMAGE_TYPES.includes(mediaType) && bytes <= 4 * 1024 * 1024)
+return resolve(null);
 const w = Math.max(1, Math.round(img.width * scale));
 const h = Math.max(1, Math.round(img.height * scale));
 const canvas = document.createElement('canvas');
@@ -3955,7 +3960,7 @@ if (isPdf) {
 return { kind: 'pdf', name: file.name || 'report.pdf', b64, mediaType: 'application/pdf',
 thumb: null, bytes: file.size || Math.round(b64.length * 0.75) };
 }
-const shrunk = await shrinkLabImage(dataUrl);
+const shrunk = await shrinkLabImage(dataUrl, declared, file.size || Math.round(b64.length * 0.75));
 if (shrunk) return { kind: 'image', name: file.name || 'photo.jpg', ...shrunk };
 if (!LAB_IMAGE_TYPES.includes(declared)) throw new Error('unsupported-type');
 return { kind: 'image', name: file.name || 'photo', b64, mediaType: declared,
@@ -3980,6 +3985,18 @@ renderLabFiles();
 }
 
 function labFilesBytes() { return labFiles.reduce((a, f) => a + (f.bytes || 0), 0); }
+
+/* 20.8 nmol/L is 599.872 ng/dL, which no lab would print. Snap a converted value
+   to the precision of its form field — but only when that costs nothing: if the
+   field's step is coarser than the value can bear, keep the exact number. */
+function roundToFieldStep(value, step) {
+const s = parseFloat(step);
+if (!isFinite(s) || s <= 0 || !isFinite(value)) return value;
+const decimals = (String(step).split('.')[1] || '').length;
+const snapped = parseFloat((Math.round(value / s) * s).toFixed(decimals));
+const drift = Math.abs(snapped - value) / Math.abs(value || 1);
+return drift <= 0.005 ? snapped : value;
+}
 
 function renderLabFiles() {
 const wrap = document.getElementById('lab-img-preview');
@@ -4148,13 +4165,14 @@ scanPanel.present.forEach(key => {
 const m = scanPanel.recognized[key];
 const input = document.getElementById('ll-' + key);
 if (!input) { skipped.push(`${m.label} (no field on this form)`); return; }
-input.value = m.value;
-labScanMeta[key] = { source: 'scan', value: m.value, unit: m.reportedUnit || null,
+const shown = m.converted ? roundToFieldStep(m.value, input.step) : m.value;
+input.value = shown;
+labScanMeta[key] = { source: 'scan', value: shown, unit: m.reportedUnit || null,
 refLo: m.rangeSource === 'lab' ? m.range.lo : null,
 refHi: m.rangeSource === 'lab' ? m.range.hi : null,
 method: m.assayMethod || null, converted: !!m.converted,
 convertedFrom: m.convertedFrom || null, censoredAs: m.censoredAs || null };
-if (m.converted) converted.push(`${m.label}: ${m.convertedFrom} → ${m.value} ${m.unit}`);
+if (m.converted) converted.push(`${m.label}: ${m.convertedFrom} → ${shown} ${m.unit}`);
 const variant = matchAssayVariant(key, m.assayMethod);
 const methodSel = document.getElementById('ll-method-' + key);
 if (methodSel && variant) methodSel.value = variant;

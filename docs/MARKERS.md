@@ -160,7 +160,19 @@ built-in when the app should know its units and reference range.
 picker, if the scanner prompt stops asking for units/ranges/methods/extras, or
 if PDFs stop being sent as document blocks. `validate-bloodwork-flow.js` runs
 `app.html`'s real functions behind a DOM stub — including a stubbed `fetch`, so
-it asserts what actually leaves the browser.
+it asserts what actually leaves the browser. Both run in CI.
+
+`scripts/ui-check-bloodwork.js` goes further and drives the real app in
+Chromium — typing values, filtering markers, defining a user-defined marker,
+uploading a generated PDF and screenshot, and intercepting the request to prove
+the PDF leaves as a `document` block. It needs `playwright-core`, which this repo
+doesn't vendor, so it is **not** in CI and skips cleanly when the dependency
+isn't there:
+
+```
+npm install playwright-core
+node scripts/ui-check-bloodwork.js -v --shots /tmp/shots
+```
 
 ## The LOINC caveat
 
