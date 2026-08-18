@@ -15,7 +15,7 @@ duplicating them here.
 one item at a time. This ledger holds direction; the Focus board holds sequence.
 When an item resolves there, reflect it here.
 
-**Last updated:** 17 August 2026
+**Last updated:** 18 August 2026
 
 ---
 
@@ -43,6 +43,20 @@ When an item resolves there, reflect it here.
   Tracker ~200+) beat pure count, so positioning is **per-entry depth**
   (PK curves, side-effect guidance, regulatory status), not raw compound count.
   Never inflate the catalog to hit a marketing number.
+- **Lab results are normalized through one registry, keyed by LOINC.**
+  `MARKER_REGISTRY` in `app.html` (51 markers, docs/MARKERS.md) sits between
+  every result source — manual form, photo/PDF scanner, a future lab API — and
+  the rest of the app. Its rules are not preferences: unknown markers go to
+  `unmapped` and are logged rather than guessed; a reference range printed on
+  the user's report always beats our generic one; a unit with no valid
+  conversion (Lp(a) mg/dL↔nmol/L, absolute count vs percentage) is refused, not
+  approximated; optimal bands live only in `LAB_REF` and stay separate from the
+  lab's range; assay method is carried as a first-class field because standard
+  and sensitive E2 — or immunoassay and LC/MS-MS testosterone — are not the same
+  measurement. Don't add a marker path that bypasses it, and don't let a scanned
+  value reach a form field without going through `normalizeValue()`.
+  ⚠️ The registry's LOINC codes are an **unverified seed** — verify against real
+  vendor payloads before wiring a lab API.
 - **Paid acquisition is not the growth channel** at this price point. Growth
   channels in priority order: affiliates → SEO/free tools → community
   (Reddit/X) → newsletter partnerships → PR. Paid social only as retargeting.
@@ -97,6 +111,32 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
   `alsoIn` refs, and drift across app/JSON/markdown/page-copy counts.
 - Hardcoded "148-Compound" copy corrected to 130 in app onboarding and the
   Marketing Suite prompts.
+
+**Bloodwork normalization (18 Aug)**
+- **Marker registry shipped** — `MARKER_REGISTRY` + resolution, unit conversion,
+  classification, panel building and AI-payload construction, covering all 50
+  lab form fields plus Lp(a). Keys match `LAB_FIELDS`/`LAB_REF` exactly, so the
+  existing bloodwork tab is extended rather than replaced, and nothing needs
+  migrating. Contract and how to add a marker: `docs/MARKERS.md`.
+- **The scanner no longer discards units and ranges.** It now reads the unit as
+  printed, the report's own reference interval, and the assay method; values are
+  converted into the form's canonical units before they touch an input, and
+  anything unconvertible is left blank with a reason rather than filled in
+  wrongly. This fixes a real defect: a report in nmol/L or pmol/L previously put
+  the raw foreign number straight into a ng/dL or pg/mL field.
+- **Provenance is stored per marker** (`entry.labMeta`: reported unit, the lab's
+  interval, assay method, conversion, `<`/`>` limits, edited-after-scan), and
+  flagging now prefers the lab's own interval — in the bloodwork cards, the
+  trend chart points, and the clinic summary.
+- **The AI chat context is registry-normalized.** It was cherry-picking 11
+  markers by hand and dropping the rest; it now sends every logged marker with
+  its unit, range provenance and assay method, plus an explicit "NOT TESTED in
+  this panel" list so the model can't comment on a marker that was never drawn.
+- **Two more CI guards** (`scripts/validate-markers.js`,
+  `scripts/validate-bloodwork-flow.js`, workflow `Validate bloodwork`): registry
+  integrity and namespace/unit/optimal-band drift, plus 35 assertions that run
+  `app.html`'s real functions behind a DOM stub to prove scan→save→flag→AI
+  context still holds. Both were fault-injection tested.
 
 **New app features**
 - PWA layer: manifest, service worker, install-to-home-screen, real push
@@ -205,6 +245,9 @@ The Focus board holds the working sequence. This is the summary.
    (named author) and #3 above.
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
+9. Verify the marker registry's LOINC codes against real vendor payloads
+   (Quest/LabCorp) before any lab API work, and check `getUnmappedLog()` output
+   from real scans to see which marker names the registry is still missing.
 
 ---
 
