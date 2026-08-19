@@ -300,7 +300,7 @@ h1 {
 .foot a { color: var(--text2); text-decoration: none; }
 .foot a:hover { color: var(--text); }
 </style>
-</head>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
 <body>
 <div class="wrap">
 
@@ -322,7 +322,7 @@ h1 {
         <li>Protocol &amp; injection logging</li>
         <li>Body and weight tracking</li>
         <li>Dose calculator + syringe diagram</li>
-        <li>148-compound encyclopedia</li>
+        <li>130-compound encyclopedia</li>
         <li class="no">No bloodwork tracking</li>
         <li class="no">No AI research assistant</li>
         <li class="no">No clinical reports</li>
@@ -341,7 +341,7 @@ h1 {
       <ul class="feats">
         <li><strong>AI research assistant</strong> — 145 questions/month</li>
         <li>AI lab scanner — photo to auto-fill bloodwork</li>
-        <li>Full bloodwork tracking (50+ markers)</li>
+        <li>Full bloodwork tracking (100+ markers)</li>
         <li>Blood pressure and cycle tracking</li>
         <li>Clinical reports and clinic mode</li>
         <li>Symptom and side-effect logging</li>
@@ -362,7 +362,7 @@ h1 {
       <ul class="feats">
         <li><strong>Unlimited AI</strong> — no monthly question cap</li>
         <li>AI lab scanner &amp; full clinical tools</li>
-        <li>Full bloodwork tracking (50+ markers)</li>
+        <li>Full bloodwork tracking (100+ markers)</li>
         <li>Blood pressure and cycle tracking</li>
         <li>Clinical reports and clinic mode</li>
         <li>Symptom and side-effect logging</li>
@@ -372,27 +372,38 @@ h1 {
       <a href="https://therapylog.app/pro" class="btn btn-teal">Get BYOK — subscribe now</a>
     </div>
 
-    <!-- ANDROID APK -->
+    <!-- LIFETIME LICENSE -->
     <div class="card">
-      <span class="badge badge-orange">Android only</span>
-      <span class="tier-icon">📦</span>
-      <div class="tier-name">Android — Direct Download</div>
+      <span class="badge badge-orange">One-time</span>
+      <span class="tier-icon">🔓</span>
+      <div class="tier-name">Lifetime — pay once</div>
       <div class="price">$34.99<span class="per"> once</span></div>
       <div class="price-note">Lifetime access — no subscription</div>
-      <div class="price-sub">One-time purchase · manual updates via email</div>
+      <div class="price-sub">Installs to your home screen · updates itself · iPhone and Android</div>
       <ul class="feats">
-        <li>Native Android app — installs to home screen</li>
-        <li>Full tracking suite — all 50+ lab markers</li>
-        <li>148-compound encyclopedia</li>
+        <li>Installs like an app — icon, full screen, works offline</li>
+        <li>Full tracking suite — 100+ lab markers</li>
+        <li>130-compound encyclopedia</li>
         <li>Blood pressure and cycle tracking</li>
         <li>Clinical reports and clinic mode</li>
         <li>Refill tracker and progress photos</li>
-        <li>Lifetime access — pay once</li>
-        <li class="no">No AI assistant or lab scanner</li>
+        <li>Every future update included, automatically</li>
+        <li class="no">No managed AI (bring your own key, or go Pro)</li>
       </ul>
-      <a href="https://drive.google.com/uc?export=download&id=1-LWcVIZ_XdT0MZp3TwW4xuOlqkkhapQL" class="btn btn-outline">Download Android APK</a>
+      <a href="#" onclick="startLifetime(event)" class="btn btn-outline" id="lifetime-btn">Buy lifetime access</a>
     </div>
 
+  </div>
+
+  <!-- HOW TO INSTALL -->
+  <div class="compare-note" style="text-align:left">
+    <strong>How to install it on your phone</strong><br>
+    <span style="opacity:0.85">
+      <b>iPhone / iPad:</b> open therapylog.app/app <b>in Safari</b> (Safari only), tap <b>Share</b> → <b>Add to Home Screen</b>.<br>
+      <b>Android:</b> open it in Chrome and tap <b>Install app</b>, or menu → <b>Add to Home screen</b>.<br>
+      There's no APK to sideload and nothing to re-download later — the app updates itself, so you're always on the current version.
+      Your license key arrives by email; enter it once under <b>Profile → Activate license</b>.
+    </span>
   </div>
 
   <!-- App Store coming soon -->
@@ -418,6 +429,52 @@ h1 {
 
 <script>
 var NOTIFY_ENDPOINT = "https://api.therapylog.app/api/launch-notify";
+var CHECKOUT_ENDPOINT = "https://api.therapylog.app/api/create-pro-subscription";
+
+/* First-touch attribution, shared with the app and passed to Stripe so a sale
+   can be traced back to the ad, post or affiliate that produced it. */
+function tlAttrRef() {
+  try {
+    var p = new URLSearchParams(location.search);
+    var stored = JSON.parse(localStorage.getItem('tl_attr') || 'null');
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (!stored && Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+      stored = found;
+    }
+    var a = stored || found;
+    return (a.ref || a.utm_campaign || a.utm_source || '').toString().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+  } catch (e) { return ''; }
+}
+function tlTrack(name, data) {
+  try { if (typeof window.va === 'function') window.va('event', { name: name, data: data || {} }); } catch (e) {}
+}
+
+async function startLifetime(ev) {
+  if (ev) ev.preventDefault();
+  var btn = document.getElementById('lifetime-btn');
+  var original = btn.textContent;
+  btn.textContent = 'Redirecting…';
+  tlTrack('checkout_started', { plan: 'lifetime', ref: tlAttrRef() });
+  try {
+    var body = { plan: 'lifetime' };
+    var ref = tlAttrRef();
+    if (ref) body.ref = ref;
+    var res = await fetch(CHECKOUT_ENDPOINT, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    var data = await res.json();
+    if (res.ok && data.url) { window.location.href = data.url; return; }
+    alert((data && data.error) || 'Could not start checkout. Email hello@therapylog.app and we will sort it out.');
+  } catch (e) {
+    alert('Connection error. Please try again.');
+  }
+  btn.textContent = original;
+}
 
 function notifyMe() {
   var input = document.getElementById("notify-email");

@@ -49,7 +49,7 @@
     .mc-legal { font-size:11px; color:#4a5568; margin-top:10px; }
 
   </style>
-</head>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
 <body style="background:#0a0c0f;background-color:#0a0c0f;color:#e8edf5;">
   <div class="header">
     <div class="logo">Therapy<span>Log</span></div>
@@ -123,16 +123,12 @@
       <h2 class="email-title">Get notified about new features,<br>compounds, and protocol updates</h2>
       <p class="email-sub">Join the TherapyLog community. No spam — only meaningful updates when we launch new features or add new compounds to the encyclopedia.</p>
 
-      <form class="mc-form" action="https://app.us16.list-manage.com/subscribe/post?u=c833964d025114e8d7894562a&amp;id=077b4c0168&amp;f_id=0096c2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+      <div class="mc-form">
         <div class="mc-fields">
-          <input type="text" name="FNAME" placeholder="First name" class="mc-input mc-name">
-          <input type="email" name="EMAIL" placeholder="Email address" class="mc-input mc-email" required>
+          <input type="text" id="nl-name" placeholder="First name" class="mc-input mc-name" autocomplete="given-name">
+          <input type="email" id="nl-email" placeholder="Email address" class="mc-input mc-email" autocomplete="email" required>
         </div>
-        <!-- Mailchimp honeypot anti-bot field - do not remove -->
-        <div style="position:absolute;left:-5000px" aria-hidden="true">
-          <input type="text" name="b_c833964d025114e8d7894562a_077b4c0168" tabindex="-1" value="">
-        </div>
-        <button type="submit" class="mc-btn" id="mc-subscribe-btn">
+        <button type="button" class="mc-btn" id="mc-subscribe-btn" onclick="nlSubmit()">
           <span class="mc-btn-text">Notify Me</span>
           <span class="mc-btn-icon">→</span>
         </button>
@@ -141,54 +137,95 @@
         </div>
         <div class="mc-error" id="mc-error" style="display:none"></div>
         <p class="mc-legal">No spam, ever. Unsubscribe anytime.</p>
-      </form>
+      </div>
     </div>
   </div>
 
+  <!-- LOST LICENSE KEY -->
+  <div class="email-section" style="padding-top:0">
+    <div class="email-inner">
+      <div class="email-badge">Bought TherapyLog?</div>
+      <h2 class="email-title">Resend my license key</h2>
+      <p class="email-sub">Replacing a phone, or lost the email? Enter the address you paid with and we'll send the key again. Your logged data isn't in the key — restore that from your own backup file.</p>
+      <div class="mc-form">
+        <div class="mc-fields">
+          <input type="email" id="key-email" placeholder="Email you paid with" class="mc-input mc-email" autocomplete="email">
+        </div>
+        <button type="button" class="mc-btn" id="key-btn" onclick="resendKey()">
+          <span class="mc-btn-text">Email me my key</span>
+          <span class="mc-btn-icon">→</span>
+        </button>
+        <div class="mc-success" id="key-success" style="display:none"></div>
+        <div class="mc-error" id="key-error" style="display:none"></div>
+      </div>
   <div class="footer">
     &copy; 2026 TherapyLog &nbsp;·&nbsp; <a href="/">Home</a> &nbsp;·&nbsp; <a href="/privacy">Privacy Policy</a>
   </div>
 <script>
-    // Mailchimp AJAX submission — stays on page, no redirect
-    document.getElementById('mc-embedded-subscribe-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('mc-subscribe-btn');
-      const success = document.getElementById('mc-success');
-      const error = document.getElementById('mc-error');
-      const email = this.querySelector('input[name="EMAIL"]').value.trim();
-
-      if (!email || !email.includes('@')) {
-        error.textContent = 'Please enter a valid email address.';
-        error.style.display = 'block';
-        return;
-      }
-
+    /* One list, one endpoint. This page used to post straight to Mailchimp,
+       which split the audience in two and wasn't named in the privacy policy —
+       everything now goes to the same Resend audience as the landing page. */
+    var NOTIFY_ENDPOINT = "https://api.therapylog.app/api/launch-notify";
+    var VERIFY_ENDPOINT = "https://api.therapylog.app/api/verify-license";
+    function tlTrack(name, data) {
+      try { if (typeof window.va === 'function') window.va('event', { name: name, data: data || {} }); } catch (e) {}
+    }
+    function show(id, text, isError) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = text;
+      el.style.display = text ? 'block' : 'none';
+    }
+    async function nlSubmit() {
+      var email = (document.getElementById('nl-email').value || '').trim();
+      var btn = document.getElementById('mc-subscribe-btn');
+      show('mc-success', ''); show('mc-error', '');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { show('mc-error', 'Please enter a valid email address.'); return; }
       btn.disabled = true;
-      btn.querySelector('.mc-btn-text').textContent = 'Subscribing...';
-      error.style.display = 'none';
-      success.style.display = 'none';
-
-      // Use JSONP for cross-origin Mailchimp submission
-      const url = this.action.replace('/post?', '/post-json?') + '&c=mcCallback';
-      const script = document.createElement('script');
-      script.src = url + '&EMAIL=' + encodeURIComponent(email) +
-        '&FNAME=' + encodeURIComponent(this.querySelector('input[name="FNAME"]').value.trim());
-
-      window.mcCallback = function(data) {
-        script.remove();
-        delete window.mcCallback;
-        btn.disabled = false;
-        btn.querySelector('.mc-btn-text').textContent = 'Notify Me';
-        if (data.result === 'success') {
-          success.style.display = 'block';
-          document.getElementById('mc-embedded-subscribe-form').reset();
+      btn.querySelector('.mc-btn-text').textContent = 'Subscribing…';
+      try {
+        var res = await fetch(NOTIFY_ENDPOINT, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, source: 'support_page' })
+        });
+        var data = await res.json().catch(function () { return {}; });
+        if (res.ok && data.ok) {
+          show('mc-success', "✓ You're on the list — check your inbox for a welcome note.");
+          document.getElementById('nl-email').value = '';
+          tlTrack('signup_submitted', { source: 'support_page' });
         } else {
-          error.textContent = data.msg.replace(/<[^>]*>/g, '').replace('0 - ', '');
-          error.style.display = 'block';
+          show('mc-error', (data && data.error) || 'Something went wrong. Please try again.');
         }
-      };
-      document.head.appendChild(script);
-    });
+      } catch (e) {
+        show('mc-error', 'Connection error. Please try again.');
+      }
+      btn.disabled = false;
+      btn.querySelector('.mc-btn-text').textContent = 'Notify Me';
+    }
+    async function resendKey() {
+      var email = (document.getElementById('key-email').value || '').trim();
+      var btn = document.getElementById('key-btn');
+      show('key-success', ''); show('key-error', '');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { show('key-error', 'Please enter a valid email address.'); return; }
+      btn.disabled = true;
+      btn.querySelector('.mc-btn-text').textContent = 'Sending…';
+      try {
+        var res = await fetch(VERIFY_ENDPOINT, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, action: 'resend' })
+        });
+        var data = await res.json().catch(function () { return {}; });
+        /* Deliberately the same answer either way — this can't be used to find
+           out who bought. */
+        show('key-success', (data && data.message) || "If that address has a license, the key is on its way.");
+        document.getElementById('key-email').value = '';
+        tlTrack('key_resend_requested');
+      } catch (e) {
+        show('key-error', 'Connection error. Please try again.');
+      }
+      btn.disabled = false;
+      btn.querySelector('.mc-btn-text').textContent = 'Email me my key';
+    }
 </script>
 </body>
 </html>

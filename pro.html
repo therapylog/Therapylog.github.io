@@ -61,7 +61,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 .err{display:none;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.25);color:var(--danger);border-radius:12px;padding:12px 16px;font-size:13px;text-align:center;margin-bottom:16px}
 .err.show{display:block}
 </style>
-</head>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
 <body>
 <div class="wrap">
   <div class="brand">Therapy<span>Log</span> Pro</div>
@@ -161,6 +161,31 @@ function getRef() {
     try { return localStorage.getItem("tl_ref") || ""; } catch(e){ return ""; }
   } catch(e) { return ""; }
 }
+function tlStoredRef() {
+  try {
+    var a = JSON.parse(localStorage.getItem('tl_attr') || 'null') || {};
+    return (a.ref || a.utm_campaign || a.utm_source || '').toString().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+  } catch (e) { return ''; }
+}
+function tlTrack(name, data) {
+  try { if (typeof window.va === 'function') window.va('event', { name: name, data: data || {} }); } catch (e) {}
+}
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
 var REF = getRef();
 if (REF) {
   var r = document.getElementById("referred");
@@ -215,7 +240,11 @@ function checkout(tier) {
   btn.textContent = "Redirecting…";
 
   var body = { plan: planKey, billing: billing };
-  if (REF) body.ref = REF;
+  /* A ref in the URL wins; otherwise fall back to the first-touch attribution
+     stored when they first landed (an ad click days ago still gets credit). */
+  var ref = REF || tlStoredRef();
+  if (ref) body.ref = ref;
+  tlTrack('checkout_started', { plan: planKey, billing: billing, ref: ref || '' });
 
   fetch(CHECKOUT_ENDPOINT, {
     method: "POST",
