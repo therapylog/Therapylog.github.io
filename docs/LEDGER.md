@@ -15,7 +15,7 @@ duplicating them here.
 one item at a time. This ledger holds direction; the Focus board holds sequence.
 When an item resolves there, reflect it here.
 
-**Last updated:** 18 August 2026
+**Last updated:** 19 August 2026
 
 ---
 
@@ -204,6 +204,64 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
 
 ---
 
+---
+
+## 2A. Billing, licensing and the API — built, NOT live (19 Aug)
+
+The payment/AI backend is a **separate repo**: `therapylog/therapylog-api` (private),
+deployed to Vercel as project `therapylog-api`, serving `api.therapylog.app`. It is
+not part of this repo, and until now this ledger didn't mention it at all — which is
+how two chats ended up with different pictures of the same system.
+
+**Status: production is running the OLD `main` branch.** Verified 19 Aug by probing
+the live API: `/api/verify-license` and `/api/health` both 404, and
+`/api/create-pro-subscription` still reports only four valid plans. The entitlements
+rewrite sits on branch `claude/entitlements-and-delivery` and has only ever been
+deployed to Vercel preview URLs. Don't describe licensing as shipped.
+
+**What that branch contains** (unmerged): Stripe as the source of truth for
+entitlements, replacing the `localStorage.tl_tier` honour system; license keys as
+`HMAC(LICENSE_SECRET, customer.id)` rendered `TL-XXXX-XXXX-XXXX`, deterministic so
+retries and "resend my key" are idempotent; `/api/verify-license`; a rebuilt webhook;
+a lifetime Checkout path; and `/api/health`, a presence-only config diagnostic gated
+on `HEALTH_TOKEN`.
+
+**Environment variables.** 26 across both branches; 10 actually required. The full
+reference — what goes in each, with the live Stripe IDs — is `SETUP INSTRUCTIONS.md`
+in the API repo. Two corrections to make there: it omits `STRIPE_LIFETIME_PRICE`,
+`HEALTH_TOKEN`, `GUIDE_URL` and `AI_SEARCH_MAX_USES`, and `APK_DOWNLOAD_URL` is dead
+(only the old webhook read it) and should be deleted from Vercel. `LICENSE_SECRET` is
+the one to set before any key is issued — unset, keys derive from the Stripe secret
+key, so rotating that key would invalidate every license already in customers' hands.
+
+**Four blockers that are not env-var problems** (found 19 Aug, none fixed):
+
+1. **The Stripe webhook listens for the wrong events.** Both endpoints subscribe to
+   `payment_intent.succeeded` only. The new flow is driven by
+   `checkout.session.completed` plus `customer.subscription.updated` / `.deleted` /
+   `invoice.payment_failed`. As configured, a subscription sale would never issue a
+   license key.
+2. **Two webhook endpoints are still enabled** — `api.therapylog.app/api/webhook` and
+   `therapylog-api.vercel.app/api/webhook`. They have different signing secrets, so
+   `STRIPE_WEBHOOK_SECRET` can only match one. The runbook already says to delete the
+   second; it hasn't been done.
+3. **The lifetime product is archived in Stripe** (`prod_UczEBaf7vOk7Bj`). The $34.99
+   price is active but Checkout refuses archived products, so the lifetime path fails
+   even with `STRIPE_LIFETIME_PRICE` set correctly.
+4. **The app can't accept a license key.** `app.html` has zero references to
+   `tl_activated`, `verify-license`, or a key of any kind — it still gates on
+   `localStorage.tl_tier`. The API half of the rewrite exists; the app half does not.
+   Merging the API branch alone would email buyers a key nothing reads.
+
+Also: the purchase email links to `therapylog.app/guide` twice and there is no
+`guide.html` in this repo.
+
+**Stale copy on `download.html`** (unrelated to billing, found in the same pass):
+still says "148-compound encyclopedia" (it's 130 — the validator doesn't cover this
+file), still advertises "iOS App Store & Google Play — coming very soon", which §1
+explicitly forbids, and still offers the $34.99 "lifetime" tier as an ungated public
+Google Drive link — anyone can download it without paying.
+
 ## 3. Open questions — need a decision, not yet resolved
 
 Numbered so a chat can say "resolved #4" and update this section. These mirror
@@ -253,6 +311,15 @@ the decision items on the Focus board; resolve in either place and sync.
 ## 4. Next steps, roughly in priority order
 
 The Focus board holds the working sequence. This is the summary.
+
+0. **Close the billing loop before recruiting anyone into it** (new, 19 Aug — see
+   §2A). Today a subscription sale issues no license key, the lifetime tier is
+   un-buyable, and the app can't read a key anyway. In order: fix the Stripe webhook
+   event list, delete the duplicate endpoint, un-archive the lifetime product, set
+   `LICENSE_SECRET` and `HEALTH_TOKEN`, wire activation into `app.html`, then merge
+   `claude/entitlements-and-delivery` to `main`. This now sits ahead of #2 below —
+   sending affiliates at a checkout that doesn't deliver would burn the relationships
+   the affiliate program depends on.
 
 1. Generate the four logo concepts, pick one, vector-trace, replace
    `icons/icon.svg` and derived icons. Add the missing `favicon.ico`.
