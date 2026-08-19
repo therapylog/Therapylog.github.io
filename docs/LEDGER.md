@@ -15,7 +15,7 @@ duplicating them here.
 one item at a time. This ledger holds direction; the Focus board holds sequence.
 When an item resolves there, reflect it here.
 
-**Last updated:** 18 August 2026
+**Last updated:** 19 August 2026
 
 ---
 
@@ -152,6 +152,42 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
   returns every result on the report — untracked ones come back as `extras` and
   can be added to the form in one tap. A filter box makes a 100-field form
   navigable.
+**Money, entitlement and delivery (19 Aug)**
+- **The paywall was decorative and is now real.** The gate was
+  `localStorage.tl_tier`, set by an in-app dialog that let anyone pick their own
+  tier; `/api/ai-research` spent the Anthropic budget for anyone who asked, with
+  quotas keyed to an IP and a rate limiter that failed open when Upstash was
+  unset. Buyers, meanwhile, were sent to `?tl_activated=pro` — a parameter the
+  app never read — so paying customers got nothing. Entitlement now comes from
+  Stripe: a license key (HMAC of the customer id, `TL-XXXX-XXXX-XXXX`) emailed
+  on purchase, verified by `/api/verify-license`, cached with an expiry and
+  re-checked daily. Outages don't downgrade anyone; lapses do. **No database** —
+  Stripe holds the billing truth and the key.
+- **Delivery is the installed PWA, not an APK.** `/download` was selling a
+  $34.99 APK behind a `drive.google.com` link that redirects to a Google
+  sign-in page (the file was never shared), and the button charged nothing.
+  Replaced with a real $34.99 Checkout → license key → Add to Home Screen, on
+  iPhone and Android. Updates were always automatic (the service worker is
+  network-first); an APK is what would have broken that.
+- **Sonnet 5 for the assistant** (Haiku was too shallow for protocol design,
+  rehab and meal planning), adaptive thinking at `effort: medium`, cached system
+  prompt, and `maxDuration` 10s → 60s because a Sonnet 5 answer with web search
+  does not fit in ten seconds. Costs roughly 3× Haiku — watch the average
+  against the 145/month cap.
+- **Backups are surfaced properly**, since local-only data is the trade-off
+  users get burned by: weekly nag (was 30 days), Web Share to iCloud/Drive/Files
+  on mobile, a linked file that rewrites itself weekly on desktop Chromium, and
+  a Profile card stating plainly that this device is the only copy.
+- **One email list.** `/support` posted straight to Mailchimp while the privacy
+  policy named only Resend; it now posts to `launch-notify` like everything
+  else. Signups finally get a welcome email, and sales notify hello@.
+- **Attribution without a server:** first-touch `utm_*`/`ref`/`rdt_cid` stored
+  on landing and passed to Stripe as `ref`, so Stripe payments show which
+  campaign produced them. Vercel Web Analytics added to all 13 pages — note it
+  only collects once the domain is served by Vercel rather than GitHub Pages.
+- Manual steps live in `docs/LAUNCH-CHECKLIST.md` (Vercel env vars, the
+  duplicate Stripe webhook to delete, the DNS move, test-mode purchase run).
+
 - **Two more CI guards** (`scripts/validate-markers.js`,
   `scripts/validate-bloodwork-flow.js`, workflow `Validate bloodwork`): registry
   integrity and namespace/unit/optimal-band drift, plus 35 assertions that run
@@ -267,7 +303,11 @@ The Focus board holds the working sequence. This is the summary.
    (named author) and #3 above.
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
-9. Verify the marker registry's LOINC codes against real vendor payloads
+9. Decide the BYOK price. At $8.99/mo it sits $1 under Pro while the customer
+   also pays their own API costs, so nobody rational picks it. Either drop it
+   (~$3.99) or fold BYOK into the lifetime license. Pricing was deliberately
+   left unchanged for the 19 Aug plumbing work.
+10. Verify the marker registry's LOINC codes against real vendor payloads
    (Quest/LabCorp) before any lab API work, and check `getUnmappedLog()` output
    from real scans to see which marker names the registry is still missing.
 
