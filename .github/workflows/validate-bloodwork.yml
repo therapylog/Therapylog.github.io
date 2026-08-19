@@ -1,0 +1,16 @@
+name: Validate bloodwork
+on:
+  push:
+    paths: ['app.html', 'scripts/**', '.github/workflows/validate-bloodwork.yml']
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: Marker registry integrity
+        run: node scripts/validate-markers.js
+      - name: Bloodwork flow (scan → save → flag → AI context)
+        run: node scripts/validate-bloodwork-flow.js
