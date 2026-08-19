@@ -96,8 +96,18 @@ This is educational, not a diagnosis — bring the trend to your clinician.`;
     if (clip) {
       const el = page.locator(clip).first();
       await el.scrollIntoViewIfNeeded();
-      await page.waitForTimeout(300);
+      /* An element screenshot captures whatever paints over the element's box,
+         and the bottom nav is position:fixed — on a card taller than the gap
+         above it the nav lands across the last lines. The nav is not part of the
+         card, so hide it for the shot and put it back afterwards. */
+      await page.addStyleTag({ id: 'shot-hide-nav', content: '.nav,.nav-btn,.fab,.chat-fab{display:none!important}' });
+      await page.waitForTimeout(200);
       await el.screenshot({ path: file });
+      await page.evaluate(() => {
+        document.querySelectorAll('style').forEach(s => {
+          if (s.textContent.includes('.nav,.nav-btn,.fab,.chat-fab{display:none')) s.remove();
+        });
+      });
     } else {
       await page.screenshot({ path: file, fullPage: !!full });
     }

@@ -1,0 +1,27 @@
+name: Validate user guide
+on:
+  push:
+    paths:
+      - 'guide.html'
+      - 'app.html'
+      - 'index.html'
+      - 'download.html'
+      - 'support.html'
+      - 'pro.html'
+      - 'assets/guide/**'
+      - 'docs/compounds.json'
+      - 'scripts/validate-guide.js'
+      - '.github/workflows/validate-guide.yml'
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      # guide.html is what a paying customer reads first, so every navigation
+      # path, control name, count and screenshot in it has to still be true of
+      # the app that shipped.
+      - name: User guide matches the app
+        run: node scripts/validate-guide.js
