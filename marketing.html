@@ -13,12 +13,15 @@
   --text:#e8edf5;--text2:#8a95a3;--text3:#4a5568;
   --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
   --sidebar:220px;
+  /* Height of the fixed mobile tab bar, measured at runtime by sizeChrome().
+     The fallback keeps the layout safe before JS runs / if JS fails. */
+  --navh:0px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
-.app{display:grid;grid-template-columns:var(--sidebar) 1fr;height:100vh;overflow:hidden}
-@media(max-width:768px){.app{grid-template-columns:1fr}.sidebar{display:none}.sidebar.open{display:flex;position:fixed;inset:0;z-index:200;width:80vw;max-width:260px}.main{padding-top:56px}.mobile-nav{display:flex}}
+.app{display:grid;grid-template-columns:var(--sidebar) 1fr;height:100vh;height:100dvh;overflow:hidden}
+@media(max-width:768px){:root{--navh:calc(72px + var(--sb))}.app{grid-template-columns:1fr}.sidebar{display:none}.sidebar.open{display:flex;position:fixed;inset:0;z-index:200;width:80vw;max-width:260px}.main{padding-top:calc(56px + var(--st))}.mobile-nav{display:flex}}
 .sidebar{display:flex;flex-direction:column;background:var(--panel);border-right:1px solid var(--border);padding:0;overflow:hidden;padding-top:var(--st)}
 .sidebar-logo{display:flex;align-items:center;gap:10px;padding:18px 16px 14px;border-bottom:1px solid var(--border)}
 .logo-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow);flex-shrink:0}
@@ -37,7 +40,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .sync-dot.ok{background:var(--accent)}
 .sync-dot.syncing{background:var(--amber);animation:pulse 1s infinite}
 @keyframes pulse{50%{opacity:.4}}
-.mobile-nav{display:none;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,9,12,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:56px;padding:0 16px;padding-top:var(--st);align-items:center;justify-content:space-between}
+.mobile-nav{display:none;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,9,12,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:calc(56px + var(--st));padding:0 16px;padding-top:var(--st);align-items:center;justify-content:space-between}
 .mobile-logo{font-size:15px;font-weight:700}
 .mobile-logo span{color:var(--accent)}
 .icon-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px}
@@ -46,10 +49,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .mob-tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;font-weight:600;color:var(--text3);padding:6px 12px;border:none;background:none;cursor:pointer}
 .mob-tab.active{color:var(--accent)}
 .mob-tab svg{width:20px;height:20px}
-.main{display:flex;flex-direction:column;overflow:hidden;height:100vh}
+.main{display:flex;flex-direction:column;overflow:hidden;height:100vh;height:100dvh}
 .view{display:none;flex:1;overflow-y:auto;padding:24px;padding-bottom:calc(24px + var(--sb))}
 .view.active{display:block}
-@media(max-width:768px){.view{padding:16px;padding-bottom:calc(80px + var(--sb))}}
+@media(max-width:768px){.view{padding:16px;padding-bottom:calc(var(--navh) + 28px)}}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px}
 .section-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
 .page-title{font-size:22px;font-weight:700;letter-spacing:-0.02em;margin-bottom:4px}
@@ -106,7 +109,7 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
 .char-fill.warn{background:var(--amber)}
 .char-fill.over{background:var(--red)}
 .char-count{font-size:10px;color:var(--text3);text-align:right;margin-top:3px}
-.toast{position:fixed;bottom:calc(80px + var(--sb));left:50%;transform:translateX(-50%) translateY(10px);background:var(--accent);color:#0a0c0f;font-size:13px;font-weight:700;padding:10px 18px;border-radius:9px;opacity:0;pointer-events:none;transition:all .25s;z-index:500;white-space:nowrap}
+.toast{position:fixed;bottom:calc(var(--navh) + 24px);left:50%;transform:translateX(-50%) translateY(10px);background:var(--accent);color:#0a0c0f;font-size:13px;font-weight:700;padding:10px 18px;border-radius:9px;opacity:0;pointer-events:none;transition:all .25s;z-index:500;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:sp .6s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
@@ -117,6 +120,7 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
 .settings-section{margin-bottom:24px}
 .settings-section h3{font-size:14px;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 .brief-box{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;color:var(--text2)}
+summary::-webkit-details-marker{display:none}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;display:none}
 .overlay.open{display:block}
 </style>
@@ -295,7 +299,7 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
     </div>
   </div>
   <div class="form-row"><label>Brief / angle <span style="color:var(--text3);font-weight:400">(or leave blank for general)</span></label>
-    <textarea id="gen-topic" rows="3" placeholder="e.g. Announce iOS App Store launch  •  Tease wearable sync  •  Explain AI lab scanner  •  Women's BHRT angle  •  Compare to manual tracking"></textarea>
+    <textarea id="gen-topic" rows="3" placeholder="e.g. Announce the home-screen install  •  Tease wearable sync  •  Explain AI lab scanner  •  Women's BHRT angle  •  Compare to manual tracking"></textarea>
   </div>
   <div class="form-grid">
     <div class="form-row"><label>Feature focus</label>
@@ -304,9 +308,9 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
         <option value="ai_assistant">AI Research Assistant</option>
         <option value="lab_scanner">AI Lab Scanner</option>
         <option value="encyclopedia">130-Compound Encyclopedia</option>
-        <option value="bloodwork">Bloodwork Tracking</option>
+        <option value="bloodwork">Bloodwork Tracking (100 markers)</option>
         <option value="clinical_reports">Clinical Reports</option>
-        <option value="ios_launch">🆕 iOS App Store Launch</option>
+        <option value="install_push">🆕 Home-Screen Install (no store needed)</option>
         <option value="wearable_tease">📡 Wearable Sync — Coming Soon</option>
         <option value="lyt_band">⌚ LYT Band — Coming Soon</option>
         <option value="affiliate">Affiliate Program (30% recurring)</option>
@@ -350,7 +354,7 @@ label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bot
   <div class="page-sub">Pre-built and custom campaigns. Load any into the generator.</div>
   <button class="btn btn-primary" onclick="showNewCampaign()" style="margin-bottom:16px">+ New Campaign</button>
   <div id="campaigns-list">
-    <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">🚀 App Store Launch</div><div class="campaign-badge">Active</div></div><div class="campaign-body">iOS App Store is live — announce across all platforms, drive downloads, build legitimacy for the app.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('launch')">Generate content →</button></div></div></div>
+    <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">🚀 Launch Push</div><div class="campaign-badge">Active</div></div><div class="campaign-body">App is live at therapylog.app/app — free tier, no signup, installs to the home screen on iPhone and Android. Announce across all platforms and drive first use.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('launch')">Generate content →</button></div></div></div>
     <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">📡 Wearable Sync Tease</div><div class="campaign-badge" style="background:rgba(251,191,36,.1);color:var(--amber)">Coming Soon</div></div><div class="campaign-body">Build anticipation for HealthKit, BLE devices, LYT Band. Soon your BP cuff, scale, and CGM all flow in automatically.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('wearable')">Generate teasers →</button></div></div></div>
     <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">👩 Women's BHRT</div><div class="campaign-badge" style="background:rgba(167,139,250,.1);color:var(--purple)">Opportunity</div></div><div class="campaign-body">Female hormone tracking is massively underserved. Estrogen, progesterone, testosterone for women — TherapyLog tracks all of it.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('women')">Generate content →</button></div></div></div>
     <div class="campaign-card"><div class="campaign-header"><div class="campaign-name">🤖 AI Feature Spotlight</div><div class="campaign-badge">Active</div></div><div class="campaign-body">AI research assistant + lab scanner are the #1 value props. Showcase them to drive Pro conversions.<div class="btn-row"><button class="btn btn-secondary" onclick="loadCampaign('ai')">Generate content →</button></div></div></div>
@@ -648,8 +652,8 @@ function saveSettings(){
 function g(id){const el=document.getElementById(id);return el?el.value.trim():'';}
 function updateKS(id,ok){const el=document.getElementById(id);if(!el)return;el.textContent=ok?'✓ Set':'Missing';el.className='key-status '+(ok?'ok':'missing');}
 function updateDalleBtn(){const b=document.getElementById('dalle-btn');if(b)b.style.display=CFG.openai?'inline-flex':'none';}
-function persist(){CFG.library=STATE.library;CFG.campaigns=STATE.campaigns;try{localStorage.setItem(SK,JSON.stringify(CFG));}catch(e){}}
-function clearData(){if(!confirm('Clear all local data?'))return;try{localStorage.removeItem(SK);}catch(e){}location.reload();}
+function persist(){CFG.library=STATE.library;CFG.campaigns=STATE.campaigns;try{localStorage.setItem(SK,JSON.stringify(CFG));}catch(e){toast('Could not save locally — browser storage is full');}schedulePush();}
+function clearData(){if(!confirm('Clear all local data?'))return;try{localStorage.removeItem(SK);localStorage.removeItem(SK_V3);}catch(e){}location.reload();}
 
 // ── SYSTEM PROMPT ─────────────────────────────────────────
 const BASE_SYSTEM=`You are the marketing AI for TherapyLog, a hormone therapy and peptide tracking app.
@@ -665,21 +669,23 @@ TherapyLog is a personal health tracking app for adults managing:
 
 KEY FEATURES:
 - AI research assistant: 130-compound knowledge, answers grounded in PubMed, personalized to logged data, 145 questions/month Pro
-- AI lab scanner: photograph any bloodwork report, auto-fills 50+ fields, flags out-of-range values
+- AI lab scanner: photograph or upload any bloodwork report (photo, screenshot or PDF), auto-fills up to 100 markers, flags out-of-range values
 - 130-compound encyclopedia: mechanism, dosing, half-life, side effects, interactions, monitoring
-- Full bloodwork tracking: 50+ markers with trend visualization
+- Full bloodwork tracking: 100 markers with trend visualization, plus manual entry for anything the scanner misses
 - Injection/dose logging with site rotation and reconstitution calculator
 - Clinical reports: formatted summaries for doctor appointments
 - Body composition, symptom, and side-effect logging
 - Dose calculator with syringe diagram
 
-PLATFORMS: Web only, on purpose (therapylog.app/app) — installable as a home-screen app (PWA) on iOS and Android with push dose reminders. NOT in the App Store or Google Play: listing would mean cutting the gray-area compound information the community relies on. Never claim store availability; frame web-first as the integrity position.
+PLATFORMS: Web only, on purpose (therapylog.app/app) — installable as a home-screen app (PWA) on iOS and Android with push dose reminders. NOT in the App Store or Google Play: listing would mean cutting the gray-area compound information the community relies on. Never claim store availability, a "download", an App Store/Play listing, or store reviews — none exist and saying so is a false claim. "Install" always means Add to Home Screen. Frame web-first as the integrity position.
 
 PRICING:
 - Free: core tracking, no AI, no signup required — try at therapylog.app/app
 - Pro Managed: $9.99/month or $99.99/year (AI included)
 - BYOK: $8.99/month or $89.99/year (unlimited AI, own Anthropic key)
+- BYOK Lifetime: $34.99 one-time, pay once, no subscription (own Anthropic key)
 - Affiliate perk: referral links give customers 1 month free on annual
+Never invent or round a price. If a price is not on this list, do not state one.
 
 === UPCOMING FEATURES (tease — don't overpromise) ===
 - Apple HealthKit + Google Health Connect: wearable data auto-imports (BP, glucose, weight, heart rate, sleep)
@@ -716,6 +722,9 @@ COMMUNITIES: r/Testosterone, r/PEDs, r/Peptides, r/longevity, r/TRT, r/semagluti
 App: therapylog.app/app | Pro: therapylog.app/pro | Download: therapylog.app/download | Affiliates: therapylog.app/partnership
 Affiliate link format: therapylog.app/pro?ref=CODE`;
 
+/* Output budget per platform. A flat 1000 tokens (~4k chars) silently cut
+   Reddit posts, newsletters and emails off mid-sentence. */
+const MAX_TOKENS={twitter:500,instagram_story:500,ad_copy:700,review_reply:700,facebook:1200,tiktok:900,youtube:2000,reddit:3000,email:2500,newsletter:2500,affiliate:2000,community:1200};
 const CHAR_LIMITS={facebook:2200,instagram_story:2200,twitter:280,reddit:40000,tiktok:2200,youtube:5000,email:0,newsletter:0,ad_copy:500,affiliate:0,review_reply:1000,community:0};
 
 const PLATFORM_GUIDES={
@@ -729,7 +738,7 @@ const PLATFORM_GUIDES={
   newsletter:'Newsletter section — 2-3 paragraphs, educational and informative, links naturally to app.',
   ad_copy:'Meta ad. Line 1: HEADLINE (under 40 chars). Line 2: PRIMARY TEXT (under 125 chars — hook). Body (under 500). CTA. Advertise the tracker, not the therapy.',
   affiliate:'Content for an affiliate to share with their audience. Authentic to their voice. Include referral link.',
-  review_reply:'App Store/Google Play review response. Professional, warm, personal. Under 200 words.',
+  review_reply:'Reply to a public review or comment — Trustpilot, a Reddit thread, a Facebook group post. Professional, warm, personal, founder voice. Under 200 words.',
   community:'Community reply or post. Genuine founder voice. Answer first, mention app naturally. No hard sell.',
 };
 
@@ -753,11 +762,11 @@ const TONE_GUIDES={
 
 const FEATURE_BRIEFS={
   ai_assistant:'FOCUS ON: AI research assistant. It knows your protocol, your labs. Answers grounded in real research. Like a knowledgeable friend on call 24/7.',
-  lab_scanner:'FOCUS ON: AI lab scanner. Photograph any lab report → auto-fills everything in seconds. Flags what matters.',
+  lab_scanner:'FOCUS ON: AI lab scanner. Photo, screenshot or PDF of any lab report → auto-fills up to 100 markers in seconds. Flags what matters. Anything it misses can be typed in by hand.',
   encyclopedia:'FOCUS ON: 130-compound encyclopedia. Everything about every compound — mechanism, dosing, half-life, interactions. Harm reduction as a core value.',
-  bloodwork:'FOCUS ON: Bloodwork trend tracking. 50+ markers, visualized. See where things are heading before they become problems.',
+  bloodwork:'FOCUS ON: Bloodwork trend tracking. 100 markers, visualized. See where things are heading before they become problems.',
   clinical_reports:'FOCUS ON: Clinical reports. Show up to your doctor appointment actually informed, with data formatted they understand.',
-  ios_launch:'ANGLE: iOS App Store launch. TherapyLog is officially in the App Store. Legitimate, searchable, easy to share.',
+  install_push:'ANGLE: Home-screen install. Open therapylog.app/app in Safari or Chrome, add to home screen, done — real app icon, push dose reminders, updates itself, no store, no download, no account. Web-first is the integrity position, not a limitation.',
   wearable_tease:'ANGLE: Tease upcoming wearable sync. HealthKit, BLE devices, LYT Band. Your BP cuff, scale, CGM — data flowing in automatically. No more manual entry.',
   lyt_band:'ANGLE: LYT Band integration coming. Smart wristband tracking BP, glucose, biometrics passively — syncing directly into TherapyLog.',
   affiliate:'ANGLE: Affiliate program. First 20 partners get 30% recurring forever. Audience gets 1 month free on annual. Real recurring income for a tool they\'d recommend anyway.',
@@ -789,40 +798,45 @@ async function generate(){
   const system=buildSystem(STATE.platform,audience,tone,feature,affiliate,STATE.variants,CFG.voiceNotes);
   const userMsg=topic||'Write a strong general-purpose introduction to TherapyLog for this audience.';
   try{
+    const budget=MAX_TOKENS[STATE.platform]||1200;
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model,max_tokens:STATE.variants===3?2000:1000,system,messages:[{role:'user',content:userMsg}]}),
+      body:JSON.stringify({model,max_tokens:Math.min(8000,STATE.variants===3?budget*3:budget),system,messages:[{role:'user',content:userMsg}]}),
     });
     const data=await resp.json();
     if(!resp.ok){
       if(resp.status===401)throw new Error('API key rejected — check your Anthropic key in Settings.');
       if(resp.status===429)throw new Error('Rate limited — wait a moment and retry.');
-      throw new Error((data.error&&data.error.message)||'Request failed');
+      if(resp.status===529)throw new Error('Anthropic is overloaded — retry in a moment.');
+      throw new Error((data.error&&data.error.message)||('Request failed ('+resp.status+')'));
     }
     const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
     STATE.lastOutput=text;
     renderOutput(text);
+    if(data.stop_reason==='max_tokens')showErr('Output hit the length cap and may be cut off — regenerate, or ask for something shorter.');
   }catch(e){showErr(e.message);}
   finally{setGenLoading(false);}
 }
 
 async function refine(dir){
-  if(!STATE.lastOutput||!CFG.anthropic)return;
+  if(!STATE.lastOutput){showErr('Generate something first.');return;}
+  if(!CFG.anthropic){showErr('No Anthropic API key. Go to Settings.');return;}
+  hideErr();
   const dirMap={shorter:'Make this significantly shorter and more punchy. Keep the best parts.',punchier:'Make this more punchy, energetic, and compelling. Stronger hook.',angle:'Rewrite from a completely different angle. Same topic, fresh approach.'};
   setGenLoading(true);
   try{
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'content-type':'application/json','x-api-key':CFG.anthropic,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:CFG.model||'claude-sonnet-5',max_tokens:800,system:BASE_SYSTEM+'\nRefine the content as instructed. Return only the refined content.',messages:[{role:'user',content:dirMap[dir]+'\n\nOriginal:\n'+STATE.lastOutput}]}),
+      body:JSON.stringify({model:CFG.model||'claude-sonnet-5',max_tokens:Math.min(8000,(MAX_TOKENS[STATE.platform]||1200)+400),system:BASE_SYSTEM+'\nRefine the content as instructed. Return only the refined content.',messages:[{role:'user',content:dirMap[dir]+'\n\nOriginal:\n'+STATE.lastOutput}]}),
     });
     const data=await resp.json();
-    if(resp.ok){
-      const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
-      STATE.lastOutput=text;renderOutput(text);toast('Refined ✓');
-    }
-  }catch(e){toast('Refine error: '+e.message);}
+    if(!resp.ok)throw new Error((data.error&&data.error.message)||('Refine failed ('+resp.status+')'));
+    const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+    if(!text)throw new Error('Refine came back empty — try again.');
+    STATE.lastOutput=text;renderOutput(text);toast('Refined ✓');
+  }catch(e){showErr(e.message);}
   finally{setGenLoading(false);}
 }
 
@@ -834,24 +848,51 @@ function renderOutput(text){
   const wrap=document.getElementById('gen-output-wrap');
   const out=document.getElementById('gen-output');
   wrap.style.display='block';
-  const parts=text.split(/={3,}/);
+  /* Only split when three variants were actually requested. The model happily
+     writes '===' inside a single email or newsletter, which used to shatter one
+     post into bogus variants. */
+  const parts=STATE.variants===3?text.split(/^={3,}$/m).map(p=>p.trim()).filter(Boolean):[];
+  STATE.variantList=parts.length>1?parts:[text];
   if(parts.length>1){
-    out.innerHTML=parts.map((p,i)=>{const t=p.trim();if(!t)return'';return`<div class="variant-card"><div class="variant-label">Variant ${i+1}</div>${esc(t)}</div>`;}).join('');
+    out.innerHTML=parts.map((t,i)=>`<div class="variant-card"><div class="variant-label">Variant ${i+1}<button class="btn btn-secondary" style="float:right;padding:2px 8px;font-size:11px" onclick="copyVariant(${i})">📋 Copy</button></div>${esc(t)}</div>`).join('');
   }else{
     out.innerHTML=`<div class="output-box">${esc(text)}</div>`;
   }
-  const limit=CHAR_LIMITS[STATE.platform],len=text.length;
+  /* measure the longest variant, not the concatenation */
+  const limit=CHAR_LIMITS[STATE.platform],len=STATE.variantList.reduce((m,v)=>Math.max(m,v.length),0);
   const fill=document.getElementById('char-fill'),count=document.getElementById('char-count');
   if(limit>0){
     const pct=Math.min(100,(len/limit)*100);
     fill.style.width=pct+'%';
     fill.className='char-fill'+(pct>100?' over':pct>80?' warn':'');
-    count.textContent=len.toLocaleString()+' / '+limit.toLocaleString()+' chars';
-  }else{fill.style.width='0%';count.textContent=len.toLocaleString()+' chars';}
+    count.textContent=len.toLocaleString()+' / '+limit.toLocaleString()+' chars'+(STATE.variantList.length>1?' (longest variant)':'');
+  }else{fill.style.width='0%';count.textContent=len.toLocaleString()+' chars'+(STATE.variantList.length>1?' (longest variant)':'');}
 }
 
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
-function copyOutput(){if(STATE.lastOutput)navigator.clipboard.writeText(STATE.lastOutput).then(()=>toast('Copied ✓'));}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+
+/* navigator.clipboard is undefined on file:// and any non-secure origin, and on
+   iOS it rejects whenever the write lands outside the tap handler. Both used to
+   fail with no toast at all, so Copy looked like a dead button. */
+function copyText(text,okMsg){
+  if(!text)return;
+  const done=()=>toast(okMsg||'Copied ✓');
+  const fallback=()=>{
+    try{
+      const ta=document.createElement('textarea');
+      ta.value=text;ta.setAttribute('readonly','');
+      ta.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+      document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,text.length);
+      const ok=document.execCommand('copy');
+      ta.remove();
+      ok?done():toast('Copy failed — select the text and copy by hand');
+    }catch(e){toast('Copy failed — select the text and copy by hand');}
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(done).catch(fallback);
+  else fallback();
+}
+function copyOutput(){copyText(STATE.lastOutput);}
+function copyVariant(i){const v=(STATE.variantList||[])[i];copyText(v,'Variant '+(i+1)+' copied ✓');}
 
 // ── LIBRARY ───────────────────────────────────────────────
 function saveToLibrary(){
@@ -872,9 +913,9 @@ function renderLibrary(){
   if(!items.length){list.innerHTML='<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px">No content found.</div>';return;}
   list.innerHTML=items.map(item=>`<div class="lib-item"><div class="lib-item-top"><span class="lib-platform">${item.platform}</span><span class="lib-date">${item.date}</span></div><div class="lib-content">${esc(item.content)}</div><div class="lib-actions"><button class="btn btn-secondary" onclick="copyLibItem(${item.id})">📋 Copy</button><button class="btn btn-secondary" onclick="sendLibToSchedule(${item.id})">📅 Schedule</button><button class="btn btn-danger" onclick="deleteLibItem(${item.id})">🗑</button></div></div>`).join('');
 }
-function copyLibItem(id){const item=STATE.library.find(i=>i.id===id);if(item)navigator.clipboard.writeText(item.content).then(()=>toast('Copied ✓'));}
-function sendLibToSchedule(id){const item=STATE.library.find(i=>i.id===id);if(!item)return;document.getElementById('sched-content').value=item.content;showView('schedule',document.querySelector('[onclick*="schedule"]'));}
-function deleteLibItem(id){STATE.library=STATE.library.filter(i=>i.id!==id);persist();renderLibrary();toast('Deleted');}
+function copyLibItem(id){const item=STATE.library.find(i=>String(i.id)===String(id));if(item)copyText(item.content);}
+function sendLibToSchedule(id){const item=STATE.library.find(i=>String(i.id)===String(id));if(!item)return;document.getElementById('sched-content').value=item.content;showView('schedule',null);}
+function deleteLibItem(id){STATE.library=STATE.library.filter(i=>String(i.id)!==String(id));persist();renderLibrary();toast('Deleted');}
 function sendToSchedule(){const content=STATE.lastOutput;if(!content)return;document.getElementById('sched-content').value=content;showView('schedule',null);}
 
 // ── POSTIZ ────────────────────────────────────────────────
@@ -883,9 +924,14 @@ async function sendPostiz(){
   const key=CFG.postizKey,baseUrl=(CFG.postizUrl||'https://app.postiz.com').replace(/\/$/,'');
   if(!content){showSchedStatus('Add content first.','error');return;}
   if(!key){showSchedStatus('Add Postiz API key in Settings.','error');return;}
+  let postDate;
+  if(dateVal){
+    const d=new Date(dateVal);
+    if(isNaN(d.getTime())){showSchedStatus('That schedule date is not valid.','error');return;}
+    postDate=d.toISOString();
+  }else postDate=new Date(Date.now()+3600000).toISOString();
   const btn=document.getElementById('sched-btn'),t=document.getElementById('sched-btn-text');
   btn.disabled=true;t.innerHTML='<span class="spin"></span> Sending…';
-  const postDate=dateVal?new Date(dateVal).toISOString():new Date(Date.now()+3600000).toISOString();
   try{
     const resp=await fetch(`${baseUrl}/api/posts`,{method:'POST',headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({type:'post',date:postDate,shortLink:false,content:[{content,id:platform}]})});
     if(resp.ok){showSchedStatus('✓ Scheduled for '+new Date(postDate).toLocaleString(),'ok');toast('Sent to Postiz ✓');}
@@ -893,7 +939,16 @@ async function sendPostiz(){
   }catch(e){showSchedStatus('Could not reach Postiz — check URL and key in Settings.','error');}
   finally{btn.disabled=false;t.textContent='📅 Send to Postiz';}
 }
-function showSchedStatus(msg,type){const el=document.getElementById('sched-status');el.style.display='block';el.textContent=msg;el.style.cssText+=`;background:${type==='ok'?'rgba(74,222,154,.08)':'rgba(248,113,113,.08)'};border:1px solid ${type==='ok'?'rgba(74,222,154,.2)':'rgba(248,113,113,.2)'};color:${type==='ok'?'var(--accent)':'var(--red)'}`;}
+function showSchedStatus(msg,type){
+  const el=document.getElementById('sched-status');if(!el)return;
+  const good=type==='ok';
+  el.textContent=msg;
+  /* set, do not append — cssText += grew the attribute on every call */
+  el.style.cssText='display:block;border-radius:8px;padding:10px 12px;font-size:12px;margin-top:10px;'
+    +'background:'+(good?'rgba(74,222,154,.08)':'rgba(248,113,113,.08)')+';'
+    +'border:1px solid '+(good?'rgba(74,222,154,.2)':'rgba(248,113,113,.2)')+';'
+    +'color:'+(good?'var(--accent)':'var(--red)');
+}
 
 // ── VISUALS ───────────────────────────────────────────────
 async function generateBrief(){
@@ -908,35 +963,57 @@ async function generateBrief(){
   try{
     const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:CFG.model||'claude-sonnet-5',max_tokens:800,system,messages:[{role:'user',content:userMsg}]})});
     const data=await resp.json();
-    if(resp.ok){
-      const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
-      STATE.lastBrief=text;
-      document.getElementById('vis-brief').innerHTML=text.replace(/\n/g,'<br>');
-      document.getElementById('vis-output').style.display='block';
-      updateDalleBtn();
-    }
+    if(!resp.ok)throw new Error((data.error&&data.error.message)||('Request failed ('+resp.status+')'));
+    const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+    if(!text)throw new Error('The brief came back empty — try again.');
+    STATE.lastBrief=text;
+    document.getElementById('vis-brief').innerHTML=esc(text);
+    document.getElementById('vis-output').style.display='block';
+    updateDalleBtn();
   }catch(e){toast('Error: '+e.message);}
   finally{btn.disabled=false;t.textContent='🎨 Generate Image Brief';}
 }
+/* The brief numbers its sections, and the DALL-E prompt often wraps over
+   several lines. Take the whole section, not just the first line. */
+function dallePromptFromBrief(brief){
+  const lines=String(brief||'').split('\n');
+  const idx=lines.findIndex(l=>/^\s*1\./.test(l)||/dall-?e/i.test(l));
+  if(idx<0)return String(brief||'').slice(0,900).trim();
+  const chunk=[];
+  for(let i=idx;i<lines.length;i++){
+    if(i>idx&&/^\s*[2-9]\./.test(lines[i]))break;
+    chunk.push(lines[i]);
+  }
+  return chunk.join(' ')
+    .replace(/^\s*1\.\s*/,'')
+    .replace(/^\s*DALL-?E\s*3?\s*Prompt\s*:\s*/i,'')
+    .replace(/\s+/g,' ').trim();
+}
 async function generateDalle(){
-  const key=CFG.openai;if(!key)return;
-  const prompt=STATE.lastBrief.split('\n').find(l=>l.startsWith('1.')||l.toLowerCase().includes('dall-e'))||STATE.lastBrief.slice(0,400);
+  const key=CFG.openai;if(!key){toast('Add an OpenAI key in Settings');return;}
+  const prompt=dallePromptFromBrief(STATE.lastBrief);
+  if(!prompt){toast('Generate an image brief first');return;}
+  const btn=document.getElementById('dalle-btn');if(btn)btn.disabled=true;
   toast('Generating with DALL-E 3…');
   try{
-    const resp=await fetch('https://api.openai.com/v1/images/generations',{method:'POST',headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({model:'dall-e-3',prompt:prompt.replace(/^.*?:\s*/,''),n:1,size:'1024x1024'})});
+    const resp=await fetch('https://api.openai.com/v1/images/generations',{method:'POST',headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({model:'dall-e-3',prompt,n:1,size:'1024x1024'})});
     const data=await resp.json();
-    if(data.data?.[0]?.url){
-      const out=document.getElementById('dalle-output');
-      out.innerHTML=`<img src="${data.data[0].url}" style="width:100%;border-radius:10px;margin-top:12px"><a href="${data.data[0].url}" download class="btn btn-secondary" style="margin-top:8px;display:inline-flex">⬇ Download</a>`;
-      toast('Generated ✓');
-    }else toast('DALL-E error: '+(data.error?.message||'Unknown'));
+    const url=data.data?.[0]?.url;
+    if(!resp.ok||!url){toast('DALL-E error: '+(data.error?.message||('HTTP '+resp.status)));return;}
+    const out=document.getElementById('dalle-output');
+    const safe=encodeURI(url).replace(/"/g,'%22');
+    /* a download attribute is ignored cross-origin, so open it in a tab and say
+       so — OpenAI's URLs also expire after about an hour */
+    out.innerHTML=`<img src="${safe}" alt="DALL-E result" style="width:100%;border-radius:10px;margin-top:12px"><a href="${safe}" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:8px;display:inline-flex">↗ Open full size</a><div style="font-size:11px;color:var(--text3);margin-top:6px">Long-press or right-click the image to save it. This link expires about an hour after generation.</div>`;
+    toast('Generated ✓');
   }catch(e){toast('Error: '+e.message);}
+  finally{if(btn)btn.disabled=false;}
 }
-function copyBrief(){if(STATE.lastBrief)navigator.clipboard.writeText(STATE.lastBrief).then(()=>toast('Prompt copied ✓'));}
+function copyBrief(){copyText(STATE.lastBrief,'Prompt copied ✓');}
 
 // ── CAMPAIGNS ─────────────────────────────────────────────
 const PRESETS={
-  launch:{brief:'TherapyLog is now live on the iOS App Store. Announce this milestone — legitimate, searchable, accessible. Drive downloads. Build excitement. Angle: this is the tracker the TRT/peptide community has been waiting for, now officially in the App Store.',feature:'ios_launch',tone:'hype'},
+  launch:{brief:'TherapyLog is live at therapylog.app/app — free tier, no signup, works in the browser and installs to the home screen on iPhone and Android in two taps. Announce it. Angle: this is the tracker the TRT/peptide community has been waiting for, and you can be using it thirty seconds from now. Do NOT claim any App Store or Google Play listing.',feature:'install_push',tone:'hype'},
   wearable:{brief:'Tease upcoming Apple HealthKit, Bluetooth device sync, and LYT Band integration. Build anticipation. Your BP cuff, scale, CGM, and smart wristband will all feed data into TherapyLog automatically. No more manual entry. Coming soon.',feature:'wearable_tease',tone:'hype'},
   women:{brief:"Women managing hormone therapy (estrogen, progesterone, testosterone) have almost nothing built for them. TherapyLog tracks all of it. This is an underserved audience that deserves a real tool.",feature:'',audience:'women',tone:'community'},
   ai:{brief:'The AI research assistant is the star feature — it knows your protocol, your labs. Answers questions grounded in real published research. The lab scanner reads any bloodwork photo. Showcase these.',feature:'ai_assistant',tone:'educational'},
@@ -956,7 +1033,26 @@ function createCampaign(){
   const name=g('nc-name'),goal=g('nc-goal');
   if(!name||!goal){toast('Add name and goal');return;}
   STATE.campaigns.push({id:Date.now(),name,goal});persist();hideNewCampaign();
+  document.getElementById('nc-name').value='';document.getElementById('nc-goal').value='';
+  renderCampaigns();
   document.getElementById('gen-topic').value=goal;showView('generate',null);toast('Campaign created → Generate');
+}
+function renderCampaigns(){
+  const host=document.getElementById('custom-campaigns');
+  if(!host)return;
+  const list=STATE.campaigns||[];
+  host.innerHTML=list.map(c=>`<div class="campaign-card"><div class="campaign-header"><div class="campaign-name">${esc(c.name)}</div><div class="campaign-badge" style="background:var(--panel3);color:var(--text2)">Custom</div></div><div class="campaign-body">${esc(c.goal)}<div class="btn-row"><button class="btn btn-secondary" onclick="loadCustomCampaign('${String(c.id).replace(/[^A-Za-z0-9_-]/g,'')}')">Generate content →</button><button class="btn btn-danger" onclick="deleteCampaign('${String(c.id).replace(/[^A-Za-z0-9_-]/g,'')}')">🗑</button></div></div></div>`).join('');
+}
+function loadCustomCampaign(id){
+  const c=(STATE.campaigns||[]).find(x=>String(x.id)===String(id));
+  if(!c)return;
+  document.getElementById('gen-topic').value=c.goal||'';
+  showView('generate',null);toast('Campaign loaded → Generate');
+}
+function deleteCampaign(id){
+  if(!confirm('Delete this campaign?'))return;
+  STATE.campaigns=(STATE.campaigns||[]).filter(x=>String(x.id)!==String(id));
+  persist();renderCampaigns();toast('Campaign deleted');
 }
 
 // ── SYNC ──────────────────────────────────────────────────
@@ -977,23 +1073,71 @@ async function initSync(){
     }
   }catch(e){setSyncStatus('','Sync failed');toast('Sync error: '+e.message);}
 }
-async function syncNow(){
+async function pushGist(){
   const token=CFG.github,gistId=CFG.gistId;
-  if(!token||!gistId){toast('Set up sync in Settings first');return;}
+  if(!token||!gistId)throw new Error('Sync is not set up');
+  const resp=await fetch(`https://api.github.com/gists/${gistId}`,{method:'PATCH',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({files:{'tl-marketing-data.json':{content:JSON.stringify({v:4,library:STATE.library,campaigns:STATE.campaigns,focus:CFG.focus||{},focusCustom:CFG.focusCustom||[],bizdevDone:CFG.bizdevDone||[]})}}})});
+  /* an expired PAT (401) or a deleted gist (404) used to still say "Synced ✓" */
+  if(!resp.ok){
+    const err=await resp.json().catch(()=>({}));
+    throw new Error(err.message||('GitHub returned '+resp.status));
+  }
+}
+async function syncNow(){
+  if(!CFG.github||!CFG.gistId){toast('Set up sync in Settings first');return;}
   setSyncStatus('syncing','Syncing…');
   try{
-    await fetch(`https://api.github.com/gists/${gistId}`,{method:'PATCH',headers:{'Authorization':`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({files:{'tl-marketing-data.json':{content:JSON.stringify({v:4,library:STATE.library,campaigns:STATE.campaigns,focus:CFG.focus||{},focusCustom:CFG.focusCustom||[],bizdevDone:CFG.bizdevDone||[]})}}})});
+    await pushGist();
     setSyncStatus('ok','Synced · '+new Date().toLocaleTimeString());toast('Synced ✓');
   }catch(e){setSyncStatus('','Sync failed');toast('Sync error: '+e.message);}
+}
+/* Nothing pushed automatically before, so the gist went stale the moment you
+   saved on a phone — and the next boot pull then overwrote the phone's copy.
+   Debounced push closes the loop; merge-on-pull makes the pull non-destructive. */
+let _pushT,_pulling=false;
+function schedulePush(){
+  if(_pulling||!CFG.github||!CFG.gistId)return;
+  clearTimeout(_pushT);
+  _pushT=setTimeout(()=>{
+    setSyncStatus('syncing','Saving…');
+    pushGist().then(()=>setSyncStatus('ok','Synced · '+new Date().toLocaleTimeString()))
+              .catch(e=>setSyncStatus('','Not synced — '+e.message));
+  },4000);
+}
+/* union by id; the remote copy wins a tie, but items only this device has are
+   kept instead of being deleted by a stale gist */
+function mergeById(local,remote){
+  const out=[],seen=new Set();
+  (remote||[]).concat(local||[]).forEach(it=>{
+    if(!it||it.id==null)return;
+    const k=String(it.id);
+    if(seen.has(k))return;
+    seen.add(k);out.push(it);
+  });
+  return out.sort((a,b)=>(Number(b.id)||0)-(Number(a.id)||0));
 }
 async function pullGist(token,gistId){
   const resp=await fetch(`https://api.github.com/gists/${gistId}`,{headers:{'Authorization':`Bearer ${token}`}});
   const data=await resp.json();
-  const content=data.files?.['tl-marketing-data.json']?.content;
-  if(content){const p=JSON.parse(content);if(p.library)STATE.library=p.library;if(p.campaigns)STATE.campaigns=p.campaigns;
+  if(!resp.ok)throw new Error((data&&data.message)||('GitHub returned '+resp.status));
+  const file=data.files?.['tl-marketing-data.json'];
+  if(!file)return;
+  /* gists over 1MB come back truncated with the real body behind raw_url */
+  const content=file.truncated&&file.raw_url?await fetch(file.raw_url).then(r=>r.text()):file.content;
+  if(!content)return;
+  const p=JSON.parse(content);
+  _pulling=true;
+  try{
+    STATE.library=mergeById(STATE.library,p.library);
+    STATE.campaigns=mergeById(STATE.campaigns,p.campaigns);
     /* v4 payload keys — a v3 gist simply lacks these, local state is kept */
-    if(p.focus)CFG.focus=p.focus;if(p.focusCustom)CFG.focusCustom=p.focusCustom;if(p.bizdevDone)CFG.bizdevDone=p.bizdevDone;
-    persist();renderLibrary();if(document.getElementById('view-focus').classList.contains('active'))renderFocus();}
+    if(p.focus)CFG.focus=Object.assign({},p.focus,CFG.focus||{});
+    if(p.focusCustom)CFG.focusCustom=mergeById(CFG.focusCustom,p.focusCustom);
+    if(p.bizdevDone)CFG.bizdevDone=Array.from(new Set((CFG.bizdevDone||[]).concat(p.bizdevDone)));
+    persist();
+  }finally{_pulling=false;}
+  renderLibrary();renderCampaigns();
+  if(document.getElementById('view-focus').classList.contains('active'))renderFocus();
 }
 function setSyncStatus(state,label){
   const dot=document.getElementById('sync-dot'),lbl=document.getElementById('sync-label');
@@ -1005,9 +1149,17 @@ function setSyncStatus(state,label){
 function showView(id,btn){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const v=document.getElementById('view-'+id);if(v)v.classList.add('active');
-  document.querySelectorAll('.nav-item, .mob-tab').forEach(b=>b.classList.remove('active'));
+  /* Resolve the highlight from the view id, not from the element that was
+     clicked — loadCampaign() and sendToSchedule() navigate with btn === null
+     and used to leave both navs blank. */
+  const marker="showView('"+id+"'";
+  document.querySelectorAll('.nav-item, .mob-tab').forEach(b=>{
+    const h=b.getAttribute('onclick')||'';
+    b.classList.toggle('active',h.indexOf(marker)>-1);
+  });
   if(btn)btn.classList.add('active');
   if(id==='library')renderLibrary();
+  if(id==='campaigns')renderCampaigns();
   if(id==='bizdev')renderBizdev();
   if(id==='focus')renderFocus();
   closeSidebar();
@@ -1019,10 +1171,42 @@ function closeSidebar(){document.getElementById('sidebar').classList.remove('ope
 let _tt;
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),2600);}
 
+/* Measure the fixed mobile tab bar and publish it as --navh so every .view
+   reserves exactly the right amount of room underneath its last control.
+   The old layout hard-coded 80px, which was less than the real bar height
+   plus the slice of 100vh that sits behind the browser toolbar — so the
+   primary button on each tab (Generate, Save settings, …) ended up under
+   the nav and was physically untappable on a phone. */
+function sizeChrome(){
+  var bar = document.querySelector('.mob-tab-bar');
+  /* offsetParent is always null on a position:fixed element, so visibility has
+     to be read off the computed display instead. */
+  var shown = bar && getComputedStyle(bar).display !== 'none';
+  var h = shown ? Math.round(bar.getBoundingClientRect().height) : 0;
+  document.documentElement.style.setProperty('--navh', h + 'px');
+  /* Pin the two full-height shells to the actually-visible height. The CSS
+     carries 100vh -> 100dvh, but 100vh overshoots the visible area whenever
+     the browser toolbar is showing and 100dvh is unsupported on older
+     iOS/Android, either of which pushes the bottom of the scroll container
+     off screen and buries the last control behind the fixed nav. */
+  var px = window.innerHeight;
+  if(px > 0){
+    ['.app', '.main'].forEach(function(sel){
+      var el = document.querySelector(sel);
+      if(el) el.style.height = px + 'px';
+    });
+  }
+}
+window.addEventListener('resize', sizeChrome);
+window.addEventListener('orientationchange', function(){ setTimeout(sizeChrome, 250); });
+if(window.visualViewport) window.visualViewport.addEventListener('resize', sizeChrome);
+
 // ── INIT ──────────────────────────────────────────────────
 loadSettings();
+sizeChrome();
 renderLibrary();
-if(CFG.github&&CFG.gistId){setSyncStatus('ok','Ready');pullGist(CFG.github,CFG.gistId).catch(()=>{});}
+renderCampaigns();
+if(CFG.github&&CFG.gistId){setSyncStatus('syncing','Pulling…');pullGist(CFG.github,CFG.gistId).then(()=>setSyncStatus('ok','Synced · '+new Date().toLocaleTimeString())).catch(e=>setSyncStatus('','Not synced — '+e.message));}
 const dt=document.getElementById('sched-date');
 if(dt){const d=new Date(Date.now()+3600000);d.setMinutes(0,0,0);dt.value=d.toISOString().slice(0,16);}
 
@@ -1122,12 +1306,32 @@ Brief: ${brief}
   } catch (e) { gsErr(e.message); }
   gsBusy('gs-crit-btn', 'gs-crit-txt', false, '🔍 3 · Claude critiques & refines');
 }
-function gsDownload() {
+function gsBlob() {
+  const bin = atob(GS.image), buf = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+  return new Blob([buf], { type: GS.mime });
+}
+async function gsDownload() {
   if (!GS.image) return;
-  const a = document.createElement('a');
-  a.href = 'data:' + GS.mime + ';base64,' + GS.image;
-  a.download = 'therapylog-graphic-' + Date.now() + '.' + (GS.mime.split('/')[1] || 'png');
-  a.click();
+  const ext = (GS.mime.split('/')[1] || 'png').replace('jpeg', 'jpg');
+  const name = 'therapylog-graphic-' + Date.now() + '.' + ext;
+  const blob = gsBlob();
+  /* iOS Safari ignores a.click() on a data: URL, and the share sheet is how the
+     image reaches Photos or a posting app on a phone anyway — try it first. */
+  try {
+    const file = new File([blob], name, { type: GS.mime });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: name });
+      return;
+    }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  try {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  } catch (e) { gsErr('Could not save the image — long-press it to save instead.'); }
 }
 
 /* ── BIZ DEV CHECKLIST ───────────────────────────────────────── */
@@ -1179,8 +1383,8 @@ function renderBizdev() {
       <label style="display:flex;gap:10px;align-items:flex-start;padding:9px 2px;border-bottom:1px solid var(--border);cursor:pointer">
         <input type="checkbox" ${done.has(it.id) ? 'checked' : ''} onchange="bizdevToggle('${it.id}')" style="margin-top:3px;accent-color:var(--accent)">
         <span style="flex:1">
-          <span style="font-size:13px;font-weight:600;${done.has(it.id) ? 'text-decoration:line-through;color:var(--text3)' : ''}">${it.t}</span><br>
-          <span style="font-size:11.5px;color:var(--text3);line-height:1.5">${it.n}</span>
+          <span style="font-size:13px;font-weight:600;${done.has(it.id) ? 'text-decoration:line-through;color:var(--text3)' : ''}">${esc(it.t)}</span><br>
+          <span style="font-size:11.5px;color:var(--text3);line-height:1.5">${esc(it.n)}</span>
         </span>
       </label>`).join('')}
     </div>`).join('');
@@ -1189,7 +1393,7 @@ function bizdevToggle(id) {
   const done = new Set(CFG.bizdevDone || []);
   done.has(id) ? done.delete(id) : done.add(id);
   CFG.bizdevDone = Array.from(done);
-  localStorage.setItem(SK, JSON.stringify(CFG));
+  persist();
   renderBizdev();
 }
 
@@ -1277,9 +1481,9 @@ function renderFocus(){
       ? '<span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a78bfa;background:#a78bfa1a;border:1px solid #a78bfa33;padding:3px 8px;border-radius:4px">Decision</span>'
       : '<span style="font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid var(--accent);padding:3px 8px;border-radius:4px">Action</span>';
     card.innerHTML = '<div class="settings-section" id="focus-card-inner" style="transition:opacity .18s">'
-      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'+badge+'<span style="font-size:11px;color:var(--text3)">'+cur.effort+' · '+cur.where+'</span></div>'
-      + '<div style="font-size:17px;font-weight:650;line-height:1.35;margin-bottom:8px">'+cur.title+'</div>'
-      + '<div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px">'+cur.why+'</div>'
+      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'+badge+'<span style="font-size:11px;color:var(--text3)">'+esc(cur.effort)+' · '+esc(cur.where)+'</span></div>'
+      + '<div style="font-size:17px;font-weight:650;line-height:1.35;margin-bottom:8px">'+esc(cur.title)+'</div>'
+      + '<div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px">'+esc(cur.why)+'</div>'
       + (isDecision ? '<textarea id="focus-resolution" placeholder="What did you decide? Captured when you hit Done." style="width:100%;min-height:64px;margin-bottom:12px;font-size:13px"></textarea>' : '')
       + '<div style="display:flex;gap:8px">'
       + '<button class="btn btn-primary" onclick="focusDone(\''+cur.id+'\')">✓ Done</button>'
@@ -1291,8 +1495,8 @@ function renderFocus(){
     const d = focusIsDone(it.id), res = focusState(it.id).res;
     return '<div style="display:flex;gap:9px;align-items:baseline;padding:6px 2px;border-bottom:1px solid var(--border);font-size:12.5px">'
       + '<span style="flex:0 0 16px;text-align:center;color:'+(d?'var(--accent)':'var(--text3)')+'">'+glyph(it)+'</span>'
-      + '<span style="flex:1;'+(d?'text-decoration:line-through;color:var(--text3)':'')+'">'+it.title
-      + (res ? '<span style="color:var(--text3);font-style:italic"> — '+res+'</span>' : '')+'</span>'
+      + '<span style="flex:1;'+(d?'text-decoration:line-through;color:var(--text3)':'')+'">'+esc(it.title)
+      + (res ? '<span style="color:var(--text3);font-style:italic"> — '+esc(res)+'</span>' : '')+'</span>'
       + '<span style="color:var(--text3);font-size:11px">'+(it.type==='decision'?'decision':'action')+'</span></div>';
   }).join('');
 }
