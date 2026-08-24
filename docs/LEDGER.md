@@ -15,7 +15,7 @@ duplicating them here.
 one item at a time. This ledger holds direction; the Focus board holds sequence.
 When an item resolves there, reflect it here.
 
-**Last updated:** 18 August 2026
+**Last updated:** 24 August 2026
 
 ---
 
@@ -91,6 +91,105 @@ When an item resolves there, reflect it here.
 
 ---
 
+## 1a. Read this before anything else (24 Aug 2026)
+
+**The failure that cost a weekend was a process one, not a code one.** The
+entitlement work below was finished on 19–22 Aug across two branches, and then:
+no pull request was opened, and **this ledger was never updated**. GitHub's Code
+tab shows `main` unless you pick a branch from the dropdown, and with no PR there
+was nothing in the PR tab either — so the work was invisible. Sessions after it
+re-derived the same findings from scratch, and one of them told the owner the
+license system "was never built" because it searched `main` and never fetched
+other branches. The owner had already gone looking on GitHub and found nothing.
+
+Two rules follow, and they matter more than any technical decision here:
+
+1. **A branch that is finished gets a pull request, immediately.** An unmerged
+   branch with no PR is indistinguishable from work that does not exist.
+2. **Update this file in the same session that does the work**, not later.
+   `ENV-VARS.md` and `docs/LAUNCH-CHECKLIST.md` were both written on 19 Aug and
+   neither was recorded here. If you are reading this file to learn the state of
+   the project, also run `git ls-remote origin` (in **all four** repos) and
+   check what is sitting on a branch — do not trust `main` to be the whole story.
+
+The four repos: `therapylog-api`, `therapylog.github.io`, `therapylog-app` (iOS
+Capacitor wrapper, stale), `Arctos-Labs` (a separate business — not TherapyLog).
+
+## 1b. Launch prep — merged and settled (24 Aug 2026)
+
+Both release branches were audited line by line against live Stripe and the
+deployed API before merging. What changed on top of the 19 Aug work:
+
+**Blockers found and fixed**
+
+- **`verify-license` handed out license keys.** An email lookup returned the
+  key — unauthenticated, unrate-limited, lapsed customers included. The key is
+  the credential that spends the AI budget, so knowing any customer's address
+  was enough to spend it. The key is now returned only to a caller who proved
+  they hold it (presenting the key, or a Checkout Session id from a payment they
+  just completed); an email lookup confirms the plan and stops there. `resend`
+  is unchanged and still reveals nothing.
+- **Webhook signatures were optional.** Verification ran only when secret,
+  header and raw body were all present, so omitting the header skipped it.
+  Re-fetching from Stripe stops a forged event fabricating a payment, but
+  `customer.subscription.deleted` acts on the payload's customer id — so
+  unsigned requests were a way to mail "your plan ended" to any customer whose
+  id you could guess. Signatures are now mandatory.
+- **A dead Redis would have killed the paid feature on day one.** The Upstash
+  credentials in Vercel pointed at `crisp-shrimp-89132.upstash.io`, which no
+  longer resolves — the database had been deleted. `meterUsage` took the Upstash
+  path on env-var *presence* and refused the request when the call threw, so
+  every subscriber's AI would have returned an error. An unreachable cache now
+  falls through to the Stripe meter. **Set fresh Upstash credentials** — the
+  fallback works but the per-day and global ceilings need the cache.
+- **Post-checkout activation was broken.** The app posts `{session}`;
+  `verify-license` only read `key`/`email`/`action` and answered 400, which the
+  app treated as a silent definitive failure. There is now a session branch that
+  retrieves the Checkout Session and returns the entitlement. A 5xx from Stripe
+  surfaces as 503 so an outage never reads as "you didn't pay".
+
+**Decisions taken**
+
+- **AI cap is 50/month, 15/day** (was advertised as 145 while the cost analysis
+  in `docs/AI-COST-AND-MODEL-NOTES.md` concluded 145 loses money on Sonnet 5).
+  Copy and defaults now agree; `validate-guide.js` locks guide↔pro.html
+  together. Revisit once real usage data exists — that was the owner's explicit
+  intent in choosing 50, not a permanent ceiling.
+- **The one-time / lifetime tier is retired.** Its Stripe price sits on an
+  archived product, which makes Checkout refuse it outright, and the whole point
+  of a subscription is that updates keep coming. The plan key is gone from
+  `create-pro-subscription.js`, the cards are gone from `download.html` and
+  `index.html`, and the checkout path no longer infers lifetime from
+  `mode === "payment"` (which also closed a $0 grant via a 100%-off promo code).
+  Honouring `tl_lifetime` is left in place for anyone grandfathered later.
+  If it returns: expect **$49.99–$59.99**, restore the Stripe product first, and
+  give it its own verification — the subscription path does not cover it.
+- **Every App Store / Play Store claim is gone.** Four pages promised imminent
+  native apps — `download.html` said they were "in review", and
+  `providers/apply.html` said "Launching on iOS App Store now". §1 locks
+  web-first indefinitely *because* the dosing content would be rejected, so
+  those were unfulfillable, not merely early. `privacy.html` and
+  `partnership.html` no longer imply store billing exists either. The Suite's
+  system prompt already forbade store claims and still does.
+- **Support and feedback are stated in the emails.** The purchase and welcome
+  emails now say one person builds and answers the mail, and ask for bug
+  reports, interface friction and feature ideas by name. This is a deliberate
+  positioning choice, not filler — treat it as load-bearing copy.
+
+**Verification standard used** — 92 API assertions (including new coverage for
+unsigned, forged and unconfigured webhooks, and 17 for the key-disclosure fix),
+plus all 10 site validators green, `ui-check-entitlement` among them at 31
+browser checks confirming the honour-system bypasses are dead.
+
+**Still owner-only, before promoting:** fresh Upstash credentials; add
+`checkout.session.completed`, `customer.subscription.updated`,
+`customer.subscription.deleted` and `invoice.payment_failed` to the
+`api.therapylog.app` webhook (it was subscribed to `payment_intent.succeeded`
+alone, so a purchase would never have issued a license); delete the dead
+duplicate endpoint `we_1Tdy5gFwxOceIOZwiqRUabq2`; and run one test-mode purchase
+end to end. `ENTITLEMENT_SECRET` and `REQUIRE_ENTITLEMENT` are dead variables —
+`api/entitlement.js` was deleted as superseded, so remove both.
+
 ## 2. What's shipped (verified live 17 Aug 2026)
 
 All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
@@ -152,6 +251,42 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
   returns every result on the report — untracked ones come back as `extras` and
   can be added to the form in one tap. A filter box makes a 100-field form
   navigable.
+**Money, entitlement and delivery (19 Aug)**
+- **The paywall was decorative and is now real.** The gate was
+  `localStorage.tl_tier`, set by an in-app dialog that let anyone pick their own
+  tier; `/api/ai-research` spent the Anthropic budget for anyone who asked, with
+  quotas keyed to an IP and a rate limiter that failed open when Upstash was
+  unset. Buyers, meanwhile, were sent to `?tl_activated=pro` — a parameter the
+  app never read — so paying customers got nothing. Entitlement now comes from
+  Stripe: a license key (HMAC of the customer id, `TL-XXXX-XXXX-XXXX`) emailed
+  on purchase, verified by `/api/verify-license`, cached with an expiry and
+  re-checked daily. Outages don't downgrade anyone; lapses do. **No database** —
+  Stripe holds the billing truth and the key.
+- **Delivery is the installed PWA, not an APK.** `/download` was selling a
+  $34.99 APK behind a `drive.google.com` link that redirects to a Google
+  sign-in page (the file was never shared), and the button charged nothing.
+  Replaced with a real $34.99 Checkout → license key → Add to Home Screen, on
+  iPhone and Android. Updates were always automatic (the service worker is
+  network-first); an APK is what would have broken that.
+- **Sonnet 5 for the assistant** (Haiku was too shallow for protocol design,
+  rehab and meal planning), adaptive thinking at `effort: medium`, cached system
+  prompt, and `maxDuration` 10s → 60s because a Sonnet 5 answer with web search
+  does not fit in ten seconds. Costs roughly 3× Haiku — watch the average
+  against the 145/month cap.
+- **Backups are surfaced properly**, since local-only data is the trade-off
+  users get burned by: weekly nag (was 30 days), Web Share to iCloud/Drive/Files
+  on mobile, a linked file that rewrites itself weekly on desktop Chromium, and
+  a Profile card stating plainly that this device is the only copy.
+- **One email list.** `/support` posted straight to Mailchimp while the privacy
+  policy named only Resend; it now posts to `launch-notify` like everything
+  else. Signups finally get a welcome email, and sales notify hello@.
+- **Attribution without a server:** first-touch `utm_*`/`ref`/`rdt_cid` stored
+  on landing and passed to Stripe as `ref`, so Stripe payments show which
+  campaign produced them. Vercel Web Analytics added to all 13 pages — note it
+  only collects once the domain is served by Vercel rather than GitHub Pages.
+- Manual steps live in `docs/LAUNCH-CHECKLIST.md` (Vercel env vars, the
+  duplicate Stripe webhook to delete, the DNS move, test-mode purchase run).
+
 - **Two more CI guards** (`scripts/validate-markers.js`,
   `scripts/validate-bloodwork-flow.js`, workflow `Validate bloodwork`): registry
   integrity and namespace/unit/optimal-band drift, plus 35 assertions that run
@@ -267,7 +402,11 @@ The Focus board holds the working sequence. This is the summary.
    (named author) and #3 above.
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
-9. Verify the marker registry's LOINC codes against real vendor payloads
+9. Decide the BYOK price. At $8.99/mo it sits $1 under Pro while the customer
+   also pays their own API costs, so nobody rational picks it. Either drop it
+   (~$3.99) or fold BYOK into the lifetime license. Pricing was deliberately
+   left unchanged for the 19 Aug plumbing work.
+10. Verify the marker registry's LOINC codes against real vendor payloads
    (Quest/LabCorp) before any lab API work, and check `getUnmappedLog()` output
    from real scans to see which marker names the registry is still missing.
 

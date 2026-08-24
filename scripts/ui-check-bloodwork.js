@@ -105,8 +105,17 @@ const t = (name, ok, extra = '') => results.push([ok ? 'PASS' : 'FAIL', name, ok
 const shot = async (page, name) => { if (SHOTS) await page.screenshot({ path: path.join(SHOTS, name) }); };
 
 async function openLabsTab(page, port) {
-  /* the AI scanner is a Pro feature; manual entry is not gated */
-  await page.addInitScript(() => { try { localStorage.setItem('tl_tier', 'pro'); } catch (e) {} });
+  /* The AI scanner is a Pro feature; manual entry is not gated. Entitlement now
+     comes from a server-verified license, so seed the cached entitlement — the
+     old `tl_tier` string is deliberately no longer honoured. */
+  await page.addInitScript(() => {
+    try {
+      localStorage.setItem('tl_ent', JSON.stringify({
+        tier: 'pro', status: 'active', expires: null, lifetime: true,
+        key: 'TL-TEST-TEST-TEST', verifiedAt: Date.now(), source: 'license'
+      }));
+    } catch (e) {}
+  });
   await page.goto(`http://127.0.0.1:${port}/app.html`);
   await page.waitForTimeout(1200);
   await page.locator('button:has-text("I Understand")').first().click();

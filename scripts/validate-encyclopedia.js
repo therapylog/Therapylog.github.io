@@ -110,7 +110,7 @@ else {
 }
 
 /* --- 9. drift: literal "N-Compound" / "N+ compounds" marketing copy --- */
-['app.html', 'index.html', 'marketing.html'].forEach((f) => {
+['app.html', 'index.html', 'marketing.html', 'download.html', 'pro.html'].forEach((f) => {
   const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
   const re = /(\d+)(\+?)[- ][Cc]ompound(?!ing)/g;
   let m;

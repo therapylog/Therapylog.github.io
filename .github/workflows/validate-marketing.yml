@@ -1,0 +1,25 @@
+name: Validate marketing suite
+on:
+  push:
+    paths:
+      - 'marketing.html'
+      - 'app.html'
+      - 'index.html'
+      - 'pro.html'
+      - 'download.html'
+      - 'docs/compounds.json'
+      - 'scripts/validate-marketing-static.js'
+      - '.github/workflows/validate-marketing.yml'
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      # Layout invariants (the mobile nav must not bury a tab's primary button),
+      # brand-fact accuracy (no App Store claim, real marker/compound counts,
+      # prices that match the public site) and inline-handler wiring.
+      - name: Marketing suite integrity
+        run: node scripts/validate-marketing-static.js
