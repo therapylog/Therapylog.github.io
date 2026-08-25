@@ -2157,7 +2157,7 @@ function tlStorageSection(id) {
       + '<div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent2);margin-bottom:3px">' + label + '</div>'
       + '<div style="font-size:12.5px;line-height:1.65;color:var(--text2)">' + text + '</div></div>';
   };
-  var body = row('Before mixing', st.before)
+  var body = row(st.medium === 'aq' ? 'Before mixing' : 'Unopened', st.before)
     + row(st.medium === 'aq' ? 'Once reconstituted' : 'Once opened', st.after)
     + row('Avoid', st.avoid)
     + (st.premixed ? row('If yours is a pen or pre-mixed', st.premixed) : '')
@@ -7879,7 +7879,7 @@ const TL_STORAGE = {
     aq: {
       label: 'Lyophilized powder, reconstituted before use',
       before: 'Sealed powder tolerates room temperature in transit, but keep it refrigerated at 2\u20138\u00A0\u00B0C (36\u201346\u00A0\u00B0F) for anything beyond a few weeks, or frozen for months. Keep it dark \u2014 the carton it shipped in is doing a job.',
-      after: 'Once reconstituted with bacteriostatic water: refrigerate at 2\u20138\u00A0\u00B0C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window \u2014 plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only.',
+      after: 'Once reconstituted with bacteriostatic water: refrigerate at 2\u20138\u00A0\u00B0C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window \u2014 plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only. Kits are usually ten vials: only the one you mixed is on that 28-day clock \u2014 the sealed ones keep their own, much longer shelf life, so store them as powder, not as solution.',
       avoid: 'Do not freeze a reconstituted vial. Repeated freeze\u2013thaw is one of the more reliable ways to degrade a peptide.',
       premixed: 'If yours arrived as a pre-filled pen or a ready-made solution rather than a powder, follow that product\u2019s label instead \u2014 those are refrigerated from the start.'
     },
@@ -7900,12 +7900,29 @@ const TL_STORAGE = {
       before: 'Follow the label for temperature.',
       after: 'Roll or swirl the vial to resuspend before every draw. A suspension that has settled doses unevenly \u2014 the first draw comes out weak and the last comes out strong.',
       avoid: 'Do not freeze. Thawing leaves the particles clumped and the vial unusable even when it looks fine once shaken. Suspensions also block fine needles more readily than solutions, so a slightly wider gauge draws more easily.'
+    },
+    topical: {
+      label: 'Topical cream, gel or serum',
+      before: 'Room temperature, 20\u201325\u00A0\u00B0C, out of direct sun and away from heat. A compounded prescription cream usually carries its own beyond-use date from the pharmacy that made it \u2014 that date is the one that counts, not a general shelf life.',
+      after: 'Unchanged once opened, with the cap or pump closed between uses. Do not decant into a different jar and do not try to refill an airless pump or tube \u2014 both invite contamination and neither is designed to be reopened.',
+      avoid: 'Heat and sunlight are what break these down: a glovebox, a windowsill, a bathroom shelf above a shower. Keep water out of an open jar \u2014 dry hands or the applicator that came with it, never a wet finger.'
     }
   },
   /* Compounds whose class rule is genuinely wrong for them. Each entry needs a
      source checked before it goes in — an empty table is better than a guessed
      one, because a wrong storage claim here reads as authoritative. */
-  overrides: {}
+  overrides: {
+    /* Sold as a lyophilized powder like an injectable peptide, but dosed orally
+       before meals \u2014 so the powder half of the aq rule applies and the
+       injection half does not. */
+    larazotide: {
+      medium: 'aq',
+      label: 'Lyophilized powder, reconstituted \u2014 taken orally',
+      before: 'Sealed powder refrigerated at 2\u20138\u00A0\u00B0C (36\u201346\u00A0\u00B0F), or frozen if it will sit for months. Keep it dark and dry. Kits are usually ten vials \u2014 only the vial you mix comes out of the freezer.',
+      after: 'Reconstituted, refrigerate at 2\u20138\u00A0\u00B0C and use within about 28 days if you mixed it with bacteriostatic water. Plain sterile water has no preservative and should be treated as a single day\u2019s worth. This is swallowed rather than injected, so sterility matters less than it would for a shot \u2014 but the peptide degrades on the same clock either way.',
+      avoid: 'Do not freeze a reconstituted vial. Do not leave it on the counter between doses \u2014 three doses a day before meals means three trips to the fridge, not a vial that lives in a gym bag.'
+    }
+  }
 };
 
 /* Formulation for compounds that have no TL_PK entry — TL_PK exists for
@@ -7913,11 +7930,11 @@ const TL_STORAGE = {
    published PK worth charting, so they were invisible to storage guidance.
    Kept as a separate map so nothing here can affect the PK curves.
 
-   Only unambiguous formulations are listed. Compounds that genuinely ship in
-   more than one form (progesterone as oral/topical/injectable, estriol as a
-   cream, dihexa oral or subcutaneous, argireline topical, testosterone pellets
-   as an implant) are deliberately absent: getting oral-vs-injectable wrong here
-   would tell someone to leave a refrigerated injectable on a shelf. Class
+   Only unambiguous formulations are listed. Progesterone (oral, topical and
+   injectable, and for most men here a lab marker rather than something they
+   take), dihexa (oral or subcutaneous) and testosterone pellets (an implant a
+   clinician places) are deliberately absent: getting oral-vs-injectable wrong
+   here would tell someone to leave a refrigerated injectable on a shelf. Class
    grouping ids (aas, glp1, peptides, pct...) are absent for the same reason —
    they are categories, not products, and correctly render no storage block. */
 const TL_FORM = {
@@ -7925,7 +7942,14 @@ const TL_FORM = {
   amino1mq: 'oral', berberine: 'oral', creatine: 'oral', dasatinib: 'oral',
   fisetin: 'oral', nad: 'oral', nalt: 'oral', ndt: 'oral',
   pregnenolone: 'oral', quercetin: 'oral', resveratrol: 'oral',
-  slupp332: 'oral', spermidine: 'oral', taurine: 'oral', urolithin: 'oral'
+  slupp332: 'oral', spermidine: 'oral', taurine: 'oral', urolithin: 'oral',
+
+  /* Confirmed by what these actually ship as, rather than by what the
+     literature covers. SS-31 is a lyophilized powder for injection (the entry's
+     own dosing is SubQ/IV only). Argireline is sold as a topical cosmetic and
+     is not advertised in gray-market injectable form. Estriol is compounded as
+     a cream far more often than as an oral or an injectable. */
+  ss31: 'aq', argireline: 'topical', estriol: 'topical'
 };
 
 /* Storage guidance for a compound id, or null if we have no formulation for it.

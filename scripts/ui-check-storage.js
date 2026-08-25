@@ -58,6 +58,33 @@ const R=[]; const t=(n,c,d)=>{R.push(c);console.log(`${c?'PASS':'FAIL'}  ${n}${d
   t('  and warns about co-mixing in a syringe',
     /never draw it up with another/i.test(frag.html));
 
+  // A topical: it must not inherit any vial, fridge or mixing language.
+  const top = await p.evaluate(()=>({ st: window.tlStorageFor('argireline'), html: window.tlStorageSection('argireline') }));
+  t('a topical resolves storage', !!top.st && top.st.medium==='topical', top.st?top.st.medium:'null');
+  t('  its first row is Unopened, not Before mixing', /Unopened/.test(top.html) && !/Before mixing/.test(top.html));
+  t('  it names heat and sun', /sun/i.test(top.html));
+  t('  and never mentions reconstituting or a fridge',
+    !/reconstitut|28 days|2\u20138/.test(top.html), (top.html.match(/reconstitut\w*|28 days/)||[''])[0]);
+
+  // Estriol reaches the same rule via TL_FORM.
+  const est = await p.evaluate(()=>({ st: window.tlStorageFor('estriol'), html: window.tlStorageSection('estriol') }));
+  t('estriol resolves as a topical', !!est.st && est.st.medium==='topical', est.st?est.st.medium:'null');
+  t('  it defers to the compounded beyond-use date', /beyond-use/i.test(est.html));
+
+  // SS-31 is a powder for injection, so it takes the peptide rule.
+  const ss = await p.evaluate(()=>({ st: window.tlStorageFor('ss31'), html: window.tlStorageSection('ss31') }));
+  t('ss31 resolves as a lyophilized peptide', !!ss.st && ss.st.medium==='aq', ss.st?ss.st.medium:'null');
+  t('  it gets the reconstituted window', /28 days/.test(ss.html));
+  t('  and the kit sentence', /kit/i.test(ss.html));
+
+  // Larazotide: powder handling, oral framing. The override, not the class.
+  const lz = await p.evaluate(()=>({ st: window.tlStorageFor('larazotide'), html: window.tlStorageSection('larazotide') }));
+  t('larazotide uses its compound-specific rule', !!lz.st && lz.st.source==='override', lz.st?lz.st.source:'null');
+  t('  the page says compound-specific, not general practice',
+    /compound-specific/.test(lz.html) && !/general practice/.test(lz.html));
+  t('  it still shows the reconstituted row', /Once reconstituted/.test(lz.html));
+  t('  and says it is swallowed', /swallow|orally/i.test(lz.html));
+
   // It must actually appear on a rendered compound page, not just from the fn.
   const onPage = await p.evaluate(()=>{
     if (typeof window.showDrugPage !== 'function') return 'no showDrugPage';
@@ -70,5 +97,5 @@ const R=[]; const t=(n,c,d)=>{R.push(c);console.log(`${c?'PASS':'FAIL'}  ${n}${d
   await b.close(); srv.close();
   const f=R.filter(x=>!x).length;
   if (f) { console.error(`STORAGE UI CHECK FAILED — ${f} of ${R.length}`); process.exit(1); }
-  console.log(`storage UI OK: ${R.length} checks — peptides, oils, orals and fragile compounds each get the right guidance, and category pages get none`);
+  console.log(`storage UI OK: ${R.length} checks — peptides, oils, orals, topicals and fragile compounds each get the right guidance, larazotide gets its own rule, and category pages get none`);
 })();
