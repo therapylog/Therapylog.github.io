@@ -2146,6 +2146,31 @@ document.getElementById("enc-di").innerHTML = cls.drugs.map(drug => `
       <div class="dla">${drug.aka}</div>
     </div>`).join("") + (ENC_ALSO[cid]||[]).map(x => `     <div class="dli" onclick="showDrugPage('${x.id}')">       <div class="dln">${x.name}</div>       <div class="dla">↗ Full entry under ${x.homeName}</div>     </div>`).join("");
 }
+/* The storage block for a compound page. Renders nothing when we have no
+   formulation on file, rather than inventing generic advice to fill the space. */
+function tlStorageSection(id) {
+  var st = (typeof tlStorageFor === 'function') ? tlStorageFor(id) : null;
+  if (!st) return '';
+  var row = function (label, text) {
+    if (!text) return '';
+    return '<div style="margin-bottom:8px">'
+      + '<div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent2);margin-bottom:3px">' + label + '</div>'
+      + '<div style="font-size:12.5px;line-height:1.65;color:var(--text2)">' + text + '</div></div>';
+  };
+  var body = row('Before mixing', st.before)
+    + row(st.medium === 'aq' ? 'Once reconstituted' : 'Once opened', st.after)
+    + row('Avoid', st.avoid)
+    + (st.premixed ? row('If yours is a pen or pre-mixed', st.premixed) : '')
+    + (st.fragile ? row('In a syringe', 'This one degrades easily \u2014 never draw it up with another compound.') : '');
+  return '<div class="ds"><div class="dst">Storage and Handling</div>'
+    + '<div style="font-size:11px;color:var(--text3);margin-bottom:9px">'
+    + (st.label || '') + (st.source === 'class' ? ' \u00B7 general practice for this formulation' : ' \u00B7 compound-specific')
+    + '</div>'
+    + body
+    + '<div style="font-size:11px;color:var(--text3);line-height:1.55;margin-top:4px;padding:9px;background:var(--surface2);border-radius:8px">'
+    + TL_STORAGE.caveat + '</div></div>';
+}
+
 function showDrugPage(did) {
 did = ENC_ID_ALIAS[did] || did;
 let drug = S.curCls && S.curCls.drugs.find(d=>d.id===did);
@@ -2193,6 +2218,7 @@ document.getElementById("enc-dp").innerHTML = `
       <table class="dt"><tr><th>Level</th><th>Dose</th><th>Frequency</th><th>Duration</th></tr>${dosesHTML}</table>
       <div style="font-size:12px;color:var(--text2);margin-top:9px;line-height:1.6;padding:9px;background:var(--surface2);border-radius:8px"><strong style="color:var(--text)">Progression: </strong>${drug.prog}</div>
     </div>
+    ${tlStorageSection(drug.id)}
     ${drug.stacks&&drug.stacks.length ? `<div class="ds"><div class="dst">Stack Recommendations</div>${stacksHTML}</div>` : ""}
     <div class="ds"><div class="dst">Bloodwork Monitoring</div><div style="font-size:13px;line-height:1.7">${drug.mon || "No specific bloodwork monitoring noted for this compound."}</div></div>
     ${drug.sideEffects ? `<div class="ds"><div class="dst">Side Effects</div><div style="font-size:13px;line-height:1.7">${drug.sideEffects}</div></div>` : ""}
@@ -7834,6 +7860,89 @@ if (_origSendChat) _origSendChat.apply(this, arguments);
 /* Published/commonly cited elimination half-lives (hours) and time-to-peak (hours).
    medium: oil | aq | susp | oral | other. est: PK poorly characterized in humans.
    fragile: protein easily degraded — never co-mix in a syringe. */
+/* ===== Storage and handling =====
+   Keyed on FORMULATION, not on the molecule. How you store a lyophilized
+   peptide is the same whether the vial says BPC-157 or ipamorelin — it follows
+   from the physical form, not the mechanism. That is what makes broad coverage
+   honest here: four reviewable rules cover every compound with a `medium` in
+   TL_PK below, instead of 97 hand-written entries where most would be the same
+   paragraph retyped and any one of them could be quietly wrong.
+
+   Per-compound exceptions go in `overrides` as they are identified and checked.
+   `reviewed` stays false until a clinician has signed the class rules off; the
+   UI shows that state rather than implying more authority than we have. */
+const TL_STORAGE = {
+  asOf: '24 Aug 2026',
+  reviewed: false,
+  caveat: 'General handling practice for this formulation. Your supplier\u2019s own insert or COA overrides anything here.',
+  classes: {
+    aq: {
+      label: 'Lyophilized powder, reconstituted before use',
+      before: 'Sealed powder tolerates room temperature in transit, but keep it refrigerated at 2\u20138\u00A0\u00B0C (36\u201346\u00A0\u00B0F) for anything beyond a few weeks, or frozen for months. Keep it dark \u2014 the carton it shipped in is doing a job.',
+      after: 'Once reconstituted with bacteriostatic water: refrigerate at 2\u20138\u00A0\u00B0C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window \u2014 plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only.',
+      avoid: 'Do not freeze a reconstituted vial. Repeated freeze\u2013thaw is one of the more reliable ways to degrade a peptide.',
+      premixed: 'If yours arrived as a pre-filled pen or a ready-made solution rather than a powder, follow that product\u2019s label instead \u2014 those are refrigerated from the start.'
+    },
+    oil: {
+      label: 'Oil-based injectable',
+      before: 'Room temperature, 20\u201325\u00A0\u00B0C, out of direct light.',
+      after: 'Same once opened. Oil-based vials do not get a fridge.',
+      avoid: 'Do not refrigerate. Cold thickens the carrier and can bring the ester out of solution. If you see crystals or cloudiness, warm the vial in your hand or a cup of warm water and look again \u2014 if it does not clear, do not use it.'
+    },
+    oral: {
+      label: 'Oral tablet or capsule',
+      before: 'Room temperature and dry, in the original container with whatever desiccant came in it, out of light.',
+      after: 'Unchanged once opened, as long as it stays dry.',
+      avoid: 'Humidity is the real enemy \u2014 a bathroom cabinet is the worst place in the house for these.'
+    },
+    susp: {
+      label: 'Aqueous suspension',
+      before: 'Follow the label for temperature.',
+      after: 'Roll or swirl the vial to resuspend before every draw. A suspension that has settled doses unevenly \u2014 the first draw comes out weak and the last comes out strong.',
+      avoid: 'Do not freeze. Thawing leaves the particles clumped and the vial unusable even when it looks fine once shaken. Suspensions also block fine needles more readily than solutions, so a slightly wider gauge draws more easily.'
+    }
+  },
+  /* Compounds whose class rule is genuinely wrong for them. Each entry needs a
+     source checked before it goes in — an empty table is better than a guessed
+     one, because a wrong storage claim here reads as authoritative. */
+  overrides: {}
+};
+
+/* Formulation for compounds that have no TL_PK entry — TL_PK exists for
+   pharmacokinetics (half-life, tmax) and plenty of oral supplements have no
+   published PK worth charting, so they were invisible to storage guidance.
+   Kept as a separate map so nothing here can affect the PK curves.
+
+   Only unambiguous formulations are listed. Compounds that genuinely ship in
+   more than one form (progesterone as oral/topical/injectable, estriol as a
+   cream, dihexa oral or subcutaneous, argireline topical, testosterone pellets
+   as an implant) are deliberately absent: getting oral-vs-injectable wrong here
+   would tell someone to leave a refrigerated injectable on a shelf. Class
+   grouping ids (aas, glp1, peptides, pct...) are absent for the same reason —
+   they are categories, not products, and correctly render no storage block. */
+const TL_FORM = {
+  acarbose: 'oral', akg2: 'oral', akglutarate: 'oral', ala: 'oral',
+  amino1mq: 'oral', berberine: 'oral', creatine: 'oral', dasatinib: 'oral',
+  fisetin: 'oral', nad: 'oral', nalt: 'oral', ndt: 'oral',
+  pregnenolone: 'oral', quercetin: 'oral', resveratrol: 'oral',
+  slupp332: 'oral', spermidine: 'oral', taurine: 'oral', urolithin: 'oral'
+};
+
+/* Storage guidance for a compound id, or null if we have no formulation for it.
+   Returns the class rule unless an override exists, and always reports which,
+   so the UI can be honest about where the advice came from. */
+function tlStorageFor(id) {
+  var over = TL_STORAGE.overrides[id];
+  if (over) return Object.assign({ source: 'override' }, over);
+  var pk = (typeof TL_PK !== 'undefined') ? TL_PK[id] : null;
+  var medium = (pk && pk.medium) || TL_FORM[id];
+  var rule = medium && TL_STORAGE.classes[medium];
+  if (!rule) return null;
+  return Object.assign({ source: 'class', medium: medium }, rule, {
+    fragile: !!(pk && pk.fragile)
+  });
+}
+
 const TL_PK = {
 "tc":{"hl":144,"tmax":48,"medium":"oil"},
 "te":{"hl":108,"tmax":36,"medium":"oil"},
