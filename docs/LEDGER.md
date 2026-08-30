@@ -334,8 +334,9 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
 - `docs/ART-DIRECTION.md` — full Nano Banana prompt library
 
 **Known not-shipped**
-- No art assets have been generated. Every `assets/art/*.png` returns 404 and
-  `favicon.ico` is missing. Prompts are ready; images are not.
+- No art assets have been generated. Every `assets/art/*.png` returns 404.
+  Prompts are ready; images are not. (`favicon.ico` shipped with the 2026-08
+  logo update, along with the new `icons/icon.svg` and derived icons.)
 
 ---
 
@@ -389,8 +390,11 @@ the decision items on the Focus board; resolve in either place and sync.
 
 The Focus board holds the working sequence. This is the summary.
 
-1. Generate the four logo concepts, pick one, vector-trace, replace
-   `icons/icon.svg` and derived icons. Add the missing `favicon.ico`.
+1. ~~Generate the four logo concepts, pick one, vector-trace, replace
+   `icons/icon.svg` and derived icons. Add the missing `favicon.ico`.~~
+   Done (2026-08): the hexagon TL monogram logo is vector-traced into
+   `icons/icon.svg` + `icons/logo-dark.svg`/`logo-light.svg`, every derived
+   icon and the og-image are regenerated, and `favicon.ico` ships at the root.
 2. **Start affiliate recruitment** — highest-leverage unstarted item, and the
    only near-term revenue path.
 3. Submit sitemap to Bing Webmaster and Search Console, wire IndexNow. Thirty

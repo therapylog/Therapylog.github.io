@@ -61,12 +61,11 @@
   }
 
   .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    color: var(--text);
   }
-  .logo span { color: var(--accent); font-style: italic; }
+  .logo img { height: 32px; display: block; }
 
   .back-link {
     font-size: 13px;
@@ -258,7 +257,7 @@
 <body>
 
 <header class="site-header">
-  <a href="https://therapylog.app" class="logo">Therapy<span>Log</span></a>
+  <a href="https://therapylog.app" class="logo"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a>
   <a href="https://therapylog.app" class="back-link">
     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     Back to app
