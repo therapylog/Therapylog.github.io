@@ -238,7 +238,7 @@ async function asyncChecks() {
     () => run(`getAdjustedLabRanges().cm_zonulin.hi`) === 40);
   await tA('a user-defined marker flags against its own range', () => run(`labSt('cm_zonulin', 55, gd().entries[0])`) === 'bad');
   await tA('a marker with no range recorded never flags',
-    () => run(`labSt('cm_beta2microglobulin', 999)`) === 'good');
+    () => run(`labSt('cm_beta2microglobulin', 999)`) === 'neutral');
   await tA('the newly built-in markers are saved as built-ins, not duplicated',
     () => entry.labs.uricacid === 5.2 && !('cm_uricacid' in entry.labs));
   const ctx2 = run(`getFullCtx()`);
