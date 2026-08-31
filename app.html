@@ -1593,11 +1593,34 @@ _memCache = empty;
 return empty;
 }
 function sd(d) {
+/* another tab may have saved since this snapshot was read — union array data by ts so its entries survive */
+try {
+const raw = localStorage.getItem(DB_KEY);
+if (raw) {
+const stored = JSON.parse(raw);
+if (stored && stored._savedAt && stored._savedAt > (d._savedAt || 0)) {
+['entries','photos','bodyComp','femcycle'].forEach(k => {
+if (!Array.isArray(stored[k])) return;
+const mine = new Set((d[k]||[]).map(x => x && x.ts));
+const extra = stored[k].filter(x => x && x.ts && !mine.has(x.ts));
+if (extra.length) d[k] = [...(d[k]||[]), ...extra];
+});
+if (Array.isArray(d.entries)) d.entries.sort((a,b) => new Date(b.ts)-new Date(a.ts));
+}
+}
+} catch(e) {}
 d._savedAt = Date.now();
 _memCache = d;
 try { localStorage.setItem(DB_KEY, JSON.stringify(d)); } catch(e) {}
 sdAsync(d);
 }
+window.addEventListener('storage', (ev) => {
+if (ev.key !== DB_KEY || !ev.newValue) return;
+try {
+_memCache = JSON.parse(ev.newValue);
+if (!window._tlTabToastShown && typeof toast === 'function') { window._tlTabToastShown = true; toast('Synced changes from another open tab'); }
+} catch(e) {}
+});
 async function initStorage() {
 const idbData = await loadFromIDB();
 if (idbData && (idbData.entries || idbData.proto || idbData.profile)) {
@@ -1865,7 +1888,7 @@ S.wC = new Chart(ctx, {type:"line",data:{
 labels: data.map(e=>new Date(e.ts).toLocaleDateString("en-US",{month:"short",day:"numeric"})),
 datasets:[{data:data.map(e=>e.weight),borderColor:"#4ade9a",backgroundColor:"rgba(74,222,154,0.08)",fill:true,tension:0.4,pointRadius:data.length>10?2:4,pointBackgroundColor:"#4ade9a",borderWidth:2}]
 },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-scales:{x:{grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#4a5568",font:{size:9},maxTicksLimit:6}},y:{grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#4a5568",font:{size:9}}}}}});
+scales:{x:{grid:{color:tlChartColors().grid},ticks:{color:tlChartColors().tick,font:{size:9},maxTicksLimit:6}},y:{grid:{color:tlChartColors().grid},ticks:{color:tlChartColors().tick,font:{size:9}}}}}});
 }
 function renderHist() {
 const d=gd(); let e=d.entries;
@@ -2330,7 +2353,7 @@ const meta=(latest.labMeta||{})[key]||{};
 const cls=st==="good"?"inr":st==="bad"?"outr":"warnr";
 const statusText=st==="good"?"In Range":st==="bad"?"Out of Range":st==="neutral"?"No range":"Sub-optimal";
 const refLabel=(!isFinite(r.lo)&&!isFinite(r.hi))?`No range set${meta.method?" · "+meta.method:""}`:`${r.source==="lab"?"Your lab's ref":"Ref"}: ${r.lo}-${r.hi}${meta.method?" · "+meta.method:""}`;
-return `<div class="labc ${cls}"><div class="labn">${r.name}</div><div><span class="labv">${labs[key]}</span><span class="labu">${r.unit}</span></div><div class="labr">${refLabel}</div><div class="labs ${st}">${statusText}</div></div>`;
+return `<div class="labc ${cls}"><div class="labn">${r.name}</div><div><span class="labv">${meta.censoredAs ? _aiEsc(meta.censoredAs) : labs[key]}</span><span class="labu">${r.unit}</span></div><div class="labr">${refLabel}</div><div class="labs ${st}">${statusText}</div></div>`;
 }).join("");
 }
 const ctx=document.getElementById("hChart").getContext("2d");
@@ -2343,10 +2366,10 @@ datasets:[
 {label:"Total T",data:sorted.map(e=>e.labs.tott!=null&&e.labs.tott!==""?+e.labs.tott:null),borderColor:"#4ade9a",backgroundColor:"transparent",tension:0.4,pointRadius:4,borderWidth:2,yAxisID:"y"},
 {label:"E2",data:sorted.map(e=>e.labs.e2!=null&&e.labs.e2!==""?+e.labs.e2:null),borderColor:"#f472b6",backgroundColor:"transparent",tension:0.4,pointRadius:4,borderWidth:2,yAxisID:"y2"}
 ]
-},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:"#8a95a3",font:{size:10}}}},
-scales:{y:{grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#4a5568",font:{size:9}},title:{display:true,text:"Total T",color:"#4a5568",font:{size:9}}},
-y2:{position:"right",grid:{display:false},ticks:{color:"#4a5568",font:{size:9}},title:{display:true,text:"E2",color:"#4a5568",font:{size:9}}},
-x:{grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#4a5568",font:{size:9}}}}}});
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:tlChartColors().legend,font:{size:10}}}},
+scales:{y:{grid:{color:tlChartColors().grid},ticks:{color:tlChartColors().tick,font:{size:9}},title:{display:true,text:"Total T",color:"#4a5568",font:{size:9}}},
+y2:{position:"right",grid:{display:false},ticks:{color:tlChartColors().tick,font:{size:9}},title:{display:true,text:"E2",color:"#4a5568",font:{size:9}}},
+x:{grid:{color:tlChartColors().grid},ticks:{color:tlChartColors().tick,font:{size:9}}}}}});
 }
 document.getElementById("bw-hist").innerHTML = bw.length ? bw.map(e=>liHTML(e)).join("") : "";
 }
@@ -2368,7 +2391,7 @@ act.innerHTML = `
       <div style="font-family:'DM Serif Display',serif;font-size:19px;margin-bottom:3px">${p.name}</div>
       <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--text2);margin-bottom:12px">${fd(p.start)} to ${fd(end.toISOString())}</div>
       <div class="tbar"><div class="tfill" style="width:${pct}%;background:var(--accent)">${pct}%</div></div>
-      <div class="tlab">Week ${Math.ceil(elapsed/7)} of ${p.weeks} — ${daysLeft} days remaining</div>
+      <div class="tlab">Week ${Math.min(p.weeks, Math.floor(elapsed/7) + 1)} of ${p.weeks} — ${daysLeft} days remaining</div>
       ${p.meds ? `<div style="font-size:11px;color:var(--text2);line-height:1.9;white-space:pre-line">${p.meds}</div>` : ""}
       ${p.pct ? `<div style="margin-top:10px;padding:10px;background:rgba(244,114,182,0.06);border-radius:8px;border:1px solid rgba(244,114,182,0.2)"><div style="font-size:10px;font-weight:700;color:var(--accent4);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:5px">PCT Protocol</div><div style="font-size:11px;color:var(--text2);line-height:1.8;white-space:pre-line">${p.pct}</div></div>` : ""}
     </div>`;
@@ -2984,9 +3007,9 @@ datasets:[
 {label:"Lean Mass",data:entries.map(e=>e.lean),borderColor:"#4ade9a",backgroundColor:"rgba(74,222,154,0.08)",fill:true,tension:0.4,pointRadius:3,borderWidth:2},
 {label:"Fat Mass",data:entries.map(e=>e.fat),borderColor:"#f87171",backgroundColor:"rgba(248,113,113,0.06)",fill:true,tension:0.4,pointRadius:3,borderWidth:2}
 ]
-}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:"#8a95a3",font:{size:10}}}},
-scales:{x:{grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#4a5568",font:{size:9},maxTicksLimit:6}},
-y:{grid:{color:"rgba(255,255,255,0.04)"},ticks:{color:"#4a5568",font:{size:9}},title:{display:true,text:"lbs",color:"#4a5568",font:{size:9}}}}}});
+}, options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:tlChartColors().legend,font:{size:10}}}},
+scales:{x:{grid:{color:tlChartColors().grid},ticks:{color:tlChartColors().tick,font:{size:9},maxTicksLimit:6}},
+y:{grid:{color:tlChartColors().grid},ticks:{color:tlChartColors().tick,font:{size:9}},title:{display:true,text:"lbs",color:"#4a5568",font:{size:9}}}}}});
 }
 function runCorrelation() {
 const d = gd();
@@ -3196,6 +3219,13 @@ const colors = ['#4ade9a','#3bc4ff','#f59e0b','#f472b6','#a78bfa','#34d399','#fb
 return { name, dose, freqStr, freq, color: colors[idx % colors.length], id: 'med-'+idx };
 });
 }
+function tlFreqDays(freq, startDate) {
+if (!freq || freq.type !== 'weekly') return (freq && freq.days) || null;
+const sD = startDate ? tlLocalDate(startDate) : null;
+if (!sD || isNaN(sD)) return freq.days || [1];
+const base = sD.getDay();
+return (freq.count === 2) ? [base, (base + 3) % 7] : [base];
+}
 function getDoseDays(med, startDate, daysAhead=7) {
 const days = [];
 const start = startDate ? tlLocalDate(startDate) : new Date();
@@ -3213,7 +3243,8 @@ isDoseDay = daysSinceStart >= 0 && daysSinceStart % freq.interval === 0;
 }
 else if (freq.type === 'weekly') {
 const dayOfWeek = d.getDay();
-isDoseDay = freq.days && freq.days.includes(dayOfWeek);
+const wdays = tlFreqDays(freq, startDate);
+isDoseDay = wdays && wdays.includes(dayOfWeek);
 }
 else if (freq.type === 'monthly') {
 isDoseDay = d.getDate() === (start.getDate() || 1);
@@ -3292,6 +3323,15 @@ permCard.style.display = 'none';
 enabledCard.style.display = '';
 } else if (Notification.permission === 'denied') {
 permCard.style.display = 'none';
+enabledCard.style.display = 'none';
+let dn = document.getElementById('notif-denied-note');
+if (!dn && permCard && permCard.parentElement) {
+dn = document.createElement('div');
+dn.id = 'notif-denied-note';
+dn.className = 'card';
+dn.innerHTML = '<div style="font-size:12.5px;color:var(--text2);line-height:1.6">🔕 Notifications are blocked for this app in your browser settings, so dose reminders can\'t fire. Re-enable them in the browser\'s site settings, or use <b>Export to Calendar</b> below for reminders that work regardless.</div>';
+permCard.parentElement.insertBefore(dn, permCard);
+}
 } else {
 permCard.style.display = '';
 enabledCard.style.display = 'none';
@@ -3393,13 +3433,16 @@ times.forEach((time, ti) => {
 const [hh, mm] = time.split(':').map(Number);
 const dtStart = new Date();
 dtStart.setHours(hh, mm, 0, 0);
+/* anchor to the first actual dose day so EOD/weekly RRULEs land on the right dates */
+const dOff = getDoseDays(med, d.proto.start, 31);
+if (dOff.length && !(dOff[0] === 0 && dtStart > new Date())) dtStart.setDate(dtStart.getDate() + (dOff[0] === 0 && dtStart <= new Date() ? (dOff[1] !== undefined && freq.type !== 'daily' ? dOff[1] : (freq.type === 'daily' ? 1 : dOff[0])) : dOff[0]));
 let rrule = "";
 if (freq.type === 'daily') {
 rrule = "RRULE:FREQ=DAILY";
 } else if (freq.type === 'interval') {
 rrule = "RRULE:FREQ=DAILY;INTERVAL=" + (freq.interval || 1);
 } else if (freq.type === 'weekly' && freq.days && freq.days.length) {
-const days = freq.days.map(x => dayCode[x]).join(',');
+const days = (tlFreqDays(freq, d.proto.start) || freq.days).map(x => dayCode[x]).join(',');
 rrule = "RRULE:FREQ=WEEKLY;BYDAY=" + days;
 } else if (freq.type === 'monthly') {
 rrule = "RRULE:FREQ=MONTHLY";
@@ -3440,7 +3483,9 @@ toast("Calendar file downloaded — open it to add to your calendar");
 function googleCalUrlForMed(med, time) {
 const [hh, mm] = time.split(':').map(Number);
 const start = new Date(); start.setHours(hh, mm, 0, 0);
-if (start < new Date()) start.setDate(start.getDate() + 1);
+const _gOff = getDoseDays(med, (gd().proto || {}).start, 31);
+if (_gOff.length && _gOff[0] > 0) start.setDate(start.getDate() + _gOff[0]);
+else if (start < new Date()) start.setDate(start.getDate() + ((_gOff.length > 1 && med.freq && med.freq.type !== 'daily') ? _gOff[1] : 1));
 const end = new Date(start.getTime() + 15*60*1000);
 const pad = n => String(n).padStart(2,'0');
 const f = dt => `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
@@ -3448,7 +3493,7 @@ const dayCode = ['SU','MO','TU','WE','TH','FR','SA'];
 const freq = med.freq || {};
 let recur = 'RRULE:FREQ=DAILY';
 if (freq.type === 'interval') recur = 'RRULE:FREQ=DAILY;INTERVAL=' + (freq.interval || 1);
-else if (freq.type === 'weekly' && freq.days && freq.days.length) recur = 'RRULE:FREQ=WEEKLY;BYDAY=' + freq.days.map(x => dayCode[x]).join(',');
+else if (freq.type === 'weekly' && freq.days && freq.days.length) recur = 'RRULE:FREQ=WEEKLY;BYDAY=' + (tlFreqDays(freq, (gd().proto || {}).start) || freq.days).map(x => dayCode[x]).join(',');
 else if (freq.type === 'monthly') recur = 'RRULE:FREQ=MONTHLY';
 const params = new URLSearchParams({ action: 'TEMPLATE', text: `💉 ${med.name} — ${med.dose || 'dose'}`, details: 'TherapyLog dose reminder', dates: `${f(start)}/${f(end)}`, recur });
 return 'https://calendar.google.com/calendar/render?' + params.toString();
@@ -3792,9 +3837,9 @@ const prev = d.customMarkers[key] || {};
 const num = v => (_isNum(parseFloat(v)) ? parseFloat(v) : null);
 d.customMarkers[key] = {
 name: label,
-unit: String(unit || prev.unit || '').trim(),
-lo: num(lo) !== null ? num(lo) : (_isNum(prev.lo) ? prev.lo : null),
-hi: num(hi) !== null ? num(hi) : (_isNum(prev.hi) ? prev.hi : null),
+unit: String(prev.unit || unit || '').trim(),
+lo: (!prev.unit || !unit || String(prev.unit).trim().toLowerCase() === String(unit).trim().toLowerCase()) && num(lo) !== null ? num(lo) : (_isNum(prev.lo) ? prev.lo : null),
+hi: (!prev.unit || !unit || String(prev.unit).trim().toLowerCase() === String(unit).trim().toLowerCase()) && num(hi) !== null ? num(hi) : (_isNum(prev.hi) ? prev.hi : null),
 added: prev.added || nowStr()
 };
 return { key, builtIn: false };
@@ -3863,7 +3908,12 @@ if (added.builtIn) {
 const known = LAB_REF[added.key] || MARKER_REGISTRY[added.key] || {};
 toast(`${known.name || known.label || name} is already tracked — use its field above`);
 const input = document.getElementById('ll-' + added.key);
-if (input && valEl.value !== '') input.value = valEl.value;
+const wantUnit = String(unitEl.value || '').trim().toLowerCase();
+const haveUnit = String(known.unit || '').trim().toLowerCase();
+if (input && valEl.value !== '') {
+if (!wantUnit || !haveUnit || wantUnit === haveUnit) input.value = valEl.value;
+else toast(`${known.name || known.label || name} is tracked in ${known.unit} — convert your ${unitEl.value} value before entering it`);
+}
 } else {
 renderCustomMarkerFields();
 const input = document.getElementById('ll-' + added.key);
@@ -3959,7 +4009,7 @@ count.textContent = q ? `${shown} marker(s) match` : '';
    document blocks, which is the only shape the API accepts for them.
    -------------------------------------------------------------------------- */
 const LAB_MAX_FILES = 12;
-const LAB_MAX_UPLOAD_BYTES = 26 * 1024 * 1024;   /* API request cap is 32MB; leave room for base64 + JSON overhead */
+const LAB_MAX_UPLOAD_BYTES = Math.floor(3.2 * 1024 * 1024);   /* serverless request-body cap is 4.5MB; base64 inflates 4/3, leave room for JSON */
 const LAB_IMG_MAX_EDGE = 1568;                   /* Claude's recommended long edge — larger buys no accuracy */
 const LAB_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 let labFiles = [];
@@ -3989,7 +4039,7 @@ try {
 const scale = Math.min(1, LAB_IMG_MAX_EDGE / Math.max(img.width, img.height));
 /* already within the useful resolution and a type the API takes: send as-is.
    Re-encoding a screenshot to JPEG only softens the text. */
-if (scale === 1 && LAB_IMAGE_TYPES.includes(mediaType) && bytes <= 4 * 1024 * 1024)
+if (scale === 1 && LAB_IMAGE_TYPES.includes(mediaType) && bytes <= 2.5 * 1024 * 1024)
 return resolve(null);
 const w = Math.max(1, Math.round(img.width * scale));
 const h = Math.max(1, Math.round(img.height * scale));
@@ -4411,13 +4461,13 @@ html += `
 if (inclProtocol && proto) {
 const start = new Date(proto.start);
 const end = new Date(start.getTime() + proto.weeks*7*24*60*60*1000);
-const elapsed = Math.floor((new Date()-start)/(24*60*60*1000));
+const elapsed = Math.max(0, Math.floor((new Date()-start)/(24*60*60*1000)));
 const pct = Math.min(100, Math.round((elapsed/(proto.weeks*7))*100));
 html += `
     <div style="margin-bottom:20px">
       <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#64748b;margin-bottom:10px;display:flex;align-items:center;gap:8px">Active Protocol <div style="flex:1;height:1px;background:#e2e8f0"></div></div>
       <div style="font-size:16px;font-weight:700;margin-bottom:4px">${_aiEsc(proto.name)}</div>
-      <div style="font-size:12px;color:#64748b;margin-bottom:10px">${fd(proto.start)} → ${fd(end.toISOString())} · Week ${Math.ceil(elapsed/7)} of ${proto.weeks} (${pct}% complete)</div>
+      <div style="font-size:12px;color:#64748b;margin-bottom:10px">${fd(proto.start)} → ${fd(end.toISOString())} · Week ${Math.min(proto.weeks, Math.floor(elapsed/7) + 1)} of ${proto.weeks} (${pct}% complete)</div>
       ${proto.meds ? `<div style="background:#f8fafc;border-radius:8px;padding:12px;margin-bottom:8px">
         <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Compounds</div>
         ${proto.meds.split('\n').filter(l=>l.trim()).map(line => {
@@ -4537,10 +4587,18 @@ document.getElementById('theme-btn').textContent = '☀️';
 document.getElementById('theme-btn').textContent = '🌙';
 }
 }
+function tlChartColors() {
+const light = document.body.classList.contains('light-mode');
+return light
+? { grid: 'rgba(0,0,0,0.07)', tick: '#64748b', legend: '#475569' }
+: { grid: 'rgba(255,255,255,0.04)', tick: '#4a5568', legend: '#8a95a3' };
+}
 function toggleTheme() {
 const isLight = document.body.classList.toggle('light-mode');
 document.getElementById('theme-btn').textContent = isLight ? '☀️' : '🌙';
 localStorage.setItem('tl-theme', isLight ? 'light' : 'dark');
+/* charts bake their colors at render time — redraw whatever is mounted */
+[typeof renderDash==='function'&&renderDash, typeof renderBW==='function'&&renderBW, typeof renderBWTrends==='function'&&renderBWTrends, typeof renderBPChart==='function'&&renderBPChart, typeof renderPKLevels==='function'&&renderPKLevels].forEach(f => { if (f) { try { f(); } catch(e) {} } });
 }
 function showObStep(n) {
 [0,1,2,3,4,5].forEach(i => {
@@ -5312,11 +5370,8 @@ event.target.value = '';
 async function resetAllData() {
 if (!confirm('Delete ALL TherapyLog data permanently? This cannot be undone.\n\nExport a backup first if you want to keep your data.')) return;
 if (!confirm('Are you absolutely sure? All entries, profile, and protocol will be deleted.')) return;
-localStorage.removeItem('tlv2');
-localStorage.removeItem('tl-ob-done');
-localStorage.removeItem('tl-chat-history');
-localStorage.removeItem('tl-theme');
-localStorage.removeItem('tl-disclaimer-done');
+_memCache = { entries: [], proto: null };
+['tlv2','tl-ob-done','tl-chat-history','tl-theme','tl-disclaimer-done','tl_ai_key','tl_ai_mode','tl_ai_usage','tl_attr','tl-last-export','tl-banner-dismissed','tl_fab_pos'].forEach(k => { try { localStorage.removeItem(k); } catch(e) {} });
 try {
 if (window.indexedDB && indexedDB.databases) {
 const dbs = await indexedDB.databases();
@@ -5510,7 +5565,8 @@ const clinicHTML = `
             ${Object.keys(latest.labs).map(key => {
 const r = adjRanges[key]; if(!r) return '';
 const val = latest.labs[key];
-const st = val<r.lo||val>r.hi ? 'bad' : (r.olo&&r.ohi&&(val<r.olo||val>r.ohi)) ? 'warn' : 'good';
+const _stv = labSt(key, val, latest);
+const st = _stv === 'neutral' ? 'good' : _stv;
 return `<div class="clinic-lab-item ${st}">
                 <div class="clinic-lab-name">${r.name}</div>
                 <div><span class="clinic-lab-val">${val}</span><span class="clinic-lab-unit">${r.unit}</span></div>
@@ -5953,12 +6009,12 @@ const freqStr = freqN
 : freqN + 'x ' + periodLabels[freqPeriod])
 : 'As directed';
 const line = `${name}, ${dose}${unit}, ${freqStr}, SubQ`;
-showHub('me', document.getElementById('nav-me'));
-switchHubSection('me', 'ai', document.getElementById('hbtn-ai'));
+showPage('cycle', document.querySelectorAll('.nav-btn')[3]);
 setTimeout(function() {
+if (typeof showCycleTab === 'function') showCycleTab(document.querySelectorAll('#page-cycle .seg-btn')[4] || document.querySelector('#page-cycle .seg-btn'), 'setup');
 const cm = document.getElementById('cm');
 if (cm) { cm.value = (cm.value ? cm.value.trimEnd() + '\n' : '') + line; cm.focus(); }
-toast(name + ' added to your protocol stack');
+toast(name + ' added to your protocol — review and save');
 }, 160);
 }
 function renderSyringe(units, syringeMax, dose, ml, containerId) {
@@ -6359,7 +6415,7 @@ options: {
 responsive: true,
 maintainAspectRatio: false,
 plugins: {
-legend: { labels: { color: '#8a95a3', font: { size: 10 } } },
+legend: { labels:{color:tlChartColors().legend, font: { size: 10 } } },
 tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y} mmHg` } }
 },
 scales: {
@@ -6400,8 +6456,9 @@ const value = record.getAttribute('value');
 const startDate = record.getAttribute('startDate');
 const endDate = record.getAttribute('endDate');
 if (!startDate) return;
-const ts = new Date(startDate).toISOString();
-const dateStr = ts.split('T')[0];
+const _ahD = new Date(startDate);
+const ts = _ahD.toISOString();
+const dateStr = _ahD.getFullYear() + '-' + String(_ahD.getMonth()+1).padStart(2,'0') + '-' + String(_ahD.getDate()).padStart(2,'0');
 if (type === 'HKQuantityTypeIdentifierBloodPressureSystolic') {
 const sysVal = parseFloat(value);
 if (!isNaN(sysVal) && !existingTs.has(ts + '_sys')) {
@@ -6827,7 +6884,7 @@ if (!cycleLengths.length) return null;
 const avgCycle = Math.round(cycleLengths.reduce((a,b)=>a+b,0) / cycleLengths.length);
 const lastPeriod = periodStarts[0];
 const today = new Date();
-const daysSinceLastPeriod = Math.floor((today - lastPeriod) / (24*60*60*1000));
+const daysSinceLastPeriod = Math.round((new Date(today.getFullYear(), today.getMonth(), today.getDate()) - new Date(lastPeriod.getFullYear(), lastPeriod.getMonth(), lastPeriod.getDate())) / (24*60*60*1000));
 const nextPeriodEst = new Date(lastPeriod.getTime() + avgCycle * 24*60*60*1000);
 const daysUntilNext = Math.ceil((nextPeriodEst - today) / (24*60*60*1000));
 let currentPhase = 0;
@@ -6852,7 +6909,7 @@ container.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
         <div>
           <div style="font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:${phase.color};margin-bottom:3px">${phase.name}</div>
-          <div style="font-size:12px;color:var(--text2)">${phase.days} · Day ${stats.daysSinceLastPeriod} of cycle</div>
+          <div style="font-size:12px;color:var(--text2)">${phase.days} · Day ${stats.daysSinceLastPeriod + 1} of cycle</div>
         </div>
         <div style="text-align:right">
           <div style="font-size:11px;color:var(--text2)">${stats.daysUntilNext > 0 ? `Next period in ${stats.daysUntilNext}d` : 'Period due'}</div>
@@ -7074,6 +7131,7 @@ renderCustomMarkerFields();
 tlCaptureAttribution();
 tlActivateFromCheckout();
 tlRefreshEntitlement();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { try { tlRefreshEntitlement(); } catch(e){} } });
 tlCheckForUpdate();
 tlAutoBackup();
 setTimeout(tlSizeChatCard, 300);
@@ -7082,6 +7140,7 @@ if (llDate) llDate.value = tlTodayStr();
 const csDate = document.getElementById("cs");
 if (csDate) csDate.value = tlTodayStr();
 }).catch(() => {
+try { mountHubPages(); showHub('home', document.getElementById('nav-home')); } catch(e) {}
 renderDash();
 initInteractionDropdowns();
 loadProfile();
@@ -7445,6 +7504,14 @@ async function tlAutoBackup() {
     if (Date.now() - last < TL_BACKUP_EVERY_MS) return;
     var handle = await tlGetHandle();
     if (!handle) return;
+    if (handle.queryPermission && (await handle.queryPermission({ mode: 'readwrite' })) === 'prompt') {
+      /* browser restart dropped the grant — writing silently fails, so ask with one tap */
+      if (typeof toast === 'function' && !window._tlBkNagged) {
+        window._tlBkNagged = true;
+        toast('Weekly auto-backup needs re-approval — open Settings → Back up now to resume');
+      }
+      return;
+    }
     await tlWriteLinkedBackup(false);
   } catch (e) {}
 }
@@ -7573,7 +7640,7 @@ async function tlVerifyLicense(payload) {
       tlWriteEnt({
         tier: data.tier, status: data.status, expires: data.expires || null,
         plan: data.plan || null, lifetime: !!data.lifetime, willRenew: !!data.willRenew,
-        key: data.key || (payload.key || null), email: data.email || null,
+        key: data.key || (payload.key || null), email: data.email || payload.email || null,
         verifiedAt: Date.now(), source: 'license'
       });
       return { ok: true, tier: data.tier, data: data };
@@ -7587,10 +7654,15 @@ async function tlVerifyLicense(payload) {
 /** Silent daily re-check. A definitive "no" downgrades; an outage does not. */
 async function tlRefreshEntitlement() {
   var e = tlReadEnt();
-  if (!e || !e.key || e.source === 'ios-iap') return;
+  if (!e || e.source === 'ios-iap') return;
   if (e.verifiedAt && (Date.now() - e.verifiedAt) < TL_ENT_RECHECK_MS) return;
-  var r = await tlVerifyLicense({ key: e.key });
+  var payload = e.key ? { key: e.key } : (e.email ? { email: e.email } : null);
+  if (!payload) return;
+  var r = await tlVerifyLicense(payload);
   if (!r.ok && !r.transient) {
+    /* don't wipe an entitlement that changed while we were checking (e.g. checkout just activated) */
+    var cur = tlReadEnt();
+    if (cur && (cur.key !== e.key || cur.verifiedAt !== e.verifiedAt)) return;
     tlWriteEnt(null);
     if (typeof toast === 'function') toast('Your plan is no longer active — AI features are off');
     if (typeof tlTrack === 'function') tlTrack('license_lapsed');
@@ -7612,9 +7684,15 @@ async function tlActivateFromCheckout() {
       /* A first-time buyer lands here with onboarding still open — don't stack
          the receipt on top of it, wait until they're through. */
       if (e && e.key) tlShowKeyReceiptWhenClear(e.key);
+      /* Tidy the URL so a refresh doesn't re-run this. */
+      history.replaceState({}, '', location.pathname);
+    } else if (r.transient || r.reason === 'pending' || r.reason === 'not-paid') {
+      /* keep session_id in the URL so a refresh retries the activation */
+      if (typeof toast === 'function') toast(r.message || 'Payment received — finishing activation. Refresh in a minute.');
+    } else {
+      if (typeof toast === 'function') toast(r.message || "We couldn't activate from that checkout — your license key is in your email.");
+      history.replaceState({}, '', location.pathname);
     }
-    /* Tidy the URL so a refresh doesn't re-run this. */
-    history.replaceState({}, '', location.pathname);
   } catch (err) {}
 }
 
@@ -7879,6 +7957,13 @@ var result = await tlVerifyLicense(payload);
 go.disabled = false; go.textContent = 'Activate';
 if (result.ok) {
 if (typeof tlTrack === 'function') tlTrack('license_activated', { tier: result.tier, via: mode });
+if (mode === 'email') {
+var entNow = tlReadEnt();
+if (entNow && !entNow.key) {
+try { fetch(TL_VERIFY_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: value, action: 'resend' }) }); } catch (e2) {}
+setTimeout(function(){ if (typeof toast === 'function') toast('We emailed your license key — enter it here once to unlock the AI features.'); }, 1600);
+}
+}
 var el = document.getElementById('tl-activate-overlay'); if (el) el.remove();
 ['tl-upgrade-overlay','tl-iap-overlay'].forEach(function (id) {
 var o = document.getElementById(id); if (o) o.remove();
@@ -8160,9 +8245,10 @@ const peak = Math.exp(-ke * tmax) - Math.exp(-ka * tmax);
 return t => t <= 0 ? 0 : (Math.exp(-ke * t) - Math.exp(-ka * t)) / peak;
 }
 function pkParseDose(s) {
-const m = String(s||'').match(/([\d.]+)\s*(mcg|mg|iu|units?|ml)?/i);
+const m = String(s||'').match(/(\d+(?:\.\d+)?|\.\d+)\s*(mcg|mg|iu|units?|ml)?/i);
 if (!m) return null;
 let v = parseFloat(m[1]); const u = (m[2]||'mg').toLowerCase();
+if (!isFinite(v) || v <= 0) return null;
 if (u === 'mcg') return { v: v/1000, unit: 'mg' };
 if (u.indexOf('unit') === 0 || u === 'iu') return { v, unit: 'IU' };
 if (u === 'ml') return { v, unit: 'ml' };
@@ -8181,9 +8267,12 @@ const doses = {};
 if (e.type !== 'medication' || !e.medication) return;
 const t = new Date(e.ts).getTime();
 if (!(t > lookback && t <= now)) return;
-const p = pkParseDose(e.dose); if (!p || p.unit === 'ml') return;
+const p = pkParseDose(e.dose); if (!p) return;
+if (p.unit === 'ml') { (window._tlPkMl = window._tlPkMl || new Set()).add(e.medication); return; }
 (doses[e.medication] = doses[e.medication] || []).push({ t, v: p.v, unit: p.unit });
 });
+const mlSkipped = [...(window._tlPkMl || [])].filter(m => !doses[m]);
+window._tlPkMl = null;
 const meds = Object.keys(doses);
 const active = [], missing = [];
 meds.forEach(m => (pkParamsFor(m).hl ? active : missing).push(m));
@@ -8193,19 +8282,43 @@ if (!meds.length) { empty.style.display=''; chartCard.style.display='none'; wrap
 empty.style.display='none'; chartCard.style.display = active.length ? '' : 'none';
 
 const step = 2*H, times = [];
-for (let t = winStart; t <= winEnd; t += step) times.push(t);
+for (let t = Math.floor(winStart/step)*step; t <= winEnd; t += step) times.push(t);
+/* a 2h grid aliases short-half-life peaks — sample each dose's peak and decay landmarks exactly */
+Object.keys(doses).forEach(m => {
+const p = pkParamsFor(m); if (!p.hl) return;
+const tm = (p.tmax || 1) * H;
+doses[m].forEach(dose => {
+[dose.t + tm, dose.t + tm + 0.5*p.hl*H, dose.t + p.hl*H, dose.t + 2*p.hl*H].forEach(x => {
+if (x > winStart && x <= winEnd) times.push(x);
+});
+});
+});
+times.sort((a,b) => a-b);
 const datasets = [];
-active.forEach((m, i) => {
-const p = pkParamsFor(m), curve = pkCurve(p.hl, p.tmax), color = PK_COLORS[i % PK_COLORS.length];
-const raw = times.map(t => doses[m].reduce((s, dose) => s + dose.v * curve((t - dose.t)/H), 0));
+active.forEach((m) => {
+const p = pkParamsFor(m), curve = pkCurve(p.hl, p.tmax);
+/* mg and IU are different scales — chart each unit as its own series, never sum across units */
+const byUnit = {};
+doses[m].forEach(dose => (byUnit[dose.unit] = byUnit[dose.unit] || []).push(dose));
+const unitKeys = Object.keys(byUnit);
+unitKeys.forEach((unit) => {
+const arr = byUnit[unit];
+const color = PK_COLORS[(datasets.length/2) % PK_COLORS.length | 0];
+const raw = times.map(t => arr.reduce((s, dose) => s + dose.v * curve((t - dose.t)/H), 0));
 const max = Math.max(...raw, 1e-9);
 const pct = raw.map(v => v/max*100);
 const past = pct.map((v, j) => times[j] <= now ? v : null);
 const fut  = pct.map((v, j) => times[j] >= now ? v : null);
-const unit = doses[m][0].unit;
-datasets.push({ label: m, data: past, borderColor: color, backgroundColor: color+'22', borderWidth: 2, pointRadius: 0, tension: .3, _raw: raw, _unit: unit, _max: max });
-datasets.push({ label: m+' (projected)', data: fut, borderColor: color, borderDash: [5,4], borderWidth: 1.5, pointRadius: 0, tension: .3, _hide: 1, _raw: raw, _unit: unit, _max: max });
+const lbl = unitKeys.length > 1 ? `${m} (${unit})` : m;
+datasets.push({ label: lbl, data: past, borderColor: color, backgroundColor: color+'22', borderWidth: 2, pointRadius: 0, tension: .3, _raw: raw, _unit: unit, _max: max });
+datasets.push({ label: lbl+' (projected)', data: fut, borderColor: color, borderDash: [5,4], borderWidth: 1.5, pointRadius: 0, tension: .3, _hide: 1, _raw: raw, _unit: unit, _max: max });
 });
+});
+let mlNote = document.getElementById('pk-ml-note');
+if (mlSkipped.length) {
+if (!mlNote) { mlNote = document.createElement('div'); mlNote.id = 'pk-ml-note'; mlNote.style.cssText = 'font-size:10.5px;color:var(--text3);margin-top:6px'; chartCard.appendChild(mlNote); }
+mlNote.textContent = 'Not charted (doses logged in ml — log the mg/mcg amount to include): ' + mlSkipped.join(', ');
+} else if (mlNote) { mlNote.remove(); }
 if (_pkChart) { _pkChart.destroy(); _pkChart = null; }
 if (active.length && typeof Chart !== 'undefined') {
 const labels = times.map(t => { const dt = new Date(t); return (dt.getMonth()+1)+'/'+dt.getDate(); });
@@ -8215,7 +8328,7 @@ data: { labels, datasets },
 options: {
 responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
 plugins: {
-legend: { labels: { color: '#8a95a3', boxWidth: 14, font: { size: 10 }, filter: it => !datasets[it.datasetIndex]._hide } },
+legend: { labels:{color:tlChartColors().legend, boxWidth: 14, font: { size: 10 }, filter: it => !datasets[it.datasetIndex]._hide } },
 tooltip: { callbacks: { label: ctx => {
 const ds = datasets[ctx.datasetIndex];
 if (ds._hide) return null;
@@ -8322,12 +8435,13 @@ vol: (parseFloat(r.dose) > 0 && parseFloat(r.conc) > 0) ? parseFloat(r.dose)/par
 const ready = rows.filter(r => r.vol > 0);
 const total = ready.reduce((s,r) => s + r.vol, 0);
 const warns = [];
-const media = new Set(rows.map(r => r.medium));
+const activeRows = rows.filter(r => r.vol > 0 || parseFloat(r.dose) > 0 || parseFloat(r.conc) > 0);
+const media = new Set(activeRows.map(r => r.medium));
 if (media.has('oil') && (media.has('aq') || media.has('susp')))
 warns.push(['block','Oil-based and water-based compounds cannot share a syringe — the phases separate and the dose becomes unreliable. Draw these separately.']);
-if (media.has('susp') && rows.length > 1)
+if (media.has('susp') && activeRows.length > 1)
 warns.push(['block','Aqueous suspensions are always drawn alone — combining them risks clumping and a clogged needle.']);
-rows.filter(r => r.fragile).forEach(r => { if (rows.length > 1)
+activeRows.filter(r => r.fragile).forEach(r => { if (rows.length > 1)
 warns.push(['warn', r.name + ' is a fragile protein — mixing it with other compounds in one syringe risks degrading it. Draw it separately.']); });
 if (rows.length > 1 && media.size === 1 && media.has('aq') && !rows.some(r => r.fragile))
 warns.push(['info','Water-based peptides are commonly combined in one syringe. Combine right before injecting — don’t store them premixed.']);
@@ -8362,7 +8476,7 @@ function syrLog() {
 const d = gd();
 let n = 0;
 SYR.rows.forEach(r => {
-if (!(parseFloat(r.dose) > 0)) return;
+if (!(parseFloat(r.dose) > 0 && parseFloat(r.conc) > 0)) return;
 d.entries.unshift({ type: 'medication', ts: nowStr(), medication: r.name, dose: r.dose + r.unit, site: null, notes: 'Combined syringe' });
 n++;
 });

@@ -37,6 +37,7 @@ function el(id) {
 }
 const store = new Map();
 const sandbox = {
+  addEventListener() {}, removeEventListener() {}, dispatchEvent() { return true; },
   console, setTimeout, clearTimeout, setInterval, clearInterval, JSON, Math, Date, isFinite, parseFloat, parseInt,
   Promise, Set, Map, Object, Array, String, Number, RegExp, Error, Intl, encodeURIComponent, decodeURIComponent, btoa: s => Buffer.from(s).toString('base64'),
   document: {
