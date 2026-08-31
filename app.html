@@ -1665,6 +1665,7 @@ const ft = (iso) => new Date(iso).toLocaleTimeString("en-US",{hour:"numeric",min
 function toast(m) { const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2200); }
 function updateDate() { const d=new Date(); document.getElementById("hdate").innerHTML=d.toLocaleDateString("en-US",{weekday:"short"}).toUpperCase()+"<br>"+d.toLocaleDateString("en-US",{month:"short",day:"numeric"}); }
 function showLogTab(btn, tab) {
+if ((tab === 'bp' || tab === 'symp') && window.TLTier && !TLTier.check(tab === 'bp' ? 'blood_pressure' : 'symptoms')) return;
 if (tab === 'labs') { const slot = document.getElementById('lt-labs-slot'), lt = document.getElementById('lt-labs'); if (slot && lt && lt.previousElementSibling !== slot) slot.after(lt); }
 ["weight","meds","body","symp","bp","labs"].forEach(t => {
 const el = document.getElementById("lt-"+t);
@@ -2453,6 +2454,7 @@ const resp = await fetch(AI_ENDPOINT,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({ mode:"chat", context:getFullCtx(), messages:S.chatHist, byok:byokKey,
+iosToken: (window.TLTier && TLTier.iosToken && TLTier.iosToken()) || "",
 license: (window.TLTier && window.TLTier.licenseKey()) || "" })
 });
 const data = await resp.json(); removeThinking(tid);
@@ -3321,6 +3323,14 @@ return;
 if (Notification.permission === 'granted') {
 permCard.style.display = 'none';
 enabledCard.style.display = '';
+let hn = document.getElementById('notif-honesty-note');
+if (!hn && enabledCard) {
+hn = document.createElement('div');
+hn.id = 'notif-honesty-note';
+hn.style.cssText = 'font-size:11.5px;color:var(--text2);line-height:1.6;margin-top:8px';
+hn.innerHTML = 'Heads up: these reminders fire while TherapyLog is open in your browser. For reminders that always fire — even with the app closed — use <b>Export to Calendar</b> below; your phone\'s calendar takes it from there.';
+enabledCard.appendChild(hn);
+}
 } else if (Notification.permission === 'denied') {
 permCard.style.display = 'none';
 enabledCard.style.display = 'none';
@@ -4211,6 +4221,7 @@ method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ mode: 'labscan', messages: [{ role: 'user', content }],
 byok: (function(){ try { return localStorage.getItem('tl_ai_mode')==='byok' ? (localStorage.getItem('tl_ai_key')||'') : ''; } catch(e){ return ''; } })(),
+iosToken: (window.TLTier && TLTier.iosToken && TLTier.iosToken()) || "",
 license: (window.TLTier && window.TLTier.licenseKey()) || "" })
 });
 const data = await response.json();
@@ -4410,6 +4421,7 @@ const preview = document.getElementById('report-preview');
 preview.style.display = 'none';
 }
 function generateReport() {
+if (window.TLTier && !TLTier.check('clinical_reports')) return;
 const d = gd();
 const p = d.profile || {};
 const proto = d.proto;
@@ -5345,7 +5357,7 @@ current.femcycle = [...(current.femcycle||[]), ...newFc];
 merged += newFc.length;
 }
 /* settings objects: imported values fill gaps, anything set on this device wins */
-['customMarkers','pk','reminderTimes','labMeta'].forEach(k => {
+['customMarkers','pk','reminderTimes','labMeta','supply'].forEach(k => {
 if (importedData[k] && typeof importedData[k] === 'object' && !Array.isArray(importedData[k])) {
 current[k] = Object.assign({}, importedData[k], current[k] || {});
 }
@@ -5478,6 +5490,7 @@ el.textContent = 'Not yet enabled — tap below to enable.';
 }
 let clinicModeActive = false;
 function toggleClinicMode() {
+if (window.TLTier && !TLTier.check('clinical_reports')) return;
 clinicModeActive = !clinicModeActive;
 updateClinicToggleUI();
 if (clinicModeActive) {
@@ -6054,6 +6067,7 @@ container.innerHTML = `
     </div>`;
 }
 function showBWTab(btn, tab) {
+if (tab === 'trends' && window.TLTier && !TLTier.check('bloodwork_trends')) return;
 ['overview','trends','log','history'].forEach(t => {
 const el = document.getElementById('bw-'+t);
 if (el) el.style.display = t===tab ? '' : 'none';
@@ -6235,12 +6249,24 @@ else if (freq.type === 'monthly') dosesPerDay = 1 / 30;
 if (dosesPerDay <= 0) return;
 const daysPerVial = costData.monthly > 0 ? 30 / costData.monthly : null;
 if (!daysPerVial) return;
+const supply = (d.supply || {})[med.name];
+let daysRemaining, estimate;
+if (supply && supply.vials > 0) {
+/* real inventory: vials on hand minus doses actually logged since the refill */
+const since = supply.sinceTs ? new Date(supply.sinceTs).getTime() : 0;
+const dosesSince = (d.entries||[]).filter(e => e.type === 'medication' && e.medication === med.name && new Date(e.ts).getTime() >= since).length;
+const daysUsed = dosesPerDay > 0 ? dosesSince / dosesPerDay : 0;
+daysRemaining = Math.max(0, supply.vials * daysPerVial - daysUsed);
+estimate = false;
+} else {
 const lastLog = (d.entries||[])
 .filter(e => e.type === 'medication' && e.medication === med.name)
 .sort((a,b) => new Date(b.ts) - new Date(a.ts))[0];
 if (!lastLog) return;
 const daysSinceLog = (Date.now() - new Date(lastLog.ts).getTime()) / (24*60*60*1000);
-const daysRemaining = Math.max(0, daysPerVial - daysSinceLog);
+daysRemaining = Math.max(0, daysPerVial - daysSinceLog);
+estimate = true;
+}
 if (daysRemaining <= 14) {
 alerts.push({
 name: med.name,
@@ -6249,7 +6275,10 @@ urgent: daysRemaining <= 7,
 dose: med.dose,
 freq: med.freq.label,
 cost: costData.price,
-unit: costData.unit
+unit: costData.unit,
+estimate: estimate,
+vials: supply ? supply.vials : null,
+since: supply ? supply.sinceTs : null
 });
 }
 });
@@ -6275,7 +6304,20 @@ container.innerHTML = `
           </div>
         </div>
         ${a.cost ? `<div style="font-size:11px;color:var(--text2);margin-top:6px">~$${a.cost} / ${a.unit}</div>` : ''}
+        <div onclick="tlSetSupply('${a.name.replace(/'/g, "\\'")}')" style="font-size:11px;color:var(--accent);margin-top:7px;cursor:pointer">${a.estimate ? 'Estimate — tap to enter how many vials you have' : `Based on ${a.vials} vial${a.vials === 1 ? '' : 's'} since ${fd(a.since)} — refilled? Tap to update`}</div>
       </div>`).join('')}`;
+}
+function tlSetSupply(name) {
+const v = prompt('How many vials/containers of ' + name + ' do you have on hand right now?');
+if (v === null) return;
+const n = parseFloat(v);
+if (!(n >= 0)) { toast('Enter a number of vials'); return; }
+const d = gd();
+d.supply = d.supply || {};
+d.supply[name] = { vials: n, sinceTs: new Date().toISOString() };
+sd(d);
+renderRefillAlerts();
+toast(name + ': ' + n + ' vial' + (n === 1 ? '' : 's') + ' on hand — the countdown now follows your logs');
 }
 function getBPStage(sys, dia) {
 if (!sys || !dia) return null;
@@ -6604,6 +6646,7 @@ b.classList.toggle('active', b.id === 'hbtn-' + section);
 }
 }
 function switchHubSection(hub, section, btn) {
+if ((section === 'femcycle' || section === 'photos') && window.TLTier && !TLTier.check(section === 'femcycle' ? 'cycle_tracker' : 'progress_photos')) return;
 _tlScrollTop();
 hubState[hub] = section;
 /* the Plan & backup card lives on Settings, so refresh it as that section opens
@@ -7182,6 +7225,7 @@ store.when()
 .verified(function(receipt) {
 receipt.finish();
 window.TLTier.set('pro', 'ios-iap');
+TLIAP.validate();
 try { localStorage.setItem('tl_iap_active','true'); } catch(e) {}
 ['tl-upgrade-overlay','tl-iap-overlay'].forEach(function(id){
 var el = document.getElementById(id); if(el) el.remove();
@@ -7192,7 +7236,50 @@ setTimeout(function(){ location.reload(); }, 800);
 store.initialize([Platform.APPLE_APPSTORE]).then(function() {
 self.initialized = true;
 if (self.isOwned()) window.TLTier.set('pro', 'ios-iap');
+/* re-check the receipt either way — this is what catches a cancelled subscription */
+self.validate();
 });
+},
+appReceipt: function() {
+try {
+if (window.CdvPurchase) {
+var lrs = CdvPurchase.store.localReceipts || [];
+for (var i = 0; i < lrs.length; i++) {
+var nd = lrs[i] && lrs[i].nativeData;
+if (nd && nd.appStoreReceipt) return nd.appStoreReceipt;
+}
+}
+} catch (e) {}
+try { return localStorage.getItem('tl_ios_receipt') || null; } catch (e) { return null; }
+},
+/** Ask our server to verify the App Store receipt with Apple. Success stores a
+ *  real expiry plus the signed token managed AI accepts; a definitive "ended"
+ *  clears the entitlement. Anything transient keeps what we have. */
+validate: function() {
+var receipt = this.appReceipt();
+if (!receipt) return Promise.resolve(false);
+try { localStorage.setItem('tl_ios_receipt', receipt); } catch (e) {}
+return fetch(TL_VERIFY_ENDPOINT, {
+method: 'POST', headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ action: 'ios-receipt', receipt: receipt })
+}).then(function(r) { return r.json().catch(function(){ return {}; }).then(function(j) { return { st: r.status, j: j }; }); })
+.then(function(res) {
+if (res.st === 200 && res.j && res.j.ok) {
+tlWriteEnt({ tier: res.j.tier || 'pro', status: 'active', expires: res.j.expires || null,
+plan: res.j.plan || null, lifetime: false, willRenew: !!res.j.willRenew,
+key: null, iosToken: res.j.iosToken || null, verifiedAt: Date.now(), source: 'ios-iap' });
+return true;
+}
+if (res.st === 200 && res.j && res.j.ok === false) {
+var cur = tlReadEnt();
+if (cur && cur.source === 'ios-iap') {
+tlWriteEnt(null);
+if (typeof toast === 'function') toast(res.j.message || 'Your App Store subscription has ended.');
+}
+return false;
+}
+return false;
+}).catch(function() { return false; });
 },
 isOwned: function() {
 if (!window.CdvPurchase) return false;
@@ -7224,6 +7311,7 @@ toast('Restoring purchases…');
 CdvPurchase.store.restorePurchases().then(function() {
 if (TLIAP.isOwned()) {
 window.TLTier.set('pro', 'ios-iap');
+TLIAP.validate();
 toast('Pro restored ✓');
 setTimeout(function(){ location.reload(); }, 600);
 } else {
@@ -7654,7 +7742,13 @@ async function tlVerifyLicense(payload) {
 /** Silent daily re-check. A definitive "no" downgrades; an outage does not. */
 async function tlRefreshEntitlement() {
   var e = tlReadEnt();
-  if (!e || e.source === 'ios-iap') return;
+  if (!e) return;
+  if (e.source === 'ios-iap') {
+    var stale = !e.verifiedAt || (Date.now() - e.verifiedAt) > TL_ENT_RECHECK_MS;
+    var expiring = e.expires && Date.now() > e.expires * 1000;
+    if ((stale || expiring) && window.TLIAP) { try { TLIAP.validate(); } catch (err) {} }
+    return;
+  }
   if (e.verifiedAt && (Date.now() - e.verifiedAt) < TL_ENT_RECHECK_MS) return;
   var payload = e.key ? { key: e.key } : (e.email ? { email: e.email } : null);
   if (!payload) return;
@@ -7729,9 +7823,12 @@ get: function() { return tlEffectiveTier(); },
    the old `tl_tier` string is not read any more. */
 set: function(t, source) {
 if (source !== 'ios-iap') { console.warn('TLTier.set ignored — use tlVerifyLicense()'); return; }
-tlWriteEnt({ tier: t, status: 'active', expires: null, lifetime: false,
-key: null, verifiedAt: Date.now(), source: 'ios-iap' });
+var prev = tlReadEnt() || {};
+var wasIOS = prev.source === 'ios-iap';
+tlWriteEnt({ tier: t, status: 'active', expires: wasIOS ? (prev.expires || null) : null, lifetime: false,
+key: null, iosToken: wasIOS ? (prev.iosToken || null) : null, verifiedAt: Date.now(), source: 'ios-iap' });
 },
+iosToken: function() { var e = tlReadEnt(); return (e && e.source === 'ios-iap' && e.iosToken) || null; },
 ent: function() { return tlReadEnt(); },
 licenseKey: function() { var e = tlReadEnt(); return (e && e.key) || null; },
 /** True when the user can run AI on their own key (BYOK tier or Pro). */
