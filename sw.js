@@ -1,5 +1,5 @@
 /* TherapyLog service worker — offline shell + notification display. */
-const CACHE = 'therapylog-v1';
+const CACHE = 'therapylog-v2';
 const PRECACHE = [
   '/app.html',
   '/manifest.webmanifest',

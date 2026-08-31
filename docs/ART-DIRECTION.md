@@ -417,11 +417,13 @@ line.
 | `/assets/art/hero-volume.png` | 2048 | Encyclopedia header |
 | `/assets/art/empty-{name}.png` | 1024² | Empty states across Log, Levels, Bloodwork |
 | `/assets/art/onboard-{1,2,3}.png` | 1536 | Onboarding steps |
-| `/icons/icon.svg` | vector | App icon, favicon, PWA — traced from the winning mark, not the PNG |
+| `/icons/icon.svg` | vector | App icon, favicon, PWA — the hexagon TL monogram mark (2026-08 rebrand) |
+| `/icons/logo-dark.svg` | vector | Full lockup (mark + wordmark) for dark backgrounds — site navs and headers |
+| `/icons/logo-light.svg` | vector | Full lockup for light backgrounds — print/exports (wordmark ink #191919, from the logo artwork) |
 
 **Compress before committing.** Run PNGs through `pngquant` or export WebP at
 ~85%. Class tiles should land at 40–80 KB each, not 400 KB.
 
-**`favicon.ico` is currently missing from the repo (404).** Generate it from the
-chosen mark alongside `icons/icon.svg` and the derived app icons — browsers
-request it unconditionally, so every page load 404s until it exists.
+**`favicon.ico`** ships at the repo root (16/32/48 px, generated from the
+hexagon TL mark) — browsers request it unconditionally, so keep it in sync
+with `icons/icon.svg` whenever the mark changes.

@@ -12,8 +12,8 @@
 
     /* Nav */
     nav { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); position:sticky; top:0; background:rgba(10,12,15,0.95); backdrop-filter:blur(20px); z-index:100; }
-    .logo { font-size:22px; font-weight:700; color:#fff; font-family:Georgia,serif; }
-    .logo span { color:#4ade9a; font-style:italic; }
+    .logo { display:flex; align-items:center; }
+    .logo img { height:34px; display:block; }
     .nav-links { display:flex; gap:20px; }
     .nav-links a { color:#8a95a3; text-decoration:none; font-size:14px; font-weight:500; }
     .nav-cta { background:#4ade9a; color:#0a0c0f; padding:8px 18px; border-radius:8px; font-weight:700; text-decoration:none; font-size:14px; }
@@ -73,7 +73,7 @@
 
     /* Footer */
     footer { border-top:1px solid rgba(255,255,255,0.06); padding:30px 24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-    footer .logo { font-size:18px; }
+    footer .logo img { height:28px; }
     .footer-links { display:flex; gap:20px; }
     .footer-links a { color:#4a5568; text-decoration:none; font-size:13px; }
     .footer-links a:hover { color:#8a95a3; }
@@ -100,7 +100,7 @@
 <body style="background:#0a0c0f;background-color:#0a0c0f;color:#e8edf5;">
 
   <nav>
-    <div class="logo">Therapy<span>Log</span></div>
+    <div class="logo"><img src="/icons/logo-dark.svg" alt="TherapyLog"></div>
     <div class="nav-links">
       <a href="/app" target="_blank">Try Free</a>
       <a href="/directory">Providers</a>
@@ -355,7 +355,7 @@
   </section>
 
   <footer>
-    <div class="logo">Therapy<span>Log</span></div>
+    <div class="logo"><img src="/icons/logo-dark.svg" alt="TherapyLog"></div>
     <div class="footer-links">
       <a href="/guide">User Guide</a>
       <a href="/support">Support</a>
