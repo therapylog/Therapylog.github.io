@@ -1605,7 +1605,7 @@ const mine = new Set((d[k]||[]).map(x => x && x.ts));
 const extra = stored[k].filter(x => x && x.ts && !mine.has(x.ts));
 if (extra.length) d[k] = [...(d[k]||[]), ...extra];
 });
-if (Array.isArray(d.entries)) d.entries.sort((a,b) => new Date(b.ts)-new Date(a.ts));
+['entries','photos','bodyComp','femcycle'].forEach(k => { if (Array.isArray(d[k])) d[k].sort((a,b) => new Date(b.ts)-new Date(a.ts)); });
 }
 }
 } catch(e) {}
@@ -1615,7 +1615,13 @@ try { localStorage.setItem(DB_KEY, JSON.stringify(d)); } catch(e) {}
 sdAsync(d);
 }
 window.addEventListener('storage', (ev) => {
-if (ev.key !== DB_KEY || !ev.newValue) return;
+if (ev.key !== DB_KEY) return;
+if (!ev.newValue) {
+/* data was reset in another tab — drop this tab's cache instead of resurrecting it */
+_memCache = null;
+try { location.reload(); } catch(e) {}
+return;
+}
 try {
 _memCache = JSON.parse(ev.newValue);
 if (!window._tlTabToastShown && typeof toast === 'function') { window._tlTabToastShown = true; toast('Synced changes from another open tab'); }
@@ -3495,7 +3501,7 @@ const [hh, mm] = time.split(':').map(Number);
 const start = new Date(); start.setHours(hh, mm, 0, 0);
 const _gOff = getDoseDays(med, (gd().proto || {}).start, 31);
 if (_gOff.length && _gOff[0] > 0) start.setDate(start.getDate() + _gOff[0]);
-else if (start < new Date()) start.setDate(start.getDate() + ((_gOff.length > 1 && med.freq && med.freq.type !== 'daily') ? _gOff[1] : 1));
+else if (start < new Date()) start.setDate(start.getDate() + ((med.freq && med.freq.type === 'daily') ? 1 : (_gOff.length > 1 ? _gOff[1] : 0)));
 const end = new Date(start.getTime() + 15*60*1000);
 const pad = n => String(n).padStart(2,'0');
 const f = dt => `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
@@ -3674,7 +3680,7 @@ if (startD && dd < startD) continue;
 const f = med.freq; let is = false;
 if (f.type === 'daily') is = true;
 else if (f.type === 'interval') { const ds = startD ? Math.round((dd - startD)/864e5) : (29 + i); is = ds >= 0 && ds % f.interval === 0; }
-else if (f.type === 'weekly') is = f.days && f.days.includes(dd.getDay());
+else if (f.type === 'weekly') { const wd = tlFreqDays(f, d.proto.start) || f.days || []; is = wd.includes(dd.getDay()); }
 else if (f.type === 'monthly') is = dd.getDate() === ((startD ? startD.getDate() : 1) || 1);
 if (is) cnt++;
 }
@@ -3834,7 +3840,7 @@ function getAllCustomMarkers() { return (gd().customMarkers || {}); }
 function customMarkerKey(name) { return CUSTOM_KEY_PREFIX + _norm(name).slice(0, 40); }
 
 /** Writes one definition into `d` without saving — the caller saves once. */
-function _defineCustomMarker(d, name, unit, lo, hi) {
+function _defineCustomMarker(d, name, unit, lo, hi, explicit) {
 const label = String(name || '').trim();
 if (!label) return null;
 /* if TherapyLog already tracks it, that field wins: it has units and a range */
@@ -3845,11 +3851,17 @@ if (key === CUSTOM_KEY_PREFIX) return null;
 d.customMarkers = d.customMarkers || {};
 const prev = d.customMarkers[key] || {};
 const num = v => (_isNum(parseFloat(v)) ? parseFloat(v) : null);
+const unitNew = String(unit || '').trim();
+const unitPrev = String(prev.unit || '').trim();
+const sameUnit = !unitPrev || !unitNew || unitPrev.toLowerCase() === unitNew.toLowerCase();
+/* explicit = typed into the marker form, so the user's unit and range win;
+   scanned panels only fill blanks and never overwrite a saved unit */
+const unitChanged = explicit && !sameUnit;
 d.customMarkers[key] = {
 name: label,
-unit: String(prev.unit || unit || '').trim(),
-lo: (!prev.unit || !unit || String(prev.unit).trim().toLowerCase() === String(unit).trim().toLowerCase()) && num(lo) !== null ? num(lo) : (_isNum(prev.lo) ? prev.lo : null),
-hi: (!prev.unit || !unit || String(prev.unit).trim().toLowerCase() === String(unit).trim().toLowerCase()) && num(hi) !== null ? num(hi) : (_isNum(prev.hi) ? prev.hi : null),
+unit: explicit ? (unitNew || unitPrev) : (unitPrev || unitNew),
+lo: (explicit || sameUnit) && num(lo) !== null ? num(lo) : (unitChanged ? null : (_isNum(prev.lo) ? prev.lo : null)),
+hi: (explicit || sameUnit) && num(hi) !== null ? num(hi) : (unitChanged ? null : (_isNum(prev.hi) ? prev.hi : null)),
 added: prev.added || nowStr()
 };
 return { key, builtIn: false };
@@ -3857,7 +3869,7 @@ return { key, builtIn: false };
 
 function addCustomMarker(name, unit, lo, hi) {
 const d = gd();
-const res = _defineCustomMarker(d, name, unit, lo, hi);
+const res = _defineCustomMarker(d, name, unit, lo, hi, true);
 if (res && !res.builtIn) sd(d);
 return res;
 }
@@ -5490,7 +5502,8 @@ el.textContent = 'Not yet enabled — tap below to enable.';
 }
 let clinicModeActive = false;
 function toggleClinicMode() {
-if (window.TLTier && !TLTier.check('clinical_reports')) return;
+/* gate only on the way IN — a lapsed plan must never trap someone inside clinic view */
+if (!clinicModeActive && window.TLTier && !TLTier.check('clinical_reports')) return;
 clinicModeActive = !clinicModeActive;
 updateClinicToggleUI();
 if (clinicModeActive) {
@@ -6251,7 +6264,7 @@ const daysPerVial = costData.monthly > 0 ? 30 / costData.monthly : null;
 if (!daysPerVial) return;
 const supply = (d.supply || {})[med.name];
 let daysRemaining, estimate;
-if (supply && supply.vials > 0) {
+if (supply && supply.vials >= 0) {
 /* real inventory: vials on hand minus doses actually logged since the refill */
 const since = supply.sinceTs ? new Date(supply.sinceTs).getTime() : 0;
 const dosesSince = (d.entries||[]).filter(e => e.type === 'medication' && e.medication === med.name && new Date(e.ts).getTime() >= since).length;
@@ -6289,6 +6302,20 @@ const alerts = calcRefillAlerts();
 const container = document.getElementById('dash-refills');
 if (!container) return;
 if (!alerts.length) { container.innerHTML = ''; return; }
+if (window.TLTier && TLTier.isStd && !TLTier.isStd()) {
+container.innerHTML = `
+    <div class="sec-label" style="margin-top:0">Refill Alerts</div>
+    <div class="card" style="margin-bottom:8px;cursor:pointer" onclick="if(window.TLTier)TLTier.check('refill_tracker')">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="font-size:18px">\u{1F512}</div>
+        <div>
+          <div style="font-size:13px;font-weight:600">${alerts.length} refill alert${alerts.length === 1 ? '' : 's'} waiting</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px">Refill countdowns are part of the Standard plan &mdash; tap to see plans</div>
+        </div>
+      </div>
+    </div>`;
+return;
+}
 container.innerHTML = `
     <div class="sec-label" style="margin-top:0">Refill Alerts</div>
     ${alerts.map(a => `
@@ -6637,7 +6664,12 @@ return;
 }
 const hubEl = document.getElementById('hub-' + hub);
 if (hubEl) hubEl.classList.add('active');
-const section = hubState[hub];
+let section = hubState[hub];
+/* a saved section can point at a gated tab from a lapsed plan — fall back silently */
+if ((section === 'femcycle' || section === 'photos') && window.TLTier && TLTier.isStd && !TLTier.isStd()) {
+section = (typeof HUB_SECTIONS !== 'undefined' && (HUB_SECTIONS[hub] || [])[0]) || section;
+hubState[hub] = section;
+}
 showHubSection(hub, section);
 if (hubEl) {
 hubEl.querySelectorAll('.hub-nav-btn').forEach(b => {
@@ -7259,6 +7291,7 @@ validate: function() {
 var receipt = this.appReceipt();
 if (!receipt) return Promise.resolve(false);
 try { localStorage.setItem('tl_ios_receipt', receipt); } catch (e) {}
+var before = tlReadEnt();
 return fetch(TL_VERIFY_ENDPOINT, {
 method: 'POST', headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ action: 'ios-receipt', receipt: receipt })
@@ -7272,7 +7305,8 @@ return true;
 }
 if (res.st === 200 && res.j && res.j.ok === false) {
 var cur = tlReadEnt();
-if (cur && cur.source === 'ios-iap') {
+/* only wipe what this check started from — a purchase that landed mid-flight stays */
+if (cur && cur.source === 'ios-iap' && before && cur.verifiedAt === before.verifiedAt) {
 tlWriteEnt(null);
 if (typeof toast === 'function') toast(res.j.message || 'Your App Store subscription has ended.');
 }
@@ -7746,7 +7780,7 @@ async function tlRefreshEntitlement() {
   if (e.source === 'ios-iap') {
     var stale = !e.verifiedAt || (Date.now() - e.verifiedAt) > TL_ENT_RECHECK_MS;
     var expiring = e.expires && Date.now() > e.expires * 1000;
-    if ((stale || expiring) && window.TLIAP) { try { TLIAP.validate(); } catch (err) {} }
+    if ((stale || expiring || !e.iosToken) && window.TLIAP) { try { TLIAP.validate(); } catch (err) {} }
     return;
   }
   if (e.verifiedAt && (Date.now() - e.verifiedAt) < TL_ENT_RECHECK_MS) return;
@@ -8375,7 +8409,15 @@ const active = [], missing = [];
 meds.forEach(m => (pkParamsFor(m).hl ? active : missing).push(m));
 
 const empty = document.getElementById('pk-empty'), chartCard = document.getElementById('pk-chart-card');
-if (!meds.length) { empty.style.display=''; chartCard.style.display='none'; wrap.innerHTML=''; return; }
+if (!meds.length) {
+empty.style.display=''; chartCard.style.display='none'; wrap.innerHTML='';
+let _mn = document.getElementById('pk-ml-note-empty');
+if (mlSkipped.length) {
+if (!_mn) { _mn = document.createElement('div'); _mn.id = 'pk-ml-note-empty'; _mn.style.cssText = 'font-size:10.5px;color:var(--text3);margin-top:8px'; empty.appendChild(_mn); }
+_mn.textContent = 'Not charted (doses logged in ml — log the mg/mcg amount to include): ' + mlSkipped.join(', ');
+} else if (_mn) { _mn.remove(); }
+return;
+}
 empty.style.display='none'; chartCard.style.display = active.length ? '' : 'none';
 
 const step = 2*H, times = [];
