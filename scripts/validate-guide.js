@@ -43,7 +43,8 @@ for (const attrs of imgs) {
 /* ── internal links ─────────────────────────────────────────────────────── */
 const routes = { '/app': 'app.html', '/download': 'download.html', '/support': 'support.html',
                  '/privacy': 'privacy.html', '/terms': 'terms.html', '/pro': 'pro.html',
-                 '/guide': 'guide.html', '/partnership': 'partnership.html', '/marketing': 'marketing.html' };
+                 '/guide': 'guide.html', '/partnership': 'partnership.html', '/marketing': 'marketing.html',
+                 '/health-data-privacy': 'health-data-privacy.html' };
 for (const m of guide.matchAll(/href="(?:https:\/\/therapylog\.app)?(\/[a-z-]*)"/g)) {
   const r = m[1];
   if (r === '/') continue;
