@@ -3303,7 +3303,7 @@ const d = gd(); d.proto = null; sd(d);
 toast('Protocol cleared');
 renderCycle();
 }
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(()=>{}); }
+if (!window.Capacitor && 'serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(()=>{}); }
 function isIOSBrowserTab() {
 return /iP(hone|ad|od)/.test(navigator.userAgent) && !window.matchMedia('(display-mode: standalone)').matches && !navigator.standalone;
 }
@@ -3318,6 +3318,38 @@ function checkNotifSupport() {
 const permCard = document.getElementById('notif-permission-card');
 const enabledCard = document.getElementById('notif-enabled-card');
 if (!permCard || !enabledCard) return;
+if (window.TLNative && TLNative.active()) {
+TLNative.permission().then(perm => {
+if (perm === 'granted') {
+permCard.style.display = 'none';
+enabledCard.style.display = '';
+let hn = document.getElementById('notif-honesty-note');
+if (!hn) {
+hn = document.createElement('div');
+hn.id = 'notif-honesty-note';
+hn.style.cssText = 'font-size:11.5px;color:var(--text2);line-height:1.6;margin-top:8px';
+hn.innerHTML = 'Reminders are delivered by your phone even when TherapyLog is closed. The next 30 days of doses are scheduled and refresh automatically every time you open the app.';
+enabledCard.appendChild(hn);
+}
+TLNative.reschedule();
+} else if (perm === 'denied') {
+permCard.style.display = 'none';
+enabledCard.style.display = 'none';
+let dn = document.getElementById('notif-denied-note');
+if (!dn && permCard.parentElement) {
+dn = document.createElement('div');
+dn.id = 'notif-denied-note';
+dn.className = 'card';
+dn.innerHTML = '<div style="font-size:12.5px;color:var(--text2);line-height:1.6">\u{1F515} Notifications are turned off for TherapyLog in your phone\'s Settings, so dose reminders can\'t fire. Enable them under Settings \u2192 Notifications \u2192 TherapyLog, or use <b>Export to Calendar</b> below.</div>';
+permCard.parentElement.insertBefore(dn, permCard);
+}
+} else {
+permCard.style.display = '';
+enabledCard.style.display = 'none';
+}
+}).catch(() => {});
+return;
+}
 if (!('Notification' in window)) {
 if (isIOSBrowserTab()) {
 permCard.style.display = '';
@@ -3354,6 +3386,14 @@ enabledCard.style.display = 'none';
 }
 }
 function requestNotifPermission() {
+if (window.TLNative && TLNative.active()) {
+TLNative.request().then(perm => {
+checkNotifSupport();
+if (perm === 'granted') { toast('Reminders enabled!'); TLNative.reschedule(); }
+else { toast('Notification permission denied'); }
+}).catch(() => {});
+return;
+}
 if (!('Notification' in window)) { toast(isIOSBrowserTab() ? 'On iPhone: Share → Add to Home Screen first, then enable reminders from the installed app' : 'Notifications not supported in this browser'); return; }
 Notification.requestPermission().then(perm => {
 checkNotifSupport();
@@ -3366,6 +3406,7 @@ toast('Notification permission denied');
 });
 }
 function scheduleAllReminders() {
+if (window.TLNative && TLNative.active()) { TLNative.reschedule(); return; }
 const d = gd();
 if (!d.proto || !d.proto.meds) return;
 const meds = parseMeds(d.proto.meds);
@@ -7934,7 +7975,8 @@ desc.style.color = '#8a95a3';
 desc.style.lineHeight = '1.6';
 desc.style.marginBottom = '24px';
 desc.textContent = isPro ? 'This feature requires TherapyLog Pro.' : 'This feature requires TherapyLog Standard or Pro.';
-if (window.Capacitor && window.Capacitor.getPlatform() === 'ios') {
+var _plat = (window.Capacitor && window.Capacitor.getPlatform) ? window.Capacitor.getPlatform() : 'web';
+if (_plat === 'ios') {
 var btn = document.createElement('button');
 btn.style.display = 'block';
 btn.style.width = '100%';
@@ -7951,8 +7993,28 @@ btn.style.fontFamily = 'inherit';
 btn.textContent = isPro ? 'Upgrade to Pro' : 'Get Full Access';
 btn.onclick = function() {
 document.getElementById('tl-upgrade-overlay').remove();
-if (isPro) { TLIAP.showPurchaseSheet(); }
-else { window.open('https://therapylog.app/download','_blank'); }
+/* the Pro subscription includes every Standard feature, so both gates sell through the App Store sheet */
+TLIAP.showPurchaseSheet();
+};
+} else if (_plat === 'android') {
+desc.textContent += ' If your TherapyLog plan is already active, enter your license key to unlock it on this device.';
+var btn = document.createElement('button');
+btn.style.display = 'block';
+btn.style.width = '100%';
+btn.style.background = '#4ade9a';
+btn.style.color = '#0a0c0f';
+btn.style.padding = '14px';
+btn.style.borderRadius = '12px';
+btn.style.fontWeight = '700';
+btn.style.fontSize = '15px';
+btn.style.border = 'none';
+btn.style.cursor = 'pointer';
+btn.style.marginBottom = '10px';
+btn.style.fontFamily = 'inherit';
+btn.textContent = 'Enter license key';
+btn.onclick = function() {
+document.getElementById('tl-upgrade-overlay').remove();
+window.TLTier.showActivation();
 };
 } else {
 var btn = document.createElement('a');
@@ -8792,4 +8854,89 @@ page.appendChild(mg);
 }
 })();
 
+</script> <script>
+/* ===== TLNative: OS-level dose reminders inside the Capacitor shell =====
+   Inert on the web: every entry point checks for a native platform with the
+   LocalNotifications plugin before touching anything. On native it replaces
+   the in-page reminder loop entirely - the phone delivers the next 30 days
+   of doses even with the app closed, and the schedule is rebuilt whenever
+   the protocol, times or day change (iOS keeps at most 64 pending local
+   notifications, so we cap at 60 and refresh on every launch/foreground). */
+var TLNative = {
+_sig: null,
+active: function() {
+try {
+return !!(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform() &&
+Capacitor.Plugins && Capacitor.Plugins.LocalNotifications);
+} catch (e) { return false; }
+},
+platform: function() {
+try { return (window.Capacitor && Capacitor.getPlatform) ? Capacitor.getPlatform() : 'web'; } catch (e) { return 'web'; }
+},
+_ln: function() { return Capacitor.Plugins.LocalNotifications; },
+permission: function() {
+if (!this.active()) return Promise.resolve('denied');
+return this._ln().checkPermissions().then(function(p) { return p.display; }).catch(function() { return 'denied'; });
+},
+request: function() {
+if (!this.active()) return Promise.resolve('denied');
+return this._ln().requestPermissions().then(function(p) { return p.display; }).catch(function() { return 'denied'; });
+},
+_cancelPending: function() {
+var LN = this._ln();
+return LN.getPending().then(function(res) {
+var ids = (res.notifications || []).map(function(n) { return { id: n.id }; });
+return ids.length ? LN.cancel({ notifications: ids }) : null;
+}).catch(function() {});
+},
+reschedule: function() {
+var self = this;
+if (!self.active()) return Promise.resolve(false);
+return self.permission().then(function(perm) {
+if (perm !== 'granted') return false;
+var d = gd();
+var proto = d.proto || {};
+var sig = JSON.stringify([proto.meds || '', proto.start || '', d.reminderTimes || {}, (typeof tlTodayStr === 'function') ? tlTodayStr() : new Date().toDateString()]);
+if (sig === self._sig) return true;
+if (!proto.meds) { self._sig = sig; return self._cancelPending().then(function() { return true; }); }
+var meds = parseMeds(proto.meds);
+var reminderTimes = d.reminderTimes || {};
+var now = new Date();
+var list = [];
+meds.forEach(function(med) {
+if (!med || !med.freq) return;
+var times = reminderTimes[med.name] || ((typeof getDefaultTimes === 'function') ? getDefaultTimes(med.freq) : ['08:00']);
+var offsets = getDoseDays(med, proto.start, 30);
+offsets.forEach(function(off) {
+times.forEach(function(t) {
+var hm = String(t).split(':');
+var at = new Date();
+at.setDate(at.getDate() + off);
+at.setHours(parseInt(hm[0], 10) || 8, parseInt(hm[1], 10) || 0, 0, 0);
+if (at <= now) return;
+var site = (typeof getSiteSuggestion === 'function') ? getSiteSuggestion(med.name) : null;
+list.push({ at: at, title: '\u{1F489} ' + med.name + ' Due',
+body: String(med.dose || '') + (site && site.suggest ? ' \u00b7 Suggested site: ' + site.suggest : '') });
+});
+});
+});
+list.sort(function(a, b) { return a.at - b.at; });
+list = list.slice(0, 60);
+var isAndroid = self.platform() === 'android';
+var notifs = list.map(function(n, i) {
+var o = { id: 100001 + i, title: n.title, body: n.body, schedule: { at: n.at, allowWhileIdle: true } };
+if (isAndroid) o.smallIcon = 'ic_stat_therapylog';
+return o;
+});
+return self._cancelPending().then(function() {
+return notifs.length ? self._ln().schedule({ notifications: notifs }) : null;
+}).then(function() { self._sig = sig; return true; });
+}).catch(function() { return false; });
+}
+};
+if (TLNative.active()) {
+/* logging a dose or editing the protocol changes what should fire - refresh on foreground and shortly after boot */
+document.addEventListener('visibilitychange', function() { if (!document.hidden) { try { TLNative.reschedule(); } catch (e) {} } });
+setTimeout(function() { try { TLNative.reschedule(); } catch (e) {} }, 2500);
+}
 </script> </body></html>
