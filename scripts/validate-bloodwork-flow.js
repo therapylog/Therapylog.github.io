@@ -180,8 +180,11 @@ async function asyncChecks() {
     () => { run(`removeLabFile(1)`); return run(`labFiles.length`) === 1 && run(`labFiles[0].kind`) === 'pdf'; });
 
   /* the scan itself: capture the request, answer with a canned report */
+  /* scanLabImage now asks once before the report leaves the device, so stand in
+     for a user who has already answered — the gate itself is checked below. */
   run(`
   _memCache = { entries: [], proto: null, profile: { sex: 'Male', dob: '1988-04-02' } };
+  localStorage.setItem('tl_ai_scan_ok', JSON.stringify({ v: 1, at: '2026-09-01T00:00:00Z' }));
   __sent = null;
   fetch = (url, init) => { __sent = JSON.parse(init.body); return Promise.resolve({ ok: true, json: () => Promise.resolve({
     content: [{ type: 'text', text: JSON.stringify({
@@ -203,6 +206,24 @@ async function asyncChecks() {
   const sent = JSON.parse(run(`JSON.stringify(__sent)`));
   const blocks = ((sent.messages || [])[0] || {}).content || [];
   await tA('the request is a labscan', () => sent.mode === 'labscan');
+
+  /* And the gate holds for someone who has not answered yet. A lab report
+     carries the patient's name, DOB and MRN, so nothing may be uploaded before
+     they have been told that and said yes. */
+  run(`
+  localStorage.removeItem('tl_ai_scan_ok');
+  __sent = null; __consentShown = null;
+  document.getElementById('ai-ctx-consent').style.display = 'none';
+  `);
+  await run(`scanLabImage()`);
+  await tA('a first-time scan uploads nothing until the consent sheet is answered',
+    () => run(`__sent`) === null);
+  await tA('...and the consent sheet is what is shown instead',
+    () => run(`document.getElementById('ai-ctx-consent').style.display`) === 'flex');
+  /* Answering yes both records the consent and resumes the scan. */
+  run(`aiCtxConsent(true)`);
+  await tA('answering yes records the consent', () => !!run(`localStorage.getItem('tl_ai_scan_ok')`));
+  await tA('...and the scan it interrupted then runs', () => run(`__sent`) !== null);
   await tA('a PDF is sent as a document block, not an image block',
     () => blocks.some((b) => b.type === 'document' && b.source.media_type === 'application/pdf'));
   await tA('no PDF is smuggled into an image block',

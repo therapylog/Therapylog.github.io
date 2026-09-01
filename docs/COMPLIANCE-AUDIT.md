@@ -176,6 +176,55 @@ the directory publishes an ownership disclosure and objective criteria, or it go
 
 ---
 
+## C-2 · Blood-pressure staging could not reach the emergency branch  `[fixed]`
+
+**Where:** `app.html`, `getBPStage()`
+
+Not a compliance finding — a patient-safety bug, found while auditing the disclaimers
+around it. It matters most here, because this app's users take compounds that raise blood
+pressure and the BP card is where they would find out.
+
+**The bug.** ACC/AHA staging is decided by *whichever* reading is higher, so each test has
+to be an OR and has to run from most severe down. The code ran least-severe-first with
+ORs:
+
+```js
+if (sys < 140 || dia < 90)  return Stage 1;
+if (sys < 180 || dia < 120) return Stage 2;
+return Hypertensive Crisis;
+```
+
+`sys < 140 || dia < 90` is true whenever *either* number is low. So **205/85 returned
+"Stage 1 hypertension. Discuss with physician."** and the branch reading *"SEEK IMMEDIATE
+MEDICAL ATTENTION"* was unreachable for any isolated systolic or isolated diastolic
+emergency — 190/85, 185/80, 130/125 all came back Stage 1.
+
+**Fixed** by testing most-severe-first. Verified against a 13-case table covering every
+boundary (119/79 Normal · 122/84 Stage 1 · 139/89 Stage 1 · 140/90 Stage 2 · 180/120
+Stage 2 · 185/80 Crisis · 205/85 Crisis · 130/125 Crisis). All pass.
+
+---
+
+## C-3 · The lab scanner uploaded the whole report with no consent moment  `[fixed]`
+
+**Where:** `app.html`, `scanLabImage()`
+
+`sendChat()` now asks before health data leaves the device (C-0), but the lab scanner —
+which uploads the **entire file you selected** — did not. A lab report normally prints
+your name, date of birth, an MRN or accession number, and the ordering physician. All of
+that is in the image, and all of it went.
+
+**Fixed:** the consent sheet is now generic over both AI paths, with its own copy and its
+own stored key per path (`tl_ai_ctx_ok`, `tl_ai_scan_ok`), so consenting to one does not
+silently consent to the other. The scanner's version says plainly what is on the page and
+what happens to it, and gives the advice worth giving: *"If you would rather not send the
+identifiers, crop or cover that part of the page first — the scanner only needs the
+results table."* Declining leaves the manual entry form, which was always there.
+
+The state machine is unit-tested: independent keys, resume only on allow.
+
+---
+
 ## A-1 · No Washington My Health My Data Act consumer health data privacy policy  `[fixed]`
 
 **Where:** missing entirely across the site.
@@ -314,6 +363,11 @@ unsubscribe to *broadcasts*; these direct sends bypass it.
 
 Separately, `privacy.html` promises *"Every email has a one-click unsubscribe"* — which
 is currently untrue of these messages.
+
+**Two email templates also overstated the local-first position** — the welcome mail said
+*"your data never leaves your device"* and the licence mail said *"Everything you log
+stays in this browser/app on this one device"*. Both now carry the same one-sentence
+caveat the Terms gained: the AI assistant is the exception, and it asks first.
 
 **What was done:** `wrap()` carries the postal address (`POSTAL_ADDRESS`, env-overridable)
 and an unsubscribe link on every message, and `sendEmail()` sets `List-Unsubscribe` and
