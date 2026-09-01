@@ -52,7 +52,8 @@ const BANNED = [
   [/COA\s+authenticity/i, 'claims COA authenticity is verified'],
 ];
 ['directory/index.html', 'providers/index.html', 'providers/apply.html',
- 'directory/add-partner.html', 'directory/providers-data.js'].forEach((rel) => {
+ 'directory/add-partner.html', 'directory/providers-data.js',
+ 'app.html', 'index.html'].forEach((rel) => {
   const src = read(rel);
   if (src === null) return;
   BANNED.forEach(([re, why]) => {

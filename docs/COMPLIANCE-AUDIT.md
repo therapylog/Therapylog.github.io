@@ -225,6 +225,53 @@ The state machine is unit-tested: independent keys, resume only on allow.
 
 ---
 
+## C-4 · Three security defects in the API  `[fixed]`
+
+Not privacy-policy problems, but they undercut everything above — a promise about
+where data goes is only as good as the code enforcing it.
+
+**CORS allowed any attacker-controlled subdomain.** Four endpoints — `ai-research.js`,
+`create-pro-subscription.js`, `launch-notify.js`, `verify-license.js` — did:
+
+```js
+if (origin.startsWith("https://therapylog.app")) return true;
+```
+
+`"https://therapylog.app.attacker.com".startsWith("https://therapylog.app")` is `true`.
+The dot that makes it a different registrable domain falls *after* the compared prefix.
+So any page on a domain the attacker registers could call the API with the browser's
+credentials, including the AI endpoint that receives the full health profile. Now an
+exact host match in all four.
+
+**`LICENSE_SECRET` fell back to a literal published in this repo.**
+`api/_lib/license.js` had `process.env.LICENSE_SECRET || process.env.STRIPE_SECRET_KEY ||
+"tl-dev"` in both licence-key derivation and iOS entitlement-token signing. A deployment
+missing both variables would derive every licence key in the system from a string anyone
+can read on GitHub, and forging one would be arithmetic. In practice `STRIPE_SECRET_KEY`
+is set, so this was a latent hole rather than a live one — but it fails closed now, and
+an outage is a better failure than a silent forgery hole. `ENV-VARS.md` says so.
+
+**The provider application email interpolated applicant input into HTML unescaped.**
+`provider-application.js` built the notification with `` `…${value}…` `` for every field
+typed into a public, unauthenticated form, and put `data.website` straight into an
+`href` — so an applicant could inject markup into an email landing in the founder's own
+inbox, or supply a `javascript:` link that renders as a plausible URL. Values are now
+escaped, the URL is parsed and restricted to `http`/`https` (anything else renders as
+text), and the subject line strips CRLF so headers cannot be injected. Verified against
+`<img src=x onerror=…>`, `javascript:`, `data:`, and a quote-breakout payload.
+
+---
+
+## C-5 · The app still advertised the retired "Verified" claim  `[fixed]`
+
+`app.html` promoted the directory as *"Browse TherapyLog-verified clinics, suppliers &
+coaches"* — the exact claim C-1 removed from the website, still being made inside the
+product, and still naming "suppliers". Now reads *"Browse listed clinics and coaches —
+paid listings, licence checked."* `validate-compliance.js` covers `app.html` and
+`index.html` too, so this cannot drift out of step with the site again.
+
+---
+
 ## A-1 · No Washington My Health My Data Act consumer health data privacy policy  `[fixed]`
 
 **Where:** missing entirely across the site.
@@ -557,11 +604,26 @@ EU argument entirely. Half an hour of work.
 
 ## What is done, and what is left
 
-**Fixed in code with this audit** — C-0, C-1, A-1, A-2, A-3, A-4, A-5, B-1, B-2.
-`scripts/validate-compliance.js` (62 checks, wired into CI as
+**Fixed in code with this audit** — C-0 through C-5, A-1 through A-5, B-1, B-2.
+`scripts/validate-compliance.js` (70 checks, wired into CI as
 `.github/workflows/validate-compliance.yml`) stops the four that are easiest to
-reintroduce. Every other validator in `scripts/` still passes, and the API suite passes
-231 assertions.
+reintroduce. Every other validator in `scripts/` still passes — `validate-bloodwork-flow`
+gained four assertions covering the new scan consent gate — and the API suite passes 231.
+(`validate-marketing.js` fails for want of `playwright-core`, which predates this work.)
+
+**Not yet triaged.** A parallel audit pass surfaced roughly forty further items across the
+API and the app that I have not individually verified — among them: a Checkout Session id
+that behaves as a bearer credential and is persisted in the browser URL; licence keys
+written to Vercel logs; no DPA with any of the five processors; no retention schedule or
+deletion implementation behind the policy's deletion promise; the Interaction Checker
+showing its physician disclaimer only on the *no interaction found* branch; dose and
+reconstitution calculators with no disclaimer at all; app-invented "Optimal" lab ranges
+shown without the non-diagnostic caveat the data model carries; the Side-Effect Response
+Guide and one-tap protocol templates (see B-5); and dose reminders putting
+controlled-substance names on the lock screen. Treat that as the backlog for the next
+pass, not as findings — each needs checking against the code the way the ones above were.
+Two of that pass's claims did not survive verification (recorded under A-2), which is the
+rate to expect.
 
 **Yours, not code — in order:**
 
