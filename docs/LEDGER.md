@@ -15,7 +15,7 @@ duplicating them here.
 one item at a time. This ledger holds direction; the Focus board holds sequence.
 When an item resolves there, reflect it here.
 
-**Last updated:** 1 September 2026
+**Last updated:** 2 September 2026
 
 ---
 
@@ -33,6 +33,14 @@ When an item resolves there, reflect it here.
   ends with "consult your doctor." Keep that framing in any new feature or
   marketing copy — it's both the ethical stance and the legitimacy argument
   with the community.
+- **The telehealth brand is named Millwright.** Chosen 2 Sep 2026 from 22 screened
+  candidates — *the trade that keeps machinery true*, which is maintenance rather
+  than transformation, which is what the medicine actually is. Anvil, Keystone,
+  Ironwood and Bastion are all unusable: a competitor trades under each. Domains
+  are not yet registered and the trademark search has not run — both in
+  `docs/BRAND-AND-ENTITY-STRUCTURE.md` §6, evidence in `docs/NAME-SCREEN.md`.
+  The mark is a plumb bob, **not a gear** — a gear reads as gym, which is the one
+  association this brand cannot share with TherapyLog.
 - **The telehealth business is a third brand and a third entity.** Not TherapyLog,
   not Arctos. Decided 1 Sep 2026; full reasoning, the questions to put to Fuse
   Health and OpenLoop, and the naming shortlist are in
