@@ -83,9 +83,9 @@
       <div>
         <label>Tier *</label>
         <select id="tier">
-          <option value="featured">Featured (top placement)</option>
-          <option value="verified" selected>Verified (badge)</option>
-          <option value="basic">Basic (no badge)</option>
+          <option value="featured">Featured (top placement — shows as &quot;Paid placement&quot;)</option>
+          <option value="verified" selected>Standard (licence-checked marker)</option>
+          <option value="basic">Basic (no marker)</option>
         </select>
       </div>
       <div>
@@ -154,7 +154,7 @@
     <label>What was verified? <span class="hint">— comma separated, shows as ✓ items</span></label>
     <input type="text" id="verifiedItems" placeholder="e.g. License Verified, COA Verified, Board Certified">
     <div style="font-size:11px;color:#4a5568;line-height:1.6;margin:4px 0 14px">
-      For multi-category businesses, verify EACH category: e.g. a clinic+peptide store gets "License Verified, DEA Registered, COA Verified, Product Tested"
+      Only list what you actually checked, and name the source. &ldquo;Licence checked&rdquo; means you looked the number up on the issuing board&rsquo;s public register and it was active and unrestricted. Do not claim products were tested, inspected, or that a COA was authenticated &mdash; we do not do any of those things. See docs/COMPLIANCE-AUDIT.md C-1.
     </div>
     <label>Affiliate Referral Code <span class="hint">— the code/slug for their Stripe referral link</span></label>
     <input type="text" id="refCode" placeholder="e.g. apexhealth (becomes ?ref=apexhealth)">

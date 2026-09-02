@@ -15,7 +15,7 @@ duplicating them here.
 one item at a time. This ledger holds direction; the Focus board holds sequence.
 When an item resolves there, reflect it here.
 
-**Last updated:** 24 August 2026
+**Last updated:** 1 September 2026
 
 ---
 
@@ -33,6 +33,25 @@ When an item resolves there, reflect it here.
   ends with "consult your doctor." Keep that framing in any new feature or
   marketing copy — it's both the ethical stance and the legitimacy argument
   with the community.
+- **The telehealth business is a third brand and a third entity.** Not TherapyLog,
+  not Arctos. Decided 1 Sep 2026; full reasoning, the questions to put to Fuse
+  Health and OpenLoop, and the naming shortlist are in
+  `docs/BRAND-AND-ENTITY-STRUCTURE.md`. Do not re-open this without reading it —
+  the decisive facts are that TherapyLog's own content (AAS cycle protocols, an
+  AI told to cover PEDs candidly, r/PEDs and r/firstcycle targeting) cannot share
+  a brand with a licensed prescribing practice, and that Arctos would turn
+  BALANCE and CYCLE into hormone-therapy adjuncts by context.
+- **Arctos is supplements only, permanently.** No hormone, steroid, SARM,
+  injectable-peptide or prescription product will ever carry the Arctos name. See
+  `Arctos-Labs/legal/arctos-scope-and-separation-policy.md`.
+- **Promotion is cleared** for organic/forums/social once this branch is deployed
+  and the C-0 notification question has been put to a lawyer — see
+  `docs/PROMOTION-READINESS.md`. Google and Meta ads are effectively closed to
+  this category (LegitScript); do not spend effort there. Affiliate claim
+  controls must exist before the first affiliate enrols.
+- **Compliance findings and their fixes are in `docs/COMPLIANCE-AUDIT.md`**, and
+  `scripts/validate-compliance.js` guards the four regressions that are easiest to
+  reintroduce. The open items list at the end of that document is the live one.
 - **Pricing:** $9.99/mo, $99.99/yr, both live at therapylog.app/pro (Monthly/
   Annual tabs). Don't re-verify this or claim there's no annual tier — it exists.
 - **Encyclopedia is 130 unique compounds across 30 classes**, stored

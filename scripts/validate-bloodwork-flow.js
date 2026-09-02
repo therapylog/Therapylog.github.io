@@ -180,8 +180,11 @@ async function asyncChecks() {
     () => { run(`removeLabFile(1)`); return run(`labFiles.length`) === 1 && run(`labFiles[0].kind`) === 'pdf'; });
 
   /* the scan itself: capture the request, answer with a canned report */
+  /* scanLabImage now asks once before the report leaves the device, so stand in
+     for a user who has already answered — the gate itself is checked below. */
   run(`
   _memCache = { entries: [], proto: null, profile: { sex: 'Male', dob: '1988-04-02' } };
+  localStorage.setItem('tl_ai_scan_ok', JSON.stringify({ v: 1, at: '2026-09-01T00:00:00Z' }));
   __sent = null;
   fetch = (url, init) => { __sent = JSON.parse(init.body); return Promise.resolve({ ok: true, json: () => Promise.resolve({
     content: [{ type: 'text', text: JSON.stringify({
@@ -203,6 +206,24 @@ async function asyncChecks() {
   const sent = JSON.parse(run(`JSON.stringify(__sent)`));
   const blocks = ((sent.messages || [])[0] || {}).content || [];
   await tA('the request is a labscan', () => sent.mode === 'labscan');
+
+  /* And the gate holds for someone who has not answered yet. A lab report
+     carries the patient's name, DOB and MRN, so nothing may be uploaded before
+     they have been told that and said yes. */
+  run(`
+  localStorage.removeItem('tl_ai_scan_ok');
+  __sent = null; __consentShown = null;
+  document.getElementById('ai-ctx-consent').style.display = 'none';
+  `);
+  await run(`scanLabImage()`);
+  await tA('a first-time scan uploads nothing until the consent sheet is answered',
+    () => run(`__sent`) === null);
+  await tA('...and the consent sheet is what is shown instead',
+    () => run(`document.getElementById('ai-ctx-consent').style.display`) === 'flex');
+  /* Answering yes both records the consent and resumes the scan. */
+  run(`aiCtxConsent(true)`);
+  await tA('answering yes records the consent', () => !!run(`localStorage.getItem('tl_ai_scan_ok')`));
+  await tA('...and the scan it interrupted then runs', () => run(`__sent`) !== null);
   await tA('a PDF is sent as a document block, not an image block',
     () => blocks.some((b) => b.type === 'document' && b.source.media_type === 'application/pdf'));
   await tA('no PDF is smuggled into an image block',
@@ -257,6 +278,52 @@ async function asyncChecks() {
     () => run(`document.getElementById('ll-filter').value = 'sgpt'; filterLabFields(); 'ok'`) === 'ok');
   await tA('the filter input is wired to the filter function',
     () => /id="ll-filter"[^>]*oninput="filterLabFields\(\)"/.test(html));
+
+  /* --- classifier regressions ---------------------------------------------
+     Two bugs of the same shape: a boolean test that read a numeric bound for
+     truthiness, and a chain of ORs running least-severe-first. Both
+     misclassified real results in the reassuring direction, which is the
+     direction nobody reports. */
+
+  /* labSt: six markers have an optimal FLOOR of 0, and `r.olo && r.ohi` is
+     false for every one of them, so their optimal band was skipped entirely. */
+  for (const [key, val, why] of [
+    ['ldl', 85, 'LDL inside the 0-100 reference but above the 0-70 optimal band'],
+    ['trig', 130, 'triglycerides inside reference, above optimal'],
+    ['apob', 85, 'ApoB inside reference, above optimal'],
+    ['crp', 0.8, 'hs-CRP inside reference, above optimal'],
+    ['insulin', 15, 'fasting insulin inside reference, above optimal'],
+    ['ldlp', 1150, 'LDL-P inside reference, above optimal'],
+  ]) {
+    await tA(`labSt flags ${key} ${val} sub-optimal — ${why}`,
+      () => run(`labSt(${JSON.stringify(key)}, ${val}, null)`) === 'warn');
+  }
+  await tA('labSt still calls a genuinely optimal value good',
+    () => run(`labSt('ldl', 60, null)`) === 'good');
+  await tA('labSt still calls an out-of-reference value bad',
+    () => run(`labSt('ldl', 130, null)`) === 'bad');
+
+  /* getBPStage: ACC/AHA staging is decided by whichever reading is higher, so
+     the tests must be ORs running most-severe-first. Reversed, the crisis
+     branch was unreachable whenever either number was low — 205/85 read as
+     "Stage 1. Discuss with physician." */
+  for (const [sys, dia, want] of [
+    [119, 79, 'Normal'],
+    [125, 75, 'Elevated'],
+    [122, 84, 'High — Stage 1'],
+    [135, 78, 'High — Stage 1'],
+    [139, 89, 'High — Stage 1'],
+    [140, 90, 'High — Stage 2'],
+    [145, 85, 'High — Stage 2'],
+    [130, 95, 'High — Stage 2'],
+    [180, 120, 'High — Stage 2'],
+    [185, 80, 'Hypertensive Crisis'],
+    [205, 85, 'Hypertensive Crisis'],
+    [130, 125, 'Hypertensive Crisis'],
+  ]) {
+    await tA(`getBPStage ${sys}/${dia} is ${want}`,
+      () => run(`getBPStage(${sys}, ${dia}).stage`) === want);
+  }
 }
 
 function report() {
