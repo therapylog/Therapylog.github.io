@@ -278,6 +278,52 @@ async function asyncChecks() {
     () => run(`document.getElementById('ll-filter').value = 'sgpt'; filterLabFields(); 'ok'`) === 'ok');
   await tA('the filter input is wired to the filter function',
     () => /id="ll-filter"[^>]*oninput="filterLabFields\(\)"/.test(html));
+
+  /* --- classifier regressions ---------------------------------------------
+     Two bugs of the same shape: a boolean test that read a numeric bound for
+     truthiness, and a chain of ORs running least-severe-first. Both
+     misclassified real results in the reassuring direction, which is the
+     direction nobody reports. */
+
+  /* labSt: six markers have an optimal FLOOR of 0, and `r.olo && r.ohi` is
+     false for every one of them, so their optimal band was skipped entirely. */
+  for (const [key, val, why] of [
+    ['ldl', 85, 'LDL inside the 0-100 reference but above the 0-70 optimal band'],
+    ['trig', 130, 'triglycerides inside reference, above optimal'],
+    ['apob', 85, 'ApoB inside reference, above optimal'],
+    ['crp', 0.8, 'hs-CRP inside reference, above optimal'],
+    ['insulin', 15, 'fasting insulin inside reference, above optimal'],
+    ['ldlp', 1150, 'LDL-P inside reference, above optimal'],
+  ]) {
+    await tA(`labSt flags ${key} ${val} sub-optimal — ${why}`,
+      () => run(`labSt(${JSON.stringify(key)}, ${val}, null)`) === 'warn');
+  }
+  await tA('labSt still calls a genuinely optimal value good',
+    () => run(`labSt('ldl', 60, null)`) === 'good');
+  await tA('labSt still calls an out-of-reference value bad',
+    () => run(`labSt('ldl', 130, null)`) === 'bad');
+
+  /* getBPStage: ACC/AHA staging is decided by whichever reading is higher, so
+     the tests must be ORs running most-severe-first. Reversed, the crisis
+     branch was unreachable whenever either number was low — 205/85 read as
+     "Stage 1. Discuss with physician." */
+  for (const [sys, dia, want] of [
+    [119, 79, 'Normal'],
+    [125, 75, 'Elevated'],
+    [122, 84, 'High — Stage 1'],
+    [135, 78, 'High — Stage 1'],
+    [139, 89, 'High — Stage 1'],
+    [140, 90, 'High — Stage 2'],
+    [145, 85, 'High — Stage 2'],
+    [130, 95, 'High — Stage 2'],
+    [180, 120, 'High — Stage 2'],
+    [185, 80, 'Hypertensive Crisis'],
+    [205, 85, 'Hypertensive Crisis'],
+    [130, 125, 'Hypertensive Crisis'],
+  ]) {
+    await tA(`getBPStage ${sys}/${dia} is ${want}`,
+      () => run(`getBPStage(${sys}, ${dia}).stage`) === want);
+  }
 }
 
 function report() {
