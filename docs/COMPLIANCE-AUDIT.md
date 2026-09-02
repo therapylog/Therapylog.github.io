@@ -272,6 +272,33 @@ paid listings, licence checked."* `validate-compliance.js` covers `app.html` and
 
 ---
 
+## C-6 · Six cardiovascular markers were never flagged sub-optimal  `[fixed]`
+
+**Where:** `app.html`, `labSt()`
+
+```js
+if (r.olo && r.ohi && (val < r.olo || val > r.ohi)) return "warn";
+```
+
+LDL, triglycerides, ApoB, hs-CRP, fasting insulin and LDL-P all have an optimal **floor
+of 0**. `0 && …` is falsy, so for every one of them the optimal band was skipped and the
+function fell through to `"good"`. An LDL of 85 — inside the 0–100 reference range, well
+above the 0–70 optimal band — displayed **"In Range"**.
+
+Those are the six markers that matter most to someone on testosterone or AAS, and the
+failure was in the reassuring direction. `classify()` already used numeric checks; only
+this function did not.
+
+Fixed by testing bounds with `typeof v === 'number' && isFinite(v)`, which also closes a
+latent one-sided-range bug: with a `lo` and no `hi`, `val > null` evaluates as `val > 0`
+and every positive result would have read "bad". No marker in `LAB_REF` is one-sided
+today; this keeps it safe as the registry grows.
+
+`validate-bloodwork-flow.js` covers all six markers plus the boundary cases. Putting
+either bug back fails 10 assertions.
+
+---
+
 ## A-1 · No Washington My Health My Data Act consumer health data privacy policy  `[fixed]`
 
 **Where:** missing entirely across the site.
@@ -611,19 +638,50 @@ reintroduce. Every other validator in `scripts/` still passes — `validate-bloo
 gained four assertions covering the new scan consent gate — and the API suite passes 231.
 (`validate-marketing.js` fails for want of `playwright-core`, which predates this work.)
 
-**Not yet triaged.** A parallel audit pass surfaced roughly forty further items across the
-API and the app that I have not individually verified — among them: a Checkout Session id
-that behaves as a bearer credential and is persisted in the browser URL; licence keys
-written to Vercel logs; no DPA with any of the five processors; no retention schedule or
-deletion implementation behind the policy's deletion promise; the Interaction Checker
-showing its physician disclaimer only on the *no interaction found* branch; dose and
-reconstitution calculators with no disclaimer at all; app-invented "Optimal" lab ranges
-shown without the non-diagnostic caveat the data model carries; the Side-Effect Response
-Guide and one-tap protocol templates (see B-5); and dose reminders putting
-controlled-substance names on the lock screen. Treat that as the backlog for the next
-pass, not as findings — each needs checking against the code the way the ones above were.
-Two of that pass's claims did not survive verification (recorded under A-2), which is the
-rate to expect.
+**Backlog triage — done.** The ~40 further items a parallel pass surfaced have now been
+checked against the code one by one. Roughly half were real, and are fixed:
+
+| Verified and fixed | |
+|---|---|
+| `labSt` skipped the optimal band for six markers | C-6 below — the most consequential find of the whole audit after C-0 |
+| Interaction Checker disclaimer on the wrong branch | fixed; empty result reworded |
+| Three calculators with no note at all | fixed |
+| "Optimal"/"Sub-optimal" shown without the non-diagnostic caveat | fixed in both reports |
+| Clinical Summary read as a clinical record | provenance footer; "Physician Notes" relabelled |
+| Demo data recommending a dose increase | neutralised |
+| Lock-screen reminders naming compound and dose | "Discreet reminders" option added |
+| Correlation engine presenting co-occurrence as correlation | renamed and caveated |
+| Backup file contents undisclosed | stated on the backup card |
+| Licence key written to Vercel logs | removed from the log line |
+| Apple receipts not checked against the bundle id | checked |
+| No auto-renewal disclosure at point of purchase | added to `/pro` and `/download` |
+
+**Checked and found not to be real** — recorded so nobody spends a second pass on them:
+
+- *"The Checkout Session id is persisted in the browser URL as a bearer credential."*
+  `tlActivateFromCheckout()` calls `history.replaceState({}, '', location.pathname)` on
+  success. It is kept only while activation is pending, so a refresh can retry — which is
+  the right behaviour.
+- *"The BYOK key is echoed back into a form field."* The field is `type="password"`.
+  Storing the key locally is inherent to BYOK and is disclosed.
+- *"'Delete All Data' erases the record of what was agreed."* It does, and it should — the
+  acceptance record is the user's data, and the gate reappears on next launch.
+- *"Duplicate `Access-Control-Allow-Origin` headers."* `vercel.json` sets a static value;
+  the four browser-facing handlers set their own with `res.setHeader`, which overwrites.
+  Inert. The three that set none (`webhook`, `health`, `unsubscribe`) do not need CORS.
+- *"`fbclid`/`gclid` are passed to Stripe."* Only `ref` is. (Also under A-2.)
+- *"No arbitration clause."* A choice, not a defect.
+
+**Still open and genuinely yours** — these need a decision, not a patch:
+
+- **B-5, the Side-Effect Response Guide and one-tap protocol templates.** These name a
+  specific drug at a specific dose in response to a specific lab value, and a template
+  writes a full protocol into the user's record in one tap. That is the closest thing in
+  the app to a recommendation, and it is a product decision about what the app is for —
+  not something to quietly reword. See B-5 for where the FDA CDS line actually sits.
+- **DPAs with the five processors**, and a retention schedule behind the policy's deletion
+  promise. Manual deletion by email is defensible at this size; write down the process.
+- **B-3, B-4, B-6** as listed above.
 
 **Yours, not code — in order:**
 

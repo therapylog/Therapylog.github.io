@@ -44,6 +44,11 @@ When an item resolves there, reflect it here.
 - **Arctos is supplements only, permanently.** No hormone, steroid, SARM,
   injectable-peptide or prescription product will ever carry the Arctos name. See
   `Arctos-Labs/legal/arctos-scope-and-separation-policy.md`.
+- **Promotion is cleared** for organic/forums/social once this branch is deployed
+  and the C-0 notification question has been put to a lawyer — see
+  `docs/PROMOTION-READINESS.md`. Google and Meta ads are effectively closed to
+  this category (LegitScript); do not spend effort there. Affiliate claim
+  controls must exist before the first affiliate enrols.
 - **Compliance findings and their fixes are in `docs/COMPLIANCE-AUDIT.md`**, and
   `scripts/validate-compliance.js` guards the four regressions that are easiest to
   reintroduce. The open items list at the end of that document is the live one.
