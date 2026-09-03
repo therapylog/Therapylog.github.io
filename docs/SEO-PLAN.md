@@ -43,9 +43,10 @@ Rules for this work:
   scripts/. Add the new pages to the validator page lists as §5 and §6 say, then run:
   node scripts/validate-compliance.js && node scripts/validate-claims.js &&
   node scripts/validate-encyclopedia.js && node scripts/validate-markers.js &&
-  node scripts/validate-guide.js && node scripts/validate-marketing-static.js &&
-  node scripts/validate-public-pages.js
-  All must exit 0 before you commit.
+  node scripts/validate-guide.js && node scripts/validate-marketing-static.js
+  and, from Phase 1 onward, node scripts/validate-public-pages.js and
+  node scripts/build-pages.js --check. Everything that exists at that point must exit 0
+  before you commit.
 - Do not add npm dependencies. Every script in this repo is dependency-free Node and runs in
   CI without an install step. Keep it that way.
 - Do not delete files. Phase 0 asks you to exclude some files from the published site; do
@@ -55,9 +56,9 @@ Rules for this work:
   bands labeled non-diagnostic, and end every side-effect discussion with consulting a doctor.
 - The author byline on every generated page is the founder, as §8 specifies. Do not invent
   credentials. Do not name a clinical reviewer.
-- When a phase is done, run the validators, run node scripts/build-pages.js --check to prove
-  the committed output matches the generator, and stop to summarize what shipped and what is
-  left before starting the next phase.
+- When a phase is done, run the validators (and from Phase 1, build-pages.js --check to prove
+  the committed output matches the generator), then stop to summarize what shipped and what
+  is left before starting the next phase.
 
 Start with Phase 0. Report each file you create or change and why.
 ```
@@ -187,12 +188,12 @@ The app's data, all inside `app.html` as JS literals (line numbers as of 3 Sep 2
 | Interaction checker | 2982–3038 | `initInteractionDropdowns`, `checkInteractions`; DOM `#ix-d1..3`, `#ix-result` |
 | `const TL_PK = {` | 8262–8360 | 97 ids, 72 with `hl`+`tmax` hours, strict JSON; `est:1` marks estimated half-lives |
 | `pkCurve(hl,tmax)` / `pkParseDose` | 8391 / 8403 | pure Bateman one-compartment curve, peak normalised to 1 |
-| Syringe builder | 8544–8642 | `SYR`, `SYR_SIZES`, `syr*`; HTML built at runtime by `tlFeaturesInit` 8783–8799 |
+| Syringe builder | 8544–8642 | `SYR`, `SYR_SIZES`, `syr*`, `PK_COLORS` 8414; the builder's container HTML exists only as a template literal inside `tlFeaturesInit` (8753–8810, tool markup at 8789–8798) |
 | `const SIDEFX = [` | 8644–8729 | 12 side-effect topics; the richest marker-adjacent prose in the app |
 | `TL_STORAGE` / `TL_FORM` / `tlStorageFor` | 8166 / 8232 / 8250 | storage rules; `reviewed:false`, carry the caveat string verbatim |
-| Entitlement | 7886–8148 | `TLTier`; only `ai_scanner` and `ai_assistant` are enforced |
+| Entitlement | 7880–8148 | `TLTier`; only `ai_scanner` and `ai_assistant` are enforced (call sites 8143, 8147) |
 
-Extraction precedent to reuse: `scripts/validate-encyclopedia.js:22–42` (`extractObject`,
+Extraction precedent to reuse: `scripts/validate-encyclopedia.js:23–40` (`extractObject`,
 string-aware brace matcher) and `scripts/validate-markers.js:27–72` (`extractSource`,
 `extractBlock`, and the `new Function` harness that evaluates the registry with `LAB_REF`,
 `LAB_FIELDS` and a stubbed `getAdjustedLabRanges`). Do not reuse the regex in
@@ -220,7 +221,7 @@ All new pages are folder-index pages (`/tools/<slug>/index.html`) to match the s
 | `/tools/insulin-syringe-units-calculator/` | interactive + authored | `SYR_SIZES`, the `ml × 100` rule from `syrRecalc`/`calcUnified` | 1 |
 | `/tools/syringe-builder/` | interactive | `SYR`, `syr*`, static injectables array built from `DB` × `TL_PK.medium` | 1 |
 | `/tools/half-life-calculator/` | interactive (Chart.js from `/vendor`) + authored | `TL_PK`, `pkCurve`, `pkParseDose` | 1 |
-| `/tools/half-life/<compound>/` for every `TL_PK` id with `hl`, minus the Tier C denylist in §7 | pre-rendered SVG curve + the numbers + steady-state math + fact box | `TL_PK`, `DB` | 1 |
+| `/tools/half-life/<compound>/` for a demand-backed subset of the 50 eligible compounds (72 `TL_PK` ids with `hl` minus the 22 Tier C ids that have one), about 15 in Phase 1, each with 200+ authored words | pre-rendered SVG curve + the numbers + steady-state math + fact box | `TL_PK`, `DB` | 1 |
 | `/tools/stack-checker/` ("can you take X with Y") | interactive + all 50 pairs rendered statically, grouped by severity | `DB` names, the three interaction arrays | 1 |
 | `/markers/` | hub | registry groups | 2 |
 | `/markers/<slug>/` for the 15 pages in §6 | authored + generated fact box | `MARKER_REGISTRY`, `LAB_REF`, `getAdjustedLabRanges` tables, `SIDEFX`, compound `mon` strings | 2 |
@@ -265,19 +266,22 @@ pages exist.
 2. **`robots.txt`** at the root:
    ```
    User-agent: *
-   Disallow: /marketing
-   Disallow: /directory/add-partner
-   Disallow: /docs/
    Sitemap: https://therapylog.app/sitemap.xml
    ```
+   No `Disallow` lines: `marketing.html` and `directory/add-partner.html` carry a meta
+   `noindex`, and a crawler that is disallowed never reads it. `docs/` is gone from the
+   published site after item 1, so a rule for it would be moot.
 3. **`sitemap.xml`**, generated by `scripts/build-pages.js` (Phase 1), listing every public
-   page with a `<lastmod>` from git (`git log -1 --format=%cI -- <file>`). Until Phase 1
-   lands, write it by hand for the existing public pages: `/`, `/app`, `/guide`, `/pro`,
+   page. `<lastmod>` must not come from `git log`: the date changes with the commit that
+   lands the output, and CI uses a shallow checkout, so a `--check` run could never match.
+   Keep a committed `scripts/page-dates.json` that the generator updates only when a page's
+   content hash changes, and have `--check` compare output with `<lastmod>` stripped. Until
+   Phase 1 lands, write the sitemap by hand for the existing public pages: `/`, `/app`, `/guide`, `/pro`,
    `/download`, `/support`, `/partnership`, `/privacy`, `/terms`, `/health-data-privacy`,
-   `/directory/`, `/providers/`, `/providers/apply`, `/about/`. Exclude the two noindex
-   pages.
+   `/directory/`, `/providers/`, `/providers/apply`, `/about/`, `/tools/`, `/markers/`.
+   Exclude the two noindex pages and `/app.html`.
 4. **`404.html`** with the site shell, a search-free list of the main pages, and links to
-   `/app` and `/tools/`.
+   `/app` and `/tools/`. No canonical tag on it and no sitemap entry.
 5. **IndexNow.** Generate a 32-hex key, save it as `<key>.txt` at the root containing the
    key, and add `scripts/indexnow-submit.js` that POSTs the sitemap's URLs to
    `https://api.indexnow.org/indexnow` as `{host, key, keyLocation, urlList}`. Run it by hand
@@ -299,29 +303,37 @@ pages exist.
    ```
    Bump `CACHE` to `'therapylog-v3'` so `activate` purges the old cache. `tlCheckForUpdate()`
    (`app.html:7517`) already surfaces the new worker to users.
-8. **Canonical hygiene.** Leave `/app` as the canonical (it already is). Add
-   `<link rel="canonical">` to `404.html` pointing at `/`. No redirect is possible on Pages, so
-   do not try to collapse `/app.html`; the canonical handles it.
+8. **Canonical hygiene.** Leave `/app` as the canonical (it already is). No redirect is
+   possible on Pages, so do not try to collapse `/app.html`; the canonical handles it. Every
+   new page uses one URL form everywhere: canonical, sitemap, internal links and IndexNow all
+   say `/tools/<slug>/` with the trailing slash.
 9. **JSON-LD** on existing pages (inline `<script type="application/ld+json">`):
    - `index.html`: `Organization` (`name: TherapyLog`, `alternateName: "TherapyLog TRT and
      peptide tracker"`, TherapyLog LLC, Floresville TX, `hello@therapylog.app`, `sameAs` empty
      until social profiles exist) and `WebApplication` (`applicationCategory:
      HealthApplication`, `operatingSystem: Web`, `browserRequirements`, `offers` with the free
-     tier at price 0 and Pro at `$9.99`/month with `priceCurrency`). Do not list a lifetime
+     tier at price 0, Pro at `$9.99`/month and `$99.99`/year with `priceCurrency`). Do not list a lifetime
      tier (`validate-claims.js` bans the word) and do not invent an `aggregateRating`: without
      one there is no star snippet, which is fine; the markup still establishes the entity.
    - `guide.html`: `Article` with `author` → the `Person` from `/about/` by `@id`.
    - `support.html`: skip `FAQPage`. Google removed FAQ rich results for sites like this in
      2023 and reportedly retired them entirely in May 2026. Keep the FAQs as visible HTML;
      they still feed snippets and AI answers.
-   - Every page title carries the qualified brand: `<page name> | TherapyLog TRT & Peptide
-     Tracker`. The bare word "TherapyLog" belongs to someone else in search.
-10. **Navigation.** Add "Tools" (`/tools/`) and "Lab markers" (`/markers/`) to the home nav
-    and footer (`index.html:102–110`, `357–367`), turn the `<h3>Reconstitution Calculator</h3>`
-    (line 212) and `<h3>Combined Syringe Builder</h3>` (line 170) headings into links to the
-    tool pages, and give `pro.html` a link home. Add "Tools" to the footer of `guide.html`,
-    `download.html` and `support.html`; when you link `/tools/` from `guide.html`, add the
-    route to the map at `scripts/validate-guide.js:44–47` or CI fails.
+   - New pages use the title pattern `<page name> | TherapyLog` (the long qualifier pushes
+     titles past 60 characters and Google truncates the brand, not the page name); the
+     qualifier "TRT and peptide tracker" goes in `alternateName`, the meta description and
+     the `/about/` copy. Do not retitle existing pages: `validate-guide.js:130` asserts the
+     guide's exact title. The bare word "TherapyLog" belongs to someone else in search.
+10. **Navigation and the two hub pages.** Create `tools/index.html` and `markers/index.html`
+    in Phase 0 as real, short pages (what is coming, why, the byline, the legal links) so that
+    nothing links to a 404. Then add "Tools" (`/tools/`) and "Lab markers" (`/markers/`) to the
+    home nav and footer (`index.html:102–110`, `357–367`), and give `pro.html` a link home. Add
+    "Tools" to the footer of `guide.html`, `download.html` and `support.html`. The links from
+    the `<h3>Reconstitution Calculator</h3>` (line 212) and `<h3>Combined Syringe
+    Builder</h3>` (line 170) headings to the individual tool pages wait for Phase 1. Note
+    `scripts/validate-guide.js:48` only checks extensionless routes, so a trailing-slash link
+    like `/tools/` passes without touching the route map; extensionless links need an entry
+    at lines 44–47.
 11. **`/about/`** per §8. Ships in Phase 0 because every later page links to it.
 12. **`llms.txt`** at the root: a short plain-text description of the site, the author, the
     tool and marker page list with one line each, and the disclaimer. The ledger names
@@ -332,12 +344,17 @@ pages exist.
     when no `ref` was captured, and `create-pro-subscription.js:175` applies the
     affiliate's one-month-free coupon to any non-empty `ref`. So a tool-page visitor arriving
     on `/app?utm_campaign=reconstitution` who later buys annual would get the affiliate
-    discount and appear in `affiliate-report.js` as `UNKNOWN REF`. Fix: in `pro.html`, make
-    `tlStoredRef()` return only a real `ref`; in `create-pro-subscription.js`, accept and
-    store `utm_source`/`utm_campaign` as their own subscription metadata keys so tool-page
-    sales are visible in Stripe without being paid as referrals. Add a test to
-    `scripts/test-entitlements.js` or a new API test for the UTM-only case. This is the one
-    change in this plan that touches the `therapylog-api` repo.
+    discount and appear in `affiliate-report.js` as `UNKNOWN REF`. Do **not** remove the
+    campaign fallback in `pro.html`: `scripts/ui-check-site.js:93` and `:141` assert that a
+    `utm_campaign` of `trt_launch` or `peptides_ad` reaches Stripe as `ref`, and `LEDGER.md`
+    §2 records that behaviour as the campaign-attribution design. Fix it on the API side
+    instead: in `create-pro-subscription.js`, apply `STRIPE_ANNUAL_COUPON_ID` (line 175) only
+    when `ref` matches an enrolled code in `affiliates.json` (`affiliates` keys, lowercase);
+    keep writing every `ref` to subscription metadata as today so campaign attribution and
+    the `UNKNOWN REF` reporting keep working. Add a case to
+    `therapylog-api/scripts/test-entitlements.js` (or a new test file run by
+    `.github/workflows/validate.yml` in that repo): a UTM-only annual checkout gets no coupon.
+    This is the one change in this plan that touches the `therapylog-api` repo.
 
 Acceptance: `_config.yml` present and read (check the Pages build log shows it), robots and
 sitemap return 200, IndexNow key file returns 200, `sw.js` change deployed and cache bumped,
@@ -380,11 +397,20 @@ Create `scripts/build-pages.js` (dependency-free Node, like every other script h
    (`validate-compliance.js:31` accepts only that or the absolute form).
 3. Stubs the app-only globals a lifted function touches: `toast()` (a two-line inline
    version), `gd()` returning `{entries:[],pk:{}}`, `showPage`, `showLogTab`,
-   `showCycleTab` (no-ops). `ucLogFirstDose` and `ucAddToStack` are not lifted; the CTA
-   replaces them.
-4. Writes `sitemap.xml` from the list of pages it generated plus the static page list.
+   `showCycleTab` (no-ops), and `PK_COLORS` (`app.html:8414`, used by `syrRecalc`).
+   `ucLogFirstDose` and `ucAddToStack` are not lifted; the CTA replaces them. The syringe
+   builder's `renderSyringeBuilder` emits an `onclick="syrLog()"` button (`app.html:8629`):
+   strip it in the lifted copy and provide the static injectables array under the name
+   `syrInjectables()` so the lifted code runs unchanged. **Filter before inlining**: the
+   generator inlines only the subset of `DB`, `TL_PK` and the interaction pairs that survive
+   the Tier C denylist, never the raw arrays.
+4. Writes `sitemap.xml` from the list of pages it generated plus the static page list, with
+   `<lastmod>` from the committed `scripts/page-dates.json` (updated only when a page's
+   content hash changes), and regenerates `llms.txt`.
 5. Supports `--check`: regenerate to a temp dir and exit non-zero if any output differs from
-   what is committed. CI runs this so the committed pages can never be stale.
+   what is committed, comparing with `<lastmod>` and the dates file excluded. CI runs this
+   so the committed pages can never be stale. The generator must be deterministic: no
+   timestamps, no `Date.now()`, stable ordering.
 
 Output is committed. GitHub Pages has no build step, and Playwright is not in CI, so PNGs and
 HTML are artifacts in git.
@@ -446,9 +472,11 @@ HTML are artifacts in git.
   `SYR_SIZES`), concentration, dose. Output: units and ml, with the "U-100 = 100 units per ml"
   explanation and the half-unit rule. Show a table of common conversions (0.1 ml = 10 units,
   0.25 ml = 25 units, 0.5 ml = 50 units).
-- **Syringe builder.** Lift `SYR`/`syr*` minus `syrLog`. Replace `syrInjectables()` with a
-  static array generated at build time from `DB` × `TL_PK.medium ∈ {aq, oil, susp}`
-  (66 injectables today), minus Tier C ids.
+- **Syringe builder.** Lift `SYR`/`syr*` minus `syrLog`, plus `PK_COLORS`. Replace
+  `syrInjectables()` with a static array generated at build time from `DB` ×
+  `TL_PK.medium ∈ {aq, oil, susp}` (66 injectables today), minus Tier C ids. The container
+  markup (`#tool-syringe`, `#syr-rows`, `#syr-result`, the size `<select>`) exists only as a
+  template literal inside `tlFeaturesInit` (`app.html:8789–8798`); copy it out as static HTML.
 - **Half-life calculator.** Inputs: compound (from `TL_PK` ids with `hl`, minus Tier C),
   dose, interval, duration. Output: Chart.js curve from `pkCurve` loaded from
   `/vendor/chart.umd.min.js` (same origin, already precached), plus computed facts: time to
@@ -456,9 +484,17 @@ HTML are artifacts in git.
   (`1 / (1 − 2^(−interval/hl))`), peak-to-trough ratio. Label `est:1` compounds "estimated
   half-life, limited human PK data". Note where the app's user override lives (Adjust in the
   Levels tab) without importing it.
-- **Per-compound half-life pages.** Pre-render the single-dose and steady-state curves as
-  inline SVG at build time (use `pkCurve` in Node) so the page has indexable content without
-  JavaScript, then enhance with the interactive chart. Fact box: half-life, Tmax, medium,
+- **Per-compound half-life pages.** 50 compounds are eligible (72 with `hl`, minus 22 Tier
+  C). Do not ship all 50: several are off-audience (metformin, telmisartan, isotretinoin,
+  rapamycin, raloxifene, levothyroxine) and several are data twins (BPC-157 and its
+  "systemic protocol" entry, TB-500 and its twin, kisspeptin-10 and -54). Phase 1 ships
+  about 15 with search demand behind them (`docs/seo-research/serp-compounds-competitors.md`
+  names the openings: semaglutide, tirzepatide, retatrutide, testosterone cypionate and
+  enanthate, BPC-157, TB-500, CJC-1295, ipamorelin, tesamorelin, HCG, enclomiphene,
+  anastrozole, sermorelin, MK-677), each with 200+ authored words that only apply to that
+  compound. Pre-render the single-dose and steady-state curves as inline SVG at build time
+  (use `pkCurve` in Node) so the page has indexable content without JavaScript, then
+  enhance with the interactive chart. Fact box: half-life, Tmax, medium,
   estimated flag, storage rule, monitoring panel from `DB.mon`, and the interaction rules that
   name this compound (resolve the display names in `INTERACTIONS[].drugs` to ids via a hand
   map or a `name`/`aka` index like `pkIndex()` at `app.html:8364`). These pages target
@@ -477,8 +513,14 @@ HTML are artifacts in git.
   and explain why the calculated value depends on the SHBG assay (the registry's own
   `freet.assay.note`). Link to the free-vs-total marker page.
 - **Stack checker.** Lift `checkInteractions` and the selects, populate from `DB`
-  names minus Tier C, and render all 50 pairs statically below the widget, grouped by
-  severity, each with an anchor titled "Can you take X with Y?". Do not call it an
+  names minus Tier C, and render the pairs statically below the widget, grouped by
+  severity, each with an anchor titled "Can you take X with Y?". The lifted function reads
+  one merged `INTERACTIONS` array (the app pushes the other two into it at `app.html:5022`
+  and `:5222`), so merge the three at build time and then drop the four pairs that name a
+  Tier C compound (Nandrolone Decanoate, Cardarine, RAD-140, Ligandrol): 46 pairs ship.
+  Eight interaction names carry parentheticals that match no `DB` `name` or `aka` ("Liothyronine
+  (T3)", "Cardarine (GW-501516)" and the like); resolve them with a hand map checked by
+  `validate-public-pages.js`. Do not call it an
   interaction checker in the title or slug: that phrase returns only academic
   protein-binding papers. The existing checkers are peptide-only and vendor-run; this one
   covers TRT ancillaries and GLP-1s too, which is the gap. Keep the mandatory "not exhaustive / not a safety clearance"
@@ -505,15 +547,25 @@ HTML are artifacts in git.
   that `sitemap.xml` lists exactly the generated pages plus the static list; and that every
   inlined function's source text equals the current text in `app.html` (hash compare). That
   last check is the drift guard that makes "same math as the app" a fact rather than a claim.
-- `.github/workflows/validate-compliance.yml` and `validate-encyclopedia.yml`: add `tools/**`
-  and `markers/**` to the `paths:` filters.
+  Define the Tier C check against the inlined data, not as a raw substring search: `card`
+  (Cardarine) is also the `.card` CSS class and the class `checkInteractions` emits, so the
+  validator parses the inlined `DB`/`TL_PK`/pairs arrays and the rendered compound names and
+  asserts none is a denied id or name. Add two content gates: a per-page authored-word
+  minimum (200 for compound-specific calculator and half-life pages, 600 for marker pages,
+  counted outside the shared widget, math and footer blocks) and a sibling-similarity ceiling
+  so two compound variants cannot ship with near-identical prose.
+- `.github/workflows/validate-compliance.yml` and `validate-encyclopedia.yml`: add `tools/**`,
+  `markers/**` and `about/**` to the `paths:` filters.
+- `validate-encyclopedia.js` rule 9 (line 120) requires any "N compounds" with N ≥ 40 to equal
+  130. Pages that print 72, 50 or 56 must say "PK-modelled compounds", "injectables" or
+  "compounds with published half-lives", never a bare "N compounds".
 - Add `node scripts/build-pages.js --check` to the new workflow.
 
 ### 5.5 OG images
 
 `scripts/capture-guide-shots.js` shows the pattern: serve the repo over `http`, launch the
-system Chromium at `/opt/pw-browsers/chromium-1194/chrome-linux/chrome` with
-`playwright-core`, screenshot. For OG images use `viewport: {width: 1200, height: 630},
+system Chromium with `playwright-core` (the executable-path fallback list lives in
+`scripts/ui-check-recon.js:14` and `ui-check-entitlement.js:29`), screenshot. For OG images use `viewport: {width: 1200, height: 630},
 deviceScaleFactor: 1` and screenshot the generated page itself (or a `?og=1` variant that
 hides nav). Commit the PNGs to `assets/og/`. The script must skip cleanly when
 `playwright-core` is absent, as the others do. Until it runs, every page uses
@@ -666,7 +718,10 @@ Enforced by validators where marked (V); the rest is on the writer.
 - (V) No `lifetime`, `one-time`, `pay once`, `$34.99`; no App Store, Google Play or Play Store
   availability; no `148`; no `50+ markers`.
 - (V) Any count claim (compounds, classes, markers, PK-modelled) is at most the real number.
-- (V) Legal, byline, canonical, single `<h1>`, disclaimer sentence present; no Tier C id.
+- (V) Legal, byline, canonical, single `<h1>`, disclaimer sentence present; no Tier C id or
+  name in the inlined data or rendered names.
+- (V) Authored-word minimum per page type and the sibling-similarity ceiling (§5.4).
+- No bare "N compounds" with N ≥ 40 other than 130 (`validate-encyclopedia.js` rule 9).
 - (V) Inlined calculator functions match `app.html` byte for byte.
 - Harm-reduction framing; every side-effect discussion ends with the prescribing clinician.
 - Three-tier evidence labelling on non-definitional claims (`ai-research.js:103` is the
