@@ -84,6 +84,16 @@ a:hover{text-decoration:underline}
 .callout p:last-child{margin-bottom:0}
 .note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
 .note p:last-child{margin-bottom:0}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
 .facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
 .facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
 .facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
@@ -232,6 +242,15 @@ body.og-card .wrap{display:none}
     <p><strong>Half-life and steady state:</strong> one page per compound with published
     pharmacokinetic data, each with the curve pre-drawn, the numbers, where they come from, and
     the monitoring panel the app records — <a href="/tools/half-life/semaglutide/">Semaglutide</a>, <a href="/tools/half-life/tirzepatide/">Tirzepatide</a>, <a href="/tools/half-life/retatrutide/">Retatrutide</a>, <a href="/tools/half-life/testosterone-cypionate/">Testosterone Cypionate</a>, <a href="/tools/half-life/testosterone-enanthate/">Testosterone Enanthate</a>, <a href="/tools/half-life/bpc-157/">BPC-157</a>, <a href="/tools/half-life/tb-500/">TB-500</a>, <a href="/tools/half-life/cjc-1295/">CJC-1295</a>, <a href="/tools/half-life/ipamorelin/">Ipamorelin</a>, <a href="/tools/half-life/tesamorelin/">Tesamorelin</a>, <a href="/tools/half-life/hcg/">HCG</a>, <a href="/tools/half-life/enclomiphene/">Enclomiphene</a>, <a href="/tools/half-life/anastrozole/">Anastrozole</a>, <a href="/tools/half-life/sermorelin/">Sermorelin</a>, <a href="/tools/half-life/mk-677/">MK-677 / Ibutamoren</a>.</p>
+
+    <h2>Pre-mixed blends</h2>
+
+    <p>A blend vial dissolves several peptides in the same water, so a draw takes all of
+    them in whatever ratio the vial was compounded at — you cannot dose one without dosing the
+    others. These pages work out what a single draw actually delivers of each, and compare it
+    against what the literature and community practice describe for each compound
+    <em>on its own</em>. The gap is usually larger than people expect:
+    <a href="/tools/bpc-157-tb-500-blend-calculator/">BPC-157 and TB-500 blend</a>, <a href="/tools/glow-peptide-blend-calculator/">GLOW blend</a>, <a href="/tools/klow-peptide-blend-calculator/">KLOW blend</a>.</p>
 
     <h2>What a calculator can and cannot tell you</h2>
 

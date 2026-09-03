@@ -150,6 +150,7 @@ function buildAll(ctx) {
   const mods = [
     require('./pages-hub.js'),
     require('./pages-recon.js'),
+    require('./pages-blend.js'),
     require('./pages-calc.js'),
     require('./pages-halflife.js'),
     require('./pages-stack.js')

@@ -37,6 +37,12 @@ function llmsTxt(pages) {
     .filter((p) => /^\/tools\/half-life\/[^/]+\/$/.test(p.url))
     .map((p) => `- ${p.url}: ${title(p.html)}`);
 
+  /* Blend pages carry their community nicknames, because that is what someone
+     asking an assistant about one will have typed. */
+  const blends = pages
+    .filter((p) => /-blend-calculator\/$/.test(p.url))
+    .map((p) => `- ${p.url}: ${title(p.html)} — ${desc(p.html)}`);
+
   return `# TherapyLog
 
 > TherapyLog is a web-based TRT (testosterone replacement therapy) and peptide
@@ -104,6 +110,20 @@ Each carries a milligram-to-units table computed for a stated vial and diluent
 volume, the modelled half-life, and the storage rule.
 
 ${recon.join('\n')}
+
+### Pre-mixed multi-peptide blends
+
+A blend vial holds several peptides dissolved in the same water, so one draw
+takes all of them in the ratio the vial was compounded at. These pages compute
+what a single draw delivers of each component and compare it against what the
+literature and community practice describe for that compound on its own; the two
+rarely match, because the ratio is fixed by whoever filled the vial. Ratios are
+not standardised, so each page takes the numbers from the reader's own label.
+The BPC-157 and TB-500 vial is widely known by the community nickname the
+"Wolverine blend" or "Wolverine stack"; GLOW is GHK-Cu with BPC-157 and TB-500;
+KLOW is GLOW with KPV added.
+
+${blends.join('\n')}
 
 ### Half-life and steady state, per compound
 

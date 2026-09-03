@@ -76,6 +76,22 @@ volume, the modelled half-life, and the storage rule.
 - /tools/tb-500-reconstitution-calculator/: TB-500 reconstitution calculator
 - /tools/tirzepatide-reconstitution-calculator/: Tirzepatide reconstitution calculator
 
+### Pre-mixed multi-peptide blends
+
+A blend vial holds several peptides dissolved in the same water, so one draw
+takes all of them in the ratio the vial was compounded at. These pages compute
+what a single draw delivers of each component and compare it against what the
+literature and community practice describe for that compound on its own; the two
+rarely match, because the ratio is fixed by whoever filled the vial. Ratios are
+not standardised, so each page takes the numbers from the reader's own label.
+The BPC-157 and TB-500 vial is widely known by the community nickname the
+"Wolverine blend" or "Wolverine stack"; GLOW is GHK-Cu with BPC-157 and TB-500;
+KLOW is GLOW with KPV added.
+
+- /tools/bpc-157-tb-500-blend-calculator/: BPC-157 and TB-500 blend: what one draw actually delivers — What one draw of a Wolverine blend vial delivers of each component, and why a fixed ratio cannot match what each compound is dosed at on its own. Free, no account.
+- /tools/glow-peptide-blend-calculator/: GLOW blend: what one draw actually delivers — What one draw of a GLOW vial delivers of each component, and why a fixed ratio cannot match what each compound is dosed at on its own. Free, no account.
+- /tools/klow-peptide-blend-calculator/: KLOW blend: what one draw actually delivers — What one draw of a KLOW vial delivers of each component, and why a fixed ratio cannot match what each compound is dosed at on its own. Free, no account.
+
 ### Half-life and steady state, per compound
 
 Each carries the single-dose and repeated-dose curves pre-rendered from the app's

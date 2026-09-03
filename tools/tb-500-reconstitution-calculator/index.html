@@ -84,6 +84,16 @@ a:hover{text-decoration:underline}
 .callout p:last-child{margin-bottom:0}
 .note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
 .note p:last-child{margin-bottom:0}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
 .facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
 .facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
 .facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
@@ -278,6 +288,9 @@ body.og-card .wrap{display:none}
      rule the constraint is the diluent rather than the peptide — bacteriostatic water's
      preservative is what makes repeated entry reasonable, and it is the reason a mixed vial is
      a weeks-not-months proposition.</p>
+
+    <h2>Sold as part of a blend?</h2>
+    <p>TB-500 is most often bought pre-mixed with BPC-157 rather than on its own — commonly five milligrams of each in one vial, and widely called the <strong>Wolverine blend</strong>. That changes the arithmetic on this page: both compounds share the water, so a draw large enough for a TB-500 dose carries roughly ten times a typical BPC-157 amount along with it. The <a href="/tools/bpc-157-tb-500-blend-calculator/">BPC-157 and TB-500 blend calculator</a> shows that split for your own vial. TB-500 is also in the <a href="/tools/glow-peptide-blend-calculator/">GLOW</a> and <a href="/tools/klow-peptide-blend-calculator/">KLOW</a> blends.</p>
 
     <p>Related: <a href="/tools/half-life/tb-500/">TB-500 half-life and steady state</a>,
       the <a href="/tools/peptide-reconstitution-calculator/">generic reconstitution calculator</a>,

@@ -439,6 +439,151 @@ for (const rel of pages) {
   t('the ladder cross-check actually ran', rows >= 15, rows + ' rows re-derived');
 }
 
+/* The blend pages' ratio table, re-derived the same way. This table is the whole
+   argument of those pages — that a fixed-ratio vial cannot deliver each
+   component at what the literature describes for it alone — so it gets the same
+   treatment as the mg-to-units ladders: every published number recomputed by
+   running app.html's own calcUnified() against the page's own widget, once per
+   component. A ratio table that drifted from the calculator above it would be
+   worse than no table. */
+{
+  const blend = require('./page-templates/pages-blend.js');
+  /* Same filter index.js applies before anything reaches a public page. */
+  const PERF_RE = /performance|cycle|blast|advanced|intermediate/i;
+  const api = { publishableDoses: (e) => (e.doses || []).filter((r) => !PERF_RE.test(r.l)) };
+  let cells = 0, bad = [];
+  for (const [key, b] of Object.entries(blend.BLENDS)) {
+    const rel = `tools/${b.slug}/index.html`;
+    if (!exists(rel)) { bad.push(rel + ' missing'); continue; }
+    const html = read(rel);
+    /* Scope the "is it published" test to the ratio table itself. Searching the
+       whole page would let a wrong cell pass because the right number happened
+       to appear in the prose somewhere. */
+    const tableM = html.match(/<h2>The ratio problem, in numbers<\/h2>[\s\S]*?<\/table>/);
+    if (!tableM) { bad.push(b.slug + ': the ratio table is missing'); continue; }
+
+    /* Parse the table into cells. A substring search over the whole table is not
+       enough: the same number legitimately appears in more than one column, so a
+       value moved into the wrong cell would still be "present". Check position. */
+    const trs = [...tableM[0].matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((r) =>
+      [...r[1].matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map((c) => c[1].trim()));
+    const header = trs[0] || [];
+    const bodyRows = trs.slice(1);
+
+    const { sandbox, el } = runPage(rel);
+    const comps = b.components.map((c) => ({
+      ...c, name: app.byId[c.id].name, range: blend.componentDoseRange(api, app.byId[c.id])
+    }));
+
+    /* Column layout: "If you dose for", "Draw", then one column per component,
+       in the vial's own order. */
+    const wantHeader = ['If you dose for', 'Draw'].concat(comps.map((c) => c.name));
+    if (header.join('|') !== wantHeader.join('|')) {
+      bad.push(`${b.slug}: ratio-table columns are ${header.join('|')}, expected ${wantHeader.join('|')}`);
+      continue;
+    }
+    const anchors = comps.filter((c) => c.range);
+    if (bodyRows.length !== anchors.length) {
+      bad.push(`${b.slug}: ratio table has ${bodyRows.length} rows, expected ${anchors.length}`);
+      continue;
+    }
+
+    anchors.forEach((anchorC, rowIdx) => {
+      const row = bodyRows[rowIdx];
+      if (!row[0].includes(anchorC.name)) {
+        bad.push(`${b.slug}: row ${rowIdx} is labelled "${row[0]}", expected ${anchorC.name}`);
+        return;
+      }
+      el('uc-vial').value = String(anchorC.mg);
+      el('uc-water').value = String(b.bacMl);
+      el('uc-dose').value = String(anchorC.range.lo >= 1000 ? anchorC.range.lo / 1000 : anchorC.range.lo);
+      el('uc-unit').value = anchorC.range.lo >= 1000 ? 'mg' : 'mcg';
+      el('uc-syringe').value = '100';
+      sandbox.calcUnified();
+      const ml = parseFloat((el('uc-ml').textContent || '').replace(/[^0-9.]/g, ''));
+      if (!(ml > 0)) { bad.push(`${b.slug}: calcUnified produced no draw volume for ${anchorC.id}`); return; }
+
+      comps.forEach((other, colIdx) => {
+        cells++;
+        const mcg = other.mg * 1000 * (ml / b.bacMl);
+        const shown = blend.fmtAmt(mcg);
+        /* The cell at this exact position must carry this exact amount. */
+        const cell = row[2 + colIdx] || '';
+        const cellAmount = cell.replace(/<em>[\s\S]*?<\/em>/g, '').replace(/<[^>]+>/g, '').trim();
+        if (cellAmount !== shown) {
+          bad.push(`${b.slug}: dosing ${anchorC.name}, the ${other.name} cell says "${cellAmount}", app math says "${shown}"`);
+        }
+        /* And the app agrees that that amount needs that same draw. */
+        el('uc-vial').value = String(other.mg);
+        el('uc-dose').value = String(mcg >= 1000 ? mcg / 1000 : mcg);
+        el('uc-unit').value = mcg >= 1000 ? 'mg' : 'mcg';
+        sandbox.calcUnified();
+        const back = parseFloat((el('uc-ml').textContent || '').replace(/[^0-9.]/g, ''));
+        if (Math.abs(back - ml) > 0.002) {
+          bad.push(`${b.slug}: ${other.name} split does not round-trip through calcUnified (${back} vs ${ml})`);
+        }
+      });
+    });
+  }
+  t('every blend ratio-table cell round-trips through the app\'s calcUnified()',
+    bad.length === 0, bad.slice(0, 4).join(' | '));
+  t('the blend cross-check actually ran', cells >= 20, cells + ' cells re-derived');
+}
+
+/* The blend split panel, executed. The ratio table above is generated in Node;
+   this is the browser-side code that has to agree with it, and a hash compare
+   cannot catch a panel that throws or renders nothing. Drive blSync() the way a
+   visitor would and read what it wrote. */
+{
+  const blend = require('./page-templates/pages-blend.js');
+  let bad = [], ran = 0;
+  for (const [, b] of Object.entries(blend.BLENDS)) {
+    const rel = `tools/${b.slug}/index.html`;
+    if (!exists(rel)) { bad.push(rel + ' missing'); continue; }
+    const { sandbox, el } = runPage(rel);
+    if (typeof sandbox.blSync !== 'function') { bad.push(b.slug + ': blSync() is not defined'); continue; }
+
+    b.components.forEach((c, i) => {
+      const f = el('bl-c' + i);
+      if (!f) { bad.push(`${b.slug}: no bl-c${i} field for ${c.id}`); return; }
+      f.value = String(c.mg);
+    });
+    el('bl-water').value = String(b.bacMl);
+    el('uc-syringe').value = '100';
+
+    /* Anchor on each component in turn and check the panel's own numbers. */
+    b.components.forEach((anchorC, idx) => {
+      el('bl-anchor').value = String(idx);
+      /* Ask for one milligram of the anchored component. */
+      el('uc-dose').value = '1';
+      el('uc-unit').value = 'mg';
+      try { sandbox.blSync(); } catch (e) { bad.push(`${b.slug}: blSync() threw — ${e.message}`); return; }
+
+      const ml = parseFloat((el('uc-ml').textContent || '').replace(/[^0-9.]/g, ''));
+      const panel = el('bl-split').innerHTML || '';
+      if (!ml) { bad.push(`${b.slug}: blSync() produced no draw volume`); return; }
+      if (!/<li>/.test(panel)) { bad.push(`${b.slug}: the split panel rendered nothing`); return; }
+
+      b.components.forEach((other) => {
+        ran++;
+        const mcg = other.mg * 1000 * (ml / b.bacMl);
+        const want = sandbox.blFmt(mcg);
+        const name = app.byId[other.id].name;
+        /* The panel must name this component and carry this amount for it. */
+        const row = (panel.match(new RegExp('<li><span>' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+                                            '</span><strong>([^<]*)</strong></li>')) || [])[1];
+        if (row === undefined) { bad.push(`${b.slug}: the split panel has no row for ${name}`); return; }
+        if (row.trim() !== want) {
+          bad.push(`${b.slug}: split panel says ${name} = "${row.trim()}", math says "${want}"`);
+        }
+      });
+    });
+  }
+  t('the blend split panel runs and agrees with the app\'s own draw volume',
+    bad.length === 0, bad.slice(0, 4).join(' | '));
+  t('the split-panel check actually ran', ran >= 18, ran + ' panel rows exercised');
+}
+
 /* The combination checker, through the app's real checkInteractions(). */
 {
   const rel = 'tools/stack-checker/index.html';
