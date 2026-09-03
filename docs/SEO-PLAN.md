@@ -494,7 +494,7 @@ HTML are artifacts in git.
   print (130 compounds, 100 markers, 72 PK-modelled, 30 classes) from the extracted data at
   build time, never by hand.
 - `scripts/validate-encyclopedia.js`: add the pages that quote a compound count to the rule-9
-  file list (line 112).
+  file list (line 113).
 - `scripts/validate-guide.js`: extend the route map (line 44) for any new route linked from
   `guide.html`.
 - New `scripts/validate-public-pages.js`, run in a new workflow
