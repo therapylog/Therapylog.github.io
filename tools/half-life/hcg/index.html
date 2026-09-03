@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>HCG half-life and steady state | TherapyLog</title>
+<meta name="description" content="HCG's modelled half-life is 33 h, peaking 6 h after a dose. Accumulation, time to steady state and peak-to-trough, with the curve drawn.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/tools/half-life/hcg/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="HCG half-life and steady state | TherapyLog"><meta property="og:description" content="HCG's modelled half-life is 33 h, peaking 6 h after a dose. Accumulation, time to steady state and peak-to-trough, with the curve drawn."><meta property="og:url" content="https://therapylog.app/tools/half-life/hcg/"><meta property="og:image" content="https://therapylog.app/assets/og/half-life-hcg.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="HCG half-life and steady state | TherapyLog"><meta name="twitter:description" content="HCG's modelled half-life is 33 h, peaking 6 h after a dose. Accumulation, time to steady state and peak-to-trough, with the curve drawn."><meta name="twitter:image" content="https://therapylog.app/assets/og/half-life-hcg.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; <a href="/tools/half-life-calculator/">Half-life</a> &rsaquo; HCG</div>
+    <h1>HCG half-life and steady state</h1>
+
+    <p class="lede">33 h modelled
+      half-life, peaking 6 h after a dose. What that means for how long
+      it lasts, how much it builds up, and when bloodwork is worth drawing.</p>
+
+    <div class="updated">Last reviewed: 3 September 2026</div>
+
+    <div class="facts">
+      <dl>
+        <dt>Also known as</dt><dd>Human Chorionic Gonadotropin</dd>
+        <dt>Class</dt><dd>Ancillaries — AIs and SERMs</dd>
+        <dt>Modelled half-life</dt><dd>33 h</dd>
+        <dt>Time to peak</dt><dd>6 h</dd>
+        <dt>Formulation</dt><dd>Aqueous (reconstituted powder)</dd>
+        <dt>Cleared per dosing interval</dt><dd>69% gone, 31% still present after 2.3 days</dd>
+        <dt>Time to steady state</dt><dd>~6.9 days (about five half-lives)</dd>
+        <dt>Accumulation at that cadence</dt><dd>1.45× a single dose</dd>
+        <dt>Peak-to-trough at steady state</dt><dd>2.79×</dd>
+        <dt>Regulatory status</dt><dd>FDA approved for female infertility and cryptorchidism. Off-label for male TRT support.</dd>
+        <dt>Monitoring panel</dt><dd>E2 (HCG aromatizes significantly), Total T. LH/FSH will be suppressed — this is expected.</dd>
+        <dt>Before mixing</dt><dd>Sealed powder tolerates room temperature in transit, but keep it refrigerated at 2–8 °C (36–46 °F) for anything beyond a few weeks, or frozen for months. Keep it dark — the carton it shipped in is doing a job.</dd>
+        <dt>After mixing</dt><dd>Once reconstituted with bacteriostatic water: refrigerate at 2–8 °C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window — plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only. Kits are usually ten vials: only the one you mixed is on that 28-day clock — the sealed ones keep their own, much longer shelf life, so store them as powder, not as solution.</dd>
+        <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
+      </dl>
+    </div>
+
+    <p>HCG's roughly thirty-three-hour half-life is long for a glycoprotein hormone, and the reason is its sugars. Human chorionic gonadotropin is heavily glycosylated, and those carbohydrate chains — particularly the sialic acid on them — slow its clearance from the kidney dramatically. Luteinising hormone, which HCG mimics at the same receptor, is cleared in about twenty minutes. Same receptor, a half-life two orders of magnitude apart, entirely because of the glycosylation.</p>
+
+    <p>That difference is the whole clinical point, and it is also the main caution. Endogenous LH arrives in pulses every couple of hours; HCG at a three-times-weekly cadence accumulates and produces continuous stimulation of the testicular Leydig cells instead. Continuous is what makes it useful for maintaining testicular volume and function during testosterone therapy — and continuous stimulation of a receptor is also the mechanism by which receptors downregulate, which is why the doses in the app's entry are in the hundreds of international units rather than the thousands.</p>
+
+    <p>Two things to watch follow directly from the curve. HCG-driven testicular testosterone production <em>aromatises</em>, so oestradiol can rise on a dose that leaves total testosterone barely changed — the app's monitoring note for it names E2 first for exactly this reason. And LH and FSH will read suppressed on any panel drawn while HCG is in use, which is expected rather than a finding: the pituitary is responding to the testosterone downstream, and the assay may cross-react with HCG itself.</p>
+
+    <h2>One dose</h2>
+
+    <figure class="curve">
+<svg viewBox="0 0 720 300" role="img" aria-label="Modelled serum level after a single dose of HCG: rising to a peak at 6 h and falling to half the peak roughly one half-life (33 h) after that, shown as a percentage of the peak." xmlns="http://www.w3.org/2000/svg">
+<title>Modelled serum level after a single dose of HCG: rising to a peak at 6 h and falling to half the peak roughly one half-life (33 h) after that, shown as a percentage of the peak.</title>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="256" fill="#78859b" font-size="11" text-anchor="end">0%</text><line x1="52" y1="197.83" x2="702" y2="197.83" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="201.83" fill="#78859b" font-size="11" text-anchor="end">25%</text><line x1="52" y1="143.67" x2="702" y2="143.67" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="147.67" fill="#78859b" font-size="11" text-anchor="end">50%</text><line x1="52" y1="89.5" x2="702" y2="89.5" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="93.5" fill="#78859b" font-size="11" text-anchor="end">75%</text><line x1="52" y1="35.33" x2="702" y2="35.33" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="39.33" fill="#78859b" font-size="11" text-anchor="end">100%</text><line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="52" y="274" fill="#78859b" font-size="11" text-anchor="middle">0 min</text><line x1="214.5" y1="18" x2="214.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="214.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">41.3 h</text><line x1="377" y1="18" x2="377" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="377" y="274" fill="#78859b" font-size="11" text-anchor="middle">3.4 days</text><line x1="539.5" y1="18" x2="539.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="539.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">5.2 days</text><line x1="702" y1="18" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="702" y="274" fill="#78859b" font-size="11" text-anchor="middle">6.9 days</text>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<path d="M52 252 L54.71 172.74 L57.42 120.38 L60.13 86.16 L62.83 64.15 L65.54 50.39 L68.25 42.18 L70.96 37.67 L73.67 35.7 L76.38 35.38 L79.08 36.18 L81.79 37.72 L84.5 39.73 L87.21 42.07 L89.92 44.61 L92.63 47.25 L95.33 49.96 L98.04 52.71 L100.75 55.48 L103.46 58.24 L106.17 60.97 L108.87 63.67 L111.58 66.34 L114.29 69 L117 71.6 L119.71 74.18 L122.42 76.74 L125.13 79.25 L127.83 81.72 L130.54 84.15 L133.25 86.55 L135.96 88.94 L138.67 91.28 L141.38 93.57 L144.08 95.85 L146.79 98.08 L149.5 100.29 L152.21 102.46 L154.92 104.6 L157.63 106.73 L160.33 108.81 L163.04 110.86 L165.75 112.88 L168.46 114.87 L171.17 116.84 L173.88 118.77 L176.58 120.7 L179.29 122.56 L182 124.43 L184.71 126.27 L187.42 128.07 L190.13 129.84 L192.83 131.6 L195.54 133.31 L198.25 135.02 L200.96 136.69 L203.67 138.34 L206.38 139.98 L209.08 141.59 L211.79 143.17 L214.5 144.73 L217.21 146.27 L219.92 147.78 L222.63 149.28 L225.33 150.75 L228.04 152.2 L230.75 153.63 L233.46 155.04 L236.17 156.43 L238.87 157.79 L241.58 159.16 L244.29 160.48 L247 161.8 L249.71 163.08 L252.42 164.36 L255.13 165.62 L257.83 166.85 L260.54 168.09 L263.25 169.28 L265.96 170.47 L268.67 171.64 L271.38 172.79 L274.08 173.91 L276.79 175.04 L279.5 176.14 L282.21 177.23 L284.92 178.31 L287.63 179.35 L290.33 180.41 L293.04 181.43 L295.75 182.45 L298.46 183.45 L301.17 184.42 L303.88 185.4 L306.58 186.35 L309.29 187.28 L312 188.21 L314.71 189.12 L317.42 190.03 L320.13 190.92 L322.83 191.79 L325.54 192.66 L328.25 193.5 L330.96 194.34 L333.67 195.17 L336.38 195.99 L339.08 196.79 L341.79 197.57 L344.5 198.35 L347.21 199.13 L349.92 199.89 L352.63 200.63 L355.33 201.37 L358.04 202.1 L360.75 202.82 L363.46 203.51 L366.17 204.22 L368.88 204.9 L371.58 205.57 L374.29 206.24 L377 206.89 L379.71 207.54 L382.42 208.19 L385.12 208.82 L387.83 209.43 L390.54 210.03 L393.25 210.64 L395.96 211.22 L398.67 211.81 L401.38 212.39 L404.08 212.96 L406.79 213.52 L409.5 214.08 L412.21 214.63 L414.92 215.15 L417.63 215.69 L420.33 216.21 L423.04 216.71 L425.75 217.22 L428.46 217.72 L431.17 218.2 L433.88 218.7 L436.58 219.18 L439.29 219.65 L442 220.11 L444.71 220.56 L447.42 221.02 L450.13 221.45 L452.83 221.91 L455.54 222.34 L458.25 222.75 L460.96 223.18 L463.67 223.59 L466.37 223.99 L469.08 224.4 L471.79 224.79 L474.5 225.18 L477.21 225.57 L479.92 225.94 L482.63 226.32 L485.33 226.69 L488.04 227.04 L490.75 227.41 L493.46 227.75 L496.17 228.1 L498.88 228.45 L501.58 228.8 L504.29 229.12 L507 229.44 L509.71 229.77 L512.42 230.09 L515.13 230.4 L517.83 230.72 L520.54 231.03 L523.25 231.33 L525.96 231.61 L528.67 231.91 L531.38 232.2 L534.08 232.48 L536.79 232.76 L539.5 233.04 L542.21 233.3 L544.92 233.58 L547.62 233.84 L550.33 234.1 L553.04 234.36 L555.75 234.6 L558.46 234.86 L561.17 235.1 L563.88 235.34 L566.58 235.58 L569.29 235.81 L572 236.05 L574.71 236.29 L577.42 236.51 L580.13 236.72 L582.83 236.94 L585.54 237.16 L588.25 237.38 L590.96 237.59 L593.67 237.79 L596.38 238 L599.08 238.2 L601.79 238.39 L604.5 238.59 L607.21 238.78 L609.92 238.98 L612.63 239.15 L615.33 239.35 L618.04 239.52 L620.75 239.69 L623.46 239.89 L626.17 240.06 L628.88 240.24 L631.58 240.39 L634.29 240.56 L637 240.73 L639.71 240.88 L642.42 241.04 L645.13 241.21 L647.83 241.36 L650.54 241.51 L653.25 241.66 L655.96 241.82 L658.67 241.95 L661.38 242.1 L664.08 242.25 L666.79 242.38 L669.5 242.51 L672.21 242.66 L674.92 242.79 L677.63 242.92 L680.33 243.05 L683.04 243.18 L685.75 243.31 L688.46 243.42 L691.17 243.55 L693.88 243.68 L696.58 243.79 L699.29 243.92 L702 244.03 L702 252 L52 252 Z" fill="rgba(59,196,255,0.10)" stroke="none"/><path d="M52 252 L54.71 172.74 L57.42 120.38 L60.13 86.16 L62.83 64.15 L65.54 50.39 L68.25 42.18 L70.96 37.67 L73.67 35.7 L76.38 35.38 L79.08 36.18 L81.79 37.72 L84.5 39.73 L87.21 42.07 L89.92 44.61 L92.63 47.25 L95.33 49.96 L98.04 52.71 L100.75 55.48 L103.46 58.24 L106.17 60.97 L108.87 63.67 L111.58 66.34 L114.29 69 L117 71.6 L119.71 74.18 L122.42 76.74 L125.13 79.25 L127.83 81.72 L130.54 84.15 L133.25 86.55 L135.96 88.94 L138.67 91.28 L141.38 93.57 L144.08 95.85 L146.79 98.08 L149.5 100.29 L152.21 102.46 L154.92 104.6 L157.63 106.73 L160.33 108.81 L163.04 110.86 L165.75 112.88 L168.46 114.87 L171.17 116.84 L173.88 118.77 L176.58 120.7 L179.29 122.56 L182 124.43 L184.71 126.27 L187.42 128.07 L190.13 129.84 L192.83 131.6 L195.54 133.31 L198.25 135.02 L200.96 136.69 L203.67 138.34 L206.38 139.98 L209.08 141.59 L211.79 143.17 L214.5 144.73 L217.21 146.27 L219.92 147.78 L222.63 149.28 L225.33 150.75 L228.04 152.2 L230.75 153.63 L233.46 155.04 L236.17 156.43 L238.87 157.79 L241.58 159.16 L244.29 160.48 L247 161.8 L249.71 163.08 L252.42 164.36 L255.13 165.62 L257.83 166.85 L260.54 168.09 L263.25 169.28 L265.96 170.47 L268.67 171.64 L271.38 172.79 L274.08 173.91 L276.79 175.04 L279.5 176.14 L282.21 177.23 L284.92 178.31 L287.63 179.35 L290.33 180.41 L293.04 181.43 L295.75 182.45 L298.46 183.45 L301.17 184.42 L303.88 185.4 L306.58 186.35 L309.29 187.28 L312 188.21 L314.71 189.12 L317.42 190.03 L320.13 190.92 L322.83 191.79 L325.54 192.66 L328.25 193.5 L330.96 194.34 L333.67 195.17 L336.38 195.99 L339.08 196.79 L341.79 197.57 L344.5 198.35 L347.21 199.13 L349.92 199.89 L352.63 200.63 L355.33 201.37 L358.04 202.1 L360.75 202.82 L363.46 203.51 L366.17 204.22 L368.88 204.9 L371.58 205.57 L374.29 206.24 L377 206.89 L379.71 207.54 L382.42 208.19 L385.12 208.82 L387.83 209.43 L390.54 210.03 L393.25 210.64 L395.96 211.22 L398.67 211.81 L401.38 212.39 L404.08 212.96 L406.79 213.52 L409.5 214.08 L412.21 214.63 L414.92 215.15 L417.63 215.69 L420.33 216.21 L423.04 216.71 L425.75 217.22 L428.46 217.72 L431.17 218.2 L433.88 218.7 L436.58 219.18 L439.29 219.65 L442 220.11 L444.71 220.56 L447.42 221.02 L450.13 221.45 L452.83 221.91 L455.54 222.34 L458.25 222.75 L460.96 223.18 L463.67 223.59 L466.37 223.99 L469.08 224.4 L471.79 224.79 L474.5 225.18 L477.21 225.57 L479.92 225.94 L482.63 226.32 L485.33 226.69 L488.04 227.04 L490.75 227.41 L493.46 227.75 L496.17 228.1 L498.88 228.45 L501.58 228.8 L504.29 229.12 L507 229.44 L509.71 229.77 L512.42 230.09 L515.13 230.4 L517.83 230.72 L520.54 231.03 L523.25 231.33 L525.96 231.61 L528.67 231.91 L531.38 232.2 L534.08 232.48 L536.79 232.76 L539.5 233.04 L542.21 233.3 L544.92 233.58 L547.62 233.84 L550.33 234.1 L553.04 234.36 L555.75 234.6 L558.46 234.86 L561.17 235.1 L563.88 235.34 L566.58 235.58 L569.29 235.81 L572 236.05 L574.71 236.29 L577.42 236.51 L580.13 236.72 L582.83 236.94 L585.54 237.16 L588.25 237.38 L590.96 237.59 L593.67 237.79 L596.38 238 L599.08 238.2 L601.79 238.39 L604.5 238.59 L607.21 238.78 L609.92 238.98 L612.63 239.15 L615.33 239.35 L618.04 239.52 L620.75 239.69 L623.46 239.89 L626.17 240.06 L628.88 240.24 L631.58 240.39 L634.29 240.56 L637 240.73 L639.71 240.88 L642.42 241.04 L645.13 241.21 L647.83 241.36 L650.54 241.51 L653.25 241.66 L655.96 241.82 L658.67 241.95 L661.38 242.1 L664.08 242.25 L666.79 242.38 L669.5 242.51 L672.21 242.66 L674.92 242.79 L677.63 242.92 L680.33 243.05 L683.04 243.18 L685.75 243.31 L688.46 243.42 L691.17 243.55 L693.88 243.68 L696.58 243.79 L699.29 243.92 L702 244.03" fill="none" stroke="#3bc4ff" stroke-width="2" stroke-linejoin="round"/><line x1="75.64" y1="18" x2="75.64" y2="252" stroke="#4ade9a" stroke-width="1" stroke-dasharray="3 3"/><text x="80.64" y="30" fill="#4ade9a" font-size="10.5">peak</text><line x1="182" y1="18" x2="182" y2="252" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 3"/><text x="187" y="30" fill="#f59e0b" font-size="10.5">one half-life</text>
+<text x="377" y="292" fill="#78859b" font-size="11" text-anchor="middle">Time after one dose</text>
+
+</svg>
+      <figcaption>Modelled level after a single dose, as a percentage of that dose's own peak.
+      Rising to the peak at 6 h, then falling by half every
+      33 h. Computed with the app's own <code>pkCurve</code> function — a
+      one-compartment absorption-and-elimination model with the absorption rate fitted so the
+      peak lands at the published time to peak.</figcaption>
+      </figure>
+
+    <h2>Dosed three times weekly</h2>
+
+    <p>Charted at <strong>three times weekly</strong> because that is
+      the schedule in the app's own dosing rows for fertility support on TRT. It is what the numbers below are indexed to, not a
+      recommendation about frequency — that is a prescribing decision.</p>
+
+    <figure class="curve">
+<svg viewBox="0 0 720 300" role="img" aria-label="Modelled accumulation of HCG dosed three times weekly: successive doses stack until the level plateaus at about 1.45× what one dose alone reaches, oscillating between a trough and a peak about 2.79 times higher." xmlns="http://www.w3.org/2000/svg">
+<title>Modelled accumulation of HCG dosed three times weekly: successive doses stack until the level plateaus at about 1.45× what one dose alone reaches, oscillating between a trough and a peak about 2.79 times higher.</title>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="256" fill="#78859b" font-size="11" text-anchor="end">0×</text><line x1="52" y1="198.14" x2="702" y2="198.14" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="202.14" fill="#78859b" font-size="11" text-anchor="end">0.4×</text><line x1="52" y1="143" x2="702" y2="143" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="147" fill="#78859b" font-size="11" text-anchor="end">0.8×</text><line x1="52" y1="89.14" x2="702" y2="89.14" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="93.14" fill="#78859b" font-size="11" text-anchor="end">1.3×</text><line x1="52" y1="34" x2="702" y2="34" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="38" fill="#78859b" font-size="11" text-anchor="end">1.7×</text><line x1="52" y1="34" x2="52" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="52" y="274" fill="#78859b" font-size="11" text-anchor="middle">0 min</text><line x1="133.25" y1="34" x2="133.25" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="133.25" y="274" fill="#78859b" font-size="11" text-anchor="middle">2.3 days</text><line x1="214.5" y1="34" x2="214.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="214.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">4.7 days</text><line x1="295.75" y1="34" x2="295.75" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="295.75" y="274" fill="#78859b" font-size="11" text-anchor="middle">7 days</text><line x1="377" y1="34" x2="377" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="377" y="274" fill="#78859b" font-size="11" text-anchor="middle">9.3 days</text><line x1="458.25" y1="34" x2="458.25" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="458.25" y="274" fill="#78859b" font-size="11" text-anchor="middle">11.7 days</text><line x1="539.5" y1="34" x2="539.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="539.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">14 days</text><line x1="620.75" y1="34" x2="620.75" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="620.75" y="274" fill="#78859b" font-size="11" text-anchor="middle">16.3 days</text><line x1="702" y1="34" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="702" y="274" fill="#78859b" font-size="11" text-anchor="middle">18.7 days</text>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<line x1="52" y1="34" x2="52" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<path d="M52 252 L53.8 179.03 L55.61 145.09 L57.42 130.25 L59.22 124.75 L61.03 123.8 L62.83 125.02 L64.64 127.28 L66.45 130 L68.25 132.9 L70.05 135.84 L71.86 138.78 L73.67 141.68 L75.47 144.51 L77.28 147.28 L79.08 149.98 L80.89 152.6 L82.7 155.17 L84.5 157.67 L86.3 160.11 L88.11 162.47 L89.92 164.79 L91.72 167.03 L93.53 169.22 L95.33 171.37 L97.14 173.44 L98.95 175.47 L100.75 177.44 L102.55 179.37 L104.36 181.24 L106.17 183.06 L107.97 184.84 L109.78 186.57 L111.58 188.27 L113.39 189.91 L115.2 191.51 L117 193.08 L118.8 194.59 L120.61 196.08 L122.42 197.51 L124.22 198.92 L126.03 200.3 L127.83 201.63 L129.64 202.92 L131.45 204.19 L133.25 205.42 L135.05 206.63 L136.86 207.8 L138.67 208.94 L140.47 210.05 L142.28 211.13 L144.08 212.18 L145.89 213.21 L147.7 214.21 L149.5 215.18 L151.3 216.13 L153.11 217.07 L154.92 217.97 L156.72 218.84 L158.53 219.7 L160.33 220.53 L162.14 221.34 L163.95 222.13 L165.75 222.9 L167.55 223.66 L169.36 224.39 L171.17 225.1 L172.97 225.79 L174.78 226.47 L176.58 227.12 L178.39 227.76 L180.2 228.39 L182 229.01 L183.8 229.6 L185.61 230.17 L187.42 230.74 L189.22 231.29 L191.03 231.82 L192.83 232.34 L194.64 232.85 L196.45 233.34 L198.25 233.83 L200.05 234.29 L201.86 234.75 L203.67 235.2 L205.47 235.62 L207.28 236.05 L209.08 236.46 L210.89 236.87 L212.7 237.25 L214.5 237.64 L216.3 238.01 L218.11 238.37 L219.92 238.71 L221.72 239.06 L223.53 239.39 L225.33 239.72 L227.14 240.04 L228.95 240.34 L230.75 240.65 L232.55 240.93 L234.36 241.23 L236.17 241.5 L237.97 241.77 L239.78 242.04 L241.58 242.29 L243.39 242.55 L245.2 242.79 L247 243.02 L248.8 243.25 L250.61 243.49 L252.42 243.7 L254.22 243.92 L256.03 244.13 L257.83 244.33 L259.64 244.52 L261.45 244.72 L263.25 244.91 L265.05 245.09 L266.86 245.27 L268.67 245.45 L270.47 245.61 L272.28 245.78 L274.08 245.93 L275.89 246.09 L277.7 246.24 L279.5 246.4 L281.3 246.54 L283.11 246.68 L284.92 246.82 L286.72 246.95 L288.53 247.08 L290.33 247.2 L292.14 247.33 L293.95 247.45 L295.75 247.56 L297.55 247.68 L299.36 247.79 L301.17 247.91 L302.97 248.01 L304.78 248.11 L306.58 248.22 L308.39 248.31 L310.2 248.41 L312 248.5 L313.8 248.59 L315.61 248.68 L317.42 248.77 L319.22 248.85 L321.03 248.92 L322.83 249.01 L324.64 249.09 L326.45 249.15 L328.25 249.23 L330.05 249.31 L331.86 249.37 L333.67 249.44 L335.47 249.51 L337.28 249.58 L339.08 249.63 L340.89 249.69 L342.7 249.76 L344.5 249.81 L346.3 249.87 L348.11 249.92 L349.92 249.97 L351.72 250.03 L353.53 250.08 L355.33 250.13 L357.14 250.18 L358.95 250.23 L360.75 250.27 L362.55 250.32 L364.36 250.36 L366.17 250.4 L367.97 250.45 L369.78 250.49 L371.58 250.53 L373.39 250.56 L375.2 250.6 L377 250.63 L378.8 250.67 L380.61 250.7 L382.42 250.73 L384.22 250.77 L386.03 250.79 L387.83 250.83 L389.64 250.86 L391.45 250.9 L393.25 250.92 L395.05 250.95 L396.86 250.97 L398.67 251 L400.47 251.03 L402.28 251.05 L404.08 251.08 L405.89 251.1 L407.7 251.13 L409.5 251.14 L411.3 251.17 L413.11 251.19 L414.92 251.2 L416.72 251.23 L418.53 251.26 L420.33 251.27 L422.14 251.29 L423.95 251.31 L425.75 251.32 L427.55 251.35 L429.36 251.36 L431.17 251.37 L432.97 251.4 L434.78 251.41 L436.58 251.42 L438.39 251.44 L440.2 251.45 L442 251.46 L443.8 251.47 L445.61 251.5 L447.42 251.51 L449.22 251.53 L451.03 251.54 L452.83 251.54 L454.64 251.55 L456.45 251.56 L458.25 251.58 L460.05 251.59 L461.86 251.6 L463.67 251.62 L465.47 251.62 L467.28 251.63 L469.08 251.64 L470.89 251.65 L472.7 251.65 L474.5 251.67 L476.3 251.68 L478.11 251.68 L479.92 251.69 L481.72 251.71 L483.53 251.71 L485.33 251.72 L487.14 251.72 L488.95 251.73 L490.75 251.73 L492.55 251.74 L494.36 251.76 L496.17 251.76 L497.97 251.77 L499.78 251.77 L501.58 251.77 L503.39 251.78 L505.2 251.78 L507 251.79 L508.8 251.79 L510.61 251.81 L512.42 251.81 L514.22 251.81 L516.03 251.82 L517.83 251.82 L519.64 251.82 L521.45 251.83 L523.25 251.83 L525.05 251.85 L526.86 251.85 L528.67 251.85 L530.47 251.85 L532.28 251.86 L534.08 251.86 L535.89 251.86 L537.7 251.87 L539.5 251.87 L541.3 251.87 L543.11 251.87 L544.92 251.88 L546.72 251.88 L548.53 251.88 L550.33 251.88 L552.14 251.9 L553.95 251.9 L555.75 251.9 L557.55 251.9 L559.36 251.9 L561.17 251.91 L562.97 251.91 L564.78 251.91 L566.58 251.91 L568.39 251.91 L570.2 251.91 L572 251.92 L573.8 251.92 L575.61 251.92 L577.42 251.92 L579.22 251.92 L581.03 251.92 L582.83 251.94 L584.64 251.94 L586.45 251.94 L588.25 251.94 L590.05 251.94 L591.86 251.94 L593.67 251.94 L595.47 251.94 L597.28 251.95 L599.08 251.95 L600.89 251.95 L602.7 251.95 L604.5 251.95 L606.3 251.95 L608.11 251.95 L609.92 251.95 L611.72 251.95 L613.53 251.96 L615.33 251.96 L617.14 251.96 L618.95 251.96 L620.75 251.96 L622.55 251.96 L624.36 251.96 L626.17 251.96 L627.97 251.96 L629.78 251.96 L631.58 251.96 L633.39 251.96 L635.2 251.96 L637 251.97 L638.8 251.97 L640.61 251.97 L642.42 251.97 L644.22 251.97 L646.03 251.97 L647.83 251.97 L649.64 251.97 L651.45 251.97 L653.25 251.97 L655.05 251.97 L656.86 251.97 L658.67 251.97 L660.47 251.97 L662.28 251.97 L664.08 251.97 L665.89 251.97 L667.7 251.97 L669.5 251.97 L671.3 251.97 L673.11 251.99 L674.92 251.99 L676.72 251.99 L678.53 251.99 L680.33 251.99 L682.14 251.99 L683.95 251.99 L685.75 251.99 L687.55 251.99 L689.36 251.99 L691.17 251.99 L692.97 251.99 L694.78 251.99 L696.58 251.99 L698.39 251.99 L700.2 251.99 L702 251.99" fill="none" stroke="#78859b" stroke-width="2" stroke-linejoin="round" stroke-dasharray="4 4"/><path d="M52 252 L53.8 179.03 L55.61 145.09 L57.42 130.25 L59.22 124.75 L61.03 123.8 L62.83 125.02 L64.64 127.28 L66.45 130 L68.25 132.9 L70.05 135.84 L71.86 138.78 L73.67 141.68 L75.47 144.51 L77.28 147.28 L79.08 149.98 L80.89 152.6 L82.7 155.17 L84.5 157.67 L86.3 160.11 L88.11 162.47 L89.92 164.79 L91.72 167.03 L93.53 169.22 L95.33 171.37 L97.14 173.44 L98.95 175.47 L100.75 177.44 L102.55 179.37 L104.36 181.24 L106.17 183.06 L107.97 184.84 L109.78 186.57 L111.58 188.27 L113.39 189.91 L115.2 191.51 L117 193.08 L118.8 194.59 L120.61 196.08 L122.42 197.51 L124.22 198.92 L126.03 200.3 L127.83 201.63 L129.64 202.92 L131.45 204.19 L133.25 205.42 L135.05 133.65 L136.86 100.89 L138.67 87.19 L140.47 82.81 L142.28 82.93 L144.08 85.22 L145.89 88.49 L147.7 92.21 L149.5 96.09 L151.3 99.99 L153.11 103.85 L154.92 107.65 L156.72 111.35 L158.53 114.98 L160.33 118.51 L162.14 121.94 L163.95 125.3 L165.75 128.57 L167.55 131.75 L169.36 134.86 L171.17 137.88 L172.97 140.82 L174.78 143.69 L176.58 146.49 L178.39 149.21 L180.2 151.86 L182 154.45 L183.8 156.96 L185.61 159.41 L187.42 161.8 L189.22 164.13 L191.03 166.4 L192.83 168.61 L194.64 170.76 L196.45 172.85 L198.25 174.89 L200.05 176.88 L201.86 178.83 L203.67 180.71 L205.47 182.55 L207.28 184.34 L209.08 186.09 L210.89 187.79 L212.7 189.45 L214.5 191.06 L216.3 119.66 L218.11 87.24 L219.92 73.91 L221.72 69.87 L223.53 70.33 L225.33 72.93 L227.14 76.54 L228.95 80.55 L230.75 84.73 L232.55 88.92 L234.36 93.08 L236.17 97.14 L237.97 101.13 L239.78 105.02 L241.58 108.8 L243.39 112.49 L245.2 116.1 L247 119.6 L248.8 123.01 L250.61 126.34 L252.42 129.59 L254.22 132.74 L256.03 135.82 L257.83 138.82 L259.64 141.73 L261.45 144.58 L263.25 147.35 L265.05 150.05 L266.86 152.68 L268.67 155.25 L270.47 157.75 L272.28 160.17 L274.08 162.54 L275.89 164.85 L277.7 167.1 L279.5 169.29 L281.3 171.43 L283.11 173.51 L284.92 175.53 L286.72 177.5 L288.53 179.42 L290.33 181.29 L292.14 183.12 L293.95 184.89 L295.75 186.63 L297.55 115.34 L299.36 83.04 L301.17 69.82 L302.97 65.88 L304.78 66.44 L306.58 69.15 L308.39 72.84 L310.2 76.96 L312 81.23 L313.8 85.51 L315.61 89.76 L317.42 93.91 L319.22 97.98 L321.03 101.94 L322.83 105.81 L324.64 109.58 L326.45 113.25 L328.25 116.83 L330.05 120.32 L331.86 123.71 L333.67 127.02 L335.47 130.25 L337.28 133.4 L339.08 136.45 L340.89 139.44 L342.7 142.33 L344.5 145.17 L346.3 147.92 L348.11 150.6 L349.92 153.22 L351.72 155.77 L353.53 158.26 L355.33 160.67 L357.14 163.03 L358.95 165.33 L360.75 167.56 L362.55 169.74 L364.36 171.87 L366.17 173.93 L367.97 175.94 L369.78 177.91 L371.58 179.82 L373.39 181.68 L375.2 183.5 L377 185.27 L378.8 114.02 L380.61 81.74 L382.42 68.55 L384.22 64.65 L386.03 65.24 L387.83 67.97 L389.64 71.7 L391.45 75.86 L393.25 80.15 L395.05 84.46 L396.86 88.73 L398.67 92.91 L400.47 97 L402.28 100.99 L404.08 104.89 L405.89 108.67 L407.7 112.38 L409.5 115.98 L411.3 119.48 L413.11 122.91 L414.92 126.24 L416.72 129.48 L418.53 132.64 L420.33 135.72 L422.14 138.72 L423.95 141.64 L425.75 144.49 L427.55 147.27 L429.36 149.96 L431.17 152.6 L432.97 155.17 L434.78 157.66 L436.58 160.09 L438.39 162.47 L440.2 164.77 L442 167.03 L443.8 169.22 L445.61 171.35 L447.42 173.43 L449.22 175.47 L451.03 177.43 L452.83 179.37 L454.64 181.24 L456.45 183.06 L458.25 184.84 L460.05 113.6 L461.86 81.34 L463.67 68.16 L465.47 64.26 L467.28 64.87 L469.08 67.61 L470.89 71.35 L472.7 75.51 L474.5 79.82 L476.3 84.14 L478.11 88.41 L479.92 92.6 L481.72 96.69 L483.53 100.7 L485.33 104.59 L487.14 108.4 L488.95 112.11 L490.75 115.71 L492.55 119.23 L494.36 122.65 L496.17 126 L497.97 129.24 L499.78 132.41 L501.58 135.5 L503.39 138.5 L505.2 141.44 L507 144.28 L508.8 147.07 L510.61 149.77 L512.42 152.41 L514.22 154.98 L516.03 157.48 L517.83 159.91 L519.64 162.3 L521.45 164.61 L523.25 166.86 L525.05 169.06 L526.86 171.2 L528.67 173.29 L530.47 175.32 L532.28 177.29 L534.08 179.23 L535.89 181.1 L537.7 182.93 L539.5 184.71 L541.3 113.48 L543.11 81.22 L544.92 68.03 L546.72 64.15 L548.53 64.75 L550.33 67.51 L552.14 71.24 L553.95 75.41 L555.75 79.72 L557.55 84.04 L559.36 88.31 L561.17 92.5 L562.97 96.6 L564.78 100.61 L566.58 104.52 L568.39 108.31 L570.2 112.02 L572 115.63 L573.8 119.15 L575.61 122.57 L577.42 125.92 L579.22 129.16 L581.03 132.34 L582.83 135.42 L584.64 138.43 L586.45 141.36 L588.25 144.22 L590.05 147 L591.86 149.71 L593.67 152.35 L595.47 154.91 L597.28 157.43 L599.08 159.86 L600.89 162.24 L602.7 164.56 L604.5 166.81 L606.3 169.01 L608.11 171.15 L609.92 173.24 L611.72 175.26 L613.53 177.25 L615.33 179.18 L617.14 181.06 L618.95 182.88 L620.75 184.66 L622.55 113.44 L624.36 81.19 L626.17 68 L627.97 64.11 L629.78 64.73 L631.58 67.47 L633.39 71.21 L635.2 75.37 L637 79.68 L638.8 84.01 L640.61 88.28 L642.42 92.48 L644.22 96.58 L646.03 100.58 L647.83 104.48 L649.64 108.29 L651.45 111.99 L653.25 115.61 L655.05 119.12 L656.86 122.56 L658.67 125.89 L660.47 129.15 L662.28 132.32 L664.08 135.41 L665.89 138.41 L667.7 141.35 L669.5 144.19 L671.3 146.98 L673.11 149.69 L674.92 152.32 L676.72 154.9 L678.53 157.4 L680.33 159.85 L682.14 162.22 L683.95 164.54 L685.75 166.8 L687.55 168.99 L689.36 171.13 L691.17 173.23 L692.97 175.25 L694.78 177.24 L696.58 179.16 L698.39 181.05 L700.2 182.87 L702 184.66 L702 252 L52 252 Z" fill="rgba(74,222,154,0.10)" stroke="none"/><path d="M52 252 L53.8 179.03 L55.61 145.09 L57.42 130.25 L59.22 124.75 L61.03 123.8 L62.83 125.02 L64.64 127.28 L66.45 130 L68.25 132.9 L70.05 135.84 L71.86 138.78 L73.67 141.68 L75.47 144.51 L77.28 147.28 L79.08 149.98 L80.89 152.6 L82.7 155.17 L84.5 157.67 L86.3 160.11 L88.11 162.47 L89.92 164.79 L91.72 167.03 L93.53 169.22 L95.33 171.37 L97.14 173.44 L98.95 175.47 L100.75 177.44 L102.55 179.37 L104.36 181.24 L106.17 183.06 L107.97 184.84 L109.78 186.57 L111.58 188.27 L113.39 189.91 L115.2 191.51 L117 193.08 L118.8 194.59 L120.61 196.08 L122.42 197.51 L124.22 198.92 L126.03 200.3 L127.83 201.63 L129.64 202.92 L131.45 204.19 L133.25 205.42 L135.05 133.65 L136.86 100.89 L138.67 87.19 L140.47 82.81 L142.28 82.93 L144.08 85.22 L145.89 88.49 L147.7 92.21 L149.5 96.09 L151.3 99.99 L153.11 103.85 L154.92 107.65 L156.72 111.35 L158.53 114.98 L160.33 118.51 L162.14 121.94 L163.95 125.3 L165.75 128.57 L167.55 131.75 L169.36 134.86 L171.17 137.88 L172.97 140.82 L174.78 143.69 L176.58 146.49 L178.39 149.21 L180.2 151.86 L182 154.45 L183.8 156.96 L185.61 159.41 L187.42 161.8 L189.22 164.13 L191.03 166.4 L192.83 168.61 L194.64 170.76 L196.45 172.85 L198.25 174.89 L200.05 176.88 L201.86 178.83 L203.67 180.71 L205.47 182.55 L207.28 184.34 L209.08 186.09 L210.89 187.79 L212.7 189.45 L214.5 191.06 L216.3 119.66 L218.11 87.24 L219.92 73.91 L221.72 69.87 L223.53 70.33 L225.33 72.93 L227.14 76.54 L228.95 80.55 L230.75 84.73 L232.55 88.92 L234.36 93.08 L236.17 97.14 L237.97 101.13 L239.78 105.02 L241.58 108.8 L243.39 112.49 L245.2 116.1 L247 119.6 L248.8 123.01 L250.61 126.34 L252.42 129.59 L254.22 132.74 L256.03 135.82 L257.83 138.82 L259.64 141.73 L261.45 144.58 L263.25 147.35 L265.05 150.05 L266.86 152.68 L268.67 155.25 L270.47 157.75 L272.28 160.17 L274.08 162.54 L275.89 164.85 L277.7 167.1 L279.5 169.29 L281.3 171.43 L283.11 173.51 L284.92 175.53 L286.72 177.5 L288.53 179.42 L290.33 181.29 L292.14 183.12 L293.95 184.89 L295.75 186.63 L297.55 115.34 L299.36 83.04 L301.17 69.82 L302.97 65.88 L304.78 66.44 L306.58 69.15 L308.39 72.84 L310.2 76.96 L312 81.23 L313.8 85.51 L315.61 89.76 L317.42 93.91 L319.22 97.98 L321.03 101.94 L322.83 105.81 L324.64 109.58 L326.45 113.25 L328.25 116.83 L330.05 120.32 L331.86 123.71 L333.67 127.02 L335.47 130.25 L337.28 133.4 L339.08 136.45 L340.89 139.44 L342.7 142.33 L344.5 145.17 L346.3 147.92 L348.11 150.6 L349.92 153.22 L351.72 155.77 L353.53 158.26 L355.33 160.67 L357.14 163.03 L358.95 165.33 L360.75 167.56 L362.55 169.74 L364.36 171.87 L366.17 173.93 L367.97 175.94 L369.78 177.91 L371.58 179.82 L373.39 181.68 L375.2 183.5 L377 185.27 L378.8 114.02 L380.61 81.74 L382.42 68.55 L384.22 64.65 L386.03 65.24 L387.83 67.97 L389.64 71.7 L391.45 75.86 L393.25 80.15 L395.05 84.46 L396.86 88.73 L398.67 92.91 L400.47 97 L402.28 100.99 L404.08 104.89 L405.89 108.67 L407.7 112.38 L409.5 115.98 L411.3 119.48 L413.11 122.91 L414.92 126.24 L416.72 129.48 L418.53 132.64 L420.33 135.72 L422.14 138.72 L423.95 141.64 L425.75 144.49 L427.55 147.27 L429.36 149.96 L431.17 152.6 L432.97 155.17 L434.78 157.66 L436.58 160.09 L438.39 162.47 L440.2 164.77 L442 167.03 L443.8 169.22 L445.61 171.35 L447.42 173.43 L449.22 175.47 L451.03 177.43 L452.83 179.37 L454.64 181.24 L456.45 183.06 L458.25 184.84 L460.05 113.6 L461.86 81.34 L463.67 68.16 L465.47 64.26 L467.28 64.87 L469.08 67.61 L470.89 71.35 L472.7 75.51 L474.5 79.82 L476.3 84.14 L478.11 88.41 L479.92 92.6 L481.72 96.69 L483.53 100.7 L485.33 104.59 L487.14 108.4 L488.95 112.11 L490.75 115.71 L492.55 119.23 L494.36 122.65 L496.17 126 L497.97 129.24 L499.78 132.41 L501.58 135.5 L503.39 138.5 L505.2 141.44 L507 144.28 L508.8 147.07 L510.61 149.77 L512.42 152.41 L514.22 154.98 L516.03 157.48 L517.83 159.91 L519.64 162.3 L521.45 164.61 L523.25 166.86 L525.05 169.06 L526.86 171.2 L528.67 173.29 L530.47 175.32 L532.28 177.29 L534.08 179.23 L535.89 181.1 L537.7 182.93 L539.5 184.71 L541.3 113.48 L543.11 81.22 L544.92 68.03 L546.72 64.15 L548.53 64.75 L550.33 67.51 L552.14 71.24 L553.95 75.41 L555.75 79.72 L557.55 84.04 L559.36 88.31 L561.17 92.5 L562.97 96.6 L564.78 100.61 L566.58 104.52 L568.39 108.31 L570.2 112.02 L572 115.63 L573.8 119.15 L575.61 122.57 L577.42 125.92 L579.22 129.16 L581.03 132.34 L582.83 135.42 L584.64 138.43 L586.45 141.36 L588.25 144.22 L590.05 147 L591.86 149.71 L593.67 152.35 L595.47 154.91 L597.28 157.43 L599.08 159.86 L600.89 162.24 L602.7 164.56 L604.5 166.81 L606.3 169.01 L608.11 171.15 L609.92 173.24 L611.72 175.26 L613.53 177.25 L615.33 179.18 L617.14 181.06 L618.95 182.88 L620.75 184.66 L622.55 113.44 L624.36 81.19 L626.17 68 L627.97 64.11 L629.78 64.73 L631.58 67.47 L633.39 71.21 L635.2 75.37 L637 79.68 L638.8 84.01 L640.61 88.28 L642.42 92.48 L644.22 96.58 L646.03 100.58 L647.83 104.48 L649.64 108.29 L651.45 111.99 L653.25 115.61 L655.05 119.12 L656.86 122.56 L658.67 125.89 L660.47 129.15 L662.28 132.32 L664.08 135.41 L665.89 138.41 L667.7 141.35 L669.5 144.19 L671.3 146.98 L673.11 149.69 L674.92 152.32 L676.72 154.9 L678.53 157.4 L680.33 159.85 L682.14 162.22 L683.95 164.54 L685.75 166.8 L687.55 168.99 L689.36 171.13 L691.17 173.23 L692.97 175.25 L694.78 177.24 L696.58 179.16 L698.39 181.05 L700.2 182.87 L702 184.66" fill="none" stroke="#4ade9a" stroke-width="2" stroke-linejoin="round"/>
+<text x="377" y="292" fill="#78859b" font-size="11" text-anchor="middle">Time from the first dose</text>
+<rect x="52" y="8" width="9" height="9" rx="2" fill="#78859b"/><text x="66" y="16" fill="#8a95a3" font-size="11">one dose alone</text><rect x="171" y="8" width="9" height="9" rx="2" fill="#4ade9a"/><text x="185" y="16" fill="#8a95a3" font-size="11">three times weekly (accumulating)</text>
+</svg>
+      <figcaption>The dashed line is one dose on its own; the filled line is what repeated
+      dosing three times weekly builds to. The vertical scale is multiples of a single
+      dose's peak. The level plateaus at about 1.45× a single dose after roughly 6.9 days, then oscillates between a trough and a peak 2.79× higher.</figcaption>
+      </figure>
+
+    <h2>The arithmetic behind those numbers</h2>
+
+    <div class="formula">half-life  =  33 h        interval  =  2.3 days<br>fraction left after one interval  =  2^(−1.70)  =  0.308<br>accumulation ratio  =  1 ÷ (1 − 0.308)  =  1.45<br>time to steady state  ≈  5 × half-life  =  6.9 days<br>peak-to-trough  =  simulated, 1.466 ÷ 0.5252  =  2.79</div>
+
+    <p>The accumulation ratio is a closed form; the peak-to-trough figure is not. The
+      generator adds up enough repeated curves for the total to stop changing, then reads the
+      highest and lowest points of the last interval — which is what steady state means in
+      practice. The vertical axis is relative, not a concentration: the shape and the ratios
+      carry across people, the absolute levels do not.</p>
+
+    <h2>Interaction rules that name HCG</h2>
+
+    <p>From the app's own interaction data. Not exhaustive, and not a safety clearance
+        — a combination that is not listed is one nobody has documented here, which is not the
+        same as one that is fine. The <a href="/tools/stack-checker/">full combination
+        checker</a> has the rest.</p>
+
+    <div class="pairs">
+      <div class="pair warn">
+        <div class="sev">Caution</div>
+        <h3>HCG Must Stop Before PCT SERMs Begin</h3>
+        <p>HCG should be used during the last 2 weeks of a cycle to prime the testes, then stopped completely before starting Nolvadex or Clomid. Running HCG concurrently with SERMs blunts the PCT response by continuing LH suppression via HCG's action.</p>
+        <p class="mon"><strong>What to watch:</strong> Timing critical: Stop HCG, wait 2 weeks after last long-ester injection, then start SERMs.</p>
+      </div>
+      <div class="pair warn">
+        <div class="sev">Caution</div>
+        <h3>HCG Must Stop Before PCT SERMs Begin</h3>
+        <p>Same as above — HCG and SERMs work at cross purposes during PCT. HCG ends the cycle phase; SERMs begin the PCT phase. They should not overlap.</p>
+        <p class="mon"><strong>What to watch:</strong> Sequential use only: HCG during cycle, SERMs after.</p>
+      </div>
+      <div class="pair warn">
+        <div class="sev">Caution</div>
+        <h3>Gonadorelin and HCG — Choose One for Testicular Maintenance</h3>
+        <p>Both gonadorelin and HCG serve the same purpose on TRT — preserving testicular function. Gonadorelin stimulates LH/FSH from the pituitary; HCG mimics LH directly at the testes. Using both simultaneously is redundant and may cause over-stimulation. Choose one approach.</p>
+        <p class="mon"><strong>What to watch:</strong> Total T, LH, FSH, E2, testicular volume. Monitor prolactin — over-stimulation can elevate it.</p>
+      </div>
+    </div>
+
+    <h2>The dosing rows this cadence came from</h2>
+
+    <p><span class="ev ev-est">Established clinical use</span>
+          Reproduced from the app's entry so you can see what the chart above is indexed to.
+          Which row applies to a particular person, if any, is a clinical decision this page
+          does not make.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Label</th><th>Amount</th><th>Route and frequency</th></tr></thead>
+        <tbody>
+          <tr><td>Fertility on TRT</td><td class="num">250-500IU</td><td class="num">2-3x per week SubQ</td></tr>
+          <tr><td>Pre-PCT primer</td><td class="num">500IU 3x/week</td><td class="num">Last 2-3 weeks of cycle</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>When to draw bloodwork</h2>
+
+    <p>The panel the app records for HCG is: E2 (HCG aromatizes significantly), Total T. LH/FSH will be suppressed — this is expected.. The
+      pharmacokinetic point is the timing rather than the list: after any change, a level takes
+      about 6.9 days to settle, so a panel drawn sooner measures something
+      still moving. And because the peak-to-trough swing here is 2.79×, <em>when</em> in the interval you draw changes the result materially — a result without a stated draw time relative to the last dose is hard to compare with anything.
+      Whether a result means anything is a question for the clinician who ordered it, read
+      against the reference range your own lab printed. The
+      <a href="/markers/">lab-marker pages</a> cover what the individual analytes measure.</p>
+
+    <p>Related: <a href="/tools/half-life-calculator/">the interactive half-life
+      calculator</a> to try other cadences.</p>
+
+    <div class="cta-box">
+      <p>The app draws this curve from the doses you actually logged — your dates, your cadence — and projects seven days forward from the last one.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=half-life-hcg"
+         id="tl-cta" data-campaign="half-life-hcg">Save this dose to your log</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://therapylog.app/tools/half-life/hcg/#page",
+      "url": "https://therapylog.app/tools/half-life/hcg/",
+      "name": "HCG half-life and steady state | TherapyLog",
+      "description": "HCG's modelled half-life is 33 h, peaking 6 h after a dose. Accumulation, time to steady state and peak-to-trough, with the curve drawn.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-03",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://therapylog.app/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Half-life",
+            "item": "https://therapylog.app/tools/half-life-calculator/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "HCG",
+            "item": "https://therapylog.app/tools/half-life/hcg/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

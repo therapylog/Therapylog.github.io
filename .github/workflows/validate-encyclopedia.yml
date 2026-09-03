@@ -1,7 +1,11 @@
 name: Validate encyclopedia
 on:
   push:
-    paths: ['app.html', 'docs/compounds.json', 'docs/COMPOUNDS.md', 'index.html', 'marketing.html', 'scripts/**']
+    # Every file scripts/validate-encyclopedia.js reads. download.html and pro.html
+    # are scanned by rule 9 and were missing from this list.
+    paths: ['app.html', 'docs/compounds.json', 'docs/COMPOUNDS.md', 'index.html', 'marketing.html',
+            'download.html', 'pro.html', '404.html',
+            'about/**', 'tools/**', 'markers/**', 'scripts/**']
   pull_request:
 jobs:
   validate:

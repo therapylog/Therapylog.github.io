@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Can you take these together? Compound combination checker | TherapyLog</title>
+<meta name="description" content="45 documented interaction pairs across testosterone ancillaries, GLP-1 medications and peptides — the mechanism and what to watch. Free, no account.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/tools/stack-checker/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Can you take these together? Compound combination checker | TherapyLog"><meta property="og:description" content="45 documented interaction pairs across testosterone ancillaries, GLP-1 medications and peptides — the mechanism and what to watch. Free, no account."><meta property="og:url" content="https://therapylog.app/tools/stack-checker/"><meta property="og:image" content="https://therapylog.app/assets/og/stack-checker.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Can you take these together? Compound combination checker | TherapyLog"><meta name="twitter:description" content="45 documented interaction pairs across testosterone ancillaries, GLP-1 medications and peptides — the mechanism and what to watch. Free, no account."><meta name="twitter:image" content="https://therapylog.app/assets/og/stack-checker.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Combination checker</div>
+    <h1>Can you take these together?</h1>
+
+    <p class="lede">45 documented pairs across testosterone ancillaries,
+    GLP-1 medications and research peptides — what the interaction is, why it happens, and what
+    to watch if you are taking both. Free, no account.</p>
+
+    <div class="updated">Last reviewed: 3 September 2026</div>
+
+    <p>The checkers that exist for this are almost all peptide-only and almost all run by
+    someone selling peptides. This one covers the ancillaries and metabolic drugs people
+    actually combine with them — aromatase inhibitors, SERMs, HCG, thyroid hormone, GLP-1
+    agonists — because that is where the combinations that matter tend to be.</p>
+
+    <p>Pick two or three below and the app's own checker runs over the same
+    45 pairs. Every pair is also written out further down the page with its own
+    heading, so you can read the one you came for without using the widget at all.</p>
+
+    <div class="widget">
+      <div class="card">
+        <div class="card-title">Can you take these together?</div>
+        <div class="ig"><label class="il" for="ix-d1">Compound 1</label>
+          <select id="ix-d1" onchange="checkInteractions()"><option value="">Select a compound&hellip;</option><option>7-Keto DHEA</option><option>Anastrozole</option><option>Berberine</option><option>BPC-157</option><option>Cabergoline</option><option>Cagrilintide</option><option>CJC-1295</option><option>CJC-1295 with DAC</option><option>Clomiphene</option><option>DHEA</option><option>Dutasteride</option><option>Exemestane</option><option>Finasteride</option><option>GHRP-2</option><option>GHRP-6</option><option>Gonadorelin</option><option>HCG</option><option>Hexarelin</option><option>IGF-1 LR3</option><option>Ipamorelin</option><option>Kisspeptin-10</option><option>Kisspeptin-54</option><option>Levothyroxine (T4)</option><option>Liothyronine (T3)</option><option>Low-Dose Naltrexone (LDN)</option><option>Melanotan II (MT-2)</option><option>Metformin</option><option>MOTS-c</option><option>Natural Desiccated Thyroid (NDT)</option><option>Pregnenolone</option><option>PT-141 (Bremelanotide)</option><option>Rapamycin</option><option>Recombinant HGH</option><option>Retatrutide</option><option>Semaglutide</option><option>SS-31</option><option>Tamoxifen</option><option>TB-500</option><option>Telmisartan</option><option>Tesamorelin</option><option>Testosterone Cypionate</option><option>Thymosin Alpha-1</option><option>Tirzepatide</option><option>VIP (Vasoactive Intestinal Peptide)</option></select></div>
+        <div class="ig"><label class="il" for="ix-d2">Compound 2</label>
+          <select id="ix-d2" onchange="checkInteractions()"><option value="">Select a compound&hellip;</option><option>7-Keto DHEA</option><option>Anastrozole</option><option>Berberine</option><option>BPC-157</option><option>Cabergoline</option><option>Cagrilintide</option><option>CJC-1295</option><option>CJC-1295 with DAC</option><option>Clomiphene</option><option>DHEA</option><option>Dutasteride</option><option>Exemestane</option><option>Finasteride</option><option>GHRP-2</option><option>GHRP-6</option><option>Gonadorelin</option><option>HCG</option><option>Hexarelin</option><option>IGF-1 LR3</option><option>Ipamorelin</option><option>Kisspeptin-10</option><option>Kisspeptin-54</option><option>Levothyroxine (T4)</option><option>Liothyronine (T3)</option><option>Low-Dose Naltrexone (LDN)</option><option>Melanotan II (MT-2)</option><option>Metformin</option><option>MOTS-c</option><option>Natural Desiccated Thyroid (NDT)</option><option>Pregnenolone</option><option>PT-141 (Bremelanotide)</option><option>Rapamycin</option><option>Recombinant HGH</option><option>Retatrutide</option><option>Semaglutide</option><option>SS-31</option><option>Tamoxifen</option><option>TB-500</option><option>Telmisartan</option><option>Tesamorelin</option><option>Testosterone Cypionate</option><option>Thymosin Alpha-1</option><option>Tirzepatide</option><option>VIP (Vasoactive Intestinal Peptide)</option></select></div>
+        <div class="ig"><label class="il" for="ix-d3">Compound 3 <span style="font-weight:400;color:var(--text3)">(optional)</span></label>
+          <select id="ix-d3" onchange="checkInteractions()"><option value="">Select a compound&hellip;</option><option>7-Keto DHEA</option><option>Anastrozole</option><option>Berberine</option><option>BPC-157</option><option>Cabergoline</option><option>Cagrilintide</option><option>CJC-1295</option><option>CJC-1295 with DAC</option><option>Clomiphene</option><option>DHEA</option><option>Dutasteride</option><option>Exemestane</option><option>Finasteride</option><option>GHRP-2</option><option>GHRP-6</option><option>Gonadorelin</option><option>HCG</option><option>Hexarelin</option><option>IGF-1 LR3</option><option>Ipamorelin</option><option>Kisspeptin-10</option><option>Kisspeptin-54</option><option>Levothyroxine (T4)</option><option>Liothyronine (T3)</option><option>Low-Dose Naltrexone (LDN)</option><option>Melanotan II (MT-2)</option><option>Metformin</option><option>MOTS-c</option><option>Natural Desiccated Thyroid (NDT)</option><option>Pregnenolone</option><option>PT-141 (Bremelanotide)</option><option>Rapamycin</option><option>Recombinant HGH</option><option>Retatrutide</option><option>Semaglutide</option><option>SS-31</option><option>Tamoxifen</option><option>TB-500</option><option>Telmisartan</option><option>Tesamorelin</option><option>Testosterone Cypionate</option><option>Thymosin Alpha-1</option><option>Tirzepatide</option><option>VIP (Vasoactive Intestinal Peptide)</option></select></div>
+        <div id="ix-result"></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><strong>This is not a safety clearance, and the list is not exhaustive.</strong> A
+      blank result means none of these 45 pairs matched what you picked — not that
+      the combination is fine. Curated interaction data covers the combinations someone thought
+      to document; prescription interactions in particular are far broader than this, and your
+      pharmacist can check a full profile against everything you take, including the things
+      this list has never heard of. Take any combination you are unsure about to them or to
+      your prescribing clinician.</p>
+    </div>
+
+    <h2>Every pair, by severity</h2>
+
+    <p>Grouped by how the app flags them. The wording is the app's own, so this page and
+    the app cannot tell you different things about the same pair.</p>
+
+    <h2 id="sev-danger">Do not combine &mdash; 6 pairs</h2>
+
+    <p>Pairs the app flags as ones to avoid outright. In most cases the reason is that the two do the same job by the same mechanism, so combining them multiplies the side effects without adding an effect.</p>
+
+    <div class="pairs">
+      <div class="pair danger" id="x-anastrozole-with-exemestane">
+        <div class="sev">Do not combine</div>
+        <h3>Can you take Anastrozole with Exemestane?</h3>
+        <p><strong>Do Not Double-Stack Aromatase Inhibitors</strong></p>
+        <p>Using two AIs simultaneously causes severe estrogen crash leading to joint pain, depression, osteoporosis risk, and cardiovascular damage. Use one AI only, guided by bloodwork.</p>
+        <p class="mon"><strong>What to watch:</strong> E2 sensitive assay, Total T, bone density if long-term.</p>
+      </div>
+      <div class="pair danger" id="x-cjc-1295-with-cjc-1295-with-dac">
+        <div class="sev">Do not combine</div>
+        <h3>Can you take CJC-1295 with CJC-1295 with DAC?</h3>
+        <p><strong>Never Combine CJC-1295 and CJC-1295 DAC</strong></p>
+        <p>These are two forms of the same compound. Combining them dramatically elevates IGF-1 and GH beyond safe physiological ranges. Use one or the other — not both.</p>
+        <p class="mon"><strong>What to watch:</strong> IGF-1, fasting glucose. If accidentally combined, stop both and recheck IGF-1 in 2 weeks.</p>
+      </div>
+      <div class="pair danger" id="x-liothyronine-with-liothyronine">
+        <div class="sev">Do not combine</div>
+        <h3>Can you take Liothyronine (T3) with Liothyronine (T3)?</h3>
+        <p><strong>Never Double-Dose T3</strong></p>
+        <p>T3 has a narrow therapeutic window. Taking more than prescribed can cause cardiac arrhythmias, bone density loss, and hyperthyroid crisis. Use exactly as directed.</p>
+        <p class="mon"><strong>What to watch:</strong> Heart rate (keep under 80 resting), Free T3, symptoms of hyperthyroidism.</p>
+      </div>
+      <div class="pair danger" id="x-retatrutide-with-semaglutide">
+        <div class="sev">Do not combine</div>
+        <h3>Can you take Retatrutide with Semaglutide?</h3>
+        <p><strong>Never Combine GLP-1 Class Agents</strong></p>
+        <p>Same as above — retatrutide and semaglutide both target GLP-1 receptors. Never combine two agents from this class.</p>
+        <p class="mon"><strong>What to watch:</strong> Do not combine. If switching agents, appropriate washout period required.</p>
+      </div>
+      <div class="pair danger" id="x-retatrutide-with-tirzepatide">
+        <div class="sev">Do not combine</div>
+        <h3>Can you take Retatrutide with Tirzepatide?</h3>
+        <p><strong>Never Combine GLP-1 Class Agents</strong></p>
+        <p>Retatrutide and tirzepatide both target GLP-1 receptors. Combining any two GLP-1/GIP/glucagon receptor agonists dramatically increases pancreatitis risk, severe GI events, and provides no additive weight loss benefit beyond one agent at maximum dose.</p>
+        <p class="mon"><strong>What to watch:</strong> Amylase, lipase if any abdominal pain. Do not combine.</p>
+      </div>
+      <div class="pair danger" id="x-semaglutide-with-tirzepatide">
+        <div class="sev">Do not combine</div>
+        <h3>Can you take Semaglutide with Tirzepatide?</h3>
+        <p><strong>Never Combine GLP-1 Agonists</strong></p>
+        <p>Combining two GLP-1 or dual GLP-1/GIP agonists dramatically increases risk of severe GI side effects, pancreatitis, and offers no additive benefit. Choose one.</p>
+        <p class="mon"><strong>What to watch:</strong> Do not combine. If switching agents, wash out first GLP-1 before starting the second.</p>
+      </div>
+    </div>
+
+    <h2 id="sev-warn">Caution &mdash; 10 pairs</h2>
+
+    <p>Pairs that are used together but need something watched while they are. The monitoring line on each is the part that matters.</p>
+
+    <div class="pairs">
+      <div class="pair warn" id="x-berberine-with-metformin">
+        <div class="sev">Caution</div>
+        <h3>Can you take Berberine with Metformin?</h3>
+        <p><strong>Berberine + Metformin — Avoid Combining Without Monitoring</strong></p>
+        <p>Both activate AMPK and lower blood glucose via similar pathways. Combining can cause additive blood sugar lowering and increased GI side effects. If using both, start at lower doses and monitor glucose carefully.</p>
+        <p class="mon"><strong>What to watch:</strong> Fasting glucose (hypoglycemia risk), GI symptoms, HbA1c. Consider using one or the other rather than both.</p>
+      </div>
+      <div class="pair warn" id="x-dhea-with-anastrozole">
+        <div class="sev">Caution</div>
+        <h3>Can you take DHEA with Anastrozole?</h3>
+        <p><strong>DHEA May Partially Offset AI Effect</strong></p>
+        <p>DHEA aromatizes to estrogen, potentially undermining the estrogen-lowering effect of anastrozole. If using both, E2 monitoring is especially important to confirm AI is achieving target levels.</p>
+        <p class="mon"><strong>What to watch:</strong> E2 sensitive assay every 6-8 weeks. Adjust anastrozole dose based on labs only.</p>
+      </div>
+      <div class="pair warn" id="x-gonadorelin-with-hcg">
+        <div class="sev">Caution</div>
+        <h3>Can you take Gonadorelin with HCG?</h3>
+        <p><strong>Gonadorelin and HCG — Choose One for Testicular Maintenance</strong></p>
+        <p>Both gonadorelin and HCG serve the same purpose on TRT — preserving testicular function. Gonadorelin stimulates LH/FSH from the pituitary; HCG mimics LH directly at the testes. Using both simultaneously is redundant and may cause over-stimulation. Choose one approach.</p>
+        <p class="mon"><strong>What to watch:</strong> Total T, LH, FSH, E2, testicular volume. Monitor prolactin — over-stimulation can elevate it.</p>
+      </div>
+      <div class="pair warn" id="x-hcg-with-clomiphene">
+        <div class="sev">Caution</div>
+        <h3>Can you take HCG with Clomiphene?</h3>
+        <p><strong>HCG Must Stop Before PCT SERMs Begin</strong></p>
+        <p>Same as above — HCG and SERMs work at cross purposes during PCT. HCG ends the cycle phase; SERMs begin the PCT phase. They should not overlap.</p>
+        <p class="mon"><strong>What to watch:</strong> Sequential use only: HCG during cycle, SERMs after.</p>
+      </div>
+      <div class="pair warn" id="x-hcg-with-tamoxifen">
+        <div class="sev">Caution</div>
+        <h3>Can you take HCG with Tamoxifen?</h3>
+        <p><strong>HCG Must Stop Before PCT SERMs Begin</strong></p>
+        <p>HCG should be used during the last 2 weeks of a cycle to prime the testes, then stopped completely before starting Nolvadex or Clomid. Running HCG concurrently with SERMs blunts the PCT response by continuing LH suppression via HCG's action.</p>
+        <p class="mon"><strong>What to watch:</strong> Timing critical: Stop HCG, wait 2 weeks after last long-ester injection, then start SERMs.</p>
+      </div>
+      <div class="pair warn" id="x-hexarelin-with-ghrp-2">
+        <div class="sev">Caution</div>
+        <h3>Can you take Hexarelin with GHRP-2?</h3>
+        <p><strong>GHRP Stacking Increases Cortisol and Prolactin</strong></p>
+        <p>Stacking two GHRPs amplifies cortisol and prolactin elevation beyond what either compound causes alone. If dual-GHRP use is desired, use lowest effective doses and monitor prolactin.</p>
+        <p class="mon"><strong>What to watch:</strong> Prolactin, Cortisol, IGF-1. Consider Cabergoline if prolactin elevates.</p>
+      </div>
+      <div class="pair warn" id="x-hexarelin-with-ghrp-6">
+        <div class="sev">Caution</div>
+        <h3>Can you take Hexarelin with GHRP-6?</h3>
+        <p><strong>GHRP Stacking Increases Cortisol and Prolactin</strong></p>
+        <p>Stacking two GHRPs amplifies cortisol and prolactin elevation. Use lowest effective doses and monitor prolactin.</p>
+        <p class="mon"><strong>What to watch:</strong> Prolactin, Cortisol, IGF-1. Consider Cabergoline if prolactin elevates.</p>
+      </div>
+      <div class="pair warn" id="x-igf-1-lr3-with-recombinant-hgh">
+        <div class="sev">Caution</div>
+        <h3>Can you take IGF-1 LR3 with Recombinant HGH?</h3>
+        <p><strong>IGF-1 Hypoglycemia Risk Amplified</strong></p>
+        <p>Both HGH and IGF-1 LR3 lower blood sugar. Combining them significantly amplifies hypoglycemia risk, especially post-workout when glucose is already depleted. Fast-acting carbohydrates must be on hand.</p>
+        <p class="mon"><strong>What to watch:</strong> Fasting glucose, post-injection glucose monitoring, always have fast carbohydrates available.</p>
+      </div>
+      <div class="pair warn" id="x-melanotan-ii-with-pt-141">
+        <div class="sev">Caution</div>
+        <h3>Can you take Melanotan II (MT-2) with PT-141 (Bremelanotide)?</h3>
+        <p><strong>MT-2 and PT-141 — Overlap in Mechanism</strong></p>
+        <p>MT-2 and PT-141 (bremelanotide) both activate MC4R for sexual function enhancement. They overlap significantly in mechanism. Using both simultaneously provides little additional benefit and increases side effect risk (nausea, flushing, blood pressure elevation). Use one at a time.</p>
+        <p class="mon"><strong>What to watch:</strong> Blood pressure (both cause transient elevation), nausea assessment.</p>
+      </div>
+      <div class="pair warn" id="x-natural-desiccated-thyroid-with-liothyronine">
+        <div class="sev">Caution</div>
+        <h3>Can you take Natural Desiccated Thyroid (NDT) with Liothyronine (T3)?</h3>
+        <p><strong>NDT Already Contains T3 — Avoid Adding More Without Monitoring</strong></p>
+        <p>NDT contains both T4 and T3 (approximately 4:1 ratio). Adding additional T3 can cause hyperthyroidism symptoms. If symptoms suggest inadequate T3, adjust NDT dose before adding separate T3.</p>
+        <p class="mon"><strong>What to watch:</strong> Free T3, Free T4, TSH, heart rate (target 60-80 resting). Symptoms of hyperthyroidism.</p>
+      </div>
+    </div>
+
+    <h2 id="sev-info">Worth knowing &mdash; 29 pairs</h2>
+
+    <p>Pairs with a real interaction that is not a problem — usually one worth understanding so a lab result or a symptom later is not a surprise.</p>
+
+    <div class="pairs">
+      <div class="pair info" id="x-7-keto-dhea-with-dhea">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take 7-Keto DHEA with DHEA?</h3>
+        <p><strong>7-Keto DHEA + DHEA — Complementary Adrenal Support</strong></p>
+        <p>7-Keto DHEA provides metabolic benefits without hormonal conversion while DHEA provides precursor hormone support. Together they offer broader adrenal optimization. Monitor downstream hormones from DHEA conversion.</p>
+        <p class="mon"><strong>What to watch:</strong> DHEA-S, Total T, E2. 7-Keto DHEA itself requires no hormonal monitoring.</p>
+      </div>
+      <div class="pair info" id="x-bpc-157-with-tb-500">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take BPC-157 with TB-500?</h3>
+        <p><strong>Gold Standard Injury Recovery Combination</strong></p>
+        <p>BPC-157 and TB-500 are synergistic — BPC-157 acts locally on tissue repair mechanisms while TB-500 promotes systemic cell migration and actin upregulation. Together they represent the most comprehensive peptide approach to injury recovery.</p>
+        <p class="mon"><strong>What to watch:</strong> No specific labs. Monitor healing progress and injection sites.</p>
+      </div>
+      <div class="pair info" id="x-cabergoline-with-anastrozole">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Cabergoline with Anastrozole?</h3>
+        <p><strong>Comprehensive Hormone Management Stack</strong></p>
+        <p>Using both an AI and a dopamine agonist together is appropriate when running progestogenic compounds like nandrolone that raise both estrogen and prolactin. Ensure each is dosed based on its respective lab value — E2 guides AI dose, prolactin guides Cabergoline dose.</p>
+        <p class="mon"><strong>What to watch:</strong> E2 (sensitive), Prolactin, Total T every 6-8 weeks.</p>
+      </div>
+      <div class="pair info" id="x-cagrilintide-with-semaglutide">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Cagrilintide with Semaglutide?</h3>
+        <p><strong>Cagrilintide + Semaglutide — Intended Combination (CagriSema)</strong></p>
+        <p>Cagrilintide is specifically being developed in combination with semaglutide as CagriSema — a fixed-dose combination. Clinical trials show superior weight loss compared to either alone. This is an intended therapeutic combination, not a dangerous one. Monitor GI tolerance carefully.</p>
+        <p class="mon"><strong>What to watch:</strong> GI tolerance, weight, HbA1c, fasting glucose. This combination requires gradual titration of both agents.</p>
+      </div>
+      <div class="pair info" id="x-cjc-1295-with-ipamorelin">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take CJC-1295 with Ipamorelin?</h3>
+        <p><strong>Gold Standard GH Secretagogue Pairing</strong></p>
+        <p>CJC-1295 (GHRH analogue) and Ipamorelin (selective GHRP) are the gold standard GH secretagogue combination. CJC-1295 primes pituitary somatotrophs while Ipamorelin triggers GH release with minimal cortisol or prolactin elevation. Always pair these — neither is as effective alone.</p>
+        <p class="mon"><strong>What to watch:</strong> IGF-1 every 3 months. Fasting glucose. No prolactin monitoring needed with Ipamorelin.</p>
+      </div>
+      <div class="pair info" id="x-dhea-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take DHEA with Testosterone Cypionate?</h3>
+        <p><strong>DHEA + Testosterone — Verify No Excess Estrogen</strong></p>
+        <p>DHEA can convert to both testosterone and estrogen. Adding DHEA to a TRT protocol may raise estrogen further. Monitor E2 closely and do not add DHEA without baseline DHEA-S testing.</p>
+        <p class="mon"><strong>What to watch:</strong> DHEA-S, Total T, Free T, E2 (sensitive assay), PSA. Recheck 6 weeks after adding DHEA.</p>
+      </div>
+      <div class="pair info" id="x-dutasteride-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Dutasteride with Testosterone Cypionate?</h3>
+        <p><strong>DHT Suppression Trade-offs With TRT</strong></p>
+        <p>Dutasteride suppresses ~90% of DHT conversion from testosterone. This prevents hair loss but reduces libido, erection quality, mood, and muscle fullness in some men. The trade-off is significant — weigh hair preservation vs androgenic benefits of DHT.</p>
+        <p class="mon"><strong>What to watch:</strong> Total T, Free T, DHT if testable, libido and sexual function self-assessment monthly.</p>
+      </div>
+      <div class="pair info" id="x-finasteride-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Finasteride with Testosterone Cypionate?</h3>
+        <p><strong>DHT Suppression Trade-offs With TRT</strong></p>
+        <p>Finasteride suppresses ~70% of DHT. Risk of Post-Finasteride Syndrome (persistent sexual dysfunction) exists in a subset of users. If symptoms develop, discontinue immediately.</p>
+        <p class="mon"><strong>What to watch:</strong> Total T, Free T, libido and sexual function. Discontinue if persistent sexual or mood side effects occur.</p>
+      </div>
+      <div class="pair info" id="x-gonadorelin-with-clomiphene">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Gonadorelin with Clomiphene?</h3>
+        <p><strong>Gonadorelin + Clomid — Synergistic HPG Restoration</strong></p>
+        <p>Gonadorelin stimulates LH/FSH at the pituitary level while Clomid blocks hypothalamic estrogen receptors to increase GnRH pulsatility. Together they address HPG restoration at two distinct points. A potentially more comprehensive HPTA restart than either alone.</p>
+        <p class="mon"><strong>What to watch:</strong> LH, FSH, Total T, E2 every 4 weeks. LH response to gonadorelin confirms pituitary function.</p>
+      </div>
+      <div class="pair info" id="x-kisspeptin-10-with-clomiphene">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Kisspeptin-10 with Clomiphene?</h3>
+        <p><strong>Synergistic HPG Axis Restoration</strong></p>
+        <p>Kisspeptin-10 acts upstream of GnRH while Clomid acts at the hypothalamic estrogen receptor — together they stimulate the HPG axis at multiple points. This combination may be more effective than either alone for secondary hypogonadism recovery.</p>
+        <p class="mon"><strong>What to watch:</strong> Total T, LH, FSH, E2 every 4 weeks. LH surge post-Kisspeptin confirms receptor function.</p>
+      </div>
+      <div class="pair info" id="x-kisspeptin-54-with-gonadorelin">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Kisspeptin-54 with Gonadorelin?</h3>
+        <p><strong>Kisspeptin-54 + Gonadorelin — Upstream and Downstream HPG</strong></p>
+        <p>Kisspeptin acts upstream of GnRH neurons to trigger GnRH release, while gonadorelin IS GnRH acting directly on the pituitary. Using both covers the HPG axis at two levels but requires careful pulsatile timing for both. Both must be pulsatile — never continuous.</p>
+        <p class="mon"><strong>What to watch:</strong> LH, FSH, Total T, E2. Both compounds require pulsatile dosing — coordinate timing to avoid receptor conflicts.</p>
+      </div>
+      <div class="pair info" id="x-levothyroxine-with-liothyronine">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Levothyroxine (T4) with Liothyronine (T3)?</h3>
+        <p><strong>T4 + T3 Combination Therapy</strong></p>
+        <p>Combination T4/T3 therapy is used when T4 monotherapy leaves patients symptomatic due to poor conversion. The typical ratio is 4:1 T4:T3 (mirroring NDT). Start with low T3 addition (5-10mcg) and titrate based on Free T3 target.</p>
+        <p class="mon"><strong>What to watch:</strong> Free T4, Free T3, TSH, heart rate, symptoms of both hypo and hyperthyroidism.</p>
+      </div>
+      <div class="pair info" id="x-liothyronine-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Liothyronine (T3) with Testosterone Cypionate?</h3>
+        <p><strong>T3 + Testosterone — Metabolic Synergy</strong></p>
+        <p>T3 and testosterone work synergistically for body composition. T3 increases metabolic rate and fat oxidation while testosterone preserves and builds lean mass. A common optimization combination. Monitor carefully as T3 can increase protein catabolism at high doses.</p>
+        <p class="mon"><strong>What to watch:</strong> Free T3, Free T4, TSH, Total T, heart rate (resting), body composition.</p>
+      </div>
+      <div class="pair info" id="x-liothyronine-with-tirzepatide">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Liothyronine (T3) with Tirzepatide?</h3>
+        <p><strong>T3 + GLP-1 — Powerful Fat Loss Combination</strong></p>
+        <p>T3 and GLP-1 agents both reduce body fat via complementary mechanisms. T3 increases basal metabolic rate; GLP-1 reduces appetite. Combined, they can produce significant fat loss. Add testosterone to prevent muscle loss in this combination.</p>
+        <p class="mon"><strong>What to watch:</strong> Heart rate, body weight weekly, Free T3 to avoid hyperthyroidism, fasting glucose.</p>
+      </div>
+      <div class="pair info" id="x-low-dose-naltrexone-with-bpc-157">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Low-Dose Naltrexone (LDN) with BPC-157?</h3>
+        <p><strong>LDN + BPC-157 — Synergistic Anti-inflammatory</strong></p>
+        <p>LDN modulates immune function via TLR4 and endorphin upregulation while BPC-157 acts on gut healing and systemic inflammation. Together they address gut-brain-immune inflammation via complementary mechanisms. A popular combination in functional medicine.</p>
+        <p class="mon"><strong>What to watch:</strong> Inflammatory markers (CRP), gut symptom tracking, mood and energy self-assessment.</p>
+      </div>
+      <div class="pair info" id="x-melanotan-ii-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Melanotan II (MT-2) with Testosterone Cypionate?</h3>
+        <p><strong>MT-2 + TRT — Monitor Skin and E2</strong></p>
+        <p>MT-2 can darken existing moles and nevi. On TRT, where estrogen can also affect skin, monitoring skin changes is important. E2 optimization is also important as both estrogen and melanocortin pathways affect libido — don't over-suppress E2 if also using MT-2 for sexual function.</p>
+        <p class="mon"><strong>What to watch:</strong> Dermatology skin check baseline and every 6 months. E2 (sensitive assay) — maintain 20-35 pg/mL for optimal libido synergy.</p>
+      </div>
+      <div class="pair info" id="x-metformin-with-cjc-1295">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Metformin with CJC-1295?</h3>
+        <p><strong>Metformin + GH Secretagogues — Monitor Glucose</strong></p>
+        <p>GH secretagogues can reduce insulin sensitivity while metformin improves it. The two may partially offset each other's metabolic effects. Metformin can act as a useful safety net for glucose management when using GH peptides long-term.</p>
+        <p class="mon"><strong>What to watch:</strong> Fasting glucose, HbA1c, IGF-1. The combination is reasonable — just monitor metabolic markers.</p>
+      </div>
+      <div class="pair info" id="x-metformin-with-semaglutide">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Metformin with Semaglutide?</h3>
+        <p><strong>Metformin + GLP-1 — Additive Metabolic Benefits</strong></p>
+        <p>Metformin and GLP-1 agents work via complementary mechanisms (AMPK activation vs GLP-1 receptor) and are commonly combined in diabetes management. Both reduce HbA1c and fasting glucose. Monitor for additive GI side effects.</p>
+        <p class="mon"><strong>What to watch:</strong> HbA1c, fasting glucose, weight, GI tolerance. B12 levels with long-term metformin.</p>
+      </div>
+      <div class="pair info" id="x-metformin-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Metformin with Testosterone Cypionate?</h3>
+        <p><strong>Metformin + TRT — Insulin Sensitivity Benefits</strong></p>
+        <p>Metformin improves insulin sensitivity and activates AMPK — complementary to testosterone's anabolic effects. Some research suggests metformin may slightly reduce testosterone levels; ensure adequate TRT dose and monitor labs.</p>
+        <p class="mon"><strong>What to watch:</strong> Total T, Free T, HbA1c, fasting glucose, Vitamin B12 (metformin depletes B12 — supplement). Recheck labs at 8 weeks.</p>
+      </div>
+      <div class="pair info" id="x-metformin-with-tirzepatide">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Metformin with Tirzepatide?</h3>
+        <p><strong>Metformin + Tirzepatide — Additive Metabolic Benefits</strong></p>
+        <p>Same as metformin + semaglutide — complementary mechanisms with additive glucose-lowering and weight loss benefits. Combination used in clinical practice for T2 diabetes management.</p>
+        <p class="mon"><strong>What to watch:</strong> HbA1c, fasting glucose, weight, GI tolerance, B12 levels.</p>
+      </div>
+      <div class="pair info" id="x-pregnenolone-with-dhea">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Pregnenolone with DHEA?</h3>
+        <p><strong>Pregnenolone + DHEA — Comprehensive Adrenal Stack</strong></p>
+        <p>Pregnenolone is the upstream precursor to DHEA. Using both ensures the adrenal hormone cascade is supported at multiple levels. Start with lower doses of each to assess conversion patterns before increasing.</p>
+        <p class="mon"><strong>What to watch:</strong> Pregnenolone, DHEA-S, Total T, E2, Cortisol AM. Downstream hormones shift with both compounds.</p>
+      </div>
+      <div class="pair info" id="x-rapamycin-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Rapamycin with Testosterone Cypionate?</h3>
+        <p><strong>Rapamycin + TRT — Monitor for mTOR Effects on Muscle</strong></p>
+        <p>mTOR is required for muscle protein synthesis. Rapamycin's mTOR inhibition could theoretically blunt anabolic effects of testosterone. At weekly longevity doses (5-10mg), this effect is minimal due to intermittent dosing. Ensure adequate protein intake and resistance training.</p>
+        <p class="mon"><strong>What to watch:</strong> Body composition, lean mass tracking, strength metrics. Dose rapamycin weekly (not daily) to minimize muscle synthesis blunting.</p>
+      </div>
+      <div class="pair info" id="x-semaglutide-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Semaglutide with Testosterone Cypionate?</h3>
+        <p><strong>GLP-1 + Testosterone — Essential Muscle Preservation</strong></p>
+        <p>GLP-1 agents cause significant muscle loss without adequate testosterone support. Running TRT-dose testosterone alongside semaglutide is strongly recommended to preserve lean mass during weight loss. Resistance training is also essential.</p>
+        <p class="mon"><strong>What to watch:</strong> Body composition (DEXA preferred), Total T, HbA1c, fasting glucose, lipids.</p>
+      </div>
+      <div class="pair info" id="x-ss-31-with-mots-c">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take SS-31 with MOTS-c?</h3>
+        <p><strong>SS-31 + MOTS-c — Comprehensive Mitochondrial Stack</strong></p>
+        <p>SS-31 targets the inner mitochondrial membrane (cardiolipin) while MOTS-c activates AMPK and nuclear gene expression. Together they address mitochondrial function at two distinct levels — membrane integrity and metabolic signaling.</p>
+        <p class="mon"><strong>What to watch:</strong> Energy and exercise capacity self-assessment, VO2 max if available, fasting glucose.</p>
+      </div>
+      <div class="pair info" id="x-telmisartan-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Telmisartan with Testosterone Cypionate?</h3>
+        <p><strong>Telmisartan + TRT — Recommended Cardiovascular Protection</strong></p>
+        <p>TRT can raise blood pressure and hematocrit. Telmisartan addresses both concerns via angiotensin blockade and its PPAR-gamma activity improves insulin sensitivity. A thoughtful pairing for TRT patients with BP concerns.</p>
+        <p class="mon"><strong>What to watch:</strong> Blood pressure, hematocrit, potassium, eGFR. Target BP under 130/80.</p>
+      </div>
+      <div class="pair info" id="x-tesamorelin-with-ipamorelin">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Tesamorelin with Ipamorelin?</h3>
+        <p><strong>Excellent GHRH + GHRP Synergistic Pairing</strong></p>
+        <p>Tesamorelin (GHRH analogue) and Ipamorelin (GHRP) work synergistically to produce larger GH pulses than either alone — the GHRH primes the somatotrophs and the GHRP amplifies the pulse. This is the FDA-validated compound type pairing with the most evidence.</p>
+        <p class="mon"><strong>What to watch:</strong> IGF-1 every 3 months, fasting glucose, HbA1c.</p>
+      </div>
+      <div class="pair info" id="x-thymosin-alpha-1-with-low-dose-naltrexone">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Thymosin Alpha-1 with Low-Dose Naltrexone (LDN)?</h3>
+        <p><strong>Thymosin Alpha-1 + LDN — Immune Modulation Stack</strong></p>
+        <p>Ta1 enhances T-cell and NK cell function while LDN modulates innate immunity via TLR4. Together they address both adaptive and innate immune pathways — a comprehensive immune optimization combination.</p>
+        <p class="mon"><strong>What to watch:</strong> CBC with differential (immune cells), inflammatory markers, infection frequency tracking.</p>
+      </div>
+      <div class="pair info" id="x-tirzepatide-with-testosterone-cypionate">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take Tirzepatide with Testosterone Cypionate?</h3>
+        <p><strong>GLP-1 + Testosterone — Essential Muscle Preservation</strong></p>
+        <p>Same as semaglutide — tirzepatide's superior fat loss effect also means superior muscle loss risk without testosterone support. TRT-dose testosterone is strongly recommended alongside any GLP-1 agent.</p>
+        <p class="mon"><strong>What to watch:</strong> Body composition (DEXA preferred), Total T, HbA1c, fasting glucose, lipids.</p>
+      </div>
+      <div class="pair info" id="x-vip-with-bpc-157">
+        <div class="sev">Worth knowing</div>
+        <h3>Can you take VIP (Vasoactive Intestinal Peptide) with BPC-157?</h3>
+        <p><strong>VIP + BPC-157 — Comprehensive Gut and Immune Stack</strong></p>
+        <p>VIP and BPC-157 address gut inflammation via completely different mechanisms — VIP via mast cell stabilization and vasodilation, BPC-157 via tissue repair and GH receptor upregulation. Together they form a comprehensive gut and immune repair protocol.</p>
+        <p class="mon"><strong>What to watch:</strong> Inflammatory markers (TGF-beta1, C4a for CIRS), gut symptom tracking, blood pressure (VIP can cause hypotension).</p>
+      </div>
+    </div>
+
+    <h2>How this list is put together, and what it leaves out</h2>
+
+    <p>The pairs come from the app's own interaction data — three curated lists, merged,
+    which is exactly what the app does at load. 5 pairs are not shown
+    here because they name a compound this site does not publish pages about; they are still in
+    the app. No pair here was generated automatically: each one is a documented
+    interaction with a stated mechanism and a stated thing to monitor.</p>
+
+    <p>What that means for the gaps: a combination missing from this page is one nobody has
+    written up in this dataset, and the honest reading of a blank result is "unknown", not
+    "safe". Two compounds with no listed interaction can still interact through something none
+    of these lists model — a shared metabolic pathway, an additive effect on blood pressure or
+    haematocrit, or simply the total load of two things at once.</p>
+
+    <p><span class="ev ev-est">Established clinical use</span> Interactions involving approved medicines (aromatase
+    inhibitors, SERMs, thyroid hormone, GLP-1 agonists) rest on clinical pharmacology and
+    labelling. <span class="ev ev-off">Off-label or community practice</span> Interactions between research peptides, and between peptides
+    and approved drugs, are largely reasoning from mechanism plus community experience — they
+    are worth knowing and they are not the same grade of evidence. Where a pair is the second
+    kind, its description says what it is based on.</p>
+
+    <p>Related: <a href="/tools/syringe-builder/">the combined syringe planner</a> covers a
+    different compatibility question — whether two compounds can share one draw, which is about
+    the solutions rather than about you.</p>
+
+    <div class="cta-box">
+      <p>The app runs this check against what you have actually logged, so it flags a pair you are already taking rather than one you thought to ask about.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=stack-checker"
+         id="tl-cta" data-campaign="stack-checker">Open the app</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+
+var INTERACTIONS = [{"drugs":["Semaglutide","Tirzepatide"],"severity":"danger","title":"Never Combine GLP-1 Agonists","desc":"Combining two GLP-1 or dual GLP-1/GIP agonists dramatically increases risk of severe GI side effects, pancreatitis, and offers no additive benefit. Choose one.","monitor":"Do not combine. If switching agents, wash out first GLP-1 before starting the second."},{"drugs":["Anastrozole","Exemestane"],"severity":"danger","title":"Do Not Double-Stack Aromatase Inhibitors","desc":"Using two AIs simultaneously causes severe estrogen crash leading to joint pain, depression, osteoporosis risk, and cardiovascular damage. Use one AI only, guided by bloodwork.","monitor":"E2 sensitive assay, Total T, bone density if long-term."},{"drugs":["HCG","Tamoxifen"],"severity":"warn","title":"HCG Must Stop Before PCT SERMs Begin","desc":"HCG should be used during the last 2 weeks of a cycle to prime the testes, then stopped completely before starting Nolvadex or Clomid. Running HCG concurrently with SERMs blunts the PCT response by continuing LH suppression via HCG's action.","monitor":"Timing critical: Stop HCG, wait 2 weeks after last long-ester injection, then start SERMs."},{"drugs":["HCG","Clomiphene"],"severity":"warn","title":"HCG Must Stop Before PCT SERMs Begin","desc":"Same as above — HCG and SERMs work at cross purposes during PCT. HCG ends the cycle phase; SERMs begin the PCT phase. They should not overlap.","monitor":"Sequential use only: HCG during cycle, SERMs after."},{"drugs":["IGF-1 LR3","Recombinant HGH"],"severity":"warn","title":"IGF-1 Hypoglycemia Risk Amplified","desc":"Both HGH and IGF-1 LR3 lower blood sugar. Combining them significantly amplifies hypoglycemia risk, especially post-workout when glucose is already depleted. Fast-acting carbohydrates must be on hand.","monitor":"Fasting glucose, post-injection glucose monitoring, always have fast carbohydrates available."},{"drugs":["Hexarelin","GHRP-2"],"severity":"warn","title":"GHRP Stacking Increases Cortisol and Prolactin","desc":"Stacking two GHRPs amplifies cortisol and prolactin elevation beyond what either compound causes alone. If dual-GHRP use is desired, use lowest effective doses and monitor prolactin.","monitor":"Prolactin, Cortisol, IGF-1. Consider Cabergoline if prolactin elevates."},{"drugs":["Hexarelin","GHRP-6"],"severity":"warn","title":"GHRP Stacking Increases Cortisol and Prolactin","desc":"Stacking two GHRPs amplifies cortisol and prolactin elevation. Use lowest effective doses and monitor prolactin.","monitor":"Prolactin, Cortisol, IGF-1. Consider Cabergoline if prolactin elevates."},{"drugs":["Cabergoline","Anastrozole"],"severity":"info","title":"Comprehensive Hormone Management Stack","desc":"Using both an AI and a dopamine agonist together is appropriate when running progestogenic compounds like nandrolone that raise both estrogen and prolactin. Ensure each is dosed based on its respective lab value — E2 guides AI dose, prolactin guides Cabergoline dose.","monitor":"E2 (sensitive), Prolactin, Total T every 6-8 weeks."},{"drugs":["Dutasteride","Testosterone Cypionate"],"severity":"info","title":"DHT Suppression Trade-offs With TRT","desc":"Dutasteride suppresses ~90% of DHT conversion from testosterone. This prevents hair loss but reduces libido, erection quality, mood, and muscle fullness in some men. The trade-off is significant — weigh hair preservation vs androgenic benefits of DHT.","monitor":"Total T, Free T, DHT if testable, libido and sexual function self-assessment monthly."},{"drugs":["Finasteride","Testosterone Cypionate"],"severity":"info","title":"DHT Suppression Trade-offs With TRT","desc":"Finasteride suppresses ~70% of DHT. Risk of Post-Finasteride Syndrome (persistent sexual dysfunction) exists in a subset of users. If symptoms develop, discontinue immediately.","monitor":"Total T, Free T, libido and sexual function. Discontinue if persistent sexual or mood side effects occur."},{"drugs":["Kisspeptin-10","Clomiphene"],"severity":"info","title":"Synergistic HPG Axis Restoration","desc":"Kisspeptin-10 acts upstream of GnRH while Clomid acts at the hypothalamic estrogen receptor — together they stimulate the HPG axis at multiple points. This combination may be more effective than either alone for secondary hypogonadism recovery.","monitor":"Total T, LH, FSH, E2 every 4 weeks. LH surge post-Kisspeptin confirms receptor function."},{"drugs":["Tesamorelin","Ipamorelin"],"severity":"info","title":"Excellent GHRH + GHRP Synergistic Pairing","desc":"Tesamorelin (GHRH analogue) and Ipamorelin (GHRP) work synergistically to produce larger GH pulses than either alone — the GHRH primes the somatotrophs and the GHRP amplifies the pulse. This is the FDA-validated compound type pairing with the most evidence.","monitor":"IGF-1 every 3 months, fasting glucose, HbA1c."},{"drugs":["BPC-157","TB-500"],"severity":"info","title":"Gold Standard Injury Recovery Combination","desc":"BPC-157 and TB-500 are synergistic — BPC-157 acts locally on tissue repair mechanisms while TB-500 promotes systemic cell migration and actin upregulation. Together they represent the most comprehensive peptide approach to injury recovery.","monitor":"No specific labs. Monitor healing progress and injection sites."},{"drugs":["Semaglutide","Testosterone Cypionate"],"severity":"info","title":"GLP-1 + Testosterone — Essential Muscle Preservation","desc":"GLP-1 agents cause significant muscle loss without adequate testosterone support. Running TRT-dose testosterone alongside semaglutide is strongly recommended to preserve lean mass during weight loss. Resistance training is also essential.","monitor":"Body composition (DEXA preferred), Total T, HbA1c, fasting glucose, lipids."},{"drugs":["Tirzepatide","Testosterone Cypionate"],"severity":"info","title":"GLP-1 + Testosterone — Essential Muscle Preservation","desc":"Same as semaglutide — tirzepatide's superior fat loss effect also means superior muscle loss risk without testosterone support. TRT-dose testosterone is strongly recommended alongside any GLP-1 agent.","monitor":"Body composition (DEXA preferred), Total T, HbA1c, fasting glucose, lipids."},{"drugs":["CJC-1295","Ipamorelin"],"severity":"info","title":"Gold Standard GH Secretagogue Pairing","desc":"CJC-1295 (GHRH analogue) and Ipamorelin (selective GHRP) are the gold standard GH secretagogue combination. CJC-1295 primes pituitary somatotrophs while Ipamorelin triggers GH release with minimal cortisol or prolactin elevation. Always pair these — neither is as effective alone.","monitor":"IGF-1 every 3 months. Fasting glucose. No prolactin monitoring needed with Ipamorelin."},{"drugs":["Liothyronine (T3)","Testosterone Cypionate"],"severity":"info","title":"T3 + Testosterone — Metabolic Synergy","desc":"T3 and testosterone work synergistically for body composition. T3 increases metabolic rate and fat oxidation while testosterone preserves and builds lean mass. A common optimization combination. Monitor carefully as T3 can increase protein catabolism at high doses.","monitor":"Free T3, Free T4, TSH, Total T, heart rate (resting), body composition."},{"drugs":["Liothyronine (T3)","Tirzepatide"],"severity":"info","title":"T3 + GLP-1 — Powerful Fat Loss Combination","desc":"T3 and GLP-1 agents both reduce body fat via complementary mechanisms. T3 increases basal metabolic rate; GLP-1 reduces appetite. Combined, they can produce significant fat loss. Add testosterone to prevent muscle loss in this combination.","monitor":"Heart rate, body weight weekly, Free T3 to avoid hyperthyroidism, fasting glucose."},{"drugs":["Liothyronine (T3)","Liothyronine (T3)"],"severity":"danger","title":"Never Double-Dose T3","desc":"T3 has a narrow therapeutic window. Taking more than prescribed can cause cardiac arrhythmias, bone density loss, and hyperthyroid crisis. Use exactly as directed.","monitor":"Heart rate (keep under 80 resting), Free T3, symptoms of hyperthyroidism."},{"drugs":["DHEA","Testosterone Cypionate"],"severity":"info","title":"DHEA + Testosterone — Verify No Excess Estrogen","desc":"DHEA can convert to both testosterone and estrogen. Adding DHEA to a TRT protocol may raise estrogen further. Monitor E2 closely and do not add DHEA without baseline DHEA-S testing.","monitor":"DHEA-S, Total T, Free T, E2 (sensitive assay), PSA. Recheck 6 weeks after adding DHEA."},{"drugs":["DHEA","Anastrozole"],"severity":"warn","title":"DHEA May Partially Offset AI Effect","desc":"DHEA aromatizes to estrogen, potentially undermining the estrogen-lowering effect of anastrozole. If using both, E2 monitoring is especially important to confirm AI is achieving target levels.","monitor":"E2 sensitive assay every 6-8 weeks. Adjust anastrozole dose based on labs only."},{"drugs":["Pregnenolone","DHEA"],"severity":"info","title":"Pregnenolone + DHEA — Comprehensive Adrenal Stack","desc":"Pregnenolone is the upstream precursor to DHEA. Using both ensures the adrenal hormone cascade is supported at multiple levels. Start with lower doses of each to assess conversion patterns before increasing.","monitor":"Pregnenolone, DHEA-S, Total T, E2, Cortisol AM. Downstream hormones shift with both compounds."},{"drugs":["Metformin","Testosterone Cypionate"],"severity":"info","title":"Metformin + TRT — Insulin Sensitivity Benefits","desc":"Metformin improves insulin sensitivity and activates AMPK — complementary to testosterone's anabolic effects. Some research suggests metformin may slightly reduce testosterone levels; ensure adequate TRT dose and monitor labs.","monitor":"Total T, Free T, HbA1c, fasting glucose, Vitamin B12 (metformin depletes B12 — supplement). Recheck labs at 8 weeks."},{"drugs":["Metformin","Semaglutide"],"severity":"info","title":"Metformin + GLP-1 — Additive Metabolic Benefits","desc":"Metformin and GLP-1 agents work via complementary mechanisms (AMPK activation vs GLP-1 receptor) and are commonly combined in diabetes management. Both reduce HbA1c and fasting glucose. Monitor for additive GI side effects.","monitor":"HbA1c, fasting glucose, weight, GI tolerance. B12 levels with long-term metformin."},{"drugs":["Metformin","Tirzepatide"],"severity":"info","title":"Metformin + Tirzepatide — Additive Metabolic Benefits","desc":"Same as metformin + semaglutide — complementary mechanisms with additive glucose-lowering and weight loss benefits. Combination used in clinical practice for T2 diabetes management.","monitor":"HbA1c, fasting glucose, weight, GI tolerance, B12 levels."},{"drugs":["Berberine","Metformin"],"severity":"warn","title":"Berberine + Metformin — Avoid Combining Without Monitoring","desc":"Both activate AMPK and lower blood glucose via similar pathways. Combining can cause additive blood sugar lowering and increased GI side effects. If using both, start at lower doses and monitor glucose carefully.","monitor":"Fasting glucose (hypoglycemia risk), GI symptoms, HbA1c. Consider using one or the other rather than both."},{"drugs":["Low-Dose Naltrexone (LDN)","BPC-157"],"severity":"info","title":"LDN + BPC-157 — Synergistic Anti-inflammatory","desc":"LDN modulates immune function via TLR4 and endorphin upregulation while BPC-157 acts on gut healing and systemic inflammation. Together they address gut-brain-immune inflammation via complementary mechanisms. A popular combination in functional medicine.","monitor":"Inflammatory markers (CRP), gut symptom tracking, mood and energy self-assessment."},{"drugs":["Telmisartan","Testosterone Cypionate"],"severity":"info","title":"Telmisartan + TRT — Recommended Cardiovascular Protection","desc":"TRT can raise blood pressure and hematocrit. Telmisartan addresses both concerns via angiotensin blockade and its PPAR-gamma activity improves insulin sensitivity. A thoughtful pairing for TRT patients with BP concerns.","monitor":"Blood pressure, hematocrit, potassium, eGFR. Target BP under 130/80."},{"drugs":["VIP (Vasoactive Intestinal Peptide)","BPC-157"],"severity":"info","title":"VIP + BPC-157 — Comprehensive Gut and Immune Stack","desc":"VIP and BPC-157 address gut inflammation via completely different mechanisms — VIP via mast cell stabilization and vasodilation, BPC-157 via tissue repair and GH receptor upregulation. Together they form a comprehensive gut and immune repair protocol.","monitor":"Inflammatory markers (TGF-beta1, C4a for CIRS), gut symptom tracking, blood pressure (VIP can cause hypotension)."},{"drugs":["Thymosin Alpha-1","Low-Dose Naltrexone (LDN)"],"severity":"info","title":"Thymosin Alpha-1 + LDN — Immune Modulation Stack","desc":"Ta1 enhances T-cell and NK cell function while LDN modulates innate immunity via TLR4. Together they address both adaptive and innate immune pathways — a comprehensive immune optimization combination.","monitor":"CBC with differential (immune cells), inflammatory markers, infection frequency tracking."},{"drugs":["7-Keto DHEA","DHEA"],"severity":"info","title":"7-Keto DHEA + DHEA — Complementary Adrenal Support","desc":"7-Keto DHEA provides metabolic benefits without hormonal conversion while DHEA provides precursor hormone support. Together they offer broader adrenal optimization. Monitor downstream hormones from DHEA conversion.","monitor":"DHEA-S, Total T, E2. 7-Keto DHEA itself requires no hormonal monitoring."},{"drugs":["Levothyroxine (T4)","Liothyronine (T3)"],"severity":"info","title":"T4 + T3 Combination Therapy","desc":"Combination T4/T3 therapy is used when T4 monotherapy leaves patients symptomatic due to poor conversion. The typical ratio is 4:1 T4:T3 (mirroring NDT). Start with low T3 addition (5-10mcg) and titrate based on Free T3 target.","monitor":"Free T4, Free T3, TSH, heart rate, symptoms of both hypo and hyperthyroidism."},{"drugs":["Natural Desiccated Thyroid (NDT)","Liothyronine (T3)"],"severity":"warn","title":"NDT Already Contains T3 — Avoid Adding More Without Monitoring","desc":"NDT contains both T4 and T3 (approximately 4:1 ratio). Adding additional T3 can cause hyperthyroidism symptoms. If symptoms suggest inadequate T3, adjust NDT dose before adding separate T3.","monitor":"Free T3, Free T4, TSH, heart rate (target 60-80 resting). Symptoms of hyperthyroidism."},{"drugs":["Metformin","CJC-1295"],"severity":"info","title":"Metformin + GH Secretagogues — Monitor Glucose","desc":"GH secretagogues can reduce insulin sensitivity while metformin improves it. The two may partially offset each other's metabolic effects. Metformin can act as a useful safety net for glucose management when using GH peptides long-term.","monitor":"Fasting glucose, HbA1c, IGF-1. The combination is reasonable — just monitor metabolic markers."},{"drugs":["SS-31","MOTS-c"],"severity":"info","title":"SS-31 + MOTS-c — Comprehensive Mitochondrial Stack","desc":"SS-31 targets the inner mitochondrial membrane (cardiolipin) while MOTS-c activates AMPK and nuclear gene expression. Together they address mitochondrial function at two distinct levels — membrane integrity and metabolic signaling.","monitor":"Energy and exercise capacity self-assessment, VO2 max if available, fasting glucose."},{"drugs":["Gonadorelin","HCG"],"severity":"warn","title":"Gonadorelin and HCG — Choose One for Testicular Maintenance","desc":"Both gonadorelin and HCG serve the same purpose on TRT — preserving testicular function. Gonadorelin stimulates LH/FSH from the pituitary; HCG mimics LH directly at the testes. Using both simultaneously is redundant and may cause over-stimulation. Choose one approach.","monitor":"Total T, LH, FSH, E2, testicular volume. Monitor prolactin — over-stimulation can elevate it."},{"drugs":["Melanotan II (MT-2)","PT-141 (Bremelanotide)"],"severity":"warn","title":"MT-2 and PT-141 — Overlap in Mechanism","desc":"MT-2 and PT-141 (bremelanotide) both activate MC4R for sexual function enhancement. They overlap significantly in mechanism. Using both simultaneously provides little additional benefit and increases side effect risk (nausea, flushing, blood pressure elevation). Use one at a time.","monitor":"Blood pressure (both cause transient elevation), nausea assessment."},{"drugs":["CJC-1295","CJC-1295 with DAC"],"severity":"danger","title":"Never Combine CJC-1295 and CJC-1295 DAC","desc":"These are two forms of the same compound. Combining them dramatically elevates IGF-1 and GH beyond safe physiological ranges. Use one or the other — not both.","monitor":"IGF-1, fasting glucose. If accidentally combined, stop both and recheck IGF-1 in 2 weeks."},{"drugs":["Retatrutide","Tirzepatide"],"severity":"danger","title":"Never Combine GLP-1 Class Agents","desc":"Retatrutide and tirzepatide both target GLP-1 receptors. Combining any two GLP-1/GIP/glucagon receptor agonists dramatically increases pancreatitis risk, severe GI events, and provides no additive weight loss benefit beyond one agent at maximum dose.","monitor":"Amylase, lipase if any abdominal pain. Do not combine."},{"drugs":["Retatrutide","Semaglutide"],"severity":"danger","title":"Never Combine GLP-1 Class Agents","desc":"Same as above — retatrutide and semaglutide both target GLP-1 receptors. Never combine two agents from this class.","monitor":"Do not combine. If switching agents, appropriate washout period required."},{"drugs":["Melanotan II (MT-2)","Testosterone Cypionate"],"severity":"info","title":"MT-2 + TRT — Monitor Skin and E2","desc":"MT-2 can darken existing moles and nevi. On TRT, where estrogen can also affect skin, monitoring skin changes is important. E2 optimization is also important as both estrogen and melanocortin pathways affect libido — don't over-suppress E2 if also using MT-2 for sexual function.","monitor":"Dermatology skin check baseline and every 6 months. E2 (sensitive assay) — maintain 20-35 pg/mL for optimal libido synergy."},{"drugs":["Rapamycin","Testosterone Cypionate"],"severity":"info","title":"Rapamycin + TRT — Monitor for mTOR Effects on Muscle","desc":"mTOR is required for muscle protein synthesis. Rapamycin's mTOR inhibition could theoretically blunt anabolic effects of testosterone. At weekly longevity doses (5-10mg), this effect is minimal due to intermittent dosing. Ensure adequate protein intake and resistance training.","monitor":"Body composition, lean mass tracking, strength metrics. Dose rapamycin weekly (not daily) to minimize muscle synthesis blunting."},{"drugs":["Cagrilintide","Semaglutide"],"severity":"info","title":"Cagrilintide + Semaglutide — Intended Combination (CagriSema)","desc":"Cagrilintide is specifically being developed in combination with semaglutide as CagriSema — a fixed-dose combination. Clinical trials show superior weight loss compared to either alone. This is an intended therapeutic combination, not a dangerous one. Monitor GI tolerance carefully.","monitor":"GI tolerance, weight, HbA1c, fasting glucose. This combination requires gradual titration of both agents."},{"drugs":["Gonadorelin","Clomiphene"],"severity":"info","title":"Gonadorelin + Clomid — Synergistic HPG Restoration","desc":"Gonadorelin stimulates LH/FSH at the pituitary level while Clomid blocks hypothalamic estrogen receptors to increase GnRH pulsatility. Together they address HPG restoration at two distinct points. A potentially more comprehensive HPTA restart than either alone.","monitor":"LH, FSH, Total T, E2 every 4 weeks. LH response to gonadorelin confirms pituitary function."},{"drugs":["Kisspeptin-54","Gonadorelin"],"severity":"info","title":"Kisspeptin-54 + Gonadorelin — Upstream and Downstream HPG","desc":"Kisspeptin acts upstream of GnRH neurons to trigger GnRH release, while gonadorelin IS GnRH acting directly on the pituitary. Using both covers the HPG axis at two levels but requires careful pulsatile timing for both. Both must be pulsatile — never continuous.","monitor":"LH, FSH, Total T, E2. Both compounds require pulsatile dosing — coordinate timing to avoid receptor conflicts."}];
+
+function checkInteractions() {
+const d1 = document.getElementById("ix-d1").value;
+const d2 = document.getElementById("ix-d2").value;
+const d3 = document.getElementById("ix-d3").value;
+const selected = [d1, d2, d3].filter(Boolean);
+const container = document.getElementById("ix-result");
+if (selected.length < 2) {
+container.innerHTML = "";
+return;
+}
+const found = [];
+INTERACTIONS.forEach(ix => {
+const matches = ix.drugs.filter(d => selected.includes(d));
+if (matches.length >= 2) found.push(ix);
+else if (ix.drugs.length === 2 && ix.drugs.every(d => selected.includes(d))) found.push(ix);
+});
+if (!found.length) {
+/* "None found" means none in OUR list, which is curated and not exhaustive.
+   Saying it the other way round invites someone to read a blank result as a
+   clean bill of health. */
+container.innerHTML = `<div class="card" style="border-color:rgba(74,222,154,0.3)"><div style="font-size:13px;color:var(--accent)">✓ Nothing in this reference for that combination.</div><div style="font-size:11px;color:var(--text2);margin-top:6px">This checker covers documented major interactions only — it is not a complete list, and a blank result is not a safety clearance. Monitor bloodwork and check any combination with your prescribing physician or pharmacist.</div></div>`;
+return;
+}
+container.innerHTML = found.map(ix => {
+const bg = ix.severity==="danger" ? "rgba(248,113,113,0.08)" : ix.severity==="warn" ? "rgba(245,158,11,0.08)" : "rgba(59,196,255,0.06)";
+const border = ix.severity==="danger" ? "rgba(248,113,113,0.4)" : ix.severity==="warn" ? "rgba(245,158,11,0.35)" : "rgba(59,196,255,0.3)";
+const icon = ix.severity==="danger" ? "🚫" : ix.severity==="warn" ? "⚠️" : "ℹ️";
+const col = ix.severity==="danger" ? "var(--danger)" : ix.severity==="warn" ? "var(--accent3)" : "var(--accent2)";
+return `<div class="card" style="background:${bg};border-color:${border};margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-size:18px">${icon}</span>
+        <div style="font-size:13px;font-weight:700;color:${col}">${ix.title}</div>
+      </div>
+      <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px">${ix.desc}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--text2);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px">Monitor</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.5">${ix.monitor}</div>
+    </div>`;
+/* The disclaimer used to appear only on the "nothing found" branch — the
+   reassuring result carried the caveat and the dangerous one did not. It
+   belongs here most of all. */
+}).join("") + `<div class="card" style="border-color:var(--border);margin-bottom:10px"><div style="font-size:11px;color:var(--text2);line-height:1.6">This is reference information, not a clinical assessment of your situation. It does not account for your dose, your other medications, or your health history, and this list is not exhaustive. Take anything flagged above to your prescribing physician or a pharmacist before changing what you are taking.</div></div>`;
+}
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://therapylog.app/tools/stack-checker/#page",
+      "url": "https://therapylog.app/tools/stack-checker/",
+      "name": "Can you take these together? Compound combination checker | TherapyLog",
+      "description": "45 documented interaction pairs across testosterone ancillaries, GLP-1 medications and peptides — the mechanism and what to watch. Free, no account.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-03",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://therapylog.app/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Combination checker",
+            "item": "https://therapylog.app/tools/stack-checker/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

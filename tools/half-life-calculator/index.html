@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Half-life and steady-state calculator | TherapyLog</title>
+<meta name="description" content="Half-life, time to steady state, accumulation ratio and peak-to-trough swing for 50 PK-modelled compounds. Free, no account.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/tools/half-life-calculator/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Half-life and steady-state calculator | TherapyLog"><meta property="og:description" content="Half-life, time to steady state, accumulation ratio and peak-to-trough swing for 50 PK-modelled compounds. Free, no account."><meta property="og:url" content="https://therapylog.app/tools/half-life-calculator/"><meta property="og:image" content="https://therapylog.app/assets/og/half-life-calculator.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Half-life and steady-state calculator | TherapyLog"><meta name="twitter:description" content="Half-life, time to steady state, accumulation ratio and peak-to-trough swing for 50 PK-modelled compounds. Free, no account."><meta name="twitter:image" content="https://therapylog.app/assets/og/half-life-calculator.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/vendor/chart.umd.min.js"></script>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Half-life calculator</div>
+    <h1>Half-life and steady-state calculator</h1>
+
+    <p class="lede">How long a compound takes to clear, how much it builds up when you dose
+    it repeatedly, and how far the level swings between doses — for
+    50 PK-modelled compounds. Free, no account.</p>
+
+    <div class="updated">Last reviewed: 3 September 2026</div>
+
+    <p>A half-life is the time for a level to fall by half, and on its own it answers less
+    than people expect. What it actually determines are three things: how long one dose stays
+    meaningfully present, how much repeated doses <strong>accumulate</strong>, and how long
+    until that accumulation stops changing — <strong>steady state</strong>. All three fall out
+    of the same number and the interval between doses.</p>
+
+    <p>Worked through with testosterone cypionate, whose modelled half-life is
+    6 days: injected <strong>twice weekly</strong>, the interval is
+    84 hours, so each dose lands with roughly 67%
+    of the previous one still there. Levels therefore stack to about
+    <strong>3.01×</strong> what a single
+    dose reaches, plateau after about <strong>30 days</strong>,
+    and then oscillate between a trough and a peak only about 1.2 times higher. Move the same
+    weekly total to a single injection and the accumulation falls while the swing roughly
+    doubles.</p>
+
+    <div class="widget">
+      <div class="card">
+        <div class="card-title">Half-life and steady state</div>
+        <div class="ig"><label class="il" for="hl-compound">Compound</label>
+          <select id="hl-compound" onchange="hlCalc()"><option value="ai1">Anastrozole</option><option value="aod9604">AOD-9604 (estimated)</option><option value="bpc">BPC-157 (estimated)</option><option value="bpc157sys">BPC-157 Systemic Protocol (estimated)</option><option value="caberbromo">Bromocriptine</option><option value="caberg">Cabergoline</option><option value="cagrilintide">Cagrilintide (estimated)</option><option value="cjc">CJC-1295</option><option value="dac">CJC-1295 with DAC</option><option value="clom">Clomiphene</option><option value="dhea">DHEA (estimated)</option><option value="dsip">DSIP (estimated)</option><option value="dutast">Dutasteride / Finasteride</option><option value="enclo">Enclomiphene</option><option value="exemest">Exemestane</option><option value="ghrp2">GHRP-2</option><option value="ghrp6">GHRP-6</option><option value="gonadorelin">Gonadorelin</option><option value="hcg2">HCG</option><option value="hexarelin">Hexarelin</option><option value="hghfrag">HGH Fragment 176-191 (estimated)</option><option value="igf1lr3">IGF-1 LR3 (estimated)</option><option value="ipa">Ipamorelin</option><option value="isotretinoin">Isotretinoin</option><option value="kissp">Kisspeptin-10 (estimated)</option><option value="kisspeptin54">Kisspeptin-54 (estimated)</option><option value="t4">Levothyroxine (T4)</option><option value="t3">Liothyronine (T3)</option><option value="ldn">Low-Dose Naltrexone</option><option value="mt2">Melanotan II (estimated)</option><option value="metformin">Metformin</option><option value="mk677">MK-677 / Ibutamoren</option><option value="proviron">Proviron</option><option value="pt141">PT-141</option><option value="raloxifene">Raloxifene</option><option value="rapamycin">Rapamycin</option><option value="rhgh">Recombinant HGH</option><option value="retatrutide">Retatrutide (estimated)</option><option value="sema">Semaglutide</option><option value="serm2">Sermorelin</option><option value="nolv">Tamoxifen</option><option value="tb5">TB-500 (estimated)</option><option value="tbnouveau">TB-500 Systemic Protocol (estimated)</option><option value="telmisartan">Telmisartan</option><option value="tesam">Tesamorelin</option><option value="tc" selected>Testosterone Cypionate</option><option value="te">Testosterone Enanthate</option><option value="tprop">Testosterone Propionate</option><option value="thymalpha">Thymosin Alpha-1</option><option value="tirz">Tirzepatide</option></select></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="ig"><label class="il" for="hl-freq">Injections/doses per week</label>
+            <select id="hl-freq" onchange="hlCalc()">
+              <option value="0.5">Every two weeks</option>
+              <option value="1">Once weekly</option>
+              <option value="2" selected>Twice weekly</option>
+              <option value="3">Three times weekly</option>
+              <option value="3.5">Every other day</option>
+              <option value="7">Once daily</option>
+              <option value="14">Twice daily</option>
+            </select></div>
+          <div class="ig"><label class="il" for="hl-days">Days to chart</label>
+            <input type="number" id="hl-days" value="42" min="1" max="365" step="1" oninput="hlCalc()"></div>
+        </div>
+        <div style="height:280px;margin:6px 0 12px"><canvas id="hl-chart"></canvas></div>
+        <div id="hl-out"></div>
+        <div style="font-size:10.5px;color:var(--text3);line-height:1.55;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">This does the arithmetic you typed and nothing else. Modelled half-lives are population figures from published pharmacokinetics, not measurements of you, and dosing decisions belong with a qualified provider.</div>
+      </div>
+    </div>
+
+    <h2>How the math works</h2>
+
+    <div class="formula">elimination rate  ke  =  ln 2 ÷ half-life<br>one dose:  level(t)  ∝  e^(−ke·t) − e^(−ka·t)      (one-compartment, ka matched to time-to-peak)<br>repeated dosing:  add one curve per dose, offset by the interval<br><br>accumulation ratio  =  1 ÷ (1 − 2^(−interval ÷ half-life))<br>time to steady state  ≈  5 × half-life        (~97% of the way there)<br>fraction left after one interval  =  2^(−interval ÷ half-life)</div>
+
+    <p>The curve is the app's own <code>pkCurve</code> function — a one-compartment model
+    with absorption and elimination, where the absorption rate is fitted so the peak lands at
+    the compound's published time-to-peak. It is normalised so a single dose peaks at 1, which
+    is why the vertical axis reads in multiples rather than in ng/dL: the shape and the ratios
+    transfer between people, the absolute concentrations do not.</p>
+
+    <p>"Five half-lives to steady state" is the same arithmetic read from the other end:
+    each half-life closes half the remaining gap, so after five you are about 97% of the way
+    there. It is also why a bloodwork panel drawn two weeks into a change measures a level
+    still travelling.</p>
+
+    <h2>Where these numbers come from</h2>
+
+    <p>Every half-life and time-to-peak here is the figure the TherapyLog app carries for
+    that compound, drawn from published pharmacokinetic literature.
+    <strong>14 of the 50</strong> are marked
+    <em>estimated</em> in the compound list above and everywhere else they appear: that means
+    the human PK data is limited or absent and the figure is inferred. Most research peptides
+    are in that category, and treating an estimated four-hour half-life as though it were a
+    measured one is the most common way this kind of calculation goes wrong.</p>
+
+    <p>The app also lets you override a half-life per compound, in the Levels tab under
+    Adjust — useful when you have reason to prefer a different published figure. This page uses
+    the defaults.</p>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>How long until a compound is completely out of my system?</h3>
+    <p>Practically, four to five half-lives leaves a few per cent, and most people treat that
+         as cleared. Mathematically it never reaches zero. Two cautions: "cleared from serum"
+         is not the same as "its effects have resolved" — suppression of your own hormone axis
+         outlasts the drug that caused it — and detection windows for testing purposes are a
+         different question again, with different answers.</p>
+    <h3>Why does the level keep rising if I am taking the same dose?</h3>
+    <p>Because each dose lands on what is left of the last one. If half the previous dose is
+         still present when the next arrives, the level climbs until the amount cleared per
+         interval equals the amount given per interval. That plateau is steady state, and the
+         accumulation ratio above says how much higher it sits than a single dose.</p>
+    <h3>Does a longer half-life mean a stronger compound?</h3>
+    <p>No. It means a smoother and more persistent one. Half-life describes how fast something
+         leaves, not how much it does while it is there. Two compounds with the same half-life
+         can differ enormously in potency, and a very short half-life is why some compounds are
+         dosed daily rather than being weaker.</p>
+    <h3>What is the peak-to-trough ratio for?</h3>
+    <p>Choosing a cadence. It is the modelled peak divided by the modelled trough at steady
+         state, so 1.2 is a fairly flat line and 4 is a sawtooth. Whether a flatter curve feels
+         better is individual and this page cannot tell you — what it can tell you is which
+         cadences produce which shape, which is the part that is actually calculable.</p>
+
+    <p>Per-compound pages with the curve already drawn, the provenance, the monitoring panel
+    and the interaction rules that name it are linked from <a href="/tools/">the tools hub</a>.
+    Related: <a href="/tools/trt-dose-calculator/">testosterone dose calculator</a>.</p>
+
+    <div class="cta-box">
+      <p>In the app this curve is drawn from the doses you actually logged, with your own dates, and projects seven days forward from your last one.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=half-life-calculator"
+         id="tl-cta" data-campaign="half-life-calculator">Save this dose to your log</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+
+/* Emitted from scripts/page-templates/curve.js — the same functions that
+   pre-render the curves on the compound pages, so the widget and the
+   pictures cannot disagree. */
+var round = (n, p) => Number(n.toFixed(p));
+var repeated = function repeated(curve, interval, n) {
+  return (t) => {
+    let sum = 0;
+    for (let i = 0; i < n; i++) {
+      const dt = t - i * interval;
+      if (dt > 0) sum += curve(dt);
+    }
+    return sum;
+  };
+};
+var steadyState = function steadyState(curve, hl, interval) {
+  const doses = Math.max(12, Math.ceil((7 * hl) / interval) + 4);
+  const f = repeated(curve, interval, doses);
+  const start = (doses - 1) * interval;
+  let peak = 0, trough = Infinity;
+  const step = Math.max(interval / 400, 0.01);
+  for (let t = start + step; t <= start + interval + 1e-9; t += step) {
+    const v = f(t);
+    if (v > peak) peak = v;
+    if (v < trough) trough = v;
+  }
+  /* When the interval is many half-lives long the trough is indistinguishable
+     from zero, and peak ÷ trough is then a meaningless number with a lot of
+     digits — an earlier version of this page reported a peak-to-trough ratio of
+     188,571,048,347,090× for CJC-1295 dosed daily against a 30-minute
+     half-life. `ratio` is null in that case and every caller has to say
+     "not meaningful" rather than print it. */
+  const cleared = trough < peak * 0.01;
+  return {
+    peak: round(peak, 3),
+    trough: round(trough, 4),
+    ratio: cleared ? null : round(peak / trough, 2),
+    cleared,
+    accumulation: round(1 / (1 - Math.pow(2, -interval / hl)), 2),
+    doses
+  };
+};
+var fmtHours = (h) => {
+  if (h < 1) return round(h * 60, 0) + ' min';
+  if (h < 48) return round(h, h % 1 === 0 ? 0 : 1) + ' h';
+  const d = h / 24;
+  return round(d, d % 1 === 0 ? 0 : 1) + ' days';
+};
+
+function pkCurve(hl, tmax) {
+const ke = Math.LN2 / hl;
+tmax = Math.min(tmax, 0.95 / ke);
+let lo = ke * 1.0001, hi = ke * 1e5;
+for (let i = 0; i < 60; i++) {
+const mid = Math.sqrt(lo * hi);
+(Math.log(mid / ke) / (mid - ke) > tmax) ? lo = mid : hi = mid;
+}
+const ka = Math.sqrt(lo * hi);
+const peak = Math.exp(-ke * tmax) - Math.exp(-ka * tmax);
+return t => t <= 0 ? 0 : (Math.exp(-ke * t) - Math.exp(-ka * t)) / peak;
+}
+
+function pkParseDose(s) {
+const m = String(s||'').match(/(\d+(?:\.\d+)?|\.\d+)\s*(mcg|mg|iu|units?|ml)?/i);
+if (!m) return null;
+let v = parseFloat(m[1]); const u = (m[2]||'mg').toLowerCase();
+if (!isFinite(v) || v <= 0) return null;
+if (u === 'mcg') return { v: v/1000, unit: 'mg' };
+if (u.indexOf('unit') === 0 || u === 'iu') return { v, unit: 'IU' };
+if (u === 'ml') return { v, unit: 'ml' };
+return { v, unit: 'mg' };
+}
+
+var HL_PK = {"ai1":{"hl":46,"tmax":2,"est":false,"name":"Anastrozole"},"aod9604":{"hl":0.5,"tmax":0.25,"est":true,"name":"AOD-9604"},"bpc":{"hl":4,"tmax":0.5,"est":true,"name":"BPC-157"},"bpc157sys":{"hl":4,"tmax":0.5,"est":true,"name":"BPC-157 Systemic Protocol"},"caberbromo":{"hl":15,"tmax":1.5,"est":false,"name":"Bromocriptine"},"caberg":{"hl":65,"tmax":2.5,"est":false,"name":"Cabergoline"},"cagrilintide":{"hl":180,"tmax":24,"est":true,"name":"Cagrilintide"},"cjc":{"hl":0.5,"tmax":0.2,"est":false,"name":"CJC-1295"},"dac":{"hl":168,"tmax":12,"est":false,"name":"CJC-1295 with DAC"},"clom":{"hl":120,"tmax":6,"est":false,"name":"Clomiphene"},"dhea":{"hl":8,"tmax":2,"est":true,"name":"DHEA"},"dsip":{"hl":0.2,"tmax":0.1,"est":true,"name":"DSIP"},"dutast":{"hl":840,"tmax":2.5,"est":false,"name":"Dutasteride / Finasteride"},"enclo":{"hl":10,"tmax":2,"est":false,"name":"Enclomiphene"},"exemest":{"hl":24,"tmax":1.5,"est":false,"name":"Exemestane"},"ghrp2":{"hl":0.5,"tmax":0.25,"est":false,"name":"GHRP-2"},"ghrp6":{"hl":0.4,"tmax":0.25,"est":false,"name":"GHRP-6"},"gonadorelin":{"hl":0.3,"tmax":0.15,"est":false,"name":"Gonadorelin"},"hcg2":{"hl":33,"tmax":6,"est":false,"name":"HCG"},"hexarelin":{"hl":1.2,"tmax":0.5,"est":false,"name":"Hexarelin"},"hghfrag":{"hl":0.5,"tmax":0.25,"est":true,"name":"HGH Fragment 176-191"},"igf1lr3":{"hl":24,"tmax":6,"est":true,"name":"IGF-1 LR3"},"ipa":{"hl":2,"tmax":0.7,"est":false,"name":"Ipamorelin"},"isotretinoin":{"hl":21,"tmax":3,"est":false,"name":"Isotretinoin"},"kissp":{"hl":0.1,"tmax":0.05,"est":true,"name":"Kisspeptin-10"},"kisspeptin54":{"hl":0.5,"tmax":0.2,"est":true,"name":"Kisspeptin-54"},"t4":{"hl":168,"tmax":3,"est":false,"name":"Levothyroxine (T4)"},"t3":{"hl":24,"tmax":2.5,"est":false,"name":"Liothyronine (T3)"},"ldn":{"hl":6,"tmax":1,"est":false,"name":"Low-Dose Naltrexone"},"mt2":{"hl":1,"tmax":0.5,"est":true,"name":"Melanotan II"},"metformin":{"hl":6,"tmax":2.5,"est":false,"name":"Metformin"},"mk677":{"hl":24,"tmax":1,"est":false,"name":"MK-677 / Ibutamoren"},"proviron":{"hl":12,"tmax":2,"est":false,"name":"Proviron"},"pt141":{"hl":2.7,"tmax":1,"est":false,"name":"PT-141"},"raloxifene":{"hl":27,"tmax":6,"est":false,"name":"Raloxifene"},"rapamycin":{"hl":62,"tmax":1.5,"est":false,"name":"Rapamycin"},"rhgh":{"hl":3.8,"tmax":3,"est":false,"name":"Recombinant HGH"},"retatrutide":{"hl":150,"tmax":24,"est":true,"name":"Retatrutide"},"sema":{"hl":168,"tmax":40,"est":false,"name":"Semaglutide"},"serm2":{"hl":0.2,"tmax":0.1,"est":false,"name":"Sermorelin"},"nolv":{"hl":144,"tmax":5,"est":false,"name":"Tamoxifen"},"tb5":{"hl":48,"tmax":4,"est":true,"name":"TB-500"},"tbnouveau":{"hl":48,"tmax":4,"est":true,"name":"TB-500 Systemic Protocol"},"telmisartan":{"hl":24,"tmax":1,"est":false,"name":"Telmisartan"},"tesam":{"hl":0.6,"tmax":0.25,"est":false,"name":"Tesamorelin"},"tc":{"hl":144,"tmax":48,"est":false,"name":"Testosterone Cypionate"},"te":{"hl":108,"tmax":36,"est":false,"name":"Testosterone Enanthate"},"tprop":{"hl":19,"tmax":12,"est":false,"name":"Testosterone Propionate"},"thymalpha":{"hl":2,"tmax":1.5,"est":false,"name":"Thymosin Alpha-1"},"tirz":{"hl":120,"tmax":24,"est":false,"name":"Tirzepatide"}};
+
+function hlCalc() {
+  var id = document.getElementById('hl-compound').value;
+  var e = HL_PK[id];
+  var out = document.getElementById('hl-out');
+  if (!e) { out.innerHTML = ''; return; }
+  var perWeek = parseFloat(document.getElementById('hl-freq').value);
+  var interval = 168 / perWeek;
+  var days = parseFloat(document.getElementById('hl-days').value) || 28;
+  var f = pkCurve(e.hl, e.tmax);
+  var ss = steadyState(f, e.hl, interval);
+  var ttss = 5 * e.hl;
+  var doses = Math.max(1, Math.ceil((days * 24) / interval));
+  var g = repeated(f, interval, doses);
+  /* {x, y} points on a linear x scale rather than 300 category labels, so
+     Chart.js picks whole-day ticks instead of 4.34, 8.68, 13.02… */
+  var pts = [], single = [];
+  var n = 300, hours = days * 24;
+  for (var i = 0; i <= n; i++) {
+    var t = (i / n) * hours;
+    var day = round(t / 24, 3);
+    pts.push({ x: day, y: round(g(t), 4) });
+    single.push({ x: day, y: round(f(t), 4) });
+  }
+  drawChart(pts, single, days);
+  out.innerHTML =
+    row('Modelled half-life', fmtHours(e.hl) + (e.est ? ' <em>— estimated, limited human PK data</em>' : '')) +
+    row('Time to peak after a dose', fmtHours(e.tmax)) +
+    row('Dosing interval', fmtHours(interval)) +
+    row('Time to steady state', '~' + fmtHours(ttss) + ' (about five half-lives)') +
+    row('Accumulation vs one dose', ss.accumulation + '&times;') +
+    row('Peak-to-trough ratio', ss.cleared
+      ? 'not meaningful — the level clears between doses'
+      : ss.ratio + '&times;') +
+    '<div style="font-size:11px;color:var(--text3);line-height:1.55;margin-top:8px">' +
+    'Relative levels from a one-compartment model with the peak of a single dose set to 1 — ' +
+    'not concentrations. The shape is the useful part.</div>';
+  function row(k, v) {
+    return '<div style="display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:4px 0;border-top:1px solid var(--border)">' +
+      '<span style="color:var(--text2)">' + k + '</span>' +
+      '<span style="font-family:\'DM Mono\',monospace;color:var(--text);text-align:right">' + v + '</span></div>';
+  }
+}
+
+var hlChart = null;
+function drawChart(stacked, single, days) {
+  var cv = document.getElementById('hl-chart');
+  if (!cv || typeof Chart === 'undefined') return;
+  if (hlChart) hlChart.destroy();
+  hlChart = new Chart(cv.getContext('2d'), {
+    type: 'line',
+    data: {
+      datasets: [
+        { label: 'Repeated dosing', data: stacked, borderColor: '#4ade9a',
+          backgroundColor: 'rgba(74,222,154,0.12)', fill: true, borderWidth: 2,
+          pointRadius: 0, tension: 0.25 },
+        { label: 'One dose alone', data: single, borderColor: '#78859b',
+          borderDash: [4, 4], borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0.25 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: false,
+      parsing: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: '#8a95a3', boxWidth: 10, usePointStyle: false, font: { size: 11 } } },
+        tooltip: { callbacks: {
+          title: function (it) {
+            var d = it[0].parsed.x;
+            return d < 1 ? 'Hour ' + Math.round(d * 24) : 'Day ' + (Math.round(d * 10) / 10);
+          },
+          label: function (c) { return c.dataset.label + ': ' + c.parsed.y.toFixed(2) + '×'; }
+        } }
+      },
+      scales: {
+        x: { type: 'linear', min: 0, max: days,
+             title: { display: true, text: 'Days', color: '#78859b', font: { size: 11 } },
+             ticks: { color: '#78859b', maxTicksLimit: 10, font: { size: 10 },
+                      callback: function (v) { return v < 1 && v > 0 ? '' : String(v); } },
+             grid: { color: 'rgba(255,255,255,0.05)' } },
+        y: { beginAtZero: true,
+             title: { display: true, text: 'Relative level (one dose peak = 1)', color: '#78859b', font: { size: 11 } },
+             ticks: { color: '#78859b', font: { size: 10 } },
+             grid: { color: 'rgba(255,255,255,0.05)' } }
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () { hlCalc(); });
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://therapylog.app/tools/half-life-calculator/#page",
+      "url": "https://therapylog.app/tools/half-life-calculator/",
+      "name": "Half-life and steady-state calculator | TherapyLog",
+      "description": "Half-life, time to steady state, accumulation ratio and peak-to-trough swing for 50 PK-modelled compounds. Free, no account.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-03",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://therapylog.app/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Half-life calculator",
+            "item": "https://therapylog.app/tools/half-life-calculator/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

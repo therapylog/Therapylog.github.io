@@ -1,0 +1,34 @@
+name: Validate public pages
+on:
+  push:
+    paths:
+      - 'tools/**'
+      - 'markers/**'
+      - 'about/**'
+      - '404.html'
+      - 'sitemap.xml'
+      - 'llms.txt'
+      - 'app.html'
+      - 'pro.html'
+      - 'scripts/**'
+      - '.github/workflows/validate-public-pages.yml'
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      # The committed pages ARE the build output — GitHub Pages has no build
+      # step — so a stale page is a page that disagrees with the generator.
+      # This fails if the two differ, including the sitemap and llms.txt.
+      - name: The committed pages match the generator
+        run: node scripts/build-pages.js --check
+      # The load-bearing check: every calculator function a page inlines is
+      # compared byte for byte against app.html, and the calculators are then
+      # run against a DOM stub to prove the markup surgery did not break them.
+      # Plus the SEO-PLAN §9 compliance checklist, the Tier C policy against
+      # the inlined data, the sitemap, word minimums and sibling similarity.
+      - name: Structure, drift guard, tier policy and content gates
+        run: node scripts/validate-public-pages.js
