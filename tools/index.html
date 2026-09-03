@@ -7,53 +7,152 @@
 <meta name="description" content="Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email.">
 <meta name="author" content="Joel Gonzales">
 <link rel="canonical" href="https://therapylog.app/tools/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Free calculators for injectable protocols | TherapyLog"><meta property="og:description" content="Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email."><meta property="og:url" content="https://therapylog.app/tools/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Free calculators for injectable protocols | TherapyLog"><meta name="twitter:description" content="Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Free calculators for injectable protocols | TherapyLog"><meta property="og:description" content="Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email."><meta property="og:url" content="https://therapylog.app/tools/"><meta property="og:image" content="https://therapylog.app/assets/og/tools.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Free calculators for injectable protocols | TherapyLog"><meta name="twitter:description" content="Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email."><meta name="twitter:image" content="https://therapylog.app/assets/og/tools.png">
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0a0c0f;--surface:#111418;--surface2:#181c22;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
-  --accent:#4ade9a;--accent2:#3bc4ff;--warm:#f5a65b;
-  --text:#e8edf5;--text2:#a4adba;--text3:#6b7585;
-  --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
-body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 0%,rgba(74,222,154,0.05) 0%,transparent 60%);pointer-events:none;z-index:0}
-.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:calc(var(--safe-top) + 40px) 22px calc(var(--safe-bottom) + 60px)}
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
 .brand{margin-bottom:18px}
 .brand img{height:38px;display:block}
-.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.topnav a{color:var(--text3)}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
 .topnav a:hover{color:var(--text2)}
 .topnav a.cta{color:var(--accent)}
-h1{font-family:"DM Serif Display",serif;font-size:33px;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px}
-.lede{font-size:17px;color:var(--text2);margin-bottom:26px}
-.updated{font-size:13px;color:var(--text3);margin-bottom:30px}
-h2{font-family:"DM Serif Display",serif;font-size:22px;margin:38px 0 12px;color:var(--text)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
 h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
 p{margin-bottom:14px;color:var(--text2)}
 ul,ol{margin:0 0 16px 0;padding-left:22px}
 li{margin-bottom:9px;color:var(--text2)}
 strong{color:var(--text);font-weight:600}
-em{color:var(--text2)}
 a{color:var(--accent2);text-decoration:none}
 a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
 .callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
 .callout p:last-child{margin-bottom:0}
-.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
 .note p:last-child{margin-bottom:0}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
-.card h3{margin:0 0 6px;font-size:15px}
-.card p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
-.card .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
 .byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
 .byline strong{color:var(--text2)}
-.disclaimer{margin-top:26px;font-size:12.5px;color:var(--text3);line-height:1.65}
-.foot{margin-top:34px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
 .foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
 </style>
 <script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
 <body>
@@ -66,132 +165,196 @@ a:hover{text-decoration:underline}
       <a href="/guide">Guide</a>
       <a class="cta" href="/app">Open the app</a>
     </nav>
-
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; Tools</div>
     <h1>Free calculators for injectable protocols</h1>
-    <p class="lede">Reconstitution, syringe units, half-lives and steady state — the arithmetic
-    people do on the back of an envelope at the kitchen table, done properly. Free, no account,
-    no email.</p>
+
+    <p class="lede">Reconstitution, syringe units, half-lives and steady state — the
+    arithmetic people do on the back of an envelope at the kitchen table, done properly. Free,
+    no account, no email.</p>
+
     <div class="updated">Last reviewed: 3 September 2026</div>
 
     <h2>Why these exist</h2>
-    <p>Every one of these calculators already runs inside the TherapyLog app, where it is part
-    of the free tier. Putting them on their own pages is not a marketing exercise: the questions
-    they answer — <em>how much water goes in this vial</em>, <em>how many units is 2.5&nbsp;mg</em>,
-    <em>how long until this has cleared</em> — get asked by people holding a vial right now, and
-    the answers they find are usually a forum reply with no working shown.</p>
-    <p>So each page, as it ships, shows its working: the formula written out and one worked
-    example run through it with real numbers. And each calculator will run
-    <strong>the same code the app runs</strong> rather than a re-implementation of it — the
-    function source is copied out of the app when the page is built, and a check compares the
-    two so they cannot drift apart. The comment above that function in the app says why that
-    matters: a wrong number here ends up in a syringe.</p>
 
-    <h2>What is coming, and in what order</h2>
-    <p>These pages are being written and published one at a time. Nothing below is linked until
-    the page is actually live and has been read end to end.</p>
+    <p>Every one of these calculators already runs inside the TherapyLog app, where it is
+    part of the free tier. Putting them on their own pages is not a marketing exercise: the
+    questions they answer — <em>how much water goes in this vial</em>, <em>how many units is
+    2.5&nbsp;mg</em>, <em>how long until this has cleared</em> — get asked by people holding a
+    vial right now, and the answers they find are usually a forum reply with no working
+    shown.</p>
+
+    <p>So each page shows its working: the formula written out, and one worked example run
+    through it with real numbers. And each calculator runs <strong>the same code the app
+    runs</strong> rather than a re-implementation of it — the function source is copied out of
+    the app when this page is built, and a check in continuous integration compares the two so
+    they cannot drift apart. The comment above that function in the app says why it matters: a
+    wrong number here ends up in a syringe.</p>
+
+    <h2>The calculators</h2>
 
     <div class="cards">
-      <div class="card">
-        <h3>Peptide reconstitution calculator</h3>
-        <p>Vial strength, bacteriostatic water and target dose in; draw volume in units and ml
-        out, with a syringe diagram. Also runs backwards — tell it the dose you want and the
-        units you want to draw, and it solves for how much water to add.</p>
-        <span class="soon">In progress</span>
+      <div class="tcard">
+        <h3><a href="/tools/peptide-reconstitution-calculator/">Peptide reconstitution calculator</a></h3>
+        <p>Vial strength, bacteriostatic water and target dose in; the draw in units and ml out, with a syringe diagram. Also runs backwards — tell it the dose and the units you want to draw, and it solves for the water to add.</p>
       </div>
-      <div class="card">
-        <h3>Per-compound reconstitution pages</h3>
-        <p>The same calculator pre-filled for the compounds people ask about most, each with a
-        milligram-to-units ladder, the half-life the app models, and the storage rule once it is
-        mixed.</p>
-        <span class="soon">In progress</span>
+      <div class="tcard">
+        <h3><a href="/tools/insulin-syringe-units-calculator/">Insulin syringe unit converter</a></h3>
+        <p>Units to ml and back on U-100 syringes, with the half-unit rule, the barrel sizes and a table of the conversions people look up over and over.</p>
       </div>
-      <div class="card">
-        <h3>Insulin syringe unit converter</h3>
-        <p>Units to ml and back, for U-100 syringes, with the half-unit rounding rule and a table
-        of the conversions people look up over and over.</p>
-        <span class="soon">In progress</span>
+      <div class="tcard">
+        <h3><a href="/tools/trt-dose-calculator/">Testosterone dose calculator</a></h3>
+        <p>A weekly testosterone dose split by injection frequency, in mg, ml and syringe units, with the modelled peak-to-trough swing for cypionate, enanthate and propionate at that cadence.</p>
       </div>
-      <div class="card">
-        <h3>Testosterone dose calculator</h3>
-        <p>Weekly dose split by injection frequency, in mg, ml and syringe units, with the
-        modelled peak-to-trough swing for cypionate, enanthate and propionate at that cadence.</p>
-        <span class="soon">In progress</span>
+      <div class="tcard">
+        <h3><a href="/tools/free-testosterone-calculator/">Free testosterone calculator</a></h3>
+        <p>Calculated free and bioavailable testosterone from total T, SHBG and albumin by the Vermeulen equation, in whatever units your lab printed — and why the answer depends on the SHBG assay.</p>
       </div>
-      <div class="card">
-        <h3>Free testosterone calculator</h3>
-        <p>Calculated free and bioavailable testosterone from total testosterone, SHBG and
-        albumin, using the Vermeulen equation, with the units your lab actually prints and a
-        plain explanation of why the calculated number depends on the SHBG assay.</p>
-        <span class="soon">In progress</span>
+      <div class="tcard">
+        <h3><a href="/tools/half-life-calculator/">Half-life and steady-state calculator</a></h3>
+        <p>Single-dose and repeated-dose curves from published half-lives, plus time to steady state, accumulation ratio and peak-to-trough ratio for the interval you pick.</p>
       </div>
-      <div class="card">
-        <h3>Combined syringe planner</h3>
-        <p>Plan a multi-compound draw and see the fill level, with the compatibility rules the
-        app enforces: oil and water do not share a syringe, suspensions draw alone, fragile
-        proteins are not blended.</p>
-        <span class="soon">In progress</span>
+      <div class="tcard">
+        <h3><a href="/tools/syringe-builder/">Combined syringe planner</a></h3>
+        <p>Plan a multi-compound draw and see the fill level, with the compatibility rules the app enforces: oil and water do not share a syringe, suspensions draw alone, fragile proteins are not blended.</p>
       </div>
-      <div class="card">
-        <h3>Half-life calculator</h3>
-        <p>Single-dose and repeated-dose serum curves from published half-lives and
-        time-to-peak, plus time to steady state, accumulation ratio and peak-to-trough ratio for
-        the interval you pick. Estimated half-lives are labelled as estimates.</p>
-        <span class="soon">In progress</span>
-      </div>
-      <div class="card">
-        <h3>Per-compound half-life pages</h3>
-        <p>One page per compound with published pharmacokinetic data: the curve, the numbers, the
-        provenance, and what the monitoring panel for it usually includes.</p>
-        <span class="soon">In progress</span>
-      </div>
-      <div class="card">
-        <h3>Can you take X with Y</h3>
-        <p>A combination checker covering testosterone ancillaries, GLP-1 medications and
-        peptides, with every pair the app knows about listed and explained. Not a safety
-        clearance, and never exhaustive.</p>
-        <span class="soon">In progress</span>
+      <div class="tcard">
+        <h3><a href="/tools/stack-checker/">Can you take these together?</a></h3>
+        <p>Every interaction pair the app knows about, by severity, with what to watch. Not exhaustive and not a safety clearance.</p>
       </div>
     </div>
+
+    <h2>Per-compound pages</h2>
+
+    <p><strong>Reconstitution, pre-filled:</strong> the same calculator started at that
+    compound's typical vial sizes, with a milligram-to-units table, the modelled half-life and
+    the storage rule — <a href="/tools/semaglutide-reconstitution-calculator/">Semaglutide</a>, <a href="/tools/tirzepatide-reconstitution-calculator/">Tirzepatide</a>, <a href="/tools/retatrutide-reconstitution-calculator/">Retatrutide</a>, <a href="/tools/bpc-157-reconstitution-calculator/">BPC-157</a>, <a href="/tools/tb-500-reconstitution-calculator/">TB-500</a>.</p>
+
+    <p><strong>Half-life and steady state:</strong> one page per compound with published
+    pharmacokinetic data, each with the curve pre-drawn, the numbers, where they come from, and
+    the monitoring panel the app records — <a href="/tools/half-life/semaglutide/">Semaglutide</a>, <a href="/tools/half-life/tirzepatide/">Tirzepatide</a>, <a href="/tools/half-life/retatrutide/">Retatrutide</a>, <a href="/tools/half-life/testosterone-cypionate/">Testosterone Cypionate</a>, <a href="/tools/half-life/testosterone-enanthate/">Testosterone Enanthate</a>, <a href="/tools/half-life/bpc-157/">BPC-157</a>, <a href="/tools/half-life/tb-500/">TB-500</a>, <a href="/tools/half-life/cjc-1295/">CJC-1295</a>, <a href="/tools/half-life/ipamorelin/">Ipamorelin</a>, <a href="/tools/half-life/tesamorelin/">Tesamorelin</a>, <a href="/tools/half-life/hcg/">HCG</a>, <a href="/tools/half-life/enclomiphene/">Enclomiphene</a>, <a href="/tools/half-life/anastrozole/">Anastrozole</a>, <a href="/tools/half-life/sermorelin/">Sermorelin</a>, <a href="/tools/half-life/mk-677/">MK-677 / Ibutamoren</a>.</p>
 
     <h2>What a calculator can and cannot tell you</h2>
-    <div class="callout">
-      <p>A calculator does the arithmetic you typed and nothing else. It does not know what is
-      actually in your vial, whether the label is accurate, or anything about you. Confirm the
-      vial strength and the diluent volume on your own label before you draw, and take dosing
-      decisions to a qualified provider — these pages exist to make the arithmetic reliable,
-      not to make the decision.</p>
-    </div>
-    <p>Serum-level curves are modelled from published half-lives and time-to-peak values, not
-    measured in you. Where the published data is thin, the page says the half-life is an
-    estimate rather than presenting it as fact.</p>
+
+    <p>Serum-level curves are modelled from published half-lives and time-to-peak values,
+    not measured in you. Where the published data is thin, the page says the half-life is an
+    estimate rather than presenting it as fact. And none of these pages decides a dose: they
+    make the arithmetic reliable, which is a different job.</p>
 
     <h2>Reading your bloodwork instead</h2>
-    <p>If what you actually want is help reading a lab report — what the number means, which
-    assay produced it, and why two labs can disagree about the same blood — that is what the
-    <a href="/markers/">lab-marker pages</a> are for.</p>
 
+    <p>If what you actually want is help reading a lab report — what the number means,
+    which assay produced it, and why two labs can disagree about the same blood — that is what
+    the <a href="/markers/">lab-marker pages</a> are for.</p>
+
+    <div class="cta-box">
+      <p>The app is where these calculators live alongside the log they feed: doses, vials, bloodwork and the curve for everything you have entered.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=tools-hub"
+         id="tl-cta" data-campaign="tools-hub">Open the app</a>
+    </div>
     <div class="byline">
       <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
-      Last reviewed 3 September 2026. How these pages are written, sourced and corrected:
+      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
       <a href="/about/">editorial policy</a>.</p>
     </div>
-
-    <div class="disclaimer">
-      TherapyLog is an informational tracking tool and is not a substitute for professional
-      medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider
-      before starting, changing, or stopping any medical protocol.
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
     </div>
-
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
     <div class="foot">
-      TherapyLog LLC · Floresville, Texas ·
-      <a href="/privacy">Privacy Policy</a> ·
-      <a href="/health-data-privacy">Consumer Health Data</a> ·
-      <a href="/terms">Terms of Use</a> ·
-      <a href="/about/">About</a> ·
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
       <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
     </div>
   </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
 
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -227,12 +390,16 @@ a:hover{text-decoration:underline}
       "@id": "https://therapylog.app/tools/#page",
       "url": "https://therapylog.app/tools/",
       "name": "Free calculators for injectable protocols | TherapyLog",
-      "description": "Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account.",
+      "description": "Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email.",
+      "inLanguage": "en-US",
       "isPartOf": {
         "@id": "https://therapylog.app/#website"
       },
       "author": {
         "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
       },
       "dateModified": "2026-09-03",
       "breadcrumb": {

@@ -1,0 +1,114 @@
+{
+  "/tools/": {
+    "hash": "e348aad86dffef4dea8db087ae347b4e6839c93984c4e58c6ec7c6f6475cc09e",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/bpc-157-reconstitution-calculator/": {
+    "hash": "51d69543053f6435a8e5eb329ae3453887800e7f5fe9f04a59d258a5df220d0c",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/free-testosterone-calculator/": {
+    "hash": "e5258fdb0e4da74f738ec7e1f64406dec5638bd45941dca640f82ccde06aa2ad",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life-calculator/": {
+    "hash": "b164e0ee474c2c0bea0f3d19c7af29d35d799e4f17a0016774149e60cb952ec9",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/anastrozole/": {
+    "hash": "504ddc369eb1047691d3031dfa18a118a15225af6dfe25c7cdcab85f21c1ff02",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/bpc-157/": {
+    "hash": "f53ca473ce64320d3bddce1f8016c0fb72985d40f84cf48ca19b8c086d0e375f",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/cjc-1295/": {
+    "hash": "112b1d6cc94bed0d24e9039f953df6824bc509e4fa9317c20b935106e8ef3d2c",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/enclomiphene/": {
+    "hash": "eb803b7bdcaefeba9cd5286943159817f33e1d9fba6ca0c663c6813c6b4d463e",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/hcg/": {
+    "hash": "368c736cdfef99f3fcd638f6304bf175125d3e5c882c22e81e753e1cd26c8f97",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/ipamorelin/": {
+    "hash": "8553c44e7ef529f25a03bc8b3d63d93490d13256b463ef9b53b9fac73fc30804",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/mk-677/": {
+    "hash": "3afda95681fb7542ee403cf2440930122590c997bfabaf1e770510d88d093e68",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/retatrutide/": {
+    "hash": "a32bbe1dc4c7dee60a03f0e8a80fbd2055d019e52d7281c7d19733902b69d3e9",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/semaglutide/": {
+    "hash": "f2974d7909cb21bc6b8de3e4b336965fe2511351d07301d6d90136bcb1f09287",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/sermorelin/": {
+    "hash": "5c6a1a6d059fc45c2d4d2c2bd7b91a4fbcba35103fc6dd13bc3963481fadabe3",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/tb-500/": {
+    "hash": "d569050ff7df7753135198fe2bf4b01c95e0e8c6d6c88fc677e91647d9f537f6",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/tesamorelin/": {
+    "hash": "787a50f196c980cfd17293aefb9f123010bd37598daa6184c54cdb49f98c89d9",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/testosterone-cypionate/": {
+    "hash": "1998ddb95d6aa368a9f3fb5b5b08bb65e48cfd57d0bc9a8a8f7c00cb2db2d962",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/testosterone-enanthate/": {
+    "hash": "65890e823d9866f73daba734da7a0bafa853458f0919425ba2d4119d2d81b5a1",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/half-life/tirzepatide/": {
+    "hash": "de30c0e0ceef1672b486d3ef8ba8483e5fa42f02b8871b62f4537372c72c0838",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/insulin-syringe-units-calculator/": {
+    "hash": "85c49dba2b976931b1fb77c39ac53e6fdfa8cc66c1fed287fa35e10a69096801",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/peptide-reconstitution-calculator/": {
+    "hash": "ea9e5ae34c65291d1fef5ce974191c00025d2af1143dbde50407aa483b7c22c6",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/retatrutide-reconstitution-calculator/": {
+    "hash": "b5c246b5365412a27f0a55864bed7c9cd3b57980e7affc21d4d05487a140f6ca",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/semaglutide-reconstitution-calculator/": {
+    "hash": "0cdc0042b951b7a86523587f76dc7c5744b9c5ddd56ac04b91684824ef9b46fa",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/stack-checker/": {
+    "hash": "a7e400ded58a1a752053d80a79ba900da23de0e26f5b5b6ad01b52518b1085cd",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/syringe-builder/": {
+    "hash": "dfc32f07dbdfa25e4e5f98eb95d2aac4f62a0371d8d9dffd20936969be5de8cb",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/tb-500-reconstitution-calculator/": {
+    "hash": "9a31d8d16e9005c505f28f4b0f9b0ed090b42f6c84fe3e0c6b6e692aa878162c",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/tirzepatide-reconstitution-calculator/": {
+    "hash": "39cdb22626c7d77db3d57c91379ad01befc0aa7ea55cba5b162256cdf322feb3",
+    "lastmod": "2026-09-03"
+  },
+  "/tools/trt-dose-calculator/": {
+    "hash": "3b198ba79fea6b5b9b9090ee40e15782aff7d115ffdb5925dde8dda59ff44256",
+    "lastmod": "2026-09-03"
+  }
+}

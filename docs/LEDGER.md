@@ -453,6 +453,106 @@ Implements `docs/SEO-PLAN.md` §4. Ships on its own; nothing here waits on Phase
   nothing is stubbed in the repo waiting to be wrong. First thing to check once
   verified: whether *any* therapylog.app URL is indexed.
 
+**SEO Phase 1 — the /tools/ pages and the generator (3 Sep 2026)**
+
+Implements `docs/SEO-PLAN.md` §5. **28 generated pages**, all committed as
+output because GitHub Pages has no build step.
+
+- **`scripts/build-pages.js` is the generator**, with `scripts/lib/app-source.js`
+  as the shared extractor and `scripts/page-templates/` as the templates. It
+  lifts out of `app.html` at build time: `DB`, `TL_PK`, `SYR_SIZES`,
+  `TL_STORAGE`, `TL_FORM`, `SIDEFX`, `PK_COLORS`, the three interaction arrays
+  merged the way the app merges them, the marker registry through
+  `validate-markers.js`'s own harness, the `#tool-calc` markup, the syringe
+  builder's markup (a template literal inside `tlFeaturesInit`, lifted and
+  rendered with the real `SYR_SIZES`), the CSS rules the widgets need — and
+  **19 functions as source text**. Multi-selector CSS rules are *narrowed*
+  rather than dropped, so `.card,.li,.sdc,.gb,…` contributes `.card` without
+  dragging app chrome onto a public page.
+- **The pages run the app's code, not a copy of it.** That is the load-bearing
+  claim and it is now mechanically enforced: `validate-public-pages.js` compares
+  every inlined function against `app.html` byte for byte (**60 copies across
+  the pages**), and then *runs* each page's script in a DOM stub and checks the
+  numbers — because a function can match perfectly and still be broken by the
+  markup surgery around it. It also re-derives **every published
+  milligram-to-units row** by calling the app's real `calcUnified()`, so a
+  static table cannot disagree with the calculator printed above it.
+  `pro.html`'s first-touch attribution snippet is lifted the same way rather
+  than pasted.
+- **What shipped:** the `/tools/` hub; the reconstitution calculator plus five
+  compound versions (semaglutide, tirzepatide, retatrutide, BPC-157, TB-500)
+  each with an mg-to-units ladder; the insulin syringe unit converter; the
+  testosterone dose calculator; the free testosterone calculator (Vermeulen
+  1999, constants printed on the page); the combined syringe planner; the
+  half-life and steady-state calculator (Chart.js from `/vendor`); **15
+  per-compound half-life pages** with the curves pre-rendered as inline SVG
+  from the app's own `pkCurve()` so a crawler sees them without JS; and the
+  combination checker at `/tools/stack-checker/` with **45 pairs** — the app's
+  50 minus the 5 that name a Tier C compound. Note for anyone reading
+  `SEO-PLAN.md` §5.3: it predicts 46, having counted four Tier C *compounds*
+  (Nandrolone Decanoate, Cardarine, RAD-140, Ligandrol) as four pairs. Cardarine
+  appears in two of them, so five pairs drop. The filter is right and the plan's
+  arithmetic was not.
+- **Tier C never reaches a public page**, and the check is against the *inlined
+  data* rather than a substring search, because `card` is Cardarine's id and
+  also the `.card` CSS class the app's own markup emits. The validator parses
+  each page's inlined arrays and reads the rendered compound names and
+  `<option>` lists. Eight interaction names carry parentheticals matching no DB
+  name or aka ("Cardarine (GW-501516)", "Natural Desiccated Thyroid (NDT)" and
+  the like); they are hand-mapped in `app-source.js` and a name that stops
+  resolving **fails the build** rather than quietly letting a pair through.
+- **Determinism.** Nothing reads the clock except the one thing that must —
+  a page's review date. Pages render with `@@DATE@@` placeholders, get hashed,
+  then stamped from the committed `scripts/page-dates.json`, so a date changes
+  only when that page's content does and `--check` never depends on today.
+  `build-pages.js --check` runs in CI.
+- **Content gates.** `validate-public-pages.js` enforces a per-page authored-word
+  minimum (200 for compound pages, 250 for tool pages, 400 for `/about/`, 600
+  reserved for marker pages) counted outside the widget, formula, table, caption
+  and footer blocks — plus a **sibling-similarity ceiling** on 5-word shingles,
+  so two compound variants cannot ship with near-identical prose. That is the
+  defence against a thin-content classification, and it is a check rather than
+  an intention.
+- **`scripts/ui-check-tools.js`** drives all 28 pages in a real browser —
+  page errors, 4xx requests, sideways scroll at 390px, and every widget worked
+  the way a visitor would work it, including that a short-acting compound at a
+  long interval reports *no* peak-to-trough ratio and that the share card's text
+  is not mangled. Manual like the other `ui-check-*` scripts (Playwright is not
+  in CI, and there is no install step), and it skips cleanly without
+  `playwright-core`. It is the layer that caught bug 1 below.
+- **Two bugs worth recording**, both found by verification rather than by
+  reading:
+  1. The syringe page inserted the widget *object* instead of its HTML, so the
+     planner was absent while every other check passed. Found by driving the
+     page in Chromium.
+  2. The share-card script is emitted from a JS template literal, where a
+     single-backslash `\s` is just `s` — so the page shipped
+     `replace(/s+/g, ' ')` and the card's subtitle lost **every letter s**. The
+     drift guard could not see it (the function text was fine), the script
+     parsed, and the DOM stub never renders the card. Found by looking at the
+     PNG. There is now a validator check for that whole bug class: a bare
+     escape letter with a quantifier in an emitted regex.
+- **Share cards.** Every generated page renders a 1200×630 card at `?og=1`,
+  built from its own `<h1>` and lede so it cannot say something the page does
+  not; `scripts/capture-og-shots.js` screenshots them to `assets/og/` and skips
+  cleanly when `playwright-core` is absent, like the other capture scripts. The
+  generator points a page at its own card when the PNG is committed and at the
+  shared `icons/og-image.png` when it is not, and the validator fails if any
+  `og:image` 404s.
+- **`sitemap.xml` and `llms.txt` are generated now**, not hand-written. Generated
+  pages carry `<lastmod>`; the hand-written ones deliberately do not.
+- **Validator page lists are globs, not lists.** `validate-compliance.js`,
+  `validate-claims.js` and `validate-encyclopedia.js` rule 9 walk
+  `about/`, `tools/` and `markers/`, so a page is covered the moment it is
+  generated rather than when someone remembers to add it. New workflow
+  `.github/workflows/validate-public-pages.yml` runs `build-pages --check` and
+  the new validator.
+- **Linked from where it matters:** both feature headings on the home page, the
+  guide's reconstitution section, and the support FAQ.
+- **Owner action after deploy:** `node scripts/indexnow-submit.js` to push the
+  28 new URLs to Bing and friends. Google picks them up from the sitemap and
+  internal links only.
+
 **Known not-shipped**
 - No art assets have been generated. Every `assets/art/*.png` returns 404.
   Prompts are ready; images are not. (`favicon.ico` shipped with the 2026-08
@@ -526,12 +626,12 @@ The Focus board holds the working sequence. This is the summary.
    owner in a browser:** the Search Console Domain property (DNS TXT) with the
    sitemap submitted, and the Bing import plus IndexNow key confirmation.
    Indexation lags 4–8 weeks, so do those now rather than with Phase 1.
-3a. **SEO Phase 1** (`docs/SEO-PLAN.md` §5): `scripts/build-pages.js` generates
-   `/tools/` pages from the calculators already in `app.html` — reconstitution
-   (plus compound-specific variants), insulin-syringe units, syringe builder,
-   half-life calculator plus per-compound half-life pages, stack checker — with
-   the app's own function source inlined at build time and a validator that
-   fails on drift. Tier C compounds (AAS, SARMs, PCT) never get public pages.
+3a. ~~**SEO Phase 1** (`docs/SEO-PLAN.md` §5).~~ **Done 3 Sep 2026** — see §2.
+   28 pages under `/tools/`, generated by `scripts/build-pages.js` with the
+   app's own function source inlined and a byte-for-byte drift guard plus a
+   DOM-stub execution check in CI. Tier C never reaches a public page, checked
+   against the inlined data. Submit the new URLs with
+   `node scripts/indexnow-submit.js` after the deploy.
 3b. **SEO Phase 2** (`docs/SEO-PLAN.md` §6): fifteen lab-marker pages, five a
    week, authored under the founder's byline with a generated fact box.
    Search-landscape check (3 Sep 2026): no tracker app has assay-aware marker

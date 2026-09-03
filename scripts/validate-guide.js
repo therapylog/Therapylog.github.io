@@ -52,6 +52,18 @@ for (const m of guide.matchAll(/href="(?:https:\/\/therapylog\.app)?(\/[a-z-]*)"
   if (routes[r]) need(exists(routes[r]), `guide links to ${r} but ${routes[r]} is missing`);
 }
 
+/* Folder-style routes — /about/, /tools/, /tools/<slug>/ — which the pattern
+   above deliberately does not match, because the trailing slash falls outside
+   its character class. The guide links the generated calculator pages now, so
+   they get checked the same way: the folder has to hold an index.html. A link
+   to a page that was never generated is a 404 in the manual a paying customer
+   reads first. */
+for (const m of guide.matchAll(/href="(?:https:\/\/therapylog\.app)?(\/(?:[a-z0-9-]+\/)+)"/g)) {
+  const r = m[1];
+  need(exists(r.slice(1) + 'index.html'),
+       `guide links to ${r}, but ${r.slice(1)}index.html does not exist`);
+}
+
 /* ── counts must match what the app ships ───────────────────────────────── */
 const regStart = app.indexOf('/* MARKER-REGISTRY:START');
 const regEnd = app.indexOf('/* MARKER-REGISTRY:END');

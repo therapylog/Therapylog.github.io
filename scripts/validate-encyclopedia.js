@@ -116,7 +116,17 @@ else {
    is a failure, not a pass. A blanket existsSync skip would have quietly
    disabled this rule for every page it was written to guard. */
 const RULE9_REQUIRED = ['app.html', 'index.html', 'marketing.html', 'download.html', 'pro.html'];
-const RULE9_WHEN_PRESENT = ['about/index.html', 'tools/index.html', 'markers/index.html', '404.html'];
+const walkRefs = (dir, out = []) => {
+  const abs = path.join(ROOT, dir);
+  if (!fs.existsSync(abs)) return out;
+  for (const e of fs.readdirSync(abs, { withFileTypes: true })) {
+    if (e.isDirectory()) walkRefs(dir + '/' + e.name, out);
+    else if (e.name === 'index.html') out.push(dir + '/' + e.name);
+  }
+  return out;
+};
+const RULE9_WHEN_PRESENT = ['404.html']
+  .concat(['about', 'tools', 'markers'].flatMap((d) => walkRefs(d)).sort());
 RULE9_REQUIRED.forEach((f) => {
   if (!fs.existsSync(path.join(ROOT, f))) fail(`rule 9: ${f} is missing — the count guard cannot run`);
 });

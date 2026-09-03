@@ -19,15 +19,28 @@ const t = (name, pass, detail) => results.push([pass, name, detail || '']);
 /* Pages a visitor can reach. The internal Marketing Suite is excluded — it is
    PIN-gated and never shown to a customer — and add-partner.html is the
    operator's own listing generator. */
+/* Every index.html under these folders, so a page added by
+   scripts/build-pages.js is covered the moment it is generated rather than
+   when someone remembers to list it here. */
+const walk = (dir, out = []) => {
+  const abs = path.join(root, dir);
+  if (!fs.existsSync(abs)) return out;
+  for (const e of fs.readdirSync(abs, { withFileTypes: true })) {
+    if (e.isDirectory()) walk(dir + '/' + e.name, out);
+    else if (e.name === 'index.html') out.push(dir + '/' + e.name);
+  }
+  return out;
+};
+const REFERENCE_PAGES = ['about', 'tools', 'markers'].flatMap((d) => walk(d)).sort();
+
 const PUBLIC = ['index.html', 'download.html', 'pro.html', 'guide.html',
                 'partnership.html', 'privacy.html', 'terms.html',
                 'health-data-privacy.html', 'directory/index.html',
                 'providers/index.html', 'providers/apply.html',
-                /* Reference pages published under the founder's byline. The
-                   author page ships first because every later page links it. */
-                'about/index.html', 'tools/index.html', 'markers/index.html',
                 /* Reachable by definition, and it carries the legal links. */
-                '404.html'];
+                '404.html']
+  /* Reference pages published under the founder's byline. */
+  .concat(REFERENCE_PAGES);
 
 /* ---- 1. Legal links reachable from every public page -------------------- */
 /* Both forms are in use across the site: root-relative on index, absolute
@@ -58,8 +71,8 @@ const BANNED = [
 ];
 ['directory/index.html', 'providers/index.html', 'providers/apply.html',
  'directory/add-partner.html', 'directory/providers-data.js',
- 'app.html', 'index.html',
- 'about/index.html', 'tools/index.html', 'markers/index.html', '404.html'].forEach((rel) => {
+ 'app.html', 'index.html', '404.html']
+  .concat(REFERENCE_PAGES).forEach((rel) => {
   const src = read(rel);
   if (src === null) return;
   BANNED.forEach(([re, why]) => {

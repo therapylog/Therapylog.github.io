@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Free testosterone calculator (Vermeulen) | TherapyLog</title>
+<meta name="description" content="Calculated free and bioavailable testosterone from total T, SHBG and albumin by the Vermeulen equation, in your lab’s units — and why the SHBG assay changes it.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/tools/free-testosterone-calculator/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Free testosterone calculator (Vermeulen) | TherapyLog"><meta property="og:description" content="Calculated free and bioavailable testosterone from total T, SHBG and albumin by the Vermeulen equation, in your lab’s units — and why the SHBG assay changes it."><meta property="og:url" content="https://therapylog.app/tools/free-testosterone-calculator/"><meta property="og:image" content="https://therapylog.app/assets/og/free-testosterone-calculator.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Free testosterone calculator (Vermeulen) | TherapyLog"><meta name="twitter:description" content="Calculated free and bioavailable testosterone from total T, SHBG and albumin by the Vermeulen equation, in your lab’s units — and why the SHBG assay changes it."><meta name="twitter:image" content="https://therapylog.app/assets/og/free-testosterone-calculator.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Free testosterone</div>
+    <h1>Free testosterone calculator</h1>
+
+    <p class="lede">Calculated free and bioavailable testosterone from total testosterone,
+    SHBG and albumin, by the Vermeulen equation — in whatever units your lab printed. Free, no
+    account.</p>
+
+    <div class="updated">Last reviewed: 3 September 2026</div>
+
+    <p>Most of the testosterone in your blood is not available to your tissues. Roughly
+    two-thirds is bound tightly to <strong>sex hormone binding globulin</strong>, most of the
+    rest is bound loosely to <strong>albumin</strong>, and a couple of per cent circulates
+    free. Because SHBG varies enormously between people — and moves with thyroid status,
+    insulin, alcohol, oestrogen and age — two men with the same total testosterone can have
+    substantially different free levels. That is the entire reason this calculation exists.</p>
+
+    <p>Worked through: <strong>600 ng/dL total, SHBG 30 nmol/L, albumin 4.3 g/dL</strong>
+    gives a calculated free testosterone of about <strong>13.4 ng/dL — 134 pg/mL, or 2.2% of
+    total</strong>, and a bioavailable testosterone of roughly <strong>325 ng/dL</strong>. Hold
+    the total at 600 and raise SHBG to 60 and the free figure falls by close to a third,
+    without the total moving at all.</p>
+
+    <div class="widget">
+      <div class="card">
+        <div class="card-title">Calculated free and bioavailable testosterone</div>
+        <div class="ig"><label class="il" for="ft-total">Total testosterone</label>
+          <div style="display:flex;gap:8px">
+            <input type="number" id="ft-total" value="600" step="any" oninput="ftCalc()" style="flex:1">
+            <select id="ft-total-unit" onchange="ftCalc()" style="width:104px;flex:none"><option value="ng/dL" selected>ng/dL</option><option value="nmol/L">nmol/L</option><option value="ng/mL">ng/mL</option></select>
+          </div></div>
+        <div class="ig"><label class="il" for="ft-shbg">SHBG</label>
+          <div style="display:flex;gap:8px">
+            <input type="number" id="ft-shbg" value="30" step="any" oninput="ftCalc()" style="flex:1">
+            <select id="ft-shbg-unit" onchange="ftCalc()" style="width:104px;flex:none"><option value="nmol/L" selected>nmol/L</option><option value="ug/mL">ug/mL</option><option value="mcg/mL">mcg/mL</option></select>
+          </div></div>
+        <div class="ig"><label class="il" for="ft-alb">Albumin <span style="font-weight:400;color:var(--text3)">(4.3 g/dL is the usual default)</span></label>
+          <div style="display:flex;gap:8px">
+            <input type="number" id="ft-alb" value="4.3" step="any" oninput="ftCalc()" style="flex:1">
+            <select id="ft-alb-unit" onchange="ftCalc()" style="width:104px;flex:none"><option value="g/dL" selected>g/dL</option><option value="g/L">g/L</option></select>
+          </div></div>
+        <div id="ft-out"></div>
+      </div>
+    </div>
+
+    <h2>The equation, and where it comes from</h2>
+
+    <p>This is the Vermeulen equation, published in 1999 and still the calculation most
+    laboratories and clinical calculators use. It treats binding to SHBG and albumin as two
+    equilibria and solves for the free concentration that satisfies both.</p>
+
+    <div class="formula">N   =  1 + Kalb × [albumin]<br>N·Kshbg·FT²  +  (N + Kshbg·([SHBG] − [T]))·FT  −  [T]  =  0<br>FT  =  ( −b + √(b² − 4ac) ) ÷ 2a      with a = N·Kshbg, b = N + Kshbg·([SHBG] − [T]), c = −[T]<br>bioavailable T  =  FT × N<br><br>Kalb   =  3.6 × 10⁴ L/mol        Kshbg  =  1.0 × 10⁹ L/mol<br>albumin molar mass  =  66,500 g/mol<br>unit factor: nmol/L × 28.84 = ng/dL;  ng/dL × 10 = pg/mL</div>
+
+    <p>The constants are printed above rather than buried, because they are what a reader
+    would need to check the arithmetic — and because different published implementations use
+    slightly different association constants and albumin molar masses, which is one reason two
+    online calculators can disagree by a few per cent on the same inputs. Source: Vermeulen A,
+    Verdonck L, Kaufman JM. <em>A critical evaluation of simple methods for the estimation of
+    free testosterone in serum.</em> J Clin Endocrinol Metab 1999;84(10):3666–72
+    (<a href="https://doi.org/10.1210/jcem.84.10.6079" rel="nofollow">doi:10.1210/jcem.84.10.6079</a>).</p>
+
+    <h2>Why the calculated value depends on the SHBG assay</h2>
+
+    <p><span class="ev ev-est">Established clinical use</span> A calculated free testosterone is only as good as the three
+    numbers going into it, and SHBG is the one that carries the most weight. The registry note
+    the app uses for free testosterone puts it plainly: <em>direct immunoassay free T is
+    unreliable; equilibrium dialysis is the reference method; calculated values depend on the
+    SHBG assay.</em></p>
+
+    <p>Three practical consequences. First, a calculated free testosterone from one lab and
+    a calculated one from another are not interchangeable if their SHBG platforms differ —
+    SHBG immunoassays are not harmonised the way many analytes are. Second, a
+    <strong>direct immunoassay</strong> free testosterone (sometimes just labelled "free
+    testosterone" with no method) is a different measurement again, and generally a worse one;
+    it is not what this page computes. Third, <strong>equilibrium dialysis</strong> remains the
+    reference method, and where a free level is genuinely decision-relevant — a total in range
+    with symptoms that are not, or an unusually high or low SHBG — that is the test worth
+    asking for rather than a calculation.</p>
+
+    <p>The total testosterone assay matters too. The app's registry note for it:
+    <em>LC/MS-MS and immunoassay diverge materially at low concentrations; do not trend across
+    methods without flagging the switch.</em> Feeding an immunoassay total into this equation
+    and comparing the answer with a calculation from an LC/MS-MS total is comparing two
+    different things.</p>
+
+    <h2>Reading the result</h2>
+
+    <div class="facts">
+      <dl>
+        <dt>Generic reference range, free T</dt><dd>8&ndash;25 pg/mL &mdash; male default. <em>The range printed on your own report belongs to the assay that produced your number and wins over this one.</em></dd>
+        <dt>Optimal band, free T</dt><dd>15&ndash;25 pg/mL &mdash; <strong>non-diagnostic</strong>. Drawn from clinical literature and community practice for reading a trend over time; being outside it is not a finding.</dd>
+        <dt>Generic reference range, total T</dt><dd>300&ndash;1000 ng/dL (male default)</dd>
+        <dt>Generic reference range, SHBG</dt><dd>10&ndash;57 nmol/L</dd>
+        <dt>What this does not do</dt><dd>Diagnose anything. A calculated free testosterone is one input to a clinical picture that also includes symptoms, an examination, and the rest of the panel. Take the number to the clinician who ordered it.</dd>
+      </dl>
+    </div>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>Which is better, calculated or direct free testosterone?</h3>
+    <p>Calculated, in almost every case where equilibrium dialysis is not available. Direct
+         (analog) immunoassay free testosterone has been criticised for decades for tracking
+         total testosterone and SHBG poorly, and several professional bodies advise against it.
+         Calculated free testosterone from a reliable total and SHBG agrees far better with
+         equilibrium dialysis. Where the stakes are high, ask for the dialysis method.</p>
+    <h3>What albumin should I enter if I do not have one?</h3>
+    <p>4.3 g/dL (43 g/L) is the conventional default and the value most published calculators
+         assume. Albumin varies much less between healthy people than SHBG does, so the error
+         it introduces is small — but if you have a real albumin on the same panel, use it.
+         Genuinely low albumin, as in liver or kidney disease, changes the answer materially
+         and is a reason to use the measured value.</p>
+    <h3>Why is my free testosterone low when my total is normal?</h3>
+    <p>High SHBG is the usual explanation, and it is exactly what this calculation is for.
+         SHBG rises with thyroid hormone excess, oestrogen, some anticonvulsants, liver
+         disease, low insulin and age; it falls with insulin resistance, obesity,
+         hypothyroidism and androgen exposure. A total in the middle of the range with a
+         high SHBG can leave a free level near the bottom of it. What to do about that is a
+         clinical question — the value of the calculation is that it makes the discrepancy
+         visible instead of invisible.</p>
+    <h3>Does this work for women?</h3>
+    <p>The equation is not sex-specific and the arithmetic is the same, but the reference
+         ranges quoted on this page are male defaults and would be badly misleading applied to
+         a female result. The app applies sex-aware ranges with age banding; this page does
+         not, and a female free testosterone should be read against a female interval from the
+         lab that ran it.</p>
+
+    <p>Related: <a href="/tools/trt-dose-calculator/">testosterone dose calculator</a>, and
+    the <a href="/markers/">lab-marker pages</a> for free versus total testosterone, SHBG and
+    the assay questions behind both.</p>
+
+    <div class="cta-box">
+      <p>The app stores total testosterone, SHBG, albumin and the assay method for each together, flags each against your own lab’s printed range, and charts the trend.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=free-testosterone-calculator"
+         id="tl-cta" data-campaign="free-testosterone-calculator">Log this panel in the app</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+
+var FT_UNITS = {"total":{"ng/dL":1,"nmol/L":28.84,"ng/mL":100},"shbg":{"nmol/L":1,"ug/mL":10.5,"mcg/mL":10.5},"alb":{"g/dL":1,"g/L":0.1}};
+
+var FT_REF = {"freet":{"name":"Free T","unit":"pg/mL","lo":8,"hi":25,"olo":15,"ohi":25},"tott":{"name":"Total T","unit":"ng/dL","lo":300,"hi":1000,"olo":500,"ohi":900},"shbg":{"name":"SHBG","unit":"nmol/L","lo":10,"hi":57}};
+
+/* Vermeulen A, Verdonck L, Kaufman JM. J Clin Endocrinol Metab 1999;84(10):3666-72.
+   Free testosterone solves N·Kshbg·FT² + (N + Kshbg·(SHBG − T))·FT − T = 0,
+   where N = 1 + Kalb·[albumin]. Bioavailable testosterone is FT × N — free plus
+   the loosely albumin-bound fraction. */
+var VT_KALB = 3.6e4;      /* L/mol, testosterone-albumin association constant */
+var VT_KSHBG = 1.0e9;     /* L/mol, testosterone-SHBG association constant */
+var VT_ALB_MW = 66500;    /* g/mol */
+var VT_NGDL_PER_NMOL = 28.84;  /* MARKER_REGISTRY tott: nmol/L × 28.84 = ng/dL */
+
+function tlVermeulen(totalNgDl, shbgNmol, albGdl) {
+  if (!(totalNgDl > 0) || !(shbgNmol > 0) || !(albGdl > 0)) return null;
+  var T = (totalNgDl / VT_NGDL_PER_NMOL) * 1e-9;   /* mol/L */
+  var S = shbgNmol * 1e-9;                         /* mol/L */
+  var alb = (albGdl * 10) / VT_ALB_MW;             /* g/dL -> g/L -> mol/L */
+  var N = 1 + VT_KALB * alb;
+  var a = N * VT_KSHBG;
+  var b = N + VT_KSHBG * (S - T);
+  var c = -T;
+  var disc = b * b - 4 * a * c;
+  if (!(disc >= 0)) return null;
+  var FT = (-b + Math.sqrt(disc)) / (2 * a);       /* mol/L */
+  var freeNgDl = FT * 1e9 * VT_NGDL_PER_NMOL;
+  return {
+    freeNgDl: freeNgDl,
+    freePgMl: freeNgDl * 10,                        /* registry freet: ng/dL × 10 = pg/mL */
+    freePct: (FT / T) * 100,
+    bioNgDl: FT * N * 1e9 * VT_NGDL_PER_NMOL,
+    N: N
+  };
+}
+
+function ftToCanonical(id) {
+  var v = parseFloat(document.getElementById('ft-' + id).value);
+  var u = document.getElementById('ft-' + id + '-unit').value;
+  var f = FT_UNITS[id][u];
+  return (v > 0 && f) ? v * f : NaN;
+}
+
+function ftCalc() {
+  var out = document.getElementById('ft-out');
+  var total = ftToCanonical('total');
+  var shbg = ftToCanonical('shbg');
+  var alb = ftToCanonical('alb');
+  if (!(total > 0) || !(shbg > 0) || !(alb > 0)) {
+    out.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:10px 0">' +
+      'Enter total testosterone, SHBG and albumin.</div>';
+    return;
+  }
+  var r = tlVermeulen(total, shbg, alb);
+  if (!r) {
+    out.innerHTML = '<div style="color:var(--danger);font-size:12px;padding:10px 0">' +
+      'Those values do not produce a solution — check the units.</div>';
+    return;
+  }
+  var band = FT_REF.freet;
+  var flag = '';
+  if (band) {
+    var pg = r.freePgMl;
+    var where = pg < band.lo ? 'below' : pg > band.hi ? 'above' : 'within';
+    flag = '<div style="font-size:12px;color:var(--text2);margin-top:8px;line-height:1.6">' +
+      'That is <strong>' + where + '</strong> the generic reference range of ' + band.lo + '&ndash;' +
+      band.hi + ' pg/mL (male default, not your lab\'s range)' +
+      (band.olo ? ', and ' + (pg >= band.olo && pg <= band.ohi ? 'inside' : 'outside') +
+        ' the ' + band.olo + '&ndash;' + band.ohi + ' pg/mL band this app treats as optimal &mdash; ' +
+        'a <strong>non-diagnostic</strong> band for reading a trend, not a threshold that ' +
+        'diagnoses anything' : '') + '.</div>';
+  }
+  out.innerHTML =
+    '<div style="padding:12px;background:rgba(59,196,255,0.06);border:1px solid rgba(59,196,255,0.22);border-radius:11px">' +
+      '<div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent2);margin-bottom:6px">Calculated free testosterone</div>' +
+      '<div style="display:flex;align-items:baseline;gap:8px">' +
+        '<div style="font-family:\'DM Serif Display\',serif;font-size:34px;color:var(--accent2);line-height:1">' +
+        r.freePgMl.toFixed(1) + '</div><div style="font-size:14px;color:var(--text2)">pg/mL</div>' +
+      '</div>' +
+      '<div style="font-size:12px;color:var(--text2);margin-top:3px">' +
+        r.freeNgDl.toFixed(2) + ' ng/dL &middot; ' + r.freePct.toFixed(2) + '% of total' +
+      '</div>' + flag +
+    '</div>' +
+    '<div style="padding:12px;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;margin-top:10px">' +
+      '<div style="display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:3px 0">' +
+        '<span style="color:var(--text2)">Bioavailable testosterone</span>' +
+        '<span style="font-family:\'DM Mono\',monospace;color:var(--text)">' +
+        r.bioNgDl.toFixed(1) + ' ng/dL</span></div>' +
+      '<div style="display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:3px 0">' +
+        '<span style="color:var(--text2)">Total, in canonical units</span>' +
+        '<span style="font-family:\'DM Mono\',monospace;color:var(--text)">' +
+        total.toFixed(1) + ' ng/dL (' + (total / VT_NGDL_PER_NMOL).toFixed(2) + ' nmol/L)</span></div>' +
+      '<div style="font-size:11px;color:var(--text3);line-height:1.55;margin-top:8px">' +
+      'Bioavailable testosterone is the free fraction plus the loosely albumin-bound fraction ' +
+      '(free × ' + r.N.toFixed(1) + ' here). It is a calculated value like the free figure, so ' +
+      'it inherits the same assay error.</div>' +
+    '</div>';
+}
+
+document.addEventListener('DOMContentLoaded', function () { ftCalc(); });
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://therapylog.app/tools/free-testosterone-calculator/#page",
+      "url": "https://therapylog.app/tools/free-testosterone-calculator/",
+      "name": "Free testosterone calculator (Vermeulen) | TherapyLog",
+      "description": "Calculated free and bioavailable testosterone from total T, SHBG and albumin by the Vermeulen equation, in your lab’s units — and why the SHBG assay changes it.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-03",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://therapylog.app/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Free testosterone",
+            "item": "https://therapylog.app/tools/free-testosterone-calculator/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

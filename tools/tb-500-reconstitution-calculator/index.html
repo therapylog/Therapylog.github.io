@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>TB-500 reconstitution calculator | TherapyLog</title>
+<meta name="description" content="How many units is a TB-500 dose? Mix a vial, read the draw in units and ml, or solve backwards for the water to add. Free, no account.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/tools/tb-500-reconstitution-calculator/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="TB-500 reconstitution calculator | TherapyLog"><meta property="og:description" content="How many units is a TB-500 dose? Mix a vial, read the draw in units and ml, or solve backwards for the water to add. Free, no account."><meta property="og:url" content="https://therapylog.app/tools/tb-500-reconstitution-calculator/"><meta property="og:image" content="https://therapylog.app/assets/og/tb-500-reconstitution-calculator.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="TB-500 reconstitution calculator | TherapyLog"><meta name="twitter:description" content="How many units is a TB-500 dose? Mix a vial, read the draw in units and ml, or solve backwards for the water to add. Free, no account."><meta name="twitter:image" content="https://therapylog.app/assets/og/tb-500-reconstitution-calculator.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; TB-500 reconstitution</div>
+    <h1>TB-500 reconstitution calculator</h1>
+
+    <p class="lede">How many units of a reconstituted tb-500
+      vial make up the dose you want — and how much bacteriostatic water to add to land on a
+      round number. Same code as the TherapyLog app, no account needed.</p>
+
+    <div class="updated">Last reviewed: 3 September 2026</div>
+
+    <p>TB-500 sits between the two extremes: dosed in milligrams like a GLP-1 but only two to two and a half at a time, and injected once or twice a week rather than daily. At a 5 mg vial in 2 ml of bacteriostatic water, a 2.5 mg dose is one millilitre — a full U-100 syringe — and the vial holds exactly two of them.</p>
+    <p>That "exactly two" is the thing to plan around. A vial that yields a whole number of doses wastes nothing and needs no partial draws; one that yields 2.3 doses leaves a remainder you will either discard or stretch. The reverse solver on this page exists for that question: tell it the dose you want and the units you want to draw, and it works backwards to the diluent volume.</p>
+
+    <div class="widget">
+<div id="tool-calc"><div class="card" style="padding-bottom:4px"><div class="card-title">TB-500 Reconstitution</div><div class="uc-step"><div class="uc-step-hd"><span class="uc-num">1</span> Mix your vial</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px"><button class="preset-btn" onclick="ucPreset(5,2)">5mg / 2ml</button><button class="preset-btn" onclick="ucPreset(5,1)">5mg / 1ml</button><button class="preset-btn" onclick="ucPreset(10,2)">10mg / 2ml</button><button class="preset-btn" onclick="ucPreset(2,1)">2mg / 1ml</button><button class="preset-btn" onclick="ucPreset(10,1)">10mg / 1ml</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="ig"><label class="il">Vial Size (mg)</label><input type="number" id="uc-vial" placeholder="5" step="0.1" oninput="calcUnified()"></div><div class="ig"><label class="il">BAC Water (ml)</label><input type="number" id="uc-water" placeholder="2" step="0.1" oninput="calcUnified()"></div></div><div style="margin-top:10px"><button class="preset-btn" id="uc-solve-toggle" onclick="tlReconToggle()" style="width:100%;text-align:center">Not sure how much water? Work it out &#8595;</button><div id="uc-solve-panel" style="display:none;margin-top:10px;padding:12px;background:var(--surface2);border:1px solid var(--border2);border-radius:11px"><div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px">Enter your vial size above and the dose you want. This works backwards to the water volume that puts each dose on an easy number of units.</div><div class="ig"><label class="il">Dose you want per shot</label><div style="display:flex;gap:8px"><input type="number" id="uc-solve-dose" placeholder="250" step="any" oninput="tlReconRender()" style="flex:1"><select id="uc-solve-unit" onchange="tlReconRender()" style="width:80px;flex:none"><option value="mcg" selected>mcg</option><option value="mg">mg</option></select></div></div><div id="uc-solve-out"></div><div style="font-size:10.5px;color:var(--text3);line-height:1.55;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">This does the arithmetic you typed and nothing else — it does not know your vial, your actual concentration, or whether the dose is right for you. Check the result against the markings on your syringe before you draw, and take dosing decisions to your prescriber.</div></div></div><div id="uc-s1" style="display:none;margin-top:10px;padding:11px 13px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:11px"><div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent);margin-bottom:4px">Concentration</div><div id="uc-conc-val" style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--accent);line-height:1"></div><div id="uc-conc-sub" style="font-size:11px;color:var(--text2);margin-top:3px"></div></div></div><div class="uc-flow-arrow">&#8595;</div><div class="uc-step"><div class="uc-step-hd"><span class="uc-num">2</span> Calculate your draw</div><div class="ig"><label class="il">Target Dose</label><div style="display:flex;gap:8px"><input type="number" id="uc-dose" placeholder="250" step="any" oninput="calcUnified()" style="flex:1"><select id="uc-unit" onchange="calcUnified()" style="width:80px;flex:none"><option value="mcg" selected>mcg</option><option value="mg">mg</option></select></div><div style="font-size:10px;color:var(--text3);margin-top:3px">1 mg = 1,000 mcg</div></div><div class="ig"><label class="il">Concentration (mcg/ml) <span style="color:var(--text3);font-size:10px;font-weight:400">auto-filled from Step 1</span></label><input type="number" id="uc-conc" placeholder="Enter above or type here" step="1" oninput="calcUnified()"></div><div class="ig"><label class="il">Syringe</label><select id="uc-syringe" onchange="calcUnified()"><option value="100">U-100 insulin syringe (1ml, 100 units)</option><option value="50">U-50 insulin syringe (0.5ml, 50 units)</option><option value="30">0.3 ml insulin syringe (30 units)</option></select></div><div id="uc-s2" style="display:none;margin-top:10px"><div style="padding:12px;background:rgba(59,196,255,0.06);border:1px solid rgba(59,196,255,0.22);border-radius:11px;margin-bottom:10px"><div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--accent2);margin-bottom:4px">Draw to this line</div><div style="display:flex;align-items:baseline;gap:8px"><div id="uc-units" style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--accent2);line-height:1"></div><div style="font-size:14px;color:var(--text2)">units</div></div><div id="uc-ml" style="font-size:12px;color:var(--text2);margin-top:2px"></div><div id="uc-warn" style="font-size:11px;margin-top:5px"></div></div><div style="background:var(--surface2);border-radius:11px;padding:14px"><div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text2);margin-bottom:8px">Syringe Reference</div><div id="uc-syringe-diagram"></div></div></div></div><div class="uc-flow-arrow">&#8595;</div><div class="uc-step"><div class="uc-step-hd"><span class="uc-num">3</span> Supply &amp; cost</div><div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.5"> How long does one vial last and what does it cost per month? </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="ig"><label class="il">Injection frequency</label><div style="display:flex;gap:8px"><input type="number" id="uc-freq-n" placeholder="2" step="1" min="1" oninput="calcUnified()" style="flex:1;min-width:0"><select id="uc-freq-period" onchange="calcUnified()" style="flex:1.4;min-width:0"><option value="1">times per day</option><option value="7" selected>times per week</option><option value="30">times per month</option></select></div><div id="uc-freq-hint" style="font-size:10px;color:var(--text3);margin-top:3px"></div></div><div class="ig"><label class="il">Vial cost $ <span style="color:var(--text3);font-weight:400;font-size:10px">optional</span></label><input type="number" id="uc-cost" placeholder="45" step="0.01" oninput="calcUnified()"></div></div><div id="uc-s3" style="display:none;margin-top:10px"></div><div style="font-size:10.5px;color:var(--text3);line-height:1.55;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">This does the arithmetic you typed and nothing else — it does not know your vial, your actual concentration, or whether the dose is right for you. Check the result against the markings on your syringe before you draw, and take dosing decisions to your prescriber.</div></div><div id="uc-cta" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)"><a class="btn btn-p" href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=tb-500-reconstitution-calculator" style="text-decoration:none;display:block;text-align:center;line-height:1.4">Save this dose to your log</a></div></div></div>
+    </div>
+
+    <h2>TB-500 milligrams to insulin units</h2>
+
+    <p>Computed for a <strong>5 mg vial reconstituted in 2 ml</strong>
+      of bacteriostatic water, which gives
+      <strong>2.50 mg per ml</strong>
+      (2,500 mcg/ml), read off a U-100 syringe. The steps are
+      the milligram-scale amounts described in the literature and community practice (2–2.5 mg per injection) — they are what the numbers are indexed to, not advice about which
+      one applies to anyone. Change the vial or the water above and every figure moves; the
+      calculator is the authority, this table is the common case.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>TB-500 dose</th><th>Volume to draw</th><th>On a U-100 syringe</th></tr></thead>
+        <tbody>
+          <tr><td>2 mg</td><td class="num">0.8 ml</td><td class="num">80 units</td></tr>
+          <tr><td>2.5 mg</td><td class="num">1 ml</td><td class="num">100 units</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Why tb-500 is reconstituted the way it is</h2>
+
+    <p>TB-500 is a synthetic fragment of thymosin beta-4, a peptide present in most cells, and like BPC-157 it is a research compound with no human approval. Its modelled half-life of about two days is an estimate; that is the reason its schedules are weekly or twice weekly where BPC-157's are daily.</p>
+    <p>Because it is systemically acting rather than applied near a site, the whole dose has to be drawn and injected at once, which is why the barrel size matters here in a way it does not for a microgram-scale peptide.</p>
+
+    <h2>What the app knows about TB-500</h2>
+
+    <p>Generated from the same entry the app's encyclopedia reads, so this page and the
+      app cannot disagree about it.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Also known as</dt><dd>Thymosin Beta-4</dd>
+        <dt>Class</dt><dd>Peptides</dd>
+        <dt>Modelled half-life</dt><dd>2 days <em>&mdash; estimated half-life, limited human PK data</em></dd>
+        <dt>Time to peak</dt><dd>4 h</dd>
+        <dt>Formulation</dt><dd>Aqueous (reconstituted powder)</dd>
+        <dt>Regulatory status</dt><dd>Research compound — no FDA approval. Not for human use label.</dd>
+        <dt>Monitoring panel</dt><dd>No specific labs. General health panel annually.</dd>
+        <dt>Before mixing</dt><dd>Sealed powder tolerates room temperature in transit, but keep it refrigerated at 2–8 °C (36–46 °F) for anything beyond a few weeks, or frozen for months. Keep it dark — the carton it shipped in is doing a job.</dd>
+        <dt>After mixing</dt><dd>Once reconstituted with bacteriostatic water: refrigerate at 2–8 °C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window — plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only. Kits are usually ten vials: only the one you mixed is on that 28-day clock — the sealed ones keep their own, much longer shelf life, so store them as powder, not as solution.</dd>
+        <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
+      </dl>
+    </div>
+
+    <h3>Dosing rows from that entry</h3>
+
+    <p><span class="ev ev-off">Off-label or community practice</span>
+        These are the schedules the entry records, reproduced so you can see what the
+        milligram figures above are indexed to. Which one applies to a particular person is a
+        prescribing decision, and this page does not make it.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Label</th><th>Amount</th><th>Route and frequency</th></tr></thead>
+        <tbody>
+          <tr><td>Loading</td><td class="num">2-2.5mg twice weekly</td><td class="num">SubQ or IM</td></tr>
+          <tr><td>Maintenance</td><td class="num">2-2.5mg once weekly</td><td class="num">SubQ</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>How the math works</h2>
+
+    <div class="formula">concentration  =  5 mg × 1000 ÷ 2 ml  =  2,500 mcg/ml<br>volume to draw =  dose (mcg) ÷ 2,500 mcg/ml<br>units (U-100)  =  volume to draw (ml) × 100</div>
+
+    <p>The rules built into the calculator: a practical draw lands on a half-unit and is at
+    least two units; U-100 means a hundred units per millilitre, so 0.1 ml is 10 units on any
+    U-100 syringe regardless of its barrel size; and a draw that exceeds the barrel is flagged
+    rather than silently split across injections.</p>
+
+    <h2>Questions people ask about tb-500 reconstitution</h2>
+
+    <h3>How many units is 2 mg of tb-500?</h3>
+    <p>At 5 mg in 2 ml — 2,500 mcg/ml — it is
+     80 units on a U-100 syringe.
+     At any other reconstitution it is a different number, which is why the table above states
+     the vial and the diluent volume it was computed for.</p>
+    <h3>What size vial should I reconstitute?</h3>
+    <p>Whichever one you have — the calculator takes the strength as an input. What the
+       vial size decides is how many doses it holds, and therefore whether it will still be
+       good when you reach the last one: a 5 mg vial holds about 2 of the largest step above, and about
+       2 of the smallest. A vial holding more doses than its
+       post-mixing window allows is a vial you will be throwing part of away, which is an
+       argument for mixing a smaller working volume rather than a bigger one.</p>
+    <h3>Does tb-500 accumulate between doses?</h3>
+    <p>Its modelled half-life is 2 days, and that figure is an estimate from limited human data rather than a published value.
+       A rough guide is that levels keep building for about five half-lives before they
+       plateau, so the effect of a dose you take today is partly the effect of the doses before
+       it. The <a href="/tools/half-life/tb-500/">TB-500 half-life page</a>
+       shows the curve and the steady-state arithmetic.</p>
+    <h3>How long does it keep once mixed?</h3>
+    <p>The entry's handling rule is in the fact box above, along with the caveat that comes with
+     it: your supplier's own insert or certificate of analysis overrides anything generic. As a
+     rule the constraint is the diluent rather than the peptide — bacteriostatic water's
+     preservative is what makes repeated entry reasonable, and it is the reason a mixed vial is
+     a weeks-not-months proposition.</p>
+
+    <p>Related: <a href="/tools/half-life/tb-500/">TB-500 half-life and steady state</a>,
+      the <a href="/tools/peptide-reconstitution-calculator/">generic reconstitution calculator</a>,
+      and the <a href="/tools/insulin-syringe-units-calculator/">insulin syringe unit converter</a>.</p>
+
+    <div class="cta-box">
+      <p>The app stores this vial's strength, its concentration and the date you mixed it, and counts the doses down as you log them.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=tb-500-reconstitution-calculator"
+         id="tl-cta" data-campaign="tb-500-reconstitution-calculator">Save this dose to your log</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+
+function ucPreset(mg, ml) {
+document.getElementById('uc-vial').value = mg;
+document.getElementById('uc-water').value = ml;
+calcUnified();
+}
+
+function tlReconSolve(vialMg, doseMcg, syrMax, targetUnits) {
+  if (!(vialMg > 0) || !(doseMcg > 0) || !(syrMax > 0) || !(targetUnits > 0)) return null;
+  var mlPerDose = targetUnits / 100;
+  var concMcgMl = doseMcg / mlPerDose;
+  var bacMl = (vialMg * 1000) / concMcgMl;
+  var notes = [];
+  /* Vials are typically 2-5ml of headspace; more water than that has nowhere to go. */
+  if (bacMl > 5) notes.push('More than most vials hold — aim for fewer units per dose.');
+  if (bacMl < 0.3) notes.push('Too little liquid to mix and draw reliably — aim for more units per dose.');
+  if (targetUnits > syrMax) notes.push('More than one full syringe.');
+  else if (targetUnits < 2) notes.push('Under 2 units is hard to measure accurately.');
+  return {
+    bacMl: bacMl,
+    concMcgMl: concMcgMl,
+    mlPerDose: mlPerDose,
+    dosesPerVial: Math.floor((vialMg * 1000) / doseMcg),
+    notes: notes
+  };
+}
+
+function tlReconOptions(vialMg, doseMcg, syrMax) {
+  if (!(vialMg > 0) || !(doseMcg > 0) || !(syrMax > 0)) return [];
+  var vols = [0.5, 1, 1.5, 2, 2.5, 3, 4, 5];
+  var out = [];
+  for (var i = 0; i < vols.length; i++) {
+    var bacMl = vols[i];
+    var concMcgMl = (vialMg * 1000) / bacMl;
+    var mlPerDose = doseMcg / concMcgMl;
+    var units = mlPerDose * 100;
+    if (units > syrMax) continue;              /* would not fit the syringe */
+    out.push({
+      bacMl: bacMl,
+      units: units,
+      concMcgMl: concMcgMl,
+      /* Easy to read off a barrel: at least 2 units, and lands on a half-unit. */
+      practical: units >= 2 && Math.abs(units * 2 - Math.round(units * 2)) < 0.01
+    });
+  }
+  return out;
+}
+
+function tlReconToggle() {
+  var panel = document.getElementById('uc-solve-panel');
+  var btn = document.getElementById('uc-solve-toggle');
+  if (!panel) return;
+  var open = panel.style.display === 'none';
+  panel.style.display = open ? 'block' : 'none';
+  if (btn) btn.innerHTML = open ? 'Hide the water helper \u2191' : 'Not sure how much water? Work it out \u2193';
+  if (open) {
+    /* Carry over the dose they already typed in step 2 rather than asking twice. */
+    var main = document.getElementById('uc-dose');
+    var mine = document.getElementById('uc-solve-dose');
+    var mainUnit = document.getElementById('uc-unit');
+    var myUnit = document.getElementById('uc-solve-unit');
+    if (main && mine && main.value && !mine.value) mine.value = main.value;
+    if (mainUnit && myUnit && !mine.value) myUnit.value = mainUnit.value;
+    else if (mainUnit && myUnit && main && main.value) myUnit.value = mainUnit.value;
+    tlReconRender();
+  }
+}
+
+function tlReconPick(ml) {
+  var w = document.getElementById('uc-water');
+  if (!w) return;
+  w.value = String(ml);
+  if (typeof calcUnified === 'function') calcUnified();
+  tlReconRender();
+  if (typeof toast === 'function') toast('Set to ' + ml + ' ml of BAC water');
+}
+
+function tlReconRender() {
+  var out = document.getElementById('uc-solve-out');
+  if (!out) return;
+  var vialMg = parseFloat((document.getElementById('uc-vial') || {}).value);
+  var raw = parseFloat((document.getElementById('uc-solve-dose') || {}).value);
+  var unit = (document.getElementById('uc-solve-unit') || {}).value || 'mcg';
+  var syrMax = parseInt((document.getElementById('uc-syringe') || {}).value, 10) || 100;
+  var doseMcg = unit === 'mg' ? raw * 1000 : raw;
+
+  if (!(vialMg > 0)) { out.innerHTML = '<div style="font-size:11px;color:var(--text3)">Enter your vial size (mg) above.</div>'; return; }
+  if (!(doseMcg > 0)) { out.innerHTML = '<div style="font-size:11px;color:var(--text3)">Enter the dose you want per shot.</div>'; return; }
+
+  var opts = tlReconOptions(vialMg, doseMcg, syrMax);
+  var usable = opts.filter(function (o) { return o.practical; });
+  var show = usable.length ? usable : opts;
+  var syrLabel = syrMax === 100 ? 'U-100' : syrMax === 50 ? 'U-50' : '1/3 ml';
+
+  if (!show.length) {
+    out.innerHTML = '<div style="font-size:11px;color:var(--accent3);line-height:1.5">'
+      + 'No standard water volume puts that dose on this syringe. A ' + vialMg + ' mg vial at '
+      + doseMcg + ' mcg a shot needs either a bigger syringe or a different dose.</div>';
+    return;
+  }
+
+  var rows = show.map(function (o) {
+    var units = o.units % 1 === 0 ? o.units.toFixed(0) : o.units.toFixed(1);
+    return '<button onclick="tlReconPick(' + o.bacMl + ')" style="display:flex;width:100%;'
+      + 'align-items:center;justify-content:space-between;gap:8px;background:var(--surface3);'
+      + 'border:1px solid var(--border2);border-radius:9px;padding:10px 12px;margin-bottom:6px;'
+      + 'cursor:pointer;text-align:left">'
+      + '<span style="font-size:13px;color:var(--text)"><strong>' + o.bacMl + ' ml</strong> water</span>'
+      + '<span style="font-size:13px;color:var(--accent);font-weight:600">' + units + ' units</span>'
+      + '<span style="font-size:10px;color:var(--text3)">' + Math.round(o.concMcgMl) + ' mcg/ml</span>'
+      + '</button>';
+  }).join('');
+
+  var dosesPerVial = Math.floor((vialMg * 1000) / doseMcg);
+  out.innerHTML =
+    '<div style="font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;'
+    + 'color:var(--accent);margin-bottom:6px">Tap one to use it</div>'
+    + rows
+    + '<div style="font-size:11px;color:var(--text3);line-height:1.5;margin-top:8px">'
+    + 'Units are on your ' + syrLabel + ' syringe. Either way the vial holds about '
+    + dosesPerVial + ' full ' + (dosesPerVial === 1 ? 'dose' : 'doses') + '.'
+    + (usable.length ? '' : ' None of these land on an easy-to-read number — a different dose or syringe would measure better.')
+    + '</div>';
+}
+
+function calcUnified() {
+const vialMg = parseFloat(document.getElementById('uc-vial').value);
+const bacMl = parseFloat(document.getElementById('uc-water').value);
+const rawDose = parseFloat(document.getElementById('uc-dose').value);
+const unit = document.getElementById('uc-unit').value;
+const doseMcg = unit === 'mg' ? rawDose * 1000 : rawDose;
+const syrMax = parseInt(document.getElementById('uc-syringe').value);
+const freqN = parseFloat(document.getElementById('uc-freq-n').value) || 0;
+const freqPeriod = parseInt(document.getElementById('uc-freq-period').value) || 1;
+const freqPerDay = freqN > 0 ? freqN / freqPeriod : 0;
+const vialCost = parseFloat(document.getElementById('uc-cost').value);
+const hintEl = document.getElementById('uc-freq-hint');
+if (freqN > 0 && hintEl) {
+const daysBetween = freqPeriod / freqN;
+if (daysBetween < 1) {
+const hrsBetween = daysBetween * 24;
+hintEl.textContent = '= every ' + hrsBetween.toFixed(hrsBetween % 1 === 0 ? 0 : 1) + ' hours';
+} else {
+hintEl.textContent = '= every ' + (daysBetween % 1 === 0 ? daysBetween.toFixed(0) : daysBetween.toFixed(1)) + ' days';
+}
+} else if (hintEl) {
+hintEl.textContent = '';
+}
+const s1 = document.getElementById('uc-s1');
+const s2 = document.getElementById('uc-s2');
+const s3 = document.getElementById('uc-s3');
+const cta= document.getElementById('uc-cta');
+let concMcgMl = NaN;
+if (vialMg > 0 && bacMl > 0) {
+concMcgMl = (vialMg * 1000) / bacMl;
+document.getElementById('uc-conc-val').textContent = concMcgMl.toLocaleString() + ' mcg/ml';
+document.getElementById('uc-conc-sub').textContent =
+(concMcgMl / 100).toFixed(1) + ' mcg per 1 unit · ' +
+(concMcgMl / 10).toFixed(1) + ' mcg per 10 units (U-100)';
+s1.style.display = '';
+const concField = document.getElementById('uc-conc');
+if (concField && !concField._manualOverride) concField.value = concMcgMl.toFixed(0);
+} else {
+s1.style.display = 'none';
+}
+const concField = document.getElementById('uc-conc');
+const manualConc = parseFloat(concField.value);
+if (!isNaN(manualConc) && manualConc > 0) concMcgMl = manualConc;
+if (doseMcg > 0 && concMcgMl > 0) {
+const mlNeeded = doseMcg / concMcgMl;
+const syringeUnits= mlNeeded * 100;
+document.getElementById('uc-units').textContent = syringeUnits.toFixed(1);
+document.getElementById('uc-ml').textContent = mlNeeded.toFixed(3) + ' ml';
+const warn = document.getElementById('uc-warn');
+if (syringeUnits > syrMax) {
+warn.textContent = '⚠ More than this syringe holds — reconstitute with less BAC water, split doses, or pick a larger syringe';
+warn.style.color = 'var(--danger)';
+} else if (syringeUnits < 2) {
+warn.textContent = '⚠ Very small draw — use less BAC water for easier measurement';
+warn.style.color = 'var(--accent3)';
+} else if (syringeUnits > syrMax * 0.9) {
+warn.textContent = '⚠ Near syringe capacity — consider a larger syringe';
+warn.style.color = 'var(--accent3)';
+} else {
+warn.textContent = '✓ Draw ' + syringeUnits.toFixed(1) + ' units on your ' +
+(syrMax===100 ? 'U-100 (1ml)' : syrMax===50 ? 'U-50 (0.5ml)' : '1/3ml') + ' syringe';
+warn.style.color = 'var(--accent)';
+}
+s2.style.display = '';
+renderSyringe(syringeUnits, syrMax, doseMcg, mlNeeded, 'uc-syringe-diagram');
+} else {
+s2.style.display = 'none';
+}
+if (vialMg > 0 && doseMcg > 0 && freqPerDay > 0) {
+const vialMcg = vialMg * 1000;
+const totalDoses = Math.floor(vialMcg / doseMcg);
+const daysPerVial= totalDoses / freqPerDay;
+const costPerDose= !isNaN(vialCost) && vialCost > 0 ? vialCost / totalDoses : null;
+const costPerMo = costPerDose ? (costPerDose * freqPerDay * 30).toFixed(2) : null;
+const costPerWk = costPerDose ? (costPerDose * freqPerDay * 7).toFixed(2) : null;
+const remaining = vialMcg - totalDoses * doseMcg;
+const daysLabel = daysPerVial >= 1
+? Math.round(daysPerVial) + ' days'
+: Math.round(daysPerVial * 7) + ' weeks';
+s3.style.display = '';
+s3.innerHTML = `
+      <div style="padding:12px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:11px">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+          <div><div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--accent)">${totalDoses}</div><div style="font-size:10px;color:var(--text2);margin-top:2px;text-transform:uppercase;letter-spacing:0.05em">Total doses</div></div>
+          <div><div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--accent)">${Math.round(daysPerVial)}</div><div style="font-size:10px;color:var(--text2);margin-top:2px;text-transform:uppercase;letter-spacing:0.05em">Days / vial</div></div>
+          <div><div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--accent)">${costPerMo ? '$'+costPerMo : '—'}</div><div style="font-size:10px;color:var(--text2);margin-top:2px;text-transform:uppercase;letter-spacing:0.05em">Per month</div></div>
+        </div>
+        ${remaining > 0 ? `<div style="font-size:11px;color:var(--text3);margin-top:8px;text-align:center">${remaining.toFixed(0)} mcg remaining after last full dose</div>` : ''}
+        ${costPerDose ? `<div style="font-size:11px;color:var(--text3);margin-top:4px;text-align:center">$${costPerDose.toFixed(2)} per injection · $${costPerWk} per week</div>` : ''}
+      </div>`;
+cta.style.display = '';
+} else {
+s3.style.display = 'none';
+cta.style.display = 'none';
+}
+}
+
+function renderSyringe(units, syringeMax, dose, ml, containerId) {
+const container = document.getElementById(containerId || 'syringe-diagram');
+if (!container) return;
+const pct = Math.min(100, (units / syringeMax) * 100);
+const tickInterval = syringeMax === 100 ? 10 : syringeMax === 50 ? 5 : 10;
+const numTicks = syringeMax / tickInterval;
+let ticksHTML = '';
+for (let i = 1; i < numTicks; i++) {
+const tickPct = (i / numTicks) * 100;
+const tickVal = i * tickInterval;
+ticksHTML += `<div class="syringe-tick" style="left:${tickPct}%"></div>`;
+}
+let labelsHTML = '<div style="display:flex;justify-content:space-between;margin-top:4px;padding:0 2px">';
+labelsHTML += '<span style="font-family:\'DM Mono\',monospace;font-size:9px;color:var(--text3)">0</span>';
+for (let i = 1; i <= numTicks; i++) {
+labelsHTML += `<span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text3)">${i * tickInterval}</span>`;
+}
+labelsHTML += '</div>';
+container.innerHTML = `
+    <div class="syringe-wrap">
+      <div style="font-size:9px;color:var(--text3);white-space:nowrap;width:20px;text-align:right">0</div>
+      <div style="flex:1">
+        <div class="syringe-body">
+          <div class="syringe-fill" style="width:${pct.toFixed(1)}%">
+            ${ticksHTML}
+          </div>
+        </div>
+        ${labelsHTML}
+      </div>
+      <div style="font-size:9px;color:var(--text3);white-space:nowrap;width:24px">${syringeMax}u</div>
+    </div>
+    <div style="margin-top:10px;padding:8px 10px;background:var(--surface);border-radius:8px;border-left:3px solid var(--accent2)">
+      <div style="font-size:11px;font-weight:600;color:var(--accent2)">Fill to the <strong>${units.toFixed(1)}-unit</strong> line</div>
+      <div style="font-size:10px;color:var(--text2);margin-top:2px">${dose}mcg dose · ${ml.toFixed(3)}ml · ${pct.toFixed(1)}% of syringe</div>
+    </div>`;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('uc-vial').value = 5;
+  document.getElementById('uc-water').value = 2;
+  document.getElementById('uc-dose').value = 2;
+  document.getElementById('uc-unit').value = 'mg';
+  calcUnified();
+});
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://therapylog.app/tools/tb-500-reconstitution-calculator/#page",
+      "url": "https://therapylog.app/tools/tb-500-reconstitution-calculator/",
+      "name": "TB-500 reconstitution calculator | TherapyLog",
+      "description": "How many units is a TB-500 dose? Mix a vial, read the draw in units and ml, or solve backwards for the water to add. Free, no account.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-03",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://therapylog.app/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "TB-500 reconstitution",
+            "item": "https://therapylog.app/tools/tb-500-reconstitution-calculator/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>
