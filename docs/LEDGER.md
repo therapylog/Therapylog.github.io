@@ -15,7 +15,7 @@ duplicating them here.
 one item at a time. This ledger holds direction; the Focus board holds sequence.
 When an item resolves there, reflect it here.
 
-**Last updated:** 1 September 2026
+**Last updated:** 3 September 2026
 
 ---
 
@@ -46,9 +46,16 @@ When an item resolves there, reflect it here.
   `Arctos-Labs/legal/arctos-scope-and-separation-policy.md`.
 - **Promotion is cleared** for organic/forums/social once this branch is deployed
   and the C-0 notification question has been put to a lawyer — see
-  `docs/PROMOTION-READINESS.md`. Google and Meta ads are effectively closed to
-  this category (LegitScript); do not spend effort there. Affiliate claim
-  controls must exist before the first affiliate enrols.
+  `docs/PROMOTION-READINESS.md`. Paid ads, corrected 3 Sep 2026: Google is
+  **content-blocked, not certification-blocked** — LegitScript certification is
+  required of pharmacies, telehealth and addiction treatment, none of which
+  TherapyLog is; what fails review is a landing page full of compound names and
+  dosing. Meta and TikTok stay closed (account risk). Reddit Ads and newsletter/
+  podcast sponsorships are open. Still do not spend effort on Google or Meta
+  now; a single small Google test on a clean landing page is the only paid
+  search action worth taking, and only after the free tool pages exist. Full
+  table in `docs/SEO-PLAN.md` §11. Affiliate claim controls must exist before
+  the first affiliate enrols.
 - **Compliance findings and their fixes are in `docs/COMPLIANCE-AUDIT.md`**, and
   `scripts/validate-compliance.js` guards the four regressions that are easiest to
   reintroduce. The open items list at the end of that document is the live one.
@@ -87,6 +94,23 @@ When an item resolves there, reflect it here.
   With stores shelved *and* paid deprioritized, organic search and AI-answer
   citation carry most of the acquisition load — which raises the stakes on
   compound pages and the blog.
+- **Named author for reference content is Joel (decided 3 Sep 2026).** Founder,
+  disclosed non-clinical role, a published editorial and review policy at
+  `/about/`, primary-literature citations on every claim. A paid clinical
+  reviewer is a later upgrade, not a prerequisite. Resolves §3 #2 and the Focus
+  board decision `d-author`. Confirm the public form of the name before the
+  first page ships.
+- **SEO order is foundation → free calculator pages → lab-marker pages →
+  compound pages.** Calculators are free tier and ungated (`TLTier.check`
+  wraps only the AI scanner and assistant), so they are the funnel, not the
+  encyclopedia. Comparison pages ("vs Regimen") are deferred indefinitely — they
+  feed the competitor's brand query. The plan, with file paths and line numbers,
+  is `docs/SEO-PLAN.md`; the prompt to hand a coding agent is its §0.
+- **The brand query is occupied.** "TherapyLog" in search returns an unrelated
+  school-therapy documentation product (therapylog.com, three store apps).
+  Qualify the brand in titles and structured data ("TherapyLog — TRT and peptide
+  tracker") and never rely on the bare name to be found. therapylog.app showed
+  as unindexed on 3 Sep 2026; Search Console will confirm.
 - **Generated art never carries data or chemistry.** The in-app syringe fill
   indicator stays code-drawn (real ml/unit numbers). Molecular structures on
   compound pages are never AI-generated (chemically unreliable) — if wanted,
@@ -352,6 +376,17 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
   DB; machine-readable source of truth for class ids/colors/cross-listings
 - `docs/ART-DIRECTION.md` — full Nano Banana prompt library
 
+**Outreach (3 Sep 2026)**
+- A creator/podcast/newsletter/community target list was researched and lives
+  in the private `therapylog-api` repo at `docs/outreach-targets.md` (kept out of
+  this public repo). It was built in a search-only environment: names,
+  platforms, niches, audience signals and vendor-risk flags are usable as-is;
+  every contact route is labelled by how it was found, and addresses marked
+  unverified must be confirmed on the creator's own page before use. The
+  verification prompt to run in a Claude Code session with web access is at
+  the top of that file. Podcasts and newsletters publish sponsorship contacts;
+  YouTube hides them behind a captcha — start with the former.
+
 **Known not-shipped**
 - No art assets have been generated. Every `assets/art/*.png` returns 404.
   Prompts are ready; images are not. (`favicon.ico` shipped with the 2026-08
@@ -373,11 +408,11 @@ the decision items on the Focus board; resolve in either place and sync.
    guidance in dangerous conditions), the Peak (the asymmetric PK curve as a
    solid form), the Ibex (sure-footed on lethal terrain), the Dial, and a heavy
    TL lockup. Need a pick before vector tracing.
-2. **Named author for medical content.** Compound pages and the blog are YMYL.
-   Without an identifiable responsible party and a stated review process they
-   won't earn trust signals. Options: Joel with a disclosed non-clinical role
-   and a published review process, or a paid clinical reviewer. **Gates the
-   compound-page rollout.**
+2. ~~**Named author for medical content.**~~ **Resolved 3 Sep 2026: Joel, with a
+   disclosed non-clinical role and a published review process** (see §1). A paid
+   clinical reviewer is a later upgrade. The compound-page rollout is no longer
+   gated on this; it is gated on the marker pages having four weeks of Search
+   Console data (`docs/SEO-PLAN.md` §7).
 3. **In-app lab ordering with commissions** — partners listed in the Biz Dev
    checklist, none contacted. Needs outreach plus an attorney check; per-test
    commission structures brush anti-kickback rules even cash-pay, and a flat
@@ -398,6 +433,7 @@ the decision items on the Focus board; resolve in either place and sync.
    TherapyLog lacks. Closed unless a chat finds something new.
 
 **Resolved and closed:**
+- *Named author (#2)* — Joel, non-clinical, published review policy. 3 Sep 2026.
 - *Female reference ranges* — raised as a possible live bug, verified working.
   Sex-aware ranges with age banding are implemented. No action needed.
 - *Encyclopedia sync (was top open action)* — landed 17 Aug, see §2. The
@@ -416,13 +452,32 @@ The Focus board holds the working sequence. This is the summary.
    icon and the og-image are regenerated, and `favicon.ico` ships at the root.
 2. **Start affiliate recruitment** — highest-leverage unstarted item, and the
    only near-term revenue path.
-3. Submit sitemap to Bing Webmaster and Search Console, wire IndexNow. Thirty
-   minutes; indexation lags 4–8 weeks so the clock should start early.
+3. **SEO Phase 0** (`docs/SEO-PLAN.md` §4): take control of Jekyll (the repo's
+   config file is named `" config.yml"` with a leading space, so Jekyll is on by
+   accident and every `.md` in `docs/` — this ledger, the compliance audit, the
+   brand structure doc — plus the root PDF/zip/PNG junk is published at
+   therapylog.app), then `robots.txt`, `sitemap.xml`, IndexNow, Search Console
+   and Bing verification, `404.html`, `/about/` author page, JSON-LD on
+   index/guide/support, Tools and Lab markers in the nav, and scope the
+   service worker's offline fallback to `/app`. Indexation lags 4–8 weeks so
+   the clock should start early.
+3a. **SEO Phase 1** (`docs/SEO-PLAN.md` §5): `scripts/build-pages.js` generates
+   `/tools/` pages from the calculators already in `app.html` — reconstitution
+   (plus compound-specific variants), insulin-syringe units, syringe builder,
+   half-life calculator plus per-compound half-life pages, stack checker — with
+   the app's own function source inlined at build time and a validator that
+   fails on drift. Tier C compounds (AAS, SARMs, PCT) never get public pages.
+3b. **SEO Phase 2** (`docs/SEO-PLAN.md` §6): fifteen lab-marker pages, five a
+   week, authored under the founder's byline with a generated fact box.
+   Search-landscape check (3 Sep 2026): no tracker app has assay-aware marker
+   pages; IGF-1-by-age and ferritin-on-TRT are effectively unowned; estradiol
+   sensitive-vs-standard is the flagship.
 4. Generate the 30 class illustrations + hero renders, wire into the encyclopedia
    and landing page (`/assets/art/class-{id}.png`, ids match `compounds.json`).
 5. Compliance pass module in the Marketing Suite — gates all content publishing.
-6. Compound pages, batches of 20 weekly with human review. Gated on #2 in §3
-   (named author) and #3 above.
+6. Compound pages, batches of 20 weekly with human review. Tier A and B only
+   (`docs/SEO-PLAN.md` §7); gated on the marker pages having four weeks of
+   Search Console data, not on the named author (resolved).
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
 9. Decide the BYOK price. At $8.99/mo it sits $1 under Pro while the customer
