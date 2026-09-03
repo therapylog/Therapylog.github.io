@@ -22,7 +22,12 @@ const t = (name, pass, detail) => results.push([pass, name, detail || '']);
 const PUBLIC = ['index.html', 'download.html', 'pro.html', 'guide.html',
                 'partnership.html', 'privacy.html', 'terms.html',
                 'health-data-privacy.html', 'directory/index.html',
-                'providers/index.html', 'providers/apply.html'];
+                'providers/index.html', 'providers/apply.html',
+                /* Reference pages published under the founder's byline. The
+                   author page ships first because every later page links it. */
+                'about/index.html', 'tools/index.html', 'markers/index.html',
+                /* Reachable by definition, and it carries the legal links. */
+                '404.html'];
 
 /* ---- 1. Legal links reachable from every public page -------------------- */
 /* Both forms are in use across the site: root-relative on index, absolute
@@ -53,7 +58,8 @@ const BANNED = [
 ];
 ['directory/index.html', 'providers/index.html', 'providers/apply.html',
  'directory/add-partner.html', 'directory/providers-data.js',
- 'app.html', 'index.html'].forEach((rel) => {
+ 'app.html', 'index.html',
+ 'about/index.html', 'tools/index.html', 'markers/index.html', '404.html'].forEach((rel) => {
   const src = read(rel);
   if (src === null) return;
   BANNED.forEach(([re, why]) => {

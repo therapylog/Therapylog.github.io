@@ -387,6 +387,72 @@ All merged to `main`, deployed on GitHub Pages (therapylog.app) and Vercel.
   the top of that file. Podcasts and newsletters publish sponsorship contacts;
   YouTube hides them behind a captcha — start with the former.
 
+**SEO Phase 0 — technical foundation (3 Sep 2026)**
+
+Implements `docs/SEO-PLAN.md` §4. Ships on its own; nothing here waits on Phase 1.
+
+- **Jekyll is under control.** The config file was named `" config.yml"` with a
+  leading space, so GitHub never read it and Jekyll ran on defaults — publishing
+  `docs/LEDGER.md`, `docs/COMPLIANCE-AUDIT.md`, `docs/BRAND-AND-ENTITY-STRUCTURE.md`
+  and the root PDF/zip/PNG junk at therapylog.app for anyone who guessed a URL.
+  Renamed to `_config.yml` with an `exclude:` list covering `docs`, `scripts`,
+  `*.md`, `*.pdf`, `*.zip`, `IMG_*.PNG`, `assets-1786901*.png`, `arctos-labs`,
+  `README.md` and `.github`. **The files are excluded, not deleted** — the plan
+  forbids deleting them here. The owner can delete them from git separately;
+  they are listed in the Phase 0 commit message.
+- **Crawl control exists for the first time:** `robots.txt`, a hand-written
+  `sitemap.xml` (16 URLs; `<lastmod>` deliberately omitted until
+  `build-pages.js` can keep it honest in Phase 1), a 32-hex IndexNow key file at
+  the root, and `scripts/indexnow-submit.js` (dependency-free, run by hand after
+  a deploy; `--dry-run` prints the payload). **Google does not participate in
+  IndexNow** — Bing/Yandex/Naver/Seznam only.
+- **`404.html`** with the site shell, every main page listed, and `noindex`.
+- **`/about/`** — the author and editorial-policy page every later reference page
+  links to: named non-clinical author, three-tier evidence labelling, "your lab's
+  printed range wins", non-diagnostic optimal bands, corrections process, and a
+  plain statement of what the site earns from.
+- **`/tools/` and `/markers/` hub pages** so nothing links to a 404, plus
+  `llms.txt`. Tools and Lab markers are now in the home nav and footer, Tools is
+  in the guide, download and support footers, and `pro.html` finally links home.
+- **JSON-LD** on `index.html` (Organization, WebSite, WebApplication with the
+  free/monthly/annual offers), `guide.html` (Article) and `support.html`
+  (ContactPage — deliberately **not** FAQPage; Google retired those rich
+  results). Every page's graph is self-contained: the Person, Organization and
+  WebSite nodes it references are defined on the page, so no `@id` dangles.
+  `guide.html` also gained a visible byline, since an `author` in markup with no
+  author on the page is not an E-E-A-T signal.
+- **Service worker scoped.** `sw.js` fell back to the app shell for *any* failed
+  navigation, so an unvisited `/tools/...` opened offline rendered the tracker.
+  The fallback is now app-routes-only and `CACHE` is bumped to `therapylog-v3`.
+- **The affiliate coupon no longer leaks to campaign traffic.**
+  `pro.html`'s `tlStoredRef()` falls back to `utm_campaign` then `utm_source`,
+  which is deliberate campaign attribution — so a tool-page visitor arriving on
+  `?utm_campaign=reconstitution` reached checkout with `ref=reconstitution` and
+  `create-pro-subscription.js` handed them the affiliate's one-month-free coupon,
+  then reported the sale as UNKNOWN REF. Fixed **on the API side** as the plan
+  requires: the coupon is applied only when the ref matches an enrolled key in
+  `affiliates.json` (normalised through the same filter the handler runs over an
+  incoming ref, so a code with a dot or a space still matches). Every ref is
+  still written to subscription metadata, so attribution is untouched.
+  `scripts/test-checkout-coupon.js` (26 assertions, fault-injection tested) runs
+  in that repo's CI. **Consequence to know about:** `affiliates.json` now gates a
+  discount, not just a payout — enrol an affiliate there *before* handing over
+  their link, or their referrals pay full price. `pro.html` no longer promises
+  "1 month free" for an arbitrary `?ref=`, because the page cannot know the
+  roster; it says any discount is shown at checkout.
+- **Validator coverage extended:** `about/`, `tools/`, `markers/` and `404.html`
+  are in `validate-compliance.js` (`PUBLIC` and the banned-phrase scan),
+  `validate-claims.js` (`PAGES` and the retired-tier scan) and
+  `validate-encyclopedia.js` rule 9. `validate-claims.js` was running in **no**
+  workflow at all and now runs in `validate-compliance.yml`. Workflow `paths:`
+  filters were completed — `validate-encyclopedia.yml` never fired on
+  `download.html` or `pro.html`, which rule 9 scans.
+- **Still owner-only:** create a Search Console **Domain property** for
+  therapylog.app via DNS TXT, submit the sitemap, import it into Bing Webmaster
+  Tools and confirm the IndexNow key. No verification token was invented, so
+  nothing is stubbed in the repo waiting to be wrong. First thing to check once
+  verified: whether *any* therapylog.app URL is indexed.
+
 **Known not-shipped**
 - No art assets have been generated. Every `assets/art/*.png` returns 404.
   Prompts are ready; images are not. (`favicon.ico` shipped with the 2026-08
@@ -452,15 +518,14 @@ The Focus board holds the working sequence. This is the summary.
    icon and the og-image are regenerated, and `favicon.ico` ships at the root.
 2. **Start affiliate recruitment** — highest-leverage unstarted item, and the
    only near-term revenue path.
-3. **SEO Phase 0** (`docs/SEO-PLAN.md` §4): take control of Jekyll (the repo's
-   config file is named `" config.yml"` with a leading space, so Jekyll is on by
-   accident and every `.md` in `docs/` — this ledger, the compliance audit, the
-   brand structure doc — plus the root PDF/zip/PNG junk is published at
-   therapylog.app), then `robots.txt`, `sitemap.xml`, IndexNow, Search Console
-   and Bing verification, `404.html`, `/about/` author page, JSON-LD on
-   index/guide/support, Tools and Lab markers in the nav, and scope the
-   service worker's offline fallback to `/app`. Indexation lags 4–8 weeks so
-   the clock should start early.
+3. ~~**SEO Phase 0** (`docs/SEO-PLAN.md` §4).~~ **Done 3 Sep 2026** — see §2.
+   Jekyll is under control, `robots.txt`/`sitemap.xml`/IndexNow/`404.html`/
+   `/about/`/`llms.txt` are live, JSON-LD is on index, guide and support, Tools
+   and Lab markers are in the nav, the service worker fallback is scoped, and the
+   affiliate-coupon leak is closed on the API side. **Two things still need the
+   owner in a browser:** the Search Console Domain property (DNS TXT) with the
+   sitemap submitted, and the Bing import plus IndexNow key confirmation.
+   Indexation lags 4–8 weeks, so do those now rather than with Phase 1.
 3a. **SEO Phase 1** (`docs/SEO-PLAN.md` §5): `scripts/build-pages.js` generates
    `/tools/` pages from the calculators already in `app.html` — reconstitution
    (plus compound-specific variants), insulin-syringe units, syringe builder,

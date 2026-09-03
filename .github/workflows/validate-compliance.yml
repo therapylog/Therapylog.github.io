@@ -13,6 +13,10 @@ on:
       - 'health-data-privacy.html'
       - 'directory/**'
       - 'providers/**'
+      - 'about/**'
+      - 'tools/**'
+      - 'markers/**'
+      - 'support.html'
       - 'scripts/validate-compliance.js'
       - '.github/workflows/validate-compliance.yml'
   pull_request:
@@ -30,3 +34,8 @@ jobs:
       # control the app does not implement. See docs/COMPLIANCE-AUDIT.md.
       - name: Legal links, substantiable claims, and the promised privacy switch
         run: node scripts/validate-compliance.js
+      # Count claims and the retired-tier ban are guarded the same way, and were
+      # running nowhere in CI. Every public page is in both lists, so they belong
+      # in the same job.
+      - name: No page over-claims a count or re-advertises a retired tier
+        run: node scripts/validate-claims.js

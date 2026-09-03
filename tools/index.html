@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Free calculators for injectable protocols | TherapyLog</title>
+<meta name="description" content="Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/tools/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Free calculators for injectable protocols | TherapyLog"><meta property="og:description" content="Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email."><meta property="og:url" content="https://therapylog.app/tools/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Free calculators for injectable protocols | TherapyLog"><meta name="twitter:description" content="Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account, no email."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c0f;--surface:#111418;--surface2:#181c22;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --accent:#4ade9a;--accent2:#3bc4ff;--warm:#f5a65b;
+  --text:#e8edf5;--text2:#a4adba;--text3:#6b7585;
+  --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 0%,rgba(74,222,154,0.05) 0%,transparent 60%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:calc(var(--safe-top) + 40px) 22px calc(var(--safe-bottom) + 60px)}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.topnav a{color:var(--text3)}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px}
+.lede{font-size:17px;color:var(--text2);margin-bottom:26px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:30px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+em{color:var(--text2)}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.card h3{margin:0 0 6px;font-size:15px}
+.card p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.card .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:26px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:34px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+
+    <h1>Free calculators for injectable protocols</h1>
+    <p class="lede">Reconstitution, syringe units, half-lives and steady state — the arithmetic
+    people do on the back of an envelope at the kitchen table, done properly. Free, no account,
+    no email.</p>
+    <div class="updated">Last reviewed: 3 September 2026</div>
+
+    <h2>Why these exist</h2>
+    <p>Every one of these calculators already runs inside the TherapyLog app, where it is part
+    of the free tier. Putting them on their own pages is not a marketing exercise: the questions
+    they answer — <em>how much water goes in this vial</em>, <em>how many units is 2.5&nbsp;mg</em>,
+    <em>how long until this has cleared</em> — get asked by people holding a vial right now, and
+    the answers they find are usually a forum reply with no working shown.</p>
+    <p>So each page, as it ships, shows its working: the formula written out and one worked
+    example run through it with real numbers. And each calculator will run
+    <strong>the same code the app runs</strong> rather than a re-implementation of it — the
+    function source is copied out of the app when the page is built, and a check compares the
+    two so they cannot drift apart. The comment above that function in the app says why that
+    matters: a wrong number here ends up in a syringe.</p>
+
+    <h2>What is coming, and in what order</h2>
+    <p>These pages are being written and published one at a time. Nothing below is linked until
+    the page is actually live and has been read end to end.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Peptide reconstitution calculator</h3>
+        <p>Vial strength, bacteriostatic water and target dose in; draw volume in units and ml
+        out, with a syringe diagram. Also runs backwards — tell it the dose you want and the
+        units you want to draw, and it solves for how much water to add.</p>
+        <span class="soon">In progress</span>
+      </div>
+      <div class="card">
+        <h3>Per-compound reconstitution pages</h3>
+        <p>The same calculator pre-filled for the compounds people ask about most, each with a
+        milligram-to-units ladder, the half-life the app models, and the storage rule once it is
+        mixed.</p>
+        <span class="soon">In progress</span>
+      </div>
+      <div class="card">
+        <h3>Insulin syringe unit converter</h3>
+        <p>Units to ml and back, for U-100 syringes, with the half-unit rounding rule and a table
+        of the conversions people look up over and over.</p>
+        <span class="soon">In progress</span>
+      </div>
+      <div class="card">
+        <h3>Testosterone dose calculator</h3>
+        <p>Weekly dose split by injection frequency, in mg, ml and syringe units, with the
+        modelled peak-to-trough swing for cypionate, enanthate and propionate at that cadence.</p>
+        <span class="soon">In progress</span>
+      </div>
+      <div class="card">
+        <h3>Free testosterone calculator</h3>
+        <p>Calculated free and bioavailable testosterone from total testosterone, SHBG and
+        albumin, using the Vermeulen equation, with the units your lab actually prints and a
+        plain explanation of why the calculated number depends on the SHBG assay.</p>
+        <span class="soon">In progress</span>
+      </div>
+      <div class="card">
+        <h3>Combined syringe planner</h3>
+        <p>Plan a multi-compound draw and see the fill level, with the compatibility rules the
+        app enforces: oil and water do not share a syringe, suspensions draw alone, fragile
+        proteins are not blended.</p>
+        <span class="soon">In progress</span>
+      </div>
+      <div class="card">
+        <h3>Half-life calculator</h3>
+        <p>Single-dose and repeated-dose serum curves from published half-lives and
+        time-to-peak, plus time to steady state, accumulation ratio and peak-to-trough ratio for
+        the interval you pick. Estimated half-lives are labelled as estimates.</p>
+        <span class="soon">In progress</span>
+      </div>
+      <div class="card">
+        <h3>Per-compound half-life pages</h3>
+        <p>One page per compound with published pharmacokinetic data: the curve, the numbers, the
+        provenance, and what the monitoring panel for it usually includes.</p>
+        <span class="soon">In progress</span>
+      </div>
+      <div class="card">
+        <h3>Can you take X with Y</h3>
+        <p>A combination checker covering testosterone ancillaries, GLP-1 medications and
+        peptides, with every pair the app knows about listed and explained. Not a safety
+        clearance, and never exhaustive.</p>
+        <span class="soon">In progress</span>
+      </div>
+    </div>
+
+    <h2>What a calculator can and cannot tell you</h2>
+    <div class="callout">
+      <p>A calculator does the arithmetic you typed and nothing else. It does not know what is
+      actually in your vial, whether the label is accurate, or anything about you. Confirm the
+      vial strength and the diluent volume on your own label before you draw, and take dosing
+      decisions to a qualified provider — these pages exist to make the arithmetic reliable,
+      not to make the decision.</p>
+    </div>
+    <p>Serum-level curves are modelled from published half-lives and time-to-peak values, not
+    measured in you. Where the published data is thin, the page says the half-life is an
+    estimate rather than presenting it as fact.</p>
+
+    <h2>Reading your bloodwork instead</h2>
+    <p>If what you actually want is help reading a lab report — what the number means, which
+    assay produced it, and why two labs can disagree about the same blood — that is what the
+    <a href="/markers/">lab-marker pages</a> are for.</p>
+
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 3 September 2026. How these pages are written, sourced and corrected:
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional
+      medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider
+      before starting, changing, or stopping any medical protocol.
+    </div>
+
+    <div class="foot">
+      TherapyLog LLC · Floresville, Texas ·
+      <a href="/privacy">Privacy Policy</a> ·
+      <a href="/health-data-privacy">Consumer Health Data</a> ·
+      <a href="/terms">Terms of Use</a> ·
+      <a href="/about/">About</a> ·
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://therapylog.app/tools/#page",
+      "url": "https://therapylog.app/tools/",
+      "name": "Free calculators for injectable protocols | TherapyLog",
+      "description": "Reconstitution, syringe units, half-life and steady-state calculators that run the same code as the TherapyLog app. Free, no account.",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "dateModified": "2026-09-03",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://therapylog.app/tools/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

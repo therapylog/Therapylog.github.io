@@ -62,7 +62,8 @@ const REAL = { compounds: compounds.length, markers, pkModeled, classes: classCo
 /* A claim is "120+" or "100" or "148" next to a label. Parse the number and
    treat a trailing + as "at least". */
 const PAGES = ['index.html', 'download.html', 'pro.html', 'guide.html',
-               'support.html', 'providers/index.html', 'providers/apply.html'];
+               'support.html', 'providers/index.html', 'providers/apply.html',
+               'about/index.html', 'tools/index.html', 'markers/index.html'];
 
 const LABELS = [
   { re: /([0-9]+)\s*\+?\s*<\/div><div class="[a-z-]*stat-label">Compounds(?: Covered)?</gi, key: 'compounds' },
@@ -94,7 +95,8 @@ t('claims were actually found to check', claims >= 6, claims + ' claims');
 /* The lifetime tier was retired. No public page may offer one again without a
    license path built for it — the subscription token does not cover a
    non-expiring purchase. */
-['index.html', 'pro.html', 'download.html', 'support.html'].forEach((rel) => {
+['index.html', 'pro.html', 'download.html', 'support.html',
+ 'about/index.html', 'tools/index.html', 'markers/index.html'].forEach((rel) => {
   const f = path.join(root, rel);
   if (!fs.existsSync(f)) return;
   const html = fs.readFileSync(f, 'utf8')

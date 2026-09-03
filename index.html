@@ -14,7 +14,7 @@
     nav { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); position:sticky; top:0; background:rgba(10,12,15,0.95); backdrop-filter:blur(20px); z-index:100; }
     .logo { display:flex; align-items:center; }
     .logo img { height:34px; display:block; }
-    .nav-links { display:flex; gap:20px; }
+    .nav-links { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
     .nav-links a { color:#8a95a3; text-decoration:none; font-size:14px; font-weight:500; }
     .nav-cta { background:#4ade9a; color:#0a0c0f; padding:8px 18px; border-radius:8px; font-weight:700; text-decoration:none; font-size:14px; }
 
@@ -96,13 +96,133 @@
     .nl-error { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); color:#f87171; border-radius:10px; padding:12px 16px; font-size:13px; margin-top:10px; display:none; }
     .nl-legal { font-size:11px; color:#4a5568; margin-top:10px; }
   </style>
-<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script><!-- Structured data. The bare word "TherapyLog" in search belongs to an unrelated
+     product, so the entity is qualified with alternateName everywhere. No
+     aggregateRating: there are no collected reviews to base one on. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "logo": "https://therapylog.app/icons/icon-512.png",
+      "email": "hello@therapylog.app",
+      "founder": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Floresville",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@therapylog.app",
+        "contactType": "customer support",
+        "availableLanguage": "English"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://therapylog.app/#webapp",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/app",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web",
+      "browserRequirements": "Requires a modern browser with JavaScript enabled. Installs to the home screen on iOS and Android; no app store download.",
+      "description": "Hormone therapy and peptide tracking: log doses, chart estimated serum levels from published half-lives, plan multi-compound draws, and track bloodwork against your own lab's reference ranges. Data stays on your device.",
+      "inLanguage": "en-US",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free",
+          "price": "0",
+          "priceCurrency": "USD",
+          "url": "https://therapylog.app/app",
+          "availability": "https://schema.org/InStock",
+          "description": "Dose logging, serum-level curves, the reconstitution and syringe calculators, the compound reference and the interaction checker. No account required."
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro, monthly",
+          "price": "9.99",
+          "priceCurrency": "USD",
+          "url": "https://therapylog.app/pro",
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "9.99",
+            "priceCurrency": "USD",
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": 1,
+              "unitCode": "MON"
+            }
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro, annual",
+          "price": "99.99",
+          "priceCurrency": "USD",
+          "url": "https://therapylog.app/pro",
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "99.99",
+            "priceCurrency": "USD",
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": 1,
+              "unitCode": "ANN"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
 <body style="background:#0a0c0f;background-color:#0a0c0f;color:#e8edf5;">
 
   <nav>
     <div class="logo"><img src="/icons/logo-dark.svg" alt="TherapyLog"></div>
     <div class="nav-links">
       <a href="/app" target="_blank">Try Free</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
       <a href="/directory">Providers</a>
       <a href="/support">Support</a>
     </div>
@@ -357,7 +477,10 @@
   <footer>
     <div class="logo"><img src="/icons/logo-dark.svg" alt="TherapyLog"></div>
     <div class="footer-links">
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab Markers</a>
       <a href="/guide">User Guide</a>
+      <a href="/about/">About</a>
       <a href="/support">Support</a>
       <a href="/privacy">Privacy Policy</a>
       <a href="/health-data-privacy">Consumer Health Data</a>

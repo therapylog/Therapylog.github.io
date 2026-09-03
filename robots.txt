@@ -1,0 +1,12 @@
+# https://therapylog.app/robots.txt
+# Nothing is disallowed on purpose. The empty Disallow is the explicit "crawl
+# everything" form — a User-agent group with no rules at all is inert.
+# The pages that must stay out of the index (marketing.html,
+# directory/add-partner.html, 404.html) carry a meta noindex instead, because a
+# crawler that is disallowed here never loads the page to read that tag. docs/
+# and scripts/ are excluded from the published site by _config.yml, so a rule
+# for them would be moot.
+User-agent: *
+Disallow:
+
+Sitemap: https://therapylog.app/sitemap.xml

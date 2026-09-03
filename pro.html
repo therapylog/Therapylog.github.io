@@ -65,7 +65,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 <script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
 <body>
 <div class="wrap">
-  <div class="brand"><img src="/icons/logo-dark.svg" alt="TherapyLog"><span class="suffix">Pro</span></div>
+  <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a><span class="suffix">Pro</span></div>
   <div class="tagline">The AI research assistant, lab scanner, and clinical tools — unlocked.</div>
   <div class="referred" id="referred"></div>
 
@@ -74,7 +74,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
   <div class="toggles">
     <div class="seg" id="billing-seg">
       <button class="seg-btn active" data-billing="monthly" onclick="setBilling('monthly')">Monthly</button>
-      <button class="seg-btn" data-billing="annual" onclick="setBilling('annual')">Annual <span class="save">1 month free</span></button>
+      <button class="seg-btn" data-billing="annual" onclick="setBilling('annual')">Annual <span class="save">save 17%</span></button>
     </div>
   </div>
 
@@ -134,7 +134,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
   <div class="foot">
     <div style="font-size:11.5px;line-height:1.6;margin-bottom:10px">Monthly and annual plans <strong>renew automatically</strong> at the price shown, on the same date each period, until you cancel. Cancel any time from the Stripe billing portal linked in your receipt, or email <a href="mailto:hello@therapylog.app">hello@therapylog.app</a> and we&rsquo;ll do it &mdash; one message is enough. Cancelling stops the next charge; access runs to the end of the period you paid for.</div>
     Secure checkout powered by Stripe.<br>
-    <a href="https://therapylog.app/privacy">Privacy</a> · <a href="https://therapylog.app/terms">Terms</a> · <a href="https://therapylog.app/health-data-privacy">Consumer Health Data</a> · <a href="https://therapylog.app/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    <a href="/">Home</a> · <a href="/tools/">Tools</a> · <a href="https://therapylog.app/privacy">Privacy</a> · <a href="https://therapylog.app/terms">Terms</a> · <a href="https://therapylog.app/health-data-privacy">Consumer Health Data</a> · <a href="https://therapylog.app/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
   </div>
 </div>
 
@@ -206,7 +206,12 @@ function setBilling(b) {
 
 function render() {
   var m = PRICES.managed, k = PRICES.byok;
-  var annualLabel = REF ? 'Annual <span class="save">1 month free</span>' : 'Annual <span class="save">save 17%</span>';
+  /* Not "1 month free" for a ref any more. The affiliate coupon is applied by
+     create-pro-subscription.js only when the ref is an enrolled affiliate in
+     affiliates.json, and this page has no way to know that, so promising the
+     free month here would have been a claim checkout might not keep. Stripe
+     shows the coupon on the payment page when it does apply. */
+  var annualLabel = 'Annual <span class="save">save 17%</span>';
   var annualBtn = document.querySelector('#billing-seg [data-billing="annual"]');
   if (annualBtn) annualBtn.innerHTML = annualLabel;
   if (billing === "monthly") {
@@ -221,7 +226,9 @@ function render() {
     document.getElementById("managed-sub").textContent = "Just " + m.annualPerMo + "/mo, billed yearly";
     document.getElementById("byok-price").innerHTML = k.annual + '<span class="per">/yr</span>';
     document.getElementById("byok-sub").textContent = "Just " + k.annualPerMo + "/mo, billed yearly";
-    var couponMsg = REF ? "Your first month is free with this link" : "Have an affiliate code? Enter it at checkout";
+    var couponMsg = REF
+      ? "Referral applied \u2014 any discount is shown at checkout before you pay"
+      : "Have an affiliate code? Enter it at checkout";
     document.getElementById("managed-coupon").textContent = couponMsg;
     document.getElementById("byok-coupon").textContent = couponMsg;
   }

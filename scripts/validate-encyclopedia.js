@@ -110,8 +110,20 @@ else {
 }
 
 /* --- 9. drift: literal "N-Compound" / "N+ compounds" marketing copy --- */
-['app.html', 'index.html', 'marketing.html', 'download.html', 'pro.html'].forEach((f) => {
-  const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
+/* Public reference pages are listed here too, so a generated page that prints a
+   catalog size is held to the same number. The reference pages roll out over
+   several phases, so those may be absent — but a missing file in the first list
+   is a failure, not a pass. A blanket existsSync skip would have quietly
+   disabled this rule for every page it was written to guard. */
+const RULE9_REQUIRED = ['app.html', 'index.html', 'marketing.html', 'download.html', 'pro.html'];
+const RULE9_WHEN_PRESENT = ['about/index.html', 'tools/index.html', 'markers/index.html', '404.html'];
+RULE9_REQUIRED.forEach((f) => {
+  if (!fs.existsSync(path.join(ROOT, f))) fail(`rule 9: ${f} is missing — the count guard cannot run`);
+});
+[...RULE9_REQUIRED, ...RULE9_WHEN_PRESENT].forEach((f) => {
+  const abs = path.join(ROOT, f);
+  if (!fs.existsSync(abs)) return;
+  const src = fs.readFileSync(abs, 'utf8');
   const re = /(\d+)(\+?)[- ][Cc]ompound(?!ing)/g;
   let m;
   while ((m = re.exec(src))) {
