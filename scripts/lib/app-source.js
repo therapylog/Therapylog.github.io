@@ -329,6 +329,35 @@ function loadAppData(source) {
   };
 }
 
+/* A single-line `const name = ...;` declaration, lifted verbatim. fnSource only
+   finds `function name(` declarations, and the registry's helpers are arrow
+   consts. Same purpose: the page runs the app's text, not a copy of it. */
+function constSource(src, name) {
+  const re = new RegExp('^const ' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*=.*?;$', 'm');
+  const m = src.match(re);
+  if (!m) throw new Error('const not found in app.html: ' + name);
+  return m[0];
+}
+
+/* The app's REAL getAdjustedLabRanges(), driven with a stubbed profile so a page
+   can publish the sex and age bands exactly as the app applies them. The plan
+   says to replicate its tables rather than import the function — it reads the
+   user's profile through gd(). Running it against a synthetic profile is the
+   replication, and unlike transcribing the numbers it cannot drift. */
+function loadRanges(sex, age, source) {
+  const src = source || readApp();
+  const { LAB_REF } = loadRegistry(src);
+  const fn = fnSource(src, 'getAdjustedLabRanges');
+  /* A fixed reference date keeps the generator deterministic: the age the
+     function computes must not depend on the day the build runs. */
+  const dob = new Date(Date.UTC(2026 - age, 0, 2)).toISOString();
+  return new Function('LAB_REF', 'gd', 'Date',
+    fn + '; return getAdjustedLabRanges();'
+  )(LAB_REF, () => ({ profile: { sex, dob } }), class extends Date {
+    constructor(...a) { super(...(a.length ? a : ['2026-07-02T00:00:00Z'])); }
+  });
+}
+
 /* The marker registry, evaluated with the same harness validate-markers.js
    uses, so a page's unit converter runs the app's real normalizeValue(). */
 function loadRegistry(source) {
@@ -349,6 +378,6 @@ return { MARKER_REGISTRY, LAB_REF, LAB_FIELDS, resolveMarker, normalizeValue,
 module.exports = {
   ROOT, APP, readApp, sha, matchBracket, literal, declaration, fnSource, block,
   templateLiteral,
-  TIER_C, isTierC, DRUG_NAME_TO_ID, loadAppData, loadRegistry,
+  TIER_C, isTierC, DRUG_NAME_TO_ID, loadAppData, loadRegistry, loadRanges, constSource,
   extractCss, splitRules, CSS_WANTED, attributionSnippet
 };

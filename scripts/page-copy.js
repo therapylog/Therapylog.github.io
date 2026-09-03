@@ -37,6 +37,11 @@ function llmsTxt(pages) {
     .filter((p) => /^\/tools\/half-life\/[^/]+\/$/.test(p.url))
     .map((p) => `- ${p.url}: ${title(p.html)}`);
 
+  const markerHub = line('/markers/');
+  const markers = pages
+    .filter((p) => /^\/markers\/[^/]+\/$/.test(p.url))
+    .map((p) => `- ${p.url}: ${title(p.html)} — ${desc(p.html)}`);
+
   /* Blend pages carry their community nicknames, because that is what someone
      asking an assistant about one will have typed. */
   const blends = pages
@@ -148,6 +153,22 @@ standard), total testosterone (immunoassay versus LC/MS-MS), free versus total
 testosterone, SHBG, hematocrit on testosterone therapy, prolactin, LH and FSH,
 IGF-1, HbA1c and fasting glucose, ApoB versus LDL, lipoprotein(a), ferritin and
 the iron panel, vitamin D, the thyroid panel, and DHT.
+
+## Lab marker reference
+
+Written with the assay method named wherever it changes the interpretation —
+sensitive (LC/MS-MS) versus standard immunoassay estradiol, direct versus
+calculated versus equilibrium-dialysis free testosterone, and so on. Each page
+carries the accepted units and their conversion factors, the assay variants the
+app tracks, the generic reference range labelled as generic, the non-diagnostic
+optimal band where one exists, the sex and age bands generated from the app's own
+range function, a unit converter running the app's own conversion code, and cited
+primary sources. The reference interval printed on the reader's own report always
+takes precedence over any generic range shown.
+
+${markerHub}
+
+${markers.join('\n')}
 
 ## Disclaimer
 

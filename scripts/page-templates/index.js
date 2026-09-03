@@ -153,7 +153,9 @@ function buildAll(ctx) {
     require('./pages-blend.js'),
     require('./pages-calc.js'),
     require('./pages-halflife.js'),
-    require('./pages-stack.js')
+    require('./pages-stack.js'),
+    require('./pages-markers.js'),
+    require('./pages-markers-hub.js')
   ];
   const api = {
     esc, factBox, EV, table, formula, publishableDoses, regStatus, monPanel,

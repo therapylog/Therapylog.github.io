@@ -130,6 +130,26 @@ testosterone, SHBG, hematocrit on testosterone therapy, prolactin, LH and FSH,
 IGF-1, HbA1c and fasting glucose, ApoB versus LDL, lipoprotein(a), ferritin and
 the iron panel, vitamin D, the thyroid panel, and DHT.
 
+## Lab marker reference
+
+Written with the assay method named wherever it changes the interpretation —
+sensitive (LC/MS-MS) versus standard immunoassay estradiol, direct versus
+calculated versus equilibrium-dialysis free testosterone, and so on. Each page
+carries the accepted units and their conversion factors, the assay variants the
+app tracks, the generic reference range labelled as generic, the non-diagnostic
+optimal band where one exists, the sex and age bands generated from the app's own
+range function, a unit converter running the app's own conversion code, and cited
+primary sources. The reference interval printed on the reader's own report always
+takes precedence over any generic range shown.
+
+- /markers/: Lab markers, read with the assay in mind — Reference pages for the lab markers people on hormone therapy and peptide protocols track, written with the assay method named wherever it changes the answer.
+
+- /markers/estradiol-sensitive-vs-standard/: Sensitive versus standard estradiol: why the assay changes the answer — Standard estradiol immunoassays are unreliable at the concentrations men run. What the sensitive and LC/MS-MS methods measure, how to read the number, and why a range quoted without a method is not usable.
+- /markers/free-vs-total-testosterone/: Free versus total testosterone, and the three ways labs get the free number — Calculated, direct immunoassay and equilibrium dialysis free testosterone are three different measurements. What each one does, why they disagree, and where SHBG comes in.
+- /markers/hematocrit-on-trt/: Hematocrit on testosterone therapy: the thresholds, the trend, and the ferritin trap — Testosterone raises hematocrit. What the guideline thresholds are, why the draw conditions matter, and why routine blood donation trades one problem for iron deficiency.
+- /markers/shbg/: SHBG: what it does, what raises and lowers it, and why it drives your free testosterone — Sex hormone-binding globulin decides how much of your testosterone is available. What raises and lowers it, why high SHBG on TRT is a common complaint, and how to read it.
+- /markers/total-testosterone-immunoassay-vs-lcms/: Total testosterone: immunoassay versus LC/MS-MS, and the range by age — Why two labs report different total testosterone from the same blood, what the reference range does with age, and how to read a result when the method is not stated.
+
 ## Disclaimer
 
 TherapyLog is an informational tracking tool and is not a substitute for
