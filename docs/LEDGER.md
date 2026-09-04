@@ -553,6 +553,53 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**SEO Phase 2 — the fifteen /markers/ pages (3 Sep 2026)**
+
+Implements `docs/SEO-PLAN.md` §6. Fifteen marker pages plus
+`/markers/trt-bloodwork-checklist/`, all under the founder's byline, each with
+three or more cited guideline or primary sources, three-tier evidence labels and
+a side-effect discussion that ends with the prescribing clinician.
+
+- **Only the prose is authored.** Units and their conversion factors, the assay
+  variants with the app's own `<select>` labels, the generic range, the optimal
+  band and the sex/age tables are all generated from `app.html`. The sex/age
+  tables are produced by *running* the app's own `getAdjustedLabRanges()` against
+  a synthetic profile per band rather than transcribing it, so they cannot drift.
+  The unit converter on each page runs the app's real `normalizeValue()`, which
+  means it refuses exactly what the app refuses.
+- **The checklist hub is entirely generated** from `MARKER_REGISTRY` and the
+  protocol templates: the 6 markers whose assay must be specified, the 7 results
+  that need context recorded beside them, the values the app will not convert,
+  and draw timing. Nothing on it is a list somebody typed.
+- **Guards added, every one fault-injection tested:** B-5 enforced rather than
+  trusted (the app's `SIDEFX.resp` entries name drugs at doses — anastrozole and
+  exemestane among them — and a page publishing one now fails the build); every
+  unit surviving into a page's inlined registry, including function-valued
+  conversions; the optimal band labelled non-diagnostic *in the row it appears
+  in*; LOINC labelled unverified; sex/age bands re-derived cell by cell.
+- **A real serialisation bug caught:** `JSON.stringify` silently drops
+  function-valued properties, and HbA1c's mmol/mol conversion is a non-linear
+  function. The first build shipped an HbA1c converter with no conversion at all.
+
+**What the adversarial review pass taught us, worth keeping.** Each of the last
+five pages was checked by three independent reviewers. Half of what they reported
+was wrong, and telling which half took real verification:
+
+- Three reviewers independently called an Lp(a) molar/mass ratio of 3.6 a
+  fabrication, each supplying the same confident correction. It is real — the
+  ratio runs 1.82 below 75 nmol/L to 3.64 above 324 nmol/L. All three were
+  recalling the same table, none could fetch the paper, and they converged on a
+  wrong answer. **Majority agreement between agents that cannot check a source is
+  not evidence.** Settle it by searching.
+- They did correctly catch an arithmetically inverted worked example, a swapped
+  citation pair, an overstated claim about what the app does, and a broken
+  renderer token that would have published verbatim.
+- The same pass produced a correction to already-shipped content: the hematocrit
+  page stated the 2018 Endocrine Society guideline discourages starting therapy
+  above a baseline of 50%. Sources disagree (48% and 50% both appear, and reviews
+  note the definition of erythrocytosis itself varies). The page now leads with
+  the 54% withholding threshold, which is consistent everywhere.
+
 **Known not-shipped**
 - No art assets have been generated. Every `assets/art/*.png` returns 404.
   Prompts are ready; images are not. (`favicon.ico` shipped with the 2026-08
@@ -632,11 +679,13 @@ The Focus board holds the working sequence. This is the summary.
    DOM-stub execution check in CI. Tier C never reaches a public page, checked
    against the inlined data. Submit the new URLs with
    `node scripts/indexnow-submit.js` after the deploy.
-3b. **SEO Phase 2** (`docs/SEO-PLAN.md` §6): fifteen lab-marker pages, five a
-   week, authored under the founder's byline with a generated fact box.
-   Search-landscape check (3 Sep 2026): no tracker app has assay-aware marker
-   pages; IGF-1-by-age and ferritin-on-TRT are effectively unowned; estradiol
-   sensitive-vs-standard is the flagship.
+3b. ~~**SEO Phase 2** (`docs/SEO-PLAN.md` §6).~~ **Done 3 Sep 2026** — see §2.
+   All fifteen marker pages plus the bloodwork checklist hub are live.
+   **Search Console is verified and the pages are submitted for indexing** (owner,
+   3 Sep), so the four-to-eight week clock that gates Phase 3 is now running.
+   Bing Webmaster Tools and the IndexNow key are the remaining owner step;
+   `node scripts/indexnow-submit.js` pushes all 62 URLs once that is done, and
+   Bing is also the route into ChatGPT's search index.
 4. Generate the 30 class illustrations + hero renders, wire into the encyclopedia
    and landing page (`/assets/art/class-{id}.png`, ids match `compounds.json`).
 5. Compliance pass module in the Marketing Suite — gates all content publishing.
