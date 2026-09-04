@@ -1,0 +1,78 @@
+# Tell Bing, Yandex, Naver and Seznam what changed, on every merge to main.
+#
+# This is the one workflow in the repo that makes a network call. Every other
+# one is hermetic on purpose — validation must not depend on someone else's
+# uptime. Submission is a different job: it has no verdict to give, nothing
+# downstream depends on it, and it is the step a person would otherwise have to
+# remember to run by hand after every deploy.
+#
+# Google does not participate in IndexNow. Google discovery is sitemap.xml,
+# internal links and Search Console; nothing here affects it.
+name: IndexNow
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      all:
+        description: 'Submit every URL in sitemap.xml instead of only what changed'
+        type: boolean
+        default: false
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      # Two commits, so HEAD^ exists and the merge can be diffed against the
+      # main it landed on. A merge commit's first parent is the previous main,
+      # so this is everything the merge brought in.
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 2 }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      - name: Which URLs changed
+        id: urls
+        run: |
+          set -euo pipefail
+          if [ "${{ inputs.all }}" = "true" ]; then
+            echo "mode=all" >> "$GITHUB_OUTPUT"
+            echo "Manual run: submitting the whole sitemap."
+            exit 0
+          fi
+          # A first commit has no HEAD^ to diff against. Nothing to do.
+          if ! git rev-parse --verify --quiet HEAD^ >/dev/null; then
+            echo "mode=none" >> "$GITHUB_OUTPUT"
+            echo "No previous commit to diff against."
+            exit 0
+          fi
+          git diff --name-only HEAD^ HEAD > changed.txt
+          xargs -r -a changed.txt node scripts/indexnow-changed.js > urls.txt
+          if [ ! -s urls.txt ]; then
+            # Empty must mean "submit nothing". indexnow-submit.js with no
+            # arguments submits the entire sitemap, which is the opposite of
+            # what this workflow is for.
+            echo "mode=none" >> "$GITHUB_OUTPUT"
+            echo "No public URLs changed in this push."
+            exit 0
+          fi
+          echo "mode=some" >> "$GITHUB_OUTPUT"
+          echo "Changed URLs:"; cat urls.txt
+
+      # GitHub Pages publishes from the branch a minute or so after the push.
+      # Search engines crawl an IndexNow hint later rather than instantly, so
+      # this is belt and braces — but a minute costs nothing and it keeps a
+      # brand-new page from being announced before it has landed.
+      - name: Let GitHub Pages publish first
+        if: steps.urls.outputs.mode != 'none'
+        run: sleep 60
+
+      - name: Submit the changed URLs
+        if: steps.urls.outputs.mode == 'some'
+        run: xargs -r -a urls.txt node scripts/indexnow-submit.js
+
+      - name: Submit the whole sitemap
+        if: steps.urls.outputs.mode == 'all'
+        run: node scripts/indexnow-submit.js

@@ -5,12 +5,17 @@
  * Google does NOT participate in IndexNow. Google discovery is sitemap.xml,
  * internal links and Search Console; nothing here helps with it.
  *
- * Run by hand after a deploy (GitHub Pages has no build step and CI makes no
- * network calls):
+ * Runs itself now: .github/workflows/indexnow.yml calls this on every merge to
+ * main, with the URLs that merge changed (scripts/indexnow-changed.js works out
+ * which). It is the one workflow in the repo that makes a network call — every
+ * other one is hermetic on purpose. Running it by hand still works:
  *
  *   node scripts/indexnow-submit.js            # submit every sitemap URL
  *   node scripts/indexnow-submit.js --dry-run  # print the payload, send nothing
  *   node scripts/indexnow-submit.js /tools/ /markers/estradiol-sensitive-vs-standard/
+ *
+ * Note the no-argument form submits EVERYTHING. A caller that means "only what
+ * changed" must not invoke this with an empty list.
  *
  * Passing paths submits only those (still resolved against HOST). The key file
  * must already be deployed and reachable at https://<host>/<key>.txt before a
