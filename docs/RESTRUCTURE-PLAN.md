@@ -121,11 +121,64 @@ resolves itself — but do not rely on that. Add a permanent, always-visible
 **Upgrade** and **Restore Purchases** pair in Settings, and write App Review
 notes naming the exact taps.
 
-### 0.4 The 1.4.1 finding, diagnosed
+### 0.4 Guideline 1.4.1 — the finding that killed it, and what actually satisfies it
 
-Apple's remedy — "attach your regulatory approval documentation" — is not
-available to you and never will be. So the store build must stop being the kind
-of app that needs it.
+This is the finding that killed the submission, so it gets the detail.
+
+**The guideline is only two sentences.** Verbatim:
+
+> **1.4.1** Medical apps that could provide inaccurate data or information, or
+> that could be used for diagnosing or treating patients may be reviewed with
+> greater scrutiny.
+>
+> - Apps must **clearly disclose data and methodology to support accuracy claims
+>   relating to health measurements**, and if the level of accuracy or
+>   methodology cannot be validated, we will reject your app. For example, apps
+>   that claim to take x-rays, measure blood pressure, body temperature, blood
+>   glucose levels, or blood oxygen levels using only the sensors on the device
+>   are not permitted.
+> - Apps should **remind users to check with a doctor** in addition to using the
+>   app and before making medical decisions. If your medical app has received
+>   regulatory clearance, please submit a link to that documentation with your app.
+
+Read that carefully: **1.4.1 is a sourcing-and-methodology rule, not a content
+ban.** It does not say a health app may not discuss compounds. It says that if
+the app makes quantitative claims about health measurements, it must show where
+the numbers came from and how they were derived — and that it must point users
+at a clinician.
+
+Apple's "attach your regulatory clearance" line is the escape hatch for cleared
+medical devices. It is not the only path, and it is not our path. **The other
+path is the first bullet: disclose the data and the methodology.**
+
+### What the app currently fails
+
+| Requirement | State |
+|---|---|
+| Disclose data behind health-measurement claims | **Absent.** `grep -c` in `app.html` for `pubmed`, `doi.org`, `citation`, `References`, `Last reviewed` returns **0 for every one**. |
+| Disclose methodology | **Absent.** Nothing states how the PK curves are computed. |
+| Remind users to check with a doctor | **Thin.** "consult your / talk to your / ask your / check with your" appears **twice** in 938 KB. `LEDGER.md` §1 asserts every side-effect workflow ends with "consult your doctor"; there are 12 `SIDEFX` playbooks and the phrase appears twice. |
+
+And the app makes a great many quantitative health-measurement claims:
+
+- **`LAB_REF` reference ranges**, sex- and age-adjusted through
+  `getAdjustedLabRanges()`, against which `classify()` returns LOW / NORMAL /
+  HIGH. Classifying a user's lab value against an unsourced range is precisely
+  "an accuracy claim relating to a health measurement".
+- **`TL_PK` half-lives** for 97 compounds, rendered as blood-level curves that
+  read as predictions of what is in the user's body.
+- **Dose ranges** on every compound entry.
+- **Anabolic:androgenic ratios**, once Phase 1 adds them — and these are
+  rodent-assay figures with poor human correlation, which makes an unlabelled
+  one a textbook unvalidated accuracy claim.
+
+**The bitter irony:** the public website is already more compliant than the app.
+The tool pages carry "Last reviewed: 4 September 2026" and copy as good as
+*"This does the arithmetic you typed and nothing else — it does not know your
+vial, your actual concentration, or whether the dose is right for you."* None of
+that is in `app.html`.
+
+### What in the app reads as diagnosis or treatment advice
 
 What trips 1.4.1 is **interpretation and recommendation**, not data. Charting a
 lab value over time is fine. These are the triggers, in descending order:
@@ -151,6 +204,67 @@ compound list.** A compound entry that says what a compound is, what the
 literature reports, and what the risks are, is reference. The same entry with a
 "your starting dose" row is advice. That distinction — not the compound's
 schedule — is what decides most of what changes.
+
+---
+
+### The remedy — a provenance layer, not a content cut
+
+1. **Cite the data.** A `src` field alongside every `TL_PK` entry, every
+   `LAB_REF` range, and every dose row. Surfaced in the UI, not buried in a
+   legal page. This is schema work and it belongs with Phase 1.
+2. **State the methodology.** A visible "Sources & methodology" screen that says
+   plainly how a curve is produced — single-compartment first-order elimination
+   from a published half-life — and what that model does *not* account for
+   (individual clearance, ester hydrolysis rate, injection site, body
+   composition). Naming a model's limits is what "methodology can be validated"
+   means.
+3. **Stop asserting, or show the basis.** `classify()` is the sharpest edge.
+   Either every range displays its source and assay next to the verdict, or the
+   store build charts the value and drops the LOW/NORMAL/HIGH label.
+4. **Raise the doctor-reminder density** to what `LEDGER.md` already claims is
+   true. Every `SIDEFX` playbook, every dose table, every lab classification.
+5. **Add a review date** per compound entry, as the website already does.
+
+Every one of those makes the app better on its own terms. None of them requires
+removing a compound.
+
+### The bigger latent threat: 1.4.2, which Apple did *not* cite
+
+> **1.4.2** Drug dosage calculators must come from the drug manufacturer, a
+> hospital, university, health insurance company, pharmacy or other approved
+> entity, or receive approval by the FDA or one of its international
+> counterparts.
+
+We ship a **"Peptide Dose Calculator"** that takes a target dose and returns what
+to draw, plus reconstitution and TRT dose tools. If a reviewer reads those as
+drug dosage calculators, 1.4.2 requires institutional provenance we do not have
+and cannot obtain. There is no methodology escape hatch in 1.4.2.
+
+Apple has not defined the term. A developer forum thread asking exactly this —
+whether a tool that "only performs basic mathematical operations on a dose value
+entered by the user, without suggesting medications or treatments" is caught —
+got only boilerplate support links in reply. Enforcement is documented as
+inconsistent.
+
+**Mitigation is framing, and the website already has the right words.** In the
+app, adjacent to the calculator and not in a settings page: this is arithmetic on
+numbers the user supplied; it does not know the vial, the true concentration, or
+whether the dose is appropriate; check the result against the syringe markings;
+take dosing decisions to a prescriber. Never pre-fill a dose. Never suggest one.
+Never label a field "recommended".
+
+If a future review cites 1.4.2 anyway, the fallback is to ship the store build
+without the dose calculator and keep it on the web, where no guideline reaches
+it. Worth deciding in advance rather than under a review clock.
+
+### Sequencing consequence
+
+The provenance layer (items 1–5) is **not** part of the store fork. It should
+land in the main app first, because it is a genuine quality improvement, because
+`LEDGER.md` already promises some of it, and because it is the difference between
+answering 1.4.1 with evidence and answering it with a disclaimer. It moves into
+**Phase 1**, alongside the tag schema, since both are per-compound metadata
+touching the same records.
 
 ---
 
@@ -283,9 +397,18 @@ else here, whether or not a store submission follows.
 | 1.3 | `TL_TAGS` + `TL_TAG_DEFS` blocks written into `app.html`. |
 | 1.4 | `assertTags()` + CI wiring. |
 | 1.5 | `docs/COMPOUND-TAGS.md` generated from the data, same pattern as `COMPOUNDS.md`. |
+| **1.6** | **The 1.4.1 provenance layer.** A `src` field beside every `TL_PK` entry, every `LAB_REF` range and every dose row, surfaced in the UI rather than buried. Per-compound review dates, as the website already carries. |
+| **1.7** | **The methodology screen.** States how a PK curve is produced — single-compartment first-order elimination from a published half-life — and what it does not model: individual clearance, ester hydrolysis rate, injection site, body composition. Naming a model's limits is what "methodology can be validated" means. |
+| **1.8** | **Doctor-reminder density.** Bring it up to what `LEDGER.md` §1 already claims: every `SIDEFX` playbook, every dose table, every lab classification. Currently the phrase appears twice in 938 KB. |
+| **1.9** | **1.4.2 pre-emption.** Port the website's calculator framing into the app, adjacent to the calculator: arithmetic on numbers the user supplied, no knowledge of the vial or whether the dose is appropriate, check against the syringe markings, dosing decisions go to a prescriber. Never pre-fill or suggest a dose; never label a field "recommended". |
 
-**Exit:** every compound carries machine-readable pharmacology, and the build
-fails if a new one arrives untagged.
+**Exit:** every compound carries machine-readable pharmacology and a citation,
+the build fails if a new one arrives untagged or unsourced, and 1.4.1 can be
+answered with evidence rather than a disclaimer.
+
+**1.6–1.9 are the 1.4.1 answer** and they are deliberately here, in the main
+app, rather than in the store fork — they are quality improvements the web
+product wants anyway, and `LEDGER.md` already promises part of 1.8.
 
 ### Phase 2 — Interaction engine v2  ·  *the biggest safety win available*
 
