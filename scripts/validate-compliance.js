@@ -80,6 +80,31 @@ PUBLIC.concat(['app.html']).forEach((rel) => {
   t(`${rel} has exactly one <h1>`, n === 1, `found ${n}`);
 });
 
+/* ---- 1c. Titles and descriptions that survive truncation ---------------- */
+/* Bing truncates a title around 65 characters and Google around 600 pixels,
+   which is roughly 60 for mixed-case text; descriptions are cut near 155-160.
+   Past those points the tail is thrown away, and on this site the tail is
+   "| TherapyLog" — so an over-long title costs the brand, not the keywords.
+   The caps are deliberately tight and there is no headroom left: the longest
+   title on the site is 60 and the longest description 155. A new page that does
+   not fit has to be written shorter rather than have the cap raised.
+
+   Both are also asserted non-empty. A generated page with no description is a
+   template bug that no other check would notice. */
+const MAX_TITLE = 60;
+const MAX_DESC = 155;
+
+PUBLIC.concat(['app.html']).forEach((rel) => {
+  const html = read(rel);
+  if (html === null) return;
+  const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || '';
+  const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '';
+  t(`${rel} has a title of at most ${MAX_TITLE} characters`,
+    title.length > 0 && title.length <= MAX_TITLE, `${title.length}: ${title}`);
+  t(`${rel} has a description of at most ${MAX_DESC} characters`,
+    desc.length > 0 && desc.length <= MAX_DESC, `${desc.length} characters`);
+});
+
 /* ---- 2. No unsubstantiated verification or testing claims --------------- */
 /* The directory sold a "Verified" badge by tier while telling readers the
    badge was "earned, not bought", and offered "products tested" over sellers

@@ -323,7 +323,7 @@ if (compoundDefs) {
 
     /* The dosing table, if present, carries no stripped row. */
     const stripped = (entry.doses || []).filter((r) =>
-      /performance|cycle|blast|advanced|intermediate|\bpct\b|post-?cycle|restart/i.test(r.l) ||
+      /performance|cycle|blast|advanced|intermediate|\bpct\b|post-?cycle|restart|\bbulking\b/i.test(r.l) ||
       /during (a |an |the )?cycle|of (a |an |the )?cycle\b|post-?cycle|before starting serm|\bpct\b/i
         .test([r.d, r.f, r.c].filter(Boolean).join(' ')));
     const leaked = stripped.filter((r) => html.includes(esc(r.l)) && html.includes(esc(r.d)));
@@ -352,9 +352,34 @@ if (compoundDefs) {
   const CODED = /\b(cycle|stack|peak|alpha|apex|elite|prime|max|beast)\b/i;
   for (const rel of compoundPages) {
     const url = urlOf(rel);
+    const id = bySlug.get(url.split('/')[2]);
     const title = (read(rel).match(/<title>([^<]*)<\/title>/) || [])[1] || '';
-    t(`${url} slug carries no bodybuilding-coded word`, !CODED.test(url), url);
-    t(`${url} title carries no bodybuilding-coded word`, !CODED.test(title), title);
+    /* The compound's own name is not a marketing choice. Thymosin Alpha-1 is
+       called that, and a slug and title that say so are correct — the rule is
+       about words chosen to sell, not about molecules. So the name and the slug
+       derived from it are removed before the test, which keeps the check sharp
+       for everything an author actually picks. */
+    const name = id && app.byId[id] ? app.byId[id].name : '';
+    const strip = (str) => {
+      if (!name) return str;
+      const slugName = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      return str.replace(new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'ig'), ' ')
+                .replace(new RegExp(slugName, 'ig'), ' ');
+    };
+    /* The rendered Class row, which comes from app.html's own class name unless
+       the generator relabels it. Two of those names are coded — "Bodybuilding &
+       PED Compounds" holds isotretinoin and raloxifene — and printing one in a
+       fact box under this byline is the same failure as putting it in a title. */
+    const cls = (read(rel).match(/<dt>Class<\/dt><dd>([^<]*)/) || [])[1] || '';
+    /* The CODED list is not applied here on purpose. A class label is a
+       technical term, and "5-alpha reductase inhibitor" is what the enzyme is
+       called — §9's word list is about titles and slugs, where the words are
+       chosen to sell. What a class label must not be is empty, one of the
+       app's "Additional …" catch-alls, or the bodybuilding-coded class name. */
+    t(`${url} publishes a class label, relabelled where the app's is unusable`,
+      cls.length > 0 && !/^Additional /.test(cls) && !/Bodybuilding|PED/i.test(cls), cls);
+    t(`${url} slug carries no bodybuilding-coded word`, !CODED.test(strip(url)), url);
+    t(`${url} title carries no bodybuilding-coded word`, !CODED.test(strip(title)), title);
   }
 
   t('every compound in the content module shipped a page',

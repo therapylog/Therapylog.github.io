@@ -227,7 +227,7 @@ ${def.basis.map(([k, v]) => `        <dt>${api.esc(k)}</dt><dd>${api.esc(v)}</dd
       regulatoryBlock(api, app, entry, tier),
       api.factBox([
         ['Also known as', api.esc(entry.aka || '—')],
-        ['Class', api.esc(entry.clsName)],
+        ['Class', api.esc(api.displayClass(entry))],
         api.regStatus(entry) ? ['Regulatory status', api.esc(api.regStatus(entry))] : null,
         ...api.pkRows(app, id),
         ...api.storageRows(app, id)

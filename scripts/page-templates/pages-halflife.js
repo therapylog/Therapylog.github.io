@@ -558,10 +558,14 @@ ${ssChart.svg}
 
     out.push(api.render(ctx, {
       url,
-      title: `${entry.name} half-life and steady state | TherapyLog`,
-      description: `${entry.name}'s modelled half-life is ${curve.fmtHours(pk.hl)}` +
-        `${pk.est ? ' (estimated)' : ''}, peaking ${curve.fmtHours(pk.tmax)} after a dose. ` +
-        `Accumulation, time to steady state and peak-to-trough, with the curve drawn.`,
+      /* "half-life, steady state" rather than "half-life and steady state":
+         the two testosterone esters have 22-character names, and the longer
+         phrase pushed their titles to 62 characters with the brand suffix
+         attached — past where both engines truncate. */
+      title: `${entry.name} half-life, steady state | TherapyLog`,
+      description: `${entry.name}: modelled half-life ${curve.fmtHours(pk.hl)}` +
+        `${pk.est ? ' (estimated)' : ''}, peak at ${curve.fmtHours(pk.tmax)}. ` +
+        `Accumulation, steady state and peak-to-trough, with the curve drawn.`,
       trail: api.toolsTrail([
         { name: 'Half-life', url: '/tools/half-life-calculator/', absolute: api.SITE + '/tools/half-life-calculator/' },
         { name: entry.name, url, absolute: api.SITE + url }

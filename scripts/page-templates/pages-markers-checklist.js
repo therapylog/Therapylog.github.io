@@ -216,8 +216,8 @@ function build(ctx, api) {
   return [api.render(ctx, {
     url: '/markers/trt-bloodwork-checklist/',
     title: 'Bloodwork checklist: markers, assays and timing | TherapyLog',
-    description: 'Which markers to order, which assay to specify, what context to record beside ' +
-      'each result, and how often to draw. Generated from the app’s own marker registry.',
+    description: 'Which markers to order, which assay to specify, what to record beside ' +
+      'each result, and how often to draw. From the app’s own registry.',
     type: 'Article',
     trail: [
       { name: 'Home', url: '/', absolute: api.SITE + '/' },

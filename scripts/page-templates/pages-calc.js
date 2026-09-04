@@ -435,8 +435,8 @@ function trtPage(ctx, api) {
   return api.render(ctx, {
     url: '/tools/trt-dose-calculator/',
     title: 'Testosterone dose calculator | TherapyLog',
-    description: 'Split a weekly testosterone dose by injection frequency — mg, ml and syringe ' +
-      'units — with the modelled peak-to-trough swing per ester and cadence. Free, no account.',
+    description: 'Split a weekly testosterone dose by injection frequency — mg, ml and ' +
+      'syringe units — with the modelled swing per ester. Free, no account.',
     trail: api.toolsTrail([{ name: 'Testosterone dose', url: '/tools/trt-dose-calculator/',
       absolute: api.SITE + '/tools/trt-dose-calculator/' }]),
     body,
@@ -714,8 +714,8 @@ function freeTPage(ctx, api) {
   return api.render(ctx, {
     url: '/tools/free-testosterone-calculator/',
     title: 'Free testosterone calculator (Vermeulen) | TherapyLog',
-    description: 'Calculated free and bioavailable testosterone from total T, SHBG and albumin ' +
-      'by the Vermeulen equation, in your lab’s units — and why the SHBG assay changes it.',
+    description: 'Free and bioavailable testosterone from total T, SHBG and albumin by ' +
+      'the Vermeulen equation, in your lab’s units. Free, no account.',
     trail: api.toolsTrail([{ name: 'Free testosterone', url: '/tools/free-testosterone-calculator/',
       absolute: api.SITE + '/tools/free-testosterone-calculator/' }]),
     body,
@@ -852,8 +852,8 @@ function syringePage(ctx, api) {
   return api.render(ctx, {
     url: '/tools/syringe-builder/',
     title: 'Combined syringe planner | TherapyLog',
-    description: 'Plan a multi-compound draw, see the stacked fill level, and get warned when ' +
-      'compounds should not share a syringe: oil and water, suspensions, fragile proteins.',
+    description: 'Plan a multi-compound draw, see the stacked fill level, and get warned ' +
+      'when compounds should not share a syringe. Free, no account.',
     trail: api.toolsTrail([{ name: 'Syringe planner', url: '/tools/syringe-builder/',
       absolute: api.SITE + '/tools/syringe-builder/' }]),
     body,

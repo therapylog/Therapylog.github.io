@@ -32,8 +32,7 @@ const MARKERS = {
     keys: ['e2'],
     title: 'Sensitive vs standard estradiol | TherapyLog',
     h1: 'Sensitive versus standard estradiol: why the assay changes the answer',
-    description: 'Standard estradiol immunoassays are unreliable at the concentrations men run. ' +
-      'What the sensitive and LC/MS-MS methods measure, how to read the number, and why a range quoted without a method is not usable.',
+    description: "Standard estradiol immunoassays are unreliable at male concentrations. What the sensitive and LC/MS-MS methods measure, and how to read one.",
     lede: `Two labs can measure the same blood and report estradiol numbers that are far apart, and
            neither is lying. The method is the difference, and most of the ranges quoted online do
            not say which one produced them.`,
@@ -173,8 +172,7 @@ const MARKERS = {
     keys: ['tott'],
     title: 'Total testosterone: immunoassay vs LC/MS-MS | TherapyLog',
     h1: 'Total testosterone: immunoassay versus LC/MS-MS, and the range by age',
-    description: 'Why two labs report different total testosterone from the same blood, what the ' +
-      'reference range does with age, and how to read a result when the method is not stated.',
+    description: "Why two labs report different total testosterone from the same blood, what the range does with age, and how to read an unstated method.",
     lede: `Total testosterone is the most-ordered hormone test in this population and one of the
            easiest to over-read. The method matters, the reference range moves with age, and a
            single draw says less than people think.`,
@@ -281,8 +279,7 @@ const MARKERS = {
     keys: ['freet', 'bioavailt', 'shbg'],
     title: 'Free vs total testosterone | TherapyLog',
     h1: 'Free versus total testosterone, and the three ways labs get the free number',
-    description: 'Calculated, direct immunoassay and equilibrium dialysis free testosterone are ' +
-      'three different measurements. What each one does, why they disagree, and where SHBG comes in.',
+    description: "Calculated, direct immunoassay and equilibrium dialysis free testosterone are three measurements. Why they disagree, and where SHBG comes in.",
     lede: `"Free testosterone" on a report can mean any of three quite different procedures. Two of
            them are reasonable and one is widely regarded as unreliable, and reports do not always
            say which you got.`,
@@ -387,8 +384,7 @@ const MARKERS = {
     keys: ['shbg'],
     title: 'SHBG: what it is and what moves it | TherapyLog',
     h1: 'SHBG: what it does, what raises and lowers it, and why it drives your free testosterone',
-    description: 'Sex hormone-binding globulin decides how much of your testosterone is available. ' +
-      'What raises and lowers it, why high SHBG on TRT is a common complaint, and how to read it.',
+    description: "SHBG decides how much of your testosterone is available. What raises and lowers it, why high SHBG on TRT is a common complaint, how to read it.",
     lede: `SHBG is the reason two people with the same total testosterone can have different free
            levels and different symptoms. It is also the input that makes a calculated free
            testosterone move when nothing else has.`,
@@ -476,8 +472,7 @@ const MARKERS = {
     keys: ['hct', 'hgb', 'rbc', 'ferritin'],
     title: 'Hematocrit on TRT | TherapyLog',
     h1: 'Hematocrit on testosterone therapy: the thresholds, the trend, and the ferritin trap',
-    description: 'Testosterone raises hematocrit. What the guideline thresholds are, why the draw ' +
-      'conditions matter, and why routine blood donation trades one problem for iron deficiency.',
+    description: "Testosterone raises hematocrit. What the guideline thresholds are, why draw conditions matter, and what routine donation trades away.",
     lede: `A rising hematocrit is the most predictable laboratory consequence of testosterone therapy
            and the one most often mismanaged — usually by treating the number without watching what
            the fix does to iron.`,
@@ -597,8 +592,7 @@ const MARKERS = {
     keys: ['prolactin'],
     title: 'Prolactin: reading a high result | TherapyLog',
     h1: 'Prolactin: what actually raises it, and what one high draw does not mean',
-    description: 'Prolactin is easy to elevate by accident and easy to over-treat. What raises it, ' +
-      'why a single high value is usually repeated before anything is done, and how the units differ.',
+    description: "Prolactin is easy to elevate by accident and easy to over-treat. What raises it, why a single high value gets repeated, and how units differ.",
     lede: `A single high prolactin is one of the most over-reacted-to results in this population.
            It is also one of the easiest to produce artefactually — by the draw itself, by sleep,
            by a meal, or by a dozen ordinary medications.`,
@@ -716,8 +710,7 @@ const MARKERS = {
     keys: ['lh', 'fsh'],
     title: 'LH and FSH on and after testosterone | TherapyLog',
     h1: 'LH and FSH: what they show during suppression and during recovery',
-    description: 'LH and FSH are the two markers that show whether your own production is running. ' +
-      'What they do on testosterone therapy, what recovery looks like on paper, and why timing decides the result.',
+    description: "LH and FSH show whether your own production is running. What they do on testosterone therapy, what recovery looks like, and why timing decides.",
     lede: `LH and FSH are the difference between "my testosterone is fine" and "my testosterone is
            fine because I am injecting it". On therapy they are expected to be low; after it, they
            are how recovery is confirmed.`,
@@ -937,8 +930,7 @@ const MARKERS = {
     keys: ['hba1c', 'glucose', 'insulin'],
     title: 'HbA1c and fasting glucose | TherapyLog',
     h1: 'HbA1c and fasting glucose: the conversion, and why donating blood distorts one of them',
-    description: 'How mmol/mol converts to percent, what fasting glucose and insulin add, and why ' +
-      'anything that shortens red cell lifespan — phlebotomy included — biases HbA1c low.',
+    description: "How mmol/mol converts to percent, what fasting glucose and insulin add, and why anything shortening red cell lifespan biases HbA1c low.",
     lede: `HbA1c is an average, and averages have assumptions. The main one is that your red cells
            live about as long as everyone else's — which is exactly the assumption that routine
            phlebotomy breaks.`,
@@ -1044,8 +1036,7 @@ const MARKERS = {
     keys: ['apob', 'ldl', 'nonhdl', 'ldlp'],
     title: 'ApoB vs LDL cholesterol | TherapyLog',
     h1: 'ApoB versus LDL cholesterol: counting particles instead of cargo',
-    description: 'LDL-C measures cholesterol carried; ApoB counts the particles carrying it. Why ' +
-      'they disagree, which LDL calculation your lab used, and what changes on testosterone or a GLP-1.',
+    description: "LDL-C measures cholesterol carried; ApoB counts the particles carrying it. Why they disagree, and which LDL calculation your lab used.",
     lede: `LDL cholesterol and ApoB usually agree, and the interesting cases are the ones where they
            do not. Knowing which number your report actually gave you — and how it was arrived at —
            is most of the work.`,
@@ -1413,7 +1404,7 @@ const MARKERS = {
     keys: ["ferritin","iron","tibc","transferrin","ironsat"],
     title: "Ferritin and the Iron Panel on TRT | TherapyLog",
     h1: "Ferritin and the iron panel on TRT: what donating blood costs you",
-    description: "Testosterone lowers ferritin before you ever donate. How to read ferritin, iron, TIBC, transferrin and saturation together, and why the assay changes the answer.",
+    description: "Testosterone lowers ferritin before you ever donate. How to read ferritin, iron, TIBC, transferrin and saturation together as one panel.",
     lede: `Testosterone lowers your ferritin before anyone takes a unit off you. The standard fix for a
            high haematocrit then removes 200 to 250 mg of iron at a time, every eight weeks,
            indefinitely — and the fatigue that follows looks exactly like the low-testosterone picture
@@ -1687,7 +1678,7 @@ const MARKERS = {
   vitd: {
     slug: "vitamin-d",
     keys: ["vitd"],
-    title: "Vitamin D (25-OH): the optimal range is contested | TherapyLog",
+    title: "Vitamin D (25-OH): the contested range | TherapyLog",
     h1: "Vitamin D (25-OH-D): why your \"optimal\" target is a convention, not a trial result",
     description: "Vitamin D is reported in ng/mL or nmol/L, 2.5x apart, and the 50-80 'optimal' band is a convention the Endocrine Society itself stopped endorsing in 2024.",
     lede: `Two things decide whether your vitamin D result means anything, and neither is the number
@@ -1963,7 +1954,7 @@ const MARKERS = {
   tsh: {
     slug: "thyroid-panel",
     keys: ["tsh","ft4","ft3","rt3","tpo","tgab","t4total","t3total"],
-    title: "Thyroid Panel: TSH, Free T4, Free T3 and Reverse T3 | TherapyLog",
+    title: "Thyroid panel: TSH, free T4, free T3, rT3 | TherapyLog",
     h1: "Thyroid panel: TSH, free T4, free T3, reverse T3 and thyroid antibodies",
     description: "How to read TSH, free T4, free T3, reverse T3 and thyroid antibodies — including why testosterone lowers total T4 with no thyroid disease at all.",
     lede: `Testosterone lowers thyroxine-binding globulin, so a man on TRT can post a low total T4 with
@@ -2225,7 +2216,7 @@ const MARKERS = {
   dht: {
     slug: "dht",
     keys: ["dht"],
-    title: "DHT: what the result means and the cost of lowering it | TherapyLog",
+    title: "DHT: what it means, and the cost of lowering | TherapyLog",
     h1: "DHT (dihydrotestosterone): what the result means, and what lowering it costs",
     description: "Dihydrotestosterone is more than a hair-loss number. What a serum DHT can and cannot tell you, why gels raise it, and what 5-ARI suppression really costs.",
     lede: `Almost every page about DHT treats it as a number to get rid of. The more useful questions

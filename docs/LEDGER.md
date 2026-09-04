@@ -553,6 +553,143 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**SEO Phase 3, batch 4 — the last twenty /compounds/ pages, and the hub rebuilt
+(4 Sep 2026)**
+
+Twelve Tier A and eight Tier B: gonadorelin, isotretinoin, raloxifene,
+progesterone, oxytocin, quercetin, GHK-Cu, NAC/NALT, therapeutic melatonin,
+acarbose, taurine and spermidine; thymalin, the NAD+ IV protocol, humanin,
+LL-37, larazotide, SLU-PP-332, follistatin and dihexa. Eighty compound pages
+now, 701-1,198 authored words each, worst sibling similarity 0.181 (humanin vs
+MOTS-c, both mitochondrial-derived peptides — expected, and well under the 0.4
+ceiling). Sitemap 123 to 143 URLs.
+
+- **The hub was the actual problem, not the page count.** The owner reported
+  that `/compounds/` "only shows a small handful" and that there was no way to
+  find any of this from the top of the site. Three fixes: a `Compounds` link in
+  the main nav on `index.html` and in the generated shell, the hub rewritten
+  into ten labelled groups with a blurb each instead of one flat list, and a
+  filter box above them that narrows the cards as you type and opens the first
+  match on Enter — the encyclopedia's pattern, applied to compounds.
+- **The hub asserts its own completeness at build time.** `GROUPS` in
+  `pages-compounds-hub.js` throws unless every shipped compound appears in
+  exactly one group and no group names a compound that has not shipped. That is
+  what makes "a small handful" impossible to reintroduce silently: adding a page
+  without placing it fails the build.
+- **Class labels no longer leak the app's internal taxonomy.** Isotretinoin and
+  raloxifene sit in the app class "Bodybuilding & PED Compounds", which is a
+  correct internal label and a terrible public one. `displayClass()` maps every
+  app class to a public equivalent, `COMPOUND_CLASS` overrides individual
+  compounds where the class is wrong for them, and the four "Additional …"
+  buckets throw rather than render — a compound in one has no public class until
+  someone writes it. The validator checks the rendered label is non-empty, does
+  not start with "Additional" and does not contain "Bodybuilding" or "PED".
+- **Urolithin A was dropped from the batch and spermidine took its place.** The
+  app's urolithin rows and drawbacks name commercial brands. Every compound page
+  states that it names no vendor, so shipping that entry would have contradicted
+  the page's own sentence. Spermidine covers the same autophagy ground without
+  the conflict.
+- **Deliberately not shipped, and why.** The Khavinson bioregulators are
+  near-identical to one another in the app's own data and would produce pages
+  that differ only in the organ named. `bpc157sys`, `tbnouveau` and
+  `kisspeptin54` are data twins of pages that already exist. `igf1lr3` has no
+  publishable dosing left after the strip filter and nothing but performance
+  framing behind it. Insulin is not in app.html's database at all, so there is
+  nothing to generate from — a page on it would be authored from scratch, which
+  is a different decision and one for the owner.
+- **Selank and semax were already live** from batch 3; the owner asked for them
+  and they had shipped the day before under `/compounds/selank/` and
+  `/compounds/semax/`.
+- **Owner action after deploy:** `node scripts/indexnow-submit.js` for the 20 new
+  URLs, and resubmit `sitemap.xml` in Search Console and Bing Webmaster — the
+  "43 pages" figure the owner saw is a cached fetch of the Phase 1 sitemap.
+
+**SEO Phase 3, batch 3 — twenty more /compounds/ pages (4 Sep 2026)**
+
+Ten Tier A and ten Tier B: testosterone propionate, proviron, testosterone
+pellets, tamoxifen, natural desiccated thyroid, creatine, berberine, fisetin,
+dasatinib and telmisartan; hexarelin, GHRP-6, selank, cerebrolysin, DSIP, MOTS-c,
+VIP, kisspeptin-10, ARA-290 and 5-Amino-1MQ. Sixty compound pages now, 871-1,379
+authored words each, worst sibling similarity 0.173 — the four growth hormone
+releasing peptides, as expected, and still well under the 0.4 ceiling. Sitemap
+103 to 123 URLs.
+
+- **Chosen to close out families and to correct things.** The GHRP set is now
+  complete (ipamorelin, GHRP-2, GHRP-6, hexarelin), which is what lets each page
+  be about what distinguishes it rather than about growth hormone in general.
+  Berberine exists to say plainly that it is not a GLP-1 agonist and the weight
+  effect is a couple of kilograms, not fifteen per cent. Creatine exists mostly
+  for one paragraph: it raises serum creatinine and gets healthy people referred
+  for renal workup, and cystatin C settles it.
+- **Tamoxifen ships with no dosing table and the page says why.** Both rows the
+  app holds are post-cycle or during-cycle protocols, so the strip filter removes
+  them and nothing survives. Rather than hide that, the page has a section
+  explaining that every compound page is filtered the same way and this is the
+  one entry where the filter leaves nothing.
+- **"bulking" added to the dose strip filter.** GHRP-6's "Bulking and Mass" row
+  was the only place that word appears anywhere in the reference, and it survived
+  the §7 word list. One row removed across the whole DB.
+- **A data disagreement flagged rather than papered over.** app.html's regulatory
+  field for natural desiccated thyroid says "FDA approved". Desiccated thyroid
+  products are not FDA-approved drugs — they predate the 1938 approval pathway
+  and are marketed under enforcement discretion. The fact box still reproduces
+  the app's string, because that is the policy, and the prose says openly that it
+  disagrees with the box and why. **Owner action: correct that field in
+  app.html.** This site's policy of reproducing app data verbatim only works if
+  the prose is allowed to contradict it in public when it is wrong.
+- **Forty-seven publishable compounds remain.** No generator or validator changes
+  beyond the filter word and the coded-word fix from batch 2.
+
+---
+
+**SEO Phase 3, batch 2 — twenty more /compounds/ pages (4 Sep 2026)**
+
+Ten Tier A and ten Tier B, chosen by search demand rather than alphabetically:
+tesamorelin, dutasteride and finasteride, levothyroxine, liothyronine,
+cabergoline, exemestane, PT-141, low-dose naltrexone, DHEA and the NAD+
+precursors; CJC-1295 with DAC, enclomiphene, melanotan II, GHRP-2, HGH fragment
+176-191, AOD-9604, thymosin alpha-1, semax, KPV and SS-31. Forty compound pages
+now, 896-1,379 authored words each, worst sibling similarity 0.159 against the
+0.4 ceiling. Sitemap 83 to 103 URLs.
+
+- **Chosen so the pages explain each other.** Batch 1 shipped CJC-1295 without
+  DAC without the compound the name belongs to; this one adds it, and the two
+  pages carry the naming problem between them. HGH fragment 176-191 and AOD-9604
+  are the same argument: the fragment is sold on a 12.5x potency figure that
+  traces to rodents, and AOD-9604 is the modified version of the same region
+  that reached phase IIb in people and missed its endpoint. Enclomiphene
+  completes clomiphene. Dutasteride links the DHT page, cabergoline the
+  prolactin page, the two thyroid hormones the thyroid panel.
+- **`igf1lr3` was pulled from the shortlist.** Its only dosing rows are a
+  performance row, which the strip filter removes, and a site-injection row for
+  local muscle growth. What survives is a page whose entire subject is a
+  performance practice with a mitogenicity concern attached, and the honest
+  version of it is one nobody would publish. It stays Tier B in the policy and
+  unwritten in practice; §7 assigns tiers, it does not oblige a batch.
+- **The bodybuilding-coded-word guard was flagging a molecule's own name.**
+  Thymosin Alpha-1 is called that, and the check added in batch 1 read "alpha"
+  in both its slug and its title as a marketing choice. The compound's own DB
+  name and the slug derived from it are now removed before the test, which keeps
+  the rule sharp for everything an author actually picks — fault-injected with
+  "Rapamycin: peak mTOR protocol" to confirm it still fires.
+- **Sixty-seven publishable compounds remain.** The generator, the tier lists and
+  the validators have not changed since batch 1: a batch is content plus a
+  rebuild.
+
+**On the sitemap reading 43.** Reported this session as a live problem; it is
+not. 43 is exactly the Phase 1 sitemap from 3 Sep — 14 static plus 29 tool
+pages. The repository has carried 62, then 83, then 103 since, `sitemap.xml`
+parses clean with no duplicates and no malformed entries at 8.5 KB, there is no
+second sitemap file and no `jekyll-sitemap` plugin, `robots.txt` points at the
+right URL, and the Pages deployment for every merge including the most recent
+completed successfully. The number is a stale reading in the webmaster tool from
+the last time it fetched the file. Resubmitting the sitemap forces a re-fetch;
+`node scripts/indexnow-submit.js` pushes the URL list to Bing directly and still
+has to be run from the owner's machine, because `api.indexnow.org` and
+`therapylog.app` are both blocked from the CI sandbox.
+
+---
+
 **SEO Phase 3, batch 1 — the first twenty /compounds/ pages (4 Sep 2026)**
 
 Implements `docs/SEO-PLAN.md` §7, first of the twenty-at-a-time batches. Ten
@@ -769,8 +906,15 @@ The Focus board holds the working sequence. This is the summary.
    Search Console gate was waived deliberately: there is no query data yet (the
    marker pages deployed the same week), and marker queries sit in a different
    query space from compound queries, so waiting would not have informed the
-   selection. **87 publishable compounds remain**; pick the next twenty by search
-   demand, not alphabetically.
+   selection. **Batch 2 done 4 Sep 2026** — twenty more, also see §2, taking the
+   sitemap to 103 URLs. **Batch 3 done 4 Sep 2026** — twenty more, taking it to
+   123. **Batch 4 done 4 Sep 2026** — the last twenty, taking it to 143, along
+   with the nav link, the grouped hub and the filter box the owner asked for.
+   **Phase 3 is complete at 80 compound pages.** The 27 tiered compounds not
+   shipped were left out on purpose — the Khavinson bioregulators are
+   near-identical to one another in the app's own data, `bpc157sys`, `tbnouveau`
+   and `kisspeptin54` are data twins of pages that exist, and `igf1lr3` has no
+   publishable dosing left after the strip filter. See the batch 4 entry in §2.
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
 9. Decide the BYOK price. At $8.99/mo it sits $1 under Pro while the customer

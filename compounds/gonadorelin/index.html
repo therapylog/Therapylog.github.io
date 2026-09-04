@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Gonadorelin: GnRH, and why pulses matter | TherapyLog</title>
+<meta name="description" content="Synthetic GnRH used off-label as an hCG alternative. Given continuously it suppresses the axis rather than stimulating it.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/compounds/gonadorelin/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Gonadorelin: GnRH, and why pulses matter | TherapyLog"><meta property="og:description" content="Synthetic GnRH used off-label as an hCG alternative. Given continuously it suppresses the axis rather than stimulating it."><meta property="og:url" content="https://therapylog.app/compounds/gonadorelin/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Gonadorelin: GnRH, and why pulses matter | TherapyLog"><meta name="twitter:description" content="Synthetic GnRH used off-label as an hCG alternative. Given continuously it suppresses the axis rather than stimulating it."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.risks{display:block;list-style:none;margin:6px 0 20px;padding:0}
+.risks li{padding:9px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.risks li:first-child{border-top:none}
+.note.reg{border-left-color:var(--warm)}
+[hidden]{display:none!important}
+/* /compounds/ hub: the filter box and the per-card tier chip. */
+.cx-find{margin:22px 0 6px}
+.cx-find label{display:block;font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
+.cx-find input{width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:12px 14px;color:var(--text);font-size:15px;font-family:inherit}
+.cx-find input:focus{outline:none;border-color:var(--accent)}
+.cx-status{font-size:12.5px;color:var(--text3);min-height:18px;margin-top:7px}
+.cx-group{margin-top:34px}
+.cx-group h2{margin-top:0}
+.tcard .tier{display:inline-block;margin-top:9px;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border-radius:20px;padding:2px 9px}
+.tcard .tier-a{color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.tcard .tier-b{color:var(--warm);border:1px solid rgba(245,166,91,0.35)}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/compounds/">Compounds</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/compounds/">Compounds</a> &rsaquo; Gonadorelin</div>
+    <h1>Gonadorelin: real GnRH, and why the interval between doses is the whole protocol</h1>
+
+    <p class="lede">The hormone one step above luteinising hormone, used off-label to keep the testis working during testosterone therapy. It has the same knife-edge property kisspeptin does: pulses stimulate, continuous exposure shuts the axis down.</p>
+
+    <div class="updated">Last reviewed: 4 September 2026</div>
+
+    <div class="facts">
+      <dl>
+        <dt>Also known as</dt><dd>GnRH, LHRH, Factrel, Lutrepulse</dd>
+        <dt>Class</dt><dd>Sexual health peptide</dd>
+        <dt>Regulatory status</dt><dd>FDA APPROVED as Factrel for diagnostic use and Lutrepulse pump for hypogonadotropic hypogonadism. Off-label SubQ pulsatile use for TRT testicular maintenance.</dd>
+        <dt>Modelled half-life</dt><dd>18 min</dd>
+        <dt>Time to peak</dt><dd>9 min</dd>
+        <dt>Formulation</dt><dd>Aqueous (reconstituted powder)</dd>
+        <dt>Before mixing</dt><dd>Sealed powder tolerates room temperature in transit, but keep it refrigerated at 2–8 °C (36–46 °F) for anything beyond a few weeks, or frozen for months. Keep it dark — the carton it shipped in is doing a job.</dd>
+        <dt>After mixing</dt><dd>Once reconstituted with bacteriostatic water: refrigerate at 2–8 °C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window — plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only. Kits are usually ten vials: only the one you mixed is on that 28-day clock — the sealed ones keep their own, much longer shelf life, so store them as powder, not as solution.</dd>
+        <dt>What ruins it</dt><dd>Do not freeze a reconstituted vial. Repeated freeze–thaw is one of the more reliable ways to degrade a peptide.</dd>
+        <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
+      </dl>
+    </div>
+
+    <h2>Where it acts, and how that differs from hCG</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Gonadotropin-releasing hormone is released by the hypothalamus in pulses roughly every ninety minutes and instructs the pituitary to secrete luteinising hormone and FSH. Gonadorelin is that decapeptide, synthesised. Given properly it raises your own LH, which then acts on the testis.</p>
+    <p>That is a different intervention from <a href="/compounds/hcg/">hCG</a>, which skips the pituitary entirely and binds the LH receptor on the testis directly. Two consequences follow. Gonadorelin keeps the pituitary in the loop, so LH and FSH actually move and can be measured &mdash; the <a href="/markers/lh-fsh/">LH and FSH page</a> covers what that looks like. And it needs a pituitary able to respond, where hCG does not.</p>
+    <p>The app models a half-life of about twenty minutes, which is the shortest of anything in this reference apart from sermorelin. That is not a flaw: native GnRH is cleared in minutes too, and the brevity is what makes a pulse a pulse.</p>
+
+    <h2>Continuous exposure does the opposite</h2>
+    <p><span class="ev ev-est">Established clinical use</span> The pituitary gonadotroph responds to intermittent GnRH and desensitises under constant stimulation. This is not a subtlety &mdash; it is the basis of an entire drug class. Continuous GnRH agonists are used to suppress testosterone in prostate cancer and in precocious puberty, and they work precisely by overwhelming the receptor they stimulate.</p>
+    <p>So the schedule is the drug. Properly spaced administration maintains testicular function; administration that is too frequent, or a preparation that releases slowly, produces chemical castration. The app&rsquo;s own drawbacks list says this in capitals and it is right to. It is also why the approved product is a pump that delivers a dose every ninety minutes, and why the subcutaneous schedules used in clinics are an approximation of that rather than the thing itself.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> How good an approximation twice-daily injection is, against a pump running sixteen pulses a day, has not been established in trials. That is the honest gap in this protocol: the mechanism is textbook, the approved delivery is a pump, and the way it is actually used is neither.</p>
+
+    <h2>What to measure</h2>
+    <p>The app&rsquo;s panel is well matched to the mechanism. LH and FSH will show activity here, unlike on hCG where they stay suppressed, and an LH rise thirty to sixty minutes after a dose is a direct test that the pituitary responded. Total testosterone and estradiol follow, and testicular volume is the clinical endpoint the protocol exists for.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> The approval is for diagnostic use and for a pump in hypogonadotropic hypogonadism. Subcutaneous use alongside testosterone therapy is off-label, and the preparations used are compounded. This site names no pharmacy or clinic.</p>
+    <p>Anyone weighing this against hCG should know the comparison is not settled: hCG has far more use behind it for this purpose, gonadorelin has the more physiological mechanism, and no trial has compared them for testicular maintenance during testosterone therapy. That is a prescribing conversation, and anything on the drawbacks list below belongs in it.</p>
+
+    <h2>How long one dose lasts</h2>
+
+    <figure class="curve">
+<svg viewBox="0 0 720 300" role="img" aria-label="Modelled serum level after a single dose of Gonadorelin: rising to a peak at 9 min and falling to half the peak roughly one half-life (18 min) after that, shown as a percentage of the peak." xmlns="http://www.w3.org/2000/svg">
+<title>Modelled serum level after a single dose of Gonadorelin: rising to a peak at 9 min and falling to half the peak roughly one half-life (18 min) after that, shown as a percentage of the peak.</title>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="256" fill="#78859b" font-size="11" text-anchor="end">0%</text><line x1="52" y1="197.83" x2="702" y2="197.83" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="201.83" fill="#78859b" font-size="11" text-anchor="end">25%</text><line x1="52" y1="143.67" x2="702" y2="143.67" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="147.67" fill="#78859b" font-size="11" text-anchor="end">50%</text><line x1="52" y1="89.5" x2="702" y2="89.5" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="93.5" fill="#78859b" font-size="11" text-anchor="end">75%</text><line x1="52" y1="35.33" x2="702" y2="35.33" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="39.33" fill="#78859b" font-size="11" text-anchor="end">100%</text><line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="52" y="274" fill="#78859b" font-size="11" text-anchor="middle">0 min</text><line x1="216.67" y1="18" x2="216.67" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="216.67" y="274" fill="#78859b" font-size="11" text-anchor="middle">23 min</text><line x1="377" y1="18" x2="377" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="377" y="274" fill="#78859b" font-size="11" text-anchor="middle">45 min</text><line x1="541.67" y1="18" x2="541.67" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="541.67" y="274" fill="#78859b" font-size="11" text-anchor="middle">1.1 h</text><line x1="702" y1="18" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="702" y="274" fill="#78859b" font-size="11" text-anchor="middle">1.5 h</text>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<path d="M52 252 L54.6 225.48 L57.63 201.63 L60.23 180.26 L62.83 161.11 L65.43 143.99 L68.47 128.74 L71.07 115.15 L73.67 103.11 L76.27 92.47 L79.3 83.09 L81.9 74.85 L84.5 67.66 L87.1 61.44 L89.7 56.07 L92.73 51.48 L95.33 47.6 L97.93 44.37 L100.53 41.73 L103.57 39.6 L106.17 37.98 L108.77 36.76 L111.37 35.94 L114.4 35.49 L117 35.33 L119.6 35.46 L122.63 35.88 L125.23 36.48 L127.83 37.33 L130.43 38.34 L133.47 39.52 L136.07 40.86 L138.67 42.31 L141.27 43.89 L143.87 45.56 L146.9 47.34 L149.5 49.18 L152.1 51.09 L154.7 53.08 L157.73 55.09 L160.33 57.15 L162.93 59.28 L165.53 61.4 L168.57 63.56 L171.17 65.73 L173.77 67.92 L176.8 70.13 L179.4 72.34 L182 74.55 L184.6 76.76 L187.63 78.97 L190.23 81.18 L192.83 83.37 L195.43 85.56 L198.47 87.75 L201.07 89.89 L203.67 92.06 L206.27 94.18 L208.87 96.3 L211.9 98.41 L214.5 100.49 L217.1 102.54 L220.13 104.58 L222.73 106.59 L225.33 108.61 L227.93 110.58 L230.97 112.53 L233.57 114.48 L236.17 116.39 L238.77 118.27 L241.8 120.14 L244.4 121.98 L247 123.82 L249.6 125.62 L252.63 127.4 L255.23 129.15 L257.83 130.88 L260.43 132.59 L263.47 134.29 L266.07 135.95 L268.67 137.58 L271.27 139.2 L273.87 140.81 L276.9 142.39 L279.5 143.95 L282.1 145.49 L284.7 147 L287.73 148.5 L290.33 149.97 L292.93 151.42 L295.97 152.85 L298.57 154.28 L301.17 155.67 L303.77 157.03 L306.8 158.4 L309.4 159.74 L312 161.04 L314.6 162.34 L317.63 163.64 L320.23 164.9 L322.83 166.13 L325.43 167.37 L328.03 168.58 L331.07 169.78 L333.67 170.94 L336.27 172.12 L338.87 173.26 L341.9 174.39 L344.5 175.5 L347.1 176.6 L350.13 177.66 L352.73 178.75 L355.33 179.79 L357.93 180.82 L360.53 181.84 L363.57 182.84 L366.17 183.84 L368.77 184.81 L371.37 185.76 L374.4 186.72 L377 187.65 L379.6 188.58 L382.2 189.49 L385.23 190.38 L387.83 191.27 L390.43 192.13 L393.47 193 L396.07 193.85 L398.67 194.67 L401.27 195.49 L404.3 196.32 L406.9 197.1 L409.5 197.9 L412.1 198.66 L415.13 199.44 L417.73 200.19 L420.33 200.93 L422.93 201.67 L425.53 202.38 L428.57 203.1 L431.17 203.79 L433.77 204.49 L436.37 205.16 L439.4 205.83 L442 206.5 L444.6 207.15 L447.2 207.8 L450.23 208.43 L452.83 209.06 L455.43 209.66 L458.47 210.27 L461.07 210.88 L463.67 211.46 L466.27 212.05 L469.3 212.61 L471.9 213.17 L474.5 213.74 L477.1 214.28 L480.13 214.82 L482.73 215.36 L485.33 215.88 L487.93 216.4 L490.97 216.92 L493.57 217.42 L496.17 217.92 L498.77 218.4 L501.8 218.89 L504.4 219.35 L507 219.82 L509.6 220.28 L512.63 220.73 L515.23 221.19 L517.83 221.62 L520.43 222.06 L523.03 222.49 L526.07 222.92 L528.67 223.34 L531.27 223.75 L534.3 224.16 L536.9 224.55 L539.5 224.94 L542.1 225.33 L544.7 225.72 L547.73 226.09 L550.33 226.46 L552.93 226.82 L555.97 227.19 L558.57 227.54 L561.17 227.91 L563.77 228.23 L566.8 228.58 L569.4 228.93 L572 229.25 L574.6 229.57 L577.2 229.9 L580.23 230.2 L582.83 230.53 L585.43 230.83 L588.03 231.13 L591.07 231.44 L593.67 231.74 L596.27 232.02 L598.87 232.31 L601.9 232.59 L604.5 232.87 L607.1 233.15 L609.7 233.41 L612.73 233.67 L615.33 233.95 L617.93 234.21 L620.97 234.45 L623.57 234.71 L626.17 234.95 L628.77 235.21 L631.8 235.45 L634.4 235.69 L637 235.92 L639.6 236.14 L642.63 236.38 L645.23 236.59 L647.83 236.81 L650.43 237.03 L653.47 237.25 L656.07 237.46 L658.67 237.68 L661.27 237.87 L664.3 238.07 L666.9 238.28 L669.5 238.48 L672.1 238.68 L675.13 238.85 L677.73 239.04 L680.33 239.24 L682.93 239.41 L685.53 239.59 L688.57 239.78 L691.17 239.95 L693.77 240.13 L696.8 240.3 L699.4 240.45 L702 240.63 L702 252 L52 252 Z" fill="rgba(59,196,255,0.10)" stroke="none"/><path d="M52 252 L54.6 225.48 L57.63 201.63 L60.23 180.26 L62.83 161.11 L65.43 143.99 L68.47 128.74 L71.07 115.15 L73.67 103.11 L76.27 92.47 L79.3 83.09 L81.9 74.85 L84.5 67.66 L87.1 61.44 L89.7 56.07 L92.73 51.48 L95.33 47.6 L97.93 44.37 L100.53 41.73 L103.57 39.6 L106.17 37.98 L108.77 36.76 L111.37 35.94 L114.4 35.49 L117 35.33 L119.6 35.46 L122.63 35.88 L125.23 36.48 L127.83 37.33 L130.43 38.34 L133.47 39.52 L136.07 40.86 L138.67 42.31 L141.27 43.89 L143.87 45.56 L146.9 47.34 L149.5 49.18 L152.1 51.09 L154.7 53.08 L157.73 55.09 L160.33 57.15 L162.93 59.28 L165.53 61.4 L168.57 63.56 L171.17 65.73 L173.77 67.92 L176.8 70.13 L179.4 72.34 L182 74.55 L184.6 76.76 L187.63 78.97 L190.23 81.18 L192.83 83.37 L195.43 85.56 L198.47 87.75 L201.07 89.89 L203.67 92.06 L206.27 94.18 L208.87 96.3 L211.9 98.41 L214.5 100.49 L217.1 102.54 L220.13 104.58 L222.73 106.59 L225.33 108.61 L227.93 110.58 L230.97 112.53 L233.57 114.48 L236.17 116.39 L238.77 118.27 L241.8 120.14 L244.4 121.98 L247 123.82 L249.6 125.62 L252.63 127.4 L255.23 129.15 L257.83 130.88 L260.43 132.59 L263.47 134.29 L266.07 135.95 L268.67 137.58 L271.27 139.2 L273.87 140.81 L276.9 142.39 L279.5 143.95 L282.1 145.49 L284.7 147 L287.73 148.5 L290.33 149.97 L292.93 151.42 L295.97 152.85 L298.57 154.28 L301.17 155.67 L303.77 157.03 L306.8 158.4 L309.4 159.74 L312 161.04 L314.6 162.34 L317.63 163.64 L320.23 164.9 L322.83 166.13 L325.43 167.37 L328.03 168.58 L331.07 169.78 L333.67 170.94 L336.27 172.12 L338.87 173.26 L341.9 174.39 L344.5 175.5 L347.1 176.6 L350.13 177.66 L352.73 178.75 L355.33 179.79 L357.93 180.82 L360.53 181.84 L363.57 182.84 L366.17 183.84 L368.77 184.81 L371.37 185.76 L374.4 186.72 L377 187.65 L379.6 188.58 L382.2 189.49 L385.23 190.38 L387.83 191.27 L390.43 192.13 L393.47 193 L396.07 193.85 L398.67 194.67 L401.27 195.49 L404.3 196.32 L406.9 197.1 L409.5 197.9 L412.1 198.66 L415.13 199.44 L417.73 200.19 L420.33 200.93 L422.93 201.67 L425.53 202.38 L428.57 203.1 L431.17 203.79 L433.77 204.49 L436.37 205.16 L439.4 205.83 L442 206.5 L444.6 207.15 L447.2 207.8 L450.23 208.43 L452.83 209.06 L455.43 209.66 L458.47 210.27 L461.07 210.88 L463.67 211.46 L466.27 212.05 L469.3 212.61 L471.9 213.17 L474.5 213.74 L477.1 214.28 L480.13 214.82 L482.73 215.36 L485.33 215.88 L487.93 216.4 L490.97 216.92 L493.57 217.42 L496.17 217.92 L498.77 218.4 L501.8 218.89 L504.4 219.35 L507 219.82 L509.6 220.28 L512.63 220.73 L515.23 221.19 L517.83 221.62 L520.43 222.06 L523.03 222.49 L526.07 222.92 L528.67 223.34 L531.27 223.75 L534.3 224.16 L536.9 224.55 L539.5 224.94 L542.1 225.33 L544.7 225.72 L547.73 226.09 L550.33 226.46 L552.93 226.82 L555.97 227.19 L558.57 227.54 L561.17 227.91 L563.77 228.23 L566.8 228.58 L569.4 228.93 L572 229.25 L574.6 229.57 L577.2 229.9 L580.23 230.2 L582.83 230.53 L585.43 230.83 L588.03 231.13 L591.07 231.44 L593.67 231.74 L596.27 232.02 L598.87 232.31 L601.9 232.59 L604.5 232.87 L607.1 233.15 L609.7 233.41 L612.73 233.67 L615.33 233.95 L617.93 234.21 L620.97 234.45 L623.57 234.71 L626.17 234.95 L628.77 235.21 L631.8 235.45 L634.4 235.69 L637 235.92 L639.6 236.14 L642.63 236.38 L645.23 236.59 L647.83 236.81 L650.43 237.03 L653.47 237.25 L656.07 237.46 L658.67 237.68 L661.27 237.87 L664.3 238.07 L666.9 238.28 L669.5 238.48 L672.1 238.68 L675.13 238.85 L677.73 239.04 L680.33 239.24 L682.93 239.41 L685.53 239.59 L688.57 239.78 L691.17 239.95 L693.77 240.13 L696.8 240.3 L699.4 240.45 L702 240.63" fill="none" stroke="#3bc4ff" stroke-width="2" stroke-linejoin="round"/><line x1="117" y1="18" x2="117" y2="252" stroke="#4ade9a" stroke-width="1" stroke-dasharray="3 3"/><text x="122" y="30" fill="#4ade9a" font-size="10.5">peak</text><line x1="182" y1="18" x2="182" y2="252" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 3"/><text x="187" y="30" fill="#f59e0b" font-size="10.5">one half-life</text>
+<text x="377" y="292" fill="#78859b" font-size="11" text-anchor="middle">Time after one dose</text>
+
+</svg>
+      <figcaption>Modelled level after a single dose as a percentage of that dose&rsquo;s own
+      peak, rising to the peak at 9 min and falling by half every
+      18 min. Drawn with the app&rsquo;s own <code>pkCurve</code> function.
+      The vertical axis is relative: the shape carries across people, the absolute
+      concentration does not.</figcaption>
+      </figure>
+
+    <p>Try other intervals on the <a href="/tools/half-life-calculator/">half-life and
+      steady-state calculator</a>, which runs the same function against whatever cadence you
+      type.</p>
+
+    <h2>The dosing rows the app records</h2>
+
+    <p><span class="ev ev-est">Established clinical use</span> Reproduced from the app&rsquo;s reference so you can
+      see what it holds, not as a recommendation. Which row applies to a particular person, if
+      any, is a clinical decision this page does not make &mdash; and rows describing
+      supraphysiological or post-cycle use are filtered out before this table is built, so what
+      you see here is a subset.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Label</th><th>Amount</th><th>Route and frequency</th><th>Duration recorded</th></tr></thead>
+        <tbody>
+          <tr><td>TRT Testicular Maintenance</td><td class="num">100mcg</td><td class="num">SubQ twice daily (minimum 8-hour gap) — pulsatile</td><td class="num">Ongoing with TRT</td></tr>
+          <tr><td>Fertility Protocol</td><td class="num">Pulsatile pump 5-20mcg every 90 min</td><td class="num">Continuous pump delivery</td><td class="num">Physician supervised</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What the app monitors alongside it</h2>
+
+    <p>The panel below is the app&rsquo;s own monitoring note for Gonadorelin,
+      verbatim. The analytes in it that have a page here are linked; those pages cover what each one measures, which assay produced it and how to read a trend.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Monitoring panel</dt><dd>LH, FSH (will show some activity unlike HCG protocols), Total T, E2, testicular volume assessment. LH response 30-60 min post-injection confirms pituitary response.</dd>
+      </dl>
+    </div>
+
+    <ul class="mon-list">
+      <li><a href="/markers/estradiol-sensitive-vs-standard/">Sensitive versus standard estradiol</a></li>
+      <li><a href="/markers/total-testosterone-immunoassay-vs-lcms/">Total testosterone</a></li>
+      <li><a href="/markers/lh-fsh/">LH and FSH</a></li>
+    </ul>
+
+    <h2>Drawbacks and risks the app records</h2>
+
+    <p>From the app&rsquo;s own entry, and the first item is not a side effect — it is the protocol failing in the exact opposite direction from the one intended.</p>
+
+    <ul class="cards risks">
+      <li>Pulsatile dosing CRITICAL — continuous use suppresses the axis (pharmaceutical castration)</li>
+      <li>Very short half-life — requires frequent pulsatile dosing</li>
+      <li>Pulsatile pump ideal but impractical outside clinical setting</li>
+      <li>SubQ pulsatile injection required multiple times daily</li>
+      <li>More complex protocol than HCG</li>
+      <li>Limited SubQ injection data vs pump delivery</li>
+    </ul>
+
+    <div class="shared">
+      <p>That list is the app&rsquo;s, not a complete adverse-effect profile, and none of it is a
+      diagnosis. Anything on it that you are actually experiencing belongs in front of the
+      clinician who prescribes or supervises for you &mdash; they are the only person who can
+      weigh it against your history, your other medications and your bloodwork.</p>
+    </div>
+
+    <h2>Interaction rules that name Gonadorelin</h2>
+
+    <p>From the app&rsquo;s interaction data, filtered so no rule naming a compound this
+      site does not publish appears. Not exhaustive, and not a safety clearance: a combination
+      that is not listed is one nobody has documented here, which is not the same as one that
+      is fine. The <a href="/tools/stack-checker/">combination checker</a> has the rest.</p>
+
+    <div class="pairs">
+      <div class="pair warn">
+        <div class="sev">Caution</div>
+        <h3>Gonadorelin and HCG — Choose One for Testicular Maintenance</h3>
+        <p>Both gonadorelin and HCG serve the same purpose on TRT — preserving testicular function. Gonadorelin stimulates LH/FSH from the pituitary; HCG mimics LH directly at the testes. Using both simultaneously is redundant and may cause over-stimulation. Choose one approach.</p>
+        <p class="mon"><strong>What to watch:</strong> Total T, LH, FSH, E2, testicular volume. Monitor prolactin — over-stimulation can elevate it.</p>
+      </div>
+      <div class="pair info">
+        <div class="sev">Worth knowing</div>
+        <h3>Gonadorelin + Clomid — Synergistic HPG Restoration</h3>
+        <p>Gonadorelin stimulates LH/FSH at the pituitary level while Clomid blocks hypothalamic estrogen receptors to increase GnRH pulsatility. Together they address HPG restoration at two distinct points. A potentially more comprehensive HPTA restart than either alone.</p>
+        <p class="mon"><strong>What to watch:</strong> LH, FSH, Total T, E2 every 4 weeks. LH response to gonadorelin confirms pituitary function.</p>
+      </div>
+      <div class="pair info">
+        <div class="sev">Worth knowing</div>
+        <h3>Kisspeptin-54 + Gonadorelin — Upstream and Downstream HPG</h3>
+        <p>Kisspeptin acts upstream of GnRH neurons to trigger GnRH release, while gonadorelin IS GnRH acting directly on the pituitary. Using both covers the HPG axis at two levels but requires careful pulsatile timing for both. Both must be pulsatile — never continuous.</p>
+        <p class="mon"><strong>What to watch:</strong> LH, FSH, Total T, E2. Both compounds require pulsatile dosing — coordinate timing to avoid receptor conflicts.</p>
+      </div>
+    </div>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>How is it different from hCG?</h3>
+    <p>hCG binds the LH receptor on the testis directly and bypasses the pituitary; gonadorelin acts
+         on the pituitary and raises your own LH. That means LH and FSH move on gonadorelin and stay
+         suppressed on hCG, and it means gonadorelin needs a pituitary able to respond.</p>
+    <h3>Why can continuous dosing cause suppression?</h3>
+    <p>Because the gonadotroph desensitises under constant stimulation. That is the mechanism behind
+         GnRH agonist therapy for prostate cancer, and it is why the interval between doses matters more
+         here than the amount.</p>
+    <h3>How do I know the pituitary responded?</h3>
+    <p>An LH rise thirty to sixty minutes after a dose, which is the app’s own monitoring suggestion
+         and the closest thing to a direct check available.</p>
+    <h3>Is twice-daily injection equivalent to the pump?</h3>
+    <p>Nobody has established that. The approved delivery is a pump giving a dose roughly every ninety
+         minutes; twice daily is a practical approximation with no trial behind it.</p>
+
+    <h2>Where the load-bearing numbers come from</h2>
+
+    <p>Named rather than linked. Publisher URLs move, and a citation that resolves to a
+      404 two years from now is worse than one you can search for by name &mdash; every entry
+      below is findable from the title and year alone.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Pulsatile GnRH and gonadotroph desensitisation</dt><dd>Standard endocrinology; the same pharmacology underlies GnRH agonist therapy for androgen suppression</dd>
+        <dt>Approved indications</dt><dd>The approval string in the fact box is app.html’s own field, reproduced verbatim</dd>
+        <dt>Off-label subcutaneous use</dt><dd>Described in hormone-therapy practice; no controlled trial has compared it with hCG for testicular maintenance</dd>
+        <dt>Modelled half-life and time to peak</dt><dd>app.html’s TL_PK entry</dd>
+      </dl>
+    </div>
+
+    <div class="cta-box">
+      <p>When the gap between doses decides the direction of the effect, the clock matters as much
+      as the amount. TherapyLog records the time.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=compound-gonadorelin"
+         id="tl-cta" data-campaign="compound-gonadorelin">Save this dose to your log</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://therapylog.app/compounds/gonadorelin/#page",
+      "url": "https://therapylog.app/compounds/gonadorelin/",
+      "name": "Gonadorelin: GnRH, and why pulses matter | TherapyLog",
+      "description": "Synthetic GnRH used off-label as an hCG alternative. Given continuously it suppresses the axis rather than stimulating it.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-04",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compounds",
+            "item": "https://therapylog.app/compounds/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Gonadorelin",
+            "item": "https://therapylog.app/compounds/gonadorelin/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>
