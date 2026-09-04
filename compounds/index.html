@@ -145,6 +145,18 @@ td.num{font-family:'DM Mono',monospace;color:var(--text)}
 .risks li{padding:9px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
 .risks li:first-child{border-top:none}
 .note.reg{border-left-color:var(--warm)}
+[hidden]{display:none!important}
+/* /compounds/ hub: the filter box and the per-card tier chip. */
+.cx-find{margin:22px 0 6px}
+.cx-find label{display:block;font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
+.cx-find input{width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:12px 14px;color:var(--text);font-size:15px;font-family:inherit}
+.cx-find input:focus{outline:none;border-color:var(--accent)}
+.cx-status{font-size:12.5px;color:var(--text3);min-height:18px;margin-top:7px}
+.cx-group{margin-top:34px}
+.cx-group h2{margin-top:0}
+.tcard .tier{display:inline-block;margin-top:9px;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border-radius:20px;padding:2px 9px}
+.tcard .tier-a{color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.tcard .tier-b{color:var(--warm);border:1px solid rgba(245,166,91,0.35)}
 .tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
 .tcard h3{margin:0 0 6px;font-size:15px}
 .tcard h3 a{color:var(--text)}
@@ -212,7 +224,388 @@ body.og-card .wrap{display:none}
 
     <div class="updated">Last reviewed: 4 September 2026</div>
 
-    <h2>What these pages are, and what they are not</h2>
+    <div class="cx-find">
+      <label for="cx-q">Find a compound</label>
+      <input type="search" id="cx-q" autocomplete="off" spellcheck="false"
+             placeholder="Type a name — semaglutide, BPC-157, T3, anastrozole…">
+      <div id="cx-status" class="cx-status"></div>
+    </div>
+
+    <p class="hint">60 pages so far. Type to filter, or press Enter to jump
+    straight to the first match. Each heading below is a link you can share on its own &mdash;
+    <a href="#growth-hormone">/compounds/#growth-hormone</a> opens this page at that group.</p>
+
+    <section class="cx-group" id="testosterone">
+      <h2>Testosterone and the androgens</h2>
+      <p>The esters and the routes, and the two oral androgens that act on binding rather than on the receptor. Everything here suppresses your own production.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="testosterone cypionate test c, tc androgens / trt approved">
+        <h3><a href="/compounds/testosterone-cypionate/">Testosterone Cypionate</a></h3>
+        <p>Test C, TC</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="testosterone enanthate test e, te androgens / trt approved">
+        <h3><a href="/compounds/testosterone-enanthate/">Testosterone Enanthate</a></h3>
+        <p>Test E, TE</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="testosterone propionate test prop, tp additional compounds approved">
+        <h3><a href="/compounds/testosterone-propionate/">Testosterone Propionate</a></h3>
+        <p>Test Prop, TP</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="testosterone pellets testopel, subcutaneous pellet implant, bhrt pellets performance and recovery approved">
+        <h3><a href="/compounds/testosterone-pellets/">Testosterone Pellets</a></h3>
+        <p>Testopel, subcutaneous pellet implant, BHRT pellets</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="proviron mesterolone, 1-methyl-dht additional compounds approved">
+        <h3><a href="/compounds/proviron/">Proviron</a></h3>
+        <p>Mesterolone, 1-Methyl-DHT</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="estrogen-and-recovery">
+      <h2>Oestrogen control and axis recovery</h2>
+      <p>Aromatase inhibitors, the receptor modulators, and the compounds that act on the pituitary or the testis directly. The failure mode across most of this group is over-correction, and it looks like the problem it was meant to fix.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="anastrozole arimidex ancillaries — ais and serms approved">
+        <h3><a href="/compounds/anastrozole/">Anastrozole</a></h3>
+        <p>Arimidex</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="exemestane aromasin additional ancillaries approved">
+        <h3><a href="/compounds/exemestane/">Exemestane</a></h3>
+        <p>Aromasin</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="tamoxifen nolvadex, tamox ancillaries — ais and serms approved">
+        <h3><a href="/compounds/tamoxifen/">Tamoxifen</a></h3>
+        <p>Nolvadex, Tamox</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="clomiphene clomid, enclomiphene ancillaries — ais and serms approved">
+        <h3><a href="/compounds/clomiphene/">Clomiphene</a></h3>
+        <p>Clomid, Enclomiphene</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="enclomiphene androxal, enclomifene, nf-1010 ancillaries — ais and serms research">
+        <h3><a href="/compounds/enclomiphene/">Enclomiphene</a></h3>
+        <p>Androxal, Enclomifene, NF-1010</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="hcg human chorionic gonadotropin ancillaries — ais and serms approved">
+        <h3><a href="/compounds/hcg/">HCG</a></h3>
+        <p>Human Chorionic Gonadotropin</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="kisspeptin-10 metastin, kp-10 peptides research">
+        <h3><a href="/compounds/kisspeptin-10/">Kisspeptin-10</a></h3>
+        <p>Metastin, KP-10</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="cabergoline dostinex, caber additional ancillaries approved">
+        <h3><a href="/compounds/cabergoline/">Cabergoline</a></h3>
+        <p>Dostinex, Caber</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="dutasteride / finasteride avodart (duta), propecia (fina), 5-aris additional ancillaries approved">
+        <h3><a href="/compounds/dutasteride-and-finasteride/">Dutasteride / Finasteride</a></h3>
+        <p>Avodart (Duta), Propecia (Fina), 5-ARIs</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="thyroid">
+      <h2>Thyroid</h2>
+      <p>The prohormone, the active hormone, and the porcine extract that supplies both in a ratio you cannot change. Which value to read differs between them.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="levothyroxine (t4) synthroid, levoxyl, lt4 thyroid hormones approved">
+        <h3><a href="/compounds/levothyroxine-t4/">Levothyroxine (T4)</a></h3>
+        <p>Synthroid, Levoxyl, LT4</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="liothyronine (t3) cytomel, t3, lt3 thyroid hormones approved">
+        <h3><a href="/compounds/liothyronine-t3/">Liothyronine (T3)</a></h3>
+        <p>Cytomel, T3, LT3</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="natural desiccated thyroid ndt, armour thyroid, naturethroid, wp thyroid thyroid hormones approved">
+        <h3><a href="/compounds/natural-desiccated-thyroid/">Natural Desiccated Thyroid</a></h3>
+        <p>NDT, Armour Thyroid, NatureThroid, WP Thyroid</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="metabolic">
+      <h2>Weight and metabolic</h2>
+      <p>The incretin drugs and what is behind them in trials, plus the older metabolic compounds people combine with them.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="semaglutide ozempic, wegovy glp-1 / metabolic approved">
+        <h3><a href="/compounds/semaglutide/">Semaglutide</a></h3>
+        <p>Ozempic, Wegovy</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="tirzepatide mounjaro, zepbound glp-1 / metabolic approved">
+        <h3><a href="/compounds/tirzepatide/">Tirzepatide</a></h3>
+        <p>Mounjaro, Zepbound</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="retatrutide ly3437943, triple g agonist metabolic peptides research">
+        <h3><a href="/compounds/retatrutide/">Retatrutide</a></h3>
+        <p>LY3437943, triple G agonist</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="cagrilintide am833, amylin analogue metabolic peptides research">
+        <h3><a href="/compounds/cagrilintide/">Cagrilintide</a></h3>
+        <p>AM833, amylin analogue</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="metformin glucophage, metformin hcl, fortamet metabolic and cardiovascular approved">
+        <h3><a href="/compounds/metformin/">Metformin</a></h3>
+        <p>Glucophage, Metformin HCl, Fortamet</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="berberine berberine hcl, bbr metabolic and cardiovascular approved">
+        <h3><a href="/compounds/berberine/">Berberine</a></h3>
+        <p>Berberine HCl, BBR</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="telmisartan micardis metabolic and cardiovascular approved">
+        <h3><a href="/compounds/telmisartan/">Telmisartan</a></h3>
+        <p>Micardis</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="low-dose naltrexone ldn metabolic and cardiovascular approved">
+        <h3><a href="/compounds/low-dose-naltrexone/">Low-Dose Naltrexone</a></h3>
+        <p>LDN</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="5-amino-1mq 5-amino-1-methylquinolinium, amq additional compounds research">
+        <h3><a href="/compounds/5-amino-1mq/">5-Amino-1MQ</a></h3>
+        <p>5-Amino-1-methylquinolinium, AMQ</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="growth-hormone">
+      <h2>Growth hormone and IGF-1</h2>
+      <p>Growth hormone itself, the releasing-hormone analogues, the ghrelin receptor agonists and the fragments. IGF-1 is the marker for all of them, and it measures exposure rather than benefit.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="recombinant hgh somatropin, rhgh, human growth hormone, genotropin, norditropin, humatrope, omnitrope, somatropin (rhgh) hgh and igf-1 approved">
+        <h3><a href="/compounds/recombinant-hgh/">Recombinant HGH</a></h3>
+        <p>Somatropin, rHGH, Human Growth Hormone, Genotropin, Norditropin, Humatrope, Omnitrope, Somatropin (rhGH)</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="tesamorelin egrifta, th9507 gh secretagogues approved">
+        <h3><a href="/compounds/tesamorelin/">Tesamorelin</a></h3>
+        <p>Egrifta, TH9507</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="sermorelin ghrh(1-29) gh secretagogues research">
+        <h3><a href="/compounds/sermorelin/">Sermorelin</a></h3>
+        <p>GHRH(1-29)</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="cjc-1295 mod grf 1-29 (without dac) peptides research">
+        <h3><a href="/compounds/cjc-1295/">CJC-1295</a></h3>
+        <p>Mod GRF 1-29 (without DAC)</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="cjc-1295 with dac cjc-1295 dac, drug affinity complex anti-inflammatory peptides research">
+        <h3><a href="/compounds/cjc-1295-with-dac/">CJC-1295 with DAC</a></h3>
+        <p>CJC-1295 DAC, Drug Affinity Complex</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="ipamorelin ipa, selective ghrp peptides research">
+        <h3><a href="/compounds/ipamorelin/">Ipamorelin</a></h3>
+        <p>Ipa, Selective GHRP</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="ghrp-2 pralmorelin, kp-102 peptides research">
+        <h3><a href="/compounds/ghrp-2/">GHRP-2</a></h3>
+        <p>Pralmorelin, KP-102</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="ghrp-6 growth hormone releasing peptide-6 peptides research">
+        <h3><a href="/compounds/ghrp-6/">GHRP-6</a></h3>
+        <p>Growth Hormone Releasing Peptide-6</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="hexarelin examorelin, hex peptides research">
+        <h3><a href="/compounds/hexarelin/">Hexarelin</a></h3>
+        <p>Examorelin, HEX</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="mk-677 / ibutamoren nutrobal gh secretagogues research">
+        <h3><a href="/compounds/mk-677/">MK-677 / Ibutamoren</a></h3>
+        <p>Nutrobal</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="hgh fragment 176-191 hgh frag, fragment 176-191 peptides research">
+        <h3><a href="/compounds/hgh-fragment-176-191/">HGH Fragment 176-191</a></h3>
+        <p>HGH Frag, Fragment 176-191</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="aod-9604 anti-obesity drug 9604, hgh frag 177-191, hgh fragment 176-191 peptides research">
+        <h3><a href="/compounds/aod-9604/">AOD-9604</a></h3>
+        <p>Anti-Obesity Drug 9604, HGH Frag 177-191, HGH Fragment 176-191</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="repair">
+      <h2>Repair, immunity and inflammation</h2>
+      <p>The healing peptides, which are also the group with the widest gap between how confidently they are described and what has actually been tested in people.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="bpc-157 body protection compound 157 peptides research">
+        <h3><a href="/compounds/bpc-157/">BPC-157</a></h3>
+        <p>Body Protection Compound 157</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="tb-500 thymosin beta-4 peptides research">
+        <h3><a href="/compounds/tb-500/">TB-500</a></h3>
+        <p>Thymosin Beta-4</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="pentadeca arginate pda, pc-15 peptides research">
+        <h3><a href="/compounds/pentadeca-arginate/">Pentadeca Arginate</a></h3>
+        <p>PDA, PC-15</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="kpv lys-pro-val, alpha-msh c-terminal tripeptide, α-msh(11-13) anti-inflammatory peptides research">
+        <h3><a href="/compounds/kpv/">KPV</a></h3>
+        <p>Lys-Pro-Val, Alpha-MSH C-terminal tripeptide, α-MSH(11-13)</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="ara-290 cibinetide, helix b peptide peptides research">
+        <h3><a href="/compounds/ara-290/">ARA-290</a></h3>
+        <p>Cibinetide, Helix B peptide</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="thymosin alpha-1 ta1, zadaxin, thymalfasin additional peptides research">
+        <h3><a href="/compounds/thymosin-alpha-1/">Thymosin Alpha-1</a></h3>
+        <p>Ta1, Zadaxin, Thymalfasin</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="vip vasoactive intestinal peptide metabolic and cardiovascular research">
+        <h3><a href="/compounds/vip/">VIP</a></h3>
+        <p>Vasoactive Intestinal Peptide</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="longevity">
+      <h2>Longevity and mitochondrial</h2>
+      <p>Compounds taken on mechanism and animal lifespan data. None of them has a human longevity outcome, because no such trial has run long enough to have one.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="rapamycin sirolimus, rapamune, mtor inhibitor longevity compounds approved">
+        <h3><a href="/compounds/rapamycin/">Rapamycin</a></h3>
+        <p>Sirolimus, Rapamune, mTOR inhibitor</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="fisetin 7,3',4'-flavon-3-ol, senolytic flavonoid senolytics and autophagy approved">
+        <h3><a href="/compounds/fisetin/">Fisetin</a></h3>
+        <p>7,3',4'-flavon-3-ol, senolytic flavonoid</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="dasatinib sprycel, senolytic rx, bcr-abl inhibitor senolytics and autophagy approved">
+        <h3><a href="/compounds/dasatinib/">Dasatinib</a></h3>
+        <p>Sprycel, senolytic Rx, BCR-ABL inhibitor</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="nmn / nr (nad+ precursors) nicotinamide mononucleotide, nicotinamide riboside nootropics and longevity approved">
+        <h3><a href="/compounds/nmn-and-nr/">NMN / NR (NAD+ Precursors)</a></h3>
+        <p>Nicotinamide Mononucleotide, Nicotinamide Riboside</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="mots-c mitochondrial open reading frame peptide, humanin analogue additional peptides research">
+        <h3><a href="/compounds/mots-c/">MOTS-c</a></h3>
+        <p>Mitochondrial Open Reading Frame Peptide, Humanin analogue</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="ss-31 elamipretide, mtp-131, bendavia peptides research">
+        <h3><a href="/compounds/ss-31/">SS-31</a></h3>
+        <p>Elamipretide, MTP-131, Bendavia</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="epithalon epithalamin, epitalon, epithalone khavinson bioregulators research">
+        <h3><a href="/compounds/epithalon/">Epithalon</a></h3>
+        <p>Epithalamin, Epitalon, Epithalone</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="neuro">
+      <h2>Sleep, mood and cognition</h2>
+      <p>Mostly compounds approved in one country and unstudied everywhere else, with subjective endpoints and no bloodwork to anchor them.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="semax acth(4-7)pgp, heptapeptide neurological and cognitive research">
+        <h3><a href="/compounds/semax/">Semax</a></h3>
+        <p>ACTH(4-7)PGP, Heptapeptide</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="selank tp-7 neurological and cognitive research">
+        <h3><a href="/compounds/selank/">Selank</a></h3>
+        <p>TP-7</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="cerebrolysin fpf-1070, cere neurological and cognitive research">
+        <h3><a href="/compounds/cerebrolysin/">Cerebrolysin</a></h3>
+        <p>FPF-1070, CERE</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      <div class="tcard" data-cx="dsip delta sleep-inducing peptide, dsip nonapeptide sleep and neurological research">
+        <h3><a href="/compounds/dsip/">DSIP</a></h3>
+        <p>Delta Sleep-Inducing Peptide, DSIP nonapeptide</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="sexual-health">
+      <h2>Sexual health and skin</h2>
+      <p>Melanocortin agonists — one selective and approved for one indication, one that activates the whole receptor family and changes every mole on the body.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="pt-141 bremelanotide, vyleesi sexual health peptides approved">
+        <h3><a href="/compounds/pt-141/">PT-141</a></h3>
+        <p>Bremelanotide, Vyleesi</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="melanotan ii mt-2, bremelanotide precursor metabolic peptides research">
+        <h3><a href="/compounds/melanotan-ii/">Melanotan II</a></h3>
+        <p>MT-2, bremelanotide precursor</p>
+        <span class="tier tier-b">Research</span>
+      </div>
+      </div>
+    </section>
+
+    <section class="cx-group" id="supplements">
+      <h2>Adrenal and supplements</h2>
+      <p>Available without a prescription, which is a statement about regulation rather than about how carefully they need to be used.</p>
+      <div class="cards">
+      <div class="tcard" data-cx="dhea dehydroepiandrosterone, prasterone dhea and adrenal approved">
+        <h3><a href="/compounds/dhea/">DHEA</a></h3>
+        <p>Dehydroepiandrosterone, Prasterone</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      <div class="tcard" data-cx="creatine monohydrate creatine, cr, creatine monohydrate performance and recovery approved">
+        <h3><a href="/compounds/creatine-monohydrate/">Creatine Monohydrate</a></h3>
+        <p>Creatine, Cr, creatine monohydrate</p>
+        <span class="tier tier-a">Approved or OTC</span>
+      </div>
+      </div>
+    </section>
+
+    <h2 id="what-these-are">What these pages are, and what they are not</h2>
 
     <p>Every fact in the boxes on a compound page is lifted from the app at build time: the
     half-life and time to peak, the formulation, the storage rule and its handling caveat, the
@@ -232,7 +625,7 @@ body.og-card .wrap{display:none}
     list of benefits under the founder's byline on a page built to rank is advertising, and
     labelling it otherwise would not change what it is.</p>
 
-    <h2>Which compounds get a page</h2>
+    <h2 id="which-compounds">Which compounds get a page</h2>
 
     <p>The app's reference covers 130 compounds. 107 of them can be described
     responsibly on a public page, and they are split into two groups that are presented
@@ -257,260 +650,7 @@ body.og-card .wrap{display:none}
     version of that page is one nobody would publish. They stay in the app, where they exist to
     make a log accurate for someone already using them, and off the indexable site.</p>
 
-    <h2>Approved and available</h2>
-
-    <div class="cards">
-      <div class="tcard">
-        <h3><a href="/compounds/anastrozole/">Anastrozole</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Arimidex</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/berberine/">Berberine</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Berberine HCl, BBR</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cabergoline/">Cabergoline</a></h3>
-        <p>Additional Ancillaries &middot; Dostinex, Caber</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/clomiphene/">Clomiphene</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Clomid, Enclomiphene</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/creatine-monohydrate/">Creatine Monohydrate</a></h3>
-        <p>Performance and Recovery &middot; Creatine, Cr, creatine monohydrate</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dasatinib/">Dasatinib</a></h3>
-        <p>Senolytics and Autophagy &middot; Sprycel, senolytic Rx, BCR-ABL inhibitor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dhea/">DHEA</a></h3>
-        <p>DHEA and Adrenal &middot; Dehydroepiandrosterone, Prasterone</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dutasteride-and-finasteride/">Dutasteride / Finasteride</a></h3>
-        <p>Additional Ancillaries &middot; Avodart (Duta), Propecia (Fina), 5-ARIs</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/exemestane/">Exemestane</a></h3>
-        <p>Additional Ancillaries &middot; Aromasin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/fisetin/">Fisetin</a></h3>
-        <p>Senolytics and Autophagy &middot; 7,3',4'-flavon-3-ol, senolytic flavonoid</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hcg/">HCG</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Human Chorionic Gonadotropin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/levothyroxine-t4/">Levothyroxine (T4)</a></h3>
-        <p>Thyroid Hormones &middot; Synthroid, Levoxyl, LT4</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/liothyronine-t3/">Liothyronine (T3)</a></h3>
-        <p>Thyroid Hormones &middot; Cytomel, T3, LT3</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/low-dose-naltrexone/">Low-Dose Naltrexone</a></h3>
-        <p>Metabolic and Cardiovascular &middot; LDN</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/metformin/">Metformin</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Glucophage, Metformin HCl, Fortamet</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/natural-desiccated-thyroid/">Natural Desiccated Thyroid</a></h3>
-        <p>Thyroid Hormones &middot; NDT, Armour Thyroid, NatureThroid, WP Thyroid</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/nmn-and-nr/">NMN / NR (NAD+ Precursors)</a></h3>
-        <p>Nootropics and Longevity &middot; Nicotinamide Mononucleotide, Nicotinamide Riboside</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/proviron/">Proviron</a></h3>
-        <p>Additional Compounds &middot; Mesterolone, 1-Methyl-DHT</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/pt-141/">PT-141</a></h3>
-        <p>Sexual Health Peptides &middot; Bremelanotide, Vyleesi</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/rapamycin/">Rapamycin</a></h3>
-        <p>Longevity Compounds &middot; Sirolimus, Rapamune, mTOR inhibitor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/recombinant-hgh/">Recombinant HGH</a></h3>
-        <p>HGH and IGF-1 &middot; Somatropin, rHGH, Human Growth Hormone, Genotropin, Norditropin, Humatrope, Omnitrope, Somatropin (rhGH)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/semaglutide/">Semaglutide</a></h3>
-        <p>GLP-1 / Metabolic &middot; Ozempic, Wegovy</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tamoxifen/">Tamoxifen</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Nolvadex, Tamox</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/telmisartan/">Telmisartan</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Micardis</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tesamorelin/">Tesamorelin</a></h3>
-        <p>GH Secretagogues &middot; Egrifta, TH9507</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-cypionate/">Testosterone Cypionate</a></h3>
-        <p>Androgens / TRT &middot; Test C, TC</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-enanthate/">Testosterone Enanthate</a></h3>
-        <p>Androgens / TRT &middot; Test E, TE</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-pellets/">Testosterone Pellets</a></h3>
-        <p>Performance and Recovery &middot; Testopel, subcutaneous pellet implant, BHRT pellets</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-propionate/">Testosterone Propionate</a></h3>
-        <p>Additional Compounds &middot; Test Prop, TP</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tirzepatide/">Tirzepatide</a></h3>
-        <p>GLP-1 / Metabolic &middot; Mounjaro, Zepbound</p>
-      </div>
-    </div>
-
-    <h2>Research and unapproved</h2>
-
-    <p>Each of these opens with its regulatory status. None of them has been reviewed by a
-        regulator for identity, purity, potency or safety in people.</p>
-
-    <div class="cards">
-      <div class="tcard">
-        <h3><a href="/compounds/5-amino-1mq/">5-Amino-1MQ</a></h3>
-        <p>Additional Compounds &middot; 5-Amino-1-methylquinolinium, AMQ</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/aod-9604/">AOD-9604</a></h3>
-        <p>Peptides &middot; Anti-Obesity Drug 9604, HGH Frag 177-191, HGH Fragment 176-191</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ara-290/">ARA-290</a></h3>
-        <p>Peptides &middot; Cibinetide, Helix B peptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/bpc-157/">BPC-157</a></h3>
-        <p>Peptides &middot; Body Protection Compound 157</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cagrilintide/">Cagrilintide</a></h3>
-        <p>Metabolic Peptides &middot; AM833, amylin analogue</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cerebrolysin/">Cerebrolysin</a></h3>
-        <p>Neurological and Cognitive &middot; FPF-1070, CERE</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cjc-1295/">CJC-1295</a></h3>
-        <p>Peptides &middot; Mod GRF 1-29 (without DAC)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cjc-1295-with-dac/">CJC-1295 with DAC</a></h3>
-        <p>Anti-Inflammatory Peptides &middot; CJC-1295 DAC, Drug Affinity Complex</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dsip/">DSIP</a></h3>
-        <p>Sleep and Neurological &middot; Delta Sleep-Inducing Peptide, DSIP nonapeptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/enclomiphene/">Enclomiphene</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Androxal, Enclomifene, NF-1010</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/epithalon/">Epithalon</a></h3>
-        <p>Khavinson Bioregulators &middot; Epithalamin, Epitalon, Epithalone</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ghrp-2/">GHRP-2</a></h3>
-        <p>Peptides &middot; Pralmorelin, KP-102</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ghrp-6/">GHRP-6</a></h3>
-        <p>Peptides &middot; Growth Hormone Releasing Peptide-6</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hexarelin/">Hexarelin</a></h3>
-        <p>Peptides &middot; Examorelin, HEX</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hgh-fragment-176-191/">HGH Fragment 176-191</a></h3>
-        <p>Peptides &middot; HGH Frag, Fragment 176-191</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ipamorelin/">Ipamorelin</a></h3>
-        <p>Peptides &middot; Ipa, Selective GHRP</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/kisspeptin-10/">Kisspeptin-10</a></h3>
-        <p>Peptides &middot; Metastin, KP-10</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/kpv/">KPV</a></h3>
-        <p>Anti-Inflammatory Peptides &middot; Lys-Pro-Val, Alpha-MSH C-terminal tripeptide, α-MSH(11-13)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/melanotan-ii/">Melanotan II</a></h3>
-        <p>Metabolic Peptides &middot; MT-2, bremelanotide precursor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/mk-677/">MK-677 / Ibutamoren</a></h3>
-        <p>GH Secretagogues &middot; Nutrobal</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/mots-c/">MOTS-c</a></h3>
-        <p>Additional Peptides &middot; Mitochondrial Open Reading Frame Peptide, Humanin analogue</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/pentadeca-arginate/">Pentadeca Arginate</a></h3>
-        <p>Peptides &middot; PDA, PC-15</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/retatrutide/">Retatrutide</a></h3>
-        <p>Metabolic Peptides &middot; LY3437943, triple G agonist</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/selank/">Selank</a></h3>
-        <p>Neurological and Cognitive &middot; TP-7</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/semax/">Semax</a></h3>
-        <p>Neurological and Cognitive &middot; ACTH(4-7)PGP, Heptapeptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/sermorelin/">Sermorelin</a></h3>
-        <p>GH Secretagogues &middot; GHRH(1-29)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ss-31/">SS-31</a></h3>
-        <p>Peptides &middot; Elamipretide, MTP-131, Bendavia</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tb-500/">TB-500</a></h3>
-        <p>Peptides &middot; Thymosin Beta-4</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/thymosin-alpha-1/">Thymosin Alpha-1</a></h3>
-        <p>Additional Peptides &middot; Ta1, Zadaxin, Thymalfasin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/vip/">VIP</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Vasoactive Intestinal Peptide</p>
-      </div>
-    </div>
-
-    <h2>The rest of the reference</h2>
+    <h2 id="the-rest">The rest of the reference</h2>
 
     <p>60 of the 107 publishable compounds have a page so far; the others
     are being written in batches, and nothing is linked here until its page is live and has been
@@ -603,6 +743,45 @@ function toast(msg) {
     });
   } catch (e) {}
 })();
+
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    var box = document.getElementById('cx-q');
+    var status = document.getElementById('cx-status');
+    if (!box || !document.querySelectorAll) return;
+    var cards = [], groups = [], first = null;
+    document.querySelectorAll('.tcard[data-cx]').forEach(function (c) { cards.push(c); });
+    document.querySelectorAll('.cx-group').forEach(function (g) { groups.push(g); });
+    function apply() {
+      var q = String(box.value || '').toLowerCase().trim();
+      var shown = 0;
+      first = null;
+      cards.forEach(function (c) {
+        var hit = !q || String(c.getAttribute('data-cx') || '').indexOf(q) >= 0;
+        c.hidden = !hit;
+        if (hit) { shown++; if (!first) first = c; }
+      });
+      groups.forEach(function (g) {
+        var any = false;
+        g.querySelectorAll('.tcard[data-cx]').forEach(function (c) { if (!c.hidden) any = true; });
+        g.hidden = !any;
+      });
+      if (status) {
+        status.textContent = !q ? ''
+          : shown === 0 ? 'No compound matches that yet.'
+          : shown + (shown === 1 ? ' match' : ' matches') + ' — press Enter to open the first.';
+      }
+    }
+    box.addEventListener('input', apply);
+    box.addEventListener('keydown', function (e) {
+      if (!e || e.key !== 'Enter' || !first) return;
+      var a = first.querySelector ? first.querySelector('a') : null;
+      var href = a && a.getAttribute ? a.getAttribute('href') : null;
+      if (href) location.href = href;
+    });
+    apply();
+  } catch (e) {}
+});
 /* ?og=1 swaps the page for a 1200x630 share card built from its own content.
    scripts/capture-og-shots.js is the only thing that asks for it. */
 (function () {
