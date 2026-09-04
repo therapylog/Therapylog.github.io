@@ -553,6 +553,30 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**NDT regulatory field corrected in app.html (4 Sep 2026)**
+
+`app.html`'s regulatory field for natural desiccated thyroid said "FDA
+approved". It is not: desiccated thyroid products predate the 1938 legislation
+that created the modern approval pathway and are marketed under enforcement
+discretion rather than through an application, so no manufacturer has submitted
+potency, purity or bioequivalence data for FDA review. The field now says that,
+and adds the part that matters practically -- unapproved is not unavailable;
+these are ordinary prescription drugs from ordinary pharmacies.
+
+- **The page prose was rewritten to match.** `/compounds/natural-desiccated-thyroid/`
+  had a section headed "The approval question, and a disagreement worth
+  flagging" whose second paragraph existed only to say the fact box was wrong.
+  With the box corrected that paragraph was stale, so the heading is now "The
+  approval question" and the paragraph explains what approval would have
+  forced a manufacturer to demonstrate. The FAQ answer was updated the same way.
+- **Flagged, not fixed: the encyclopedia's regulatory badge.** The badge tests
+  `drug.approval.includes("FDA APPROVED")` -- uppercase -- and falls through to
+  "Research Only" in red for anything that misses. 34 entries land there whose
+  approval string describes a prescription drug, testosterone cypionate and
+  anastrozole among them. That is app logic rather than app data and it is a
+  pre-existing bug, not one this change introduced; NDT rendered "Research Only"
+  before the correction too. Raised with the owner as a separate change.
+
 **Insulin added to the encyclopedia and a /compounds/insulin/ page written from
 scratch (4 Sep 2026)**
 

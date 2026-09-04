@@ -4626,18 +4626,17 @@ module.exports = {
         ]
       },
       {
-        h2: 'The approval question, and a disagreement worth flagging',
+        h2: 'The approval question',
         paras: [
           `@@EV_ESTABLISHED@@ Desiccated thyroid products are not FDA-approved drugs. They predate
           the 1938 legislation that created the modern approval pathway and have been marketed ever
           since under enforcement discretion rather than through an application. No manufacturer has
           taken one through approval, and the agency has periodically said so.`,
-          `The app&rsquo;s own regulatory field for this entry says "FDA approved", and this page
-          disagrees with it rather than repeating it. That is worth stating openly: the fact boxes
-          on this site reproduce the app&rsquo;s data verbatim by policy, and where the prose knows
-          better it says so instead of quietly correcting the box. This is one of those cases, and
-          it is a data point the owner should fix in the app rather than one this page should
-          paper over.`,
+          `That matters more than a regulatory footnote usually does, because approval is what
+          forces a manufacturer to demonstrate potency, purity and bioequivalence to a regulator
+          before a product reaches a pharmacy. Nobody has done that for these. Unapproved is not
+          the same as unavailable, though &mdash; these are ordinary prescription drugs dispensed
+          by ordinary pharmacies, which is why the distinction gets lost.`,
           `The practical consequence is the one the app&rsquo;s drawbacks list already names:
           potency consistency between batches and between brands is a real historical problem for
           these products, and there have been recalls over it. Switching brand or batch is a reason
@@ -4672,8 +4671,10 @@ module.exports = {
     faq: [
       ['Is NDT FDA approved?', [
         `No. These products predate the 1938 approval pathway and are marketed under enforcement
-         discretion. The app’s own regulatory field says otherwise and this page is flagging the
-         disagreement rather than repeating it.`]],
+         discretion rather than through an application, so no manufacturer has had to demonstrate
+         potency, purity or bioequivalence to a regulator before selling one. They are still
+         prescription drugs dispensed by ordinary pharmacies — unapproved is not the same as
+         unavailable.`]],
       ['What does "one grain" mean?', [
         `It is the historical unit for desiccated thyroid, roughly 60-65 mg of thyroid powder,
          standardised by hormone content. The app’s dosing rows use both the milligram and the grain
