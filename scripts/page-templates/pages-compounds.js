@@ -76,9 +76,19 @@ function regulatoryBlock(api, app, entry, tier) {
   if (tier !== 'B') return '';
   const reg = api.regStatus(entry);
   const store = app.storageFor(entry.id);
+  /* Some approval fields are a full sentence ("Research compound — no FDA
+     approval. Not for human use label.") and some are a single word
+     ("Research", "Compounded", "Prescription"). Running the one-word form into
+     the next sentence produced "Regulatory status. Research That is the app's
+     own field", so a value with no terminal punctuation is quoted as a value. */
+  const short = reg && !/[.!?]\s*$/.test(reg.trim());
+  const opener = reg
+    ? (short
+        ? `The app&rsquo;s reference records this compound&rsquo;s status as &ldquo;${api.esc(reg.trim())}&rdquo;, reproduced here rather than summarised.`
+        : `${api.esc(reg)} That is the app&rsquo;s own field, reproduced here rather than summarised.`)
+    : 'The app&rsquo;s reference records no approval for this compound.';
   return `    <div class="note reg">
-      <p><strong>Regulatory status.</strong> ${api.esc(reg || 'No approval recorded in the app’s reference.')}
-      That is the app’s own field, reproduced here rather than summarised. It means no
+      <p><strong>Regulatory status.</strong> ${opener} It means no
       regulator has reviewed a manufacturer’s evidence for identity, purity, potency or
       safety in people for this compound, so nothing below is a marketing claim about a
       product you can buy.</p>

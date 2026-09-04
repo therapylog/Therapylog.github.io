@@ -329,6 +329,16 @@ if (compoundDefs) {
     const leaked = stripped.filter((r) => html.includes(esc(r.l)) && html.includes(esc(r.d)));
     t(`${url} shows no stripped dosing row`, leaked.length === 0, leaked.map((r) => r.l).join(', '));
 
+    /* §9: three-tier evidence labelling. A page with none of the three badges has
+       either lost the tokens to a renderer change or is making claims without
+       attaching a tier to any of them — the marker pages shipped with a bare
+       @@SIDEFX@@ token once, which is exactly this failure. */
+    const badges = ['est', 'off', 'theo']
+      .reduce((n, k) => n + (html.match(new RegExp(`class="ev ev-${k}"`, 'g')) || []).length, 0);
+    t(`${url} carries at least one evidence label`, badges > 0);
+    t(`${url} left no unrendered template token`, !/@@[A-Z_]+@@/.test(html),
+      (html.match(/@@[A-Z_]+@@/g) || []).slice(0, 3).join(' '));
+
     /* The app's own benefits list is never rendered. */
     const pros = (entry.pros || []).filter((x) => x.length > 12 && html.includes(esc(x)));
     t(`${url} does not reproduce the app's benefits list`, pros.length === 0, pros.join(' | '));

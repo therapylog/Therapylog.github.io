@@ -1273,8 +1273,8 @@ module.exports = {
           `Thymosin beta-4 is a 43-amino-acid protein found in most cells and in high
           concentration in platelets and wound fluid. Its main established function is binding
           monomeric actin, which makes it a regulator of the cytoskeleton and therefore of cell
-          migration &mdash; the process by which cells move into a wound. @@EV_ESTABLISHED@@ That
-          role is not in dispute; it is basic cell biology.`,
+          migration &mdash; the process by which cells move into a wound. That role is not in
+          dispute; it is basic cell biology.`,
           `TB-500 as sold is generally a short synthetic peptide corresponding to the
           actin-binding region of that protein, not the protein itself. The two are routinely
           discussed as the same thing, including in most of the material written about it, and
@@ -1498,7 +1498,7 @@ module.exports = {
           stimulates it, and somatostatin, which suppresses it. Ghrelin &mdash; the stomach
           hormone associated with hunger &mdash; acts at a third site, the growth hormone
           secretagogue receptor, where it both stimulates release and reduces somatostatin tone.
-          @@EV_ESTABLISHED@@ Ipamorelin is a synthetic agonist at that receptor. It is not a GHRH
+          Ipamorelin is a synthetic agonist at that receptor. It is not a GHRH
           analogue and does not work the same way one does.`,
           `That is the pharmacological basis for pairing it with a GHRH analogue such as modified
           GRF(1-29). Two different receptors, two complementary actions on the same pulse: the
@@ -1706,7 +1706,7 @@ module.exports = {
       {
         h2: 'Continuous rather than pulsatile, and why that is the whole story',
         paras: [
-          `@@EV_ESTABLISHED@@ MK-677 is a non-peptide agonist at the ghrelin receptor &mdash; the
+          `MK-677 is a non-peptide agonist at the ghrelin receptor &mdash; the
           same receptor ipamorelin and the GHRPs act at &mdash; with two properties that
           distinguish it from all of them: it is orally bioavailable, and the app models its
           half-life at about a day. A single daily tablet therefore produces sustained receptor
