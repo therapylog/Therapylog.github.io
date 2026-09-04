@@ -6170,4 +6170,1967 @@ module.exports = {
     cta: `With no published dose and no published half-life, what you did and what followed is the
       only evidence there is. TherapyLog keeps it.`
   },
+
+  gonadorelin: {
+    slug: 'gonadorelin',
+    h1: 'Gonadorelin: real GnRH, and why the interval between doses is the whole protocol',
+    title: 'Gonadorelin: GnRH, and why pulses matter | TherapyLog',
+    description: 'Synthetic GnRH used off-label as an hCG alternative. Given continuously it suppresses the axis rather than stimulating it.',
+    lede: `The hormone one step above luteinising hormone, used off-label to keep the testis working
+      during testosterone therapy. It has the same knife-edge property kisspeptin does: pulses
+      stimulate, continuous exposure shuts the axis down.`,
+    sections: [
+      {
+        h2: 'Where it acts, and how that differs from hCG',
+        paras: [
+          `@@EV_ESTABLISHED@@ Gonadotropin-releasing hormone is released by the hypothalamus in
+          pulses roughly every ninety minutes and instructs the pituitary to secrete luteinising
+          hormone and FSH. Gonadorelin is that decapeptide, synthesised. Given properly it raises
+          your own LH, which then acts on the testis.`,
+          `That is a different intervention from <a href="/compounds/hcg/">hCG</a>, which skips the
+          pituitary entirely and binds the LH receptor on the testis directly. Two consequences
+          follow. Gonadorelin keeps the pituitary in the loop, so LH and FSH actually move and can
+          be measured &mdash; the <a href="/markers/lh-fsh/">LH and FSH page</a> covers what that
+          looks like. And it needs a pituitary able to respond, where hCG does not.`,
+          `The app models a half-life of about twenty minutes, which is the shortest of anything in
+          this reference apart from sermorelin. That is not a flaw: native GnRH is cleared in
+          minutes too, and the brevity is what makes a pulse a pulse.`
+        ]
+      },
+      {
+        h2: 'Continuous exposure does the opposite',
+        paras: [
+          `@@EV_ESTABLISHED@@ The pituitary gonadotroph responds to intermittent GnRH and
+          desensitises under constant stimulation. This is not a subtlety &mdash; it is the basis
+          of an entire drug class. Continuous GnRH agonists are used to suppress testosterone in
+          prostate cancer and in precocious puberty, and they work precisely by overwhelming the
+          receptor they stimulate.`,
+          `So the schedule is the drug. Properly spaced administration maintains testicular function;
+          administration that is too frequent, or a preparation that releases slowly, produces
+          chemical castration. The app&rsquo;s own drawbacks list says this in capitals and it is
+          right to. It is also why the approved product is a pump that delivers a dose every ninety
+          minutes, and why the subcutaneous schedules used in clinics are an approximation of that
+          rather than the thing itself.`,
+          `@@EV_OFFLABEL@@ How good an approximation twice-daily injection is, against a pump
+          running sixteen pulses a day, has not been established in trials. That is the honest gap
+          in this protocol: the mechanism is textbook, the approved delivery is a pump, and the way
+          it is actually used is neither.`
+        ]
+      },
+      {
+        h2: 'What to measure',
+        paras: [
+          `The app&rsquo;s panel is well matched to the mechanism. LH and FSH will show activity
+          here, unlike on hCG where they stay suppressed, and an LH rise thirty to sixty minutes
+          after a dose is a direct test that the pituitary responded. Total testosterone and
+          estradiol follow, and testicular volume is the clinical endpoint the protocol exists
+          for.`,
+          `@@EV_OFFLABEL@@ The approval is for diagnostic use and for a pump in hypogonadotropic
+          hypogonadism. Subcutaneous use alongside testosterone therapy is off-label, and the
+          preparations used are compounded. This site names no pharmacy or clinic.`,
+          `Anyone weighing this against hCG should know the comparison is not settled: hCG has far
+          more use behind it for this purpose, gonadorelin has the more physiological mechanism,
+          and no trial has compared them for testicular maintenance during testosterone therapy.
+          That is a prescribing conversation, and anything on the drawbacks list below belongs in
+          it.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the first item is not a side effect — it is the
+      protocol failing in the exact opposite direction from the one intended.`,
+    faq: [
+      ['How is it different from hCG?', [
+        `hCG binds the LH receptor on the testis directly and bypasses the pituitary; gonadorelin acts
+         on the pituitary and raises your own LH. That means LH and FSH move on gonadorelin and stay
+         suppressed on hCG, and it means gonadorelin needs a pituitary able to respond.`]],
+      ['Why can continuous dosing cause suppression?', [
+        `Because the gonadotroph desensitises under constant stimulation. That is the mechanism behind
+         GnRH agonist therapy for prostate cancer, and it is why the interval between doses matters more
+         here than the amount.`]],
+      ['How do I know the pituitary responded?', [
+        `An LH rise thirty to sixty minutes after a dose, which is the app’s own monitoring suggestion
+         and the closest thing to a direct check available.`]],
+      ['Is twice-daily injection equivalent to the pump?', [
+        `Nobody has established that. The approved delivery is a pump giving a dose roughly every ninety
+         minutes; twice daily is a practical approximation with no trial behind it.`]]
+    ],
+    basis: [
+      ['Pulsatile GnRH and gonadotroph desensitisation',
+        'Standard endocrinology; the same pharmacology underlies GnRH agonist therapy for androgen suppression'],
+      ['Approved indications',
+        'The approval string in the fact box is app.html’s own field, reproduced verbatim'],
+      ['Off-label subcutaneous use',
+        'Described in hormone-therapy practice; no controlled trial has compared it with hCG for testicular maintenance'],
+      ['Modelled half-life and time to peak', 'app.html’s TL_PK entry']
+    ],
+    cta: `When the gap between doses decides the direction of the effect, the clock matters as much
+      as the amount. TherapyLog records the time.`
+  },
+
+  isotretinoin: {
+    slug: 'isotretinoin',
+    h1: 'Isotretinoin: the acne drug that actually works, and what it asks in return',
+    title: 'Isotretinoin: how it works, and monitoring | TherapyLog',
+    description: 'A retinoid that shrinks sebaceous glands rather than suppressing bacteria. Why lipids and liver enzymes are followed, and the pregnancy rule.',
+    lede: `The only acne treatment that produces durable remission rather than control, and the one
+      with a monitoring schedule and a legal framework attached. Both of those are the same fact
+      seen from different sides.`,
+    sections: [
+      {
+        h2: 'It changes the gland, not the bacteria',
+        paras: [
+          `@@EV_ESTABLISHED@@ Most acne treatments work on one part of the process: antibiotics
+          reduce <em>C. acnes</em>, topical retinoids normalise keratinisation, hormonal treatments
+          reduce androgen drive. Isotretinoin is a retinoid that acts on all of it by shrinking the
+          sebaceous gland itself &mdash; sebum output falls dramatically and stays low, the follicle
+          stops being an anaerobic environment, and the bacterial and inflammatory components
+          resolve as a consequence.`,
+          `That is why a course produces remission rather than suppression, and why a proportion of
+          people never need it again. It is also why the effect takes weeks to appear and why an
+          initial worsening in the first month is common rather than a sign of failure.`,
+          `@@EV_OFFLABEL@@ In hormone-therapy contexts it comes up because androgens drive sebum
+          production, so acne is a predictable consequence of raising testosterone &mdash; and the
+          lower amounts the app records for that situation are widely used, though the approvals and
+          the trials are for the standard weight-based course in severe nodular acne.`
+        ]
+      },
+      {
+        h2: 'What is monitored, and why',
+        paras: [
+          `@@EV_ESTABLISHED@@ Two things move on bloodwork and both are on the app&rsquo;s panel.
+          Triglycerides rise, sometimes substantially, and the rise is the reason a lipid panel is
+          drawn before starting and repeated during the course &mdash; severe hypertriglyceridaemia
+          is the mechanism behind the rare pancreatitis cases. Liver transaminases rise in a
+          minority, usually modestly and usually reversibly.`,
+          `Someone on testosterone therapy is already in a population where lipids can move, so
+          having a baseline before adding a retinoid is worth more here than it would be otherwise.
+          The <a href="/markers/apob-vs-ldl/">ApoB page</a> covers why the standard lipid panel does
+          not tell the whole story.`,
+          `The predictable effects are mucocutaneous and near-universal: dry lips, dry eyes, dry
+          nasal passages, sometimes nosebleeds, and joint or muscle aches. They are dose-related and
+          resolve when the course ends. Contact lens intolerance and reduced night vision are worth
+          knowing about in advance rather than discovering while driving.`
+        ]
+      },
+      {
+        h2: 'The two things that are not negotiable',
+        paras: [
+          `@@EV_ESTABLISHED@@ Isotretinoin is a potent teratogen. Exposure in early pregnancy causes
+          severe malformations, and this is not a relative caution or a formality &mdash; it is why
+          the drug is dispensed under a mandatory risk-management programme with pregnancy testing
+          and contraception requirements in every country that licenses it. Blood donation is also
+          prohibited during and for a period after treatment for the same reason.`,
+          `The mood question is the other. Depression and suicidality have been reported and the
+          causal relationship remains genuinely contested &mdash; severe acne is itself strongly
+          associated with depression, which makes the confounding hard to untangle, and large
+          studies have not consistently found an increase. What is not contested is that the
+          reports exist and that a change in mood during a course is a reason to contact the
+          prescriber promptly rather than to finish and see. The app puts mental health on the
+          monitoring list for that reason.`,
+          `All of this sits with the clinician who prescribes and dispenses it, under a programme
+          designed around exactly these risks. Anything on the drawbacks list below belongs in that
+          conversation.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The pregnancy item is the one that is absolute rather
+      than dose-dependent, and it is why this drug is dispensed the way it is.`,
+    faq: [
+      ['Does the low-dose approach work?', [
+        `Lower daily amounts over a longer period are widely used and are what the app records for the
+         androgen-driven situation. The approvals and the pivotal trials are for the standard
+         weight-based course, so the low-dose approach is practice rather than label.`]],
+      ['Why does acne get worse at first?', [
+        `An initial flare in the first weeks is common and is not a sign the drug is failing. It settles
+         as sebum output falls.`]],
+      ['What bloodwork is needed?', [
+        `A lipid panel and liver enzymes before starting and during the course, plus the pregnancy
+         testing the risk programme requires. Triglycerides are the value that moves most.`]],
+      ['Is the depression link real?', [
+        `It is contested and not resolved. Severe acne is itself associated with depression, which makes
+         the confounding difficult, and large studies have not consistently shown an increase. A mood
+         change during a course is still a reason to contact the prescriber promptly.`]]
+    ],
+    basis: [
+      ['Sebaceous gland effect and durable remission',
+        'Established dermatology; the mechanism distinguishes it from every other acne treatment'],
+      ['Lipid and transaminase changes',
+        'Carried in the approved labelling and consistently reported in the trial and post-marketing literature'],
+      ['Teratogenicity and risk-management programmes',
+        'The reason the drug is dispensed under mandatory pregnancy prevention requirements in every licensing country'],
+      ['Modelled half-life and time to peak', 'app.html’s TL_PK entry']
+    ],
+    cta: `A course judged on a lipid panel drawn before and during is one where the dates matter.
+      TherapyLog keeps them together.`
+  },
+
+  raloxifene: {
+    slug: 'raloxifene',
+    h1: 'Raloxifene: the SERM used when gynaecomastia is already there',
+    title: 'Raloxifene: the SERM for established gyno | TherapyLog',
+    description: 'A second-generation SERM with a stronger breast-tissue effect than tamoxifen. What the comparison rests on, and the clot risk it shares.',
+    lede: `Tamoxifen is the first thing tried; raloxifene is what comes up when the tissue is
+      established. The reason people prefer it here is a real pharmacological difference, and the
+      evidence for that preference is thinner than the confidence around it.`,
+    sections: [
+      {
+        h2: 'The same class, a different profile',
+        paras: [
+          `@@EV_ESTABLISHED@@ Raloxifene is a selective oestrogen receptor modulator, like
+          <a href="/compounds/tamoxifen/">tamoxifen</a>: it antagonises the oestrogen receptor in
+          breast tissue and behaves as an agonist elsewhere. The difference between them is the
+          tissue pattern. Tamoxifen is a partial agonist in the uterus, which is why it carries an
+          endometrial cancer signal in women; raloxifene is not, which is why it was developed and
+          why its approvals are for osteoporosis and for breast cancer risk reduction rather than
+          for treatment.`,
+          `@@EV_OFFLABEL@@ In gynaecomastia, the preference for raloxifene over tamoxifen for
+          established tissue comes from small comparative work in adolescent gynaecomastia
+          suggesting a greater reduction in breast diameter. That is a real finding in a small,
+          specific population, and it is doing a lot of work in how confidently the preference is
+          usually stated. There is no large trial in adults.`,
+          `The important framing is the same as on the tamoxifen page. Gynaecomastia responds to
+          receptor blockade while it is proliferative &mdash; tender, recent, still changing. Once
+          the tissue fibroses, typically after about a year, no SERM reliably reverses it and
+          surgery is what does. How long it has been there matters more than which SERM is
+          chosen.`
+        ]
+      },
+      {
+        h2: 'It does not lower estradiol, and that is the point',
+        paras: [
+          `@@EV_ESTABLISHED@@ Like every SERM, raloxifene occupies the receptor and leaves
+          circulating oestrogen where it is. Someone watching their estradiol number expecting it
+          to fall will be confused by a result that has not moved, and the unchanged number is not
+          evidence the drug is not working. The app&rsquo;s own drawbacks list is explicit that it
+          does not prevent conversion and is not a substitute for an aromatase inhibitor.`,
+          `That is also the argument for using it rather than an aromatase inhibitor when the
+          problem is breast tissue specifically: an aromatase inhibitor lowers oestrogen everywhere,
+          including the bone and vasculature where a man needs it, to fix a problem in one tissue.
+          The <a href="/compounds/anastrozole/">anastrozole page</a> covers what over-suppression
+          costs.`
+        ]
+      },
+      {
+        h2: 'The risk it shares with the class',
+        paras: [
+          `@@EV_ESTABLISHED@@ Venous thromboembolism is a class effect of the SERMs and is
+          established for raloxifene in its own large trials &mdash; the same trials that produced
+          the osteoporosis and risk-reduction approvals also produced a clear increase in venous
+          thromboembolic events. This is the finding that determines who should not take it: a
+          personal or family history of clotting, prolonged immobility, or a planned operation all
+          change the calculation.`,
+          `Hot flushes and leg cramps are the common tolerability complaints and follow from the
+          same receptor pharmacology. The app&rsquo;s monitoring note asks for signs of clotting
+          &mdash; calf pain, swelling &mdash; alongside the breast examination, which is the right
+          emphasis: one of those is the reason for treatment and the other is the reason to stop
+          it.`,
+          `Use for gynaecomastia is off-label everywhere. Whether it applies, at what amount, and
+          for how long is a prescribing decision made against an examination rather than a lab
+          value, and anything on the drawbacks list below belongs with that clinician.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The clot item is the one that decides whether someone
+      should take this at all, rather than how much.`,
+    faq: [
+      ['Raloxifene or tamoxifen for gynaecomastia?', [
+        `Tamoxifen has more use behind it; raloxifene is preferred by many for established tissue on the
+         strength of small comparative work in adolescents. Neither has a large adult trial. Both are
+         off-label for this, and which to use is a prescribing judgement.`]],
+      ['Will it lower my estradiol reading?', [
+        `No. It blocks the receptor and leaves circulating oestrogen alone. An unchanged estradiol on a
+         SERM is expected, not a sign it is not working.`]],
+      ['How long does gynaecomastia stay treatable?', [
+        `Roughly the first year, while the tissue is proliferative and usually tender. After it fibroses,
+         no SERM reliably reverses it. Timing matters more than the choice of drug.`]],
+      ['Can it be used instead of an aromatase inhibitor?', [
+        `Not for general oestrogen control — it does not reduce how much oestrogen is made. For breast
+         tissue specifically it is the more targeted option, which is a different question.`]]
+    ],
+    basis: [
+      ['Tissue-selective receptor pharmacology',
+        'Standard pharmacology of the selective oestrogen receptor modulators'],
+      ['Comparative effect in gynaecomastia',
+        'Small comparative studies in adolescent gynaecomastia; no large adult trial exists'],
+      ['Venous thromboembolic risk',
+        'Established in raloxifene’s own large osteoporosis and risk-reduction trials and carried in the labelling'],
+      ['Modelled half-life and time to peak', 'app.html’s TL_PK entry']
+    ],
+    cta: `Whether tissue is weeks old or a year old changes what is possible. TherapyLog keeps the
+      dates that answer that.`
+  },
+
+  progesterone: {
+    slug: 'progesterone',
+    h1: 'Progesterone: a hormone whose best-known effect in this context is sleep',
+    title: 'Progesterone: neurosteroid effects and dosing | TherapyLog',
+    description: 'Progesterone is metabolised to allopregnanolone, which acts on GABA receptors. Why the oral route matters, and why progestins differ.',
+    lede: `A reproductive hormone with a second life as a neurosteroid. The reason it makes people
+      sleepy is a real metabolic pathway, and it is also the reason the route it is taken by changes
+      what it does.`,
+    sections: [
+      {
+        h2: 'Two different molecules doing two different jobs',
+        paras: [
+          `@@EV_ESTABLISHED@@ Progesterone acts at the progesterone receptor &mdash; the
+          reproductive role, and in hormone therapy the reason it is given alongside oestrogen to
+          protect the endometrium. It is also converted by 5-alpha reductase and 3-alpha
+          hydroxysteroid dehydrogenase to allopregnanolone, which is not a sex hormone at all: it is
+          a positive allosteric modulator at the GABA-A receptor, the same site benzodiazepines act
+          on.`,
+          `That second pathway is where the sedation, the anxiolytic effect and the sleep
+          improvement come from, and it explains a practical detail that otherwise looks arbitrary.
+          Oral progesterone passes through the liver first, where much of that conversion happens,
+          so the oral route produces markedly more allopregnanolone than a transdermal or vaginal
+          one. Taking it orally at night is not a convenience; it is how you get the neurosteroid
+          effect. Vaginal delivery targets the uterus and largely bypasses it.`,
+          `@@EV_ESTABLISHED@@ Synthetic progestins are not this molecule. Medroxyprogesterone and
+          the others bind the progesterone receptor but are not substrates for the same conversion,
+          so they do not produce allopregnanolone, and their cardiovascular and breast signals in
+          the large hormone therapy trials are not interchangeable with bioidentical
+          progesterone&rsquo;s. Conflating the two is the most common error made about this
+          hormone.`
+        ]
+      },
+      {
+        h2: 'Where it is used, and how well established each use is',
+        paras: [
+          `@@EV_ESTABLISHED@@ The approved use is the solid one: in women taking oestrogen with a
+          uterus, progesterone opposes endometrial proliferation, and that is not optional. It is
+          also used in fertility treatment and in pregnancy support.`,
+          `@@EV_OFFLABEL@@ Use for sleep, in women and men, rests on the allopregnanolone mechanism
+          and on small studies rather than on large trials. It is plausible, widely practised, and
+          not established. The low topical amounts the app records for men are further out still
+          &mdash; the rationale is that progesterone modestly inhibits 5-alpha reductase and so
+          moderates DHT, and there is very little human data behind using it that way.`,
+          `Anyone whose actual problem is sleep should know that the boring interventions have
+          stronger evidence than any hormone: cognitive behavioural therapy for insomnia outperforms
+          hypnotics in trials and keeps working afterwards, and sleep apnoea, thyroid disease and
+          medication effects are worth excluding first.`
+        ]
+      },
+      {
+        h2: 'What to watch',
+        paras: [
+          `Sedation is the effect people notice, which is why it is taken at night and why driving
+          the next morning is worth a thought during the first week. Bloating, breast tenderness and
+          mood changes are the common complaints, and they are dose-related.`,
+          `The app&rsquo;s panel is a hormone panel &mdash; serum progesterone, estradiol, SHBG,
+          with breast examination and cervical screening for women, and a full hormone panel in men.
+          Serum progesterone is worth a caveat: it fluctuates enormously across the menstrual cycle
+          and after an oral dose, so a single value without a stated timing is difficult to place,
+          much like <a href="/compounds/liothyronine-t3/">T3</a>.`,
+          `Whether this applies to a particular person, in what form and by what route, is a
+          prescribing decision, and anything on the drawbacks list below belongs with the clinician
+          who makes it.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the third item is the important one: bioidentical
+      progesterone and the synthetic progestins are not the same drug and do not share evidence.`,
+    faq: [
+      ['Why take it at night?', [
+        `Because oral progesterone is converted on first pass through the liver to allopregnanolone,
+         which acts on GABA-A receptors and is sedating. Taking it at night uses that rather than fighting
+         it.`]],
+      ['Is a progesterone cream equivalent to a capsule?', [
+        `Not for the neurosteroid effect. Transdermal delivery bypasses the first-pass conversion that
+         produces allopregnanolone, and cream absorption is variable. For endometrial protection the route
+         matters differently again — that is a prescriber’s call.`]],
+      ['Are progestins the same thing?', [
+        `No. Synthetic progestins bind the same receptor but are not converted to allopregnanolone, and
+         their trial data on cardiovascular and breast outcomes does not transfer to bioidentical
+         progesterone.`]],
+      ['Does it help men?', [
+        `The rationale is modest 5-alpha reductase inhibition and the sleep effect, and the human data
+         behind using it that way is very thin. The app records low topical amounts with a three-month
+         reassessment, which is an appropriately cautious framing for something this unstudied.`]]
+    ],
+    basis: [
+      ['Allopregnanolone and GABA-A modulation',
+        'Established neurosteroid pharmacology; the conversion occurs largely on hepatic first pass'],
+      ['Endometrial protection',
+        'The approved indication and the basis for progesterone in oestrogen therapy'],
+      ['Progestins versus bioidentical progesterone',
+        'Distinct molecules with distinct receptor and metabolic behaviour; trial data does not transfer between them'],
+      ['Regulatory status',
+        'The approval string in the fact box is app.html’s own field, reproduced verbatim']
+    ],
+    cta: `A hormone whose level swings with the day and the cycle is only readable with a recorded
+      draw time. TherapyLog keeps it.`
+  },
+
+  oxytocin: {
+    slug: 'oxytocin',
+    h1: 'Oxytocin: a hormone with an approval for labour and a research literature about everything else',
+    title: 'Oxytocin: the intranasal question | TherapyLog',
+    description: 'Intranasal oxytocin is one of the most studied compounds in social neuroscience and one of the least replicated. What is actually established.',
+    lede: `An approved obstetric drug, a research tool in hundreds of psychology studies, and a
+      wellness product. The gap between those three is wider than almost anything else in this
+      reference, and the replication problem is the interesting part.`,
+    sections: [
+      {
+        h2: 'What is established, and what the nose has to do with it',
+        paras: [
+          `@@EV_ESTABLISHED@@ Oxytocin is a nine-amino-acid peptide made in the hypothalamus. Its
+          approved use is intravenous, for labour induction and postpartum haemorrhage, and that
+          pharmacology is not in question. What is in question is everything downstream of the
+          claim that spraying it up the nose produces central effects.`,
+          `The problem is delivery. Oxytocin is a peptide, cleared from blood in minutes, and it
+          does not meaningfully cross the blood-brain barrier. The intranasal route is proposed to
+          bypass that via the olfactory and trigeminal pathways, and there is evidence that some
+          reaches cerebrospinal fluid &mdash; but the fraction is small, the dose-response is not
+          established, and how much of any observed effect comes from central versus peripheral
+          action is genuinely unresolved.`,
+          `@@EV_THEORETICAL@@ That matters because the intranasal literature is enormous and its
+          replication record is poor. Early findings on trust, generosity and social cognition were
+          striking and have replicated inconsistently; the field is now a standard example in
+          discussions of underpowered studies and publication bias. This is not a compound with
+          little evidence &mdash; it is a compound with a great deal of evidence pointing in
+          several directions.`
+        ]
+      },
+      {
+        h2: 'The effect people actually report',
+        paras: [
+          `@@EV_OFFLABEL@@ Setting the research aside, the reported subjective effects are
+          consistent: a short window of warmth, social ease and heightened emotional
+          responsiveness, sometimes with an effect on arousal, lasting under an hour. The
+          app&rsquo;s dosing rows describe as-needed use before an event, which follows from a
+          half-life measured in minutes.`,
+          `The app&rsquo;s drawbacks list contains one item worth taking seriously: it is
+          emotionally sensitising rather than uniformly positive. The same amplification that makes
+          a good interaction better makes a difficult one worse, and the research on this is more
+          consistent than the research on the benefits &mdash; effects appear to depend heavily on
+          context and on the person. Anyone expecting a reliable mood lift is expecting the wrong
+          thing.`,
+          `Tolerance is the other reported constraint, and it is why the app frames this as
+          intermittent rather than daily. Receptor downregulation under repeated stimulation is
+          plausible for any peptide hormone and is not specifically demonstrated here.`
+        ]
+      },
+      {
+        h2: 'Practical points',
+        paras: [
+          `The approved product is intravenous and for a completely different purpose. Intranasal
+          preparations are compounded, so concentration and sterility rest with the compounder, and
+          this site names no pharmacy. Nothing on a routine panel tracks it; the app records mood
+          self-assessment and cortisol only where stress is a separate concern, which is honest.`,
+          `The muscle and recovery claims in circulation come from animal work on satellite cell
+          activation and are a long way from a human outcome. Treating them as established is the
+          kind of extrapolation this site keeps flagging.`,
+          `Anyone taking psychiatric medication, or using this to manage a mood or relationship
+          difficulty, should be having that conversation with a clinician rather than a page &mdash;
+          a compound that amplifies emotional response is not a neutral addition to either
+          situation.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the last item is the most useful thing on it:
+      this amplifies whatever is there rather than reliably improving it.`,
+    faq: [
+      ['Does intranasal oxytocin reach the brain?', [
+        `Some appears to, via olfactory and trigeminal routes, and the fraction is small and the
+         dose-response is not established. How much of any observed effect is central rather than
+         peripheral remains unresolved.`]],
+      ['Why is the research so inconsistent?', [
+        `Because much of it was underpowered and the early striking findings have replicated poorly. It
+         is now a standard case study in discussions of replication in psychology, which is a reason to
+         read confident claims about it carefully.`]],
+      ['How long does it last?', [
+        `Under an hour, subjectively. The peptide itself is cleared in minutes, which is why the app’s
+         rows describe taking it shortly before something rather than on a schedule.`]],
+      ['Does it help recovery or muscle?', [
+        `The claims come from animal work on satellite cell activation. No human outcome supports it, and
+         treating that as established is a long extrapolation.`]]
+    ],
+    basis: [
+      ['Approved intravenous indication',
+        'The approval string in the fact box is app.html’s own field, reproduced verbatim'],
+      ['Intranasal delivery to the central nervous system',
+        'Evidence that a small fraction reaches cerebrospinal fluid; dose-response is not established'],
+      ['Replication record of the social-cognition literature',
+        'Widely documented; early findings have replicated inconsistently in larger studies'],
+      ['Context dependence of effects',
+        'Reported more consistently than benefit itself across the intranasal literature']
+    ],
+    cta: `An as-needed compound with a context-dependent effect is one where your own notes are the
+      only evidence. TherapyLog keeps them with the dose.`
+  },
+
+  quercetin: {
+    slug: 'quercetin',
+    h1: 'Quercetin: the other half of the senolytic protocol, and a flavonoid with an absorption problem',
+    title: 'Quercetin: the senolytic pairing, examined | TherapyLog',
+    description: 'Quercetin is the compound paired with dasatinib in the human senolytic trials. What it contributes, and why bioavailability is the catch.',
+    lede: `Best known as half of a protocol rather than on its own. The pairing has a real
+      mechanistic reason behind it, and quercetin taken alone is a different and much less studied
+      proposition.`,
+    sections: [
+      {
+        h2: 'Why the pairing exists',
+        paras: [
+          `@@EV_THEORETICAL@@ Senescent cells resist apoptosis by upregulating survival pathways,
+          and different cell types depend on different ones. That is the reason the senolytic screen
+          that identified <a href="/compounds/dasatinib/">dasatinib</a> also identified quercetin,
+          and the reason the two are used together: dasatinib is more effective against senescent
+          preadipocytes, quercetin against senescent endothelial cells and some others. Neither
+          covers the range alone.`,
+          `So the combination is not a supplement bolted onto a drug &mdash; it is what the
+          protocol was designed as, and every human senolytic trial to date has used both. Quercetin
+          on its own has not been tested as a senolytic in people, which makes taking it alone for
+          that purpose an extrapolation from a pairing.`,
+          `@@EV_ESTABLISHED@@ Separately from any of that, quercetin has a long history as an
+          anti-inflammatory flavonoid: it inhibits NLRP3 inflammasome activation and stabilises mast
+          cells, which is the basis for its use as a natural antihistamine. That use is at daily
+          amounts rather than pulses and is a different intervention from the senolytic one.`
+        ]
+      },
+      {
+        h2: 'Absorption is the recurring problem',
+        paras: [
+          `@@EV_ESTABLISHED@@ Plain quercetin aglycone is poorly absorbed &mdash; low single-digit
+          bioavailability &mdash; and is rapidly conjugated in the gut and liver, so plasma
+          concentrations after an oral dose are a small fraction of what the cell studies used. That
+          gap between the concentration that kills senescent cells in a dish and the concentration
+          a capsule produces is the central uncertainty about the whole approach.`,
+          `Phytosome and other enhanced formulations improve absorption substantially and cost more,
+          which is what the app&rsquo;s drawbacks list is pointing at. Taking it with a fat-containing
+          meal helps. None of that resolves the underlying question of whether the achieved
+          concentration is enough.`
+        ]
+      },
+      {
+        h2: 'The interaction nobody expects from a supplement',
+        paras: [
+          `@@EV_ESTABLISHED@@ Quercetin inhibits CYP3A4 and P-glycoprotein and affects several drug
+          transporters, so it can raise blood levels of drugs cleared by those routes. It also
+          chelates and reduces the absorption of quinolone antibiotics, and it has antiplatelet
+          activity that matters alongside anticoagulants. At the gram-per-day amounts a senolytic
+          pulse uses, this is a pharmacological exposure rather than a dietary one.`,
+          `That is the practical thing to carry away: it belongs on the medication list you give a
+          clinician even though it came from a shop, and a pulse taken while on prescription
+          medication is a medication event rather than a supplement day.`,
+          `Monitoring, per the app, is inflammatory markers before and after a pulse &mdash; a
+          plausible proxy rather than a validated one, since nothing measures senescent cell
+          clearance outside a research setting. The <a href="/compounds/fisetin/">fisetin page</a>
+          covers the other flavonoid senolytic and the dose-scaling problem both share.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the last item is the honest one: the human trials
+      used the combination, not quercetin alone.`,
+    faq: [
+      ['Does quercetin work as a senolytic on its own?', [
+        `That has not been tested in people. Every human senolytic trial used it paired with dasatinib,
+         and the pairing exists because the two cover different senescent cell types. Taking it alone for
+         that purpose is an extrapolation.`]],
+      ['Which form should be taken?', [
+        `Plain quercetin is poorly absorbed; phytosome and similar enhanced formulations absorb
+         substantially better and cost more. Taking it with fat helps either way. Whether any of them
+         reaches a senolytic concentration is the unresolved question.`]],
+      ['Does it interact with medication?', [
+        `Yes — it inhibits CYP3A4 and P-glycoprotein, reduces absorption of quinolone antibiotics, and has
+         antiplatelet activity. At senolytic amounts that is a pharmacological exposure and belongs on the
+         medication list you give a clinician.`]],
+      ['Is the antihistamine use the same thing?', [
+        `No. That is a daily anti-inflammatory and mast-cell-stabilising use at lower amounts, and it is a
+         separate proposition from the intermittent high-dose senolytic protocol.`]]
+    ],
+    basis: [
+      ['Complementary senolytic coverage with dasatinib',
+        'The senolytic screen that identified both compounds and the trial protocols that followed'],
+      ['Bioavailability of quercetin aglycone',
+        'The flavonoid absorption literature; plasma concentrations are a small fraction of cell-study levels'],
+      ['CYP3A4, P-glycoprotein and quinolone interactions',
+        'Established in the drug-interaction literature'],
+      ['NLRP3 and mast cell effects',
+        'The anti-inflammatory flavonoid literature, at daily rather than pulse amounts']
+    ],
+    cta: `A pulse every few months alongside prescription medication is a medication event worth
+      dating. TherapyLog records it.`
+  },
+
+  ghkcu: {
+    slug: 'ghk-cu',
+    h1: 'GHK-Cu: a copper-binding tripeptide with good topical evidence and a thinner injected case',
+    title: 'GHK-Cu: the copper peptide, by route | TherapyLog',
+    description: 'A copper-carrying tripeptide with real cosmetic evidence applied to skin. What the systemic injected use rests on, which is much less.',
+    lede: `Three amino acids carrying a copper ion, present naturally in plasma and declining with
+      age. The topical case is the strongest cosmetic-peptide evidence in this reference; the
+      injected case is a different question with a different answer.`,
+    sections: [
+      {
+        h2: 'The copper is the active part',
+        paras: [
+          `@@EV_ESTABLISHED@@ GHK is glycyl-histidyl-lysine, a tripeptide that binds copper with
+          high affinity. That complex is what does the work: copper is a cofactor for lysyl oxidase,
+          which cross-links collagen and elastin, and for superoxide dismutase. The peptide is
+          essentially a delivery vehicle that hands copper to the enzymes that need it, in a form
+          the tissue can use without the toxicity free copper would cause.`,
+          `Its plasma concentration falls substantially between young adulthood and later life,
+          which is where the anti-ageing framing comes from. The gene-expression work often cited
+          &mdash; that GHK-Cu shifts the expression of a large number of genes toward a younger
+          pattern &mdash; is real and is cell-culture work, and it is a long way from a clinical
+          outcome.`
+        ]
+      },
+      {
+        h2: 'Topical is where the evidence is',
+        paras: [
+          `@@EV_ESTABLISHED@@ Applied to skin, GHK-Cu has controlled cosmetic studies behind it
+          reporting improved skin density, reduced fine lines and better wound healing. That is a
+          genuinely better evidence base than most things in this reference and is why it appears in
+          commercial skincare. The app records topical rows for exactly that use.`,
+          `@@EV_THEORETICAL@@ Subcutaneous administration for systemic effect &mdash; injury
+          healing, tissue regeneration, general anti-ageing &mdash; is a different proposition and
+          has no controlled human trial. The app&rsquo;s own regulatory string draws the line
+          precisely: topical use is cosmetic and over-the-counter, systemic use is research only.
+          That is the cleanest statement of the situation on this page and it comes from the app
+          rather than from me.`,
+          `The intranasal row is further out again. It exists in practice and has nothing published
+          behind it.`
+        ]
+      },
+      {
+        h2: 'Copper is the thing to watch',
+        paras: [
+          `@@EV_OFFLABEL@@ A peptide whose function is to carry copper, injected daily, is
+          delivering copper. Copper accumulation is theoretical rather than demonstrated at the
+          amounts described, and it is the reason the app puts copper levels on the monitoring list
+          for extended high-dose use. Anyone with Wilson&rsquo;s disease or another copper-handling
+          disorder is in a different situation entirely and this is not a supplement decision for
+          them.`,
+          `Copper and zinc also compete for absorption and transport, so someone supplementing zinc
+          heavily alongside is running two things against each other. That is worth mentioning to
+          whoever manages their supplements.`,
+          `There is no approved injectable product. Identity and purity rest with whoever made the
+          vial, and this site names no vendor or brand. Photographic documentation is the honest
+          assessment method for anything cosmetic, which is what the app records &mdash; the same
+          before-and-after that makes a skin claim checkable is the one that makes a personal result
+          readable.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The topical-versus-systemic item at the top is the
+      whole page in one line.`,
+    faq: [
+      ['Does the injected form work like the topical form?', [
+        `Nobody has shown that. The controlled evidence is topical and cosmetic; systemic subcutaneous
+         use has no human trial, which is what the app’s own regulatory string says.`]],
+      ['Is copper accumulation a real risk?', [
+        `Theoretical at the amounts described rather than demonstrated, which is why the app puts copper
+         levels on the panel for extended high-dose use. Anyone with a copper-handling disorder is in a
+         different category.`]],
+      ['Does it regrow hair?', [
+        `Copper peptides appear in hair products and the follicle-stimulation claims come from cell and
+         animal work. There is no controlled human trial of GHK-Cu for hair loss comparable to the ones
+         behind the approved treatments.`]],
+      ['Why is there no half-life in the fact box?', [
+        `Because the app holds none, and for a topical the systemic half-life would not be the relevant
+         quantity anyway.`]]
+    ],
+    basis: [
+      ['Copper as cofactor for lysyl oxidase and superoxide dismutase',
+        'Established biochemistry of copper-dependent enzymes'],
+      ['Topical cosmetic studies',
+        'Controlled studies reporting improved skin density and wound healing with topical application'],
+      ['Gene expression findings',
+        'Cell-culture work; not a clinical outcome'],
+      ['Route-dependent regulatory status',
+        'The approval string in the fact box is app.html’s own field, which distinguishes topical from systemic use']
+    ],
+    cta: `Anything cosmetic is judged on a photograph taken the same way each time. TherapyLog keeps
+      the dates beside it.`
+  },
+
+  nalt: {
+    slug: 'nac-and-nalt',
+    h1: 'NAC and NALT: two different amino acid derivatives sold as one entry',
+    title: 'NAC and NALT: two compounds, one entry | TherapyLog',
+    description: 'N-acetylcysteine feeds glutathione; N-acetyl L-tyrosine feeds catecholamines. They do unrelated things and are often bought together.',
+    lede: `The app holds these as one entry and they are not one compound. One is a glutathione
+      precursor with a genuine approved use; the other is a catecholamine precursor with a much
+      weaker case. Separating them is most of what this page is for.`,
+    sections: [
+      {
+        h2: 'NAC: the one with an approval behind it',
+        paras: [
+          `@@EV_ESTABLISHED@@ N-acetylcysteine is a cysteine donor, and cysteine is the
+          rate-limiting amino acid for glutathione synthesis &mdash; the cell&rsquo;s principal
+          antioxidant. That is not a supplement claim: intravenous NAC is the standard antidote for
+          paracetamol overdose, where it works by restoring hepatic glutathione, and it is on the
+          WHO essential medicines list for that reason. It is also used as a mucolytic.`,
+          `@@EV_OFFLABEL@@ The uses people take it for &mdash; psychiatric conditions,
+          compulsive behaviours, respiratory health, liver support &mdash; rest on a mixed body of
+          trials. There is reasonable randomised evidence in trichotillomania and some in
+          obsessive-compulsive and substance-use disorders; results elsewhere are inconsistent.
+          It is one of the better-evidenced supplements in this reference and that is a low bar
+          being cleared rather than a strong claim.`,
+          `Its regulatory position in the United States has been contested, because it was approved
+          as a drug before being marketed as a supplement &mdash; which is what the app&rsquo;s own
+          string means by "in flux". It remains widely available.`
+        ]
+      },
+      {
+        h2: 'NALT: a different molecule with a narrower case',
+        paras: [
+          `@@EV_ESTABLISHED@@ N-acetyl L-tyrosine is a more soluble form of tyrosine, the precursor
+          to dopamine, noradrenaline and adrenaline, and also to thyroid hormone. The case for
+          supplementing it is specific: tyrosine appears to help cognitive performance under
+          conditions that deplete catecholamines &mdash; cold, sleep deprivation, sustained stress
+          &mdash; and much less under ordinary conditions.`,
+          `@@EV_THEORETICAL@@ Whether the acetylated form is actually better is questionable. It is
+          more water-soluble, and there is evidence that a substantial fraction is excreted
+          unchanged rather than deacetylated to free tyrosine, which would make it a worse delivery
+          vehicle rather than a better one. Plain L-tyrosine is cheaper and is what most of the
+          trials used.`,
+          `It also competes with other large neutral amino acids for transport across the
+          blood-brain barrier, which is why it is taken away from protein-containing meals. That
+          detail is in the app&rsquo;s own drawbacks list and it is the one that most often explains
+          a disappointing result.`
+        ]
+      },
+      {
+        h2: 'What each is worth watching',
+        paras: [
+          `NAC&rsquo;s common effect is gastrointestinal at higher amounts. The interaction worth
+          knowing is that it may reduce the efficacy of some chemotherapy, which is the app&rsquo;s
+          own note and is a conversation for anyone in oncology care rather than a footnote. It also
+          has mild antiplatelet activity.`,
+          `NALT&rsquo;s constraint is that it feeds a pathway shared with thyroid hormone synthesis
+          and with catecholamines, so anyone on thyroid medication, on a monoamine oxidase
+          inhibitor, or with hyperthyroidism should be raising it with a clinician rather than
+          treating it as inert.`,
+          `The app records liver enzymes on the panel, noting NAC is hepatoprotective. That is
+          reasonable and it is also worth saying plainly that "hepatoprotective" does not make an
+          oral androgen safe &mdash; taking NAC alongside something that stresses the liver is not
+          a licence, and the compounds where that argument gets made are ones this site does not
+          publish.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and it covers both compounds at once — which is
+      exactly the conflation this page is trying to undo.`,
+    faq: [
+      ['Is NAC actually a medicine?', [
+        `Intravenously, yes — it is the standard antidote for paracetamol overdose and is on the WHO
+         essential medicines list. The oral supplement use for other purposes is a separate and much
+         weaker evidence base.`]],
+      ['Is NALT better than plain tyrosine?', [
+        `Probably not, and possibly worse. It is more soluble, and evidence suggests a substantial
+         fraction is excreted unchanged rather than converted to free tyrosine. Most of the trials used
+         plain L-tyrosine.`]],
+      ['When does tyrosine actually help?', [
+        `Under conditions that deplete catecholamines — cold, sleep deprivation, sustained stress — more
+         than in rested ordinary conditions. That is a narrower claim than it is usually sold with.`]],
+      ['Why take NALT away from food?', [
+        `Because it competes with other large neutral amino acids for transport into the brain. Taken with
+         a protein meal, most of it loses that competition.`]]
+    ],
+    basis: [
+      ['NAC as a glutathione precursor and paracetamol antidote',
+        'Established clinical pharmacology; NAC is on the WHO essential medicines list for this use'],
+      ['Randomised evidence in psychiatric indications',
+        'Trials in trichotillomania and mixed results in obsessive-compulsive and substance-use disorders'],
+      ['Tyrosine under catecholamine-depleting stress',
+        'Human performance trials under cold, sleep deprivation and sustained stress'],
+      ['Regulatory status',
+        'The approval string in the fact box is app.html’s own field, reproduced verbatim']
+    ],
+    cta: `Two different compounds bought as one is exactly the situation where a log that names what
+      you actually took earns its keep.`
+  },
+
+  'melatonin-ther': {
+    slug: 'melatonin',
+    h1: 'Melatonin: a timing signal that gets used as a sedative, at doses far above what it needs',
+    title: 'Melatonin: timing, dose, and the high-dose case | TherapyLog',
+    description: 'Melatonin shifts the body clock more reliably than it sedates. Why lower doses work better for sleep, and what high-dose protocols rest on.',
+    lede: `The most commonly misused compound in this reference, and the misuse is a dosing error
+      rather than a safety one. It is a circadian signal, and most people take ten to a hundred
+      times more of it than the signal requires.`,
+    sections: [
+      {
+        h2: 'A clock signal, not a sleeping tablet',
+        paras: [
+          `@@EV_ESTABLISHED@@ Melatonin is secreted by the pineal gland as darkness falls and acts
+          on receptors in the suprachiasmatic nucleus &mdash; the body clock. Its physiological job
+          is to tell the system what time it is, not to induce unconsciousness. That distinction
+          predicts almost everything about how it behaves: it shifts the timing of sleep reliably,
+          and it produces sedation weakly.`,
+          `@@EV_ESTABLISHED@@ The dose that saturates those receptors is small. Physiological
+          nocturnal concentrations are reproduced by roughly 0.3 mg, and studies comparing doses for
+          sleep onset have generally not found more to be better &mdash; higher amounts produce
+          concentrations far above anything the body makes, sustained into the morning, which is
+          where next-day grogginess comes from. The app&rsquo;s own sleep row says 0.3 to 1 mg and
+          explicitly advises against going higher for sleep, which is correct and unusual advice to
+          find on a supplement.`,
+          `Timing matters more than amount for the circadian use. Taken several hours before the
+          desired sleep time it advances the clock; taken in the early morning it delays it. For jet
+          lag and for delayed sleep phase, that is the mechanism doing the work, and getting the
+          timing wrong can move the clock in the wrong direction.`
+        ]
+      },
+      {
+        h2: 'The high-dose protocols, and where they come from',
+        paras: [
+          `@@EV_THEORETICAL@@ The app records therapeutic rows an order of magnitude higher, and
+          those come from a different literature: melatonin as an antioxidant and mitochondrial
+          protectant, and from oncology, where high-dose melatonin has been studied as an adjunct
+          alongside conventional treatment. Some of that work reports benefit and much of it is
+          small and open-label.`,
+          `Two things follow. Those amounts are not for sleep &mdash; they are worse for sleep than
+          the small ones &mdash; and the population they were studied in is people with cancer
+          receiving treatment, which is not the population reading this page. Extrapolating an
+          oncology adjunct dose into a longevity supplement is exactly the move this site keeps
+          flagging.`,
+          `Melatonin is a hormone, which the app&rsquo;s own regulatory string says. Long-term
+          high-dose use has not been characterised for its effects on the reproductive axis in
+          adults, and the app puts reproductive hormones on the monitoring list for that reason
+          &mdash; theoretical rather than demonstrated, and a reasonable thing to have measured
+          rather than assumed.`
+        ]
+      },
+      {
+        h2: 'Practical points',
+        paras: [
+          `It is a supplement in the United States and a prescription medicine in much of Europe and
+          in Australia, which tells you something about how the same evidence is read in different
+          places. Independent analyses of commercial melatonin products have repeatedly found
+          content varying widely from label, sometimes by several fold, and some products have been
+          found to contain serotonin. This site names no brand and no testing service.`,
+          `The interaction worth naming is with anticoagulants, where melatonin may add to bleeding
+          risk, and with anything sedating. Anyone on either should be raising it rather than
+          assuming an over-the-counter product is inert.`,
+          `And the same caveat the DSIP page carries applies here: persistent sleep disruption is a
+          symptom rather than a diagnosis, and sleep apnoea, thyroid disease, depression and
+          medication effects are all worth excluding before treating it. Cognitive behavioural
+          therapy for insomnia outperforms hypnotics in trials and keeps working after it stops.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the first two items are the practical
+      consequences of taking a clock signal at sedative-sized amounts.`,
+    faq: [
+      ['How much should be taken for sleep?', [
+        `Less than most products sell. Roughly 0.3 to 1 mg reproduces physiological concentrations, and
+         comparisons have generally not found more to work better — higher amounts mainly add next-day
+         grogginess. The app’s own row says the same.`]],
+      ['Why does timing matter?', [
+        `Because it acts on the body clock. Taken hours before the target sleep time it advances the
+         clock; taken in the early morning it delays it. For jet lag that is the whole mechanism.`]],
+      ['What are the 10 to 60 mg protocols for?', [
+        `Not sleep. They come from antioxidant and oncology-adjunct work in people receiving cancer
+         treatment, which is a different population and a different purpose. Using that dose for sleep
+         makes sleep worse.`]],
+      ['Is content on the label reliable?', [
+        `Often not. Independent analyses have repeatedly found melatonin content varying widely from
+         label, sometimes several fold, and it is a prescription medicine in much of Europe and
+         Australia.`]]
+    ],
+    basis: [
+      ['Suprachiasmatic receptor action and phase shifting',
+        'Standard circadian physiology; the phase-response relationship is well characterised'],
+      ['Dose comparisons for sleep onset',
+        'Human studies comparing physiological and supraphysiological doses, generally without benefit for more'],
+      ['High-dose oncology adjunct literature',
+        'Small and largely open-label studies in people receiving cancer treatment'],
+      ['Label accuracy of commercial products',
+        'Independent analyses reporting wide deviation from stated content']
+    ],
+    cta: `A compound where the hour it was taken matters more than the amount is one that needs the
+      time recorded, not just the day.`
+  },
+
+  acarbose: {
+    slug: 'acarbose',
+    h1: 'Acarbose: an old diabetes drug with the best mouse lifespan data outside rapamycin',
+    title: 'Acarbose: the glucose curve, and the ITP data | TherapyLog',
+    description: 'An alpha-glucosidase inhibitor that blunts post-meal glucose. What the NIA mouse programme found, and why the effect was sex-dependent.',
+    lede: `A drug that works entirely inside the gut, taken for an effect measured over decades in
+      mice. The mechanism is unglamorous and the longevity data is among the strongest in the field
+      &mdash; and it came with a wrinkle that rarely gets mentioned.`,
+    sections: [
+      {
+        h2: 'It works before absorption, not after',
+        paras: [
+          `@@EV_ESTABLISHED@@ Alpha-glucosidase enzymes on the intestinal brush border break
+          disaccharides and oligosaccharides into absorbable glucose. Acarbose competitively
+          inhibits them, so carbohydrate digestion is slowed and shifted further down the gut. The
+          effect is a blunted post-meal glucose rise rather than a lower fasting glucose, and the
+          drug barely enters the circulation at all &mdash; which is why it has essentially no
+          systemic pharmacology and why the app holds no half-life for it.`,
+          `Two practical consequences follow directly. It must be taken with the first bite of a
+          meal, because it has to be present when the carbohydrate arrives; taken afterwards it does
+          nothing. And it does nothing at all on a meal without carbohydrate, which makes it a poor
+          fit for anyone eating low-carbohydrate &mdash; there is no substrate to slow.`,
+          `The gastrointestinal effects come from the same mechanism. Carbohydrate that reaches the
+          colon undigested gets fermented by gut bacteria, and the flatulence and bloating that
+          follow are the drug working rather than a side effect in the usual sense. They diminish
+          over weeks as the microbiome adapts, which is why starting low and titrating is standard.`
+        ]
+      },
+      {
+        h2: 'What the ITP found, and the part that gets left out',
+        paras: [
+          `@@EV_ESTABLISHED@@ The National Institute on Aging&rsquo;s Interventions Testing Program
+          is the multi-site programme designed specifically to weed out lifespan results that do not
+          replicate. Acarbose extended median lifespan in genetically heterogeneous mice, and the
+          effect was substantial &mdash; on the order of twenty per cent in males. In later work,
+          acarbose combined with rapamycin outperformed either alone.`,
+          `The wrinkle is that the effect was strongly sex-dependent: much larger in males than in
+          females, where it was modest. That pattern recurs across several ITP interventions and
+          nobody has a settled explanation for it. Anyone quoting the twenty per cent figure without
+          saying which sex it applies to is quoting half the result.`,
+          `@@EV_THEORETICAL@@ And it is a mouse result. There is no human longevity trial of
+          acarbose, and the human evidence is for glycaemic control in type 2 diabetes plus a
+          cardiovascular signal in impaired glucose tolerance that has been argued over. The
+          mechanistic story &mdash; fewer glucose excursions, less glycation, less oxidative stress
+          &mdash; is plausible and is not the same as a demonstrated outcome.`
+        ]
+      },
+      {
+        h2: 'What to watch',
+        paras: [
+          `The app&rsquo;s panel is fasting glucose, HbA1c and liver enzymes. HbA1c is the marker
+          that reflects what this drug does over time, and the
+          <a href="/markers/hba1c-and-fasting-glucose/">HbA1c page</a> covers why it and fasting
+          glucose can disagree &mdash; which is exactly what a drug that flattens post-meal peaks
+          without lowering the fasting value should produce. Continuous glucose monitoring, where
+          available, shows the effect far more directly than either.`,
+          `Liver enzyme elevation is rare and dose-related and is the reason it is on the panel.
+          Hypoglycaemia is not a risk from acarbose alone, but it is worth knowing that if
+          hypoglycaemia occurs alongside another glucose-lowering drug, ordinary table sugar will
+          not correct it quickly &mdash; the drug is blocking the enzyme that breaks it down, so
+          glucose itself is needed.`,
+          `It requires a prescription and the longevity use is off-label. Whether it applies to a
+          particular person is a prescribing decision, and anything on the drawbacks list below
+          belongs in that conversation.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and note how many items are the same fact: this drug
+      acts on carbohydrate in the gut, so timing and diet decide whether it does anything at all.`,
+    faq: [
+      ['Why must it be taken with the first bite?', [
+        `Because it competes with carbohydrate for the same intestinal enzymes and has to be present when
+         the carbohydrate arrives. Taken after a meal it does nothing.`]],
+      ['Does it work on a low-carbohydrate diet?', [
+        `Barely. There is nothing for it to slow. That is a genuine limitation for anyone whose diet is
+         already low in carbohydrate.`]],
+      ['How big was the mouse effect?', [
+        `Around twenty per cent in median lifespan in males in the NIA programme, and considerably
+         smaller in females. The sex difference is real and is usually omitted when the figure is
+         quoted.`]],
+      ['What if I have a hypo while taking it?', [
+        `Acarbose alone does not cause hypoglycaemia, but if one occurs alongside another
+         glucose-lowering drug, table sugar will not correct it quickly — the enzyme that breaks it down is
+         what the drug is blocking. Glucose itself is what works.`]]
+    ],
+    basis: [
+      ['Alpha-glucosidase inhibition and minimal systemic absorption',
+        'Standard clinical pharmacology; the approved indication rests on post-prandial glucose control'],
+      ['Mouse lifespan extension and the sex difference',
+        'NIA Interventions Testing Program results for acarbose, with a substantially larger effect in males'],
+      ['Combination with rapamycin',
+        'Later ITP work reporting greater lifespan extension for the combination than either alone'],
+      ['Absence of human longevity data',
+        'No human trial has measured a longevity outcome for acarbose']
+    ],
+    cta: `A drug whose effect depends on the meal it was taken with is one where the log has to
+      record both. TherapyLog does.`
+  },
+
+  taurine: {
+    slug: 'taurine',
+    h1: 'Taurine: a 2023 paper made it famous, and the paper was about mice',
+    title: 'Taurine: what the 2023 paper actually showed | TherapyLog',
+    description: 'Taurine supplementation extended lifespan in mice and correlates with health markers in people. What separates those two statements.',
+    lede: `An amino acid found in most diets, cheap, well tolerated, and the subject of one of the
+      most widely reported longevity papers of recent years. What that paper showed and what it is
+      usually said to have shown are not the same.`,
+    sections: [
+      {
+        h2: 'What it does in the body',
+        paras: [
+          `@@EV_ESTABLISHED@@ Taurine is a sulfonic acid rather than a protein-building amino acid
+          &mdash; it is never incorporated into protein. It is abundant in heart, skeletal muscle,
+          retina and brain, where it regulates calcium handling, contributes to osmotic balance,
+          conjugates bile acids, and acts on GABA-A and glycine receptors, which is the basis for
+          its calming reputation.`,
+          `Most people get it from diet, principally shellfish and meat, and the body also
+          synthesises some from cysteine. Vegetarians and vegans have measurably lower intake and
+          lower circulating levels, which is the group where supplementation is most likely to do
+          something.`,
+          `@@EV_OFFLABEL@@ The best-supported human effects are cardiovascular: modest blood
+          pressure reduction in meta-analysed trials, and improvement in exercise measures in some
+          studies. Those are small effects and are more solid than the longevity claim.`
+        ]
+      },
+      {
+        h2: 'The 2023 paper, described precisely',
+        paras: [
+          `@@EV_THEORETICAL@@ The paper reported that circulating taurine declines with age across
+          species, that supplementing it extended median lifespan in mice by roughly ten per cent
+          and improved multiple healthspan measures, and that in humans lower taurine correlated
+          with worse markers of metabolic and inflammatory health. It also reported that exercise
+          raises taurine.`,
+          `Two of those three are mouse results and the third is a correlation. No human
+          intervention trial has tested whether supplementing taurine changes any outcome that
+          matters. The correlation is the part most easily misread: if taurine falls with age and
+          with ill health, a low level may be a consequence rather than a cause, and topping it up
+          would then achieve nothing. Distinguishing those is exactly what an intervention trial is
+          for, and one has been proposed rather than reported.`,
+          `That is not a criticism of the paper, which was careful about this. It is a criticism of
+          how it was reported.`
+        ]
+      },
+      {
+        h2: 'Practical points',
+        paras: [
+          `The amounts used for the longevity framing &mdash; three to six grams a day &mdash; are
+          well above dietary intake and are extrapolated from the animal work rather than
+          established in people. Tolerability at that level is good; gastrointestinal upset is the
+          usual limit.`,
+          `@@EV_ESTABLISHED@@ Two interactions are worth naming. Taurine lowers blood pressure
+          modestly, which matters for anyone already on antihypertensives, and the app puts blood
+          pressure on the monitoring list for that reason. And it interacts with lithium, which is
+          in the app&rsquo;s own drawbacks list &mdash; anyone taking lithium should be raising it
+          with the clinician managing that rather than spacing doses on their own judgement.`,
+          `Content varies between supplement products as it does with anything unregulated, and this
+          site names no brand. The honest position is a cheap, well-tolerated compound with modest
+          proven cardiovascular effects and a longevity case built entirely on mice and
+          correlation.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the second item is the one that matters most:
+      the longevity claims are animal-based, and the app says so.`,
+    faq: [
+      ['Did the 2023 study show taurine extends human lifespan?', [
+        `No. It showed lifespan extension in mice and a correlation between taurine levels and health
+         markers in people. No human intervention trial has reported an outcome.`]],
+      ['Could low taurine be a consequence rather than a cause?', [
+        `That is exactly the open question. If it falls with age and illness, supplementing it may change
+         the number without changing anything else. Only an intervention trial separates the two.`]],
+      ['Who is most likely to benefit?', [
+        `People with genuinely low intake — vegetarians and vegans have measurably lower levels, since the
+         main dietary sources are shellfish and meat.`]],
+      ['Does it interact with anything?', [
+        `It lowers blood pressure modestly, which matters alongside antihypertensives, and it interacts
+         with lithium. Both are worth raising with a prescriber rather than managing alone.`]]
+    ],
+    basis: [
+      ['Physiological roles',
+        'Standard biochemistry; taurine is not incorporated into protein and acts on calcium handling, bile conjugation and inhibitory receptors'],
+      ['Mouse lifespan and human correlation',
+        'The 2023 report of taurine deficiency as a driver of ageing, Science, with murine intervention and human observational components'],
+      ['Blood pressure effect',
+        'Meta-analysed randomised trials reporting modest reductions'],
+      ['Lithium interaction',
+        'Noted in app.html’s own drawbacks entry']
+    ],
+    cta: `A supplement whose case rests on a correlation is one where your own before-and-after is
+      worth recording carefully. TherapyLog keeps it.`
+  },
+
+  spermidine: {
+    slug: 'spermidine',
+    h1: 'Spermidine: an autophagy inducer you already eat, at amounts you probably do not',
+    title: 'Spermidine: autophagy, diet and the evidence | TherapyLog',
+    description: 'A polyamine that induces autophagy, found in wheat germ and aged cheese. What the epidemiology shows, and where the supplement case is thin.',
+    lede: `One of the few longevity compounds with a real dietary route, a plausible mechanism and
+      supporting epidemiology. Also one where the supplement amounts and the food amounts are close
+      enough that the case for a capsule is less obvious than it looks.`,
+    sections: [
+      {
+        h2: 'Autophagy, and why that is a different lever',
+        paras: [
+          `@@EV_ESTABLISHED@@ Spermidine is a polyamine present in every cell and abundant in wheat
+          germ, soybeans, mushrooms and aged cheese. Its best-characterised action is induction of
+          autophagy &mdash; the process by which a cell digests and recycles damaged proteins and
+          organelles &mdash; largely by inhibiting the acetyltransferase EP300. Cellular polyamine
+          content declines with age.`,
+          `That places it alongside <a href="/compounds/rapamycin/">rapamycin</a> and caloric
+          restriction as an autophagy-directed intervention, and distinguishes it from the
+          senolytics, which remove cells rather than clean them. Whether inducing autophagy
+          pharmacologically produces the benefits associated with it physiologically is the open
+          question that hangs over all three.`,
+          `@@EV_OFFLABEL@@ The human evidence is largely epidemiological: cohort studies have
+          reported an association between higher dietary spermidine intake and lower all-cause and
+          cardiovascular mortality. That is a genuine and repeated finding, and it is observational
+          &mdash; higher spermidine intake tracks a dietary pattern, and the pattern may be doing
+          the work.`
+        ]
+      },
+      {
+        h2: 'The supplement question',
+        paras: [
+          `@@EV_THEORETICAL@@ Small randomised trials of spermidine supplementation in older adults
+          have looked at cognition and reported mixed results &mdash; one wheat-germ-extract trial
+          found a signal in memory, a larger follow-up did not. That is the whole interventional
+          base, and it does not currently support the claims made for it.`,
+          `The amounts are also worth examining. Typical dietary intake in a European diet is
+          roughly the same order as what supplements provide, which means the supplement is a
+          modest addition rather than a categorical change. The app&rsquo;s own rows put dietary and
+          supplement amounts side by side at one to five milligrams, which makes the point better
+          than any argument.`,
+          `That leads somewhere practical. If the epidemiology is about dietary pattern, and the
+          supplement amount is comparable to food, then eating more of the foods is at least as
+          defensible as buying a capsule and considerably cheaper. Wheat germ is the densest common
+          source.`
+        ]
+      },
+      {
+        h2: 'What to watch',
+        paras: [
+          `Tolerability is good and there is no monitoring marker &mdash; the app records none, and
+          nothing on a routine panel reflects autophagy. Assessment is subjective, over months.`,
+          `@@EV_THEORETICAL@@ One caution belongs on the page. Polyamines are required by rapidly
+          dividing cells, and polyamine metabolism is a target of interest in oncology for exactly
+          that reason. Whether supplementing spermidine matters for someone with an existing
+          malignancy is unknown in both directions, and it is a reasonable thing to raise with an
+          oncologist rather than resolve from a label &mdash; the same reasoning the
+          <a href="/compounds/nmn-and-nr/">NAD+ precursor page</a> carries.`,
+          `Supplement status means content is the manufacturer&rsquo;s to guarantee, and this site
+          names no brand. Fasting is described as potentiating the autophagy effect, which is
+          mechanistically coherent and untested as a combination.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the first item deserves a second look: if the
+      effective amount is close to what food provides, the case for a capsule is weaker than the
+      marketing.`,
+    faq: [
+      ['Can I just eat more of it?', [
+        `Plausibly, yes. Typical dietary intake is in the same range as supplement doses, wheat germ is
+         the densest common source, and the human evidence is mostly about dietary intake in the first
+         place.`]],
+      ['What did the trials show?', [
+        `Mixed. A wheat-germ-extract trial in older adults found a memory signal; a larger follow-up did
+         not. That is the whole interventional base.`]],
+      ['How is it different from a senolytic?', [
+        `Senolytics remove senescent cells; spermidine induces autophagy, which cleans up inside cells
+         that remain. Different mechanisms and different evidence.`]],
+      ['Is there a reason for caution with cancer?', [
+        `Polyamines are required by rapidly dividing cells and polyamine metabolism is an oncology target,
+         so the question is open in both directions. It is worth raising with an oncologist rather than
+         settling from a supplement label.`]]
+    ],
+    basis: [
+      ['Autophagy induction via EP300 inhibition',
+        'Established in the polyamine and autophagy literature'],
+      ['Dietary intake and mortality association',
+        'Cohort studies reporting lower all-cause and cardiovascular mortality with higher intake; observational'],
+      ['Interventional trials in older adults',
+        'Small randomised trials of wheat germ extract with mixed cognitive results'],
+      ['Polyamines in proliferating cells',
+        'The basis for oncology interest in polyamine metabolism; no human evidence of harm either way']
+    ],
+    cta: `A compound assessed subjectively over months needs the months written down. TherapyLog
+      keeps the dose and the notes together.`
+  },
+
+  thymalin: {
+    slug: 'thymalin',
+    h1: 'Thymalin: a thymic peptide complex, and the family of bioregulators it belongs to',
+    title: 'Thymalin and the Khavinson bioregulators | TherapyLog',
+    description: 'A thymus-derived peptide complex from the Russian bioregulator programme. What the mortality follow-up showed, and why it stands alone.',
+    lede: `The most cited compound in a family of about a dozen that share a protocol, an evidence
+      base and a single research lineage. This page covers the family as well as the compound,
+      because the arguments for and against are the same for all of them.`,
+    sections: [
+      {
+        h2: 'What the bioregulator family is',
+        paras: [
+          `@@EV_THEORETICAL@@ The Khavinson bioregulators are short peptide preparations, each
+          derived from or modelled on a specific organ &mdash; thymus, pineal, vascular tissue,
+          cartilage, bone marrow, lung &mdash; on the premise that each carries tissue-specific
+          regulatory information and restores function in that organ. Thymalin is the thymic one;
+          <a href="/compounds/epithalon/">epithalon</a> is the pineal one and the best known.`,
+          `They share almost everything: a ten-day course repeated once or twice a year, an
+          identical regulatory position, and a research base concentrated almost entirely in one
+          programme. The app holds around a dozen of them and their entries differ mainly in which
+          organ is named. That is the honest description, and it is why this site publishes two of
+          them rather than twelve near-identical pages.`,
+          `Thymalin itself is a polypeptide complex rather than a defined molecule, which the
+          app&rsquo;s drawbacks list flags as a standardisation problem. That distinguishes it from
+          the synthetic tetrapeptides in the same family and puts it closer to
+          <a href="/compounds/cerebrolysin/">cerebrolysin</a> in kind.`
+        ]
+      },
+      {
+        h2: 'The thymus premise, and the mortality follow-up',
+        paras: [
+          `@@EV_ESTABLISHED@@ The biological starting point is real. The thymus involutes after
+          puberty, output of naive T cells falls steadily, and that decline is a well-characterised
+          component of immune ageing. Restoring thymic function is a legitimate target &mdash; other
+          groups pursue it with growth hormone and with thymic transplantation.`,
+          `@@EV_THEORETICAL@@ The finding most often cited for thymalin is a long-term follow-up of
+          older adults reporting substantially reduced mortality in treated groups over a period of
+          years. If that result were robust it would be among the most important findings in
+          geroscience. The reasons to hold it loosely are the design &mdash; allocation, blinding and
+          outcome ascertainment do not meet the standard a contemporary trial would be held to
+          &mdash; and the concentration of the work in the group that produced it. Independent
+          replication is what is missing rather than what has failed.`,
+          `That combination, a large claimed effect from a single lineage with methodological
+          limits, is the same situation the epithalon page describes. It is a reason for interest
+          and not a basis for confidence.`
+        ]
+      },
+      {
+        h2: 'Practical position',
+        paras: [
+          `There is no approved product outside the country where the research was done, and what
+          is available elsewhere is research-supply material with identity and purity resting on
+          whoever made it &mdash; more so for a polypeptide complex than for a defined peptide,
+          because there is less to verify against. This site names no vendor or testing service.`,
+          `The app records a complete blood count with differential and infection frequency, which
+          is a reasonable way to look for an immune effect and is not a validated marker of one.
+          The app&rsquo;s own drawbacks list makes the useful observation that effects are most
+          pronounced in older or immunocompromised people and subtle in the young and healthy
+          &mdash; which is what a restorative intervention should look like, and also what a null
+          result looks like in a group with nothing to restore.`,
+          `Anyone with an autoimmune condition or on immunosuppressive therapy should treat a
+          T-cell-directed compound as a conversation with the clinician managing that, as with
+          <a href="/compounds/thymosin-alpha-1/">thymosin alpha-1</a>.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and it is candid: limited Western replication and
+      standardisation difficulty are the two things that constrain everything else here.`,
+    faq: [
+      ['Why does this site publish only two of the bioregulators?', [
+        `Because their app entries differ mainly in which organ is named, and a dozen near-identical
+         pages would be thin content by construction. Thymalin and epithalon are the two with distinct
+         enough evidence and search interest to justify separate pages.`]],
+      ['Is the mortality finding credible?', [
+        `It is published and it comes from one research lineage, with a design that does not meet
+         contemporary trial standards on allocation, blinding and outcome ascertainment. The effect size
+         claimed is large enough that those limitations matter a great deal.`]],
+      ['Is thymus decline real?', [
+        `Yes — thymic involution and falling naive T-cell output are well-characterised parts of immune
+         ageing. Whether this preparation reverses any of it is the separate question.`]],
+      ['How does it compare with thymosin alpha-1?', [
+        `Thymosin alpha-1 is a defined 28-amino-acid peptide with approvals in dozens of countries and
+         hepatitis trial data behind it. Thymalin is an undefined polypeptide complex with a
+         single-lineage evidence base. They are not equivalent.`]]
+    ],
+    basis: [
+      ['Thymic involution and immune ageing',
+        'Established immunology; naive T-cell output declines steadily after puberty'],
+      ['Long-term mortality follow-up',
+        'Published by the Russian bioregulator programme; design does not meet contemporary trial standards'],
+      ['Family composition and shared protocol',
+        'app.html holds around a dozen bioregulator entries sharing a ten-day pulse schedule and regulatory status'],
+      ['Absence of pharmacokinetic data',
+        'app.html holds no half-life or time-to-peak entry, which is why no such rows appear above']
+    ],
+    cta: `A ten-day course once or twice a year is the schedule nobody remembers the dates of.
+      TherapyLog keeps them.`
+  },
+
+  'nad-iv': {
+    slug: 'nad-iv',
+    h1: 'NAD+ infusions: a much bigger spike, an infusion you have to sit through, and no outcome data',
+    title: 'NAD+ IV: what the infusion actually does | TherapyLog',
+    description: 'Intravenous NAD+ raises blood levels far above oral precursors. Why the infusion is uncomfortable, and what has never been demonstrated.',
+    lede: `The expensive version of the NAD+ idea. It does produce concentrations the oral
+      precursors cannot, and what that buys has never been measured against anything.`,
+    sections: [
+      {
+        h2: 'A different pharmacokinetic problem',
+        paras: [
+          `@@EV_ESTABLISHED@@ Oral NMN and NR are precursors: they are absorbed and converted to
+          NAD+ inside cells. Intravenous NAD+ delivers the coenzyme itself into the bloodstream,
+          producing peak concentrations far above anything an oral dose reaches. That much is
+          straightforward and is the whole rationale.`,
+          `@@EV_THEORETICAL@@ The complication is that NAD+ is a large, charged molecule that does
+          not readily cross cell membranes, and what happens to an infused dose is contested. Much
+          of it is degraded extracellularly to nicotinamide and other metabolites, which are then
+          taken up and re-synthesised &mdash; in other words, the infusion may work substantially as
+          an expensive precursor after all. Whether intracellular NAD+ in the tissues people care
+          about rises more from an infusion than from a capsule is not established.`,
+          `The infusion has to be given slowly for a reason that is itself informative. Pushed
+          quickly it reliably causes chest tightness, flushing, nausea and a feeling of pressure
+          &mdash; rate-dependent effects that are the standard experience rather than a rare
+          reaction, which is why a session takes hours.`
+        ]
+      },
+      {
+        h2: 'What has and has not been shown',
+        paras: [
+          `@@EV_OFFLABEL@@ The most substantive clinical use is in addiction and withdrawal, where
+          NAD+ infusion protocols have been used for decades and studied in small trials with mixed
+          results. There is also interest in neurodegenerative conditions and chronic fatigue. None
+          of that amounts to an approval for anything, and the wellness use &mdash; energy,
+          cognition, anti-ageing &mdash; has no controlled human evidence at all.`,
+          `The oral comparison is the one worth making. Oral NMN and NR have placebo-controlled
+          human trials demonstrating that blood NAD+ rises &mdash; a modest, verified biochemical
+          effect. Intravenous NAD+ produces a much larger spike and has no comparable trial base for
+          any outcome. Choosing the infusion is choosing a bigger biomarker change with less
+          evidence behind it, at a hundred times the cost. The
+          <a href="/compounds/nmn-and-nr/">oral precursor page</a> covers what that evidence
+          actually says.`
+        ]
+      },
+      {
+        h2: 'The practical shape of it',
+        paras: [
+          `This is a clinic service rather than a compound someone doses at home: it needs
+          intravenous access, hours of supervision, and it is expensive per session. The app&rsquo;s
+          own drawbacks list leads with exactly those, and it is the only entry in this reference
+          where the delivery is the main constraint. This site names no clinic and no provider.`,
+          `There is no monitoring marker. The app records general wellness self-assessment and liver
+          enzymes for frequent high-dose infusions, which is honest &mdash; nothing on a routine
+          panel reflects this, and specialty NAD+ assays are not standardised well enough to follow
+          a trend against.`,
+          `@@EV_THEORETICAL@@ The same caution the oral page carries applies and applies more, since
+          the concentrations are higher: NAD+ is required by proliferating cells, and anyone with a
+          cancer history or under active surveillance has a reasonable question to put to an
+          oncologist rather than to a clinic selling the infusion.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and it is unusually practical: the first three items
+      are about the delivery rather than the molecule, which is a fair reflection of this one.`,
+    faq: [
+      ['Is an infusion better than oral NMN or NR?', [
+        `It produces much higher blood concentrations. Whether that translates into more intracellular
+         NAD+ where it matters is contested, and the oral precursors are the ones with placebo-controlled
+         trials showing the biomarker moves. Bigger spike, less evidence.`]],
+      ['Why does the infusion feel bad?', [
+        `Chest tightness, flushing and nausea are rate-dependent and are the standard experience rather
+         than a rare reaction. That is why a session is slow and takes hours.`]],
+      ['Is it approved for anything?', [
+        `No. It has been used in addiction and withdrawal protocols for decades with mixed small-trial
+         results, and the wellness indications have no controlled human evidence.`]],
+      ['Is there a test to see if it worked?', [
+        `Not a usable one. Specialty NAD+ assays are not standardised well enough to follow a trend, and
+         nothing on a standard panel reflects it.`]]
+    ],
+    basis: [
+      ['Extracellular degradation and re-synthesis',
+        'The NAD+ transport literature; the coenzyme does not readily cross cell membranes intact'],
+      ['Oral precursor trial evidence',
+        'Placebo-controlled trials of nicotinamide riboside and mononucleotide showing blood NAD+ rises'],
+      ['Addiction and withdrawal use',
+        'Small trials with mixed results; no approval for any indication'],
+      ['Rate-dependent infusion effects',
+        'Consistently reported and the reason infusions are given slowly']
+    ],
+    cta: `An expensive intermittent intervention with no marker is one where your own record is the
+      only way to judge it. TherapyLog keeps the dates.`
+  },
+  humanin: {
+    slug: 'humanin',
+    h1: 'Humanin: found in a brain that resisted Alzheimer’s, and still mostly an observation',
+    title: 'Humanin: a mitochondrial peptide, early | TherapyLog',
+    description: 'A mitochondrially encoded peptide that correlates with longevity in centenarian studies. What that association supports, and what it does not.',
+    lede: `Discovered by looking for whatever was protecting a brain that should have had
+      Alzheimer&rsquo;s and did not. Twenty years on it is one of the better-characterised
+      mitochondrial-derived peptides and still has no human intervention data.`,
+    sections: [
+      {
+        h2: 'Where it came from and what it does',
+        paras: [
+          `@@EV_ESTABLISHED@@ Humanin is a 21 to 24 amino acid peptide encoded within the
+          mitochondrial genome &mdash; not the nucleus &mdash; making it a member of the same class
+          as <a href="/compounds/mots-c/">MOTS-c</a>. It was identified in 2001 from a cDNA library
+          made from the surviving brain region of an Alzheimer&rsquo;s patient, screened for
+          whatever was conferring resistance.`,
+          `@@EV_THEORETICAL@@ Its characterised activity is anti-apoptotic: it interferes with the
+          Bax pathway and with several other death signals, and it binds receptor complexes on the
+          cell surface. Downstream, the reported effects are neuroprotection, improved insulin
+          sensitivity, and protection against ischaemic and oxidative injury &mdash; a broad
+          cytoprotective profile rather than one specific action.`,
+          `Circulating humanin declines with age, and studies in centenarians and their offspring
+          have reported higher levels than in age-matched controls. That association is the source
+          of most of the longevity interest.`
+        ]
+      },
+      {
+        h2: 'What the association can and cannot support',
+        paras: [
+          `@@EV_THEORETICAL@@ There is no published randomised controlled trial of administering
+          humanin to people, for any indication. Nor is there published human pharmacokinetics for
+          the material in circulation, which is why the fact box above carries no rows for it.`,
+          `The centenarian finding is worth reading carefully, because it is doing most of the
+          persuasive work and it is the weakest kind of evidence for an intervention. Higher humanin
+          in people who lived longer is consistent with humanin protecting them, and equally
+          consistent with it being a readout of mitochondrial health that healthier people have more
+          of. Administering a marker does not necessarily produce the state it marks &mdash; the
+          same problem the MOTS-c page describes, and the reason both compounds sit at the same
+          early stage despite twenty years of interest.`,
+          `The app&rsquo;s own drawbacks list leads with "very early clinical stage" and "limited
+          human dosing data", which is the accurate summary and unusually restrained for a compound
+          with this much enthusiasm behind it.`
+        ]
+      },
+      {
+        h2: 'The practical position',
+        paras: [
+          `There is no approved product and no reference standard. Identity and purity rest entirely
+          with whoever made the vial, and this site names no vendor or testing service. It is also
+          expensive and difficult to source, which the app notes.`,
+          `The app records fasting glucose and HbA1c alongside cognitive self-assessment &mdash;
+          reasonable given the insulin-sensitivity findings, and not a marker of whether the
+          compound is doing anything. The <a href="/markers/hba1c-and-fasting-glucose/">HbA1c
+          page</a> covers why those two markers can disagree.`,
+          `The reasonable position is real and interesting biology at a stage where nobody can say
+          what administering it does to a person over months. Anyone using it is generating the only
+          data that exists about it, and anyone with a metabolic or neurological condition should be
+          raising it with the clinician managing that.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the first two items are the whole page: very
+      early stage, limited human data.`,
+    faq: [
+      ['Is there human trial data?', [
+        `No published randomised trial for any indication, and no published human pharmacokinetics for the
+         material people are using.`]],
+      ['What does the centenarian finding show?', [
+        `That people who lived a long time have higher circulating humanin than age-matched controls. That
+         is consistent with it protecting them and equally consistent with it being a readout of
+         mitochondrial health rather than a cause of it.`]],
+      ['How does it relate to MOTS-c?', [
+        `Same class — both encoded in mitochondrial DNA rather than the nucleus — and both at the same early
+         evidence stage. Their reported activities differ: humanin is characterised as anti-apoptotic and
+         cytoprotective, MOTS-c as metabolic.`]],
+      ['Why is there no half-life in the fact box?', [
+        `Because none has been published for the material in circulation, so the app holds none.`]]
+    ],
+    basis: [
+      ['Discovery and mitochondrial encoding',
+        'Identified in 2001 from a cDNA library of a surviving brain region in Alzheimer’s disease'],
+      ['Anti-apoptotic and cytoprotective activity',
+        'Cell and animal work characterising interference with Bax and related death pathways'],
+      ['Centenarian association',
+        'Observational studies reporting higher circulating levels in long-lived individuals and their offspring'],
+      ['Absence of pharmacokinetic and trial data',
+        'No published randomised trial or human pharmacokinetic study exists as of this review date']
+    ],
+    cta: `At this stage of evidence your own dated record is the entire dataset. TherapyLog keeps it
+      beside the metabolic panel.`
+  },
+
+  ll37: {
+    slug: 'll-37',
+    h1: 'LL-37: the body’s own antimicrobial peptide, and why injecting it is not obviously a good idea',
+    title: 'LL-37: antimicrobial peptide, both directions | TherapyLog',
+    description: 'The only human cathelicidin, with real innate-immune roles and a documented double-edged relationship with autoimmunity.',
+    lede: `Genuine innate immunity, well characterised, made by your own cells and dependent on
+      vitamin D. It also has a documented role in driving autoimmune inflammation, which is the part
+      that rarely accompanies the enthusiasm.`,
+    sections: [
+      {
+        h2: 'What it is and what it does',
+        paras: [
+          `@@EV_ESTABLISHED@@ LL-37 is the active fragment of hCAP18, the only cathelicidin humans
+          make. It is produced by neutrophils, macrophages and epithelial surfaces, and it disrupts
+          bacterial membranes directly, neutralises endotoxin, and acts as a signalling molecule
+          &mdash; recruiting immune cells, promoting wound repair, and interfering with biofilms.
+          That is textbook innate immunity rather than a claim.`,
+          `@@EV_ESTABLISHED@@ Its production is directly vitamin D dependent: the gene carries a
+          vitamin D response element, and cathelicidin expression falls when vitamin D is low. That
+          is a real and well-established link, and it is the single most actionable thing on this
+          page &mdash; a person with low vitamin D and an interest in LL-37 has a cheaper, safer and
+          better-evidenced route to raising it. The <a href="/markers/vitamin-d/">vitamin D page</a>
+          covers how the number is read and why the optimal band is contested.`
+        ]
+      },
+      {
+        h2: 'The double edge',
+        paras: [
+          `@@EV_ESTABLISHED@@ LL-37 is not simply protective. In psoriasis it complexes with
+          self-DNA and self-RNA and drives plasmacytoid dendritic cells to produce interferon, which
+          is a core mechanism of the disease; it is a recognised autoantigen in psoriasis and has
+          been implicated in lupus, rheumatoid arthritis and atherosclerosis. Elevated cathelicidin
+          is a feature of several inflammatory conditions rather than a marker of good defence.`,
+          `That is why the app&rsquo;s drawbacks list says it may exacerbate autoimmune conditions,
+          and it is a stronger caution than that phrasing suggests. Administering more of a peptide
+          that is part of the pathogenic mechanism in psoriasis, to someone with psoriasis, is not a
+          neutral act. Anyone with an autoimmune or autoinflammatory diagnosis should treat this as
+          a conversation with the clinician managing it rather than a supplement decision.`,
+          `@@EV_THEORETICAL@@ Local injection-site inflammation is the common practical effect and
+          follows from the same biology &mdash; it is an inflammatory mediator, so injecting it
+          inflames things.`
+        ]
+      },
+      {
+        h2: 'Evidence and sourcing',
+        paras: [
+          `@@EV_THEORETICAL@@ There is no published randomised trial of systemic LL-37 for any
+          indication. Topical work in wound healing exists and is more advanced; the systemic use is
+          extrapolation. The app records no half-life, because none has been published, which is why
+          the fact box carries no pharmacokinetic rows.`,
+          `There is also a delivery problem intrinsic to the molecule: peptides of this kind are
+          degraded quickly and bind serum proteins, so how much of an injected dose reaches anywhere
+          useful in an active form is unknown.`,
+          `No approved product, so identity and purity rest with whoever made the vial. The
+          app&rsquo;s panel &mdash; complete blood count, vitamin D, CRP &mdash; is sensible, and
+          vitamin D is on it for the reason above rather than as a formality. This site names no
+          vendor.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the autoimmune item deserves more weight than its
+      position gives it — this peptide is part of the disease mechanism in psoriasis.`,
+    faq: [
+      ['Is vitamin D a better route to raising it?', [
+        `For most people, yes. Cathelicidin expression is directly vitamin D dependent, and correcting a
+         low vitamin D is cheaper, safer and far better evidenced than injecting the peptide.`]],
+      ['Why would an antimicrobial peptide be a problem in autoimmunity?', [
+        `Because in psoriasis it complexes with self-nucleic acids and drives interferon production — it is
+         a recognised autoantigen there, and it has been implicated in lupus and rheumatoid arthritis.
+         More of it is not obviously better.`]],
+      ['Is there trial evidence for injecting it?', [
+        `None published for systemic use. Topical wound-healing work is further along, and the systemic use
+         is extrapolation from it and from the basic immunology.`]],
+      ['Why does the injection site react?', [
+        `Because it is an inflammatory signalling molecule as well as an antimicrobial one. Local
+         inflammation is the mechanism working, not an impurity.`]]
+    ],
+    basis: [
+      ['Cathelicidin structure and innate immune function',
+        'Standard immunology; LL-37 is the only human cathelicidin'],
+      ['Vitamin D dependence',
+        'The cathelicidin gene carries a vitamin D response element; expression falls with deficiency'],
+      ['Role in psoriasis and autoimmunity',
+        'Established in the psoriasis literature as a self-nucleic-acid complexing autoantigen driving interferon production'],
+      ['Absence of systemic trial and pharmacokinetic data',
+        'No published randomised trial of systemic administration; app.html holds no half-life entry']
+    ],
+    cta: `A peptide whose effect depends on what is already inflamed is one to log alongside the
+      symptoms. TherapyLog keeps both.`
+  },
+  larazotide: {
+    slug: 'larazotide',
+    h1: 'Larazotide: a zonulin antagonist that reached phase IIb and stopped there',
+    title: 'Larazotide: the tight junction peptide | TherapyLog',
+    description: 'An oral peptide that blocks the zonulin pathway, tested in celiac disease through phase IIb. What the trials measured and why it has not been approved.',
+    lede: `Most peptides discussed for gut health have never been in a controlled human trial.
+      Larazotide has been in several, in a real patient population, with a real endpoint &mdash;
+      and it still is not approved. The gap between those two facts is the useful part of this
+      page.`,
+    sections: [
+      {
+        h2: 'Zonulin, tight junctions and a specific mechanism',
+        paras: [
+          `@@EV_ESTABLISHED@@ The cells lining the small intestine are sealed to one another by
+          tight junctions, protein complexes that decide what crosses between cells rather than
+          through them. Zonulin is a signalling protein that loosens those junctions. In celiac
+          disease, gluten fragments trigger zonulin release, permeability rises, and immunogenic
+          peptides reach the tissue underneath. Larazotide is an eight-amino-acid peptide that
+          antagonises that pathway, and it is designed to act in the gut lumen rather than
+          systemically.`,
+          `That is a narrower and better-specified mechanism than most of this category offers. It
+          is worth contrasting with <a href="/compounds/bpc-157/">BPC-157</a>, which is discussed
+          for gut repair on the basis of animal healing models and has no human trial data at all.
+          Larazotide targets one protein interaction and was tested against a clinical endpoint;
+          BPC-157 is a broader claim with a thinner base. The app&rsquo;s own notes put them
+          together as complementary, and the honest version of that is that one of them has been
+          measured in patients.`,
+          `Because the peptide is meant to work at the epithelial surface, systemic absorption is
+          low by design. That is a deliberate feature, not a limitation, and it explains why the
+          route is oral rather than injected.`
+        ]
+      },
+      {
+        h2: 'What the trials actually found',
+        paras: [
+          `@@EV_OFFLABEL@@ Larazotide has been through phase II trials in celiac disease in patients
+          already following a gluten-free diet but still symptomatic. A phase IIb study reported a
+          reduction in symptom scores at the lowest of the doses tested, with the higher doses
+          performing no better &mdash; an inverted dose response that the investigators discussed
+          openly and that is unusual enough to be worth stating plainly.`,
+          `A phase III trial was subsequently begun and was discontinued after an interim analysis
+          indicated it was unlikely to meet its primary endpoint. That is the most important
+          sentence on this page, and it is the one that marketing copy for the peptide tends to
+          omit. Phase IIb data is a reason to keep studying a compound; it is not evidence of
+          benefit, and here the larger, better-powered study did not confirm it.`,
+          `@@EV_THEORETICAL@@ Uses outside celiac disease &mdash; irritable bowel syndrome,
+          non-alcoholic steatohepatitis, the broad idea of &ldquo;leaky gut&rdquo; as a driver of
+          systemic disease &mdash; rest on the mechanism rather than on outcome data. Intestinal
+          permeability is measurable and is genuinely abnormal in several conditions. Whether
+          reducing it changes how a person feels is a separate question, and outside celiac disease
+          it has not been answered.`
+        ]
+      },
+      {
+        h2: 'What to watch, and what there is to watch with',
+        paras: [
+          `The app records symptom tracking, inflammatory markers and zonulin levels through
+          specialty laboratories. Serum zonulin assays are worth a caution: the commercial tests
+          have been criticised for measuring proteins other than the intended target, so a number
+          from one is weaker evidence than it appears. Symptom scores kept consistently over weeks
+          are the more defensible measurement here.`,
+          `Tolerability across the trials was broadly comparable to placebo, with gastrointestinal
+          complaints the most commonly reported events on both arms. That is a reassuring profile
+          within a trial population and a defined duration, and it says nothing about use for
+          longer than the twelve weeks studied. Anyone with celiac disease considering this should
+          be discussing it with the gastroenterologist already managing the diagnosis, not
+          substituting it for the gluten-free diet the trials required participants to stay on.`,
+          `@@EV_ESTABLISHED@@ Sourcing is a real constraint. The compound is an investigational drug
+          under an IND, not a supplement, so material sold outside that framework is not the trial
+          product and no one has verified that it is the same molecule at the same purity. This
+          site names no vendor and this page does not tell you where to get it.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The first line understates the position &mdash; the
+      phase III programme was stopped early, which is more than an absence of approval.`,
+    faq: [
+      ['Is larazotide approved anywhere?', [
+        `No. It has been through phase II trials in celiac disease and a phase III trial that was
+         discontinued at interim analysis. It has no marketing approval in any jurisdiction.`]],
+      ['Does it replace a gluten-free diet?', [
+        `Nothing in the trial programme supports that. Participants remained on a gluten-free diet
+         throughout; the peptide was studied as an addition for people who were still symptomatic
+         despite the diet.`]],
+      ['Is it the same idea as BPC-157?', [
+        `No. Larazotide antagonises one signalling pathway at the tight junction and was tested against
+         a clinical endpoint in patients. BPC-157 is a broad tissue-repair claim resting on animal
+         models with no human trials.`]],
+      ['Can I test my own zonulin?', [
+        `Specialty laboratories offer it, and the assays have been criticised for cross-reactivity with
+         other proteins. Treat a result as suggestive at best, and take a consistent symptom record more
+         seriously than a single number.`]]
+    ],
+    basis: [
+      ['Zonulin regulates intestinal tight junctions',
+        'Established mechanism in gastrointestinal physiology'],
+      ['Phase IIb symptom reduction in celiac disease',
+        'Randomised trial in diet-adherent symptomatic patients; benefit at the lowest dose tested'],
+      ['Phase III discontinued at interim analysis',
+        'Sponsor announcement of futility; the confirmatory evidence does not exist'],
+      ['Use for IBS, NASH or general permeability',
+        'Mechanistic extrapolation only; no completed outcome trials'],
+      ['Oral route with low systemic absorption',
+        'By design; the target is at the luminal surface']
+    ],
+    cta: `A compound assessed on symptom scores needs the symptoms written down consistently.
+      TherapyLog keeps the dose and the daily record in one place.`
+  },
+  slupp332: {
+    slug: 'slu-pp-332',
+    h1: 'SLU-PP-332: an exercise mimetic with no human data whatsoever',
+    title: 'SLU-PP-332: the exercise mimetic, examined | TherapyLog',
+    description: 'A pan-ERR agonist that reproduced endurance-training effects in mice. Why there is no human dose, and what the rodent results do and do not show.',
+    lede: `This page exists to describe a compound accurately rather than to help anyone use it.
+      Every published result comes from rodents, no human has been dosed in a study, and there is
+      no dose to report. That is the whole picture, and it is worth understanding as an example of
+      how early a compound can be while still circulating.`,
+    sections: [
+      {
+        h2: 'What a pan-ERR agonist does',
+        paras: [
+          `@@EV_ESTABLISHED@@ The estrogen-related receptors &mdash; ERR&alpha;, ERR&beta; and
+          ERR&gamma; &mdash; are nuclear receptors that, despite the name, are not activated by
+          oestrogen. They regulate mitochondrial biogenesis, oxidative metabolism and the
+          expression programme that endurance training switches on in skeletal muscle. That
+          biology is well established and independent of any particular drug.`,
+          `SLU-PP-332 is a synthetic agonist at all three. The reasoning behind it is direct: if
+          endurance exercise produces its metabolic adaptations partly through this pathway, an
+          agonist might reproduce some of them. The term &ldquo;exercise mimetic&rdquo; describes
+          that intent, and it is an intent rather than a demonstrated result.`,
+          `@@EV_THEORETICAL@@ In published mouse work the compound increased fatty-acid oxidation,
+          extended running capacity on a treadmill and reduced fat mass without a change in food
+          intake or in voluntary activity. Those are real, reported findings in mice. Half-life in
+          the rodent data is short, on the order of a couple of hours, which is one of several
+          reasons a human schedule cannot be inferred from them.`
+        ]
+      },
+      {
+        h2: 'Why there is no dose on this page',
+        paras: [
+          `@@EV_THEORETICAL@@ The app&rsquo;s own entry records no established human dose, and this
+          page does not invent one. No phase I study has been published, so nothing is known about
+          human pharmacokinetics, tolerated exposure, or which of the rodent effects translate.
+          Interspecies scaling from a mouse dose is a method for designing a first-in-human study,
+          not for choosing what to take.`,
+          `The gap matters more here than it would for a compound with a long clinical history in a
+          different indication. Nuclear receptor agonists act by changing gene expression across
+          many tissues, and the receptors here are expressed in heart, kidney and liver as well as
+          in skeletal muscle. A compound that shifts the oxidative programme everywhere is not
+          obviously benign because the muscle result looked good, and cardiac effects in particular
+          are the sort of thing a phase I study exists to detect.`,
+          `It is also worth naming what a research chemical is. Material sold under this name has
+          not been through any pharmaceutical quality process, identity and purity rest on the
+          seller&rsquo;s own certificate, and there is no regulator between that certificate and
+          the buyer. This site names no vendor.`
+        ]
+      },
+      {
+        h2: 'The comparison that actually matters',
+        paras: [
+          `Endurance exercise is the intervention this compound is named after, and it has outcome
+          data no drug in this class approaches: reduced cardiovascular and all-cause mortality
+          across large cohorts and randomised trials of structured training. Whatever an exercise
+          mimetic eventually turns out to do, it starts from a long way behind that.`,
+          `@@EV_OFFLABEL@@ For fat loss specifically, there are compounds with human trial evidence
+          and approvals &mdash; the <a href="/compounds/semaglutide/">GLP-1 receptor agonists</a>
+          are the obvious point of contrast, with cardiovascular outcome data behind them. Someone
+          reaching for a preclinical research compound for body composition is choosing the option
+          with the least evidence available for that goal.`,
+          `There is no monitoring protocol to offer, because nobody has established what to monitor
+          or what a concerning value would be. The app records exactly that, and it is the correct
+          entry. Anyone weighing a compound at this stage should be having that conversation with a
+          doctor who can see the rest of their picture.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. Read the last item as the summary rather than an
+      afterthought.`,
+    faq: [
+      ['Has any person taken this in a study?', [
+        `No published human study exists. Everything reported comes from rodent work, and no phase I
+         data has appeared.`]],
+      ['What dose do people use?', [
+        `This page does not carry one, because there is no established human dose to carry. The app records
+         the same. A dose scaled from mouse data is a hypothesis for a trial, not a protocol.`]],
+      ['Does it replace cardio?', [
+        `No. The compound reproduced some metabolic markers of endurance training in mice. Endurance
+         exercise has mortality and cardiovascular outcome data behind it that nothing in this class
+         approaches.`]],
+      ['What should be monitored?', [
+        `Nothing has been established, which is itself the answer. There are no reference values, no known
+         signal to watch, and no way to tell an expected effect from an adverse one.`]]
+    ],
+    basis: [
+      ['ERR receptors regulate oxidative metabolism',
+        'Established nuclear receptor biology, independent of this compound'],
+      ['Increased fat oxidation and running capacity',
+        'Rodent studies; no human replication'],
+      ['Fat loss without change in intake or activity',
+        'Reported in mouse models only'],
+      ['Human dose and safety',
+        'No published phase I data; app.html records no established dose'],
+      ['Endurance exercise outcomes',
+        'Large cohort and randomised training data; the comparison the name invites']
+    ],
+    cta: `If you are tracking anything at this stage, track it carefully. TherapyLog keeps the
+      record, whatever the compound turns out to be worth.`
+  },
+  follistatin: {
+    slug: 'follistatin',
+    h1: 'Follistatin: myostatin inhibition, and the distance between gene therapy and a vial',
+    title: 'Follistatin: myostatin inhibition examined | TherapyLog',
+    description: 'A myostatin-binding glycoprotein studied mostly as gene therapy. What the muscular dystrophy trials delivered, and why an injected peptide is not that.',
+    lede: `The myostatin story is real biology with striking animal results and a genuine clinical
+      programme behind it. What is sold as follistatin is not what that programme delivered, and
+      the difference is not a technicality &mdash; it changes what can be expected and what is
+      known about risk.`,
+    sections: [
+      {
+        h2: 'The brake, and what removing it does',
+        paras: [
+          `@@EV_ESTABLISHED@@ Myostatin, also called GDF-8, is a member of the TGF-&beta; family
+          that limits skeletal muscle growth. Animals and the small number of people with loss-of-
+          function mutations in the myostatin gene have substantially more muscle mass than
+          expected. Follistatin is an endogenous glycoprotein that binds myostatin and activin and
+          neutralises them, which removes that brake. All of that is settled biology.`,
+          `Because it works through a pathway entirely separate from the androgen receptor, it does
+          not carry the mechanism behind the androgenic effects or the suppression of the
+          hypothalamic-pituitary-testicular axis that
+          <a href="/compounds/testosterone-cypionate/">testosterone</a> does. That is a real
+          mechanistic distinction and it is often presented as though it also implies a better
+          safety profile. It does not. It means the risks are different ones, and less well
+          characterised.`,
+          `@@EV_OFFLABEL@@ The clinical work has been almost entirely gene therapy: a viral vector
+          delivering the follistatin gene to muscle, studied in Becker and inclusion body myositis
+          in small early-phase trials. Those studies reported functional changes in some
+          participants and are the strongest human evidence the molecule has. They also delivered
+          sustained local expression inside muscle tissue &mdash; a fundamentally different
+          exposure from an injected peptide.`
+        ]
+      },
+      {
+        h2: 'Why the injected version is a different question',
+        paras: [
+          `@@EV_THEORETICAL@@ Follistatin is a glycoprotein, not a small peptide, and circulating
+          follistatin is cleared quickly. Whether a subcutaneous injection produces meaningful
+          myostatin neutralisation in muscle, at what exposure, and for how long, has not been
+          established in humans. The app records a research protocol of 100mcg daily in short
+          runs with breaks; that figure comes from community practice rather than from a trial,
+          and this page presents it as the app&rsquo;s entry rather than as a recommendation.`,
+          `The pharmaceutical industry has also tested this pathway directly, with monoclonal
+          antibodies and receptor decoys against myostatin and activin in muscular dystrophy,
+          sarcopenia and cachexia. Several increased lean mass. Most failed to improve function,
+          and the programmes were largely discontinued. That is the most instructive result in the
+          whole field: the pathway does what it is supposed to do to muscle size, and size did not
+          translate into people doing more.`,
+          `Product identity is a further problem specific to this compound. Recombinant
+          glycoproteins are difficult and expensive to manufacture correctly, glycosylation affects
+          activity, and there is no way for a buyer to confirm any of it. This site names no
+          vendor.`
+        ]
+      },
+      {
+        h2: 'Risks worth taking seriously',
+        paras: [
+          `@@EV_THEORETICAL@@ The concern the app records first is the right one. Myostatin and
+          activin signalling participates in growth restraint in tissues beyond muscle, and
+          activin signalling has tumour-suppressive roles in several cell types. Whether systemic
+          inhibition affects cancer risk in humans is unknown, and unknown here means untested
+          rather than reassuring. Anyone with a personal or family history of malignancy should
+          treat that as a conversation with an oncologist rather than a footnote.`,
+          `The antibody trials also surfaced effects that had not been predicted from the muscle
+          story, including reports of gynaecomastia and epistaxis attributed to off-target
+          activity within the TGF-&beta; family. A pathway this central rarely turns out to have a
+          single consequence.`,
+          `Monitoring, per the app, is body composition, liver enzymes, a complete blood count and
+          general cancer screening awareness. Note what that list cannot do: none of those tests
+          detects the theoretical risk this compound carries. They are the reasonable general
+          panel, not a safety net, and the appropriate step before any of it is a discussion with
+          a doctor who knows your history.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The cancer item is not a disclaimer added for form
+      &mdash; it is the reason the pharmaceutical programmes were watched as closely as they were.`,
+    faq: [
+      ['Is follistatin approved for anything?', [
+        `No. Gene therapy approaches have been studied in small early-phase muscular dystrophy trials.
+         There is no approved follistatin product and no approved myostatin inhibitor for muscle growth.`]],
+      ['Do the gene therapy results apply to an injection?', [
+        `Not directly. Those trials delivered a gene to muscle tissue for sustained local expression. An
+         injected glycoprotein that clears from circulation quickly is a different exposure, and it has
+         not been studied the same way.`]],
+      ['Why did the pharmaceutical myostatin programmes stop?', [
+        `Several increased lean mass without improving function in the populations studied, which is not
+         enough to approve a drug. The pathway worked; the outcome did not follow.`]],
+      ['What about the cancer concern?', [
+        `Activin and myostatin signalling has growth-restraining roles outside muscle, so systemic
+         inhibition raises a theoretical question that no human study has answered. It is worth raising
+         with a doctor, particularly with any personal or family cancer history.`]]
+    ],
+    basis: [
+      ['Myostatin limits skeletal muscle growth',
+        'Established; supported by loss-of-function phenotypes in animals and humans'],
+      ['Follistatin binds and neutralises myostatin and activin',
+        'Established biochemistry'],
+      ['Gene therapy trials in muscular dystrophy',
+        'Small early-phase studies reporting functional change; the strongest human data'],
+      ['Injected peptide protocols',
+        'Community practice; app.html records 100mcg daily in short runs, with no trial behind it'],
+      ['Lean mass without functional benefit',
+        'Repeated finding across discontinued myostatin and activin antibody programmes'],
+      ['Cancer risk from systemic inhibition',
+        'Theoretical, from tumour-suppressive roles of activin signalling; untested in humans']
+    ],
+    cta: `A compound with no validated marker needs an unusually careful record of everything else.
+      TherapyLog keeps the dose, the measurements and the notes together.`
+  },
+  dihexa: {
+    slug: 'dihexa',
+    h1: 'Dihexa: the potency figure everyone quotes, and what it was measured against',
+    title: 'Dihexa: potency, synapses and open questions | TherapyLog',
+    description: 'An angiotensin IV derivative and HGF agonist. Where the widely quoted potency figure comes from, and why it is not a claim about people.',
+    lede: `Almost every description of this compound leads with a number in the millions. The number
+      is real and it comes from a published experiment, but it describes a specific measurement in
+      cell culture rather than anything observed in a person. Understanding what was measured is
+      most of what there is to understand here.`,
+    sections: [
+      {
+        h2: 'Where the compound came from',
+        paras: [
+          `@@EV_ESTABLISHED@@ Dihexa is a small synthetic molecule derived from angiotensin IV,
+          developed in academic laboratories at Washington State University. Angiotensin IV had been
+          observed to improve performance in rodent memory tasks, and the derivative was built to
+          survive metabolism, cross into the brain and retain the activity. Its proposed mechanism
+          is potentiation of hepatocyte growth factor signalling at its receptor, c-Met, which is
+          involved in synapse formation.`,
+          `@@EV_THEORETICAL@@ The potency figure comes from a cell-culture assay of spine and synapse
+          formation, in which the concentration producing an effect was compared with that of brain-
+          derived neurotrophic factor in the same system. A ratio between two concentrations in a
+          dish is a statement about relative potency in that assay. It is not a statement about
+          effect size, about the brain, or about anyone&rsquo;s memory, and it is quoted as though
+          it were all three.`,
+          `The animal work is more informative and still preclinical: improvement on water-maze
+          performance in rodent models of cognitive impairment, including scopolamine-induced
+          deficits and lesion models. That is a real body of published work. It is the same stage
+          at which a great many compounds have looked convincing and then not translated.`
+        ]
+      },
+      {
+        h2: 'The human gap, and the dose problem',
+        paras: [
+          `@@EV_THEORETICAL@@ No published controlled human trial exists. The app records a research
+          range of 1&ndash;10mg by oral or intranasal route in short runs, which reflects community
+          practice rather than a study, and the tenfold width of that range is itself informative:
+          nobody knows what the right amount is because nobody has measured it in a person.`,
+          `That width matters more than usual for this compound. A molecule described as extremely
+          potent, dosed in milligrams by a route with variable absorption, gives no basis for
+          judging whether an effect or an absence of one reflects the compound or the delivery.
+          Intranasal and oral administration of the same substance are not interchangeable, and no
+          bioavailability data settles which the range refers to.`,
+          `Assessment is a further problem. The app records cognitive and mood self-assessment and
+          no blood monitoring, which is accurate &mdash; there is no marker. Self-assessed cognition
+          is the measurement most vulnerable to expectation in the whole of this field, and it is
+          the only one available here. A structured, timed task repeated on the same schedule is
+          weak evidence but is better than a recollection.`
+        ]
+      },
+      {
+        h2: 'The risk that follows from the mechanism',
+        paras: [
+          `@@EV_THEORETICAL@@ The HGF/c-Met axis is not a neurological curiosity. It is a growth
+          factor pathway that is amplified or activated in several cancers, and it is an active
+          oncology drug target &mdash; approved medicines exist that inhibit c-Met precisely
+          because that signalling drives tumour growth. A compound designed to potentiate the same
+          axis raises an obvious question in the opposite direction, and no human data addresses
+          it.`,
+          `The app lists this among the drawbacks and it deserves the emphasis. There is no test
+          that would detect the concern, no dose known to be below it, and no duration established
+          as safe. This is the reason the page carries no recommendation and the reason anyone
+          considering it, particularly with any personal or family cancer history, should be
+          raising it with a doctor first.`,
+          `Compared with the other compounds on this site discussed for cognition &mdash;
+          <a href="/compounds/semax/">semax</a> and <a href="/compounds/cerebrolysin/">cerebrolysin</a>
+          both have decades of human use and published trials in their countries of origin, whatever
+          the quality of those trials &mdash; dihexa is earlier by a wide margin. It is a
+          preclinical academic compound, and material sold under the name comes with no verified
+          identity. This site names no vendor.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The tumour item and the dosing-accuracy item are
+      connected: an extremely potent compound with no established range is hard to keep below a
+      threshold nobody has located.`,
+    faq: [
+      ['Is dihexa really millions of times stronger than BDNF?', [
+        `That ratio comes from a cell-culture assay comparing the concentrations at which each promoted
+         synapse formation. It describes relative potency in that dish, not the size of any effect and
+         not anything measured in a person.`]],
+      ['Are there human trials?', [
+        `No published controlled trial exists. The evidence is preclinical: cell culture and rodent
+         cognition models.`]],
+      ['Oral or intranasal?', [
+        `The app records both within one range, and no bioavailability data distinguishes them. That is a
+         reason for caution rather than a choice this page can resolve.`]],
+      ['What is the cancer concern?', [
+        `The compound potentiates HGF/c-Met signalling. That pathway drives growth in several cancers and
+         is the target of approved inhibitors. Potentiating it has not been studied in humans, and it is
+         a question for a doctor rather than a message board.`]]
+    ],
+    basis: [
+      ['Derived from angiotensin IV; acts on HGF/c-Met',
+        'Published academic characterisation'],
+      ['The potency ratio versus BDNF',
+        'Cell-culture synaptogenesis assay; a concentration comparison, not an effect size'],
+      ['Cognitive improvement in animal models',
+        'Rodent water-maze and lesion studies; preclinical'],
+      ['Human dose of 1-10mg',
+        'Community practice recorded in app.html; no pharmacokinetic or trial basis'],
+      ['Tumour growth concern',
+        'c-Met is an established oncology target; potentiation untested in humans'],
+      ['No monitoring marker',
+        'app.html records self-assessment only; no blood test reflects the mechanism']
+    ],
+    cta: `Self-assessed cognition is the easiest measurement to fool yourself with. TherapyLog keeps
+      a dated record so you are comparing notes rather than impressions.`
+  },
 };

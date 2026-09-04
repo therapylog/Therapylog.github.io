@@ -553,6 +553,57 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**SEO Phase 3, batch 4 — the last twenty /compounds/ pages, and the hub rebuilt
+(4 Sep 2026)**
+
+Twelve Tier A and eight Tier B: gonadorelin, isotretinoin, raloxifene,
+progesterone, oxytocin, quercetin, GHK-Cu, NAC/NALT, therapeutic melatonin,
+acarbose, taurine and spermidine; thymalin, the NAD+ IV protocol, humanin,
+LL-37, larazotide, SLU-PP-332, follistatin and dihexa. Eighty compound pages
+now, 701-1,198 authored words each, worst sibling similarity 0.181 (humanin vs
+MOTS-c, both mitochondrial-derived peptides — expected, and well under the 0.4
+ceiling). Sitemap 123 to 143 URLs.
+
+- **The hub was the actual problem, not the page count.** The owner reported
+  that `/compounds/` "only shows a small handful" and that there was no way to
+  find any of this from the top of the site. Three fixes: a `Compounds` link in
+  the main nav on `index.html` and in the generated shell, the hub rewritten
+  into ten labelled groups with a blurb each instead of one flat list, and a
+  filter box above them that narrows the cards as you type and opens the first
+  match on Enter — the encyclopedia's pattern, applied to compounds.
+- **The hub asserts its own completeness at build time.** `GROUPS` in
+  `pages-compounds-hub.js` throws unless every shipped compound appears in
+  exactly one group and no group names a compound that has not shipped. That is
+  what makes "a small handful" impossible to reintroduce silently: adding a page
+  without placing it fails the build.
+- **Class labels no longer leak the app's internal taxonomy.** Isotretinoin and
+  raloxifene sit in the app class "Bodybuilding & PED Compounds", which is a
+  correct internal label and a terrible public one. `displayClass()` maps every
+  app class to a public equivalent, `COMPOUND_CLASS` overrides individual
+  compounds where the class is wrong for them, and the four "Additional …"
+  buckets throw rather than render — a compound in one has no public class until
+  someone writes it. The validator checks the rendered label is non-empty, does
+  not start with "Additional" and does not contain "Bodybuilding" or "PED".
+- **Urolithin A was dropped from the batch and spermidine took its place.** The
+  app's urolithin rows and drawbacks name commercial brands. Every compound page
+  states that it names no vendor, so shipping that entry would have contradicted
+  the page's own sentence. Spermidine covers the same autophagy ground without
+  the conflict.
+- **Deliberately not shipped, and why.** The Khavinson bioregulators are
+  near-identical to one another in the app's own data and would produce pages
+  that differ only in the organ named. `bpc157sys`, `tbnouveau` and
+  `kisspeptin54` are data twins of pages that already exist. `igf1lr3` has no
+  publishable dosing left after the strip filter and nothing but performance
+  framing behind it. Insulin is not in app.html's database at all, so there is
+  nothing to generate from — a page on it would be authored from scratch, which
+  is a different decision and one for the owner.
+- **Selank and semax were already live** from batch 3; the owner asked for them
+  and they had shipped the day before under `/compounds/selank/` and
+  `/compounds/semax/`.
+- **Owner action after deploy:** `node scripts/indexnow-submit.js` for the 20 new
+  URLs, and resubmit `sitemap.xml` in Search Console and Bing Webmaster — the
+  "43 pages" figure the owner saw is a cached fetch of the Phase 1 sitemap.
+
 **SEO Phase 3, batch 3 — twenty more /compounds/ pages (4 Sep 2026)**
 
 Ten Tier A and ten Tier B: testosterone propionate, proviron, testosterone
@@ -857,8 +908,13 @@ The Focus board holds the working sequence. This is the summary.
    query space from compound queries, so waiting would not have informed the
    selection. **Batch 2 done 4 Sep 2026** — twenty more, also see §2, taking the
    sitemap to 103 URLs. **Batch 3 done 4 Sep 2026** — twenty more, taking it to
-   123. **47 publishable compounds remain**; keep picking by search demand, not
-   alphabetically.
+   123. **Batch 4 done 4 Sep 2026** — the last twenty, taking it to 143, along
+   with the nav link, the grouped hub and the filter box the owner asked for.
+   **Phase 3 is complete at 80 compound pages.** The 27 tiered compounds not
+   shipped were left out on purpose — the Khavinson bioregulators are
+   near-identical to one another in the app's own data, `bpc157sys`, `tbnouveau`
+   and `kisspeptin54` are data twins of pages that exist, and `igf1lr3` has no
+   publishable dosing left after the strip filter. See the batch 4 entry in §2.
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
 9. Decide the BYOK price. At $8.99/mo it sits $1 under Pro while the customer

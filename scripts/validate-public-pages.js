@@ -366,6 +366,18 @@ if (compoundDefs) {
       return str.replace(new RegExp(name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'ig'), ' ')
                 .replace(new RegExp(slugName, 'ig'), ' ');
     };
+    /* The rendered Class row, which comes from app.html's own class name unless
+       the generator relabels it. Two of those names are coded — "Bodybuilding &
+       PED Compounds" holds isotretinoin and raloxifene — and printing one in a
+       fact box under this byline is the same failure as putting it in a title. */
+    const cls = (read(rel).match(/<dt>Class<\/dt><dd>([^<]*)/) || [])[1] || '';
+    /* The CODED list is not applied here on purpose. A class label is a
+       technical term, and "5-alpha reductase inhibitor" is what the enzyme is
+       called — §9's word list is about titles and slugs, where the words are
+       chosen to sell. What a class label must not be is empty, one of the
+       app's "Additional …" catch-alls, or the bodybuilding-coded class name. */
+    t(`${url} publishes a class label, relabelled where the app's is unusable`,
+      cls.length > 0 && !/^Additional /.test(cls) && !/Bodybuilding|PED/i.test(cls), cls);
     t(`${url} slug carries no bodybuilding-coded word`, !CODED.test(strip(url)), url);
     t(`${url} title carries no bodybuilding-coded word`, !CODED.test(strip(title)), title);
   }

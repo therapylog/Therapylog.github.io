@@ -1,246 +1,326 @@
 {
   "/compounds/": {
-    "hash": "9aa2b2da5ac6cb4567fee46a40f6ef7f10eb34b29d4cbb538a354a86bce1d995",
+    "hash": "1cd9ecde389c6305a347f8de789de1c1f52a1e0345d3beb282756b735114a140",
     "lastmod": "2026-09-04"
   },
   "/compounds/5-amino-1mq/": {
-    "hash": "60e933d4d695e730da599811d1b221f09f791f6b3dd2656ae87976578e0f7ecb",
+    "hash": "46790b3e7901b07c4658d3371477c149c7ce69ac00a1fba2a77dbfb3b33da867",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/acarbose/": {
+    "hash": "03598a9647b3c5f1c586bd85309132f5511aa3535be415fc5943c66e44e19e5e",
     "lastmod": "2026-09-04"
   },
   "/compounds/anastrozole/": {
-    "hash": "9f257e6ca3610df8f6d55121c5af836250bf09cc08eb2ce1101a137ca07a94df",
+    "hash": "b5ce38b8bf0d850729369011209a11964cff3ba8e35ba52f756d07d57a64a4ea",
     "lastmod": "2026-09-04"
   },
   "/compounds/aod-9604/": {
-    "hash": "036700eae2ddaf296585fa3bab70a35f8d1da32d416df591d40e49fdf2cfec58",
+    "hash": "fbe10e5d1c818ae6468dec65895598bcdc3bbee1bf95494e02c67e5684a6be4a",
     "lastmod": "2026-09-04"
   },
   "/compounds/ara-290/": {
-    "hash": "2dbd2a038282deac5c3124cf3c52dd8fb19b947b51a8d1ee078509011b6373aa",
+    "hash": "aab5ef9e5d299687a3466cdd09baa5faa1dca1f89e15bddef1e2785f9c7972a2",
     "lastmod": "2026-09-04"
   },
   "/compounds/berberine/": {
-    "hash": "2ed8b74da44338371987797170abd7dc494194ee1f88eb90f40f036b3f12e1fc",
+    "hash": "3fc64d6129db0ec7171af2558f1af0c6bdc8929d1be32210afb6796e4b934aad",
     "lastmod": "2026-09-04"
   },
   "/compounds/bpc-157/": {
-    "hash": "26ab7223063d7794d905fcae3fe1cfd3adaefea368ca00dd6f6956018c96b3d3",
+    "hash": "97fd90fd105b918cd9c8c1506ffba2bf347e37603e61c895f129e97dfa4d5539",
     "lastmod": "2026-09-04"
   },
   "/compounds/cabergoline/": {
-    "hash": "3044b5abacf58a55faa939746c8177eed5f12bd87e74f2de157395fa940a7678",
+    "hash": "4091accdeca24e8beb8229a7f96d39d593062563cc7d94e69257f675fed8a12c",
     "lastmod": "2026-09-04"
   },
   "/compounds/cagrilintide/": {
-    "hash": "9fb35c87efe8394eacd919e9a06e127dcdd234fe75f5c7d4ff2ff7d770d92a10",
+    "hash": "19cdf3dfe0cb510ba24e812b8ce2cda7a71f7ccb4896c483253bb32669021d04",
     "lastmod": "2026-09-04"
   },
   "/compounds/cerebrolysin/": {
-    "hash": "46d4f743a8bb91dddaf443ba9213c210b0311a1ebe47b8378f1d005326c4b83c",
+    "hash": "2d7e35dc9d1692553281ed552b5e082ce575c1a773af2dd9423da98879256b05",
     "lastmod": "2026-09-04"
   },
   "/compounds/cjc-1295-with-dac/": {
-    "hash": "b8e6bf6c8c9921b97150ae3e0a54b319c5217147021e5eb685a5438568134575",
+    "hash": "15d392041a07eeb491210fb879a39beb7343df9d815a407ccd21d63357012485",
     "lastmod": "2026-09-04"
   },
   "/compounds/cjc-1295/": {
-    "hash": "65eaabf879a4d2850d2ca9c2ceba1c2a3fcd0ff8cfe25fc2b24c661f6f27eadb",
+    "hash": "af9fdbd9f6e7c7d2ab974fb93276a66091df9243313fb8715e924c02f6bb46b9",
     "lastmod": "2026-09-04"
   },
   "/compounds/clomiphene/": {
-    "hash": "32e10a502cf175f3c0e8f4fd32389d697adbb228c8bb1d3db224dca14e714763",
+    "hash": "2580cac32c2114f3faabef8e59c42f0a3d112b17ff9d21ac3b606f4ef930299a",
     "lastmod": "2026-09-04"
   },
   "/compounds/creatine-monohydrate/": {
-    "hash": "ee60006dcc1c18a11dc80d9631ee12c8412bdd7380b7e22ecedfab35528fe43d",
+    "hash": "38a413111b25ab80321c736c4fb21b6d432ffae32ea8fc39c9fd0ee2a69d13e1",
     "lastmod": "2026-09-04"
   },
   "/compounds/dasatinib/": {
-    "hash": "90b22f905d0ab527983dcd2aedc602a42e154919d4fb75949ec8311266991f18",
+    "hash": "012c24f2fc1543f2b45d7eae28b1d7c01abbc133c9559e258de2ac40e23bf7bf",
     "lastmod": "2026-09-04"
   },
   "/compounds/dhea/": {
-    "hash": "db9713ab9d82d8775a424bdd4e38937af390846da5b29cca4f58eae809ad8c7d",
+    "hash": "d717c0e77f4c314cde31168cff174b502623a7837772e75da32bdf374dcb75be",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/dihexa/": {
+    "hash": "3988b6d28708955aba9acdedcf56dece2330f10db1e459926d7cab1595f73dae",
     "lastmod": "2026-09-04"
   },
   "/compounds/dsip/": {
-    "hash": "b4fe41ba0adcab72cb3c68c3c0484974ed412c9e908115398cac13fba24ee96c",
+    "hash": "ca251d98e21fe0b09806a66b162fe88da61018d379e1749199531c8b18e38748",
     "lastmod": "2026-09-04"
   },
   "/compounds/dutasteride-and-finasteride/": {
-    "hash": "3bca6c3c8c2f801b323e779ae07c8c5812c5edd1605103f50a0847a02e0074b8",
+    "hash": "3fbf14d2acf255be333b0c76133432f696234d5040c205d46e6d39a19e48c545",
     "lastmod": "2026-09-04"
   },
   "/compounds/enclomiphene/": {
-    "hash": "9a776c1b54c916ebf864d04fc989ca113e8212337b05de0568cb3d578b2e2b9d",
+    "hash": "4ed31c3184b6ed80815fa3aaec911bdf6047fd6b7a0e58d1074316e18a28dbeb",
     "lastmod": "2026-09-04"
   },
   "/compounds/epithalon/": {
-    "hash": "1342e0c0a6baa53a82617df134cafc9f2b67be5c919b56dbc73745a57f060a7a",
+    "hash": "5cd79b1a1aacae583ecaea0eb734cfc9cb2177ad4e536173a8e8776844d68a67",
     "lastmod": "2026-09-04"
   },
   "/compounds/exemestane/": {
-    "hash": "61307257b18e623336dfd79d4bb15a70f3e1495bf340a3ec062040f872839b37",
+    "hash": "a672a5e1b0202dec275195aa37cdee60a48346459e1b1f57b61b7a2973bdc5ae",
     "lastmod": "2026-09-04"
   },
   "/compounds/fisetin/": {
-    "hash": "53fedf21502a79ebd1b08fa3c2511c838a41ccbae98a61a0ae323a8a62054a20",
+    "hash": "39d7e6b3b3de2acd0701a39d880241ebdecea6b2a6b4e2be05921722b66f9d37",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/follistatin/": {
+    "hash": "c2905d389fff98d9df7c2db8dfb25d6d7b72f5f9dd6917300f772580ceefb149",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/ghk-cu/": {
+    "hash": "9b162be48247bfcdc649a20d006e5a40d1f43c36d41ad5a6dba9d08082b274f3",
     "lastmod": "2026-09-04"
   },
   "/compounds/ghrp-2/": {
-    "hash": "61b635c42028b6c9896cd7afcb7a2a45f7add8d9641c0d39a86cb73d260a2c73",
+    "hash": "0147514ca8392acc091e711377305f94a8f635f4192fa66859369d980809b3a0",
     "lastmod": "2026-09-04"
   },
   "/compounds/ghrp-6/": {
-    "hash": "fff62240f40bad6ec35a2b898a4e055649f37e6cfba0f40825ab582ddc6e2577",
+    "hash": "3fe97a4caa1ed3e1308713a84c0f1cf14663fcecbb380f81afe276ec8e787b25",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/gonadorelin/": {
+    "hash": "62a3f7cd1a9579d2e550ef7917a122e8fd94b59db0772c030bccdd6cf925cd21",
     "lastmod": "2026-09-04"
   },
   "/compounds/hcg/": {
-    "hash": "6d5e0bc0f64117e5d86c826877e177bc37bd007bd91aa54ed0319afac2b95a56",
+    "hash": "d02ceb2d37befa160c0f8c089cd4465227fb9f9196bf2143fbeb92f3a8f9f086",
     "lastmod": "2026-09-04"
   },
   "/compounds/hexarelin/": {
-    "hash": "3b243f1bbd4a08bf602cec0ef01a1b4cd2d9d0912687f0cf84ac1a26477564c7",
+    "hash": "222e5fb173a85a4e298a10e9e9dfad5df04fc084bb3f88277e269af630d83b23",
     "lastmod": "2026-09-04"
   },
   "/compounds/hgh-fragment-176-191/": {
-    "hash": "df173df717bcef3bc6ae33d47bcab884f8053c6583777cc4f57b82234aa00a76",
+    "hash": "3966aae1f4f70195822c5c298528808bdd4d19c6221d8d828d18ed2d75268547",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/humanin/": {
+    "hash": "43fd50470a9a0f36cb6906a8cab181aaec00e8ef78166f88d5db618bae01b9d0",
     "lastmod": "2026-09-04"
   },
   "/compounds/ipamorelin/": {
-    "hash": "8f63643fce7b9e076b95b38797a97c56a2eba8b18083700922ecc1d8c286db1a",
+    "hash": "cc135d16f331e1194b2c905565f15c654f1051a0894f6cab4da3a0b4152ca4cd",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/isotretinoin/": {
+    "hash": "9867affbc1b1c359f5cbaf7a8b706c67cb5bf04d914503644f8e828bcf6da6ae",
     "lastmod": "2026-09-04"
   },
   "/compounds/kisspeptin-10/": {
-    "hash": "a76ab6a1affbfa23af66adc6cfce9b3953d5f44fa97b33e8dc938421eed5f011",
+    "hash": "eb6c0d16513a71663437f4ffc886c857b0db3affcef56dc492107461f6ef040f",
     "lastmod": "2026-09-04"
   },
   "/compounds/kpv/": {
-    "hash": "8809e88f7f4b86f3467e49355ccb4a1b0e41e335df58b677dfd7de9e7fdfb271",
+    "hash": "b4dc373009bf269938f9227d4a7c74d58386f62ce51a61247795300d3f9fee2f",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/larazotide/": {
+    "hash": "26fc86d4da461891bc92a282a7c57f409c7f3d5a3510666b59b48bb0e2ee7a28",
     "lastmod": "2026-09-04"
   },
   "/compounds/levothyroxine-t4/": {
-    "hash": "86fde38acb85221f6eb64ef7c0eebd223926f3a5bd3f81626fe3afabb5d53b4d",
+    "hash": "dd1d8e8b7b11c95009b8cbcc244fe1310dce10b2fd02f472f9224ab983c5c78e",
     "lastmod": "2026-09-04"
   },
   "/compounds/liothyronine-t3/": {
-    "hash": "7ec3eee543d3b2503b76f8ca32c98b1a353e6f08a60bb5c9fcdb7048146846ee",
+    "hash": "e4f6828d190e40c5cf38306a4814d099bae67f1fc027a67f4f26d74d88febce3",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/ll-37/": {
+    "hash": "6222c7fbc42617397e1ca023d1698c80a540b0244a9c17b144b645c9580f908c",
     "lastmod": "2026-09-04"
   },
   "/compounds/low-dose-naltrexone/": {
-    "hash": "c8e6ee48fb5e2936c12679d71ddfa98783ecf65787c65aa6bef030146fac114d",
+    "hash": "00af9a15d0b94c9d88000a2d7f64c44f2b967220265e33d3bf34886a8aebead7",
     "lastmod": "2026-09-04"
   },
   "/compounds/melanotan-ii/": {
-    "hash": "6f71e31aa30f02398d585d0f242ea48158ca629b93c9f2a19813a13916c47c79",
+    "hash": "4bffb9426e330f9d37d8280cd1e20e19809251aa50249860e36c85e02e470bd5",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/melatonin/": {
+    "hash": "266140854a67d363742d8ac6d989b3b5bf0e940f23534341236a8a31fa18a875",
     "lastmod": "2026-09-04"
   },
   "/compounds/metformin/": {
-    "hash": "0bdbfdd9ce1871bfeecfa8ab9811444197309a494905e3deac38ceb62273f62c",
+    "hash": "1ae7308344394acdcdb7c7edc6a72895410ae35f982e341901ba6efa3eeaea7e",
     "lastmod": "2026-09-04"
   },
   "/compounds/mk-677/": {
-    "hash": "849b73f4fb6924ad5634899238dbf958d811d4c63deadeeb7d0b93636e6ba957",
+    "hash": "6ac8c0c05156703dd356faee99349a1c978f9a7fd91c60704671ebf4d144c41d",
     "lastmod": "2026-09-04"
   },
   "/compounds/mots-c/": {
-    "hash": "c2cdcfc3f120fc5be1356058c543f8ac263207d365a2910bee0a16d1ee384f42",
+    "hash": "0d5a6312c7614a8067eb903476bea40ebc67f0d59b948c98ed98a66180310447",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/nac-and-nalt/": {
+    "hash": "1530c908d7ce6b1c3edf042691f2586e3a364bffe1c6cea327d5d560aa982a46",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/nad-iv/": {
+    "hash": "db6aa7e24715f2d4755ab6d716c3ae1a9297af1845cd71454fd440d0bdd37288",
     "lastmod": "2026-09-04"
   },
   "/compounds/natural-desiccated-thyroid/": {
-    "hash": "f027f23fb8f003a31bff7f5328690473519b1cfe8940932ba3d588b3310f3541",
+    "hash": "704385b980e9413c5681ab5ccca4d0385bf25f2a62b35c8c350c4dc7163c83ac",
     "lastmod": "2026-09-04"
   },
   "/compounds/nmn-and-nr/": {
-    "hash": "8e212dc32eb081f37909e8f9922e0a764fea32bac09256b44fd46253bf4c84ea",
+    "hash": "64e9126ade74913a120d9c269a5335807222d00e4eb89033ed6019c2b67493de",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/oxytocin/": {
+    "hash": "964dab0ea664f787ab5ef149fd15e79f3593508869148c888fdd4f86882cd5d0",
     "lastmod": "2026-09-04"
   },
   "/compounds/pentadeca-arginate/": {
-    "hash": "c66542cc82c47623a0cc83139a4f46c1f72873101af8a8998557445455c11a60",
+    "hash": "c07236d5e62769bd6cc96d8bf45c8e685bbcceb9c6bbcb5bb68bbbd307c1c41a",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/progesterone/": {
+    "hash": "8291e950929871e732b5195f06b044bc424ee09094f2ae89168f71c3cf0958b3",
     "lastmod": "2026-09-04"
   },
   "/compounds/proviron/": {
-    "hash": "ede4a335522eb2ce3de4464151fec362b17468bf3ebef56fe0035da26fb71d5a",
+    "hash": "5addfca67f39fdf0d3b9974969433e2e2518bedb9675b5a18737cec39b485c10",
     "lastmod": "2026-09-04"
   },
   "/compounds/pt-141/": {
-    "hash": "f97e0b50cb925471d934654414cde2ae7c616020f2b584721a1fb58995441ed7",
+    "hash": "2e349a71752c77a7b34a3fa2e7b03bc208423008a1a00a9fb24ca54ec3487899",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/quercetin/": {
+    "hash": "245327476b6b555393ea25c30377e28bc8b03daf74934a1f688dc3787559cef0",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/raloxifene/": {
+    "hash": "87662aca28eed78ad962a501655ef87997e3322b492bd471b90a4c8e1868401e",
     "lastmod": "2026-09-04"
   },
   "/compounds/rapamycin/": {
-    "hash": "8f53346e57f758a9ddbcc43c91c131187a00e9a0af2da682386a47c1cf4b8400",
+    "hash": "6864c604521fe01e5bbdedc17ef20b71b5867fd8e71c8d7eb59f475a497a77f4",
     "lastmod": "2026-09-04"
   },
   "/compounds/recombinant-hgh/": {
-    "hash": "029c75d9f29a02569d627527424360c9f9f9672e04a726a0aaddaae1f3f3bb0d",
+    "hash": "785d671402aca51588464c0e8b54571ff4adb79b9eba0543245380c18192daff",
     "lastmod": "2026-09-04"
   },
   "/compounds/retatrutide/": {
-    "hash": "ad827cecdd82d137f422f2aa5ecedb78d28cfcd3e3827181c81f185d8a6444df",
+    "hash": "e82a7a092960977f5d89b238e19d11908d23f3caf9ca25bb440ca776d6f03ec6",
     "lastmod": "2026-09-04"
   },
   "/compounds/selank/": {
-    "hash": "9a7995b22be34929f0c2f133d34805bfeb5c65114f954f57bdc66ff383b54d81",
+    "hash": "6876edc21e1be16792dd486188ea16646ce9b04547536a80eb5feac4c35c7e67",
     "lastmod": "2026-09-04"
   },
   "/compounds/semaglutide/": {
-    "hash": "91738601cc5725ba4a2ec2730581cc36ecb60ae7289dec7f541cb8bbbfca05e2",
+    "hash": "4dc1c0592ce0bc6a529166e8d85356811150ef4d897bfffb8c1d6f93ecf35aa4",
     "lastmod": "2026-09-04"
   },
   "/compounds/semax/": {
-    "hash": "ae05f31a3fe548524fba44972e766809b52314ac1ce7f4e71cd36e6723634167",
+    "hash": "fb879627497ac8ddbd49714046b0fbd2d9a1153dbd41beab6b6b3d7cc1a75e03",
     "lastmod": "2026-09-04"
   },
   "/compounds/sermorelin/": {
-    "hash": "e27b2c85d6943654fd7b02586d69793cb24840cde9865ee6493f6206dea3e02b",
+    "hash": "fa611699b40f5dd43f8939723f583886fba0018cefcbdb1278171464f88bfc18",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/slu-pp-332/": {
+    "hash": "38a3eec92467a05ca99f81f5dcccf53da6fce468b16ee7af4f8acf8ae313ec92",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/spermidine/": {
+    "hash": "e13650b7f1ebde4fdd961a9234b4e88078f974a5e0e0914aa2c431eb11b1da5b",
     "lastmod": "2026-09-04"
   },
   "/compounds/ss-31/": {
-    "hash": "834ae1ea3c0bca431e192ecfd1826d1828209dbdb37fb5191ec2d234a241e8db",
+    "hash": "2eda550595d534a522777850d423b43eb3c5dd5039788838427d229b7a4c548b",
     "lastmod": "2026-09-04"
   },
   "/compounds/tamoxifen/": {
-    "hash": "4609805b24a8f12d0a2e770db21f7e8075a374c88fad06ee32f91a826c191a37",
+    "hash": "3317c2f5b26d8009cc3aeab80d471e9e372274eef89e523f9187f3e72d677ab0",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/taurine/": {
+    "hash": "bf16d57fc8cff73d5ca74ecabd15bad273c082eac81eb35a42e7cfb3878b741b",
     "lastmod": "2026-09-04"
   },
   "/compounds/tb-500/": {
-    "hash": "d4a579aaa5fcb85ced7030dc0eb8cd6c37402d95635a9e97fe0f2947d97b620f",
+    "hash": "9082cc136191c2e8fe7c93349fe2e66bedaeb4488f6014c98a65510028ab4b90",
     "lastmod": "2026-09-04"
   },
   "/compounds/telmisartan/": {
-    "hash": "0a4d39c24f07abe4a9793c2e2ac5c3c00e5a23389bf8cb4d87eb114ba281d66e",
+    "hash": "e18610c9dd03737c29489a58bef657191761e931aedd140f5063ddd81bcc8f1d",
     "lastmod": "2026-09-04"
   },
   "/compounds/tesamorelin/": {
-    "hash": "ddee89c310c9f20941ed4908e2edc0bc7b52c0d864d0495f4e233b9906e30bdf",
+    "hash": "6d5c854066ddbbc2d62e18bd28fb55c8689daeee198d4597f2d65e500b17e375",
     "lastmod": "2026-09-04"
   },
   "/compounds/testosterone-cypionate/": {
-    "hash": "283b6c18a3eabe9ccf3d1d713b05b844bf727d22ac83da88e3e869d38c2836dc",
+    "hash": "d946a1c7691418399022b7a638361eacfd40cf4dbfb023c24ffeffa12a7a98af",
     "lastmod": "2026-09-04"
   },
   "/compounds/testosterone-enanthate/": {
-    "hash": "4dae634dbb2ac98df76d7dead417f47f1b154046250bdb3fa9ea0b173e32dedd",
+    "hash": "f778423677c7623642e6c6d014ad4fe4c359a3f1f0cd41c8cce31fd6acfb180b",
     "lastmod": "2026-09-04"
   },
   "/compounds/testosterone-pellets/": {
-    "hash": "9302ae718857bbbf50b9bdbd40190bc25e51fb749af5adf42230c48ecf0aa3d2",
+    "hash": "ec9a43a836bba75161cfbb50b6c194d59045d15072419769467fdcaa0cf322fe",
     "lastmod": "2026-09-04"
   },
   "/compounds/testosterone-propionate/": {
-    "hash": "f787096a6f3f16d4a5ebc4d124ba24510d21e7243fae3081a36f4c9c832e07fd",
+    "hash": "c517e112c77c5238c9c75652f6fe731d809f07c0acefac5f27efe6dc646f2d13",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/thymalin/": {
+    "hash": "e07d5766354f99cf557fff9ec9117834bb3cc150826af671ff0429a74ddec277",
     "lastmod": "2026-09-04"
   },
   "/compounds/thymosin-alpha-1/": {
-    "hash": "d6fabb8970f4f9bffccb55e8fc77c54c736f71cfe24ffa5086cfbe98035d53a5",
+    "hash": "7fa3a68e155f205557464c7b3aa61b945601bc8d6ada99174ce52b26d8f57d64",
     "lastmod": "2026-09-04"
   },
   "/compounds/tirzepatide/": {
-    "hash": "97f1176ad544be232e8bf91c7b40153ccd498856ed102f56b7934cef81788add",
+    "hash": "8543950f4ee05e9280e73e2ec6e7296a8f33bac8b1d800cfd03d707be2e6f769",
     "lastmod": "2026-09-04"
   },
   "/compounds/vip/": {
-    "hash": "1eacb360e30c1f689f9533117e7397b01e86b50f17fe94ec40017a7ca691eb05",
+    "hash": "35b418959cc682b501350ccd836201573e7b3764eca5f557a6f17ef10367bf22",
     "lastmod": "2026-09-04"
   },
   "/markers/": {

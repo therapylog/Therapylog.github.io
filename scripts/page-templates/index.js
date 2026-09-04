@@ -65,6 +65,67 @@ const CYCLE_CONTEXT = /during (a |an |the )?cycle|of (a |an |the )?cycle\b|post-
 const publishableDoses = (entry) => (entry.doses || []).filter((r) =>
   !PERF.test(r.l) && !CYCLE_CONTEXT.test([r.d, r.f, r.c].filter(Boolean).join(' ')));
 
+/* app.html's class names are the encyclopedia's own navigation labels, and three
+   kinds of them cannot go in a fact box under the founder's byline: the coded
+   one ("Bodybuilding & PED Compounds"), the catch-alls that say nothing
+   ("Additional Compounds", "Additional Ancillaries", "Additional Peptides"), and
+   the ones that are merely clumsy. NEEDS_LABEL lists the classes where the app's
+   own name will not do; every compound in one of them must have an entry in
+   COMPOUND_CLASS or the build fails, which is what stops a future batch from
+   quietly publishing "Class: Bodybuilding & PED Compounds". */
+const NEEDS_LABEL = new Set([
+  'Bodybuilding & PED Compounds', 'Additional Compounds', 'Additional Ancillaries',
+  'Additional Peptides'
+]);
+const CLASS_LABEL = {
+  'Peptides': 'Peptide',
+  'Nootropics and Longevity': 'Nootropic and longevity',
+  'Sleep and Neurological': 'Sleep and neurological',
+  'Supplements and Nutraceuticals': 'Supplement',
+  'Longevity Supplements': 'Longevity supplement',
+  'Senolytics and Autophagy': 'Senolytic',
+  'Performance and Recovery': 'Performance and recovery',
+  'Metabolic and Cardiovascular': 'Metabolic and cardiovascular',
+  'Neurological and Cognitive': 'Neurological and cognitive',
+  'Collagen and Skin Peptides': 'Skin and collagen peptide',
+  'Sexual Health Peptides': 'Sexual health peptide',
+  'Anti-Inflammatory Peptides': 'Anti-inflammatory peptide',
+  'Metabolic Peptides': 'Metabolic peptide',
+  'Khavinson Bioregulators': 'Khavinson bioregulator',
+  'Muscle and Myostatin': 'Myostatin pathway',
+  'DHEA and Adrenal': 'Adrenal steroid',
+  'Thyroid Hormones': 'Thyroid hormone',
+  'GH Secretagogues': 'Growth hormone secretagogue',
+  'HGH and IGF-1': 'Growth hormone and IGF-1',
+  'GLP-1 / Metabolic': 'Incretin (GLP-1 class)',
+  'Longevity Compounds': 'Longevity compound',
+  'Androgens / TRT': 'Androgen',
+  'Ancillaries — AIs and SERMs': 'Ancillary — aromatase inhibitors and SERMs'
+};
+const COMPOUND_CLASS = {
+  tprop: 'Androgen (testosterone ester)',
+  proviron: 'Androgen (DHT derivative)',
+  amino1mq: 'Metabolic research compound',
+  isotretinoin: 'Retinoid',
+  raloxifene: 'Selective oestrogen receptor modulator',
+  caberbromo: 'Dopamine agonist',
+  slupp332: 'Metabolic research compound',
+  thymalpha: 'Immune peptide',
+  mots: 'Mitochondrial-derived peptide',
+  dutast: '5-alpha reductase inhibitor',
+  caberg: 'Dopamine agonist',
+  exemest: 'Aromatase inhibitor (steroidal)'
+};
+function displayClass(entry) {
+  const own = COMPOUND_CLASS[entry.id];
+  if (own) return own;
+  if (NEEDS_LABEL.has(entry.clsName)) {
+    throw new Error(`no public class label for ${entry.id}: app class "${entry.clsName}" ` +
+      'cannot be published as written — add an entry to COMPOUND_CLASS');
+  }
+  return CLASS_LABEL[entry.clsName] || entry.clsName;
+}
+
 const regStatus = (entry) =>
   entry.approval || (entry.reg && entry.reg.status) || entry.status || entry.approvalStatus || null;
 
@@ -179,7 +240,7 @@ function buildAll(ctx) {
     require('./pages-compounds-hub.js')
   ];
   const api = {
-    esc, factBox, EV, table, formula, publishableDoses, regStatus, monPanel,
+    esc, factBox, EV, table, formula, publishableDoses, regStatus, monPanel, displayClass,
     storageRows, pkRows, pairsNaming, pairBlocks, faq, toolsTrail, render, curve,
     SITE
   };

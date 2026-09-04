@@ -17,16 +17,18 @@ const shell = require('./shell.js');
 const A = require('../lib/app-source.js');
 
 const GROUPS = [
-  { id: 'testosterone', title: 'Testosterone and the androgens',
-    blurb: `The esters and the routes, and the two oral androgens that act on binding
-            rather than on the receptor. Everything here suppresses your own production.`,
-    ids: ['tc', 'te', 'tprop', 'testpellets', 'proviron'] },
+  { id: 'testosterone', title: 'Sex hormones and androgens',
+    blurb: `The esters and the routes, the two oral androgens that act on binding rather than
+            on the receptor, and the one hormone here that is usually prescribed alongside
+            oestrogen. Everything androgenic in this group suppresses your own production.`,
+    ids: ['tc', 'te', 'tprop', 'testpellets', 'proviron', 'progesterone'] },
 
   { id: 'estrogen-and-recovery', title: 'Oestrogen control and axis recovery',
     blurb: `Aromatase inhibitors, the receptor modulators, and the compounds that act on the
             pituitary or the testis directly. The failure mode across most of this group is
             over-correction, and it looks like the problem it was meant to fix.`,
-    ids: ['ai1', 'exemest', 'nolv', 'clom', 'enclo', 'hcg2', 'kissp', 'caberg', 'dutast'] },
+    ids: ['ai1', 'exemest', 'nolv', 'clom', 'enclo', 'raloxifene', 'hcg2', 'gonadorelin',
+          'kissp', 'caberg', 'dutast'] },
 
   { id: 'thyroid', title: 'Thyroid',
     blurb: `The prohormone, the active hormone, and the porcine extract that supplies both in a
@@ -34,42 +36,46 @@ const GROUPS = [
     ids: ['t4', 't3', 'ndt'] },
 
   { id: 'metabolic', title: 'Weight and metabolic',
-    blurb: `The incretin drugs and what is behind them in trials, plus the older metabolic
-            compounds people combine with them.`,
-    ids: ['sema', 'tirz', 'retatrutide', 'cagrilintide', 'metformin', 'berberine',
-          'telmisartan', 'ldn', 'amino1mq'] },
+    blurb: `The incretin drugs and what is behind them in trials, the older metabolic compounds
+            people combine with them, and one research compound with no human data at all.`,
+    ids: ['sema', 'tirz', 'retatrutide', 'cagrilintide', 'metformin', 'berberine', 'acarbose',
+          'telmisartan', 'ldn', 'amino1mq', 'slupp332'] },
 
-  { id: 'growth-hormone', title: 'Growth hormone and IGF-1',
+  { id: 'growth-hormone', title: 'Growth hormone, IGF-1 and muscle signalling',
     blurb: `Growth hormone itself, the releasing-hormone analogues, the ghrelin receptor
-            agonists and the fragments. IGF-1 is the marker for all of them, and it measures
-            exposure rather than benefit.`,
+            agonists and the fragments, plus the myostatin pathway. IGF-1 is the marker for
+            most of them, and it measures exposure rather than benefit.`,
     ids: ['rhgh', 'tesam', 'serm2', 'cjc', 'dac', 'ipa', 'ghrp2', 'ghrp6', 'hexarelin',
-          'mk677', 'hghfrag', 'aod9604'] },
+          'mk677', 'hghfrag', 'aod9604', 'follistatin'] },
 
   { id: 'repair', title: 'Repair, immunity and inflammation',
-    blurb: `The healing peptides, which are also the group with the widest gap between how
-            confidently they are described and what has actually been tested in people.`,
-    ids: ['bpc', 'tb5', 'pda', 'kpv', 'ara290', 'thymalpha', 'vip'] },
+    blurb: `The healing peptides, the immune peptides and the gut barrier compounds. Also the
+            group with the widest gap between how confidently these are described and what has
+            actually been tested in people.`,
+    ids: ['bpc', 'tb5', 'pda', 'kpv', 'ara290', 'thymalpha', 'thymalin', 'll37', 'larazotide',
+          'vip'] },
 
   { id: 'longevity', title: 'Longevity and mitochondrial',
     blurb: `Compounds taken on mechanism and animal lifespan data. None of them has a human
             longevity outcome, because no such trial has run long enough to have one.`,
-    ids: ['rapamycin', 'fisetin', 'dasatinib', 'nad', 'mots', 'ss31', 'epi'] },
+    ids: ['rapamycin', 'fisetin', 'dasatinib', 'quercetin', 'spermidine', 'nad', 'nad-iv',
+          'mots', 'humanin', 'ss31', 'epi'] },
 
   { id: 'neuro', title: 'Sleep, mood and cognition',
     blurb: `Mostly compounds approved in one country and unstudied everywhere else, with
             subjective endpoints and no bloodwork to anchor them.`,
-    ids: ['semax', 'selank', 'cerebrolysin', 'dsip'] },
+    ids: ['semax', 'selank', 'cerebrolysin', 'nalt', 'dihexa', 'dsip', 'melatonin-ther'] },
 
-  { id: 'sexual-health', title: 'Sexual health and skin',
-    blurb: `Melanocortin agonists — one selective and approved for one indication, one that
-            activates the whole receptor family and changes every mole on the body.`,
-    ids: ['pt141', 'mt2'] },
+  { id: 'sexual-health', title: 'Skin, hair and sexual health',
+    blurb: `The melanocortin agonists — one selective and approved for one indication, one that
+            activates the whole receptor family and changes every mole on the body — alongside
+            the skin compounds and the bonding hormone.`,
+    ids: ['pt141', 'mt2', 'isotretinoin', 'ghkcu', 'oxytocin'] },
 
   { id: 'supplements', title: 'Adrenal and supplements',
     blurb: `Available without a prescription, which is a statement about regulation rather
             than about how carefully they need to be used.`,
-    ids: ['dhea', 'creatine'] }
+    ids: ['dhea', 'creatine', 'taurine'] }
 ];
 
 function build(ctx, api) {
@@ -100,11 +106,11 @@ function build(ctx, api) {
     const tier = A.tierOf(id);
     /* data-cx is what the filter box matches against: name, aliases and the
        app's own class, lower-cased at build time so the page does no work. */
-    const hay = [entry.name, entry.aka, entry.clsName, tier === 'A' ? 'approved' : 'research']
+    const hay = [entry.name, entry.aka, api.displayClass(entry), tier === 'A' ? 'approved' : 'research']
       .filter(Boolean).join(' ').toLowerCase();
     return `      <div class="tcard" data-cx="${api.esc(hay)}">
         <h3><a href="/compounds/${def.slug}/">${api.esc(entry.name)}</a></h3>
-        <p>${api.esc(entry.aka || entry.clsName)}</p>
+        <p>${api.esc(entry.aka || api.displayClass(entry))}</p>
         <span class="tier tier-${tier.toLowerCase()}">${tier === 'A' ? 'Approved or OTC' : 'Research'}</span>
       </div>`;
   };
