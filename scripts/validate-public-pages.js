@@ -317,7 +317,13 @@ function domStub(html) {
       return { value: oa.value !== undefined ? oa.value : o[2].trim(), selected: /\bselected\b/.test(o[1]) };
     });
     const sel = opts.find((o) => o.selected) || opts[0];
-    if (sel) ids.get(a.id).value = sel.value;
+    const seed = ids.get(a.id);
+    if (sel) seed.value = sel.value;
+    /* Keep the option list. Page code legitimately walks select.options to pick
+       a value — the half-life widget does exactly that to set a compound's own
+       dosing frequency — and a stub that drops them silently makes such code
+       look like a no-op. */
+    seed.options = opts;
   }
   const els = new Map();
   const el = (id) => {
@@ -331,7 +337,7 @@ function domStub(html) {
         classList: { add() {}, remove() {}, contains: () => false },
         appendChild() {}, remove() {}, focus() {}, blur() {},
         getContext: () => ({}), querySelector: () => null, querySelectorAll: () => [],
-        addEventListener() {}, setAttribute() {}, options: []
+        addEventListener() {}, setAttribute() {}, options: seed.options || []
       });
     }
     return els.get(id);
@@ -582,6 +588,48 @@ for (const rel of pages) {
   t('the blend split panel runs and agrees with the app\'s own draw volume',
     bad.length === 0, bad.slice(0, 4).join(' | '));
   t('the split-panel check actually ran', ran >= 18, ran + ' panel rows exercised');
+}
+
+/* The half-life chart window must fit the compound, not a constant. Modelled
+   half-lives here span 0.1 h to 840 h, so a fixed window is unreadable at one
+   end and truncated at the other: 42 days of a peptide that clears in an
+   afternoon is forty-two invisible spikes. Check that picking a compound
+   actually refits both the window and the dosing frequency. */
+{
+  const rel = 'tools/half-life-calculator/index.html';
+  if (exists(rel)) {
+    const { sandbox, el } = runPage(rel);
+    const bad = [];
+    if (typeof sandbox.hlPick !== 'function' || typeof sandbox.hlFitDays !== 'function') {
+      bad.push('hlPick()/hlFitDays() missing — the window is no longer adaptive');
+    } else {
+      /* The fit rule itself: five half-lives or five doses, whichever is wider. */
+      const fit = (hl, iv) => Math.min(120, Math.max(2, Math.round(Math.max(5 * hl, 5 * iv) / 24)));
+      const seen = [];
+      for (const id of Object.keys(sandbox.HL_PK)) {
+        const e = sandbox.HL_PK[id];
+        el('hl-compound').value = id;
+        sandbox.hlPick();
+        const days = parseFloat(el('hl-days').value);
+        const perWeek = parseFloat(el('hl-freq').value);
+        const want = fit(e.hl, 168 / perWeek);
+        if (days !== want) bad.push(`${id}: window ${days}d, fit rule says ${want}d`);
+        /* A compound whose own dosing rows state a frequency must select it. */
+        if (e.freq && perWeek !== e.freq) {
+          bad.push(`${id}: frequency ${perWeek}/wk, its dosing rows say ${e.freq}/wk`);
+        }
+        seen.push(days);
+      }
+      /* And the windows must actually differ across compounds — a rule that
+         returned the same number for everything would pass the check above
+         while being exactly the bug this guards. */
+      if (new Set(seen).size < 3) {
+        bad.push(`every compound got one of ${new Set(seen).size} window sizes — not adaptive`);
+      }
+    }
+    t('the half-life window fits each compound rather than a fixed default',
+      bad.length === 0, bad.slice(0, 3).join(' | '));
+  }
 }
 
 /* The combination checker, through the app's real checkInteractions(). */
