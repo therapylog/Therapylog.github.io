@@ -153,6 +153,15 @@ const COMPOUNDS = {
        units is not reliably measurable on an insulin syringe. If your arithmetic lands there,
        the fix is more diluent, not a steadier hand.`
     ],
+    blend: `BPC-157 is very often sold pre-mixed with TB-500 in one vial — usually five
+      milligrams of each at the low end — under the community nickname the
+      <strong>Wolverine blend</strong>. If that is what you are holding, this page's arithmetic
+      is only half the story: a draw takes both compounds in the vial's ratio, and a 1:1 vial
+      cannot deliver each at the amounts described for it on its own. The
+      <a href="/tools/bpc-157-tb-500-blend-calculator/">BPC-157 and TB-500 blend calculator</a>
+      works out what a single draw contains of each. BPC-157 also appears in the multi-peptide
+      <a href="/tools/glow-peptide-blend-calculator/">GLOW</a> and
+      <a href="/tools/klow-peptide-blend-calculator/">KLOW</a> vials.`,
     why: [
       `BPC-157 is a synthetic pentadecapeptide and a research compound with no approval for
        human use anywhere; the evidence for it is largely animal work, and the dosing amounts
@@ -183,6 +192,14 @@ const COMPOUNDS = {
        that question: tell it the dose you want and the units you want to draw, and it works
        backwards to the diluent volume.`
     ],
+    blend: `TB-500 is most often bought pre-mixed with BPC-157 rather than on its own — commonly
+      five milligrams of each in one vial, and widely called the <strong>Wolverine blend</strong>.
+      That changes the arithmetic on this page: both compounds share the water, so a draw large
+      enough for a TB-500 dose carries roughly ten times a typical BPC-157 amount along with it.
+      The <a href="/tools/bpc-157-tb-500-blend-calculator/">BPC-157 and TB-500 blend calculator</a>
+      shows that split for your own vial. TB-500 is also in the
+      <a href="/tools/glow-peptide-blend-calculator/">GLOW</a> and
+      <a href="/tools/klow-peptide-blend-calculator/">KLOW</a> blends.`,
     why: [
       `TB-500 is a synthetic fragment of thymosin beta-4, a peptide present in most cells, and
        like BPC-157 it is a research compound with no human approval. Its modelled half-life of
@@ -332,6 +349,7 @@ function build(ctx, api) {
       SHARED_RULES,
       `    <h2>Questions people ask about ${api.esc(c.display.toLowerCase())} reconstitution</h2>`,
       api.faq(compoundFaq(api, c, entry, pk, conc)),
+      c.blend ? `    <h2>Sold as part of a blend?</h2>\n    <p>${c.blend.replace(/\s+/g, ' ').trim()}</p>` : '',
       `    <p>Related: <a href="/tools/half-life/${c.slug}/">${api.esc(c.display)} half-life and steady state</a>,
       the <a href="/tools/peptide-reconstitution-calculator/">generic reconstitution calculator</a>,
       and the <a href="/tools/insulin-syringe-units-calculator/">insulin syringe unit converter</a>.</p>`,

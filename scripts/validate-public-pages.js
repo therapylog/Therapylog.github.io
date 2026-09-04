@@ -317,7 +317,13 @@ function domStub(html) {
       return { value: oa.value !== undefined ? oa.value : o[2].trim(), selected: /\bselected\b/.test(o[1]) };
     });
     const sel = opts.find((o) => o.selected) || opts[0];
-    if (sel) ids.get(a.id).value = sel.value;
+    const seed = ids.get(a.id);
+    if (sel) seed.value = sel.value;
+    /* Keep the option list. Page code legitimately walks select.options to pick
+       a value — the half-life widget does exactly that to set a compound's own
+       dosing frequency — and a stub that drops them silently makes such code
+       look like a no-op. */
+    seed.options = opts;
   }
   const els = new Map();
   const el = (id) => {
@@ -331,7 +337,7 @@ function domStub(html) {
         classList: { add() {}, remove() {}, contains: () => false },
         appendChild() {}, remove() {}, focus() {}, blur() {},
         getContext: () => ({}), querySelector: () => null, querySelectorAll: () => [],
-        addEventListener() {}, setAttribute() {}, options: []
+        addEventListener() {}, setAttribute() {}, options: seed.options || []
       });
     }
     return els.get(id);
@@ -437,6 +443,193 @@ for (const rel of pages) {
   t('every published mg-to-units row matches the app\'s own calcUnified()',
     bad.length === 0, bad.slice(0, 4).join(' | '));
   t('the ladder cross-check actually ran', rows >= 15, rows + ' rows re-derived');
+}
+
+/* The blend pages' ratio table, re-derived the same way. This table is the whole
+   argument of those pages — that a fixed-ratio vial cannot deliver each
+   component at what the literature describes for it alone — so it gets the same
+   treatment as the mg-to-units ladders: every published number recomputed by
+   running app.html's own calcUnified() against the page's own widget, once per
+   component. A ratio table that drifted from the calculator above it would be
+   worse than no table. */
+{
+  const blend = require('./page-templates/pages-blend.js');
+  /* Same filter index.js applies before anything reaches a public page. */
+  const PERF_RE = /performance|cycle|blast|advanced|intermediate/i;
+  const api = { publishableDoses: (e) => (e.doses || []).filter((r) => !PERF_RE.test(r.l)) };
+  let cells = 0, bad = [];
+  for (const [key, b] of Object.entries(blend.BLENDS)) {
+    const rel = `tools/${b.slug}/index.html`;
+    if (!exists(rel)) { bad.push(rel + ' missing'); continue; }
+    const html = read(rel);
+    /* Scope the "is it published" test to the ratio table itself. Searching the
+       whole page would let a wrong cell pass because the right number happened
+       to appear in the prose somewhere. */
+    const tableM = html.match(/<h2>The ratio problem, in numbers<\/h2>[\s\S]*?<\/table>/);
+    if (!tableM) { bad.push(b.slug + ': the ratio table is missing'); continue; }
+
+    /* Parse the table into cells. A substring search over the whole table is not
+       enough: the same number legitimately appears in more than one column, so a
+       value moved into the wrong cell would still be "present". Check position. */
+    const trs = [...tableM[0].matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((r) =>
+      [...r[1].matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map((c) => c[1].trim()));
+    const header = trs[0] || [];
+    const bodyRows = trs.slice(1);
+
+    const { sandbox, el } = runPage(rel);
+    const comps = b.components.map((c) => ({
+      ...c, name: app.byId[c.id].name, range: blend.componentDoseRange(api, app.byId[c.id])
+    }));
+
+    /* Column layout: "If you dose for", "Draw", then one column per component,
+       in the vial's own order. */
+    const wantHeader = ['If you dose for', 'Draw'].concat(comps.map((c) => c.name));
+    if (header.join('|') !== wantHeader.join('|')) {
+      bad.push(`${b.slug}: ratio-table columns are ${header.join('|')}, expected ${wantHeader.join('|')}`);
+      continue;
+    }
+    const anchors = comps.filter((c) => c.range);
+    if (bodyRows.length !== anchors.length) {
+      bad.push(`${b.slug}: ratio table has ${bodyRows.length} rows, expected ${anchors.length}`);
+      continue;
+    }
+
+    anchors.forEach((anchorC, rowIdx) => {
+      const row = bodyRows[rowIdx];
+      if (!row[0].includes(anchorC.name)) {
+        bad.push(`${b.slug}: row ${rowIdx} is labelled "${row[0]}", expected ${anchorC.name}`);
+        return;
+      }
+      el('uc-vial').value = String(anchorC.mg);
+      el('uc-water').value = String(b.bacMl);
+      el('uc-dose').value = String(anchorC.range.lo >= 1000 ? anchorC.range.lo / 1000 : anchorC.range.lo);
+      el('uc-unit').value = anchorC.range.lo >= 1000 ? 'mg' : 'mcg';
+      el('uc-syringe').value = '100';
+      sandbox.calcUnified();
+      const ml = parseFloat((el('uc-ml').textContent || '').replace(/[^0-9.]/g, ''));
+      if (!(ml > 0)) { bad.push(`${b.slug}: calcUnified produced no draw volume for ${anchorC.id}`); return; }
+
+      comps.forEach((other, colIdx) => {
+        cells++;
+        const mcg = other.mg * 1000 * (ml / b.bacMl);
+        const shown = blend.fmtAmt(mcg);
+        /* The cell at this exact position must carry this exact amount. */
+        const cell = row[2 + colIdx] || '';
+        const cellAmount = cell.replace(/<em>[\s\S]*?<\/em>/g, '').replace(/<[^>]+>/g, '').trim();
+        if (cellAmount !== shown) {
+          bad.push(`${b.slug}: dosing ${anchorC.name}, the ${other.name} cell says "${cellAmount}", app math says "${shown}"`);
+        }
+        /* And the app agrees that that amount needs that same draw. */
+        el('uc-vial').value = String(other.mg);
+        el('uc-dose').value = String(mcg >= 1000 ? mcg / 1000 : mcg);
+        el('uc-unit').value = mcg >= 1000 ? 'mg' : 'mcg';
+        sandbox.calcUnified();
+        const back = parseFloat((el('uc-ml').textContent || '').replace(/[^0-9.]/g, ''));
+        if (Math.abs(back - ml) > 0.002) {
+          bad.push(`${b.slug}: ${other.name} split does not round-trip through calcUnified (${back} vs ${ml})`);
+        }
+      });
+    });
+  }
+  t('every blend ratio-table cell round-trips through the app\'s calcUnified()',
+    bad.length === 0, bad.slice(0, 4).join(' | '));
+  t('the blend cross-check actually ran', cells >= 20, cells + ' cells re-derived');
+}
+
+/* The blend split panel, executed. The ratio table above is generated in Node;
+   this is the browser-side code that has to agree with it, and a hash compare
+   cannot catch a panel that throws or renders nothing. Drive blSync() the way a
+   visitor would and read what it wrote. */
+{
+  const blend = require('./page-templates/pages-blend.js');
+  let bad = [], ran = 0;
+  for (const [, b] of Object.entries(blend.BLENDS)) {
+    const rel = `tools/${b.slug}/index.html`;
+    if (!exists(rel)) { bad.push(rel + ' missing'); continue; }
+    const { sandbox, el } = runPage(rel);
+    if (typeof sandbox.blSync !== 'function') { bad.push(b.slug + ': blSync() is not defined'); continue; }
+
+    b.components.forEach((c, i) => {
+      const f = el('bl-c' + i);
+      if (!f) { bad.push(`${b.slug}: no bl-c${i} field for ${c.id}`); return; }
+      f.value = String(c.mg);
+    });
+    el('bl-water').value = String(b.bacMl);
+    el('uc-syringe').value = '100';
+
+    /* Anchor on each component in turn and check the panel's own numbers. */
+    b.components.forEach((anchorC, idx) => {
+      el('bl-anchor').value = String(idx);
+      /* Ask for one milligram of the anchored component. */
+      el('uc-dose').value = '1';
+      el('uc-unit').value = 'mg';
+      try { sandbox.blSync(); } catch (e) { bad.push(`${b.slug}: blSync() threw — ${e.message}`); return; }
+
+      const ml = parseFloat((el('uc-ml').textContent || '').replace(/[^0-9.]/g, ''));
+      const panel = el('bl-split').innerHTML || '';
+      if (!ml) { bad.push(`${b.slug}: blSync() produced no draw volume`); return; }
+      if (!/<li>/.test(panel)) { bad.push(`${b.slug}: the split panel rendered nothing`); return; }
+
+      b.components.forEach((other) => {
+        ran++;
+        const mcg = other.mg * 1000 * (ml / b.bacMl);
+        const want = sandbox.blFmt(mcg);
+        const name = app.byId[other.id].name;
+        /* The panel must name this component and carry this amount for it. */
+        const row = (panel.match(new RegExp('<li><span>' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+                                            '</span><strong>([^<]*)</strong></li>')) || [])[1];
+        if (row === undefined) { bad.push(`${b.slug}: the split panel has no row for ${name}`); return; }
+        if (row.trim() !== want) {
+          bad.push(`${b.slug}: split panel says ${name} = "${row.trim()}", math says "${want}"`);
+        }
+      });
+    });
+  }
+  t('the blend split panel runs and agrees with the app\'s own draw volume',
+    bad.length === 0, bad.slice(0, 4).join(' | '));
+  t('the split-panel check actually ran', ran >= 18, ran + ' panel rows exercised');
+}
+
+/* The half-life chart window must fit the compound, not a constant. Modelled
+   half-lives here span 0.1 h to 840 h, so a fixed window is unreadable at one
+   end and truncated at the other: 42 days of a peptide that clears in an
+   afternoon is forty-two invisible spikes. Check that picking a compound
+   actually refits both the window and the dosing frequency. */
+{
+  const rel = 'tools/half-life-calculator/index.html';
+  if (exists(rel)) {
+    const { sandbox, el } = runPage(rel);
+    const bad = [];
+    if (typeof sandbox.hlPick !== 'function' || typeof sandbox.hlFitDays !== 'function') {
+      bad.push('hlPick()/hlFitDays() missing — the window is no longer adaptive');
+    } else {
+      /* The fit rule itself: five half-lives or five doses, whichever is wider. */
+      const fit = (hl, iv) => Math.min(120, Math.max(2, Math.round(Math.max(5 * hl, 5 * iv) / 24)));
+      const seen = [];
+      for (const id of Object.keys(sandbox.HL_PK)) {
+        const e = sandbox.HL_PK[id];
+        el('hl-compound').value = id;
+        sandbox.hlPick();
+        const days = parseFloat(el('hl-days').value);
+        const perWeek = parseFloat(el('hl-freq').value);
+        const want = fit(e.hl, 168 / perWeek);
+        if (days !== want) bad.push(`${id}: window ${days}d, fit rule says ${want}d`);
+        /* A compound whose own dosing rows state a frequency must select it. */
+        if (e.freq && perWeek !== e.freq) {
+          bad.push(`${id}: frequency ${perWeek}/wk, its dosing rows say ${e.freq}/wk`);
+        }
+        seen.push(days);
+      }
+      /* And the windows must actually differ across compounds — a rule that
+         returned the same number for everything would pass the check above
+         while being exactly the bug this guards. */
+      if (new Set(seen).size < 3) {
+        bad.push(`every compound got one of ${new Set(seen).size} window sizes — not adaptive`);
+      }
+    }
+    t('the half-life window fits each compound rather than a fixed default',
+      bad.length === 0, bad.slice(0, 3).join(' | '));
+  }
 }
 
 /* The combination checker, through the app's real checkInteractions(). */
@@ -575,6 +768,160 @@ for (const rel of pages) {
     bp.STATIC_PAGES.filter((u) => dated.includes(u)).join(', '));
 }
 
+/* ---- 6b. marker pages: the bands, the label, the sources --------------- */
+
+/* The sex and age tables are medical reference data generated by running
+   app.html's own getAdjustedLabRanges(). Re-derive every published row the same
+   way and compare cell by cell — a corrupted table would otherwise ship looking
+   entirely plausible. */
+{
+  const markers = require('./page-templates/pages-markers.js');
+  const L = require('./page-templates/markers-lib.js');
+  const registry = A.loadRegistry(app.src);
+  let cells = 0, bad = [], b5 = [];
+
+  /* Same synthetic profiles the generator used. */
+  const ranges = { Male: {}, Female: {} };
+  for (const sex of ['Male', 'Female']) {
+    for (const band of L.AGE_BANDS) ranges[sex][band.age] = A.loadRanges(sex, band.age, app.src);
+  }
+
+  for (const [, mk] of Object.entries(markers.MARKERS)) {
+    const rel = `markers/${mk.slug}/index.html`;
+    if (!exists(rel)) { bad.push(rel + ' missing'); continue; }
+    const html = read(rel);
+    const key = mk.keys[0];
+    const reg = registry.MARKER_REGISTRY[key];
+
+    /* §9: an optimal band must be labelled non-diagnostic wherever it is shown.
+       validate-markers.js asserts the app does this; a public page under the
+       founder's byline is held to the same rule. */
+    if (reg.optimal) {
+      const shown = `${reg.optimal[0]}–${reg.optimal[1]} ${reg.canonicalUnit}`;
+      t(`${mk.slug}: publishes the optimal band`, html.includes(shown), shown);
+      /* The label has to sit WITH the band, not merely somewhere on the page.
+         A page-wide presence test passed after the fact box's label was
+         stripped, because the shared "your lab's range wins" block still used
+         the word further down. Check the <dd> the band is printed in. */
+      const dd = html.match(
+        new RegExp('<dd>[^<]*' + shown.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s\\S]{0,300}?</dd>'));
+      t(`${mk.slug}: labels the optimal band non-diagnostic where it is shown`,
+        !!dd && /non-diagnostic/.test(dd[0]),
+        dd ? 'the band is published without the label beside it' : 'no fact-box row carries the band');
+    }
+
+    /* LOINC is an unverified seed (MARKERS.md). Shown without that caveat it
+       reads as a verified code. */
+    if (reg.loinc && reg.loinc.length && html.includes(reg.loinc[0])) {
+      t(`${mk.slug}: labels its LOINC codes unverified`, /unverified/i.test(html));
+    }
+
+    /* Every source is a real outbound link, and there are at least three. */
+    const srcIds = (html.match(/id="src-\d+"/g) || []).length;
+    t(`${mk.slug}: cites at least three sources`, srcIds >= 3, srcIds + ' sources');
+    const cited = new Set([...html.matchAll(/href="#src-(\d+)"/g)].map((m) => m[1]));
+    [...cited].forEach((n) => {
+      if (!html.includes(`id="src-${n}"`)) bad.push(`${mk.slug}: citation ${n} has no source entry`);
+    });
+
+    /* B-5 (COMPLIANCE-AUDIT.md), enforced rather than trusted. The app's SIDEFX
+       entries carry a `resp` array that names drugs at doses — cabergoline at
+       0.25 mg twice weekly, for one. That is fine inside a tool answering one
+       person; on an indexable page under the founder's byline it is exactly the
+       "you should take X mg" this project forbids. sidefxBlock() renders causes,
+       signs, labs and caution and never resp, and this makes that a checked fact
+       instead of a property of the current code. */
+    for (const e of app.SIDEFX) {
+      for (const r of (e.resp || [])) {
+        const probe = String(r).slice(0, 55);
+        if (probe.length > 25 && html.includes(probe)) {
+          b5.push(`${mk.slug}: "${probe}..."`);
+        }
+      }
+    }
+
+    /* Every unit the app accepts for this marker must have survived into the
+       page's inlined registry, and a function-valued conversion must still be a
+       function. JSON.stringify drops those silently: the HbA1c page shipped a
+       converter with no mmol/mol conversion at all until this was caught. */
+    {
+      const inlined = html.match(/var MARKER_REGISTRY = ([\s\S]*?);\n/);
+      if (!inlined) { bad.push(`${mk.slug}: no inlined registry`); }
+      else {
+        let pageReg = null;
+        try { pageReg = new Function('return ' + inlined[1])(); }
+        catch (e) { bad.push(`${mk.slug}: inlined registry does not evaluate — ${e.message}`); }
+        if (pageReg) {
+          for (const k of mk.keys) {
+            const want = registry.MARKER_REGISTRY[k];
+            const got = pageReg[k];
+            if (!got) { bad.push(`${mk.slug}: ${k} missing from the inlined registry`); continue; }
+            for (const [u, f] of Object.entries(want.units)) {
+              if (!(u in got.units)) {
+                bad.push(`${mk.slug}: unit "${u}" for ${k} was lost on the way to the page`);
+                continue;
+              }
+              if (typeof f === 'function') {
+                if (typeof got.units[u] !== 'function') {
+                  bad.push(`${mk.slug}: ${k} "${u}" is a formula in the app but not on the page`);
+                } else if (Math.abs(got.units[u](48) - f(48)) > 1e-9) {
+                  bad.push(`${mk.slug}: ${k} "${u}" formula disagrees with the app`);
+                }
+              } else if (got.units[u] !== f) {
+                bad.push(`${mk.slug}: ${k} "${u}" factor is ${got.units[u]}, app says ${f}`);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /* The sex and age table, cell by cell. */
+    const tableM = html.match(/<h3>How the app adjusts this range by sex and age<\/h3>[\s\S]*?<\/table>/);
+    if (!tableM) continue;   /* markers the app does not band have no table */
+    const rows = [...tableM[0].matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((r) =>
+      [...r[1].matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/g)].map((c) => c[1].replace(/<[^>]+>/g, '').trim()));
+
+    for (const row of rows.slice(1)) {
+      const m = row[0].match(/^(Male|Female),\s*(.+)$/);
+      if (!m) { bad.push(`${mk.slug}: unreadable band label "${row[0]}"`); continue; }
+      const sex = m[1];
+      /* Every band the label claims to cover must produce exactly this row. */
+      const covered = L.AGE_BANDS.filter((b) => {
+        const lbl = m[2];
+        if (lbl === 'all ages') return true;
+        let mm;
+        if ((mm = lbl.match(/^under (\d+)$/))) return b.from < +mm[1];
+        if ((mm = lbl.match(/^(\d+) and over$/))) return b.from >= +mm[1];
+        /* A bounded label must not swallow the open-ended top band: "30-39"
+           matched "60 and over" while b.to was null, which mismatched every
+           row after the first. */
+        if ((mm = lbl.match(/^(\d+)[–-](\d+)$/))) return b.from >= +mm[1] && b.to !== null && b.to <= +mm[2];
+        return b.label.toLowerCase() === lbl;
+      });
+      if (!covered.length) { bad.push(`${mk.slug}: band label "${row[0]}" covers nothing`); continue; }
+      for (const band of covered) {
+        cells++;
+        const r = ranges[sex][band.age][key];
+        if (!r) { bad.push(`${mk.slug}: no range for ${sex} ${band.label}`); continue; }
+        const wantRef = L.fmtRange(r.lo, r.hi, reg.canonicalUnit);
+        const wantOpt = r.olo != null ? L.fmtRange(r.olo, r.ohi, reg.canonicalUnit) : '—';
+        if (row[1] !== wantRef) {
+          bad.push(`${mk.slug} ${sex} ${band.label}: reference "${row[1]}", app says "${wantRef}"`);
+        }
+        if (row[2] !== wantOpt) {
+          bad.push(`${mk.slug} ${sex} ${band.label}: optimal "${row[2]}", app says "${wantOpt}"`);
+        }
+      }
+    }
+  }
+  t('no marker page publishes a SIDEFX response line (B-5: no "take X mg")',
+    b5.length === 0, b5.slice(0, 3).join(' | '));
+  t('every published sex/age band matches the app\'s own getAdjustedLabRanges()',
+    bad.length === 0, bad.slice(0, 4).join(' | '));
+  t('the sex/age cross-check actually ran', cells >= 20, cells + ' bands re-derived');
+}
+
 /* ---- 7. authored-word minimums and sibling similarity ------------------ */
 
 /* Words in the page's own prose: paragraphs, list items and subheadings, with
@@ -588,9 +935,16 @@ function authoredWords(html) {
     .replace(/<!--[\s\S]*?-->/g, '');
   /* Drop the excluded containers by class, non-greedily to the matching close
      of the block they open. The generated markup nests these predictably. */
-  ['widget', 'formula', 'cta-box', 'byline', 'disclaimer', 'foot', 'facts', 'tbl', 'topnav', 'crumbs']
+  /* `shared` marks boilerplate that is identical on every page of a type — the
+     "your lab's range wins" block, for one. Counting it would let a page hit its
+     minimum on text it did not write, which is exactly what the floor exists to
+     stop: a gutted marker page still cleared 600 words on boilerplate alone.
+     `sources`, `mon-list` and `sfx` are generated from app data or are link
+     lists, so they are not authored prose either. */
+  ['widget', 'formula', 'cta-box', 'byline', 'disclaimer', 'foot', 'facts', 'tbl',
+   'topnav', 'crumbs', 'shared', 'sources', 'mon-list', 'sfx', 'cards']
     .forEach((cls) => {
-      const re = new RegExp(`<(div|figure)[^>]*class="[^"]*\\b${cls}\\b[^"]*"[\\s\\S]*?<\\/\\1>`, 'g');
+      const re = new RegExp(`<(div|figure|ol|ul)[^>]*class="[^"]*\\b${cls}\\b[^"]*"[\\s\\S]*?<\\/\\1>`, 'g');
       s = s.replace(re, ' ');
     });
   s = s.replace(/<figcaption[\s\S]*?<\/figcaption>/g, ' ')

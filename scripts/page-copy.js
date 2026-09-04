@@ -37,6 +37,17 @@ function llmsTxt(pages) {
     .filter((p) => /^\/tools\/half-life\/[^/]+\/$/.test(p.url))
     .map((p) => `- ${p.url}: ${title(p.html)}`);
 
+  const markerHub = line('/markers/');
+  const markers = pages
+    .filter((p) => /^\/markers\/[^/]+\/$/.test(p.url))
+    .map((p) => `- ${p.url}: ${title(p.html)} — ${desc(p.html)}`);
+
+  /* Blend pages carry their community nicknames, because that is what someone
+     asking an assistant about one will have typed. */
+  const blends = pages
+    .filter((p) => /-blend-calculator\/$/.test(p.url))
+    .map((p) => `- ${p.url}: ${title(p.html)} — ${desc(p.html)}`);
+
   return `# TherapyLog
 
 > TherapyLog is a web-based TRT (testosterone replacement therapy) and peptide
@@ -105,6 +116,20 @@ volume, the modelled half-life, and the storage rule.
 
 ${recon.join('\n')}
 
+### Pre-mixed multi-peptide blends
+
+A blend vial holds several peptides dissolved in the same water, so one draw
+takes all of them in the ratio the vial was compounded at. These pages compute
+what a single draw delivers of each component and compare it against what the
+literature and community practice describe for that compound on its own; the two
+rarely match, because the ratio is fixed by whoever filled the vial. Ratios are
+not standardised, so each page takes the numbers from the reader's own label.
+The BPC-157 and TB-500 vial is widely known by the community nickname the
+"Wolverine blend" or "Wolverine stack"; GLOW is GHK-Cu with BPC-157 and TB-500;
+KLOW is GLOW with KPV added.
+
+${blends.join('\n')}
+
 ### Half-life and steady state, per compound
 
 Each carries the single-dose and repeated-dose curves pre-rendered from the app's
@@ -128,6 +153,22 @@ standard), total testosterone (immunoassay versus LC/MS-MS), free versus total
 testosterone, SHBG, hematocrit on testosterone therapy, prolactin, LH and FSH,
 IGF-1, HbA1c and fasting glucose, ApoB versus LDL, lipoprotein(a), ferritin and
 the iron panel, vitamin D, the thyroid panel, and DHT.
+
+## Lab marker reference
+
+Written with the assay method named wherever it changes the interpretation —
+sensitive (LC/MS-MS) versus standard immunoassay estradiol, direct versus
+calculated versus equilibrium-dialysis free testosterone, and so on. Each page
+carries the accepted units and their conversion factors, the assay variants the
+app tracks, the generic reference range labelled as generic, the non-diagnostic
+optimal band where one exists, the sex and age bands generated from the app's own
+range function, a unit converter running the app's own conversion code, and cited
+primary sources. The reference interval printed on the reader's own report always
+takes precedence over any generic range shown.
+
+${markerHub}
+
+${markers.join('\n')}
 
 ## Disclaimer
 

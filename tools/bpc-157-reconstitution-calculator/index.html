@@ -84,6 +84,38 @@ a:hover{text-decoration:underline}
 .callout p:last-child{margin-bottom:0}
 .note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
 .note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
 .facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
 .facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
 .facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
@@ -280,6 +312,9 @@ body.og-card .wrap{display:none}
      rule the constraint is the diluent rather than the peptide — bacteriostatic water's
      preservative is what makes repeated entry reasonable, and it is the reason a mixed vial is
      a weeks-not-months proposition.</p>
+
+    <h2>Sold as part of a blend?</h2>
+    <p>BPC-157 is very often sold pre-mixed with TB-500 in one vial — usually five milligrams of each at the low end — under the community nickname the <strong>Wolverine blend</strong>. If that is what you are holding, this page's arithmetic is only half the story: a draw takes both compounds in the vial's ratio, and a 1:1 vial cannot deliver each at the amounts described for it on its own. The <a href="/tools/bpc-157-tb-500-blend-calculator/">BPC-157 and TB-500 blend calculator</a> works out what a single draw contains of each. BPC-157 also appears in the multi-peptide <a href="/tools/glow-peptide-blend-calculator/">GLOW</a> and <a href="/tools/klow-peptide-blend-calculator/">KLOW</a> vials.</p>
 
     <p>Related: <a href="/tools/half-life/bpc-157/">BPC-157 half-life and steady state</a>,
       the <a href="/tools/peptide-reconstitution-calculator/">generic reconstitution calculator</a>,

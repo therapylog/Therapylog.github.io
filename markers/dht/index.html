@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DHT: what the result means and the cost of lowering it | TherapyLog</title>
+<meta name="description" content="Dihydrotestosterone is more than a hair-loss number. What a serum DHT can and cannot tell you, why gels raise it, and what 5-ARI suppression really costs.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/markers/dht/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="DHT: what the result means and the cost of lowering it | TherapyLog"><meta property="og:description" content="Dihydrotestosterone is more than a hair-loss number. What a serum DHT can and cannot tell you, why gels raise it, and what 5-ARI suppression really costs."><meta property="og:url" content="https://therapylog.app/markers/dht/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="DHT: what the result means and the cost of lowering it | TherapyLog"><meta name="twitter:description" content="Dihydrotestosterone is more than a hair-loss number. What a serum DHT can and cannot tell you, why gels raise it, and what 5-ARI suppression really costs."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/markers/">Lab markers</a> &rsaquo; DHT (dihydrotestosterone)</div>
+    <h1>DHT (dihydrotestosterone): what the result means, and what lowering it costs</h1>
+
+    <p class="lede">Almost every page about DHT treats it as a number to get rid of. The more useful questions are what a serum DHT result can actually tell you — which is less than you would hope — and what you give up if you decide to suppress it.</p>
+
+    <div class="updated">Last reviewed: 4 September 2026</div>
+
+    <h2>DHT is not a stronger testosterone. It is a different compartment.</h2>
+    <p>Dihydrotestosterone is testosterone with a single double bond reduced away. The enzyme that does it, 5-alpha-reductase, comes in two main isoforms with different homes: type 1 in skin, sebaceous glands and liver, type 2 in the prostate, genital skin and the hair follicle. The reaction runs one way. DHT cannot be converted back to testosterone, and it is not a substrate for aromatase, so unlike testosterone it never becomes estradiol.</p>
+    <p><span class="ev ev-est">Established clinical use</span> At the androgen receptor DHT is the stronger ligand. In classical binding work on the human androgen receptor, DHT bound with roughly twice the affinity of testosterone, and testosterone came off the receptor about five times faster <sup class="cite"><a href="#src-1">1</a></sup>. That is where the folk version comes from — <em>DHT is the real androgen, testosterone is just the precursor</em>. The same experiments undercut it: at high enough concentrations, testosterone occupied and activated the receptor much as DHT did <sup class="cite"><a href="#src-1">1</a></sup>. Greater potency is not exclusivity.</p>
+    <p><span class="ev ev-est">Established clinical use</span> The second point is the one most pages skip. Blood is not where DHT does its work. Circulating DHT sits at roughly a tenth of circulating testosterone, because most DHT is made inside target tissue from testosterone that arrived there, used locally, and only then leaked out — and intracellular androgen concentrations in androgen-sensitive tissue are substantially independent of circulating concentrations <sup class="cite"><a href="#src-2">2</a></sup>. A serum DHT is a spillover reading from a process happening somewhere you are not sampling. It is a real measurement. It is a weak proxy for what your scalp or prostate is seeing.</p>
+
+    <h2>Three units and an assay that changes the answer</h2>
+    <p>DHT is reported in at least three units, and the spread between them is wide enough to cause real errors. The canonical unit here is ng/dL. A pg/mL figure is ten times the ng/dL figure, so 450 pg/mL and 45 ng/dL are the same blood. A nmol/L figure is the ng/dL figure divided by 29.04, so a generic 30–85 ng/dL band is 300–850 pg/mL, or 1.03–2.93 nmol/L. The predictable failure is seeing 450 on a report written in pg/mL, comparing it against a range written in ng/dL, and concluding you are five times over the top when you are sitting mid-band. Check the unit before you interpret the number, and use the interval your own laboratory printed rather than any generic band, including the one on this page.</p>
+    <p><span class="ev ev-est">Established clinical use</span> Method matters more for DHT than for almost any other androgen, for the same reason it matters for estradiol in men: the analyte sits near the bottom of what an immunoassay resolves, and the compound it most resembles chemically is present at ten times the concentration. When a validated LC-MS/MS method was compared with established immunoassay methods, serum DHT read consistently lower by mass spectrometry, and chromatographic clean-up before the immunoassay narrowed the gap — the signature of interfering substances rather than of genuinely higher DHT <sup class="cite"><a href="#src-3">3</a></sup>. The same work found even the collection tube could shift results, with fluoride tubes giving DHT around 15% lower than plain tubes <sup class="cite"><a href="#src-3">3</a></sup>. The parallel argument for estradiol is laid out <a href="/markers/estradiol-sensitive-vs-standard/">here</a>.</p>
+    <p>The practical consequence is dull and important. Record the method beside every DHT you log. An immunoassay DHT and an LC-MS/MS DHT drawn a month apart are not two points on a trend; they are two different measurements sharing a name. If a DHT looks high and the report does not say how it was produced, the first question is not what to do about the level.</p>
+
+    <h2>Why DHT climbs on testosterone therapy, and why gels climb hardest</h2>
+    <p><span class="ev ev-est">Established clinical use</span> DHT rises when testosterone rises, roughly in proportion, because testosterone is the substrate. Less widely known is that the route changes the ratio and not only the level. A steady-state comparison of a transdermal testosterone patch against a transdermal gel in hypogonadal men found DHT concentrations and DHT/testosterone ratios two- to three-fold higher on the gel <sup class="cite"><a href="#src-4">4</a></sup>. Manufacturer labelling for a testosterone gel reports DHT rising in parallel with testosterone throughout treatment, with steady-state DHT/testosterone ratios of roughly 0.23 to 0.33 depending on how much was applied <sup class="cite"><a href="#src-5">5</a></sup>.</p>
+    <p>The mechanism is not mysterious. Skin is rich in 5-alpha-reductase and a gel is spread across a large area of it, so a meaningful fraction of the dose is reduced on the way in. An injection largely bypasses that. This is worth knowing before you reach for a pathological explanation: a raised DHT and a raised DHT/testosterone ratio on a transdermal preparation is the expected pharmacology of that route. The same absolute number would mean something different on an injectable.</p>
+    <p><span class="ev ev-est">Established clinical use</span> Whether the elevation causes harm is a separate question, and the honest answer is that the evidence is thinner than either camp claims. The most thorough review of the subject concluded that available data are limited by the absence of large, long, well-controlled trials, and that on balance modest elevations of circulating DHT during testosterone replacement do not appear to have adverse effects <sup class="cite"><a href="#src-2">2</a></sup>. That is a cautious conclusion, not a clean bill of health. It sits alongside practice: the Endocrine Society guideline builds monitoring around symptoms, serum testosterone, haematocrit and prostate assessment, and does not make DHT a routine monitoring target <sup class="cite"><a href="#src-6">6</a></sup>. If a high DHT on a gel is bothering you, the lever that moves it is the route, and route is a prescription decision — take the result, with its method and its units, to the clinician who prescribes for you.</p>
+
+    <h2>Hair loss is a sensitivity, not a level</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Hair is the most common reason people order a DHT, and it is the question the test is least able to answer. When serum DHT was measured in people with androgenetic alopecia and compared with controls, mean DHT did not differ significantly between the groups, and higher DHT did not track with more advanced alopecia; raised concentrations turned up in the control group as well <sup class="cite"><a href="#src-7">7</a></sup>. The authors' own conclusion was that the decisive variable is the genetically determined sensitivity of the follicle, not the amount of DHT available to it <sup class="cite"><a href="#src-7">7</a></sup>.</p>
+    <p><span class="ev ev-theo">Animal-only or theoretical</span> That fits the compartment argument above. Balding and non-balding scalp differ in local 5-alpha-reductase activity and androgen receptor density, so the exposure that matters is generated and read inside the follicle, largely uncoupled from what is circulating <sup class="cite"><a href="#src-2">2</a></sup>. This is mechanism and extrapolation rather than a demonstrated causal chain in individual people, and it should be held loosely — but it explains the observation cleanly. Two men with identical serum DHT can have entirely different scalps.</p>
+    <p>So here is what a DHT result cannot do. It cannot tell you whether you will lose hair. It cannot tell you that you have too much DHT for your follicles, because there is no threshold to compare against. A DHT inside 30–85 ng/dL does not protect you, and one above 85 ng/dL is not a diagnosis. Being outside a generic band is not a finding. If your hair is receding, the informative examination is of your scalp and your family history, not of your serum.</p>
+
+    <h2>What suppression actually costs</h2>
+    <p><span class="ev ev-est">Established clinical use</span> 5-alpha-reductase inhibitors work, in the narrow sense that they do what they promise to the number. In a year-long randomised placebo-controlled trial, dutasteride suppressed serum DHT by about 94% and finasteride by about 73% at the doses studied, while serum testosterone rose transiently <sup class="cite"><a href="#src-8">8</a></sup>. Dutasteride inhibits both isoforms; finasteride is selective for type 2, which is why one suppresses more deeply than the other. If your only objective is a lower DHT on a report, these drugs deliver it comprehensively.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> Adding a 5-alpha-reductase inhibitor to testosterone therapy specifically to blunt the DHT rise is common in this community and among some clinicians who prescribe testosterone, but it is not an approved indication — the licensed indications are male pattern hair loss and benign prostatic hyperplasia. What the trial evidence says about the cost is genuinely mixed. A meta-analysis of randomised controlled trials found these drugs associated with increased sexual dysfunction overall, with pooled relative risks above one for erectile dysfunction and for reduced libido in men treated for prostate enlargement, while the same association in the hair-loss trials was smaller and did not reach statistical significance <sup class="cite"><a href="#src-9">9</a></sup>.</p>
+    <p>That inconsistency deserves stating rather than smoothing. A review of the same drug class from a urological perspective reached close to the opposite conclusion: that 5-alpha-reductase inhibitors do not cause erectile dysfunction to a clinically significant degree, and that DHT is less relevant than testosterone to erectile function in the first place <sup class="cite"><a href="#src-10">10</a></sup>. Both readings are defensible from the published data. What they share is that the effect, where it exists, is a minority effect. The community claim that these drugs reliably destroy libido is not supported by the trials. Neither is the counter-claim that the risk is zero.</p>
+    <p><span class="ev ev-est">Established clinical use</span> The persistence question is where the argument gets hot, and where the regulatory record is clearer than the science. United States labelling for the finasteride product licensed for hair loss lists sexual adverse reactions — erectile dysfunction, libido disorders, ejaculation and orgasm disorders — reported to have continued after the drug was stopped, and lists depression and suicidal ideation among reported adverse reactions <sup class="cite"><a href="#src-11">11</a></sup>. The European Medicines Agency completed a formal review of finasteride- and dutasteride-containing products and required measures to minimise the risk of suicidal thoughts <sup class="cite"><a href="#src-12">12</a></sup>. None of that establishes causation; adding a reported adverse reaction to a label is not a finding of cause. Whether post-finasteride syndrome is a distinct clinical entity, how often it occurs, whether it persists and by what mechanism all remain disputed in the peer-reviewed literature <sup class="cite"><a href="#src-13">13</a></sup>.</p>
+    <div class="sfx">
+      <h3>Hair shedding</h3>
+      <p><strong>What drives it:</strong> DHT and DHT-derived compounds in the androgen-sensitive.</p>
+      <p><strong>What people report:</strong> Increased shed at the crown and temples, visible in the drain.</p>
+      <p><strong>What to measure:</strong> None useful — genetics decide this one.</p>
+      <p class="caution"><strong>Worth knowing:</strong> Do not combine finasteride with nandrolone — 5-AR converts nandrolone to a weaker androgen in the scalp, and blocking it makes nandrolone harsher on hair, not gentler.</p>
+      <p class="clin">Anything here is a reason to talk to the clinician who prescribes for you,
+      with the result and the assay in front of you — not a reason to change a protocol on your
+      own.</p>
+    </div>
+    <p>The shape of the decision is therefore this: a drug that reliably removes most of your circulating DHT, in exchange for a modest and contested increase in sexual and mood adverse effects, plus a rare, unresolved and severe tail the literature has not settled. That is a real trade with real numbers on both sides — not a free win, and not a catastrophe. It is also not a trade to make from a lab result, because the lab result cannot tell you how likely you are to lose hair in the first place. Take the question, the DHT value, its assay method and your actual scalp to the clinician who would write the prescription, monitor it and stop it. That is the person who has to hold both halves of the trade.</p>
+
+    <h2>What the app records for this marker</h2>
+
+    <div class="facts">
+      <dl>
+        <dt>Marker</dt><dd>DHT</dd>
+        <dt>Panel group</dt><dd>hormones</dd>
+        <dt>Canonical unit</dt><dd>ng/dL</dd>
+        <dt>Units accepted</dt><dd><strong>ng/dL</strong> <em>(canonical)</em><br>pg/mL <em>(× 0.1 → ng/dL)</em><br>nmol/L <em>(× 29.04 → ng/dL)</em></dd>
+        <dt>Generic reference range</dt><dd>30–85 ng/dL <em>— generic reference range, male default. Your lab's printed interval takes precedence over this.</em></dd>
+      </dl>
+    </div>
+
+    <h3>How the app adjusts this range by sex and age</h3>
+
+    <p>Generated by running the app's own range function against each band, so
+    this table cannot drift from what the app flags against. The optimal column is
+    <span class="nondx">non-diagnostic</span> throughout.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Who</th><th>Reference range</th><th>Optimal band</th></tr></thead>
+        <tbody>
+          <tr><td>Male, all ages</td><td class="num">30–85 ng/dL</td><td class="num">—</td></tr>
+          <tr><td>Female, all ages</td><td class="num">4–22 ng/dL</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="widget">
+      <div class="card">
+        <div class="card-title">Unit converter</div>
+        <p class="hint">Runs the app's own conversion, which means it refuses the
+        conversions the app refuses instead of approximating them.</p>
+        <div class="ig"><label class="il" for="mk-key">Marker</label>
+          <select id="mk-key" onchange="mkConvert()"><option value="dht">DHT</option></select></div>
+        <div class="ig"><label class="il" for="mk-val">Value as your report prints it</label>
+          <input id="mk-val" type="text" inputmode="decimal" placeholder="e.g. 96" oninput="mkConvert()"></div>
+        <div class="ig"><label class="il" for="mk-unit">Unit on your report</label>
+          <select id="mk-unit" onchange="mkConvert()"></select></div>
+        <div id="mk-out"></div>
+      </div>
+    </div>
+
+    <div class="shared">
+    <h2>Your lab's range wins</h2>
+    <p>The reference interval printed on your own report is the one that counts, and it is the
+    one TherapyLog flags against when your report carries it. That is not deference for its own
+    sake: a reference interval belongs to the assay, the instrument and the population the lab
+    validated it on, and two labs measuring the same blood can legitimately print different
+    intervals. A generic range — like the one in the fact box above — is what the app falls back
+    to when your report did not include one, and it is the weaker of the two.</p>
+    <p>The same applies to any optimal band. Those are drawn from clinical literature and
+    community practice for reading a trend over time, they are
+    <span class="nondx">non-diagnostic</span>, and sitting outside one is not by itself a
+    finding. What a value means for you is a question for the clinician who can see your whole
+    chart.</p>
+    </div>
+
+    <h2>Compounds whose monitoring panel includes this marker</h2>
+
+    <p>Generated by matching this marker's own aliases against the monitoring note on every
+      compound in the app's reference, so the list is the app's, not an author's.</p>
+
+    <ul class="mon-list">
+      <li>Dutasteride / Finasteride <span class="src">Total T, Free T, DHT levels (if testing available), PSA, sexual function self-assessment monthly.</span></li>
+      <li>Proviron <span class="src">Free Testosterone; SHBG; Estradiol (E2); Lipid panel; DHT</span></li>
+    </ul>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>What is a normal DHT level?</h3>
+    <p>A commonly quoted adult male range is 30 to 85 ng/dL, which is 300 to 850 pg/mL or 1.03 to
+           2.93 nmol/L. Published ranges vary widely between laboratories — some report 11 to 95 ng/dL
+           — because they depend on the assay and the reference population used to set them.</p>
+    <p>Use the interval printed on your own report. It is the only range matched to the method that
+           produced your number. A generic band, including the one quoted here, is a fallback for when
+           your report does not give one.</p>
+    <h3>My DHT is high on a testosterone gel. Is that a problem?</h3>
+    <p>A raised DHT and a raised DHT-to-testosterone ratio on a transdermal preparation is the
+           expected pharmacology of that route rather than a sign that something has gone wrong. Skin
+           is rich in 5-alpha-reductase and a gel is applied across a large area of it, so a meaningful
+           share of the dose is converted on the way in. Patch-versus-gel comparisons found gel DHT and
+           DHT/testosterone ratios two- to three-fold higher.</p>
+    <p>The best available review concluded that modest elevations of circulating DHT during
+           testosterone replacement do not appear to cause harm, while noting that large, long,
+           well-controlled trials do not exist. If the number bothers you, the variable that actually
+           moves it is the route of administration, and that is a conversation with your prescribing
+           clinician.</p>
+    <h3>Does a high DHT mean I am going to lose my hair?</h3>
+    <p>No. Serum DHT does not separate people with androgenetic alopecia from people without it,
+           and it does not track with how advanced the hair loss is. Raised serum DHT appears in people
+           with full heads of hair.</p>
+    <p>Hair loss is driven by the genetically determined sensitivity of the follicle and by local
+           androgen metabolism inside the scalp, which is largely uncoupled from what is circulating.
+           That is why a DHT result cannot predict who loses hair, and why a result inside the
+           reference range is not protective.</p>
+    <h3>Will finasteride or dutasteride ruin my libido?</h3>
+    <p>The evidence points in both directions and it is worth knowing that honestly. A
+           meta-analysis of randomised trials found an increased relative risk of erectile dysfunction
+           and reduced libido in men treated for prostate enlargement, with a weaker, non-significant
+           signal in the hair-loss trials. A urological review of the same class concluded the drugs do
+           not cause erectile dysfunction to a clinically significant degree.</p>
+    <p>Where an effect exists it is a minority effect, and most people who take these drugs do not
+           report sexual dysfunction. Regulators in the United States and Europe have added persistent
+           sexual adverse reactions and psychiatric warnings to the labelling, but causality and
+           persistence remain disputed. This is a genuine trade-off to work through with the clinician
+           who would prescribe and monitor it.</p>
+    <h3>Should I ask for an LC-MS/MS DHT rather than an immunoassay?</h3>
+    <p>Method matters more for DHT than for most androgens, for the same reason it matters for
+           estradiol in men. DHT circulates at roughly a tenth of testosterone, near the bottom of what
+           immunoassays resolve, and testosterone is chemically similar enough to interfere.
+           Immunoassay reads DHT higher than mass spectrometry, and the gap closes when interfering
+           substances are removed by chromatography.</p>
+    <p>The practical rule is to record the method alongside every result. An immunoassay DHT and an
+           LC-MS/MS DHT are not two points on the same trend line, and comparing them will manufacture
+           a change that never happened.</p>
+    <h3>How do I convert DHT between pg/mL, ng/dL and nmol/L?</h3>
+    <p>Multiply pg/mL by 0.1 to get ng/dL. Multiply nmol/L by 29.04 to get ng/dL. So 450 pg/mL is
+           45 ng/dL, and 2.0 nmol/L is about 58 ng/dL.</p>
+    <p>The pg/mL and ng/dL confusion is the one that causes real alarm, because a pg/mL number
+           looks ten times larger than the range it is being compared against. Check the unit printed
+           on the report before drawing any conclusion from the value.</p>
+
+    <h2>Sources</h2>
+
+    <p>Every claim above that is not a definition is either labelled by evidence tier or
+    carries a numbered reference to one of these.</p>
+
+    <ol class="sources">
+      <li id="src-1">
+        <a href="https://academic.oup.com/endo/article-abstract/126/2/1165/2533187" rel="nofollow noopener" target="_blank">Grino PB, Griffin JE, Wilson JD. Testosterone at high concentrations interacts with the human androgen receptor similarly to dihydrotestosterone. Endocrinology 1990;126(2):1165-1172.</a>
+        <span class="src">Direct binding data: DHT binds the human androgen receptor with about twice the affinity of testosterone and testosterone dissociates roughly five times faster, but testosterone at high concentration behaves much like DHT at the receptor.</span>
+      </li>
+      <li id="src-2">
+        <a href="https://academic.oup.com/edrv/article/38/3/220/3788611" rel="nofollow noopener" target="_blank">Swerdloff RS, Dudley RE, Page ST, Wang C, Salameh WA. Dihydrotestosterone: Biochemistry, Physiology, and Clinical Implications of Elevated Blood Levels. Endocrine Reviews 2017;38(3):220-254.</a>
+        <span class="src">The most complete review of what raised circulating DHT means; establishes that DHT runs at roughly a tenth of testosterone, that intracellular androgen concentrations are largely independent of circulating levels, and that modest elevations during testosterone replacement do not appear to have adverse effects on the available (limited) evidence.</span>
+      </li>
+      <li id="src-3">
+        <a href="https://www.sciencedirect.com/science/article/abs/pii/S0039128X08001426" rel="nofollow noopener" target="_blank">Wang C, Shiraishi S, Leung A, Baravarian S, Hull L, Goh V, Lee PWN, Swerdloff RS. Validation of a testosterone and dihydrotestosterone liquid chromatography tandem mass spectrometry assay: interference and comparison with established methods. Steroids 2008;73(13):1345-1352.</a>
+        <span class="src">Establishes that immunoassay reads DHT higher than LC-MS/MS because of interfering substances, and that collection tube chemistry alters measured testosterone and DHT.</span>
+      </li>
+      <li id="src-4">
+        <a href="https://www.sciencedirect.com/science/article/abs/pii/S1743609515311565" rel="nofollow noopener" target="_blank">Comparison of the Steady-State Pharmacokinetics, Metabolism, and Variability of a Transdermal Testosterone Patch Versus a Transdermal Testosterone Gel in Hypogonadal Men. The Journal of Sexual Medicine.</a>
+        <span class="src">Head-to-head route comparison finding DHT concentrations and DHT/testosterone ratios two- to three-fold higher on the gel than on the patch.</span>
+      </li>
+      <li id="src-5">
+        <a href="https://www.accessdata.fda.gov/drugsatfda_docs/label/2007/021015s019s020lbl.pdf" rel="nofollow noopener" target="_blank">AndroGel (testosterone gel) US prescribing information, US Food and Drug Administration.</a>
+        <span class="src">Regulatory labelling showing DHT rising in parallel with testosterone during transdermal gel treatment, with steady-state DHT/testosterone ratios of roughly 0.23 to 0.33.</span>
+      </li>
+      <li id="src-6">
+        <a href="https://academic.oup.com/jcem/article/103/5/1715/4939465" rel="nofollow noopener" target="_blank">Bhasin S, Brito JP, Cunningham GR, et al. Testosterone Therapy in Men With Hypogonadism: An Endocrine Society Clinical Practice Guideline. J Clin Endocrinol Metab 2018;103(5):1715-1744.</a>
+        <span class="src">The guideline framework for monitoring testosterone therapy: symptoms, serum testosterone, haematocrit and prostate assessment, with DHT not a routine monitoring target.</span>
+      </li>
+      <li id="src-7">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/25254005/" rel="nofollow noopener" target="_blank">Urysiak-Czubatka E, Kmieć ML, Broniarczyk-Dyła G. Assessment of the usefulness of dihydrotestosterone in the diagnostics of patients with androgenetic alopecia. Postepy Dermatol Alergol 2014;31(4):207-215.</a>
+        <span class="src">Found no significant difference in mean serum DHT between people with androgenetic alopecia and controls, and no correlation between serum DHT and severity of hair loss.</span>
+      </li>
+      <li id="src-8">
+        <a href="https://academic.oup.com/jcem/article/89/5/2179/2844345" rel="nofollow noopener" target="_blank">Clark RV, Hermann DJ, Cunningham GR, Wilson TH, Morrill BB, Hobbs S. Marked suppression of dihydrotestosterone in men with benign prostatic hyperplasia by dutasteride, a dual 5α-reductase inhibitor. J Clin Endocrinol Metab 2004;89(5):2179-2184.</a>
+        <span class="src">Randomised placebo-controlled comparison quantifying serum DHT suppression at one year: approximately 94% with dutasteride and 73% with finasteride.</span>
+      </li>
+      <li id="src-9">
+        <a href="https://academic.oup.com/jsm/article-abstract/13/9/1297/6940473" rel="nofollow noopener" target="_blank">Liu L, Zhao S, Li F, et al. Effect of 5α-Reductase Inhibitors on Sexual Function: A Meta-Analysis and Systematic Review of Randomized Controlled Trials. J Sex Med 2016;13(9):1297-1310.</a>
+        <span class="src">Pooled randomised trial data showing increased relative risk of sexual dysfunction, erectile dysfunction and reduced libido in benign prostatic hyperplasia populations, with a weaker and non-significant association in androgenetic alopecia trials.</span>
+      </li>
+      <li id="src-10">
+        <a href="https://onlinelibrary.wiley.com/doi/full/10.2164/jandrol.108.005025" rel="nofollow noopener" target="_blank">Canguven O, Burnett AL. The effect of 5α-reductase inhibitors on erectile function. J Androl 2008;29(5):514-523.</a>
+        <span class="src">A review reaching the opposing conclusion — that 5-alpha-reductase inhibitors do not cause erectile dysfunction to a significant degree, and that DHT is less relevant than testosterone to erectile function.</span>
+      </li>
+      <li id="src-11">
+        <a href="https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/020788s030lbl.pdf" rel="nofollow noopener" target="_blank">PROPECIA (finasteride) tablets, US prescribing information, US Food and Drug Administration, 2022.</a>
+        <span class="src">Current US labelling listing sexual adverse reactions reported to continue after discontinuation, and depression and suicidal ideation among reported adverse reactions.</span>
+      </li>
+      <li id="src-12">
+        <a href="https://www.ema.europa.eu/en/documents/referral/finasteride-dutasteride-containing-medicinal-products-article-31-referral-measures-minimise-risk-suicidal-thoughts_en.pdf" rel="nofollow noopener" target="_blank">European Medicines Agency. Finasteride- and dutasteride-containing medicinal products: Article 31 referral — measures to minimise the risk of suicidal thoughts.</a>
+        <span class="src">The European regulator's formal review outcome requiring risk-minimisation measures for suicidal thoughts with 5-alpha-reductase inhibitors.</span>
+      </li>
+      <li id="src-13">
+        <a href="https://www.nature.com/articles/s41443-025-01025-6" rel="nofollow noopener" target="_blank">Cilio S, et al. Post-finasteride syndrome — a true clinical entity? International Journal of Impotence Research, 2025.</a>
+        <span class="src">Recent peer-reviewed review showing that the existence, frequency, persistence and mechanism of post-finasteride syndrome remain actively disputed.</span>
+      </li>
+    </ol>
+
+    <div class="cta-box">
+      <p>TherapyLog logs this marker with the unit, the reference interval your report printed and the assay method beside it, so a trend cannot silently switch methods on you.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=dht"
+         id="tl-cta" data-campaign="dht">Log your bloodwork</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+
+var MARKER_REGISTRY = {
+  "dht": Object.assign({"label":"DHT","group":"hormones","loinc":[],"aliases":["dht","dihydrotestosterone","dihydrotestosterone, serum"],"canonicalUnit":"ng/dL"}, { units: { "ng/dL": 1, "pg/mL": 0.1, "nmol/L": 29.04 } })
+};
+
+const _norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+function normalizeValue(key, value, unit) {
+const m = MARKER_REGISTRY[key];
+if (!m) return { ok:false, reason:'unknown-marker' };
+
+const raw = String(value == null ? '' : value).trim();
+const v = typeof value === 'number' ? value : parseFloat(raw.replace(/[<>,]/g, ''));
+if (!isFinite(v)) return { ok:false, reason:'non-numeric' };
+/* "<3" is an assay limit, not the number 3 — keep the operator as provenance. */
+const censoredAs = /^[<>]/.test(raw) ? raw : null;
+
+const u = String(unit == null ? '' : unit).trim();
+const uKey = Object.keys(m.units).find(k => _norm(k) === _norm(u));
+
+if (!u || uKey === m.canonicalUnit) {
+return { ok:true, value:v, unit:m.canonicalUnit, converted:false, unitAssumed:!u, censoredAs };
+}
+if ((m.noConvert || []).some(n => _norm(n) === _norm(u))) {
+return { ok:false, reason:'no-valid-conversion', unit:u, note:m.unitNote };
+}
+if (!uKey) return { ok:false, reason:'unrecognized-unit', unit:u };
+
+const f = m.units[uKey];
+const out = typeof f === 'function' ? f(v) : v * f;
+return { ok:true, value:Math.round(out * 1e4) / 1e4, unit:m.canonicalUnit,
+converted:true, from:`${raw || v} ${u}`, note:m.unitNote, censoredAs };
+}
+
+
+function mkUnits() {
+  var key = document.getElementById('mk-key').value;
+  var sel = document.getElementById('mk-unit');
+  var m = MARKER_REGISTRY[key];
+  var keep = sel.value;
+  sel.innerHTML = Object.keys(m.units).concat(m.noConvert || [])
+    .map(function (u) { return '<option value="' + u + '">' + u + '</option>'; }).join('');
+  if (keep && Object.keys(m.units).concat(m.noConvert || []).indexOf(keep) >= 0) sel.value = keep;
+}
+
+function mkConvert() {
+  var key = document.getElementById('mk-key').value;
+  var out = document.getElementById('mk-out');
+  if (document.getElementById('mk-unit').options.length === 0 ||
+      !MARKER_REGISTRY[key].units[document.getElementById('mk-unit').value] &&
+      (MARKER_REGISTRY[key].noConvert || []).indexOf(document.getElementById('mk-unit').value) < 0) {
+    mkUnits();
+  }
+  var raw = document.getElementById('mk-val').value;
+  if (!raw.trim()) { out.innerHTML = '<p class="hint">Enter a value to convert.</p>'; return; }
+  var r = normalizeValue(key, raw, document.getElementById('mk-unit').value);
+  if (r.ok) {
+    out.innerHTML = '<div class="mk-result"><strong>' + r.value + ' ' + r.unit + '</strong>' +
+      (r.converted ? '<span class="src">converted from ' + r.from + '</span>'
+                   : '<span class="src">already in the canonical unit</span>') +
+      (r.censoredAs ? '<span class="src">reported as ' + r.censoredAs +
+        ' — an assay limit, not a measured value</span>' : '') +
+      (r.note ? '<span class="src">' + r.note + '</span>' : '') + '</div>';
+  } else {
+    var why = {
+      'no-valid-conversion': 'There is no valid conversion for that unit, so the app refuses it rather than approximating.',
+      'unrecognized-unit': 'That unit is not one this marker is reported in.',
+      'non-numeric': 'That is not a number the converter can read.',
+      'unknown-marker': 'Unknown marker.'
+    }[r.reason] || r.reason;
+    out.innerHTML = '<div class="mk-result bad"><strong>Not converted</strong><span class="src">' +
+      why + (r.note ? ' ' + r.note : '') + '</span></div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  mkUnits(); mkConvert();
+});
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://therapylog.app/markers/dht/#page",
+      "url": "https://therapylog.app/markers/dht/",
+      "name": "DHT: what the result means and the cost of lowering it | TherapyLog",
+      "description": "Dihydrotestosterone is more than a hair-loss number. What a serum DHT can and cannot tell you, why gels raise it, and what 5-ARI suppression really costs.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-04",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Lab markers",
+            "item": "https://therapylog.app/markers/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "DHT (dihydrotestosterone)",
+            "item": "https://therapylog.app/markers/dht/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

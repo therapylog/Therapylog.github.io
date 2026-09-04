@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lp(a): nmol/L vs mg/dL and why we won't convert | TherapyLog</title>
+<meta name="description" content="Lp(a) is reported in nmol/L or mg/dL and the two are not interconvertible. Why the 2.5 factor is wrong, what the assay does, and what one number is for.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/markers/lipoprotein-a/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Lp(a): nmol/L vs mg/dL and why we won't convert | TherapyLog"><meta property="og:description" content="Lp(a) is reported in nmol/L or mg/dL and the two are not interconvertible. Why the 2.5 factor is wrong, what the assay does, and what one number is for."><meta property="og:url" content="https://therapylog.app/markers/lipoprotein-a/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Lp(a): nmol/L vs mg/dL and why we won't convert | TherapyLog"><meta name="twitter:description" content="Lp(a) is reported in nmol/L or mg/dL and the two are not interconvertible. Why the 2.5 factor is wrong, what the assay does, and what one number is for."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/markers/">Lab markers</a> &rsaquo; Lipoprotein(a)</div>
+    <h1>Lipoprotein(a): nmol/L, mg/dL, and why the two do not convert</h1>
+
+    <p class="lede">Lp(a) is the only marker in TherapyLog that the app flatly refuses to convert. That refusal is not fussiness: mg/dL and nmol/L measure two different physical things, and the factor that translates one into the other is different in you than it is in the person standing next to you.</p>
+
+    <div class="updated">Last reviewed: 4 September 2026</div>
+
+    <h2>The one result this app will not convert</h2>
+    <p>Lipoprotein(a) is an LDL particle with a second protein bolted on. Apolipoprotein B-100 sits inside it exactly as it does in ordinary LDL, and a molecule of apolipoprotein(a) — apo(a) — is joined to that by a disulphide bond. Labs report the result in one of two units. Milligrams per decilitre is a <strong>mass</strong>: how much lipoprotein(a) material is in the sample. Nanomoles per litre is a <strong>count</strong>: how many apo(a) molecules, and so how many Lp(a) particles, are in it. Those are different quantities, not two scales for the same quantity.</p>
+    <p><span class="ev ev-est">Established clinical use</span> Turning one into the other requires knowing what a single particle weighs, and that weight is not the same in everyone. The apo(a) protein contains a segment called kringle IV type 2 which is present as a variable number of identical copies — one to more than forty per allele — so apo(a) exists in over forty sizes across the population, and a large-isoform particle is simply heavier than a small-isoform one. The European Atherosclerosis Society's 2022 consensus statement therefore declines to endorse any fixed conversion factor and asks that results be reported in molar units wherever the assay allows it.<sup class="cite"><a href="#src-1">1</a></sup> When molar and mass results were measured head to head in 1,635 samples across five commercial assays, the ratio between them was not a constant: it ran from roughly 1.8 in samples below 75 nmol/L to roughly 3.6 in the highest samples, and varied by method as well as by isoform size.<sup class="cite"><a href="#src-2">2</a></sup></p>
+    <p>That is the entire argument for the refusal. Every "multiply by 2.5" table online applies a population average to an individual, and the error is not random noise — it is systematically largest at the top of the range, where decisions actually get made, because high Lp(a) travels with small apo(a) isoforms. Run it in the direction people actually do. A mass result of 45 mg/dL, multiplied by the usual 2.5, reads 113 nmol/L — inside the grey zone and comfortably below the 125 nmol/L line. But at the ratios genuinely observed near and above that line, the same sample can be anywhere from about 85 to 126 nmol/L depending on the assay pair and the isoform, and the top of that spread is over the threshold rather than under it. The conversion did not tell you where you stand; it told you where an average person with your mass result would stand. So TherapyLog’s Lp(a) field is nmol/L only. Hand its converter an mg/dL value and it answers <em>no valid conversion</em> and declines to store a number, rather than approximating one. That is deliberate: two results in different units are two facts, and they are not a trend.</p>
+
+    <h2>The assay is part of the result</h2>
+    <p>Ask which assay produced the number. Mass assays measure the whole particle and report mg/dL. Molar assays are calibrated to count apo(a) and report nmol/L. Nearly all routine assays are immunoassays, and nearly all of them use polyclonal antibodies raised against apo(a) — which means part of the antibody population binds the repeated kringle IV epitopes, the very feature that differs in number between people.</p>
+    <p><span class="ev ev-est">Established clinical use</span> This is a measurement problem, not a theoretical one. Work published in Clinical Chemistry in 1995 built three ELISAs differing only in the detecting antibody, calibrated them against a single serum containing apo(a) with 21 kringle 4 domains, and ran them across 723 people typed for apo(a) size. Assays whose antibody bound the repeated domain read high in carriers of large isoforms and low in carriers of small ones.<sup class="cite"><a href="#src-3">3</a></sup> Since small isoforms are the ones found in people with high Lp(a), a size-sensitive assay is least reliable in precisely the group whose result matters most.</p>
+    <p>The fix is to measure something that does not repeat. An IFCC-endorsed reference measurement procedure quantifies apo(a) by mass spectrometry using proteotypic peptides drawn from the kringle 5, kringle 9 and protease domains — regions present once per molecule — with calibrators traceable to the former WHO/IFCC reference material SRM 2B, which makes it independent of the size polymorphism.<sup class="cite"><a href="#src-4">4</a></sup> Almost no routine lab runs it, but it is what molar assays are increasingly standardised against. The practical version for you is short. Record the assay and the lab beside the number, and treat a result from a different lab as a different measurement rather than a change in you. A printout that says nmol/L has not, by itself, told you the assay was calibrated in molar units; the consensus asks labs to report in the units their assay was actually calibrated in.<sup class="cite"><a href="#src-1">1</a></sup></p>
+
+    <h2>Why one number is worth having at all</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Lp(a) concentration is among the most strongly inherited quantitative traits in humans. Something close to 90% of its variance is controlled at the LPA locus, and the kringle IV type 2 copy number alone accounts for roughly 40 to 70% of it, with larger isoforms tracking lower concentrations.<sup class="cite"><a href="#src-5">5</a></sup> Adult levels are reached early and are broadly stable for the rest of adult life. Nothing you eat, lift or inject was ever going to be the main determinant of this one.</p>
+    <p>The reason to know it is that the association with cardiovascular disease looks causal rather than incidental. Because apo(a) size variants are allocated at conception and independently of how anyone lives, they function as a natural randomisation. In three Copenhagen cohorts, genetically raised Lp(a) carried a hazard ratio of about 1.22 for myocardial infarction per doubling of Lp(a) on instrumental-variable analysis, closely matching the observational estimate — which is the signature of a causal exposure rather than a bystander marker.<sup class="cite"><a href="#src-6">6</a></sup> That is also why Lp(a) sits outside the panels the app tracks for any compound: it is not something a protocol moves, so nothing in the app monitors it.</p>
+    <p>Guidelines have followed the genetics. The National Lipid Association's 2024 focused update asks for Lp(a) to be measured at least once in all adults and treats the result as a continuum, with below 75 nmol/L low risk, 75 to 125 nmol/L an intermediate grey zone, and 125 nmol/L or above high.<sup class="cite"><a href="#src-7">7</a></sup> TherapyLog's generic 0–75 nmol/L range is a fallback for reports that carry no range of their own. <strong>Your own lab's stated range wins</strong>, because it belongs to the assay that produced your number. There is no optimal band for Lp(a) and this page will not invent one — a result of 80 nmol/L is not a finding, it is a reason to look harder at everything else.</p>
+
+    <h2>Does TRT or a GLP-1 move it?</h2>
+    <p><span class="ev ev-off">Off-label or community practice</span> Testosterone does move Lp(a), and this is the part the general Lp(a) pages leave out. In a study in normal men published in the American Journal of Cardiology in 1996, average Lp(a) fell by 37% on testosterone alone and by 28% when an aromatase inhibitor was given alongside it, which the authors read as an androgenic effect rather than one mediated by conversion to oestradiol.<sup class="cite"><a href="#src-8">8</a></sup> The studies are small, short and decades old, they used a surrogate endpoint, and no trial has asked whether lowering Lp(a) with an androgen lowers anybody's risk of anything. Lowering Lp(a) is not an indication for testosterone and should not be treated as one. What it does mean is concrete: <em>if you were already on TRT when your first Lp(a) was drawn, that number may not be your untreated baseline</em>, and a fall after starting therapy is not evidence your arteries are safer.</p>
+    <p><span class="ev ev-theo">Animal-only or theoretical</span> GLP-1 receptor agonists are a different case, mostly because there is not yet a case. I could not find published Lp(a) data from the large semaglutide or tirzepatide outcome trials. The nearest human evidence points the wrong way: across four cohorts of people with and without type 2 diabetes, three to four months of energy-restricted dieting improved almost every conventional risk factor while Lp(a) rose, by about 15 nmol/L on average, with the rise correlating with the amount of weight lost.<sup class="cite"><a href="#src-9">9</a></sup> Extrapolating from diet-induced weight loss to drug-induced weight loss is exactly that, an extrapolation, but it is the only direction the data currently point. Expecting a GLP-1 to fix an Lp(a) result is not supported by anything published.</p>
+    <p>Statins deserve a paragraph because the community is confident about something the literature is not. A 2020 analysis in the European Heart Journal pooled six randomised trials, 5,256 patients, and found statin therapy raised Lp(a) by around 11% relative to placebo, with supporting cell work showing increased apo(a) production.<sup class="cite"><a href="#src-10">10</a></sup> A network meta-analysis of 39 randomised trials and 24,448 patients, published two years later, found no clinically important difference between any statin and placebo.<sup class="cite"><a href="#src-11">11</a></sup> Both are real analyses and they disagree. What they agree on is the point that matters here: statins do not lower Lp(a), so an Lp(a) problem is not one that LDL therapy has quietly solved for you already.</p>
+
+    <h2>What to do with a number you cannot change</h2>
+    <p>Log it once, properly. The unit exactly as printed, the assay if the report names it, the lab, the date. Do not convert it, do not average it against a result in the other unit, and do not read a trend across units — the app will not draw one for you, and that is the point.</p>
+    <p>The measure-once advice is guideline consensus, and it is being questioned. A 2025 study of 1,263 patients with two Lp(a) measurements taken at least a year apart found a median intra-individual change of 16.7%, with 44% shifting by 20% or more and 14% by 50% or more, and its authors argue the measure-once recommendation should be revised.<sup class="cite"><a href="#src-12">12</a></sup> Read that as a caution about precision rather than a licence to trend. A repeat that differs by a fifth is telling you about assay and biological variation, not about something you did last quarter.</p>
+    <p><span class="ev ev-theo">Animal-only or theoretical</span> There is at present no approved drug whose purpose is to lower Lp(a), and no completed outcome trial showing that lowering it prevents events. Pelacarsen, an antisense oligonucleotide directed at apo(a), is being tested for exactly that question in a phase 3 trial of 8,323 people with established cardiovascular disease and elevated Lp(a), running monthly injections against placebo over roughly six years, with a primary endpoint of cardiovascular death, non-fatal myocardial infarction, non-fatal stroke or urgent coronary revascularisation.<sup class="cite"><a href="#src-13">13</a></sup> At the time of writing, follow-up has finished and no outcome result has been published. Until one is, the case for lowering Lp(a) rests on genetics — a strong argument, and not a proven one.</p>
+    <p>None of this is a reason to do anything on your own. A high Lp(a) is a reason to look harder at every risk factor you <em>can</em> move, and to do that with the clinician who manages your care rather than against a threshold read off a web page.</p>
+    <p>So the honest use of a high Lp(a) is as a multiplier on the things you can actually change: apoB and LDL cholesterol, blood pressure, smoking, and — if you are on testosterone — the haematocrit and blood pressure effects that come with it. Every one of those alters what someone might prescribe, and none of them is a decision to make from a number on a screen, least of all one whose meaning depends on which machine measured it. Take the printed report, with its unit, its range and its assay named, to the clinician who prescribes for you, and let the number change that conversation rather than your protocol.</p>
+
+    <h2>What the app records for this marker</h2>
+
+    <div class="facts">
+      <dl>
+        <dt>Marker</dt><dd>Lp(a)</dd>
+        <dt>Panel group</dt><dd>lipids</dd>
+        <dt>Canonical unit</dt><dd>nmol/L</dd>
+        <dt>Units accepted</dt><dd><strong>nmol/L</strong> <em>(canonical)</em></dd>
+        <dt>Never converted</dt><dd>mg/dL <em>— no valid conversion exists, so a value in this unit is refused rather than approximated</em></dd>
+        <dt>Generic reference range</dt><dd>0–75 nmol/L <em>— generic reference range, male default. Your lab's printed interval takes precedence over this.</em></dd>
+        <dt>LOINC</dt><dd>10835-7, 43583-4 <em>— unverified seed, not checked against a vendor payload</em></dd>
+      </dl>
+    </div>
+
+    <div class="widget">
+      <div class="card">
+        <div class="card-title">Unit converter</div>
+        <p class="hint">Runs the app's own conversion, which means it refuses the
+        conversions the app refuses instead of approximating them.</p>
+        <div class="ig"><label class="il" for="mk-key">Marker</label>
+          <select id="mk-key" onchange="mkConvert()"><option value="lpa">Lp(a)</option></select></div>
+        <div class="ig"><label class="il" for="mk-val">Value as your report prints it</label>
+          <input id="mk-val" type="text" inputmode="decimal" placeholder="e.g. 96" oninput="mkConvert()"></div>
+        <div class="ig"><label class="il" for="mk-unit">Unit on your report</label>
+          <select id="mk-unit" onchange="mkConvert()"></select></div>
+        <div id="mk-out"></div>
+      </div>
+    </div>
+
+    <div class="shared">
+    <h2>Your lab's range wins</h2>
+    <p>The reference interval printed on your own report is the one that counts, and it is the
+    one TherapyLog flags against when your report carries it. That is not deference for its own
+    sake: a reference interval belongs to the assay, the instrument and the population the lab
+    validated it on, and two labs measuring the same blood can legitimately print different
+    intervals. A generic range — like the one in the fact box above — is what the app falls back
+    to when your report did not include one, and it is the weaker of the two.</p>
+    <p>The same applies to any optimal band. Those are drawn from clinical literature and
+    community practice for reading a trend over time, they are
+    <span class="nondx">non-diagnostic</span>, and sitting outside one is not by itself a
+    finding. What a value means for you is a question for the clinician who can see your whole
+    chart.</p>
+    </div>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>Can I convert my Lp(a) from mg/dL to nmol/L?</h3>
+    <p>Not reliably, and TherapyLog will not do it for you. mg/dL measures the mass of Lp(a)
+           material; nmol/L counts apo(a) molecules. The weight of a single particle depends on how
+           many kringle IV type 2 repeats your apo(a) carries, which is genetic and differs between
+           people, so the factor that is correct for one person is wrong for another.</p>
+    <p>When both were measured on the same 1,635 samples, the observed ratio ran from about 1.8 at
+           low concentrations to about 3.6 at high ones, and also varied by assay. A fixed factor of
+           2.5 is a population average being applied to an individual, and it goes most wrong at the
+           high end where the answer actually matters.</p>
+    <h3>My old result was in mg/dL and my new one is in nmol/L. Can I compare them?</h3>
+    <p>No. Store both, keep each with the unit and lab that produced it, and treat them as two
+           separate facts rather than two points on a line. The app deliberately refuses to plot them
+           together.</p>
+    <p>If you want a comparable pair, ask for the repeat to be run by the same lab on the same
+           assay in the same unit. Anything else confounds a change in you with a change in method.</p>
+    <h3>Does TRT lower Lp(a)?</h3>
+    <p>Small older studies say yes — average falls of roughly 25 to 40% have been reported in men
+           given testosterone, apparently through an androgenic rather than an oestrogenic route. No
+           trial has tested whether that reduction changes any clinical outcome, and lowering Lp(a) is
+           not an approved reason to prescribe testosterone.</p>
+    <p>The practical consequence is about interpretation. If your first Lp(a) was drawn while you
+           were already on testosterone, it may sit below your untreated baseline, and a drop after
+           starting therapy is not evidence that your risk has fallen. Discuss what your particular
+           result means with the clinician who prescribes for you.</p>
+    <h3>Will a GLP-1 lower my Lp(a)?</h3>
+    <p>There is no published Lp(a) result from the large semaglutide or tirzepatide cardiovascular
+           outcome trials that I could find. The closest human evidence comes from diet-induced weight
+           loss, where Lp(a) rose modestly even as almost every other risk factor improved.</p>
+    <p>So the honest answer is that it probably will not, and it might nudge it the other way. That
+           is precisely why knowing your Lp(a) matters independently of the rest of your panel — it is
+           the one line that your protocol is not quietly managing.</p>
+    <h3>Do I need to repeat the test?</h3>
+    <p>Guidelines say once in adulthood is enough, because Lp(a) is largely set by the LPA gene and
+           is broadly stable across life. That advice is now being questioned: a 2025 study found
+           nearly half of patients shifted by 20% or more between two measurements taken at least a
+           year apart.</p>
+    <p>Read that as a statement about measurement precision, not as a reason to trend Lp(a)
+           quarterly. A repeat that differs by a fifth is more likely assay and biological variation
+           than a real change, and any decision to retest belongs with your prescribing clinician.</p>
+    <h3>My Lp(a) is 80 nmol/L. Is that bad?</h3>
+    <p>It is in the intermediate zone that the EAS and NLA describe — above the 75 nmol/L rule-out
+           threshold, below the 125 nmol/L rule-in one. That is not a diagnosis and there is no optimal
+           band for Lp(a) that this page will offer you.</p>
+    <p>The generic 0–75 nmol/L range in the app is a fallback for reports that carry no range of
+           their own; if your lab printed a range, that one wins, because it belongs to the assay that
+           produced your number. A result in the grey zone is a reason to take your other, modifiable
+           risk factors more seriously — a conversation for the clinician who prescribes for you.</p>
+
+    <h2>Sources</h2>
+
+    <p>Every claim above that is not a definition is either labelled by evidence tier or
+    carries a numbered reference to one of these.</p>
+
+    <ol class="sources">
+      <li id="src-1">
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9639807/" rel="nofollow noopener" target="_blank">Kronenberg F, Mora S, Stroes ESG, et al. Lipoprotein(a) in atherosclerotic cardiovascular disease and aortic stenosis: a European Atherosclerosis Society consensus statement. European Heart Journal 2022;43(39):3925–3946.</a>
+        <span class="src">The EAS panel declines to endorse a fixed mg/dL-to-nmol/L conversion factor, asks for molar reporting where available, and sets the 75 and 125 nmol/L rule-out and rule-in zones.</span>
+      </li>
+      <li id="src-2">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/30100157/" rel="nofollow noopener" target="_blank">Marcovina SM, et al. Relationship of lipoprotein(a) molar concentrations and mass according to lipoprotein(a) thresholds and apolipoprotein(a) isoform size. Journal of Clinical Lipidology 2018;12(5):1313–1323.</a>
+        <span class="src">Head-to-head molar and mass measurement in 1,635 samples across five assays: molar/mass ratios are threshold-, method- and isoform-dependent, so a single conversion factor is not appropriate.</span>
+      </li>
+      <li id="src-3">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/7533064/" rel="nofollow noopener" target="_blank">Marcovina SM, Albers JJ, Gabel B, Koschinsky ML, Gaur VP. Effect of the number of apolipoprotein(a) kringle 4 domains on immunochemical measurements of lipoprotein(a). Clinical Chemistry 1995;41(2):246–255.</a>
+        <span class="src">Establishes apo(a) isoform-size bias in immunoassays: antibodies binding the repeated kringle IV domain over-read large isoforms and under-read small ones against a single calibrator.</span>
+      </li>
+      <li id="src-4">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/38267848/" rel="nofollow noopener" target="_blank">An LC–MS-based designated comparison method with similar performance to the Lp(a) reference measurement procedure to guide molar Lp(a) standardization. Clinical Proteomics, 2024.</a>
+        <span class="src">Describes the IFCC-endorsed mass-spectrometry reference procedure using proteotypic peptides outside the repeat region, traceable to WHO/IFCC SRM 2B and independent of apo(a) size polymorphism.</span>
+      </li>
+      <li id="src-5">
+        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7613587/" rel="nofollow noopener" target="_blank">Lipoprotein(a) beyond the kringle IV repeat polymorphism: the complexity of genetic variation in the LPA gene. Atherosclerosis, 2022.</a>
+        <span class="src">Source for heritability approaching 90%, the KIV-2 copy number variation generating over forty isoforms, and the inverse relationship between isoform size and concentration.</span>
+      </li>
+      <li id="src-6">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/19509380/" rel="nofollow noopener" target="_blank">Kamstrup PR, Tybjærg-Hansen A, Steffensen R, Nordestgaard BG. Genetically elevated lipoprotein(a) and increased risk of myocardial infarction. JAMA 2009;301(22):2331–2339.</a>
+        <span class="src">Mendelian randomisation across three Copenhagen cohorts giving a hazard ratio of about 1.22 for myocardial infarction per doubling of Lp(a) on instrumental-variable analysis.</span>
+      </li>
+      <li id="src-7">
+        <a href="https://www.lipidjournal.com/article/S1933-2874(24)00033-3/fulltext" rel="nofollow noopener" target="_blank">A focused update to the 2019 NLA scientific statement on use of lipoprotein(a) in clinical practice. Journal of Clinical Lipidology, 2024.</a>
+        <span class="src">National Lipid Association recommendation to measure Lp(a) at least once in all adults, with the risk continuum expressed in nmol/L (&lt;75, 75–125, ≥125).</span>
+      </li>
+      <li id="src-8">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/8651107/" rel="nofollow noopener" target="_blank">Zmuda JM, Thompson PD, Dickenson R, Bausserman LL. Testosterone decreases lipoprotein(a) in men. American Journal of Cardiology 1996;77(14):1244–1247.</a>
+        <span class="src">Testosterone administration in normal men lowered Lp(a) by an average of 37%, attributed to an androgenic rather than an oestrogenic effect.</span>
+      </li>
+      <li id="src-9">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/28386638/" rel="nofollow noopener" target="_blank">Berk KA, Yahya R, Verhoeven AJM, et al. Effect of diet-induced weight loss on lipoprotein(a) levels in obese individuals with and without type 2 diabetes. Diabetologia 2017;60(6):989–997.</a>
+        <span class="src">Across four cohorts, energy-restricted dieting improved conventional risk factors while Lp(a) rose, with the increase correlating with weight lost.</span>
+      </li>
+      <li id="src-10">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/31111151/" rel="nofollow noopener" target="_blank">Tsimikas S, Gordts PLSM, Nora C, Yeang C, Witztum JL. Statin therapy increases lipoprotein(a) levels. European Heart Journal 2020;41(24):2275–2284.</a>
+        <span class="src">Pooled analysis of six randomised trials (5,256 patients) reporting an increase in Lp(a) on statin therapy relative to placebo, with supporting hepatocyte data.</span>
+      </li>
+      <li id="src-11">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/34849724/" rel="nofollow noopener" target="_blank">de Boer LM, et al. Statin therapy and lipoprotein(a) levels: a systematic review and meta-analysis. European Journal of Preventive Cardiology 2022;29(5):779–792.</a>
+        <span class="src">Network meta-analysis of 39 randomised trials and 24,448 patients finding no clinically important difference in Lp(a) between statins and placebo — the counterweight to the 2020 analysis.</span>
+      </li>
+      <li id="src-12">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41440551/" rel="nofollow noopener" target="_blank">Burzyńska M, Jankowski P, Banach M, Chudzik M. Is a single lipoprotein(a) measurement enough? Results from the STAR-Lp(a) study. Medical Sciences 2025;13(4):320.</a>
+        <span class="src">1,263 patients with repeat Lp(a) at least a year apart: median intra-individual change 16.7%, with 44% shifting by 20% or more — challenges the measure-once recommendation.</span>
+      </li>
+      <li id="src-13">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/40185318/" rel="nofollow noopener" target="_blank">Design and rationale of Lp(a)HORIZON trial: assessing the effect of lipoprotein(a) lowering with pelacarsen on major cardiovascular events in patients with CVD and elevated Lp(a). American Heart Journal, 2025.</a>
+        <span class="src">Design of the 8,323-patient phase 3 outcome trial of pelacarsen — the trial that will decide whether lowering Lp(a) prevents events.</span>
+      </li>
+    </ol>
+
+    <div class="cta-box">
+      <p>TherapyLog logs this marker with the unit, the reference interval your report printed and the assay method beside it, so a trend cannot silently switch methods on you.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=lipoprotein-a"
+         id="tl-cta" data-campaign="lipoprotein-a">Log your bloodwork</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+
+var MARKER_REGISTRY = {
+  "lpa": Object.assign({"label":"Lp(a)","group":"lipids","loinc":["10835-7","43583-4"],"aliases":["lp(a)","lpa","lipoprotein (a)","lipoprotein a"],"canonicalUnit":"nmol/L","noConvert":["mg/dL"],"unitNote":"nmol/L and mg/dL are NOT interconvertible — particle size varies. Store the reported unit. Never convert. Never trend across units."}, { units: { "nmol/L": 1 } })
+};
+
+const _norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+function normalizeValue(key, value, unit) {
+const m = MARKER_REGISTRY[key];
+if (!m) return { ok:false, reason:'unknown-marker' };
+
+const raw = String(value == null ? '' : value).trim();
+const v = typeof value === 'number' ? value : parseFloat(raw.replace(/[<>,]/g, ''));
+if (!isFinite(v)) return { ok:false, reason:'non-numeric' };
+/* "<3" is an assay limit, not the number 3 — keep the operator as provenance. */
+const censoredAs = /^[<>]/.test(raw) ? raw : null;
+
+const u = String(unit == null ? '' : unit).trim();
+const uKey = Object.keys(m.units).find(k => _norm(k) === _norm(u));
+
+if (!u || uKey === m.canonicalUnit) {
+return { ok:true, value:v, unit:m.canonicalUnit, converted:false, unitAssumed:!u, censoredAs };
+}
+if ((m.noConvert || []).some(n => _norm(n) === _norm(u))) {
+return { ok:false, reason:'no-valid-conversion', unit:u, note:m.unitNote };
+}
+if (!uKey) return { ok:false, reason:'unrecognized-unit', unit:u };
+
+const f = m.units[uKey];
+const out = typeof f === 'function' ? f(v) : v * f;
+return { ok:true, value:Math.round(out * 1e4) / 1e4, unit:m.canonicalUnit,
+converted:true, from:`${raw || v} ${u}`, note:m.unitNote, censoredAs };
+}
+
+
+function mkUnits() {
+  var key = document.getElementById('mk-key').value;
+  var sel = document.getElementById('mk-unit');
+  var m = MARKER_REGISTRY[key];
+  var keep = sel.value;
+  sel.innerHTML = Object.keys(m.units).concat(m.noConvert || [])
+    .map(function (u) { return '<option value="' + u + '">' + u + '</option>'; }).join('');
+  if (keep && Object.keys(m.units).concat(m.noConvert || []).indexOf(keep) >= 0) sel.value = keep;
+}
+
+function mkConvert() {
+  var key = document.getElementById('mk-key').value;
+  var out = document.getElementById('mk-out');
+  if (document.getElementById('mk-unit').options.length === 0 ||
+      !MARKER_REGISTRY[key].units[document.getElementById('mk-unit').value] &&
+      (MARKER_REGISTRY[key].noConvert || []).indexOf(document.getElementById('mk-unit').value) < 0) {
+    mkUnits();
+  }
+  var raw = document.getElementById('mk-val').value;
+  if (!raw.trim()) { out.innerHTML = '<p class="hint">Enter a value to convert.</p>'; return; }
+  var r = normalizeValue(key, raw, document.getElementById('mk-unit').value);
+  if (r.ok) {
+    out.innerHTML = '<div class="mk-result"><strong>' + r.value + ' ' + r.unit + '</strong>' +
+      (r.converted ? '<span class="src">converted from ' + r.from + '</span>'
+                   : '<span class="src">already in the canonical unit</span>') +
+      (r.censoredAs ? '<span class="src">reported as ' + r.censoredAs +
+        ' — an assay limit, not a measured value</span>' : '') +
+      (r.note ? '<span class="src">' + r.note + '</span>' : '') + '</div>';
+  } else {
+    var why = {
+      'no-valid-conversion': 'There is no valid conversion for that unit, so the app refuses it rather than approximating.',
+      'unrecognized-unit': 'That unit is not one this marker is reported in.',
+      'non-numeric': 'That is not a number the converter can read.',
+      'unknown-marker': 'Unknown marker.'
+    }[r.reason] || r.reason;
+    out.innerHTML = '<div class="mk-result bad"><strong>Not converted</strong><span class="src">' +
+      why + (r.note ? ' ' + r.note : '') + '</span></div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  mkUnits(); mkConvert();
+});
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://therapylog.app/markers/lipoprotein-a/#page",
+      "url": "https://therapylog.app/markers/lipoprotein-a/",
+      "name": "Lp(a): nmol/L vs mg/dL and why we won't convert | TherapyLog",
+      "description": "Lp(a) is reported in nmol/L or mg/dL and the two are not interconvertible. Why the 2.5 factor is wrong, what the assay does, and what one number is for.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-04",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Lab markers",
+            "item": "https://therapylog.app/markers/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Lipoprotein(a)",
+            "item": "https://therapylog.app/markers/lipoprotein-a/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

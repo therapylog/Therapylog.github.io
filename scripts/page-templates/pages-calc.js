@@ -790,6 +790,11 @@ function syringePage(ctx, api) {
     `    <p>A suspension is solid particles held in a liquid, not a dissolved solution. Drawn
     with anything else, the particles distribute unevenly and can also be filtered unevenly by
     the needle. There is no reliable way to co-draw a suspension, so it is a block too.</p>`,
+    `    <p><strong>You will not be able to trigger that one here</strong>, and it is worth saying
+    so rather than leaving you to wonder. The rule is real and the planner enforces it, but every
+    suspension in the app's reference belongs to a class this site does not publish pages for, so
+    the list above contains none. The rule is documented because you may meet a suspension
+    outside this list; it is not demonstrable on this page.</p>`,
     `    <h3>Fragile proteins are not blended</h3>`,
     `    <p>Some peptides — growth hormone and IGF-1 among them — are large, structurally
     delicate proteins that lose activity when they are agitated, exposed to a different pH, or
@@ -863,6 +868,46 @@ function syringePage(ctx, api) {
 /* ---- 5. half-life calculator ------------------------------------------- */
 
 const HL_JS = `
+/* How wide the chart should be for THIS compound at THIS interval. A fixed
+   window cannot work: the modelled half-lives here span 0.1 h to 840 h, so
+   42 days is five doses of a GLP-1 and forty-two invisible spikes of a peptide
+   that clears in an afternoon. Show five half-lives (the approach to steady
+   state) or five dosing intervals (enough sawtooth to read), whichever is
+   wider, clamped to something a chart can actually draw. */
+function hlFitDays(hl, interval) {
+  var d = Math.max(5 * hl, 5 * interval) / 24;
+  return Math.min(120, Math.max(2, Math.round(d)));
+}
+
+/* The user's own number wins once they have typed one. */
+var hlDaysTouched = false;
+function hlTouchDays() { hlDaysTouched = true; hlCalc(); }
+
+/* Re-fit the frequency and the window to the newly chosen compound. The
+   frequency comes from that compound's own dosing rows in the app's reference,
+   so picking BPC-157 proposes daily rather than leaving it on a twice-weekly
+   setting that suits testosterone. */
+function hlPick() {
+  var e = HL_PK[document.getElementById('hl-compound').value];
+  if (e && e.freq) {
+    var sel = document.getElementById('hl-freq');
+    for (var i = 0; i < sel.options.length; i++) {
+      if (parseFloat(sel.options[i].value) === e.freq) { sel.value = sel.options[i].value; break; }
+    }
+  }
+  hlDaysTouched = false;
+  hlRefit();
+}
+
+function hlRefit() {
+  var e = HL_PK[document.getElementById('hl-compound').value];
+  if (e && !hlDaysTouched) {
+    var perWeek = parseFloat(document.getElementById('hl-freq').value) || 2;
+    document.getElementById('hl-days').value = hlFitDays(e.hl, 168 / perWeek);
+  }
+  hlCalc();
+}
+
 function hlCalc() {
   var id = document.getElementById('hl-compound').value;
   var e = HL_PK[id];
@@ -871,6 +916,14 @@ function hlCalc() {
   var perWeek = parseFloat(document.getElementById('hl-freq').value);
   var interval = 168 / perWeek;
   var days = parseFloat(document.getElementById('hl-days').value) || 28;
+  var fit = hlFitDays(e.hl, interval);
+  var note = document.getElementById('hl-fit');
+  if (note) {
+    note.innerHTML = (Math.abs(days - fit) <= 0.5)
+      ? 'Window fitted to this compound: five half-lives, or five doses, whichever is longer.'
+      : 'Showing ' + days + ' days. <a href="#" onclick="hlDaysTouched=false;hlRefit();return false;" ' +
+        'style="color:var(--accent2)">Fit to ' + fit + ' days</a> for this compound.';
+  }
   var f = pkCurve(e.hl, e.tmax);
   var ss = steadyState(f, e.hl, interval);
   var ttss = 5 * e.hl;
@@ -937,10 +990,15 @@ function drawChart(stacked, single, days) {
         } }
       },
       scales: {
+        /* Under about two days the useful unit is hours — a peptide that clears
+           in an afternoon has nothing to say on a day scale. */
         x: { type: 'linear', min: 0, max: days,
-             title: { display: true, text: 'Days', color: '#78859b', font: { size: 11 } },
+             title: { display: true, text: days <= 2 ? 'Hours' : 'Days', color: '#78859b', font: { size: 11 } },
              ticks: { color: '#78859b', maxTicksLimit: 10, font: { size: 10 },
-                      callback: function (v) { return v < 1 && v > 0 ? '' : String(v); } },
+                      callback: function (v) {
+                        if (days <= 2) return String(Math.round(v * 24));
+                        return v < 1 && v > 0 ? '' : String(v);
+                      } },
              grid: { color: 'rgba(255,255,255,0.05)' } },
         y: { beginAtZero: true,
              title: { display: true, text: 'Relative level (one dose peak = 1)', color: '#78859b', font: { size: 11 } },
@@ -959,8 +1017,32 @@ function halfLifeCalcPage(ctx, api) {
     .map((id) => ({ id, name: app.byId[id].name, ...app.TL_PK[id] }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
+  /* Each compound's usual dosing frequency, read out of its own dosing rows in
+     the app's reference rather than assumed. 47 of the 50 eligible compounds
+     state one; the rest keep the twice-weekly default. Performance and cycle
+     rows never contribute — the same filter every other page applies. */
+  const PERF_ROW = /performance|cycle|blast|advanced|intermediate/i;
+  const freqPerWeek = (entry) => {
+    for (const r of (entry.doses || [])) {
+      if (PERF_ROW.test(r.l)) continue;
+      const f = String(r.f || '') + ' ' + String(r.d || '');
+      if (/twice\s+daily|2x\s*daily|\bBID\b|AM and PM/i.test(f)) return 14;
+      if (/every\s+other\s+day|\bEOD\b/i.test(f)) return 3.5;
+      if (/once\s+daily|\bdaily\b|\bED\b|\/day\b|per day/i.test(f)) return 7;
+      if (/three\s+times\s+(?:a\s+)?week|3x\s*(?:per\s*)?week/i.test(f)) return 3;
+      if (/twice\s+(?:a\s+)?week|2x\s*(?:per\s*)?week|two\s+times\s+(?:a\s+)?week|Mon\/Thu/i.test(f)) return 2;
+      if (/every\s+two\s+weeks|every\s+2\s+weeks|biweekly|fortnight/i.test(f)) return 0.5;
+      if (/once\s+weekly|weekly|per\s+week|\/week/i.test(f)) return 1;
+    }
+    return null;
+  };
+
   const pk = {};
-  eligible.forEach((e) => { pk[e.id] = { hl: e.hl, tmax: e.tmax, est: !!e.est, name: e.name }; });
+  eligible.forEach((e) => {
+    pk[e.id] = { hl: e.hl, tmax: e.tmax, est: !!e.est, name: e.name };
+    const f = freqPerWeek(app.byId[e.id]);
+    if (f) pk[e.id].freq = f;
+  });
 
   const opts = eligible.map((e, i) =>
     `<option value="${e.id}"${e.id === 'tc' ? ' selected' : ''}>${api.esc(e.name)}` +
@@ -968,14 +1050,22 @@ function halfLifeCalcPage(ctx, api) {
 
   const estCount = eligible.filter((e) => e.est).length;
 
+  /* The page opens on testosterone cypionate; its window is fitted the same way
+     the widget refits on every later change, so the first render is already
+     right rather than a constant that happens to suit one compound. */
+  const opening = pk.tc || pk[eligible[0].id];
+  const openingFreq = opening.freq || 2;
+  const DEFAULT_DAYS = Math.min(120, Math.max(2,
+    Math.round(Math.max(5 * opening.hl, 5 * (168 / openingFreq)) / 24)));
+
   const widget = `    <div class="widget">
       <div class="card">
         <div class="card-title">Half-life and steady state</div>
         <div class="ig"><label class="il" for="hl-compound">Compound</label>
-          <select id="hl-compound" onchange="hlCalc()">${opts}</select></div>
+          <select id="hl-compound" onchange="hlPick()">${opts}</select></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <div class="ig"><label class="il" for="hl-freq">Injections/doses per week</label>
-            <select id="hl-freq" onchange="hlCalc()">
+            <select id="hl-freq" onchange="hlRefit()">
               <option value="0.5">Every two weeks</option>
               <option value="1">Once weekly</option>
               <option value="2" selected>Twice weekly</option>
@@ -985,8 +1075,9 @@ function halfLifeCalcPage(ctx, api) {
               <option value="14">Twice daily</option>
             </select></div>
           <div class="ig"><label class="il" for="hl-days">Days to chart</label>
-            <input type="number" id="hl-days" value="42" min="1" max="365" step="1" oninput="hlCalc()"></div>
+            <input type="number" id="hl-days" value="${DEFAULT_DAYS}" min="1" max="365" step="1" oninput="hlTouchDays()"></div>
         </div>
+        <div id="hl-fit" style="font-size:11px;color:var(--text3);line-height:1.5;margin:-2px 0 8px"></div>
         <div style="height:280px;margin:6px 0 12px"><canvas id="hl-chart"></canvas></div>
         <div id="hl-out"></div>
         <div style="font-size:10.5px;color:var(--text3);line-height:1.55;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">This does the arithmetic you typed and nothing else. Modelled half-lives are population figures from published pharmacokinetics, not measurements of you, and dosing decisions belong with a qualified provider.</div>

@@ -84,6 +84,38 @@ a:hover{text-decoration:underline}
 .callout p:last-child{margin-bottom:0}
 .note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
 .note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
 .facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
 .facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
 .facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
@@ -173,7 +205,7 @@ body.og-card .wrap{display:none}
     it repeatedly, and how far the level swings between doses — for
     50 PK-modelled compounds. Free, no account.</p>
 
-    <div class="updated">Last reviewed: 3 September 2026</div>
+    <div class="updated">Last reviewed: 4 September 2026</div>
 
     <p>A half-life is the time for a level to fall by half, and on its own it answers less
     than people expect. What it actually determines are three things: how long one dose stays
@@ -195,10 +227,10 @@ body.og-card .wrap{display:none}
       <div class="card">
         <div class="card-title">Half-life and steady state</div>
         <div class="ig"><label class="il" for="hl-compound">Compound</label>
-          <select id="hl-compound" onchange="hlCalc()"><option value="ai1">Anastrozole</option><option value="aod9604">AOD-9604 (estimated)</option><option value="bpc">BPC-157 (estimated)</option><option value="bpc157sys">BPC-157 Systemic Protocol (estimated)</option><option value="caberbromo">Bromocriptine</option><option value="caberg">Cabergoline</option><option value="cagrilintide">Cagrilintide (estimated)</option><option value="cjc">CJC-1295</option><option value="dac">CJC-1295 with DAC</option><option value="clom">Clomiphene</option><option value="dhea">DHEA (estimated)</option><option value="dsip">DSIP (estimated)</option><option value="dutast">Dutasteride / Finasteride</option><option value="enclo">Enclomiphene</option><option value="exemest">Exemestane</option><option value="ghrp2">GHRP-2</option><option value="ghrp6">GHRP-6</option><option value="gonadorelin">Gonadorelin</option><option value="hcg2">HCG</option><option value="hexarelin">Hexarelin</option><option value="hghfrag">HGH Fragment 176-191 (estimated)</option><option value="igf1lr3">IGF-1 LR3 (estimated)</option><option value="ipa">Ipamorelin</option><option value="isotretinoin">Isotretinoin</option><option value="kissp">Kisspeptin-10 (estimated)</option><option value="kisspeptin54">Kisspeptin-54 (estimated)</option><option value="t4">Levothyroxine (T4)</option><option value="t3">Liothyronine (T3)</option><option value="ldn">Low-Dose Naltrexone</option><option value="mt2">Melanotan II (estimated)</option><option value="metformin">Metformin</option><option value="mk677">MK-677 / Ibutamoren</option><option value="proviron">Proviron</option><option value="pt141">PT-141</option><option value="raloxifene">Raloxifene</option><option value="rapamycin">Rapamycin</option><option value="rhgh">Recombinant HGH</option><option value="retatrutide">Retatrutide (estimated)</option><option value="sema">Semaglutide</option><option value="serm2">Sermorelin</option><option value="nolv">Tamoxifen</option><option value="tb5">TB-500 (estimated)</option><option value="tbnouveau">TB-500 Systemic Protocol (estimated)</option><option value="telmisartan">Telmisartan</option><option value="tesam">Tesamorelin</option><option value="tc" selected>Testosterone Cypionate</option><option value="te">Testosterone Enanthate</option><option value="tprop">Testosterone Propionate</option><option value="thymalpha">Thymosin Alpha-1</option><option value="tirz">Tirzepatide</option></select></div>
+          <select id="hl-compound" onchange="hlPick()"><option value="ai1">Anastrozole</option><option value="aod9604">AOD-9604 (estimated)</option><option value="bpc">BPC-157 (estimated)</option><option value="bpc157sys">BPC-157 Systemic Protocol (estimated)</option><option value="caberbromo">Bromocriptine</option><option value="caberg">Cabergoline</option><option value="cagrilintide">Cagrilintide (estimated)</option><option value="cjc">CJC-1295</option><option value="dac">CJC-1295 with DAC</option><option value="clom">Clomiphene</option><option value="dhea">DHEA (estimated)</option><option value="dsip">DSIP (estimated)</option><option value="dutast">Dutasteride / Finasteride</option><option value="enclo">Enclomiphene</option><option value="exemest">Exemestane</option><option value="ghrp2">GHRP-2</option><option value="ghrp6">GHRP-6</option><option value="gonadorelin">Gonadorelin</option><option value="hcg2">HCG</option><option value="hexarelin">Hexarelin</option><option value="hghfrag">HGH Fragment 176-191 (estimated)</option><option value="igf1lr3">IGF-1 LR3 (estimated)</option><option value="ipa">Ipamorelin</option><option value="isotretinoin">Isotretinoin</option><option value="kissp">Kisspeptin-10 (estimated)</option><option value="kisspeptin54">Kisspeptin-54 (estimated)</option><option value="t4">Levothyroxine (T4)</option><option value="t3">Liothyronine (T3)</option><option value="ldn">Low-Dose Naltrexone</option><option value="mt2">Melanotan II (estimated)</option><option value="metformin">Metformin</option><option value="mk677">MK-677 / Ibutamoren</option><option value="proviron">Proviron</option><option value="pt141">PT-141</option><option value="raloxifene">Raloxifene</option><option value="rapamycin">Rapamycin</option><option value="rhgh">Recombinant HGH</option><option value="retatrutide">Retatrutide (estimated)</option><option value="sema">Semaglutide</option><option value="serm2">Sermorelin</option><option value="nolv">Tamoxifen</option><option value="tb5">TB-500 (estimated)</option><option value="tbnouveau">TB-500 Systemic Protocol (estimated)</option><option value="telmisartan">Telmisartan</option><option value="tesam">Tesamorelin</option><option value="tc" selected>Testosterone Cypionate</option><option value="te">Testosterone Enanthate</option><option value="tprop">Testosterone Propionate</option><option value="thymalpha">Thymosin Alpha-1</option><option value="tirz">Tirzepatide</option></select></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <div class="ig"><label class="il" for="hl-freq">Injections/doses per week</label>
-            <select id="hl-freq" onchange="hlCalc()">
+            <select id="hl-freq" onchange="hlRefit()">
               <option value="0.5">Every two weeks</option>
               <option value="1">Once weekly</option>
               <option value="2" selected>Twice weekly</option>
@@ -208,8 +240,9 @@ body.og-card .wrap{display:none}
               <option value="14">Twice daily</option>
             </select></div>
           <div class="ig"><label class="il" for="hl-days">Days to chart</label>
-            <input type="number" id="hl-days" value="42" min="1" max="365" step="1" oninput="hlCalc()"></div>
+            <input type="number" id="hl-days" value="30" min="1" max="365" step="1" oninput="hlTouchDays()"></div>
         </div>
+        <div id="hl-fit" style="font-size:11px;color:var(--text3);line-height:1.5;margin:-2px 0 8px"></div>
         <div style="height:280px;margin:6px 0 12px"><canvas id="hl-chart"></canvas></div>
         <div id="hl-out"></div>
         <div style="font-size:10.5px;color:var(--text3);line-height:1.55;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">This does the arithmetic you typed and nothing else. Modelled half-lives are population figures from published pharmacokinetics, not measurements of you, and dosing decisions belong with a qualified provider.</div>
@@ -280,7 +313,7 @@ body.og-card .wrap{display:none}
     </div>
     <div class="byline">
       <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
-      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
       how these pages are written, sourced and corrected is set out in the
       <a href="/about/">editorial policy</a>.</p>
     </div>
@@ -429,7 +462,47 @@ if (u === 'ml') return { v, unit: 'ml' };
 return { v, unit: 'mg' };
 }
 
-var HL_PK = {"ai1":{"hl":46,"tmax":2,"est":false,"name":"Anastrozole"},"aod9604":{"hl":0.5,"tmax":0.25,"est":true,"name":"AOD-9604"},"bpc":{"hl":4,"tmax":0.5,"est":true,"name":"BPC-157"},"bpc157sys":{"hl":4,"tmax":0.5,"est":true,"name":"BPC-157 Systemic Protocol"},"caberbromo":{"hl":15,"tmax":1.5,"est":false,"name":"Bromocriptine"},"caberg":{"hl":65,"tmax":2.5,"est":false,"name":"Cabergoline"},"cagrilintide":{"hl":180,"tmax":24,"est":true,"name":"Cagrilintide"},"cjc":{"hl":0.5,"tmax":0.2,"est":false,"name":"CJC-1295"},"dac":{"hl":168,"tmax":12,"est":false,"name":"CJC-1295 with DAC"},"clom":{"hl":120,"tmax":6,"est":false,"name":"Clomiphene"},"dhea":{"hl":8,"tmax":2,"est":true,"name":"DHEA"},"dsip":{"hl":0.2,"tmax":0.1,"est":true,"name":"DSIP"},"dutast":{"hl":840,"tmax":2.5,"est":false,"name":"Dutasteride / Finasteride"},"enclo":{"hl":10,"tmax":2,"est":false,"name":"Enclomiphene"},"exemest":{"hl":24,"tmax":1.5,"est":false,"name":"Exemestane"},"ghrp2":{"hl":0.5,"tmax":0.25,"est":false,"name":"GHRP-2"},"ghrp6":{"hl":0.4,"tmax":0.25,"est":false,"name":"GHRP-6"},"gonadorelin":{"hl":0.3,"tmax":0.15,"est":false,"name":"Gonadorelin"},"hcg2":{"hl":33,"tmax":6,"est":false,"name":"HCG"},"hexarelin":{"hl":1.2,"tmax":0.5,"est":false,"name":"Hexarelin"},"hghfrag":{"hl":0.5,"tmax":0.25,"est":true,"name":"HGH Fragment 176-191"},"igf1lr3":{"hl":24,"tmax":6,"est":true,"name":"IGF-1 LR3"},"ipa":{"hl":2,"tmax":0.7,"est":false,"name":"Ipamorelin"},"isotretinoin":{"hl":21,"tmax":3,"est":false,"name":"Isotretinoin"},"kissp":{"hl":0.1,"tmax":0.05,"est":true,"name":"Kisspeptin-10"},"kisspeptin54":{"hl":0.5,"tmax":0.2,"est":true,"name":"Kisspeptin-54"},"t4":{"hl":168,"tmax":3,"est":false,"name":"Levothyroxine (T4)"},"t3":{"hl":24,"tmax":2.5,"est":false,"name":"Liothyronine (T3)"},"ldn":{"hl":6,"tmax":1,"est":false,"name":"Low-Dose Naltrexone"},"mt2":{"hl":1,"tmax":0.5,"est":true,"name":"Melanotan II"},"metformin":{"hl":6,"tmax":2.5,"est":false,"name":"Metformin"},"mk677":{"hl":24,"tmax":1,"est":false,"name":"MK-677 / Ibutamoren"},"proviron":{"hl":12,"tmax":2,"est":false,"name":"Proviron"},"pt141":{"hl":2.7,"tmax":1,"est":false,"name":"PT-141"},"raloxifene":{"hl":27,"tmax":6,"est":false,"name":"Raloxifene"},"rapamycin":{"hl":62,"tmax":1.5,"est":false,"name":"Rapamycin"},"rhgh":{"hl":3.8,"tmax":3,"est":false,"name":"Recombinant HGH"},"retatrutide":{"hl":150,"tmax":24,"est":true,"name":"Retatrutide"},"sema":{"hl":168,"tmax":40,"est":false,"name":"Semaglutide"},"serm2":{"hl":0.2,"tmax":0.1,"est":false,"name":"Sermorelin"},"nolv":{"hl":144,"tmax":5,"est":false,"name":"Tamoxifen"},"tb5":{"hl":48,"tmax":4,"est":true,"name":"TB-500"},"tbnouveau":{"hl":48,"tmax":4,"est":true,"name":"TB-500 Systemic Protocol"},"telmisartan":{"hl":24,"tmax":1,"est":false,"name":"Telmisartan"},"tesam":{"hl":0.6,"tmax":0.25,"est":false,"name":"Tesamorelin"},"tc":{"hl":144,"tmax":48,"est":false,"name":"Testosterone Cypionate"},"te":{"hl":108,"tmax":36,"est":false,"name":"Testosterone Enanthate"},"tprop":{"hl":19,"tmax":12,"est":false,"name":"Testosterone Propionate"},"thymalpha":{"hl":2,"tmax":1.5,"est":false,"name":"Thymosin Alpha-1"},"tirz":{"hl":120,"tmax":24,"est":false,"name":"Tirzepatide"}};
+var HL_PK = {"ai1":{"hl":46,"tmax":2,"est":false,"name":"Anastrozole"},"aod9604":{"hl":0.5,"tmax":0.25,"est":true,"name":"AOD-9604","freq":7},"bpc":{"hl":4,"tmax":0.5,"est":true,"name":"BPC-157","freq":7},"bpc157sys":{"hl":4,"tmax":0.5,"est":true,"name":"BPC-157 Systemic Protocol","freq":7},"caberbromo":{"hl":15,"tmax":1.5,"est":false,"name":"Bromocriptine","freq":7},"caberg":{"hl":65,"tmax":2.5,"est":false,"name":"Cabergoline","freq":2},"cagrilintide":{"hl":180,"tmax":24,"est":true,"name":"Cagrilintide","freq":1},"cjc":{"hl":0.5,"tmax":0.2,"est":false,"name":"CJC-1295","freq":7},"dac":{"hl":168,"tmax":12,"est":false,"name":"CJC-1295 with DAC","freq":2},"clom":{"hl":120,"tmax":6,"est":false,"name":"Clomiphene","freq":7},"dhea":{"hl":8,"tmax":2,"est":true,"name":"DHEA","freq":7},"dsip":{"hl":0.2,"tmax":0.1,"est":true,"name":"DSIP","freq":7},"dutast":{"hl":840,"tmax":2.5,"est":false,"name":"Dutasteride / Finasteride","freq":7},"enclo":{"hl":10,"tmax":2,"est":false,"name":"Enclomiphene","freq":7},"exemest":{"hl":24,"tmax":1.5,"est":false,"name":"Exemestane","freq":2},"ghrp2":{"hl":0.5,"tmax":0.25,"est":false,"name":"GHRP-2","freq":7},"ghrp6":{"hl":0.4,"tmax":0.25,"est":false,"name":"GHRP-6","freq":7},"gonadorelin":{"hl":0.3,"tmax":0.15,"est":false,"name":"Gonadorelin","freq":14},"hcg2":{"hl":33,"tmax":6,"est":false,"name":"HCG","freq":3},"hexarelin":{"hl":1.2,"tmax":0.5,"est":false,"name":"Hexarelin","freq":7},"hghfrag":{"hl":0.5,"tmax":0.25,"est":true,"name":"HGH Fragment 176-191","freq":14},"igf1lr3":{"hl":24,"tmax":6,"est":true,"name":"IGF-1 LR3"},"ipa":{"hl":2,"tmax":0.7,"est":false,"name":"Ipamorelin","freq":7},"isotretinoin":{"hl":21,"tmax":3,"est":false,"name":"Isotretinoin","freq":7},"kissp":{"hl":0.1,"tmax":0.05,"est":true,"name":"Kisspeptin-10","freq":7},"kisspeptin54":{"hl":0.5,"tmax":0.2,"est":true,"name":"Kisspeptin-54","freq":14},"t4":{"hl":168,"tmax":3,"est":false,"name":"Levothyroxine (T4)","freq":7},"t3":{"hl":24,"tmax":2.5,"est":false,"name":"Liothyronine (T3)","freq":14},"ldn":{"hl":6,"tmax":1,"est":false,"name":"Low-Dose Naltrexone","freq":7},"mt2":{"hl":1,"tmax":0.5,"est":true,"name":"Melanotan II","freq":7},"metformin":{"hl":6,"tmax":2.5,"est":false,"name":"Metformin","freq":14},"mk677":{"hl":24,"tmax":1,"est":false,"name":"MK-677 / Ibutamoren","freq":7},"proviron":{"hl":12,"tmax":2,"est":false,"name":"Proviron","freq":7},"pt141":{"hl":2.7,"tmax":1,"est":false,"name":"PT-141"},"raloxifene":{"hl":27,"tmax":6,"est":false,"name":"Raloxifene","freq":7},"rapamycin":{"hl":62,"tmax":1.5,"est":false,"name":"Rapamycin","freq":1},"rhgh":{"hl":3.8,"tmax":3,"est":false,"name":"Recombinant HGH","freq":7},"retatrutide":{"hl":150,"tmax":24,"est":true,"name":"Retatrutide","freq":1},"sema":{"hl":168,"tmax":40,"est":false,"name":"Semaglutide","freq":1},"serm2":{"hl":0.2,"tmax":0.1,"est":false,"name":"Sermorelin","freq":7},"nolv":{"hl":144,"tmax":5,"est":false,"name":"Tamoxifen","freq":7},"tb5":{"hl":48,"tmax":4,"est":true,"name":"TB-500","freq":2},"tbnouveau":{"hl":48,"tmax":4,"est":true,"name":"TB-500 Systemic Protocol","freq":1},"telmisartan":{"hl":24,"tmax":1,"est":false,"name":"Telmisartan","freq":7},"tesam":{"hl":0.6,"tmax":0.25,"est":false,"name":"Tesamorelin","freq":7},"tc":{"hl":144,"tmax":48,"est":false,"name":"Testosterone Cypionate","freq":2},"te":{"hl":108,"tmax":36,"est":false,"name":"Testosterone Enanthate","freq":2},"tprop":{"hl":19,"tmax":12,"est":false,"name":"Testosterone Propionate","freq":3.5},"thymalpha":{"hl":2,"tmax":1.5,"est":false,"name":"Thymosin Alpha-1","freq":2},"tirz":{"hl":120,"tmax":24,"est":false,"name":"Tirzepatide","freq":1}};
+
+/* How wide the chart should be for THIS compound at THIS interval. A fixed
+   window cannot work: the modelled half-lives here span 0.1 h to 840 h, so
+   42 days is five doses of a GLP-1 and forty-two invisible spikes of a peptide
+   that clears in an afternoon. Show five half-lives (the approach to steady
+   state) or five dosing intervals (enough sawtooth to read), whichever is
+   wider, clamped to something a chart can actually draw. */
+function hlFitDays(hl, interval) {
+  var d = Math.max(5 * hl, 5 * interval) / 24;
+  return Math.min(120, Math.max(2, Math.round(d)));
+}
+
+/* The user's own number wins once they have typed one. */
+var hlDaysTouched = false;
+function hlTouchDays() { hlDaysTouched = true; hlCalc(); }
+
+/* Re-fit the frequency and the window to the newly chosen compound. The
+   frequency comes from that compound's own dosing rows in the app's reference,
+   so picking BPC-157 proposes daily rather than leaving it on a twice-weekly
+   setting that suits testosterone. */
+function hlPick() {
+  var e = HL_PK[document.getElementById('hl-compound').value];
+  if (e && e.freq) {
+    var sel = document.getElementById('hl-freq');
+    for (var i = 0; i < sel.options.length; i++) {
+      if (parseFloat(sel.options[i].value) === e.freq) { sel.value = sel.options[i].value; break; }
+    }
+  }
+  hlDaysTouched = false;
+  hlRefit();
+}
+
+function hlRefit() {
+  var e = HL_PK[document.getElementById('hl-compound').value];
+  if (e && !hlDaysTouched) {
+    var perWeek = parseFloat(document.getElementById('hl-freq').value) || 2;
+    document.getElementById('hl-days').value = hlFitDays(e.hl, 168 / perWeek);
+  }
+  hlCalc();
+}
 
 function hlCalc() {
   var id = document.getElementById('hl-compound').value;
@@ -439,6 +512,14 @@ function hlCalc() {
   var perWeek = parseFloat(document.getElementById('hl-freq').value);
   var interval = 168 / perWeek;
   var days = parseFloat(document.getElementById('hl-days').value) || 28;
+  var fit = hlFitDays(e.hl, interval);
+  var note = document.getElementById('hl-fit');
+  if (note) {
+    note.innerHTML = (Math.abs(days - fit) <= 0.5)
+      ? 'Window fitted to this compound: five half-lives, or five doses, whichever is longer.'
+      : 'Showing ' + days + ' days. <a href="#" onclick="hlDaysTouched=false;hlRefit();return false;" ' +
+        'style="color:var(--accent2)">Fit to ' + fit + ' days</a> for this compound.';
+  }
   var f = pkCurve(e.hl, e.tmax);
   var ss = steadyState(f, e.hl, interval);
   var ttss = 5 * e.hl;
@@ -505,10 +586,15 @@ function drawChart(stacked, single, days) {
         } }
       },
       scales: {
+        /* Under about two days the useful unit is hours — a peptide that clears
+           in an afternoon has nothing to say on a day scale. */
         x: { type: 'linear', min: 0, max: days,
-             title: { display: true, text: 'Days', color: '#78859b', font: { size: 11 } },
+             title: { display: true, text: days <= 2 ? 'Hours' : 'Days', color: '#78859b', font: { size: 11 } },
              ticks: { color: '#78859b', maxTicksLimit: 10, font: { size: 10 },
-                      callback: function (v) { return v < 1 && v > 0 ? '' : String(v); } },
+                      callback: function (v) {
+                        if (days <= 2) return String(Math.round(v * 24));
+                        return v < 1 && v > 0 ? '' : String(v);
+                      } },
              grid: { color: 'rgba(255,255,255,0.05)' } },
         y: { beginAtZero: true,
              title: { display: true, text: 'Relative level (one dose peak = 1)', color: '#78859b', font: { size: 11 } },
@@ -592,7 +678,7 @@ document.addEventListener('DOMContentLoaded', function () { hlCalc(); });
       "publisher": {
         "@id": "https://therapylog.app/#organization"
       },
-      "dateModified": "2026-09-03",
+      "dateModified": "2026-09-04",
       "breadcrumb": {
         "@type": "BreadcrumbList",
         "itemListElement": [

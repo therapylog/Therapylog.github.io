@@ -37,6 +37,7 @@ function build(ctx, api) {
      modules in order and this one is first, so it asks the others directly. */
   const others = [
     require('./pages-recon.js'),
+    require('./pages-blend.js'),
     require('./pages-calc.js'),
     require('./pages-halflife.js'),
     require('./pages-stack.js')
@@ -53,6 +54,7 @@ function build(ctx, api) {
   const compoundRecon = others.filter((p) => /-reconstitution-calculator\/$/.test(p.url) &&
     p.url !== '/tools/peptide-reconstitution-calculator/');
   const halfLife = others.filter((p) => /^\/tools\/half-life\/[^/]+\/$/.test(p.url));
+  const blends = others.filter((p) => /-blend-calculator\/$/.test(p.url));
 
   const cards = primary.map((u) => `      <div class="tcard">
         <h3><a href="${u}">${api.esc(titleOf(byUrl.get(u)))}</a></h3>
@@ -60,7 +62,9 @@ function build(ctx, api) {
       </div>`).join('\n');
 
   const linkList = (list) => list
-    .map((p) => `<a href="${p.url}">${api.esc(titleOf(p).replace(/ (reconstitution calculator|half-life[\s\S]*)$/i, ''))}</a>`)
+    .map((p) => `<a href="${p.url}">${api.esc(titleOf(p)
+      .replace(/:[\s\S]*$/, '')
+      .replace(/ (reconstitution calculator|half-life[\s\S]*)$/i, ''))}</a>`)
     .join(', ');
 
   const body = [
@@ -91,6 +95,13 @@ function build(ctx, api) {
     `    <p><strong>Half-life and steady state:</strong> one page per compound with published
     pharmacokinetic data, each with the curve pre-drawn, the numbers, where they come from, and
     the monitoring panel the app records — ${linkList(halfLife)}.</p>`,
+    `    <h2>Pre-mixed blends</h2>`,
+    `    <p>A blend vial dissolves several peptides in the same water, so a draw takes all of
+    them in whatever ratio the vial was compounded at — you cannot dose one without dosing the
+    others. These pages work out what a single draw actually delivers of each, and compare it
+    against what the literature and community practice describe for each compound
+    <em>on its own</em>. The gap is usually larger than people expect:
+    ${linkList(blends)}.</p>`,
     `    <h2>What a calculator can and cannot tell you</h2>`,
     `    <p>Serum-level curves are modelled from published half-lives and time-to-peak values,
     not measured in you. Where the published data is thin, the page says the half-life is an

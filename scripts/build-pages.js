@@ -46,8 +46,12 @@ const longDate = (iso) => {
 /* ---- the static pages the sitemap must also list ------------------------ */
 /* Hand-maintained pages. /app.html is excluded (duplicate of /app, which is
    canonical), and so are the two meta-noindex pages and 404.html. */
+/* Pages this generator does NOT produce, listed so the sitemap covers them.
+   /tools/ and /markers/ are absent on purpose: both hubs are generated now, so
+   listing them here too would put them in the sitemap twice — which is exactly
+   what validate-public-pages.js caught when /markers/ became generated. */
 const STATIC_PAGES = [
-  '/', '/app', '/about/', '/markers/', '/guide', '/pro', '/download', '/support',
+  '/', '/app', '/about/', '/guide', '/pro', '/download', '/support',
   '/partnership', '/directory/', '/providers/', '/providers/apply',
   '/privacy', '/terms', '/health-data-privacy'
 ];
@@ -109,7 +113,17 @@ function main() {
       ? `https://therapylog.app/assets/og/${slug}.png`
       : 'https://therapylog.app/icons/og-image.png';
   };
-  const ctx = { app, appCss, attribution, registry, copy, shell, W, A, longDate, ogFor };
+  /* The sex and age bands every marker page publishes, produced by running the
+     app's own getAdjustedLabRanges() against a synthetic profile per band. Built
+     once here rather than per page: it evaluates app.html each time. */
+  const L = require('./page-templates/markers-lib.js');
+  const ranges = { Male: {}, Female: {} };
+  for (const sex of ['Male', 'Female']) {
+    for (const band of L.AGE_BANDS) ranges[sex][band.age] = A.loadRanges(sex, band.age, app.src);
+  }
+
+  const ctx = { app, appCss, attribution, registry, reg: registry, ranges,
+                copy, shell, W, A, longDate, ogFor };
 
   const pages = require('./page-templates/index.js').buildAll(ctx);
 

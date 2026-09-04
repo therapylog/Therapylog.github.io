@@ -10,7 +10,6 @@
   <url><loc>https://therapylog.app/</loc></url>
   <url><loc>https://therapylog.app/app</loc></url>
   <url><loc>https://therapylog.app/about/</loc></url>
-  <url><loc>https://therapylog.app/markers/</loc></url>
   <url><loc>https://therapylog.app/guide</loc></url>
   <url><loc>https://therapylog.app/pro</loc></url>
   <url><loc>https://therapylog.app/download</loc></url>
@@ -22,10 +21,29 @@
   <url><loc>https://therapylog.app/privacy</loc></url>
   <url><loc>https://therapylog.app/terms</loc></url>
   <url><loc>https://therapylog.app/health-data-privacy</loc></url>
+  <url><loc>https://therapylog.app/markers/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/apob-vs-ldl/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/dht/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/estradiol-sensitive-vs-standard/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/ferritin-and-iron-panel/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/free-vs-total-testosterone/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/hba1c-and-fasting-glucose/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/hematocrit-on-trt/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/igf-1/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/lh-fsh/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/lipoprotein-a/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/prolactin/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/shbg/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/thyroid-panel/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/total-testosterone-immunoassay-vs-lcms/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/trt-bloodwork-checklist/</loc><lastmod>2026-09-04</lastmod></url>
+  <url><loc>https://therapylog.app/markers/vitamin-d/</loc><lastmod>2026-09-04</lastmod></url>
   <url><loc>https://therapylog.app/tools/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/bpc-157-reconstitution-calculator/</loc><lastmod>2026-09-03</lastmod></url>
+  <url><loc>https://therapylog.app/tools/bpc-157-tb-500-blend-calculator/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/free-testosterone-calculator/</loc><lastmod>2026-09-03</lastmod></url>
-  <url><loc>https://therapylog.app/tools/half-life-calculator/</loc><lastmod>2026-09-03</lastmod></url>
+  <url><loc>https://therapylog.app/tools/glow-peptide-blend-calculator/</loc><lastmod>2026-09-03</lastmod></url>
+  <url><loc>https://therapylog.app/tools/half-life-calculator/</loc><lastmod>2026-09-04</lastmod></url>
   <url><loc>https://therapylog.app/tools/half-life/anastrozole/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/half-life/bpc-157/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/half-life/cjc-1295/</loc><lastmod>2026-09-03</lastmod></url>
@@ -42,11 +60,12 @@
   <url><loc>https://therapylog.app/tools/half-life/testosterone-enanthate/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/half-life/tirzepatide/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/insulin-syringe-units-calculator/</loc><lastmod>2026-09-03</lastmod></url>
+  <url><loc>https://therapylog.app/tools/klow-peptide-blend-calculator/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/peptide-reconstitution-calculator/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/retatrutide-reconstitution-calculator/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/semaglutide-reconstitution-calculator/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/stack-checker/</loc><lastmod>2026-09-03</lastmod></url>
-  <url><loc>https://therapylog.app/tools/syringe-builder/</loc><lastmod>2026-09-03</lastmod></url>
+  <url><loc>https://therapylog.app/tools/syringe-builder/</loc><lastmod>2026-09-04</lastmod></url>
   <url><loc>https://therapylog.app/tools/tb-500-reconstitution-calculator/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/tirzepatide-reconstitution-calculator/</loc><lastmod>2026-09-03</lastmod></url>
   <url><loc>https://therapylog.app/tools/trt-dose-calculator/</loc><lastmod>2026-09-03</lastmod></url>

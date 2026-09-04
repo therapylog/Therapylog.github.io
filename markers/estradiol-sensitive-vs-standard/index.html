@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sensitive vs standard estradiol | TherapyLog</title>
+<meta name="description" content="Standard estradiol immunoassays are unreliable at the concentrations men run. What the sensitive and LC/MS-MS methods measure, how to read the number, and why a range quoted without a method is not usable.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/markers/estradiol-sensitive-vs-standard/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Sensitive vs standard estradiol | TherapyLog"><meta property="og:description" content="Standard estradiol immunoassays are unreliable at the concentrations men run. What the sensitive and LC/MS-MS methods measure, how to read the number, and why a range quoted without a method is not usable."><meta property="og:url" content="https://therapylog.app/markers/estradiol-sensitive-vs-standard/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Sensitive vs standard estradiol | TherapyLog"><meta name="twitter:description" content="Standard estradiol immunoassays are unreliable at the concentrations men run. What the sensitive and LC/MS-MS methods measure, how to read the number, and why a range quoted without a method is not usable."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/markers/">Lab markers</a> &rsaquo; Sensitive versus standard estradiol</div>
+    <h1>Sensitive versus standard estradiol: why the assay changes the answer</h1>
+
+    <p class="lede">Two labs can measure the same blood and report estradiol numbers that are far apart, and neither is lying. The method is the difference, and most of the ranges quoted online do not say which one produced them.</p>
+
+    <div class="updated">Last reviewed: 4 September 2026</div>
+
+    <h2>What estradiol is, and why this population tests it</h2>
+    <p>Estradiol is the principal estrogen in humans, and men make it too — mostly by aromatising testosterone, in adipose tissue, the liver, the brain and the gonads. It is not a contaminant of male physiology. It does load-bearing work in bone density, lipid handling, cognition and libido, which is why driving it to the floor causes problems of its own rather than solving anything.</p>
+    <p>Anyone on testosterone therapy has a reason to measure it: more substrate for aromatase means more estradiol, and the amount varies with dose, body composition and individual aromatase activity rather than following a fixed ratio. That is the practical case for measuring rather than guessing.</p>
+
+    <h2>The assay problem, which is the whole point of this page</h2>
+    <p>Direct estradiol immunoassays were developed and validated for the concentrations found in premenopausal women — hundreds of pg/mL. Men typically run in the tens. At that end of the scale the assay is being asked to work well below the range it was built for, and it does not: cross-reactivity with structurally similar steroids and metabolites inflates the reading, and the size of the error is not predictable per sample.<sup class="cite"><a href="#src-1">1</a></sup></p>
+    <p>This is not a fringe position. The recommendation is that estradiol in men and children be measured by a sensitive LC-MS/MS-based method, and that people with low estradiol concentrations should not have it measured by immunoassay at all, because immunoassays overestimate at those concentrations and are unreliable there.<sup class="cite"><a href="#src-1">1</a></sup> The Journal of Clinical Endocrinology and Metabolism went as far as requiring mass spectrometry for sex steroid measurements in the work it publishes.<sup class="cite"><a href="#src-2">2</a></sup> A separate analysis in an epidemiological setting concluded that direct immunoassays lack the sensitivity and specificity to measure circulating estradiol validly in men or postmenopausal women.<sup class="cite"><a href="#src-3">3</a></sup></p>
+    <p><span class="ev ev-est">Established clinical use</span> That the method matters at male concentrations is established, not a matter of opinion. What is <em>not</em> settled is what number you should be aiming at once you have a reliable one — see below.</p>
+
+    <h2>What the three methods actually are</h2>
+    <p><strong>Standard immunoassay</strong> is the default on most general panels. Fast, cheap, validated for female concentrations, and the one to distrust in a male sample.</p>
+    <p><strong>Sensitive or ultrasensitive</strong> usually means the lab has added an extraction or chromatographic step before the immunoassay, or is running a platform validated to a lower limit. Better at low concentrations than the standard assay, and what most TRT-oriented panels order.</p>
+    <p><strong>LC/MS-MS</strong> — liquid chromatography with tandem mass spectrometry — separates estradiol from the things that confuse an antibody and then measures it by mass. It is the reference method, and "sensitive estradiol" is often, though not always, this.</p>
+    <p>TherapyLog stores which of these produced a value, because a trend that silently switches method is not a trend. If your report does not name the method, that is worth asking the lab about before reading much into the number.</p>
+
+    <h2>Reading the number you have</h2>
+    <p>The generic range in the fact box above is a male default and a fallback; the interval printed on your own report is better, because it belongs to the assay that produced your result. The optimal band the app shows is drawn from clinical literature and community practice for reading a trend and is <span class="nondx">non-diagnostic</span> — being outside it is not itself a finding.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> The commonly circulated targets for men on testosterone therapy — you will see 20–30 pg/mL quoted constantly — come from community practice and clinic convention rather than from a trial that established an optimal concentration. Worse, they are usually quoted with no method attached, which makes them close to meaningless: the same blood can read 45 on a standard immunoassay and 25 on LC/MS-MS. If you take a number off a forum, it is not usable unless you know which assay produced it.</p>
+    <p>The more defensible way to read estradiol is against your own symptoms and your own trend on a consistent assay, alongside total and free testosterone, rather than against a threshold quoted by a stranger.</p>
+
+    <h2>What high and low estradiol are reported to feel like</h2>
+    <p><span class="ev ev-off">Off-label or community practice</span> These are the symptom patterns described in clinical practice and in the community, not diagnostic criteria — every one of them has other explanations, and several of them appear at both ends.</p>
+    <div class="sfx">
+      <h3>High estradiol</h3>
+      <p><strong>What drives it:</strong> Aromatization of testosterone — scales with dose and body fat.</p>
+      <p><strong>What people report:</strong> Water retention, puffy or sensitive nipples, moodiness, elevated blood pressure.</p>
+      <p><strong>What to measure:</strong> Sensitive (LC/MS) estradiol assay — the standard assay reads high on cycle and misleads.</p>
+      <p class="caution"><strong>Worth knowing:</strong> High-E2 and crashed-E2 symptoms overlap heavily. Never add an AI dose because you &quot;feel high E2&quot; — confirm with labs. Crashed estrogen feels worse and takes weeks to recover.</p>
+      <p class="clin">Anything here is a reason to talk to the clinician who prescribes for you,
+      with the result and the assay in front of you — not a reason to change a protocol on your
+      own.</p>
+    </div>
+    <div class="sfx">
+      <h3>Crashed estradiol</h3>
+      <p><strong>What drives it:</strong> Overshooting an AI — usually stacked anastrozole doses taken off symptoms.</p>
+      <p><strong>What people report:</strong> Dry, cracking joints, dead libido, fatigue, anxiety or doom feeling, poor sleep.</p>
+      <p><strong>What to measure:</strong> Sensitive estradiol — single digits confirms it.</p>
+      <p class="caution"><strong>Worth knowing:</strong> Anastrozole’s half-life means doses stack for days. This is the most common self-inflicted injury in TRT.</p>
+      <p class="clin">Anything here is a reason to talk to the clinician who prescribes for you,
+      with the result and the assay in front of you — not a reason to change a protocol on your
+      own.</p>
+    </div>
+    <p>The reason both lists matter is that "crashed" estradiol is a real and avoidable iatrogenic problem. Aromatase inhibitors are potent, the dose–response in an individual is not predictable from the label, and joint pain, low mood, poor libido and — over time — bone density loss follow from suppressing estradiol too far. Treating a high number aggressively without symptoms is how people arrive at the opposite problem.</p>
+    <p>If you have symptoms at either end, the next step is a conversation with the clinician who prescribes for you, with a result from a method you can name in front of you. That is the whole of the advice this page will give about what to do.</p>
+
+    <h2>What the app records for this marker</h2>
+
+    <div class="facts">
+      <dl>
+        <dt>Marker</dt><dd>Estradiol</dd>
+        <dt>Panel group</dt><dd>hormones</dd>
+        <dt>Canonical unit</dt><dd>pg/mL</dd>
+        <dt>Units accepted</dt><dd><strong>pg/mL</strong> <em>(canonical)</em><br>pmol/L <em>(× 0.2724 → pg/mL)</em></dd>
+        <dt>Assay methods tracked</dt><dd>Standard immunoassay <span class="src">(<code>standard</code>)</span><br>Sensitive / ultrasensitive <span class="src">(<code>sensitive</code>)</span><br>LC/MS-MS <span class="src">(<code>lc-ms-ms</code>)</span></dd>
+        <dt>Generic reference range</dt><dd>10–40 pg/mL <em>— generic reference range, male default. Your lab's printed interval takes precedence over this.</em></dd>
+        <dt>Optimal band</dt><dd>20–35 pg/mL <span class="nondx">non-diagnostic</span></dd>
+        <dt>LOINC</dt><dd>2243-4, 14715-7 <em>— unverified seed, not checked against a vendor payload</em></dd>
+      </dl>
+    </div>
+
+    <h3>How the app adjusts this range by sex and age</h3>
+
+    <p>Generated by running the app's own range function against each band, so
+    this table cannot drift from what the app flags against. The optimal column is
+    <span class="nondx">non-diagnostic</span> throughout.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Who</th><th>Reference range</th><th>Optimal band</th></tr></thead>
+        <tbody>
+          <tr><td>Male, under 50</td><td class="num">10–40 pg/mL</td><td class="num">20–35 pg/mL</td></tr>
+          <tr><td>Male, 50 and over</td><td class="num">10–40 pg/mL</td><td class="num">22–40 pg/mL</td></tr>
+          <tr><td>Female, all ages</td><td class="num">30–400 pg/mL</td><td class="num">50–200 pg/mL</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="widget">
+      <div class="card">
+        <div class="card-title">Unit converter</div>
+        <p class="hint">Runs the app's own conversion, which means it refuses the
+        conversions the app refuses instead of approximating them.</p>
+        <div class="ig"><label class="il" for="mk-key">Marker</label>
+          <select id="mk-key" onchange="mkConvert()"><option value="e2">Estradiol</option></select></div>
+        <div class="ig"><label class="il" for="mk-val">Value as your report prints it</label>
+          <input id="mk-val" type="text" inputmode="decimal" placeholder="e.g. 96" oninput="mkConvert()"></div>
+        <div class="ig"><label class="il" for="mk-unit">Unit on your report</label>
+          <select id="mk-unit" onchange="mkConvert()"></select></div>
+        <div id="mk-out"></div>
+      </div>
+    </div>
+
+    <div class="shared">
+    <h2>Your lab's range wins</h2>
+    <p>The reference interval printed on your own report is the one that counts, and it is the
+    one TherapyLog flags against when your report carries it. That is not deference for its own
+    sake: a reference interval belongs to the assay, the instrument and the population the lab
+    validated it on, and two labs measuring the same blood can legitimately print different
+    intervals. A generic range — like the one in the fact box above — is what the app falls back
+    to when your report did not include one, and it is the weaker of the two.</p>
+    <p>The same applies to any optimal band. Those are drawn from clinical literature and
+    community practice for reading a trend over time, they are
+    <span class="nondx">non-diagnostic</span>, and sitting outside one is not by itself a
+    finding. What a value means for you is a question for the clinician who can see your whole
+    chart.</p>
+    </div>
+
+    <h2>Compounds whose monitoring panel includes this marker</h2>
+
+    <p>Generated by matching this marker's own aliases against the monitoring note on every
+      compound in the app's reference, so the list is the app's, not an author's.</p>
+
+    <ul class="mon-list">
+      <li><a href="/tools/half-life/testosterone-cypionate/">Testosterone Cypionate</a> <span class="src">Total T, Free T, E2 (sensitive assay), SHBG, Hematocrit, CBC, PSA, Lipids, CMP. Every 6-8 weeks adjusting; every 3-6 months stable.</span></li>
+      <li>Progesterone <span class="src">Serum progesterone, estradiol, SHBG, breast exam, PAP smear. In men: testosterone, estradiol, comprehensive hormone panel.</span></li>
+      <li>Kisspeptin-10 <span class="src">Total T, LH, FSH, E2 every 4 weeks. LH surge 30-60 min post-injection confirms receptor response.</span></li>
+      <li><a href="/tools/half-life/anastrozole/">Anastrozole</a> <span class="src">E2 sensitive assay, Total T, Free T every 6-8 weeks when adjusting.</span></li>
+      <li>Tamoxifen <span class="src">Total T, LH, FSH, E2 at end of PCT. Goal: LH/FSH recovering, T returning toward baseline.</span></li>
+      <li>Clomiphene <span class="src">LH, FSH, Total T, E2 throughout PCT and 4 weeks post-completion.</span></li>
+      <li><a href="/tools/half-life/hcg/">HCG</a> <span class="src">E2 (HCG aromatizes significantly), Total T. LH/FSH will be suppressed — this is expected.</span></li>
+      <li><a href="/tools/half-life/enclomiphene/">Enclomiphene</a> <span class="src">Total T, Free T, LH, FSH, E2, Semen analysis (if fertility is goal), every 6-8 weeks when adjusting.</span></li>
+      <li>Exemestane <span class="src">E2 sensitive assay, Total T, Free T, Lipid panel, Bone density with long-term use.</span></li>
+      <li>Cabergoline <span class="src">Prolactin (primary target — keep in normal range), E2, Echocardiogram if using higher doses long-term.</span></li>
+      <li>DHEA <span class="src">DHEA-S (primary marker), Total T, Free T, E2 (DHEA converts to both), PSA in men, lipid panel.</span></li>
+      <li>Pregnenolone <span class="src">DHEA-S, testosterone, estradiol, progesterone, cortisol (AM fasted), comprehensive hormone panel at baseline and 8 weeks.</span></li>
+      <li>Kisspeptin-54 <span class="src">LH, FSH, Total T, E2 every 4 weeks. LH surge 45-60 min post-injection confirms receptor response.</span></li>
+      <li>Gonadorelin <span class="src">LH, FSH (will show some activity unlike HCG protocols), Total T, E2, testicular volume assessment. LH response 30-60 min post-injection confirms pituitary response.</span></li>
+      <li>Testosterone Pellets <span class="src">Total T, Free T, E2, Hematocrit at 4 weeks post-insertion and at trough (just before next insertion). PSA annually. Insertion site monitoring for infection or extrusion.</span></li>
+      <li>Estriol <span class="src">Estradiol (E2); Estriol (E3); Progesterone; FSH / LH; Bone density annually; Breast exam / mammogram</span></li>
+      <li>Proviron <span class="src">Free Testosterone; SHBG; Estradiol (E2); Lipid panel; DHT</span></li>
+      <li>Testosterone Propionate <span class="src">Total and Free Testosterone; Estradiol; Hematocrit; PSA men over 40; Lipid panel</span></li>
+      <li>Raloxifene <span class="src">Breast tissue changes; Estradiol; Signs of clotting (calf pain, swelling); Liver function</span></li>
+    </ul>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>Is &quot;sensitive estradiol&quot; the same as LC/MS-MS?</h3>
+    <p>Not always, and it is worth checking. Some labs use "sensitive" or "ultrasensitive" for a
+          mass-spectrometry method; others use it for an immunoassay preceded by an extraction step.
+          Both are more trustworthy than a standard direct immunoassay at male concentrations, but
+          they are not identical, and switching between them mid-trend introduces a step change that
+          is a method artefact rather than a physiological one.</p>
+    <h3>My lab only offers the standard assay. Is the result useless?</h3>
+    <p>Not useless, but treat it as an upper bound rather than a measurement, and do not compare it
+          to a target quoted for a sensitive assay. If you can only get the standard assay, at least
+          keep using the same one so the trend is internally consistent, and say which assay it was
+          whenever you show the number to anyone.</p>
+    <h3>Should I be taking an aromatase inhibitor for a high number?</h3>
+    <p>This page will not answer that, and it is not evasion. Estradiol does necessary work, the
+          symptom picture at both extremes overlaps, aromatase inhibitors are potent and easy to
+          overshoot with, and a single number from an unnamed assay is thin ground for starting a
+          drug. What the literature and community practice describe is treating symptoms rather than
+          numbers, and confirming a high reading on a reliable assay first. The decision itself
+          belongs to the clinician who prescribes for you.</p>
+    <h3>Does the app convert pmol/L to pg/mL?</h3>
+    <p>Yes — the converter above is the app's own function, and estradiol converts at 0.2724 from
+          pmol/L to pg/mL. Non-US reports usually print pmol/L, which is one of the more common
+          reasons a value looks alarming when it is ordinary.</p>
+
+    <h2>Sources</h2>
+
+    <p>Every claim above that is not a definition is either labelled by evidence tier or
+    carries a numbered reference to one of these.</p>
+
+    <ol class="sources">
+      <li id="src-1">
+        <a href="https://myadlm.org/advocacy-and-outreach/optimal-testing-guide-to-lab-test-utilization/a-f/estradiol-testing-in-men" rel="nofollow noopener" target="_blank">ADLM (formerly AACC), Optimal Testing: Estradiol Testing in Men</a>
+        <span class="src">Recommends LC/MS-based measurement in men and advises against immunoassay at low concentrations.</span>
+      </li>
+      <li id="src-2">
+        <a href="https://academic.oup.com/jcem/article/98/10/3971/2834017" rel="nofollow noopener" target="_blank">Handelsman &amp; Wartofsky, Requirement for Mass Spectrometry Sex Steroid Assays, J Clin Endocrinol Metab 98(10):3971 (2013)</a>
+        <span class="src">The journal's editorial requiring mass spectrometry for sex steroid assays.</span>
+      </li>
+      <li id="src-3">
+        <a href="https://aacrjournals.org/cebp/article/19/4/903/68242/Limitations-of-Direct-Immunoassays-for-Measuring" rel="nofollow noopener" target="_blank">Limitations of Direct Immunoassays for Measuring Circulating Estradiol Levels in Postmenopausal Women and Men in Epidemiologic Studies, Cancer Epidemiol Biomarkers Prev 19(4):903 (2010)</a>
+        <span class="src">Direct immunoassays lack the sensitivity and specificity required at male and postmenopausal concentrations.</span>
+      </li>
+    </ol>
+
+    <div class="cta-box">
+      <p>TherapyLog logs this marker with the unit, the reference interval your report printed and the assay method beside it, so a trend cannot silently switch methods on you.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=estradiol-sensitive-vs-standard"
+         id="tl-cta" data-campaign="estradiol-sensitive-vs-standard">Log your bloodwork</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+
+var MARKER_REGISTRY = {
+  "e2": Object.assign({"label":"Estradiol","group":"hormones","loinc":["2243-4","14715-7"],"aliases":["estradiol","estradiol e2","e2","estradiol, sensitive","estradiol ultrasensitive","estradiol, ultra-sensitive"],"canonicalUnit":"pg/mL","assay":{"field":"method","variants":["standard","sensitive","lc-ms-ms"],"note":"CRITICAL for this population. Standard E2 immunoassay is not valid in males at typical concentrations. Sensitive/LC-MS-MS required. If method is unknown, say so rather than interpreting."},"optimal":[20,35]}, { units: { "pg/mL": 1, "pmol/L": 0.2724 } })
+};
+
+const _norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+function normalizeValue(key, value, unit) {
+const m = MARKER_REGISTRY[key];
+if (!m) return { ok:false, reason:'unknown-marker' };
+
+const raw = String(value == null ? '' : value).trim();
+const v = typeof value === 'number' ? value : parseFloat(raw.replace(/[<>,]/g, ''));
+if (!isFinite(v)) return { ok:false, reason:'non-numeric' };
+/* "<3" is an assay limit, not the number 3 — keep the operator as provenance. */
+const censoredAs = /^[<>]/.test(raw) ? raw : null;
+
+const u = String(unit == null ? '' : unit).trim();
+const uKey = Object.keys(m.units).find(k => _norm(k) === _norm(u));
+
+if (!u || uKey === m.canonicalUnit) {
+return { ok:true, value:v, unit:m.canonicalUnit, converted:false, unitAssumed:!u, censoredAs };
+}
+if ((m.noConvert || []).some(n => _norm(n) === _norm(u))) {
+return { ok:false, reason:'no-valid-conversion', unit:u, note:m.unitNote };
+}
+if (!uKey) return { ok:false, reason:'unrecognized-unit', unit:u };
+
+const f = m.units[uKey];
+const out = typeof f === 'function' ? f(v) : v * f;
+return { ok:true, value:Math.round(out * 1e4) / 1e4, unit:m.canonicalUnit,
+converted:true, from:`${raw || v} ${u}`, note:m.unitNote, censoredAs };
+}
+
+
+function mkUnits() {
+  var key = document.getElementById('mk-key').value;
+  var sel = document.getElementById('mk-unit');
+  var m = MARKER_REGISTRY[key];
+  var keep = sel.value;
+  sel.innerHTML = Object.keys(m.units).concat(m.noConvert || [])
+    .map(function (u) { return '<option value="' + u + '">' + u + '</option>'; }).join('');
+  if (keep && Object.keys(m.units).concat(m.noConvert || []).indexOf(keep) >= 0) sel.value = keep;
+}
+
+function mkConvert() {
+  var key = document.getElementById('mk-key').value;
+  var out = document.getElementById('mk-out');
+  if (document.getElementById('mk-unit').options.length === 0 ||
+      !MARKER_REGISTRY[key].units[document.getElementById('mk-unit').value] &&
+      (MARKER_REGISTRY[key].noConvert || []).indexOf(document.getElementById('mk-unit').value) < 0) {
+    mkUnits();
+  }
+  var raw = document.getElementById('mk-val').value;
+  if (!raw.trim()) { out.innerHTML = '<p class="hint">Enter a value to convert.</p>'; return; }
+  var r = normalizeValue(key, raw, document.getElementById('mk-unit').value);
+  if (r.ok) {
+    out.innerHTML = '<div class="mk-result"><strong>' + r.value + ' ' + r.unit + '</strong>' +
+      (r.converted ? '<span class="src">converted from ' + r.from + '</span>'
+                   : '<span class="src">already in the canonical unit</span>') +
+      (r.censoredAs ? '<span class="src">reported as ' + r.censoredAs +
+        ' — an assay limit, not a measured value</span>' : '') +
+      (r.note ? '<span class="src">' + r.note + '</span>' : '') + '</div>';
+  } else {
+    var why = {
+      'no-valid-conversion': 'There is no valid conversion for that unit, so the app refuses it rather than approximating.',
+      'unrecognized-unit': 'That unit is not one this marker is reported in.',
+      'non-numeric': 'That is not a number the converter can read.',
+      'unknown-marker': 'Unknown marker.'
+    }[r.reason] || r.reason;
+    out.innerHTML = '<div class="mk-result bad"><strong>Not converted</strong><span class="src">' +
+      why + (r.note ? ' ' + r.note : '') + '</span></div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  mkUnits(); mkConvert();
+});
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://therapylog.app/markers/estradiol-sensitive-vs-standard/#page",
+      "url": "https://therapylog.app/markers/estradiol-sensitive-vs-standard/",
+      "name": "Sensitive vs standard estradiol | TherapyLog",
+      "description": "Standard estradiol immunoassays are unreliable at the concentrations men run. What the sensitive and LC/MS-MS methods measure, how to read the number, and why a range quoted without a method is not usable.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-04",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Lab markers",
+            "item": "https://therapylog.app/markers/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Sensitive versus standard estradiol",
+            "item": "https://therapylog.app/markers/estradiol-sensitive-vs-standard/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

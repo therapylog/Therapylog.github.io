@@ -76,6 +76,22 @@ volume, the modelled half-life, and the storage rule.
 - /tools/tb-500-reconstitution-calculator/: TB-500 reconstitution calculator
 - /tools/tirzepatide-reconstitution-calculator/: Tirzepatide reconstitution calculator
 
+### Pre-mixed multi-peptide blends
+
+A blend vial holds several peptides dissolved in the same water, so one draw
+takes all of them in the ratio the vial was compounded at. These pages compute
+what a single draw delivers of each component and compare it against what the
+literature and community practice describe for that compound on its own; the two
+rarely match, because the ratio is fixed by whoever filled the vial. Ratios are
+not standardised, so each page takes the numbers from the reader's own label.
+The BPC-157 and TB-500 vial is widely known by the community nickname the
+"Wolverine blend" or "Wolverine stack"; GLOW is GHK-Cu with BPC-157 and TB-500;
+KLOW is GLOW with KPV added.
+
+- /tools/bpc-157-tb-500-blend-calculator/: BPC-157 and TB-500 blend: what one draw actually delivers — What one draw of a Wolverine blend vial delivers of each component, and why a fixed ratio cannot match what each compound is dosed at on its own. Free, no account.
+- /tools/glow-peptide-blend-calculator/: GLOW blend: what one draw actually delivers — What one draw of a GLOW vial delivers of each component, and why a fixed ratio cannot match what each compound is dosed at on its own. Free, no account.
+- /tools/klow-peptide-blend-calculator/: KLOW blend: what one draw actually delivers — What one draw of a KLOW vial delivers of each component, and why a fixed ratio cannot match what each compound is dosed at on its own. Free, no account.
+
 ### Half-life and steady state, per compound
 
 Each carries the single-dose and repeated-dose curves pre-rendered from the app's
@@ -113,6 +129,37 @@ standard), total testosterone (immunoassay versus LC/MS-MS), free versus total
 testosterone, SHBG, hematocrit on testosterone therapy, prolactin, LH and FSH,
 IGF-1, HbA1c and fasting glucose, ApoB versus LDL, lipoprotein(a), ferritin and
 the iron panel, vitamin D, the thyroid panel, and DHT.
+
+## Lab marker reference
+
+Written with the assay method named wherever it changes the interpretation —
+sensitive (LC/MS-MS) versus standard immunoassay estradiol, direct versus
+calculated versus equilibrium-dialysis free testosterone, and so on. Each page
+carries the accepted units and their conversion factors, the assay variants the
+app tracks, the generic reference range labelled as generic, the non-diagnostic
+optimal band where one exists, the sex and age bands generated from the app's own
+range function, a unit converter running the app's own conversion code, and cited
+primary sources. The reference interval printed on the reader's own report always
+takes precedence over any generic range shown.
+
+- /markers/: Lab markers, read with the assay in mind — Reference pages for the lab markers people on hormone therapy and peptide protocols track, written with the assay method named wherever it changes the answer.
+
+- /markers/apob-vs-ldl/: ApoB versus LDL cholesterol: counting particles instead of cargo — LDL-C measures cholesterol carried; ApoB counts the particles carrying it. Why they disagree, which LDL calculation your lab used, and what changes on testosterone or a GLP-1.
+- /markers/dht/: DHT (dihydrotestosterone): what the result means, and what lowering it costs — Dihydrotestosterone is more than a hair-loss number. What a serum DHT can and cannot tell you, why gels raise it, and what 5-ARI suppression really costs.
+- /markers/estradiol-sensitive-vs-standard/: Sensitive versus standard estradiol: why the assay changes the answer — Standard estradiol immunoassays are unreliable at the concentrations men run. What the sensitive and LC/MS-MS methods measure, how to read the number, and why a range quoted without a method is not usable.
+- /markers/ferritin-and-iron-panel/: Ferritin and the iron panel on TRT: what donating blood costs you — Testosterone lowers ferritin before you ever donate. How to read ferritin, iron, TIBC, transferrin and saturation together, and why the assay changes the answer.
+- /markers/free-vs-total-testosterone/: Free versus total testosterone, and the three ways labs get the free number — Calculated, direct immunoassay and equilibrium dialysis free testosterone are three different measurements. What each one does, why they disagree, and where SHBG comes in.
+- /markers/hba1c-and-fasting-glucose/: HbA1c and fasting glucose: the conversion, and why donating blood distorts one of them — How mmol/mol converts to percent, what fasting glucose and insulin add, and why anything that shortens red cell lifespan — phlebotomy included — biases HbA1c low.
+- /markers/hematocrit-on-trt/: Hematocrit on testosterone therapy: the thresholds, the trend, and the ferritin trap — Testosterone raises hematocrit. What the guideline thresholds are, why the draw conditions matter, and why routine blood donation trades one problem for iron deficiency.
+- /markers/igf-1/: IGF-1: why the range is age-banded, and what secretagogues do to it — IGF-1 cannot be read without an age. What the age bands are, why assay standardisation matters, and what growth hormone secretagogues actually move.
+- /markers/lh-fsh/: LH and FSH: what they show during suppression and during recovery — LH and FSH are the two markers that show whether your own production is running. What they do on testosterone therapy, what recovery looks like on paper, and why timing decides the result.
+- /markers/lipoprotein-a/: Lipoprotein(a): nmol/L, mg/dL, and why the two do not convert — Lp(a) is reported in nmol/L or mg/dL and the two are not interconvertible. Why the 2.5 factor is wrong, what the assay does, and what one number is for.
+- /markers/prolactin/: Prolactin: what actually raises it, and what one high draw does not mean — Prolactin is easy to elevate by accident and easy to over-treat. What raises it, why a single high value is usually repeated before anything is done, and how the units differ.
+- /markers/shbg/: SHBG: what it does, what raises and lowers it, and why it drives your free testosterone — Sex hormone-binding globulin decides how much of your testosterone is available. What raises and lowers it, why high SHBG on TRT is a common complaint, and how to read it.
+- /markers/thyroid-panel/: Thyroid panel: TSH, free T4, free T3, reverse T3 and thyroid antibodies — How to read TSH, free T4, free T3, reverse T3 and thyroid antibodies — including why testosterone lowers total T4 with no thyroid disease at all.
+- /markers/total-testosterone-immunoassay-vs-lcms/: Total testosterone: immunoassay versus LC/MS-MS, and the range by age — Why two labs report different total testosterone from the same blood, what the reference range does with age, and how to read a result when the method is not stated.
+- /markers/trt-bloodwork-checklist/: The bloodwork checklist: which markers, which assay, when to draw — Which markers to order, which assay to specify, what context to record beside each result, and how often to draw. Generated from the app’s own marker registry.
+- /markers/vitamin-d/: Vitamin D (25-OH-D): why your &quot;optimal&quot; target is a convention, not a trial result — Vitamin D is reported in ng/mL or nmol/L, 2.5x apart, and the 50-80 'optimal' band is a convention the Endocrine Society itself stopped endorsing in 2024.
 
 ## Disclaimer
 
