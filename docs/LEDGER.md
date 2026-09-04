@@ -553,6 +553,54 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**SEO Phase 3, batch 2 — twenty more /compounds/ pages (4 Sep 2026)**
+
+Ten Tier A and ten Tier B, chosen by search demand rather than alphabetically:
+tesamorelin, dutasteride and finasteride, levothyroxine, liothyronine,
+cabergoline, exemestane, PT-141, low-dose naltrexone, DHEA and the NAD+
+precursors; CJC-1295 with DAC, enclomiphene, melanotan II, GHRP-2, HGH fragment
+176-191, AOD-9604, thymosin alpha-1, semax, KPV and SS-31. Forty compound pages
+now, 896-1,379 authored words each, worst sibling similarity 0.159 against the
+0.4 ceiling. Sitemap 83 to 103 URLs.
+
+- **Chosen so the pages explain each other.** Batch 1 shipped CJC-1295 without
+  DAC without the compound the name belongs to; this one adds it, and the two
+  pages carry the naming problem between them. HGH fragment 176-191 and AOD-9604
+  are the same argument: the fragment is sold on a 12.5x potency figure that
+  traces to rodents, and AOD-9604 is the modified version of the same region
+  that reached phase IIb in people and missed its endpoint. Enclomiphene
+  completes clomiphene. Dutasteride links the DHT page, cabergoline the
+  prolactin page, the two thyroid hormones the thyroid panel.
+- **`igf1lr3` was pulled from the shortlist.** Its only dosing rows are a
+  performance row, which the strip filter removes, and a site-injection row for
+  local muscle growth. What survives is a page whose entire subject is a
+  performance practice with a mitogenicity concern attached, and the honest
+  version of it is one nobody would publish. It stays Tier B in the policy and
+  unwritten in practice; §7 assigns tiers, it does not oblige a batch.
+- **The bodybuilding-coded-word guard was flagging a molecule's own name.**
+  Thymosin Alpha-1 is called that, and the check added in batch 1 read "alpha"
+  in both its slug and its title as a marketing choice. The compound's own DB
+  name and the slug derived from it are now removed before the test, which keeps
+  the rule sharp for everything an author actually picks — fault-injected with
+  "Rapamycin: peak mTOR protocol" to confirm it still fires.
+- **Sixty-seven publishable compounds remain.** The generator, the tier lists and
+  the validators have not changed since batch 1: a batch is content plus a
+  rebuild.
+
+**On the sitemap reading 43.** Reported this session as a live problem; it is
+not. 43 is exactly the Phase 1 sitemap from 3 Sep — 14 static plus 29 tool
+pages. The repository has carried 62, then 83, then 103 since, `sitemap.xml`
+parses clean with no duplicates and no malformed entries at 8.5 KB, there is no
+second sitemap file and no `jekyll-sitemap` plugin, `robots.txt` points at the
+right URL, and the Pages deployment for every merge including the most recent
+completed successfully. The number is a stale reading in the webmaster tool from
+the last time it fetched the file. Resubmitting the sitemap forces a re-fetch;
+`node scripts/indexnow-submit.js` pushes the URL list to Bing directly and still
+has to be run from the owner's machine, because `api.indexnow.org` and
+`therapylog.app` are both blocked from the CI sandbox.
+
+---
+
 **SEO Phase 3, batch 1 — the first twenty /compounds/ pages (4 Sep 2026)**
 
 Implements `docs/SEO-PLAN.md` §7, first of the twenty-at-a-time batches. Ten
@@ -769,8 +817,9 @@ The Focus board holds the working sequence. This is the summary.
    Search Console gate was waived deliberately: there is no query data yet (the
    marker pages deployed the same week), and marker queries sit in a different
    query space from compound queries, so waiting would not have informed the
-   selection. **87 publishable compounds remain**; pick the next twenty by search
-   demand, not alphabetically.
+   selection. **Batch 2 done 4 Sep 2026** — twenty more, also see §2, taking the
+   sitemap to 103 URLs. **67 publishable compounds remain**; keep picking by
+   search demand, not alphabetically.
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
 9. Decide the BYOK price. At $8.99/mo it sits $1 under Pro while the customer

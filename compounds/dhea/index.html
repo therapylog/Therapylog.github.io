@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DHEA: a precursor, and why that complicates it | TherapyLog</title>
+<meta name="description" content="DHEA converts to both androgens and oestrogens, and the ratio is individual. What DHEA-S measures, and why the trial results are mixed.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/compounds/dhea/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="DHEA: a precursor, and why that complicates it | TherapyLog"><meta property="og:description" content="DHEA converts to both androgens and oestrogens, and the ratio is individual. What DHEA-S measures, and why the trial results are mixed."><meta property="og:url" content="https://therapylog.app/compounds/dhea/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="DHEA: a precursor, and why that complicates it | TherapyLog"><meta name="twitter:description" content="DHEA converts to both androgens and oestrogens, and the ratio is individual. What DHEA-S measures, and why the trial results are mixed."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.risks{display:block;list-style:none;margin:6px 0 20px;padding:0}
+.risks li{padding:9px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.risks li:first-child{border-top:none}
+.note.reg{border-left-color:var(--warm)}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/compounds/">Compounds</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/compounds/">Compounds</a> &rsaquo; DHEA</div>
+    <h1>DHEA: a precursor, which is the reason it is hard to dose</h1>
+
+    <p class="lede">The most abundant steroid in circulation, sold over the counter, and genuinely difficult to reason about &mdash; because what it becomes depends on the person taking it.</p>
+
+    <div class="updated">Last reviewed: 4 September 2026</div>
+
+    <div class="facts">
+      <dl>
+        <dt>Also known as</dt><dd>Dehydroepiandrosterone, Prasterone</dd>
+        <dt>Class</dt><dd>DHEA and Adrenal</dd>
+        <dt>Regulatory status</dt><dd>Available as dietary supplement in US. FDA approved as Prasterone (Intrarosa) for vaginal atrophy. Requires monitoring for hormonal effects.</dd>
+        <dt>Modelled half-life</dt><dd>8 h <em>&mdash; estimated half-life, limited human PK data</em></dd>
+        <dt>Time to peak</dt><dd>2 h</dd>
+        <dt>Formulation</dt><dd>Oral</dd>
+        <dt>Storage</dt><dd>Room temperature and dry, in the original container with whatever desiccant came in it, out of light.</dd>
+        <dt>Once opened</dt><dd>Unchanged once opened, as long as it stays dry.</dd>
+        <dt>What ruins it</dt><dd>Humidity is the real enemy — a bathroom cabinet is the worst place in the house for these.</dd>
+        <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
+      </dl>
+    </div>
+
+    <h2>A substrate, not a hormone with one job</h2>
+    <p><span class="ev ev-est">Established clinical use</span> DHEA is an adrenal steroid that sits upstream of both the androgen and the oestrogen pathways. Peripheral tissues convert it to androstenedione and onward to testosterone, and separately to estrone and estradiol, using enzymes whose expression differs by tissue, by sex and by individual. The consequence is that the same dose in two people produces different downstream hormones in different proportions, and neither of them can predict which without measuring.</p>
+    <p>It circulates mostly as the sulphated ester, DHEA-S, which is far more abundant and far more stable across the day than DHEA itself. That is why DHEA-S is what gets measured: the unsulphated hormone fluctuates with the adrenal rhythm, the sulphate does not. The app puts DHEA-S first on the monitoring panel for exactly that reason, alongside testosterone and estradiol &mdash; because the point is not the precursor level but what it turned into.</p>
+    <p>Levels fall with age from a peak in the twenties, and that decline is the entire origin of the supplementation idea. A decline is not by itself a deficiency, and this is one of the places where the distinction does real work.</p>
+
+    <h2>What the trials found, which is less than the marketing</h2>
+    <p><span class="ev ev-off">Off-label or community practice</span> Randomised trials in older adults have generally found small or absent effects on body composition, strength and quality of life, with the clearest signals in people who started with genuinely low levels &mdash; adrenal insufficiency being the case where replacement has the best support. In women, the topical vaginal preparation has a real approval for a real indication, which is a narrower claim than systemic supplementation.</p>
+    <p>The honest summary is that DHEA does something measurable to circulating hormones in most people and something clinically meaningful in a minority, and that the minority is identified by measuring rather than by symptoms. Taking it without a baseline DHEA-S is the common pattern and the one least likely to inform anything.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> In hormone-therapy contexts there is a second consideration. Someone already on testosterone is adding a precursor to a system that is already supplied, and the most likely effect is on estradiol rather than on testosterone &mdash; the app&rsquo;s own interaction data flags exactly that. Adding it and then attributing an estradiol rise to the testosterone dose is a common and avoidable confusion.</p>
+
+    <h2>Supplement status is not a safety finding</h2>
+    <p>DHEA is sold as a dietary supplement in the United States and is a controlled or prescription substance in several other countries, including much of Europe. Supplement status means it has not been reviewed for identity, purity or potency the way a drug is, and independent analyses of over-the-counter DHEA products have repeatedly found content varying substantially from the label. This site names no brand and no testing service.</p>
+    <p>The effects worth watching are the ones you would predict from a steroid precursor: acne and oily skin, hair thinning in people predisposed to it, and in women, hair growth in an androgenic pattern and voice changes at higher doses. Because it aromatises, gynaecomastia is possible in men. Hormone-sensitive cancer is the situation where this is not a casual supplement decision at all.</p>
+    <p>All of which is to say it deserves the same treatment as any hormone: a baseline measurement, a reason, and a clinician who knows you are taking it. Anything on the drawbacks list below that you are experiencing belongs in front of them.</p>
+
+    <h2>How long one dose lasts</h2>
+
+    <figure class="curve">
+<svg viewBox="0 0 720 300" role="img" aria-label="Modelled serum level after a single dose of DHEA: rising to a peak at 2 h and falling to half the peak roughly one half-life (8 h) after that, shown as a percentage of the peak." xmlns="http://www.w3.org/2000/svg">
+<title>Modelled serum level after a single dose of DHEA: rising to a peak at 2 h and falling to half the peak roughly one half-life (8 h) after that, shown as a percentage of the peak.</title>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="256" fill="#78859b" font-size="11" text-anchor="end">0%</text><line x1="52" y1="197.83" x2="702" y2="197.83" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="201.83" fill="#78859b" font-size="11" text-anchor="end">25%</text><line x1="52" y1="143.67" x2="702" y2="143.67" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="147.67" fill="#78859b" font-size="11" text-anchor="end">50%</text><line x1="52" y1="89.5" x2="702" y2="89.5" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="93.5" fill="#78859b" font-size="11" text-anchor="end">75%</text><line x1="52" y1="35.33" x2="702" y2="35.33" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="39.33" fill="#78859b" font-size="11" text-anchor="end">100%</text><line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="52" y="274" fill="#78859b" font-size="11" text-anchor="middle">0 min</text><line x1="214.5" y1="18" x2="214.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="214.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">10 h</text><line x1="377" y1="18" x2="377" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="377" y="274" fill="#78859b" font-size="11" text-anchor="middle">20 h</text><line x1="539.5" y1="18" x2="539.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="539.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">30 h</text><line x1="702" y1="18" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="702" y="274" fill="#78859b" font-size="11" text-anchor="middle">40 h</text>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<path d="M52 252 L54.71 194.82 L57.41 151.25 L60.13 118.23 L62.84 93.38 L65.54 74.88 L68.25 61.29 L70.96 51.5 L73.66 44.65 L76.38 40.06 L79.09 37.24 L81.79 35.77 L84.5 35.33 L87.21 35.7 L89.91 36.68 L92.63 38.11 L95.34 39.88 L98.04 41.92 L100.75 44.17 L103.46 46.54 L106.16 49.03 L108.88 51.56 L111.59 54.16 L114.29 56.78 L117 59.41 L119.71 62.05 L122.41 64.67 L125.13 67.27 L127.84 69.85 L130.54 72.43 L133.25 74.96 L135.96 77.48 L138.66 79.94 L141.38 82.39 L144.09 84.82 L146.79 87.2 L149.5 89.54 L152.21 91.88 L154.91 94.16 L157.63 96.43 L160.34 98.64 L163.04 100.85 L165.75 103.02 L168.46 105.14 L171.16 107.25 L173.88 109.33 L176.59 111.36 L179.29 113.4 L182 115.37 L184.71 117.34 L187.41 119.27 L190.13 121.18 L192.84 123.04 L195.54 124.88 L198.25 126.72 L200.96 128.5 L203.66 130.28 L206.38 132.03 L209.09 133.74 L211.79 135.43 L214.5 137.1 L217.21 138.75 L219.91 140.37 L222.63 141.98 L225.34 143.56 L228.04 145.12 L230.75 146.66 L233.46 148.15 L236.16 149.65 L238.87 151.12 L241.59 152.55 L244.29 153.98 L247 155.39 L249.71 156.78 L252.41 158.14 L255.13 159.48 L257.84 160.81 L260.54 162.13 L263.25 163.41 L265.96 164.68 L268.66 165.94 L271.38 167.18 L274.09 168.39 L276.79 169.58 L279.5 170.77 L282.21 171.92 L284.91 173.07 L287.63 174.19 L290.34 175.32 L293.04 176.43 L295.75 177.51 L298.46 178.57 L301.16 179.63 L303.88 180.65 L306.59 181.69 L309.29 182.69 L312 183.69 L314.71 184.66 L317.41 185.63 L320.13 186.59 L322.84 187.52 L325.54 188.45 L328.25 189.36 L330.96 190.25 L333.66 191.14 L336.38 192 L339.09 192.87 L341.79 193.72 L344.5 194.56 L347.21 195.39 L349.91 196.19 L352.63 196.99 L355.34 197.79 L358.04 198.55 L360.75 199.33 L363.46 200.09 L366.16 200.82 L368.88 201.56 L371.59 202.28 L374.29 202.99 L377 203.71 L379.71 204.4 L382.41 205.07 L385.12 205.74 L387.84 206.41 L390.54 207.06 L393.25 207.71 L395.96 208.34 L398.66 208.97 L401.38 209.58 L404.09 210.18 L406.79 210.79 L409.5 211.38 L412.21 211.96 L414.91 212.55 L417.63 213.11 L420.34 213.65 L423.04 214.21 L425.75 214.75 L428.46 215.3 L431.16 215.82 L433.88 216.34 L436.59 216.84 L439.29 217.36 L442 217.85 L444.71 218.33 L447.41 218.81 L450.13 219.28 L452.84 219.76 L455.54 220.22 L458.25 220.67 L460.96 221.13 L463.66 221.58 L466.37 222.01 L469.09 222.45 L471.79 222.86 L474.5 223.27 L477.21 223.68 L479.91 224.09 L482.63 224.5 L485.34 224.9 L488.04 225.28 L490.75 225.65 L493.46 226.04 L496.16 226.41 L498.88 226.78 L501.59 227.15 L504.29 227.5 L507 227.84 L509.71 228.19 L512.41 228.53 L515.13 228.88 L517.84 229.21 L520.54 229.53 L523.25 229.86 L525.96 230.16 L528.66 230.49 L531.38 230.79 L534.09 231.09 L536.79 231.4 L539.5 231.7 L542.21 231.98 L544.91 232.26 L547.63 232.54 L550.34 232.82 L553.04 233.11 L555.75 233.37 L558.46 233.65 L561.16 233.91 L563.88 234.17 L566.59 234.43 L569.29 234.67 L572 234.93 L574.71 235.16 L577.41 235.4 L580.13 235.64 L582.84 235.88 L585.54 236.12 L588.25 236.34 L590.96 236.57 L593.66 236.79 L596.38 237.01 L599.09 237.22 L601.79 237.44 L604.5 237.63 L607.21 237.85 L609.91 238.05 L612.63 238.24 L615.34 238.44 L618.04 238.63 L620.75 238.83 L623.46 239.02 L626.16 239.19 L628.88 239.39 L631.59 239.56 L634.29 239.76 L637 239.93 L639.71 240.1 L642.41 240.28 L645.13 240.43 L647.84 240.6 L650.54 240.75 L653.25 240.93 L655.96 241.08 L658.66 241.23 L661.38 241.41 L664.09 241.56 L666.79 241.69 L669.5 241.84 L672.21 241.99 L674.91 242.14 L677.63 242.27 L680.34 242.42 L683.04 242.55 L685.75 242.68 L688.46 242.81 L691.16 242.94 L693.88 243.07 L696.59 243.2 L699.29 243.33 L702 243.46 L702 252 L52 252 Z" fill="rgba(59,196,255,0.10)" stroke="none"/><path d="M52 252 L54.71 194.82 L57.41 151.25 L60.13 118.23 L62.84 93.38 L65.54 74.88 L68.25 61.29 L70.96 51.5 L73.66 44.65 L76.38 40.06 L79.09 37.24 L81.79 35.77 L84.5 35.33 L87.21 35.7 L89.91 36.68 L92.63 38.11 L95.34 39.88 L98.04 41.92 L100.75 44.17 L103.46 46.54 L106.16 49.03 L108.88 51.56 L111.59 54.16 L114.29 56.78 L117 59.41 L119.71 62.05 L122.41 64.67 L125.13 67.27 L127.84 69.85 L130.54 72.43 L133.25 74.96 L135.96 77.48 L138.66 79.94 L141.38 82.39 L144.09 84.82 L146.79 87.2 L149.5 89.54 L152.21 91.88 L154.91 94.16 L157.63 96.43 L160.34 98.64 L163.04 100.85 L165.75 103.02 L168.46 105.14 L171.16 107.25 L173.88 109.33 L176.59 111.36 L179.29 113.4 L182 115.37 L184.71 117.34 L187.41 119.27 L190.13 121.18 L192.84 123.04 L195.54 124.88 L198.25 126.72 L200.96 128.5 L203.66 130.28 L206.38 132.03 L209.09 133.74 L211.79 135.43 L214.5 137.1 L217.21 138.75 L219.91 140.37 L222.63 141.98 L225.34 143.56 L228.04 145.12 L230.75 146.66 L233.46 148.15 L236.16 149.65 L238.87 151.12 L241.59 152.55 L244.29 153.98 L247 155.39 L249.71 156.78 L252.41 158.14 L255.13 159.48 L257.84 160.81 L260.54 162.13 L263.25 163.41 L265.96 164.68 L268.66 165.94 L271.38 167.18 L274.09 168.39 L276.79 169.58 L279.5 170.77 L282.21 171.92 L284.91 173.07 L287.63 174.19 L290.34 175.32 L293.04 176.43 L295.75 177.51 L298.46 178.57 L301.16 179.63 L303.88 180.65 L306.59 181.69 L309.29 182.69 L312 183.69 L314.71 184.66 L317.41 185.63 L320.13 186.59 L322.84 187.52 L325.54 188.45 L328.25 189.36 L330.96 190.25 L333.66 191.14 L336.38 192 L339.09 192.87 L341.79 193.72 L344.5 194.56 L347.21 195.39 L349.91 196.19 L352.63 196.99 L355.34 197.79 L358.04 198.55 L360.75 199.33 L363.46 200.09 L366.16 200.82 L368.88 201.56 L371.59 202.28 L374.29 202.99 L377 203.71 L379.71 204.4 L382.41 205.07 L385.12 205.74 L387.84 206.41 L390.54 207.06 L393.25 207.71 L395.96 208.34 L398.66 208.97 L401.38 209.58 L404.09 210.18 L406.79 210.79 L409.5 211.38 L412.21 211.96 L414.91 212.55 L417.63 213.11 L420.34 213.65 L423.04 214.21 L425.75 214.75 L428.46 215.3 L431.16 215.82 L433.88 216.34 L436.59 216.84 L439.29 217.36 L442 217.85 L444.71 218.33 L447.41 218.81 L450.13 219.28 L452.84 219.76 L455.54 220.22 L458.25 220.67 L460.96 221.13 L463.66 221.58 L466.37 222.01 L469.09 222.45 L471.79 222.86 L474.5 223.27 L477.21 223.68 L479.91 224.09 L482.63 224.5 L485.34 224.9 L488.04 225.28 L490.75 225.65 L493.46 226.04 L496.16 226.41 L498.88 226.78 L501.59 227.15 L504.29 227.5 L507 227.84 L509.71 228.19 L512.41 228.53 L515.13 228.88 L517.84 229.21 L520.54 229.53 L523.25 229.86 L525.96 230.16 L528.66 230.49 L531.38 230.79 L534.09 231.09 L536.79 231.4 L539.5 231.7 L542.21 231.98 L544.91 232.26 L547.63 232.54 L550.34 232.82 L553.04 233.11 L555.75 233.37 L558.46 233.65 L561.16 233.91 L563.88 234.17 L566.59 234.43 L569.29 234.67 L572 234.93 L574.71 235.16 L577.41 235.4 L580.13 235.64 L582.84 235.88 L585.54 236.12 L588.25 236.34 L590.96 236.57 L593.66 236.79 L596.38 237.01 L599.09 237.22 L601.79 237.44 L604.5 237.63 L607.21 237.85 L609.91 238.05 L612.63 238.24 L615.34 238.44 L618.04 238.63 L620.75 238.83 L623.46 239.02 L626.16 239.19 L628.88 239.39 L631.59 239.56 L634.29 239.76 L637 239.93 L639.71 240.1 L642.41 240.28 L645.13 240.43 L647.84 240.6 L650.54 240.75 L653.25 240.93 L655.96 241.08 L658.66 241.23 L661.38 241.41 L664.09 241.56 L666.79 241.69 L669.5 241.84 L672.21 241.99 L674.91 242.14 L677.63 242.27 L680.34 242.42 L683.04 242.55 L685.75 242.68 L688.46 242.81 L691.16 242.94 L693.88 243.07 L696.59 243.2 L699.29 243.33 L702 243.46" fill="none" stroke="#3bc4ff" stroke-width="2" stroke-linejoin="round"/><line x1="84.5" y1="18" x2="84.5" y2="252" stroke="#4ade9a" stroke-width="1" stroke-dasharray="3 3"/><text x="89.5" y="30" fill="#4ade9a" font-size="10.5">peak</text><line x1="182" y1="18" x2="182" y2="252" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 3"/><text x="187" y="30" fill="#f59e0b" font-size="10.5">one half-life</text>
+<text x="377" y="292" fill="#78859b" font-size="11" text-anchor="middle">Time after one dose</text>
+
+</svg>
+      <figcaption>Modelled level after a single dose as a percentage of that dose&rsquo;s own
+      peak, rising to the peak at 2 h and falling by half every
+      8 h. Drawn with the app&rsquo;s own <code>pkCurve</code> function.
+      The vertical axis is relative: the shape carries across people, the absolute
+      concentration does not. This compound’s half-life is flagged as an estimate in the app, so read the curve as the right shape rather than the right numbers.</figcaption>
+      </figure>
+
+    <p>Try other intervals on the <a href="/tools/half-life-calculator/">half-life and
+      steady-state calculator</a>, which runs the same function against whatever cadence you
+      type.</p>
+
+    <h2>The dosing rows the app records</h2>
+
+    <p><span class="ev ev-est">Established clinical use</span> Reproduced from the app&rsquo;s reference so you can
+      see what it holds, not as a recommendation. Which row applies to a particular person, if
+      any, is a clinical decision this page does not make &mdash; and rows describing
+      supraphysiological or post-cycle use are filtered out before this table is built, so what
+      you see here is a subset.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Label</th><th>Amount</th><th>Route and frequency</th><th>Duration recorded</th></tr></thead>
+        <tbody>
+          <tr><td>Men</td><td class="num">25-50mg/day</td><td class="num">Daily oral with morning meal</td><td class="num">Ongoing — based on labs</td></tr>
+          <tr><td>Women</td><td class="num">5-25mg/day</td><td class="num">Daily oral</td><td class="num">Ongoing — lower doses for women</td></tr>
+          <tr><td>Adrenal Support</td><td class="num">10-25mg/day</td><td class="num">Daily AM oral</td><td class="num">3-6 months then reassess</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What the app monitors alongside it</h2>
+
+    <p>The panel below is the app&rsquo;s own monitoring note for DHEA,
+      verbatim. The analytes in it that have a page here are linked; those pages cover what each one measures, which assay produced it and how to read a trend.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Monitoring panel</dt><dd>DHEA-S (primary marker), Total T, Free T, E2 (DHEA converts to both), PSA in men, lipid panel.</dd>
+      </dl>
+    </div>
+
+    <ul class="mon-list">
+      <li><a href="/markers/estradiol-sensitive-vs-standard/">Sensitive versus standard estradiol</a></li>
+      <li><a href="/markers/total-testosterone-immunoassay-vs-lcms/">Total testosterone</a></li>
+      <li><a href="/markers/free-vs-total-testosterone/">Free versus total testosterone, and the three ways labs get the free number</a></li>
+    </ul>
+
+    <h2>Drawbacks and risks the app records</h2>
+
+    <p>From the app&rsquo;s own entry, and the last item — not without a confirmed deficiency — is the one that makes the rest of the list avoidable.</p>
+
+    <ul class="cards risks">
+      <li>Can convert to estrogen or testosterone — monitor both</li>
+      <li>Acne and oily skin (androgenic effects)</li>
+      <li>Hair thinning in susceptible individuals</li>
+      <li>Can suppress DHEA-S production feedback</li>
+      <li>Should be guided by lab testing of DHEA-S levels</li>
+      <li>Avoid without confirmed deficiency</li>
+    </ul>
+
+    <div class="shared">
+      <p>That list is the app&rsquo;s, not a complete adverse-effect profile, and none of it is a
+      diagnosis. Anything on it that you are actually experiencing belongs in front of the
+      clinician who prescribes or supervises for you &mdash; they are the only person who can
+      weigh it against your history, your other medications and your bloodwork.</p>
+    </div>
+
+    <h2>Interaction rules that name DHEA</h2>
+
+    <p>From the app&rsquo;s interaction data, filtered so no rule naming a compound this
+      site does not publish appears. Not exhaustive, and not a safety clearance: a combination
+      that is not listed is one nobody has documented here, which is not the same as one that
+      is fine. The <a href="/tools/stack-checker/">combination checker</a> has the rest.</p>
+
+    <div class="pairs">
+      <div class="pair info">
+        <div class="sev">Worth knowing</div>
+        <h3>DHEA + Testosterone — Verify No Excess Estrogen</h3>
+        <p>DHEA can convert to both testosterone and estrogen. Adding DHEA to a TRT protocol may raise estrogen further. Monitor E2 closely and do not add DHEA without baseline DHEA-S testing.</p>
+        <p class="mon"><strong>What to watch:</strong> DHEA-S, Total T, Free T, E2 (sensitive assay), PSA. Recheck 6 weeks after adding DHEA.</p>
+      </div>
+      <div class="pair warn">
+        <div class="sev">Caution</div>
+        <h3>DHEA May Partially Offset AI Effect</h3>
+        <p>DHEA aromatizes to estrogen, potentially undermining the estrogen-lowering effect of anastrozole. If using both, E2 monitoring is especially important to confirm AI is achieving target levels.</p>
+        <p class="mon"><strong>What to watch:</strong> E2 sensitive assay every 6-8 weeks. Adjust anastrozole dose based on labs only.</p>
+      </div>
+      <div class="pair info">
+        <div class="sev">Worth knowing</div>
+        <h3>Pregnenolone + DHEA — Comprehensive Adrenal Stack</h3>
+        <p>Pregnenolone is the upstream precursor to DHEA. Using both ensures the adrenal hormone cascade is supported at multiple levels. Start with lower doses of each to assess conversion patterns before increasing.</p>
+        <p class="mon"><strong>What to watch:</strong> Pregnenolone, DHEA-S, Total T, E2, Cortisol AM. Downstream hormones shift with both compounds.</p>
+      </div>
+      <div class="pair info">
+        <div class="sev">Worth knowing</div>
+        <h3>7-Keto DHEA + DHEA — Complementary Adrenal Support</h3>
+        <p>7-Keto DHEA provides metabolic benefits without hormonal conversion while DHEA provides precursor hormone support. Together they offer broader adrenal optimization. Monitor downstream hormones from DHEA conversion.</p>
+        <p class="mon"><strong>What to watch:</strong> DHEA-S, Total T, E2. 7-Keto DHEA itself requires no hormonal monitoring.</p>
+      </div>
+    </div>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>DHEA or DHEA-S on the lab form?</h3>
+    <p>DHEA-S. The sulphated ester is more abundant and far more stable across the day; unsulphated
+         DHEA follows the adrenal rhythm and a single value is hard to place. Order the downstream
+         hormones alongside it, because those are what the supplement is really changing.</p>
+    <h3>Will it raise testosterone?</h3>
+    <p>In some people, modestly. In others most of it goes to oestrogens instead, and which one
+         happens depends on individual enzyme expression. That is the reason to measure testosterone
+         and estradiol rather than assume, particularly in men.</p>
+    <h3>Does it help if levels are normal?</h3>
+    <p>The trial evidence is weakest exactly there. The clearest benefit is in people with genuinely
+         low levels, adrenal insufficiency most of all. A normal DHEA-S is a reason to look elsewhere
+         for the symptom.</p>
+    <h3>Is 7-keto DHEA the same thing?</h3>
+    <p>No. 7-keto is a metabolite that does not convert to testosterone or oestrogen, which makes it
+         a different proposition entirely — the app records it as its own entry with its own
+         regulatory status.</p>
+
+    <h2>Where the load-bearing numbers come from</h2>
+
+    <p>Named rather than linked. Publisher URLs move, and a citation that resolves to a
+      404 two years from now is worse than one you can search for by name &mdash; every entry
+      below is findable from the title and year alone.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Peripheral conversion to androgens and oestrogens</dt><dd>Standard endocrinology references on adrenal steroid metabolism</dd>
+        <dt>Randomised trials in older adults</dt><dd>Placebo-controlled trials from the 1990s onward, with small or absent effects outside genuinely deficient groups</dd>
+        <dt>Label accuracy of over-the-counter products</dt><dd>Independent analyses of commercial DHEA supplements reporting content varying substantially from label</dd>
+        <dt>Approved topical indication and supplement status</dt><dd>The approval string in the fact box is app.html’s own field, reproduced verbatim</dd>
+      </dl>
+    </div>
+
+    <div class="cta-box">
+      <p>A precursor is only readable through what it becomes. TherapyLog keeps DHEA-S, testosterone
+      and estradiol on one chart.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=compound-dhea"
+         id="tl-cta" data-campaign="compound-dhea">Save this dose to your log</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://therapylog.app/compounds/dhea/#page",
+      "url": "https://therapylog.app/compounds/dhea/",
+      "name": "DHEA: a precursor, and why that complicates it | TherapyLog",
+      "description": "DHEA converts to both androgens and oestrogens, and the ratio is individual. What DHEA-S measures, and why the trial results are mixed.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-04",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compounds",
+            "item": "https://therapylog.app/compounds/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "DHEA",
+            "item": "https://therapylog.app/compounds/dhea/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>
