@@ -730,7 +730,7 @@ for (const rel of pages) {
   const markers = require('./page-templates/pages-markers.js');
   const L = require('./page-templates/markers-lib.js');
   const registry = A.loadRegistry(app.src);
-  let cells = 0, bad = [];
+  let cells = 0, bad = [], b5 = [];
 
   /* Same synthetic profiles the generator used. */
   const ranges = { Male: {}, Female: {} };
@@ -776,6 +776,58 @@ for (const rel of pages) {
       if (!html.includes(`id="src-${n}"`)) bad.push(`${mk.slug}: citation ${n} has no source entry`);
     });
 
+    /* B-5 (COMPLIANCE-AUDIT.md), enforced rather than trusted. The app's SIDEFX
+       entries carry a `resp` array that names drugs at doses — cabergoline at
+       0.25 mg twice weekly, for one. That is fine inside a tool answering one
+       person; on an indexable page under the founder's byline it is exactly the
+       "you should take X mg" this project forbids. sidefxBlock() renders causes,
+       signs, labs and caution and never resp, and this makes that a checked fact
+       instead of a property of the current code. */
+    for (const e of app.SIDEFX) {
+      for (const r of (e.resp || [])) {
+        const probe = String(r).slice(0, 55);
+        if (probe.length > 25 && html.includes(probe)) {
+          b5.push(`${mk.slug}: "${probe}..."`);
+        }
+      }
+    }
+
+    /* Every unit the app accepts for this marker must have survived into the
+       page's inlined registry, and a function-valued conversion must still be a
+       function. JSON.stringify drops those silently: the HbA1c page shipped a
+       converter with no mmol/mol conversion at all until this was caught. */
+    {
+      const inlined = html.match(/var MARKER_REGISTRY = ([\s\S]*?);\n/);
+      if (!inlined) { bad.push(`${mk.slug}: no inlined registry`); }
+      else {
+        let pageReg = null;
+        try { pageReg = new Function('return ' + inlined[1])(); }
+        catch (e) { bad.push(`${mk.slug}: inlined registry does not evaluate — ${e.message}`); }
+        if (pageReg) {
+          for (const k of mk.keys) {
+            const want = registry.MARKER_REGISTRY[k];
+            const got = pageReg[k];
+            if (!got) { bad.push(`${mk.slug}: ${k} missing from the inlined registry`); continue; }
+            for (const [u, f] of Object.entries(want.units)) {
+              if (!(u in got.units)) {
+                bad.push(`${mk.slug}: unit "${u}" for ${k} was lost on the way to the page`);
+                continue;
+              }
+              if (typeof f === 'function') {
+                if (typeof got.units[u] !== 'function') {
+                  bad.push(`${mk.slug}: ${k} "${u}" is a formula in the app but not on the page`);
+                } else if (Math.abs(got.units[u](48) - f(48)) > 1e-9) {
+                  bad.push(`${mk.slug}: ${k} "${u}" formula disagrees with the app`);
+                }
+              } else if (got.units[u] !== f) {
+                bad.push(`${mk.slug}: ${k} "${u}" factor is ${got.units[u]}, app says ${f}`);
+              }
+            }
+          }
+        }
+      }
+    }
+
     /* The sex and age table, cell by cell. */
     const tableM = html.match(/<h3>How the app adjusts this range by sex and age<\/h3>[\s\S]*?<\/table>/);
     if (!tableM) continue;   /* markers the app does not band have no table */
@@ -815,6 +867,8 @@ for (const rel of pages) {
       }
     }
   }
+  t('no marker page publishes a SIDEFX response line (B-5: no "take X mg")',
+    b5.length === 0, b5.slice(0, 3).join(' | '));
   t('every published sex/age band matches the app\'s own getAdjustedLabRanges()',
     bad.length === 0, bad.slice(0, 4).join(' | '));
   t('the sex/age cross-check actually ran', cells >= 20, cells + ' bands re-derived');

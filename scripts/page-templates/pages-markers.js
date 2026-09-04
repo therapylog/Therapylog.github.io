@@ -582,7 +582,560 @@ const MARKERS = {
           rise that does not fit the pattern of therapy, or that persists after it is addressed,
           deserves a proper haematological look rather than an assumption.`]]
     ]
-  }
+  },
+
+
+  /* ------------------------------------------------------------------ 6 */
+  prolactin: {
+    slug: 'prolactin',
+    keys: ['prolactin'],
+    title: 'Prolactin: reading a high result | TherapyLog',
+    h1: 'Prolactin: what actually raises it, and what one high draw does not mean',
+    description: 'Prolactin is easy to elevate by accident and easy to over-treat. What raises it, ' +
+      'why a single high value is usually repeated before anything is done, and how the units differ.',
+    lede: `A single high prolactin is one of the most over-reacted-to results in this population.
+           It is also one of the easiest to produce artefactually — by the draw itself, by sleep,
+           by a meal, or by a dozen ordinary medications.`,
+    sections: [
+      {
+        h2: 'What prolactin is',
+        paras: [
+          `Prolactin is a pituitary hormone under continuous inhibitory control by dopamine. That
+           inhibition is the important structural fact about it: most things that raise prolactin do
+           so by interfering with dopamine, and most things that lower it are dopamine agonists.`,
+          `In men its main clinical significance is what it does when it is persistently high —
+           suppressing gonadotrophin release, and with it testosterone — and what a genuinely
+           elevated value can indicate about the pituitary itself.`
+        ]
+      },
+      {
+        h2: 'Why one high draw is usually not enough',
+        paras: [
+          `Prolactin is secreted in pulses and rises with sleep, stress, food, nipple stimulation,
+           chest wall irritation and even the venepuncture itself in some people. A modest elevation
+           on a single draw, particularly one taken shortly after waking or after a stressful
+           morning, is a common and unremarkable finding.`,
+          `${'@@EV_ESTABLISHED@@'} Clinical guidance treats confirmation as the first step rather than
+           treatment: a single measurement above the reference interval, drawn without excessive
+           venepuncture stress, is what establishes hyperprolactinaemia, and the workup then looks
+           for a cause — medication, hypothyroidism, renal impairment, pituitary pathology — before
+           anything is treated.${cite(1)}`,
+          `${'@@EV_OFFLABEL@@'} There is also a laboratory artefact worth knowing about. Macroprolactin
+           — prolactin bound into large complexes — is biologically inactive but is measured by many
+           assays, and it produces a high number in someone with no symptoms at all. If your value
+           is high and you feel fine, asking whether the lab screened for macroprolactin is a
+           reasonable question.${cite(2)}`
+        ]
+      },
+      {
+        h2: 'What raises it in this population specifically',
+        paras: [
+          '@@SIDEFX_HIGH@@',
+          `${'@@EV_OFFLABEL@@'} The 19-nortestosterone compounds are the ones community practice
+           associates with prolactin symptoms, and the mechanism usually offered is progestogenic
+           activity rather than a direct prolactin effect. The evidence is a good deal thinner than
+           the confidence with which it is asserted online. What is not in doubt is that the symptom
+           picture — low libido, erectile difficulty, flat mood, nipple sensitivity — overlaps
+           almost completely with high and with crashed estradiol, which is why the app's own note
+           says to confirm the number is actually elevated before treating it.`,
+          `A great many ordinary medications raise prolactin too: antipsychotics and antiemetics
+           most notably, but also some antidepressants, opioids and antihypertensives.${cite(1)}
+           Reviewing the medication list is a standard part of the workup and is worth doing before
+           reaching for an explanation involving anything else.`
+        ]
+      },
+      {
+        h2: 'How it is treated, and why that is not this page\'s call',
+        paras: [
+          `${'@@EV_ESTABLISHED@@'} Where treatment is indicated, dopamine agonists are first-line, and
+           the Endocrine Society guideline recommends cabergoline in preference to other dopamine
+           agonists on the grounds of higher efficacy in normalising prolactin and a higher rate of
+           tumour shrinkage.${cite(1)} That is what clinicians commonly use and why.`,
+          `This page will not tell you a dose, and that is deliberate rather than coy. Cabergoline is
+           prescription-only, it carries real adverse effects — impulse-control changes are
+           documented, and valvular concerns exist at chronic high doses — the correct response
+           depends entirely on <em>why</em> prolactin is high, and treating a number without
+           establishing the cause can leave a pituitary lesion undiagnosed.${cite(3)} Take a
+           confirmed elevation to the clinician who prescribes for you.`
+        ]
+      },
+      {
+        h2: 'The unit trap',
+        paras: [
+          `Prolactin is reported in ng/mL in the United States and in mIU/L in much of the rest of the
+           world, and the numbers are about twenty-fold apart. A value of 400 mIU/L and a value of
+           19 ng/mL are roughly the same result; read one as the other and you will either panic or
+           relax for no reason.`,
+          `The converter above handles it, but with a caveat the app carries and this page repeats:
+           the mIU/L factor depends on the calibration standard the lab used, so a converted value
+           is an approximation. Where you can, use the unit your lab reported and keep your trend in
+           that unit.`
+        ]
+      }
+    ],
+    sidefx: ['High prolactin', 'High prolactin'],
+    sources: [
+      { label: 'Melmed S et al., Diagnosis and Treatment of Hyperprolactinemia: An Endocrine Society Clinical Practice Guideline, J Clin Endocrinol Metab 96(2):273 (2011)',
+        url: 'https://academic.oup.com/jcem/article/96/2/273/2709487',
+        note: 'Confirmation before treatment, the causes to exclude including medications, and cabergoline as the preferred dopamine agonist.' },
+      { label: 'Prolactinoma Management, Endotext (NCBI Bookshelf)',
+        url: 'https://www.ncbi.nlm.nih.gov/books/NBK279174/',
+        note: 'Review of causes, the macroprolactin artefact and the diagnostic sequence.' },
+      { label: 'Clinical guidelines for diagnosis and treatment of prolactinoma and hyperprolactinemia, Endocrinologia y Nutricion',
+        url: 'https://www.elsevier.es/en-revista-endocrinologia-nutricion-english-edition--412-articulo-clinical-guidelines-for-diagnosis-treatment-S2173509313001190',
+        note: 'A second guideline reaching the same sequence: confirm, find the cause, then treat.' }
+    ],
+    faq: [
+      ['My prolactin is slightly over the range. Is that a problem?',
+        [`Usually it is a reason to repeat the test under better conditions rather than a finding in
+          itself. Draw it rested, not immediately after waking, not after a stressful commute or a
+          workout, and ideally not after a large meal. If a properly taken repeat is still high, the
+          question becomes why — and that is a workup, not a prescription.`]],
+      ['Do I need an MRI?',
+        [`That depends on how high, whether there are symptoms, and what the workup found — and it is
+          a decision for the clinician managing you. What is worth knowing is that markedly elevated
+          prolactin has causes that matter and that no amount of protocol adjustment will address,
+          which is the reason self-treating a high number is a poor idea.`]],
+      ['What is the conversion between ng/mL and mIU/L?',
+        [`The converter above uses the app's own factor, and the app flags the conversion rather than
+          performing it silently, because the relationship depends on the lab's calibration
+          standard. Roughly, ng/mL times 21 gives mIU/L — but treat any converted prolactin as
+          approximate and keep your trend in one unit.`]]
+    ]
+  },
+
+  /* ------------------------------------------------------------------ 7 */
+  lh: {
+    slug: 'lh-fsh',
+    keys: ['lh', 'fsh'],
+    title: 'LH and FSH on and after testosterone | TherapyLog',
+    h1: 'LH and FSH: what they show during suppression and during recovery',
+    description: 'LH and FSH are the two markers that show whether your own production is running. ' +
+      'What they do on testosterone therapy, what recovery looks like on paper, and why timing decides the result.',
+    lede: `LH and FSH are the difference between "my testosterone is fine" and "my testosterone is
+           fine because I am injecting it". On therapy they are expected to be low; after it, they
+           are how recovery is confirmed.`,
+    sections: [
+      {
+        h2: 'What they do',
+        paras: [
+          `Luteinising hormone and follicle-stimulating hormone are pituitary gonadotrophins.
+           LH drives testosterone production by the Leydig cells; FSH, with intratesticular
+           testosterone, drives spermatogenesis in the Sertoli cells. Both are released in pulses
+           under hypothalamic control, and both are suppressed by negative feedback from
+           testosterone and estradiol.`,
+          `${'@@EV_ESTABLISHED@@'} That feedback loop is why they matter here. Exogenous testosterone
+           suppresses LH and FSH, which switches off endogenous production and — because
+           intratesticular testosterone collapses along with it — impairs spermatogenesis. This is
+           expected physiology on therapy rather than a side effect of it, and it is why guidelines
+           direct that fertility be discussed before treatment starts.${cite(1)}`
+        ]
+      },
+      {
+        h2: 'Reading them on therapy',
+        paras: [
+          `On adequate testosterone therapy, LH and FSH at or below the bottom of the reference
+           interval are the expected finding. A suppressed LH alongside a good total testosterone
+           tells you the testosterone is exogenous, which you already knew — the value of measuring
+           is in the cases where it is <em>not</em> suppressed, or where it is being deliberately
+           maintained.`,
+          `${'@@EV_ESTABLISHED@@'} The pair also does diagnostic work before therapy that it cannot do
+           after. Low testosterone with low or inappropriately normal LH and FSH points to a
+           secondary, pituitary or hypothalamic, cause; low testosterone with high LH and FSH points
+           to a primary testicular one. Those are different conditions with different workups, and
+           once exogenous testosterone is on board the distinction can no longer be made.${cite(1)}`,
+          `Anyone using hCG or a SERM alongside or instead of therapy has a further reason to watch
+           these. hCG acts at the LH receptor rather than raising LH itself, so it will not show up
+           as a rising LH — which surprises people. SERMs and enclomiphene work by blocking feedback,
+           and there LH and FSH are exactly the markers that show whether the drug is doing
+           anything.`
+        ]
+      },
+      {
+        h2: 'Reading them after stopping',
+        paras: [
+          '@@SIDEFX_HIGH@@',
+          `${'@@EV_OFFLABEL@@'} The timing point in that note is the one people get wrong. Measuring
+           LH and FSH while a long-acting ester is still releasing tells you about the ester, not
+           about your recovery: the axis is still suppressed because there is still exogenous
+           testosterone in circulation. The app's Levels tab models exactly this decay, and the
+           practical rule community practice has landed on is to wait out the ester before drawing
+           anything you intend to interpret as recovery.`,
+          `Recovery, when it happens, generally shows as LH and FSH rising first and testosterone
+           following. A rising LH with a still-low testosterone is a different picture from a low LH
+           with a low testosterone, and distinguishing the two is most of the reason to measure the
+           pair rather than testosterone alone.`,
+          `How long recovery takes, and whether anything should be done to assist it, varies with how
+           long and how heavily the axis was suppressed and with individual factors nobody can read
+           off a chart. That belongs with a clinician, with a timeline and the actual numbers in
+           front of them.`
+        ]
+      },
+      {
+        h2: 'Units, and why the numbers look odd',
+        paras: [
+          `LH and FSH are reported in mIU/mL or the numerically identical IU/L, so most reports agree
+           without conversion. A report in mIU/L is a thousand-fold different and the converter
+           handles it, but a value that looks wildly out of range is worth checking against the unit
+           before anything else.`,
+          `Both are pulsatile, so a single value is a snapshot of a rhythm. That matters less on
+           therapy — suppressed is suppressed — and more during recovery, where a single low reading
+           is weaker evidence than a trend.`
+        ]
+      }
+    ],
+    sidefx: ['HPTA suppression & recovery', 'HPTA suppression & recovery'],
+    sources: [
+      { label: 'Bhasin S et al., Testosterone Therapy in Men With Hypogonadism: An Endocrine Society Clinical Practice Guideline, J Clin Endocrinol Metab 103(5):1715 (2018)',
+        url: 'https://academic.oup.com/jcem/article/103/5/1715/4939465',
+        note: 'The role of LH and FSH in separating primary from secondary hypogonadism, and fertility counselling before therapy.' },
+      { label: 'Handelsman & Wartofsky, Requirement for Mass Spectrometry Sex Steroid Assays, J Clin Endocrinol Metab 98(10):3971 (2013)',
+        url: 'https://academic.oup.com/jcem/article/98/10/3971/2834017',
+        note: 'Why the testosterone measured alongside these gonadotrophins needs a stated method.' },
+      { label: 'ADLM (formerly AACC), Optimal Testing: laboratory test utilisation guidance',
+        url: 'https://myadlm.org/advocacy-and-outreach/optimal-testing-guide-to-lab-test-utilization/a-f/estradiol-testing-in-men',
+        note: 'Test-selection guidance for the hormone panel these sit in.' }
+    ],
+    faq: [
+      ['My LH is zero on TRT. Is that bad?',
+        [`It is the expected consequence of exogenous testosterone rather than a finding. What it
+          means practically is that your own production is switched off for as long as you are on
+          therapy, which is the trade the therapy involves. Whether that matters to you depends
+          mostly on fertility plans, and that is worth settling with a prescriber before starting
+          rather than after.`]],
+      ['Will hCG raise my LH?',
+        [`No, and expecting it to is a common misreading. hCG acts at the LH receptor — it substitutes
+          for LH rather than stimulating its release — so LH stays suppressed while the downstream
+          effect happens anyway. The markers that move are testosterone and, over time, testicular
+          volume.`]],
+      ['How long after stopping should I test?',
+        [`Long enough that the ester has cleared, or the result is measuring the drug rather than you.
+          The app's Levels tab models the decay for the compound and dose you logged, which is the
+          least arbitrary way to pick a date. What to do with the result once you have it is a
+          clinical conversation.`]]
+    ]
+  },
+
+  /* ------------------------------------------------------------------ 8 */
+  igf1: {
+    slug: 'igf-1',
+    keys: ['igf1', 'igfbp3'],
+    title: 'IGF-1 by age, and on peptides | TherapyLog',
+    h1: 'IGF-1: why the range is age-banded, and what secretagogues do to it',
+    description: 'IGF-1 cannot be read without an age. What the age bands are, why assay ' +
+      'standardisation matters, and what growth hormone secretagogues actually move.',
+    lede: `IGF-1 is the marker people use to tell whether a growth hormone secretagogue is doing
+           anything. It is also the marker most often quoted without the one piece of context it
+           cannot be interpreted without: how old the person is.`,
+    sections: [
+      {
+        h2: 'What IGF-1 measures, and why it is used instead of GH',
+        paras: [
+          `Growth hormone is secreted in pulses, mostly at night, and a random GH measurement is close
+           to meaningless as a result. IGF-1 is produced largely by the liver in response to that GH
+           exposure, circulates bound to binding proteins with a much longer half-life, and is
+           therefore stable enough across a day to be measured once and interpreted.`,
+          `That is the whole reason IGF-1 is the standard proxy: it integrates GH exposure over time
+           instead of sampling a pulse. IGFBP-3, the main binding protein, is sometimes measured
+           alongside it and moves in the same direction.`
+        ]
+      },
+      {
+        h2: 'The age problem',
+        paras: [
+          `${'@@EV_ESTABLISHED@@'} IGF-1 peaks in adolescence and declines continuously through adult
+           life.${cite(1)} A value of 200 ng/mL is unremarkable at twenty-five and high at
+           sixty-five. This is not a minor adjustment: published adult reference intervals run
+           roughly 114–400 ng/mL in the 25–39 band and roughly 70–290 ng/mL over 54.${cite(1)}`,
+          `That is why the registry marks age as context this marker <em>requires</em> rather than as
+           a nicety, and why a raw IGF-1 quoted with no age attached — as they almost always are in
+           forum posts — cannot be interpreted. Many labs report a Z-score or standard deviation
+           score against an age- and sex-adjusted median for exactly this reason, and where you have
+           one it is more informative than the raw number.`,
+          `${'@@EV_OFFLABEL@@'} The generic band in the fact box is a broad adult default. It is a
+           fallback for when your report did not carry an age-adjusted interval, and it is weaker
+           than the one your lab printed, which is built for your age band.`
+        ]
+      },
+      {
+        h2: 'Assay standardisation, which is not settled',
+        paras: [
+          `${'@@EV_ESTABLISHED@@'} IGF-1 assays have historically disagreed with each other enough to
+           matter. Calibration against the WHO reference standard has been recommended, and assays
+           conforming to that recommendation have been validated against large multicentre
+           cohorts.${cite(1)}${cite(2)} Not every assay in use is calibrated the same way, and
+           studies comparing two modern immunoassays in the same cohort still find differences worth
+           knowing about.${cite(2)}`,
+          `The practical consequence is the same as for every other marker on this site: a trend
+           across two laboratories is partly a comparison of two assays. Stay with one lab if you
+           are watching a number move.`
+        ]
+      },
+      {
+        h2: 'What secretagogues do to it',
+        paras: [
+          '@@SIDEFX_HIGH@@',
+          `${'@@EV_OFFLABEL@@'} Growth hormone secretagogues — the GHRH analogues like sermorelin,
+           CJC-1295 and tesamorelin, and the ghrelin-receptor agonists like ipamorelin and MK-677 —
+           raise IGF-1 by increasing endogenous GH release rather than by supplying GH. IGF-1 is
+           therefore the reasonable marker for whether one is doing anything measurable, and a rise
+           is the expected finding. Most of these are research compounds with no approval for this
+           use.`,
+          `The number worth watching alongside it is fasting glucose, and the reason is mechanistic
+           rather than theoretical: growth hormone antagonises insulin. A rising IGF-1 with a
+           drifting fasting glucose is the trade, and the app's own guidance is that a rising fasting
+           glucose on a secretagogue is the signal to reconsider the dose. The
+           <a href="/markers/hba1c-and-fasting-glucose/">HbA1c and fasting glucose page</a> covers
+           what to watch and how often.`,
+          `How high is too high is not a question with a clean published answer for people using these
+           compounds off-label, because the trials that would establish it have not been done. What
+           is documented is what sustained GH excess does over years in acromegaly, which is the
+           reason the ceiling is worth taking seriously rather than treating a high-normal IGF-1 as a
+           target. That is a discussion for a doctor, with an age-adjusted result in front of you.`
+        ]
+      }
+    ],
+    sidefx: ['GH secretagogue effects', 'GH secretagogue effects'],
+    sources: [
+      { label: 'Bidlingmaier M et al., Reference Intervals for Insulin-like Growth Factor-1 (IGF-I) From Birth to Senescence, J Clin Endocrinol Metab 99(5):1712 (2014)',
+        url: 'https://academic.oup.com/jcem/article/99/5/1712/2537423',
+        note: 'Multicentre age-banded reference intervals on an assay conforming to the international calibration recommendation.' },
+      { label: 'Reference values for IGF-I serum concentration in an adult population: use of the VARIETE cohort for two new immunoassays',
+        url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8428081/',
+        note: 'Adult reference values across two assays, and how far modern assays still differ.' },
+      { label: 'Reference ranges for serum insulin-like growth factor I (IGF-I) in healthy adults',
+        url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5627923/',
+        note: 'An independent population confirming the age-related decline.' }
+    ],
+    faq: [
+      ['What IGF-1 should I be aiming for?',
+        [`This page will not give you a target, because one does not exist for off-label use. The
+          honest position is that the reference interval for your age says what is ordinary, a
+          Z-score says how far from the age-adjusted median you are, and no trial has established an
+          optimal value for someone taking a secretagogue for body composition or recovery. Anyone
+          quoting a specific target number is quoting a convention, not a finding.`]],
+      ['Does IGF-1 need to be fasted?',
+        [`Not in the way glucose does — its long half-life is what makes it stable. Consistency still
+          helps: same lab, same rough time of day, same relationship to your dosing schedule if you
+          are on something that moves it.`]],
+      ['Why does my report show a Z-score instead of a range?',
+        [`Because the age adjustment is the whole point, and a Z-score expresses it directly: it is
+          roughly how many standard deviations you sit from the median for your age and sex. If your
+          report gives one, prefer it to comparing a raw number against a generic adult band.`]]
+    ]
+  },
+
+  /* ------------------------------------------------------------------ 9 */
+  hba1c: {
+    slug: 'hba1c-and-fasting-glucose',
+    keys: ['hba1c', 'glucose', 'insulin'],
+    title: 'HbA1c and fasting glucose | TherapyLog',
+    h1: 'HbA1c and fasting glucose: the conversion, and why donating blood distorts one of them',
+    description: 'How mmol/mol converts to percent, what fasting glucose and insulin add, and why ' +
+      'anything that shortens red cell lifespan — phlebotomy included — biases HbA1c low.',
+    lede: `HbA1c is an average, and averages have assumptions. The main one is that your red cells
+           live about as long as everyone else's — which is exactly the assumption that routine
+           phlebotomy breaks.`,
+    sections: [
+      {
+        h2: 'What each of the three measures',
+        paras: [
+          `<strong>Fasting glucose</strong> is a single point: what your blood glucose was at the
+           moment of the draw, after a fast. It is sensitive to the previous day, to sleep, to
+           stress and to whether the fast was real.`,
+          `<strong>HbA1c</strong> is glycated haemoglobin, and it reflects average glucose exposure
+           over the lifespan of the circulating red cells — conventionally described as two to three
+           months, weighted towards the most recent weeks. It is stable and needs no fast.`,
+          `<strong>Fasting insulin</strong> is the one most often left off and often the most
+           informative here. Glucose can sit in range for years while insulin climbs to keep it
+           there. A normal glucose with a high fasting insulin is a different metabolic picture from
+           a normal glucose with a low one, and only one of them is reassuring.`
+        ]
+      },
+      {
+        h2: 'The unit conversion',
+        paras: [
+          `HbA1c is reported as a percentage (NGSP) in the United States and as mmol/mol (IFCC) in
+           much of the rest of the world, and the two are related by a non-linear master equation
+           rather than a simple factor. The converter above runs the app's own formula, which is
+           exactly why it is worth using: it is one of the conversions people most often do wrong by
+           reaching for a multiplier.`,
+          `As a sanity check, 48 mmol/mol is about 6.5%, and 42 mmol/mol is about 6.0%. Fasting
+           glucose converts more simply — mmol/L times 18.02 gives mg/dL — and 5.5 mmol/L is about
+           99 mg/dL.`
+        ]
+      },
+      {
+        h2: 'Why HbA1c can mislead this audience specifically',
+        paras: [
+          `${'@@EV_ESTABLISHED@@'} HbA1c assumes a normal red cell lifespan. Anything that shortens it
+           — haemolysis, some haemoglobinopathies, recent blood loss, transfusion — means the average
+           cell has had less time to glycate, and the result reads <strong>falsely
+           low</strong>.${cite(1)}${cite(2)} The reverse is true of anything that lengthens it.`,
+          `That is not an exotic caveat here. Anyone managing testosterone-driven erythrocytosis with
+           regular therapeutic phlebotomy or blood donation is deliberately and repeatedly shortening
+           the average age of their circulating red cells,${cite(3)} and the expected consequence is
+           an HbA1c that understates true glucose exposure — potentially by enough to make a
+           deteriorating metabolic picture look stable.`,
+          `${'@@EV_OFFLABEL@@'} If you donate or undergo phlebotomy on a schedule, treat HbA1c as the
+           weaker of your two glucose markers and lean on fasting glucose and fasting insulin, which
+           do not depend on red cell lifespan. Where the question is important, fructosamine measures
+           glycated serum protein over a shorter window and is unaffected by red cell
+           turnover.${cite(2)} Which to use is worth raising with your clinician rather than deciding
+           alone — and the <a href="/markers/hematocrit-on-trt/">hematocrit page</a> covers the other
+           half of that trade.`
+        ]
+      },
+      {
+        h2: 'What moves these on protocol',
+        paras: [
+          '@@SIDEFX_HIGH@@',
+          `${'@@EV_OFFLABEL@@'} Growth hormone antagonises insulin, so GH secretagogues run for months
+           are the compounds in this space most likely to move fasting glucose in the wrong
+           direction. The app's guidance is to check fasting glucose and HbA1c on anything run long
+           term, and to treat a rising fasting glucose as the signal to reconsider rather than as
+           noise. The <a href="/markers/igf-1/">IGF-1 page</a> covers the other side of that.`,
+          `GLP-1 receptor agonists move these markers in the opposite direction, and substantially.
+           A falling HbA1c on semaglutide or tirzepatide is the expected effect rather than a
+           surprise. What that means for anything else you are taking, and for how often these are
+           worth measuring, is a question for the prescriber.`
+        ]
+      }
+    ],
+    sidefx: ['GH secretagogue effects', 'GH secretagogue effects'],
+    sources: [
+      { label: 'Diagnostic Limitations of Hemoglobin A1c in the Setting of Compound Hemoglobinopathy',
+        url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12906350/',
+        note: 'Worked example of altered red cell turnover producing a falsely low HbA1c and delaying diagnosis.' },
+      { label: 'Unexpectedly Low HbA1c in a Patient With Newly Diagnosed Diabetes Mellitus and Thalassemia Trait',
+        url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12326337/',
+        note: 'The same failure mode, and the use of alternative glycaemic markers where red cell lifespan is altered.' },
+      { label: 'Diagnosis, management, and outcomes of drug-induced erythrocytosis: a systematic review, Blood Advances 9(9):2108 (2025)',
+        url: 'https://ashpublications.org/bloodadvances/article/9/9/2108/535485/Diagnosis-management-and-outcomes-of-drug-induced',
+        note: 'How commonly phlebotomy is used in this population, which is what makes the HbA1c caveat relevant.' }
+    ],
+    faq: [
+      ['My HbA1c is great but my fasting glucose is creeping up. Which do I believe?',
+        [`Look at whether anything is shortening your red cell lifespan — regular donation or
+          phlebotomy is the common one in this population, and it biases HbA1c low. If that applies,
+          the fasting glucose is the more trustworthy of the two. Adding a fasting insulin usually
+          settles the question, and the answer is worth taking to a clinician rather than watching
+          for another year.`]],
+      ['Does HbA1c need to be fasted?',
+        [`No. That is one of its genuine advantages — it is an average over months, so a meal does not
+          move it. Fasting glucose and fasting insulin do require a real fast, and the registry marks
+          fasting status as context those two results cannot be read without.`]],
+      ['48 mmol/mol — what is that in percent?',
+        [`About 6.5%. The converter above uses the app's own formula rather than a multiplier, because
+          the NGSP-to-IFCC relationship is non-linear and approximating it with a single factor is a
+          common source of error.`]]
+    ]
+  },
+
+  /* ------------------------------------------------------------------ 10 */
+  apob: {
+    slug: 'apob-vs-ldl',
+    keys: ['apob', 'ldl', 'nonhdl', 'ldlp'],
+    title: 'ApoB vs LDL cholesterol | TherapyLog',
+    h1: 'ApoB versus LDL cholesterol: counting particles instead of cargo',
+    description: 'LDL-C measures cholesterol carried; ApoB counts the particles carrying it. Why ' +
+      'they disagree, which LDL calculation your lab used, and what changes on testosterone or a GLP-1.',
+    lede: `LDL cholesterol and ApoB usually agree, and the interesting cases are the ones where they
+           do not. Knowing which number your report actually gave you — and how it was arrived at —
+           is most of the work.`,
+    sections: [
+      {
+        h2: 'The difference in one paragraph',
+        paras: [
+          `LDL cholesterol measures the <em>cholesterol carried inside</em> LDL particles. ApoB counts
+           the <em>particles</em>: each atherogenic particle carries exactly one apolipoprotein B
+           molecule, so an ApoB concentration is a particle count in all but name. LDL-P, measured by
+           NMR or ion mobility, counts the same thing a different way.`,
+          `${'@@EV_ESTABLISHED@@'} They diverge when particles are unusually cholesterol-poor or
+           cholesterol-rich. Someone with many small dense particles can carry a reassuring LDL-C and
+           a high ApoB — more particles, less cargo in each. Where the two disagree, meta-analysis
+           has found ApoB the better marker of risk.${cite(2)} That discordant pattern travels with
+           insulin resistance and high triglycerides, which makes it relevant to a good part of this
+           audience.`
+        ]
+      },
+      {
+        h2: 'Which LDL number did your lab actually give you?',
+        paras: [
+          `${'@@EV_ESTABLISHED@@'} Most LDL-C is not measured at all — it is calculated. The classic
+           Friedewald equation derives it from total cholesterol, HDL and triglycerides, and it is
+           unreliable when triglycerides are high, which is the app's own note on this marker. The
+           Martin-Hopkins method uses an adjustable factor instead of a fixed one and misclassifies
+           substantially fewer people, particularly at low LDL and high triglycerides.${cite(1)}
+           Direct LDL assays measure it, and are less common.`,
+          `The registry tracks all three because they are not interchangeable, and because the case
+           where they disagree most — high triglycerides — is exactly the case where someone is most
+           likely to be looking. If your LDL-C came from Friedewald with high triglycerides, it is
+           not a usable number, and that is a laboratory fact rather than an opinion.`,
+          `${'@@EV_OFFLABEL@@'} Non-HDL cholesterol sidesteps the calculation problem: it is total
+           cholesterol minus HDL, requires no fast and no equation, and captures cholesterol in all
+           atherogenic particles. It is the cheapest sensible answer to "my LDL number looks odd",
+           and it sits in guideline practice alongside ApoB.${cite(3)}`
+        ]
+      },
+      {
+        h2: 'Particle counts do not travel between platforms',
+        paras: [
+          `${'@@EV_ESTABLISHED@@'} LDL-P measured by NMR and LDL-P measured by ion mobility are not
+           interchangeable, and the app's registry says so explicitly: do not trend across platforms.
+           The absolute numbers differ, so a change of laboratory can produce an apparent change in
+           you that is entirely a change of method.`,
+          `ApoB is the more portable of the two. It is a standardised immunoassay, widely available,
+           inexpensive, and does not require a fast — which is a large part of why it has been gaining
+           ground as the preferred single measure of atherogenic burden.${cite(3)}`
+        ]
+      },
+      {
+        h2: 'What moves these on protocol',
+        paras: [
+          '@@SIDEFX_HIGH@@',
+          `${'@@EV_OFFLABEL@@'} The lipid effects of androgens are dose- and route-dependent and are
+           not uniform: oral 17-alpha-alkylated compounds are the ones associated with the sharpest
+           HDL suppression, while injectable testosterone at replacement doses has a more modest
+           effect. What the community reports and what the literature describes agree that the effect
+           is real and that it is worth measuring rather than assuming.`,
+          `GLP-1 receptor agonists generally move lipids favourably, largely through weight loss. A
+           lipid panel that improves on semaglutide or tirzepatide is expected. Neither direction is
+           a reason to change anything on your own — an atherogenic burden that is genuinely elevated
+           is a long-horizon cardiovascular question, and the person to have it with is a clinician
+           who can see your whole risk picture rather than one line of a panel.`
+        ]
+      }
+    ],
+    sidefx: ['Lipid strain', 'Lipid strain'],
+    sources: [
+      { label: 'Martin SS et al., Comparison of a novel method vs the Friedewald equation for estimating low-density lipoprotein cholesterol levels, JAMA 310(19):2061 (2013)',
+        url: 'https://jamanetwork.com/journals/jama/fullarticle/1774093',
+        note: 'The Martin-Hopkins method, and where Friedewald misclassifies — particularly at low LDL and high triglycerides.' },
+      { label: 'Sniderman AD et al., A meta-analysis of LDL-C, non-HDL-C and apoB as markers of cardiovascular risk, Circ Cardiovasc Qual Outcomes 4(3):337 (2011)',
+        url: 'https://www.ahajournals.org/doi/10.1161/CIRCOUTCOMES.110.959247',
+        note: 'Head-to-head comparison of the three measures as risk markers.' },
+      { label: 'Grundy SM et al., 2018 AHA/ACC Guideline on the Management of Blood Cholesterol',
+        url: 'https://www.ahajournals.org/doi/10.1161/CIR.0000000000000625',
+        note: 'Where ApoB and non-HDL cholesterol sit in guideline practice, and the thresholds used.' }
+    ],
+    faq: [
+      ['Should I ask for ApoB instead of a standard lipid panel?',
+        [`ApoB is inexpensive, standardised, needs no fast and answers the particle question directly,
+          so asking for it alongside a standard panel is reasonable. Whether it changes anything about
+          your management is a clinical question — but it is the number least likely to mislead you,
+          and the one least sensitive to how your lab calculates LDL.`]],
+      ['My LDL is fine but my ApoB is high. What does that mean?',
+        [`It means your particles are carrying less cholesterol each, so you have more of them than
+          the LDL number implies. That discordant pattern is the reason ApoB is measured at all, and
+          it travels with insulin resistance and high triglycerides. It is worth showing to a
+          clinician rather than reconciling yourself — the discordance is the finding.`]],
+      ['Does the converter handle mmol/L?',
+        [`Yes, for LDL and non-HDL cholesterol — mmol/L times 38.67 gives mg/dL, using the app's own
+          factor. ApoB converts from g/L. LDL-P is reported in nmol/L only, and the app refuses to
+          convert particle counts between platforms because there is no valid conversion.`]]
+    ]
+  },
 
 };
 

@@ -175,6 +175,24 @@ function monitoredBy(ctx, key) {
 
 /* The converter. The app's real normalizeValue() plus the registry subset the
    page needs — never the whole registry. */
+/* JSON.stringify silently drops a function-valued property, and some unit
+   conversions ARE functions — HbA1c's mmol/mol to NGSP percent is non-linear
+   (`v => (v / 10.929) + 2.15`). Serialising the subset with JSON alone would
+   have shipped an HbA1c converter that had quietly lost its only conversion.
+   Emit the function's own source text instead, so the page runs the app's
+   formula rather than a copy of it. */
+function serialiseRegistry(subset) {
+  const body = Object.entries(subset).map(([key, m]) => {
+    const units = Object.entries(m.units).map(([u, f]) =>
+      `${JSON.stringify(u)}: ${typeof f === 'function' ? String(f) : JSON.stringify(f)}`
+    ).join(', ');
+    const rest = Object.fromEntries(Object.entries(m).filter(([k]) => k !== 'units'));
+    const restJson = JSON.stringify(rest);
+    return `${JSON.stringify(key)}: Object.assign(${restJson}, { units: { ${units} } })`;
+  }).join(',\n  ');
+  return `{\n  ${body}\n}`;
+}
+
 function converter(ctx, keys) {
   const { app, reg } = ctx;
   const subset = {};
@@ -199,7 +217,7 @@ function converter(ctx, keys) {
     </div>`;
 
   const fns = [
-    `var MARKER_REGISTRY = ${JSON.stringify(subset)};`,
+    `var MARKER_REGISTRY = ${serialiseRegistry(subset)};`,
     A.constSource(app.src, '_norm'),
     A.fnSource(app.src, 'normalizeValue'),
     `
@@ -268,5 +286,6 @@ const LAB_RANGE_WINS = `    <div class="shared">
 
 module.exports = {
   AGE_BANDS, bandRunLabel, assayLabels, factBox, sexAgeTable, monitoredBy, converter,
+  serialiseRegistry,
   LAB_RANGE_WINS, fmtRange
 };

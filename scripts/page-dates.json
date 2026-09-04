@@ -1,27 +1,47 @@
 {
   "/markers/": {
-    "hash": "79ad42a9f833beda13587a7b84d96694ae9a5f24ee5fc8e327060dba21d449dc",
-    "lastmod": "2026-09-03"
+    "hash": "4538610e4e51b505a86d2aa6601480645db1370813fca435043b8ed5761c0849",
+    "lastmod": "2026-09-04"
+  },
+  "/markers/apob-vs-ldl/": {
+    "hash": "7e1b6bd34ac071d3e3f55581504d16121da47c66f80f36a7dff1835fba823459",
+    "lastmod": "2026-09-04"
   },
   "/markers/estradiol-sensitive-vs-standard/": {
-    "hash": "d93b176207f8263f55327dfc4f88acd90e46b8919ee5855e8cab39fc2288fb02",
-    "lastmod": "2026-09-03"
+    "hash": "15f512aa8beec73368fa94e5db1512d600e67264ba5919ed378098c1ed4f4c47",
+    "lastmod": "2026-09-04"
   },
   "/markers/free-vs-total-testosterone/": {
-    "hash": "392d795d0ebdc3481985e1bc195a313aec33a4530865540bb4ac99488365fc18",
-    "lastmod": "2026-09-03"
+    "hash": "673c59a87b673a01b9968315126543036584ed31fbb9470d806b23c54fc6dbea",
+    "lastmod": "2026-09-04"
+  },
+  "/markers/hba1c-and-fasting-glucose/": {
+    "hash": "74c62030243e7aa1bba0bee59525c54708cc8532932a378eec8260edaab53694",
+    "lastmod": "2026-09-04"
   },
   "/markers/hematocrit-on-trt/": {
-    "hash": "3336732a57174a69fb3891580ce62d15e6f10ee3b92096c80a1d4e944d561f46",
-    "lastmod": "2026-09-03"
+    "hash": "217d966c467cec9f5b6883a21936af9ff9bd19db6e7294bad429415380e5ae07",
+    "lastmod": "2026-09-04"
+  },
+  "/markers/igf-1/": {
+    "hash": "226aeedab738b31a068ad6123aec7308f7ad0b64e1e2ff374eda090d060227ef",
+    "lastmod": "2026-09-04"
+  },
+  "/markers/lh-fsh/": {
+    "hash": "64db85c0367a5981e10cc292b833ecdb9a591791d3928c4712248a62c904402f",
+    "lastmod": "2026-09-04"
+  },
+  "/markers/prolactin/": {
+    "hash": "fb2ead95bc7bb738524f3b758f0bc8ff86ac5087c9d7cf0526c5d07217f968e6",
+    "lastmod": "2026-09-04"
   },
   "/markers/shbg/": {
-    "hash": "059ec81ffe9274128df0f87c48f3f52ca35dfe9cc4bcab2b98967ab3c92be65e",
-    "lastmod": "2026-09-03"
+    "hash": "9e7ef24101333c4e84df973621dd838e7e9adc0fd577762db9ef4136b0b1d877",
+    "lastmod": "2026-09-04"
   },
   "/markers/total-testosterone-immunoassay-vs-lcms/": {
-    "hash": "7a17705bd7ae132b2f8b7b2f300b9d3df48120a9e99c4ce2326b5af3036f8e1b",
-    "lastmod": "2026-09-03"
+    "hash": "20cc152878bff933acd4c5ec0c647e3c6b6c19eb7836e8cef6502b8b7a03e840",
+    "lastmod": "2026-09-04"
   },
   "/tools/": {
     "hash": "acd01253cb4be5e46a5de9976ea9ee2730e64d757e0ae29fb517fcb4adcb8bc1",

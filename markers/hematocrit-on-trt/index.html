@@ -202,7 +202,7 @@ body.og-card .wrap{display:none}
 
     <p class="lede">A rising hematocrit is the most predictable laboratory consequence of testosterone therapy and the one most often mismanaged — usually by treating the number without watching what the fix does to iron.</p>
 
-    <div class="updated">Last reviewed: 3 September 2026</div>
+    <div class="updated">Last reviewed: 4 September 2026</div>
 
     <h2>Why testosterone raises it</h2>
     <p><span class="ev ev-est">Established clinical use</span> Testosterone stimulates erythropoiesis, and a dose-dependent rise in hematocrit is an expected effect of therapy rather than a complication of it. It is the single most common laboratory abnormality on treatment. Systematic review of drug-induced erythrocytosis places the onset typically within the first one to three years, with the largest increase in the first year.<sup class="cite"><a href="#src-1">1</a></sup></p>
@@ -357,7 +357,7 @@ body.og-card .wrap{display:none}
     </div>
     <div class="byline">
       <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
-      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
       how these pages are written, sourced and corrected is set out in the
       <a href="/about/">editorial policy</a>.</p>
     </div>
@@ -434,7 +434,12 @@ function toast(msg) {
   } catch (e) {}
 })();
 
-var MARKER_REGISTRY = {"hct":{"label":"Hematocrit","group":"cbc","loinc":["4544-3","20570-8"],"aliases":["hematocrit","hct"],"canonicalUnit":"%","units":{"%":1,"L/L":100,"fraction":100},"optimal":[40,47]},"hgb":{"label":"Hemoglobin","group":"cbc","loinc":["718-7"],"aliases":["hemoglobin","hgb","hb"],"canonicalUnit":"g/dL","units":{"g/dL":1,"g/L":0.1,"mmol/L":1.611},"optimal":[14,17]},"rbc":{"label":"RBC","group":"cbc","loinc":["789-8"],"aliases":["rbc","red blood cell count","erythrocytes"],"canonicalUnit":"M/uL","units":{"M/uL":1,"x10E6/uL":1,"10*12/L":1,"million/uL":1},"optimal":[4.5,5.5]},"ferritin":{"label":"Ferritin","group":"vitamins","loinc":["2276-4"],"aliases":["ferritin","iron storage"],"canonicalUnit":"ng/mL","units":{"ng/mL":1,"ug/L":1,"mcg/L":1,"pmol/L":0.4451},"contextNote":"Ferritin rises with inflammation. Read it beside hs-CRP.","optimal":[50,200]}};
+var MARKER_REGISTRY = {
+  "hct": Object.assign({"label":"Hematocrit","group":"cbc","loinc":["4544-3","20570-8"],"aliases":["hematocrit","hct"],"canonicalUnit":"%","optimal":[40,47]}, { units: { "%": 1, "L/L": 100, "fraction": 100 } }),
+  "hgb": Object.assign({"label":"Hemoglobin","group":"cbc","loinc":["718-7"],"aliases":["hemoglobin","hgb","hb"],"canonicalUnit":"g/dL","optimal":[14,17]}, { units: { "g/dL": 1, "g/L": 0.1, "mmol/L": 1.611 } }),
+  "rbc": Object.assign({"label":"RBC","group":"cbc","loinc":["789-8"],"aliases":["rbc","red blood cell count","erythrocytes"],"canonicalUnit":"M/uL","optimal":[4.5,5.5]}, { units: { "M/uL": 1, "x10E6/uL": 1, "10*12/L": 1, "million/uL": 1 } }),
+  "ferritin": Object.assign({"label":"Ferritin","group":"vitamins","loinc":["2276-4"],"aliases":["ferritin","iron storage"],"canonicalUnit":"ng/mL","contextNote":"Ferritin rises with inflammation. Read it beside hs-CRP.","optimal":[50,200]}, { units: { "ng/mL": 1, "ug/L": 1, "mcg/L": 1, "pmol/L": 0.4451 } })
+};
 
 const _norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
@@ -581,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "publisher": {
         "@id": "https://therapylog.app/#organization"
       },
-      "dateModified": "2026-09-03",
+      "dateModified": "2026-09-04",
       "breadcrumb": {
         "@type": "BreadcrumbList",
         "itemListElement": [
