@@ -57,9 +57,10 @@ const formula = (lines) =>
    whole row on the same pattern emptied fourteen compounds' tables of
    legitimate content. So the row fields get a narrower test that catches use
    during or after a suppressive cycle and leaves a pulse schedule alone. It
-   removes four rows in total: tamoxifen's two, clomiphene's PCT row and HCG's
-   pre-PCT primer. */
-const PERF = /performance|cycle|blast|advanced|intermediate|\bpct\b|post-?cycle|restart/i;
+   removes five rows in total: tamoxifen's two, clomiphene's PCT row, HCG's
+   pre-PCT primer, and GHRP-6's "Bulking and Mass" row — the only place in the
+   whole reference where that word appears. */
+const PERF = /performance|cycle|blast|advanced|intermediate|\bpct\b|post-?cycle|restart|\bbulking\b/i;
 const CYCLE_CONTEXT = /during (a |an |the )?cycle|of (a |an |the )?cycle\b|post-?cycle|before starting serm|\bpct\b/i;
 const publishableDoses = (entry) => (entry.doses || []).filter((r) =>
   !PERF.test(r.l) && !CYCLE_CONTEXT.test([r.d, r.f, r.c].filter(Boolean).join(' ')));

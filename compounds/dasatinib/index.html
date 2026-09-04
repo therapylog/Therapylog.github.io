@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Compound reference: half-life and dosing | TherapyLog</title>
-<meta name="description" content="One page per compound, built from the data the TherapyLog app runs on: modelled half-life, storage rule, monitoring panel and interactions.">
+<title>Dasatinib: the senolytic use, in proportion | TherapyLog</title>
+<meta name="description" content="An approved kinase inhibitor used intermittently as a senolytic. What the human trials measured, and what the drug does at any dose.">
 <meta name="author" content="Joel Gonzales">
-<link rel="canonical" href="https://therapylog.app/compounds/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Compound reference: half-life and dosing | TherapyLog"><meta property="og:description" content="One page per compound, built from the data the TherapyLog app runs on: modelled half-life, storage rule, monitoring panel and interactions."><meta property="og:url" content="https://therapylog.app/compounds/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Compound reference: half-life and dosing | TherapyLog"><meta name="twitter:description" content="One page per compound, built from the data the TherapyLog app runs on: modelled half-life, storage rule, monitoring panel and interactions."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="canonical" href="https://therapylog.app/compounds/dasatinib/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Dasatinib: the senolytic use, in proportion | TherapyLog"><meta property="og:description" content="An approved kinase inhibitor used intermittently as a senolytic. What the human trials measured, and what the drug does at any dose."><meta property="og:url" content="https://therapylog.app/compounds/dasatinib/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Dasatinib: the senolytic use, in proportion | TherapyLog"><meta name="twitter:description" content="An approved kinase inhibitor used intermittently as a senolytic. What the human trials measured, and what the drug does at any dose."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -202,337 +202,134 @@ body.og-card .wrap{display:none}
       <a href="/guide">Guide</a>
       <a class="cta" href="/app">Open the app</a>
     </nav>
-    <div class="crumbs"><a href="/">Home</a> &rsaquo; Compounds</div>
-    <h1>Compound reference: what each one is, how it is dosed, and what to monitor</h1>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/compounds/">Compounds</a> &rsaquo; Dasatinib</div>
+    <h1>Dasatinib: a leukaemia drug used three days at a time, and why that is not a small thing</h1>
 
-    <p class="lede">One page per compound, built from the same reference data the TherapyLog
-    app runs on &mdash; the modelled half-life, the storage rule, the monitoring panel, the
-    documented interactions &mdash; with the pharmacology written out rather than summarised into
-    a benefits list.</p>
+    <p class="lede">This is the senolytic with actual human trial data, and it is also a cancer drug with a real adverse-effect profile. Both facts belong in the same sentence, and most writing about it keeps them apart.</p>
 
     <div class="updated">Last reviewed: 4 September 2026</div>
 
-    <h2>What these pages are, and what they are not</h2>
+    <div class="facts">
+      <dl>
+        <dt>Also known as</dt><dd>Sprycel, senolytic Rx, BCR-ABL inhibitor</dd>
+        <dt>Class</dt><dd>Senolytics and Autophagy</dd>
+        <dt>Regulatory status</dt><dd>FDA APPROVED for leukemia (Sprycel). Off-label longevity use at much lower intermittent doses. Physician prescription and supervision required.</dd>
+        <dt>Storage</dt><dd>Room temperature and dry, in the original container with whatever desiccant came in it, out of light.</dd>
+        <dt>Once opened</dt><dd>Unchanged once opened, as long as it stays dry.</dd>
+        <dt>What ruins it</dt><dd>Humidity is the real enemy — a bathroom cabinet is the worst place in the house for these.</dd>
+        <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
+      </dl>
+    </div>
 
-    <p>Every fact in the boxes on a compound page is lifted from the app at build time: the
-    half-life and time to peak, the formulation, the storage rule and its handling caveat, the
-    monitoring panel, the drawbacks the app records, the dosing rows it holds, and the interaction
-    rules that name the compound. That means these pages cannot quietly disagree with the app, and
-    a change to the app's reference shows up here on the next build rather than never.</p>
+    <h2>What it is before it is a senolytic</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Dasatinib is a tyrosine kinase inhibitor approved for chronic myeloid leukaemia and Philadelphia-chromosome-positive acute lymphoblastic leukaemia. It inhibits BCR-ABL and a broad range of other kinases including the SRC family, and that breadth is both why it works in leukaemia and why it has the side-effect profile it does. Pleural effusion, myelosuppression, bleeding risk and QT prolongation are all recognised effects at treatment doses.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> Its senolytic identity came out of a screen: senescent cells resist apoptosis by upregulating specific survival pathways, and dasatinib was one of the compounds found to disable them. The proposed use is nothing like the leukaemia use &mdash; two or three days every few months rather than continuously &mdash; and the argument is that a brief exposure is enough to kill cells whose defences it disables while being too short for the cumulative toxicity that daily treatment produces.</p>
+    <p>That argument is plausible and it is not the same as demonstrated. Total exposure is genuinely far lower. Whether it is low enough to avoid the effects that matter is something the trials were not powered to establish.</p>
 
-    <p>What they are not is a protocol. No page here tells a reader to take an amount, and
-    none of them reproduces the app's combination protocols &mdash; a combination presented as a
-    plan under a byline is a recommendation to run it, whatever the disclaimer underneath says.
-    The <a href="/tools/stack-checker/">combination checker</a> covers combinations from the other
-    direction, as a check for documented conflicts. There is no vendor, clinic, testing service or
-    discount code on any of these pages, and there will not be.</p>
+    <h2>What the human trials actually measured</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Dasatinib combined with quercetin is the most studied senolytic protocol in people, and the trials are small, open-label and endpoint-modest. In diabetic kidney disease, a short course reduced senescent cell burden in adipose tissue and skin &mdash; measured directly, which is the strongest thing anyone has shown for a senolytic in humans. In idiopathic pulmonary fibrosis, an open-label pilot reported improvement in some physical function measures.</p>
+    <p>What has not been shown is a change in a hard clinical outcome, in any trial, in any indication. Reduced senescent cell burden is a mechanistic confirmation, not a benefit. The distance between "the drug does the thing it was supposed to do" and "people are better off" is exactly where this field currently sits, and it is the honest summary.</p>
+    <p>The <a href="/compounds/fisetin/">fisetin page</a> covers the supplement alternative, which has mouse data and no human outcome trial. Neither is established. This one at least has been measured in people.</p>
 
-    <p>Each page also publishes the drawbacks the app records and not the benefits it
-    records. That asymmetry is deliberate. A risk someone has not heard of is worth reading; a
-    list of benefits under the founder's byline on a page built to rank is advertising, and
-    labelling it otherwise would not change what it is.</p>
+    <h2>Why this one is not a self-directed decision</h2>
+    <p>Dasatinib requires a prescription and the app&rsquo;s own entry says physician oversight is absolutely required, which is unusually emphatic for this reference and is correct. Three specifics make it so. It has a broad and clinically significant interaction profile through CYP3A4, so the full medication list matters. It suppresses blood counts, which is why the app puts a full blood count before and two weeks after each pulse on the monitoring list. And bleeding risk means anticoagulants and antiplatelet drugs are a genuine concern rather than a theoretical one.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> Nobody has established what the cumulative risk of a pulse protocol repeated over years looks like, because nobody has run it for years. That is not a reason to assume harm; it is a reason to describe this as an experimental protocol being taken outside a trial, which is what it is.</p>
+    <p>The trial protocols this is copied from ran under monitoring, with stopping rules and scheduled bloodwork. Reproducing the dose without reproducing the monitoring is taking the risk without the safeguards, and that is the specific thing to avoid here. Anything on the drawbacks list below is a conversation with a prescriber, not a page.</p>
 
-    <h2>Which compounds get a page</h2>
+    <h2>The dosing rows the app records</h2>
 
-    <p>The app's reference covers 130 compounds. 107 of them can be described
-    responsibly on a public page, and they are split into two groups that are presented
-    differently:</p>
+    <p><span class="ev ev-est">Established clinical use</span> Reproduced from the app&rsquo;s reference so you can
+      see what it holds, not as a recommendation. Which row applies to a particular person, if
+      any, is a clinical decision this page does not make &mdash; and rows describing
+      supraphysiological or post-cycle use are filtered out before this table is built, so what
+      you see here is a subset.</p>
 
-    <ul>
-      <li><strong>Approved and available (54).</strong> Compounds obtainable lawfully in
-      the United States, either as a prescription drug &mdash; used on-label or off-label &mdash;
-      or as a dietary supplement, over-the-counter product or cosmetic. Their pages carry the
-      approval string from the app's reference in the fact box.</li>
-      <li><strong>Research and unapproved (53).</strong> Research compounds, molecules
-      still in trials, compounds compounded from an unapproved ingredient, and drugs approved
-      somewhere other than the United States. Their pages open with a regulatory block stating the
-      approval status, the fact that nobody has verified identity or purity for the vial in
-      question, and the storage caveat.</li>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Label</th><th>Amount</th><th>Route and frequency</th><th>Duration recorded</th></tr></thead>
+        <tbody>
+          <tr><td>D+Q Longevity protocol</td><td class="num">100mg/day for 2-3 days</td><td class="num">Oral — pulse every 2-3 months with Quercetin</td><td class="num">Intermittent pulse only — never daily</td></tr>
+          <tr><td>Clinical trial dose</td><td class="num">100mg/day x 2-3 days</td><td class="num">Per Mayo Clinic protocols with Quercetin 1000mg</td><td class="num">Quarterly or biannual cycles</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What the app monitors alongside it</h2>
+
+    <p>The panel below is the app&rsquo;s own monitoring note for Dasatinib,
+      verbatim. None of the analytes it names has a page here yet.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Monitoring panel</dt><dd>CBC with differential before and 2 weeks after each pulse (dasatinib affects blood counts). Liver enzymes. Physician monitoring required for each cycle. Senescent cell biomarkers (p16, p21) if available via specialty labs.</dd>
+      </dl>
+    </div>
+
+    <h2>Drawbacks and risks the app records</h2>
+
+    <p>From the app&rsquo;s own entry. The first item is not boilerplate on this compound — it is the one that separates it from everything else in the senolytic category.</p>
+
+    <ul class="cards risks">
+      <li>Prescription drug — physician oversight absolutely required</li>
+      <li>Side effects at cancer doses are significant — longevity doses are much lower</li>
+      <li>Not FDA approved for longevity or anti-aging</li>
+      <li>Drug interactions — check all current medications</li>
+      <li>Bone marrow suppression monitoring required</li>
+      <li>Cost — brand name expensive, generic available</li>
     </ul>
 
-    <p>The remaining 23 are in the app and do not get a page here. They are the
-    anabolic-androgenic steroids and selective androgen receptor modulators used for
-    performance, and the reasoning is not squeamishness: a page about them under this byline,
-    written to rank, would function as promotion no matter how it was framed, and the honest
-    version of that page is one nobody would publish. They stay in the app, where they exist to
-    make a log accurate for someone already using them, and off the indexable site.</p>
-
-    <h2>Approved and available</h2>
-
-    <div class="cards">
-      <div class="tcard">
-        <h3><a href="/compounds/anastrozole/">Anastrozole</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Arimidex</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/berberine/">Berberine</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Berberine HCl, BBR</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cabergoline/">Cabergoline</a></h3>
-        <p>Additional Ancillaries &middot; Dostinex, Caber</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/clomiphene/">Clomiphene</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Clomid, Enclomiphene</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/creatine-monohydrate/">Creatine Monohydrate</a></h3>
-        <p>Performance and Recovery &middot; Creatine, Cr, creatine monohydrate</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dasatinib/">Dasatinib</a></h3>
-        <p>Senolytics and Autophagy &middot; Sprycel, senolytic Rx, BCR-ABL inhibitor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dhea/">DHEA</a></h3>
-        <p>DHEA and Adrenal &middot; Dehydroepiandrosterone, Prasterone</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dutasteride-and-finasteride/">Dutasteride / Finasteride</a></h3>
-        <p>Additional Ancillaries &middot; Avodart (Duta), Propecia (Fina), 5-ARIs</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/exemestane/">Exemestane</a></h3>
-        <p>Additional Ancillaries &middot; Aromasin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/fisetin/">Fisetin</a></h3>
-        <p>Senolytics and Autophagy &middot; 7,3',4'-flavon-3-ol, senolytic flavonoid</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hcg/">HCG</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Human Chorionic Gonadotropin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/levothyroxine-t4/">Levothyroxine (T4)</a></h3>
-        <p>Thyroid Hormones &middot; Synthroid, Levoxyl, LT4</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/liothyronine-t3/">Liothyronine (T3)</a></h3>
-        <p>Thyroid Hormones &middot; Cytomel, T3, LT3</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/low-dose-naltrexone/">Low-Dose Naltrexone</a></h3>
-        <p>Metabolic and Cardiovascular &middot; LDN</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/metformin/">Metformin</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Glucophage, Metformin HCl, Fortamet</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/natural-desiccated-thyroid/">Natural Desiccated Thyroid</a></h3>
-        <p>Thyroid Hormones &middot; NDT, Armour Thyroid, NatureThroid, WP Thyroid</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/nmn-and-nr/">NMN / NR (NAD+ Precursors)</a></h3>
-        <p>Nootropics and Longevity &middot; Nicotinamide Mononucleotide, Nicotinamide Riboside</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/proviron/">Proviron</a></h3>
-        <p>Additional Compounds &middot; Mesterolone, 1-Methyl-DHT</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/pt-141/">PT-141</a></h3>
-        <p>Sexual Health Peptides &middot; Bremelanotide, Vyleesi</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/rapamycin/">Rapamycin</a></h3>
-        <p>Longevity Compounds &middot; Sirolimus, Rapamune, mTOR inhibitor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/recombinant-hgh/">Recombinant HGH</a></h3>
-        <p>HGH and IGF-1 &middot; Somatropin, rHGH, Human Growth Hormone, Genotropin, Norditropin, Humatrope, Omnitrope, Somatropin (rhGH)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/semaglutide/">Semaglutide</a></h3>
-        <p>GLP-1 / Metabolic &middot; Ozempic, Wegovy</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tamoxifen/">Tamoxifen</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Nolvadex, Tamox</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/telmisartan/">Telmisartan</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Micardis</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tesamorelin/">Tesamorelin</a></h3>
-        <p>GH Secretagogues &middot; Egrifta, TH9507</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-cypionate/">Testosterone Cypionate</a></h3>
-        <p>Androgens / TRT &middot; Test C, TC</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-enanthate/">Testosterone Enanthate</a></h3>
-        <p>Androgens / TRT &middot; Test E, TE</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-pellets/">Testosterone Pellets</a></h3>
-        <p>Performance and Recovery &middot; Testopel, subcutaneous pellet implant, BHRT pellets</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-propionate/">Testosterone Propionate</a></h3>
-        <p>Additional Compounds &middot; Test Prop, TP</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tirzepatide/">Tirzepatide</a></h3>
-        <p>GLP-1 / Metabolic &middot; Mounjaro, Zepbound</p>
-      </div>
+    <div class="shared">
+      <p>That list is the app&rsquo;s, not a complete adverse-effect profile, and none of it is a
+      diagnosis. Anything on it that you are actually experiencing belongs in front of the
+      clinician who prescribes or supervises for you &mdash; they are the only person who can
+      weigh it against your history, your other medications and your bloodwork.</p>
     </div>
 
-    <h2>Research and unapproved</h2>
+    <h2>Questions people actually ask</h2>
 
-    <p>Each of these opens with its regulatory status. None of them has been reviewed by a
-        regulator for identity, purity, potency or safety in people.</p>
+    <h3>Is it safe at senolytic doses?</h3>
+    <p>Total exposure is far lower than in leukaemia treatment, and the short trials reported it as
+         tolerated. What nobody has established is the cumulative risk of repeating a pulse protocol over
+         years, because that has not been run.</p>
+    <h3>What did the trials actually show?</h3>
+    <p>Directly measured reduction in senescent cell burden in tissue, which is the strongest
+         mechanistic confirmation any senolytic has in people, and some physical-function signals in a
+         small open-label pilot. No hard clinical outcome in any trial.</p>
+    <h3>Why is it paired with quercetin?</h3>
+    <p>Because the two disable different survival pathways, and senescent cells in different tissues
+         depend on different ones. The pairing is what the trial protocols used, and it is why the
+         combination rather than either alone is what has human data.</p>
+    <h3>What monitoring does a pulse need?</h3>
+    <p>A full blood count before and about two weeks after, because it suppresses counts, plus liver
+         enzymes and a review of every other medication for CYP3A4 interactions. That is the app’s own
+         panel and it is not optional.</p>
 
-    <div class="cards">
-      <div class="tcard">
-        <h3><a href="/compounds/5-amino-1mq/">5-Amino-1MQ</a></h3>
-        <p>Additional Compounds &middot; 5-Amino-1-methylquinolinium, AMQ</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/aod-9604/">AOD-9604</a></h3>
-        <p>Peptides &middot; Anti-Obesity Drug 9604, HGH Frag 177-191, HGH Fragment 176-191</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ara-290/">ARA-290</a></h3>
-        <p>Peptides &middot; Cibinetide, Helix B peptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/bpc-157/">BPC-157</a></h3>
-        <p>Peptides &middot; Body Protection Compound 157</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cagrilintide/">Cagrilintide</a></h3>
-        <p>Metabolic Peptides &middot; AM833, amylin analogue</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cerebrolysin/">Cerebrolysin</a></h3>
-        <p>Neurological and Cognitive &middot; FPF-1070, CERE</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cjc-1295/">CJC-1295</a></h3>
-        <p>Peptides &middot; Mod GRF 1-29 (without DAC)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cjc-1295-with-dac/">CJC-1295 with DAC</a></h3>
-        <p>Anti-Inflammatory Peptides &middot; CJC-1295 DAC, Drug Affinity Complex</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dsip/">DSIP</a></h3>
-        <p>Sleep and Neurological &middot; Delta Sleep-Inducing Peptide, DSIP nonapeptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/enclomiphene/">Enclomiphene</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Androxal, Enclomifene, NF-1010</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/epithalon/">Epithalon</a></h3>
-        <p>Khavinson Bioregulators &middot; Epithalamin, Epitalon, Epithalone</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ghrp-2/">GHRP-2</a></h3>
-        <p>Peptides &middot; Pralmorelin, KP-102</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ghrp-6/">GHRP-6</a></h3>
-        <p>Peptides &middot; Growth Hormone Releasing Peptide-6</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hexarelin/">Hexarelin</a></h3>
-        <p>Peptides &middot; Examorelin, HEX</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hgh-fragment-176-191/">HGH Fragment 176-191</a></h3>
-        <p>Peptides &middot; HGH Frag, Fragment 176-191</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ipamorelin/">Ipamorelin</a></h3>
-        <p>Peptides &middot; Ipa, Selective GHRP</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/kisspeptin-10/">Kisspeptin-10</a></h3>
-        <p>Peptides &middot; Metastin, KP-10</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/kpv/">KPV</a></h3>
-        <p>Anti-Inflammatory Peptides &middot; Lys-Pro-Val, Alpha-MSH C-terminal tripeptide, α-MSH(11-13)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/melanotan-ii/">Melanotan II</a></h3>
-        <p>Metabolic Peptides &middot; MT-2, bremelanotide precursor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/mk-677/">MK-677 / Ibutamoren</a></h3>
-        <p>GH Secretagogues &middot; Nutrobal</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/mots-c/">MOTS-c</a></h3>
-        <p>Additional Peptides &middot; Mitochondrial Open Reading Frame Peptide, Humanin analogue</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/pentadeca-arginate/">Pentadeca Arginate</a></h3>
-        <p>Peptides &middot; PDA, PC-15</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/retatrutide/">Retatrutide</a></h3>
-        <p>Metabolic Peptides &middot; LY3437943, triple G agonist</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/selank/">Selank</a></h3>
-        <p>Neurological and Cognitive &middot; TP-7</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/semax/">Semax</a></h3>
-        <p>Neurological and Cognitive &middot; ACTH(4-7)PGP, Heptapeptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/sermorelin/">Sermorelin</a></h3>
-        <p>GH Secretagogues &middot; GHRH(1-29)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ss-31/">SS-31</a></h3>
-        <p>Peptides &middot; Elamipretide, MTP-131, Bendavia</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tb-500/">TB-500</a></h3>
-        <p>Peptides &middot; Thymosin Beta-4</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/thymosin-alpha-1/">Thymosin Alpha-1</a></h3>
-        <p>Additional Peptides &middot; Ta1, Zadaxin, Thymalfasin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/vip/">VIP</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Vasoactive Intestinal Peptide</p>
-      </div>
+    <h2>Where the load-bearing numbers come from</h2>
+
+    <p>Named rather than linked. Publisher URLs move, and a citation that resolves to a
+      404 two years from now is worse than one you can search for by name &mdash; every entry
+      below is findable from the title and year alone.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Approved indication and kinase inhibition profile</dt><dd>The dasatinib approved labelling and its published pharmacology</dd>
+        <dt>Senescent cell burden reduction in humans</dt><dd>Open-label trials of the dasatinib and quercetin combination in diabetic kidney disease and idiopathic pulmonary fibrosis, reported from 2019</dd>
+        <dt>Absence of hard clinical outcomes</dt><dd>No senolytic trial in any indication has reported a change in a hard clinical endpoint</dd>
+        <dt>Interaction and myelosuppression profile</dt><dd>Carried in the approved labelling for the oncology indication</dd>
+      </dl>
     </div>
-
-    <h2>The rest of the reference</h2>
-
-    <p>60 of the 107 publishable compounds have a page so far; the others
-    are being written in batches, and nothing is linked here until its page is live and has been
-    read end to end. In the meantime the app's own encyclopedia carries all 130 with the same
-    underlying data &mdash; <a href="/app">open it here</a>, no account needed. The
-    <a href="/tools/">calculators</a> cover reconstitution, syringe volumes and half-life
-    arithmetic, and the <a href="/markers/">lab-marker pages</a> cover the bloodwork that follows
-    most of these.</p>
 
     <div class="cta-box">
-      <p>The app holds the same reference data these pages are built from, plus the log that turns a dose and a lab result into a trend.</p>
-      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=compounds-hub"
-         id="tl-cta" data-campaign="compounds-hub">Open the reference</a>
+      <p>A pulse protocol with bloodwork before and after only works if the dates line up.
+      TherapyLog keeps them.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=compound-dasatinib"
+         id="tl-cta" data-campaign="compound-dasatinib">Save this dose to your log</a>
     </div>
     <div class="byline">
       <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
       Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
       how these pages are written, sourced and corrected is set out in the
       <a href="/about/">editorial policy</a>.</p>
-    </div>
-    <div class="callout">
-      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
     </div>
     <div class="disclaimer">
       TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
@@ -660,11 +457,11 @@ function toast(msg) {
       }
     },
     {
-      "@type": "CollectionPage",
-      "@id": "https://therapylog.app/compounds/#page",
-      "url": "https://therapylog.app/compounds/",
-      "name": "Compound reference: half-life and dosing | TherapyLog",
-      "description": "One page per compound, built from the data the TherapyLog app runs on: modelled half-life, storage rule, monitoring panel and interactions.",
+      "@type": "Article",
+      "@id": "https://therapylog.app/compounds/dasatinib/#page",
+      "url": "https://therapylog.app/compounds/dasatinib/",
+      "name": "Dasatinib: the senolytic use, in proportion | TherapyLog",
+      "description": "An approved kinase inhibitor used intermittently as a senolytic. What the human trials measured, and what the drug does at any dose.",
       "inLanguage": "en-US",
       "isPartOf": {
         "@id": "https://therapylog.app/#website"
@@ -690,6 +487,12 @@ function toast(msg) {
             "position": 2,
             "name": "Compounds",
             "item": "https://therapylog.app/compounds/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Dasatinib",
+            "item": "https://therapylog.app/compounds/dasatinib/"
           }
         ]
       }

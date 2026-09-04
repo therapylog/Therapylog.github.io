@@ -4204,4 +4204,1970 @@ module.exports = {
     cta: `With no marker to follow, a consistent measure of what you can actually do is the whole
       dataset. TherapyLog keeps it beside the dose.`
   },
+
+  tprop: {
+    slug: 'testosterone-propionate',
+    h1: 'Testosterone propionate: the short ester, and what the frequency buys',
+    title: 'Testosterone propionate: the short ester | TherapyLog',
+    description: 'A two-day modelled half-life against cypionate’s six. What every-other-day dosing changes, and why the injection site complains more.',
+    lede: `The same hormone as cypionate and enanthate on a much shorter leash. Two days rather than
+      six, which means more injections, a flatter response to a change, and one specific tolerability
+      problem the longer esters do not have.`,
+    sections: [
+      {
+        h2: 'A three-carbon chain and everything that follows',
+        paras: [
+          `@@EV_ESTABLISHED@@ Propionate is a three-carbon ester against enanthate&rsquo;s seven and
+          cypionate&rsquo;s eight-carbon ring. Shorter and less lipophilic means the depot empties
+          faster, and the app models the result at about two days. The molecule underneath is
+          identical: once the ester is cleaved, propionate delivers exactly the same testosterone as
+          the others.`,
+          `That half-life is what makes it a genuinely different protocol rather than a variant.
+          Every-other-day injection against a two-day half-life produces a modest peak-to-trough
+          swing; the same weekly amount given once would swing enormously and would leave several
+          days at almost nothing. The frequency is not a preference, it is a consequence.`,
+          `What it buys is responsiveness. Time to steady state is about five half-lives &mdash;
+          ten days rather than a month &mdash; so a change to the amount is assessable in a
+          fortnight instead of six weeks. For someone titrating, or someone who reacted badly to a
+          long ester and wants it out of the system quickly, that is the argument. The
+          <a href="/compounds/testosterone-cypionate/">cypionate page</a> covers the other side of
+          the trade.`
+        ]
+      },
+      {
+        h2: 'The injection-site problem is real',
+        paras: [
+          `Propionate has a reputation for post-injection discomfort that the longer esters do not,
+          and it is not folklore. The shorter ester requires a higher concentration of ester per
+          milligram of testosterone delivered, the injections are more frequent so any given site
+          gets less recovery time, and propionate formulations have historically used higher
+          benzyl-alcohol content. Any of the three would produce soreness; together they reliably
+          do.`,
+          `@@EV_OFFLABEL@@ Subcutaneous administration is widely described as better tolerated than
+          intramuscular here for exactly that reason, and rotation across sites matters more than it
+          does at weekly frequency. This is one of the few places in this reference where the
+          practical obstacle to a protocol is comfort rather than pharmacology, and it is the main
+          reason people move off it.`
+        ]
+      },
+      {
+        h2: 'Everything downstream is unchanged',
+        paras: [
+          `The monitoring panel is testosterone&rsquo;s panel, because the hormone is testosterone.
+          Luteinising hormone and FSH are suppressed. Haematocrit rises and has a published
+          threshold attached &mdash; the <a href="/markers/hematocrit-on-trt/">haematocrit page</a>
+          covers it. Estradiol tracks testosterone through aromatase, and the
+          <a href="/markers/estradiol-sensitive-vs-standard/">estradiol assay page</a> covers why
+          the method changes the number. SHBG usually falls.`,
+          `The one measurement difference is draw timing, and it cuts the opposite way from the
+          long esters. A two-day half-life on an every-other-day schedule means the level moves
+          substantially within a single interval, so a result drawn the morning after an injection
+          and one drawn the morning before the next are not comparable. Recording the interval is
+          not optional here; it is part of the number.`,
+          `Which ester, at what amount, on what schedule, is a prescribing decision. Anything on the
+          drawbacks list below that you are experiencing belongs with the clinician who prescribes
+          for you.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and honest about where the difficulty is: five of the
+      six items are about injection frequency and comfort rather than about the hormone.`,
+    faq: [
+      ['Why does propionate hurt more?', [
+        `Three things stack: more ester per milligram of testosterone, more frequent injections into
+         sites that get less recovery, and historically higher benzyl-alcohol content in the
+         formulations. Subcutaneous administration and site rotation are the usual responses.`]],
+      ['How quickly does it clear?', [
+        `About five half-lives, so roughly ten days at the modelled figure. That is the fastest exit
+         of the common esters and is the reason it is described as the one to use when reversibility
+         matters.`]],
+      ['Can it be dosed weekly?', [
+        `Not usefully. At a two-day half-life a weekly injection would leave most of the week near
+         nothing. The frequency follows from the pharmacokinetics rather than from preference.`]],
+      ['Is it stronger than cypionate?', [
+        `No. Same hormone, different release rate. Because the ester is a smaller fraction of the
+         molecular weight, an identical milligram amount contains slightly more testosterone — a few
+         per cent, well inside the variation between two draws.`]]
+    ],
+    basis: [
+      ['Ester chain length and depot release rate',
+        'Standard pharmacology of esterified androgens'],
+      ['Injection-site tolerability',
+        'Consistently reported in clinical use; the formulation and frequency explanations are mechanistic rather than trial-derived'],
+      ['Haematocrit monitoring',
+        'Endocrine Society clinical practice guideline, Testosterone Therapy in Men with Hypogonadism, J Clin Endocrinol Metab, 2018'],
+      ['Modelled half-life and time to peak', 'app.html’s TL_PK entry']
+    ],
+    cta: `An every-other-day schedule is the easiest one to lose track of, and the interval is part
+      of every lab result. TherapyLog records both.`
+  },
+
+  proviron: {
+    slug: 'proviron',
+    h1: 'Proviron: a DHT derivative that works mostly by moving SHBG out of the way',
+    title: 'Proviron (mesterolone): the SHBG angle | TherapyLog',
+    description: 'Mesterolone does not aromatise and binds SHBG avidly. Why that raises free testosterone without raising total, and what it costs.',
+    lede: `An old oral androgen with a mechanism that is easy to misdescribe. It is not doing much
+      anabolically. What it is doing is competing for a binding protein, and the consequence shows
+      up on a panel in a way that surprises people.`,
+    sections: [
+      {
+        h2: 'Binding competition, not aromatase inhibition',
+        paras: [
+          `@@EV_ESTABLISHED@@ Mesterolone is a 1-methylated derivative of dihydrotestosterone. Two
+          properties follow from that structure. It is not a substrate for aromatase, so none of it
+          converts to oestrogen. And it binds sex hormone-binding globulin with high affinity
+          &mdash; DHT and its derivatives bind SHBG more avidly than testosterone does.`,
+          `That second property is the mechanism people usually attribute to something else.
+          Occupying SHBG displaces testosterone from it, which raises the free fraction without
+          raising the total, and it displaces estradiol too, which is where the anti-oestrogenic
+          reputation comes from. It is not an aromatase inhibitor and it does not lower estradiol
+          production; it changes how much of what is already there is bound. The
+          <a href="/markers/shbg/">SHBG page</a> covers why that distinction changes how a panel
+          reads.`,
+          `The practical consequence for anyone reading their own bloodwork: free testosterone can
+          rise substantially while total testosterone barely moves, and estradiol measured as a
+          total can look unchanged while its free fraction has shifted. A panel that reports only
+          totals will under-describe what happened.`
+        ]
+      },
+      {
+        h2: 'Where it fits, and where the honest limits are',
+        paras: [
+          `@@EV_OFFLABEL@@ The situation it is described for is high SHBG with a good total
+          testosterone and a poor free testosterone &mdash; a common and genuinely frustrating
+          pattern, where raising the testosterone dose mostly raises SHBG-bound hormone. Using
+          mesterolone there is off-label; the approvals are older and narrower than the use.`,
+          `Two limits are worth stating plainly. It has little anabolic effect on its own, which the
+          app&rsquo;s own drawbacks list says, so anyone expecting a muscle effect is expecting the
+          wrong thing. And it is an androgen, so it does suppress luteinising hormone &mdash;
+          mildly, but it is not free of the axis effects that oral androgens have.`,
+          `Being a DHT derivative also means it does what DHT does in tissues that respond to DHT:
+          it can accelerate androgenic hair loss in people predisposed to it, and it is not suitable
+          for women. And like most oral androgens it reduces HDL cholesterol, which is the effect
+          that shows up on a lipid panel rather than in how someone feels.`
+        ]
+      },
+      {
+        h2: 'What to measure',
+        paras: [
+          `The app&rsquo;s panel here is unusually well matched to the mechanism: free testosterone
+          and SHBG together, because the point is the ratio between them, plus estradiol, a lipid
+          panel for the HDL effect, and DHT. Reading total testosterone alone on this compound will
+          tell you almost nothing.`,
+          `@@EV_ESTABLISHED@@ Free testosterone is itself a measurement with a method problem
+          &mdash; calculated, direct immunoassay and equilibrium dialysis give three different
+          answers, and calculated values assume an SHBG binding behaviour this compound is
+          deliberately interfering with. The
+          <a href="/markers/free-vs-total-testosterone/">free versus total testosterone page</a>
+          covers which is which. That caveat matters more here than almost anywhere.`,
+          `Whether this applies to a particular person, and at what amount, is a prescribing
+          decision made from a panel that includes SHBG. Anything on the drawbacks list below that
+          you are experiencing belongs in front of the clinician who prescribed it.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The lipid item is the one that shows up on paper
+      rather than in symptoms, which makes it the one worth actually measuring.`,
+    faq: [
+      ['Does it lower estradiol?', [
+        `Not by reducing production. It displaces estradiol from SHBG, which changes the bound and free
+         fractions rather than the total made. That is a different intervention from an aromatase
+         inhibitor and it should not be substituted for one on the assumption they do the same thing.`]],
+      ['Why did my free testosterone rise but not my total?', [
+        `That is the expected result. Occupying SHBG frees testosterone that was already circulating
+         bound. Nothing new was produced, so the total is unchanged.`]],
+      ['Is calculated free testosterone still valid on it?', [
+        `Less so. Calculated free testosterone assumes normal binding behaviour, and this compound is
+         competing for the binding protein. Equilibrium dialysis is the method that does not make that
+         assumption — the free versus total page covers the difference.`]],
+      ['Does it suppress natural production?', [
+        `Mildly. It is an androgen and it does feed back on luteinising hormone, which the app’s own
+         drawbacks list notes. It is not exempt from the axis effects other androgens have.`]]
+    ],
+    basis: [
+      ['SHBG binding affinity of DHT derivatives',
+        'Standard endocrinology references on sex hormone-binding globulin affinity'],
+      ['Absence of aromatisation',
+        'Mesterolone is not a substrate for aromatase; established in its published pharmacology'],
+      ['HDL reduction with oral androgens',
+        'A consistent class effect in the lipid literature'],
+      ['Modelled half-life and time to peak', 'app.html’s TL_PK entry']
+    ],
+    cta: `Free testosterone and SHBG only mean something read together. TherapyLog charts them on
+      one timeline with the dose.`
+  },
+
+  testpellets: {
+    slug: 'testosterone-pellets',
+    h1: 'Testosterone pellets: steady levels, and no way to take them back',
+    title: 'Testosterone pellets: the trade-off | TherapyLog',
+    description: 'Implanted pellets give months of steady release with no peaks. The cost is that the dose cannot be changed once it is under the skin.',
+    lede: `The flattest testosterone curve available, bought with the one property no other route
+      has: once the pellets are in, the dose is fixed until they dissolve. Everything worth knowing
+      about this route follows from that single fact.`,
+    sections: [
+      {
+        h2: 'How the release works',
+        paras: [
+          `@@EV_ESTABLISHED@@ Pellets are small crystalline cylinders of testosterone, typically 75 mg
+          each, placed in subcutaneous fat through a trocar under local anaesthetic, usually in the
+          upper outer buttock. They have no ester and no carrier oil: release is governed by surface
+          dissolution of the crystal itself, which is why the curve is so flat and why it stretches
+          over months rather than days.`,
+          `That also means there is no half-life to model in the usual sense, which is why the fact
+          box above carries no pharmacokinetic rows &mdash; the app holds none for this entry. The
+          release profile is a slow decline over three to six months rather than a repeating peak
+          and trough, and the level people describe as a trough is the tail end before the next
+          insertion.`,
+          `The flatness is the genuine advantage. Someone whose symptoms track the injection cycle
+          &mdash; good for four days, flat for three &mdash; is describing a problem this route does
+          not have. Adherence is the other: two or three appointments a year replaces a weekly task.`
+        ]
+      },
+      {
+        h2: 'The irreversibility is the whole risk',
+        paras: [
+          `Every other testosterone route can be stopped. A gel is washed off, an injection is not
+          repeated, a tablet is not taken. A pellet keeps releasing for months regardless of what
+          anyone learns in the meantime. @@EV_OFFLABEL@@ If the amount turns out to be too high
+          &mdash; haematocrit climbing, estradiol symptomatic, mood worsening &mdash; the options are
+          to manage around it or to have the pellets surgically removed, and removal is not always
+          straightforward once they have partly dissolved.`,
+          `That is why the first insertion is the one that deserves the most conservatism, and why
+          people already established on injections have more information to size it with than someone
+          starting from scratch. It is also why the app puts haematocrit at four weeks post-insertion
+          on the monitoring list rather than at the usual interval: the point is to catch a problem
+          while there is still time to plan around it.`,
+          `Extrusion &mdash; a pellet working its way back out through the insertion site &mdash;
+          happens in a small percentage of procedures, and site infection is uncommon but real. Both
+          are procedural risks that the other routes do not have at all, and both are reasons the
+          insertion site is on the monitoring list.`
+        ]
+      },
+      {
+        h2: 'Approved product, and the compounded parallel',
+        paras: [
+          `@@EV_ESTABLISHED@@ There is an FDA-approved pellet product, which is unusual in this
+          reference and means a real manufacturing standard and a real label. There is also a large
+          parallel market in compounded pellets used in hormone-therapy practices, and those are not
+          the same thing: a compounded pellet has not been through the approval process, its dose
+          consistency depends on the compounder, and pellets in particular are a formulation where
+          crystal size and packing affect the release rate.`,
+          `That distinction is worth asking about directly, because both are described with the same
+          word. This site names no clinic and no pharmacy.`,
+          `Monitoring is drawn at two points for a reason: about four weeks after insertion, near the
+          peak of the release, and again just before the next insertion, at the trough. Two numbers
+          three months apart describe the curve; one number does not tell you which part of it you
+          measured. Everything about whether this route suits a particular person is a prescribing
+          conversation, and it is one to have before the first insertion rather than after.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the first and last items are the same problem
+      stated twice — which is a fair reflection of how much it dominates this route.`,
+    faq: [
+      ['Can pellets be removed if something goes wrong?', [
+        `Surgically, yes, and it is not always simple once they have begun dissolving. That is the
+         reason to be conservative on a first insertion rather than to plan on correction.`]],
+      ['When should bloodwork be drawn?', [
+        `Two points: about four weeks after insertion, near the top of the release, and just before the
+         next one, at the bottom. The app’s own panel says the same. A single mid-interval draw does not
+         tell you which part of the curve it came from.`]],
+      ['Are compounded pellets the same as the approved product?', [
+        `No. One has been through approval with a manufacturing standard behind it; the other depends
+         on the compounder. For a formulation where crystal packing affects release rate, that is not a
+         technicality — and both are called pellets.`]],
+      ['Why is there no half-life in the fact box?', [
+        `Because the app holds none, and the release mechanism is surface dissolution rather than
+         clearance of a depot. The profile is a months-long decline, not a repeating curve, so a
+         half-life would not describe it.`]]
+    ],
+    basis: [
+      ['Surface-dissolution release from crystalline implants',
+        'The pharmacology of subcutaneous testosterone implants, established since the 1930s'],
+      ['Approved product and the compounded parallel',
+        'The approval string in the fact box is app.html’s own field, reproduced verbatim'],
+      ['Extrusion and site infection rates',
+        'Reported in the implant literature at low single-digit percentages'],
+      ['Absence of pharmacokinetic data',
+        'app.html holds no half-life or time-to-peak entry for this route, which is why no such rows appear above']
+    ],
+    cta: `Two draws three months apart only describe a curve if you know which is which.
+      TherapyLog dates the insertion and both panels.`
+  },
+
+  nolv: {
+    slug: 'tamoxifen',
+    h1: 'Tamoxifen: a receptor blocker that leaves the hormone alone',
+    title: 'Tamoxifen: receptor blockade, not suppression | TherapyLog',
+    description: 'Tamoxifen blocks oestrogen at the receptor in breast tissue without lowering circulating estradiol. Why that matters for gynaecomastia.',
+    lede: `An aromatase inhibitor lowers the hormone. Tamoxifen leaves the hormone where it is and
+      blocks the receptor in the tissue that matters. Those are different interventions with
+      different consequences, and conflating them is the most common error made about it.`,
+    sections: [
+      {
+        h2: 'Selective, and what the selectivity means',
+        paras: [
+          `@@EV_ESTABLISHED@@ Tamoxifen is a selective oestrogen receptor modulator: it antagonises
+          the receptor in some tissues and acts as an agonist in others. In breast tissue it is an
+          antagonist, which is the basis for both its oncology approval and its off-label use for
+          gynaecomastia. In bone and in the liver it behaves more like an agonist, which is why it
+          does not carry the bone-density concern that oestrogen suppression does and why it affects
+          lipids the way it does.`,
+          `That tissue selectivity is the whole reason to prefer it over an aromatase inhibitor for
+          a breast-tissue problem. An aromatase inhibitor lowers estradiol everywhere &mdash;
+          including the bone, the brain and the vasculature where a man needs it &mdash; to fix a
+          problem in one tissue. Tamoxifen blocks the receptor where the problem is and leaves
+          circulating estradiol intact. The
+          <a href="/compounds/anastrozole/">anastrozole page</a> covers what over-suppression costs.`,
+          `Its half-life is long &mdash; the app models about six days, and the active metabolites
+          run longer still &mdash; so it accumulates over weeks and clears over weeks. An effect
+          assessed at a fortnight is being assessed before the level has settled.`
+        ]
+      },
+      {
+        h2: 'What it does for gynaecomastia, and when',
+        paras: [
+          `@@EV_OFFLABEL@@ Gynaecomastia is glandular proliferation, and the window in which it
+          responds to anything pharmacological is early. In the proliferative phase, while the tissue
+          is tender and recently changed, receptor blockade can reduce or reverse it. Once the
+          tissue has become fibrotic &mdash; typically after about a year &mdash; no drug reliably
+          removes it, and surgery is the only thing that does. That timeline is the single most
+          practically useful fact on this page.`,
+          `It is also why the honest answer to "will this fix it" is a question about how long it has
+          been there. Someone with tender, recently developed tissue is in a different situation
+          from someone with a firm, painless, long-standing lump, and only the first has a
+          pharmacological option worth trying.`
+        ]
+      },
+      {
+        h2: 'Why there is no dosing table on this page',
+        paras: [
+          `You will notice this page carries no reproduced dosing rows. That is deliberate and
+          automatic: the two rows the app holds for tamoxifen are a post-cycle recovery protocol and
+          a during-cycle prevention schedule, and the generator strips rows framed that way before a
+          page is built. Every compound page here is filtered the same way; tamoxifen is simply the
+          one entry where nothing survives it.`,
+          `What is left to say is the approved pharmacology, which is what this page covers. The
+          amounts used in the oncology indication are published in the labelling and are a
+          prescribing matter, not a page&rsquo;s.`,
+          `The risk worth naming is thromboembolism. Tamoxifen raises the risk of venous
+          thromboembolic events, which is established in the oncology trial data, and it is the
+          reason a personal or family history of clotting matters here more than it does with most
+          things in this reference. Visual disturbance is the other class effect with a conventional
+          instruction attached: blurring or persistent after-images are a reason to stop and contact
+          the prescriber rather than to continue and watch. Anything on the drawbacks list below
+          belongs in the same conversation.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The clot item is the one that changes who should be
+      taking this at all rather than how much.`,
+    faq: [
+      ['Tamoxifen or an aromatase inhibitor for gynaecomastia?', [
+        `They work differently. Tamoxifen blocks the receptor in the tissue with the problem and leaves
+         circulating estradiol alone; an aromatase inhibitor lowers estradiol everywhere. For a
+         breast-tissue problem the first is the more targeted intervention. Which is appropriate is a
+         prescribing decision.`]],
+      ['Does it lower estradiol?', [
+        `No. It does not reduce production at all — it occupies the receptor. Someone expecting the
+         estradiol number on their panel to fall will be confused by a result that has not moved, and
+         the unchanged number is not evidence the drug is not working.`]],
+      ['How long does gynaecomastia stay treatable?', [
+        `Roughly the first year, while the tissue is still proliferative and usually tender. Once it
+         fibroses, no drug reliably reverses it. That makes the timing of the conversation more
+         important than the choice of drug.`]],
+      ['Why does this page show no dosing rows?', [
+        `Because both rows the app holds for tamoxifen are post-cycle or during-cycle protocols, and
+         the generator strips those from every compound page before building it. Tamoxifen is the one
+         entry where that leaves nothing.`]]
+    ],
+    basis: [
+      ['Tissue-selective receptor modulation',
+        'Standard pharmacology of selective oestrogen receptor modulators'],
+      ['Thromboembolic risk',
+        'Established in the tamoxifen oncology trial data and carried in the approved labelling'],
+      ['Proliferative versus fibrotic gynaecomastia',
+        'The endocrinology and surgical literature on gynaecomastia natural history'],
+      ['Modelled half-life and time to peak', 'app.html’s TL_PK entry']
+    ],
+    cta: `Whether tissue is weeks old or a year old changes what is possible. TherapyLog keeps the
+      dates that answer that.`
+  },
+
+  ndt: {
+    slug: 'natural-desiccated-thyroid',
+    h1: 'Natural desiccated thyroid: a fixed ratio, and a regulatory status worth knowing',
+    title: 'Natural desiccated thyroid: NDT explained | TherapyLog',
+    description: 'Porcine thyroid extract supplies T4 and T3 in a fixed ratio. What that ratio does to a panel, and why these products are not FDA approved.',
+    lede: `Thyroid extract from pig glands, in clinical use since before the FDA existed &mdash;
+      which turns out to be the key to its regulatory status. It supplies both hormones in a ratio
+      you cannot change, and that constraint shapes everything about how it reads on a panel.`,
+    sections: [
+      {
+        h2: 'A fixed ratio you do not control',
+        paras: [
+          `@@EV_ESTABLISHED@@ Desiccated thyroid is standardised by content and supplies both T4 and
+          T3 in roughly a four-to-one ratio by weight. Human thyroid output is closer to fourteen to
+          one. That difference is the central pharmacological fact about NDT: relative to what a
+          human gland secretes, it is a T3-heavy preparation, and the consequences follow from
+          that.`,
+          `Because the ratio is fixed, dose is one dial rather than two. Raising the T4 raises the
+          T3 proportionally, so someone who needs more of one and not the other cannot get there
+          from here &mdash; which is exactly the situation combination therapy with separate
+          <a href="/compounds/levothyroxine-t4/">levothyroxine</a> and
+          <a href="/compounds/liothyronine-t3/">liothyronine</a> exists to address. NDT is simpler
+          and less adjustable; separate hormones are more work and fully titratable.`,
+          `The T3 fraction also carries T3&rsquo;s measurement problem. It has a day-long half-life
+          against thyroxine&rsquo;s week, so the level moves across the day, and a free T3 drawn
+          without a recorded interval since the dose is hard to place. The
+          <a href="/markers/thyroid-panel/">thyroid panel page</a> covers what each value means.`
+        ]
+      },
+      {
+        h2: 'The approval question, and a disagreement worth flagging',
+        paras: [
+          `@@EV_ESTABLISHED@@ Desiccated thyroid products are not FDA-approved drugs. They predate
+          the 1938 legislation that created the modern approval pathway and have been marketed ever
+          since under enforcement discretion rather than through an application. No manufacturer has
+          taken one through approval, and the agency has periodically said so.`,
+          `The app&rsquo;s own regulatory field for this entry says "FDA approved", and this page
+          disagrees with it rather than repeating it. That is worth stating openly: the fact boxes
+          on this site reproduce the app&rsquo;s data verbatim by policy, and where the prose knows
+          better it says so instead of quietly correcting the box. This is one of those cases, and
+          it is a data point the owner should fix in the app rather than one this page should
+          paper over.`,
+          `The practical consequence is the one the app&rsquo;s drawbacks list already names:
+          potency consistency between batches and between brands is a real historical problem for
+          these products, and there have been recalls over it. Switching brand or batch is a reason
+          to recheck rather than assume equivalence &mdash; more so than with levothyroxine, where
+          the same caution applies for a narrower reason.`
+        ]
+      },
+      {
+        h2: 'Reading the panel',
+        paras: [
+          `@@EV_OFFLABEL@@ TSH suppresses on adequate NDT, as it does on any preparation containing
+          T3, and that is expected rather than a finding. It also means the marker that titrates
+          levothyroxine stops being the one to steer by, which is what the app&rsquo;s own note says
+          &mdash; guide by free T3 rather than TSH.`,
+          `The argument about whether people do better on NDT than on levothyroxine is the same
+          argument the T3 page covers, with the same unsettled evidence: randomised trials of
+          combination therapy have mostly not shown consistent benefit on measured outcomes, and
+          some blinded preference work has found patients choosing the T3-containing option. Neither
+          finding closes it, and anyone presenting it as closed in either direction is
+          overstating.`,
+          `@@EV_ESTABLISHED@@ The risk that accrues quietly is the same too: sustained excess
+          thyroid hormone reduces bone mineral density and raises atrial fibrillation incidence,
+          neither of which announces itself. That is why resting heart rate sits on the app&rsquo;s
+          monitoring list beside the hormones, and why this is a prescribing decision rather than a
+          self-titration. Anything on the drawbacks list below belongs with the clinician who
+          prescribes.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the potency-variation item is the one with a real
+      history behind it rather than a theoretical one.`,
+    faq: [
+      ['Is NDT FDA approved?', [
+        `No. These products predate the 1938 approval pathway and are marketed under enforcement
+         discretion. The app’s own regulatory field says otherwise and this page is flagging the
+         disagreement rather than repeating it.`]],
+      ['What does "one grain" mean?', [
+        `It is the historical unit for desiccated thyroid, roughly 60-65 mg of thyroid powder,
+         standardised by hormone content. The app’s dosing rows use both the milligram and the grain
+         figure, which is how these products are labelled.`]],
+      ['Why is my TSH suppressed?', [
+        `Because the preparation contains T3, which feeds back on the pituitary directly. That is
+         expected on an adequate dose and is why free T3 rather than TSH is what the app’s own
+         monitoring note steers by.`]],
+      ['Is it better than levothyroxine?', [
+        `The randomised evidence has not settled it. What is different is that NDT gives both hormones
+         in a fixed ratio, which is simpler but not adjustable — where separate T4 and T3 are more work
+         and fully titratable. Which suits a person is a prescribing conversation.`]]
+    ],
+    basis: [
+      ['T4 to T3 ratio in desiccated thyroid versus human secretion',
+        'Standard endocrinology references; roughly 4:1 in the preparation against roughly 14:1 physiologically'],
+      ['Regulatory status of desiccated thyroid products',
+        'Marketed as pre-1938 products under enforcement discretion; no manufacturer has completed an approval'],
+      ['Randomised evidence on T3-containing therapy',
+        'Trials and meta-analyses from the 2000s onward, alongside blinded preference studies reporting a different result'],
+      ['Bone density and atrial fibrillation with excess thyroid hormone',
+        'Long established in the literature on subclinical hyperthyroidism']
+    ],
+    cta: `A preparation whose potency can vary between batches makes the brand and the date part of
+      the result. TherapyLog records both.`
+  },
+
+  creatine: {
+    slug: 'creatine-monohydrate',
+    h1: 'Creatine monohydrate: the most studied supplement there is, and the lab result it ruins',
+    title: 'Creatine: the evidence, and your creatinine | TherapyLog',
+    description: 'Creatine works, loading is optional, and it raises serum creatinine without touching your kidneys. Tell the lab before they read an eGFR.',
+    lede: `Almost everything about creatine is settled, which is rare enough to be worth saying
+      plainly. The part worth a page is the one nobody mentions: it changes a routine blood result
+      in a way that gets misread as kidney damage.`,
+    sections: [
+      {
+        h2: 'What it does, and what the evidence actually supports',
+        paras: [
+          `@@EV_ESTABLISHED@@ Creatine is stored in muscle as phosphocreatine, which donates a
+          phosphate to regenerate ATP during short, maximal efforts. Supplementation raises muscle
+          phosphocreatine stores by roughly twenty per cent, and the downstream effect &mdash;
+          improved performance in repeated high-intensity efforts, and greater training adaptation
+          over time &mdash; is among the best-replicated findings in sports science. Several hundred
+          trials, decades of use, consistent direction.`,
+          `@@EV_OFFLABEL@@ The newer claims are less settled but not baseless. Cognitive effects
+          appear in trials under conditions of stress &mdash; sleep deprivation, hypoxia, mental
+          fatigue &mdash; more consistently than in rested healthy people. Effects in vegetarians,
+          who start with lower stores, tend to be larger across the board. Preservation of lean mass
+          during a caloric deficit has reasonable support. None of these are on the same footing as
+          the performance data, and describing them as if they were is the usual overreach.`,
+          `Loading is optional. Twenty grams a day for a week saturates muscle faster; three to five
+          grams a day gets to the same saturation in three or four weeks with far less
+          gastrointestinal upset. The app&rsquo;s own rows say exactly that.`
+        ]
+      },
+      {
+        h2: 'The creatinine problem',
+        paras: [
+          `@@EV_ESTABLISHED@@ Creatine degrades to creatinine at a steady rate, and serum creatinine
+          is what laboratories use to estimate kidney function. Supplementing creatine therefore
+          raises serum creatinine and lowers a calculated eGFR &mdash; without anything having
+          happened to the kidney. The rise is real; the interpretation is wrong.`,
+          `This is not a curiosity. It is one of the more common ways a healthy person gets referred
+          for renal workup, and it is entirely avoidable by telling whoever ordered the test. The
+          app puts it on the monitoring note for this compound specifically, and it is the single
+          most useful thing on this page: if you supplement creatine, say so before a metabolic
+          panel, and say it again if anyone raises an eGFR with you. Cystatin C is a kidney marker
+          that creatine does not disturb, and it is the usual way to settle the question if it
+          arises.`,
+          `The kidney concern itself &mdash; that creatine harms renal function &mdash; has been
+          examined repeatedly in people with healthy kidneys and has not been found. Existing kidney
+          disease is a different conversation and one for the clinician managing it.`
+        ]
+      },
+      {
+        h2: 'The rest of the practical detail',
+        paras: [
+          `The initial weight gain is intramuscular water, not fat and not subcutaneous fluid, and it
+          arrives in the first week or two. Anyone tracking body composition through a scale will see
+          it and misread it, which is worth knowing in advance rather than discovering.`,
+          `Monohydrate is the form with the evidence. The alternatives &mdash; hydrochloride,
+          ethyl ester, buffered preparations &mdash; are sold on solubility or absorption claims and
+          none has demonstrated superiority on an outcome. Paying more for one is paying for
+          marketing. Since these are supplements rather than drugs, content varies with the
+          manufacturer; this site names no brand and no testing service.`,
+          `Non-responders exist &mdash; people whose muscle stores are already near saturated from
+          diet get little further benefit &mdash; and that is a real phenomenon rather than an
+          excuse. Anyone with kidney disease, or on medication that affects renal function, should
+          be having this conversation with their clinician rather than treating it as a
+          consumer-goods decision.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and unusually mild: for a compound this well studied,
+      the drawback list is mostly about measurement artefacts and expectations.`,
+    faq: [
+      ['Does creatine damage the kidneys?', [
+        `Not in people with healthy kidneys — that has been looked at repeatedly. What it does is raise
+         serum creatinine, which is the marker used to estimate kidney function, so it makes a healthy
+         kidney look impaired on paper. Existing kidney disease is a separate conversation.`]],
+      ['Do I need to load?', [
+        `No. Loading saturates muscle in about a week rather than three or four, at the cost of more
+         gastrointestinal upset. The endpoint is identical.`]],
+      ['Is any form better than monohydrate?', [
+        `No form has demonstrated superiority on an outcome. Monohydrate has the evidence and is the
+         cheapest, which is an unusual combination.`]],
+      ['What do I tell the lab?', [
+        `That you supplement creatine, before the draw. If an eGFR has already come back low, cystatin
+         C is a kidney marker creatine does not affect and is the usual way to settle it.`]]
+    ],
+    basis: [
+      ['Phosphocreatine stores and performance',
+        'Several hundred randomised trials and multiple meta-analyses spanning three decades'],
+      ['Serum creatinine elevation without renal impairment',
+        'Consistently reported; cystatin C is the standard unaffected alternative marker'],
+      ['Cognitive effects under stress conditions',
+        'Trials in sleep deprivation, hypoxia and mental fatigue, with larger effects in vegetarians'],
+      ['Form comparisons',
+        'No alternative form has demonstrated superiority to monohydrate on a performance outcome']
+    ],
+    cta: `A supplement that changes a routine lab result is one your log should know about.
+      TherapyLog keeps it with the panel.`
+  },
+
+  berberine: {
+    slug: 'berberine',
+    h1: 'Berberine: the glucose data is real, the "nature’s Ozempic" framing is not',
+    title: 'Berberine: the evidence, and the GLP-1 myth | TherapyLog',
+    description: 'Berberine has genuine meta-analysed glucose and lipid data. It is not a GLP-1 agonist and does not work like one. What it actually does.',
+    lede: `Two things are true at once and get confused. Berberine has a real body of randomised
+      evidence for glucose and lipids, better than most supplements manage. And it is not remotely
+      what the viral comparison says it is.`,
+    sections: [
+      {
+        h2: 'What it does, and what it does not',
+        paras: [
+          `@@EV_ESTABLISHED@@ Berberine is a plant alkaloid that activates AMP-activated protein
+          kinase, largely by inhibiting mitochondrial complex I and shifting the cell&rsquo;s energy
+          balance &mdash; the same route metformin takes. Downstream it reduces hepatic glucose
+          production, improves peripheral insulin sensitivity, and lowers LDL cholesterol partly
+          through upregulating the LDL receptor. It also has direct antimicrobial activity and
+          measurably shifts gut microbiome composition, which may contribute to the metabolic
+          effect.`,
+          `@@EV_OFFLABEL@@ It is not a GLP-1 receptor agonist. It does not bind that receptor, does
+          not slow gastric emptying the way semaglutide does, and produces nothing like the appetite
+          suppression or the weight loss. Meta-analysed weight change on berberine is small &mdash;
+          a couple of kilograms at most, in trials mostly conducted in people with metabolic
+          disease. The comparison that made it briefly famous is wrong in mechanism and wrong by an
+          order of magnitude in effect. The <a href="/compounds/semaglutide/">semaglutide page</a>
+          covers what the drug it was compared to actually does.`,
+          `The honest comparison is with <a href="/compounds/metformin/">metformin</a>, which shares
+          the mechanism. Head-to-head trials have reported broadly comparable glucose control, and
+          those trials are mostly small and mostly conducted in one country. That is a real result
+          worth taking seriously and not the same thing as sixty years of prescribing data.`
+        ]
+      },
+      {
+        h2: 'Bioavailability is the problem the dosing solves',
+        paras: [
+          `Oral berberine is poorly absorbed &mdash; single-digit percentage bioavailability &mdash;
+          which is why the effective amounts are high and why they are split across meals rather
+          than taken once. That is also why the gastrointestinal effects mirror metformin&rsquo;s:
+          much of the dose stays in the gut, where a good deal of the action may be.`,
+          `@@EV_ESTABLISHED@@ The interaction that matters is pharmacokinetic rather than
+          pharmacodynamic. Berberine inhibits CYP3A4 and P-glycoprotein, which means it can raise
+          blood levels of drugs cleared through those routes &mdash; a long list that includes
+          statins, several immunosuppressants, some anticoagulants and many others. This is the
+          single most under-discussed thing about it: an over-the-counter supplement with a real
+          enzyme-inhibition profile is a genuine interaction risk, and it belongs on the medication
+          list you hand a clinician rather than being left off because it came from a shop.`
+        ]
+      },
+      {
+        h2: 'What to measure, and what supplement status means',
+        paras: [
+          `The app&rsquo;s panel is the sensible one: fasting glucose and HbA1c for the metabolic
+          effect, a lipid panel because the LDL effect is one of the better-supported ones, and
+          liver enzymes. The <a href="/markers/hba1c-and-fasting-glucose/">HbA1c page</a> covers
+          why those two glucose markers can disagree and what the disagreement means.`,
+          `Supplement status is not a safety finding. It means no regulator has reviewed identity,
+          purity or content, and berberine content in commercial products has been found to vary
+          substantially from label in independent analyses. This site names no brand and no testing
+          service.`,
+          `Two groups should not treat this as a consumer decision: anyone pregnant or
+          breastfeeding, where berberine is contraindicated, and anyone on medication metabolised
+          through CYP3A4. Both are conversations with a clinician before starting, and anything on
+          the drawbacks list below belongs in the same conversation.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the CYP3A4 item is the one most likely to matter
+      and least likely to be mentioned anywhere else.`,
+    faq: [
+      ['Is berberine like Ozempic?', [
+        `No. Different mechanism entirely — AMPK activation rather than GLP-1 receptor agonism — and
+         the weight effect in trials is a couple of kilograms against fifteen per cent of body weight.
+         The comparison is wrong in kind and in size.`]],
+      ['Is it as good as metformin?', [
+        `Head-to-head trials have reported broadly comparable glucose control, and they are small and
+         geographically concentrated. That is a real finding and not the same as metformin’s sixty years
+         of prescribing data. Metformin also requires a prescription, which is often the actual reason
+         people choose berberine.`]],
+      ['Why three times a day?', [
+        `Because oral bioavailability is in the single digits, so the effective amount is high and is
+         split across meals. Taking it once daily wastes most of the effect and concentrates the
+         gastrointestinal upset.`]],
+      ['Does it interact with anything?', [
+        `Yes, and this is the part that gets left out. It inhibits CYP3A4 and P-glycoprotein, so it can
+         raise levels of a long list of prescription drugs. It belongs on the medication list you give a
+         clinician even though it came from a shop.`]]
+    ],
+    basis: [
+      ['Meta-analysed glucose and lipid effects',
+        'Multiple meta-analyses of randomised trials, largely in people with type 2 diabetes or metabolic syndrome'],
+      ['AMPK activation via complex I',
+        'The shared mechanistic literature with metformin'],
+      ['CYP3A4 and P-glycoprotein inhibition',
+        'Established in the drug-interaction literature'],
+      ['Label accuracy of commercial products',
+        'Independent analyses reporting berberine content varying substantially from label']
+    ],
+    cta: `A supplement with a real interaction profile belongs on the same list as your prescriptions.
+      TherapyLog keeps them together.`
+  },
+
+  fisetin: {
+    slug: 'fisetin',
+    h1: 'Fisetin: a senolytic candidate, dosed in pulses, on mouse evidence',
+    title: 'Fisetin: the senolytic case, examined | TherapyLog',
+    description: 'A flavonoid proposed to clear senescent cells in high intermittent doses. What the mouse data showed, and what human trials have not yet.',
+    lede: `The senolytic idea is genuinely interesting and the pulse-dosing logic follows from it
+      properly. What has not happened yet is a human trial reporting an outcome, and the amounts
+      people take are extrapolated from animals by body weight.`,
+    sections: [
+      {
+        h2: 'Why pulses rather than daily',
+        paras: [
+          `@@EV_THEORETICAL@@ Senescent cells are cells that have stopped dividing but refuse to die,
+          and they accumulate with age while secreting a mix of inflammatory signals known as the
+          senescence-associated secretory phenotype. The senolytic hypothesis is that periodically
+          killing them off produces a durable benefit, because the cells take months to accumulate
+          again. If that is right, the drug does not need to be present continuously &mdash; it
+          needs to be present in enough concentration, briefly, to trigger apoptosis in cells that
+          have made themselves resistant to it.`,
+          `That is the logic behind two or three days of high dose every few months rather than a
+          daily supplement, and it is a coherent piece of reasoning rather than a marketing
+          schedule. It is also completely different from how fisetin is sold as an everyday
+          antioxidant flavonoid, and the two uses should not be conflated.`,
+          `@@EV_ESTABLISHED@@ Fisetin itself is a flavonoid found in strawberries and other produce,
+          with a long history as an ordinary dietary constituent. Its safety at food-level intake is
+          not in question. The senolytic amounts are orders of magnitude above that.`
+        ]
+      },
+      {
+        h2: 'The evidence, and the arithmetic behind the dose',
+        paras: [
+          `@@EV_THEORETICAL@@ The central finding is that fisetin reduced senescent cell burden across
+          tissues and extended median and maximum lifespan in aged mice, alongside cell work showing
+          selective killing of senescent cells. That is a real, notable result. What does not exist
+          is a published human trial reporting a clinical outcome &mdash; trials have been registered
+          and run, and results establishing benefit in people have not landed.`,
+          `The dose arithmetic deserves scrutiny because it is where most of the confidence comes
+          from. The commonly cited amounts derive from the mouse studies at around 20 mg/kg,
+          scaled to a human by body weight. Straight body-weight scaling across species is not how
+          dose translation is normally done, and fisetin&rsquo;s oral bioavailability is poor and
+          highly variable with the fat content of the meal. So the number in circulation is an
+          estimate built on an approximation, and the app&rsquo;s own drawbacks list says the human
+          optimal dose is not established.`,
+          `Monitoring reflects the state of things honestly: the app records inflammatory markers
+          before and after a pulse, which is a plausible proxy and not a validated one. There is no
+          test that tells you whether senescent cells were cleared.`
+        ]
+      },
+      {
+        h2: 'Practical points',
+        paras: [
+          `Absorption depends on being taken with fat, which is why the app&rsquo;s row specifies a
+          fatty meal. Content varies between products, as it does with any supplement, and this site
+          names no brand and no testing service.`,
+          `@@EV_OFFLABEL@@ The interaction question is real: flavonoids at these concentrations
+          affect drug-metabolising enzymes, and a two-day pulse at a gram or more per day is not the
+          same exposure as eating strawberries. Anyone on prescription medication should treat the
+          pulse as a medication event rather than a supplement, and anyone on an anticoagulant
+          should be raising it with a clinician specifically.`,
+          `The comparison worth knowing is with <a href="/compounds/dasatinib/">dasatinib</a>, the
+          prescription drug used in the same senolytic role, which does have human trial data and
+          real risks. Fisetin is the option people can buy; that is a statement about availability,
+          not about evidence. Anything on the drawbacks list below belongs with the clinician who
+          knows your history.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The third item — human optimal dose not established —
+      is the one that undercuts the confident numbers everywhere else on the internet.`,
+    faq: [
+      ['Has fisetin been shown to work in people?', [
+        `No trial has reported a clinical outcome establishing benefit. The evidence is mouse lifespan
+         and senescent cell clearance plus cell work. That is a real finding about mice.`]],
+      ['Where does the 20 mg/kg dose come from?', [
+        `From the mouse studies, scaled to human body weight directly. Straight body-weight scaling is
+         not standard dose translation between species, and fisetin’s absorption is poor and variable —
+         so the figure is an estimate on top of an approximation.`]],
+      ['Why take it with fat?', [
+        `Oral absorption is poor and improves substantially with dietary fat. The app’s own row specifies
+         a fatty meal for that reason.`]],
+      ['Is it the same as taking quercetin?', [
+        `Both are flavonoids proposed as senolytics and they are frequently taken together, but they are
+         different molecules with different potencies in the cell work. Quercetin is the one paired with
+         dasatinib in the trial protocols.`]]
+    ],
+    basis: [
+      ['Senescent cell clearance and mouse lifespan extension',
+        'Rodent studies reporting reduced senescent cell burden across tissues and extended median and maximum lifespan'],
+      ['Absence of human outcome data',
+        'Trials have been registered and run; no published result establishes clinical benefit in people'],
+      ['Dose derivation',
+        'Commonly cited amounts scale a rodent dose to human body weight directly'],
+      ['Bioavailability and fat dependence',
+        'The flavonoid absorption literature']
+    ],
+    cta: `A pulse taken three times a year is the schedule people lose track of first. TherapyLog
+      dates each one.`
+  },
+
+  dasatinib: {
+    slug: 'dasatinib',
+    h1: 'Dasatinib: a leukaemia drug used three days at a time, and why that is not a small thing',
+    title: 'Dasatinib: the senolytic use, in proportion | TherapyLog',
+    description: 'An approved kinase inhibitor used intermittently as a senolytic. What the human trials measured, and what the drug does at any dose.',
+    lede: `This is the senolytic with actual human trial data, and it is also a cancer drug with a
+      real adverse-effect profile. Both facts belong in the same sentence, and most writing about it
+      keeps them apart.`,
+    sections: [
+      {
+        h2: 'What it is before it is a senolytic',
+        paras: [
+          `@@EV_ESTABLISHED@@ Dasatinib is a tyrosine kinase inhibitor approved for chronic myeloid
+          leukaemia and Philadelphia-chromosome-positive acute lymphoblastic leukaemia. It inhibits
+          BCR-ABL and a broad range of other kinases including the SRC family, and that breadth is
+          both why it works in leukaemia and why it has the side-effect profile it does. Pleural
+          effusion, myelosuppression, bleeding risk and QT prolongation are all recognised effects at
+          treatment doses.`,
+          `@@EV_OFFLABEL@@ Its senolytic identity came out of a screen: senescent cells resist
+          apoptosis by upregulating specific survival pathways, and dasatinib was one of the
+          compounds found to disable them. The proposed use is nothing like the leukaemia use
+          &mdash; two or three days every few months rather than continuously &mdash; and the
+          argument is that a brief exposure is enough to kill cells whose defences it disables while
+          being too short for the cumulative toxicity that daily treatment produces.`,
+          `That argument is plausible and it is not the same as demonstrated. Total exposure is
+          genuinely far lower. Whether it is low enough to avoid the effects that matter is
+          something the trials were not powered to establish.`
+        ]
+      },
+      {
+        h2: 'What the human trials actually measured',
+        paras: [
+          `@@EV_ESTABLISHED@@ Dasatinib combined with quercetin is the most studied senolytic
+          protocol in people, and the trials are small, open-label and endpoint-modest. In diabetic
+          kidney disease, a short course reduced senescent cell burden in adipose tissue and skin
+          &mdash; measured directly, which is the strongest thing anyone has shown for a senolytic
+          in humans. In idiopathic pulmonary fibrosis, an open-label pilot reported improvement in
+          some physical function measures.`,
+          `What has not been shown is a change in a hard clinical outcome, in any trial, in any
+          indication. Reduced senescent cell burden is a mechanistic confirmation, not a benefit.
+          The distance between "the drug does the thing it was supposed to do" and "people are better
+          off" is exactly where this field currently sits, and it is the honest summary.`,
+          `The <a href="/compounds/fisetin/">fisetin page</a> covers the supplement alternative,
+          which has mouse data and no human outcome trial. Neither is established. This one at least
+          has been measured in people.`
+        ]
+      },
+      {
+        h2: 'Why this one is not a self-directed decision',
+        paras: [
+          `Dasatinib requires a prescription and the app&rsquo;s own entry says physician oversight
+          is absolutely required, which is unusually emphatic for this reference and is correct.
+          Three specifics make it so. It has a broad and clinically significant interaction profile
+          through CYP3A4, so the full medication list matters. It suppresses blood counts, which is
+          why the app puts a full blood count before and two weeks after each pulse on the
+          monitoring list. And bleeding risk means anticoagulants and antiplatelet drugs are a
+          genuine concern rather than a theoretical one.`,
+          `@@EV_OFFLABEL@@ Nobody has established what the cumulative risk of a pulse protocol
+          repeated over years looks like, because nobody has run it for years. That is not a reason
+          to assume harm; it is a reason to describe this as an experimental protocol being taken
+          outside a trial, which is what it is.`,
+          `The trial protocols this is copied from ran under monitoring, with stopping rules and
+          scheduled bloodwork. Reproducing the dose without reproducing the monitoring is taking the
+          risk without the safeguards, and that is the specific thing to avoid here. Anything on the
+          drawbacks list below is a conversation with a prescriber, not a page.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The first item is not boilerplate on this compound —
+      it is the one that separates it from everything else in the senolytic category.`,
+    faq: [
+      ['Is it safe at senolytic doses?', [
+        `Total exposure is far lower than in leukaemia treatment, and the short trials reported it as
+         tolerated. What nobody has established is the cumulative risk of repeating a pulse protocol over
+         years, because that has not been run.`]],
+      ['What did the trials actually show?', [
+        `Directly measured reduction in senescent cell burden in tissue, which is the strongest
+         mechanistic confirmation any senolytic has in people, and some physical-function signals in a
+         small open-label pilot. No hard clinical outcome in any trial.`]],
+      ['Why is it paired with quercetin?', [
+        `Because the two disable different survival pathways, and senescent cells in different tissues
+         depend on different ones. The pairing is what the trial protocols used, and it is why the
+         combination rather than either alone is what has human data.`]],
+      ['What monitoring does a pulse need?', [
+        `A full blood count before and about two weeks after, because it suppresses counts, plus liver
+         enzymes and a review of every other medication for CYP3A4 interactions. That is the app’s own
+         panel and it is not optional.`]]
+    ],
+    basis: [
+      ['Approved indication and kinase inhibition profile',
+        'The dasatinib approved labelling and its published pharmacology'],
+      ['Senescent cell burden reduction in humans',
+        'Open-label trials of the dasatinib and quercetin combination in diabetic kidney disease and idiopathic pulmonary fibrosis, reported from 2019'],
+      ['Absence of hard clinical outcomes',
+        'No senolytic trial in any indication has reported a change in a hard clinical endpoint'],
+      ['Interaction and myelosuppression profile',
+        'Carried in the approved labelling for the oncology indication']
+    ],
+    cta: `A pulse protocol with bloodwork before and after only works if the dates line up.
+      TherapyLog keeps them.`
+  },
+
+  telmisartan: {
+    slug: 'telmisartan',
+    h1: 'Telmisartan: an ARB with a second mechanism, and a reason it comes up on TRT',
+    title: 'Telmisartan: the ARB with PPAR activity | TherapyLog',
+    description: 'An approved blood pressure drug that also partially activates PPAR-gamma. Why it is chosen over other ARBs, and what to monitor.',
+    lede: `Angiotensin receptor blockers are interchangeable for blood pressure. This one is picked
+      for something else it does, and it comes up in hormone therapy because testosterone raises two
+      things it addresses.`,
+    sections: [
+      {
+        h2: 'Two mechanisms in one molecule',
+        paras: [
+          `@@EV_ESTABLISHED@@ Telmisartan blocks the angiotensin II type 1 receptor, which is what
+          every ARB does and what the approval is for. What distinguishes it is partial agonism at
+          PPAR-gamma &mdash; the nuclear receptor the thiazolidinedione diabetes drugs target
+          &mdash; at concentrations reached with ordinary dosing. Most ARBs do not do this, or do it
+          too weakly to matter.`,
+          `@@EV_OFFLABEL@@ That second activity is the basis for the metabolic interest: improved
+          insulin sensitivity, effects on adipose tissue distribution, and anti-inflammatory
+          signalling, all reported in trials and mechanistic work. The effect size is modest
+          compared with a dedicated PPAR-gamma agonist, and it is a genuine pharmacological
+          difference rather than marketing. It also has the longest half-life of the ARBs, which
+          gives it the most consistent twenty-four-hour blood pressure coverage in the class.`
+        ]
+      },
+      {
+        h2: 'Why it turns up in hormone therapy',
+        paras: [
+          `Testosterone therapy can raise blood pressure and reliably raises haematocrit, and both
+          push in the same cardiovascular direction. @@EV_OFFLABEL@@ The app records an interaction
+          note pairing telmisartan with testosterone therapy for that reason, and it is one of the
+          few genuinely constructive interactions in the reference &mdash; one drug addressing an
+          effect of another rather than conflicting with it.`,
+          `Two caveats keep that honest. Treating a blood pressure that testosterone raised is
+          managing a consequence, and whether the underlying protocol should be adjusted instead is a
+          question worth asking first. And nothing about an ARB addresses haematocrit directly; the
+          <a href="/markers/hematocrit-on-trt/">haematocrit page</a> covers what the guideline
+          thresholds are and why routine donation trades one problem for another.`,
+          `Blood pressure itself is the marker that most people on testosterone therapy do not
+          measure and should. It is the cheapest, most actionable number in the whole panel and it
+          requires no phlebotomy.`
+        ]
+      },
+      {
+        h2: 'What to watch',
+        paras: [
+          `@@EV_ESTABLISHED@@ Potassium and renal function are the two that matter, and they belong
+          together: blocking the renin-angiotensin system reduces aldosterone, which raises serum
+          potassium, and it reduces intraglomerular pressure, which can cause a small early rise in
+          creatinine that is expected rather than alarming. A larger rise is not. Both are on the
+          app&rsquo;s panel and both are checked after starting or after a dose increase rather than
+          only annually.`,
+          `Hypotension on starting is the common practical problem, which is why the app&rsquo;s
+          rows begin at the lower amount. The combination with a potassium-sparing diuretic, a
+          potassium supplement, or an NSAID raises the potassium risk materially, and lithium levels
+          rise on an ARB &mdash; both are on the app&rsquo;s interaction data.`,
+          `The absolute contraindication is pregnancy: drugs acting on the renin-angiotensin system
+          cause fetal injury, and this is not a relative caution. Everything else here is a
+          prescribing decision made against a measured blood pressure, and anything on the drawbacks
+          list below belongs with the clinician who prescribed it.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The potassium item and the pregnancy item are the two
+      that are not negotiable rather than dose-dependent.`,
+    faq: [
+      ['Why telmisartan rather than another ARB?', [
+        `For blood pressure alone there is little to choose between them. Telmisartan is picked for its
+         partial PPAR-gamma activity and its long half-life. Whether that difference is worth anything
+         for a given person is a prescribing judgement.`]],
+      ['Does it lower haematocrit?', [
+        `No. It addresses blood pressure, not red cell mass. Those are two separate effects of
+         testosterone therapy and only one of them is an ARB’s job.`]],
+      ['My creatinine rose after starting — is that bad?', [
+        `A small early rise is expected from reduced intraglomerular pressure and is not kidney damage.
+         A large one is a different matter. That is exactly why renal function is checked after starting
+         rather than at the next annual, and it is a clinician’s call to interpret.`]],
+      ['Can it be combined with testosterone therapy?', [
+        `The app records a note describing exactly that pairing, and the rationale is that testosterone
+         raises blood pressure. Whether to treat that or adjust the protocol is the question worth asking
+         first, and it is a prescriber’s.`]]
+    ],
+    basis: [
+      ['Partial PPAR-gamma agonism',
+        'Established in the telmisartan pharmacology literature and not shared by most ARBs'],
+      ['Approved indication',
+        'The approval string in the fact box is app.html’s own field, reproduced verbatim'],
+      ['Potassium and creatinine effects of renin-angiotensin blockade',
+        'A class effect established in the ARB and ACE-inhibitor literature'],
+      ['Fetal toxicity',
+        'A boxed contraindication across the drug class']
+    ],
+    cta: `Blood pressure is the number on a TRT panel that needs no phlebotomy and gets recorded
+      least. TherapyLog takes it alongside the labs.`
+  },
+
+  hexarelin: {
+    slug: 'hexarelin',
+    h1: 'Hexarelin: the strongest pulse in the family, and the fastest to stop working',
+    title: 'Hexarelin: potency and desensitisation | TherapyLog',
+    description: 'The most potent GHRP, with the fastest tolerance and a separate cardiac receptor story. Why it is not a daily compound.',
+    lede: `The end of the potency scale that starts with ipamorelin. It produces the largest acute
+      growth hormone pulse of the family and loses that ability faster than any of them, which makes
+      it the one compound in this class where the schedule is the whole design.`,
+    sections: [
+      {
+        h2: 'Potency and tolerance are the same property',
+        paras: [
+          `@@EV_ESTABLISHED@@ Hexarelin is a hexapeptide agonist at the ghrelin receptor, and across
+          the growth hormone releasing peptides it produces the largest single GH pulse. It is also
+          the least selective: cortisol and prolactin rise more than with
+          <a href="/compounds/ghrp-2/">GHRP-2</a> and considerably more than with
+          <a href="/compounds/ipamorelin/">ipamorelin</a>.`,
+          `Desensitisation is the defining practical limit. Strong, sustained agonism at a receptor
+          reliably reduces its response, and hexarelin does this faster than any other compound in
+          the family &mdash; measurably, within weeks of continuous use. That is why the
+          app&rsquo;s own dosing rows specify two to three times weekly rather than daily, with
+          explicit breaks. Unlike most on-and-off schedules in this reference, this one has a
+          pharmacological reason behind it rather than a convention.`,
+          `The consequence for anyone comparing the class: hexarelin&rsquo;s advantage is acute
+          rather than sustained. If what you want is the biggest possible pulse from a single
+          administration it wins; if what you want is a raised IGF-1 held over months, the more
+          selective compounds get there and stay there.`
+        ]
+      },
+      {
+        h2: 'The cardiac receptor is a genuinely separate story',
+        paras: [
+          `@@EV_THEORETICAL@@ Hexarelin binds CD36 in cardiac tissue, a receptor unrelated to the
+          growth hormone axis, and the cardioprotective effects reported in animal work &mdash;
+          improved left ventricular function, protection against ischaemia-reperfusion injury
+          &mdash; appear to run through that binding rather than through growth hormone at all. GH
+          receptor knockout models still show the cardiac effect, which is the evidence that
+          separates the two.`,
+          `That is one of the more interesting findings attached to any research peptide, and it has
+          not been translated. There is no human trial of hexarelin for a cardiac indication, no
+          approved use, and the app&rsquo;s own cardiac dosing row is a research protocol rather
+          than a therapy. Anyone with a cardiac condition reading that as a treatment option is
+          reading it wrong, and it belongs with a cardiologist rather than as a self-directed
+          decision.`
+        ]
+      },
+      {
+        h2: 'What to measure',
+        paras: [
+          `IGF-1 is the marker that tells you whether the axis moved, as across this whole class, and
+          on this compound it doubles as the desensitisation check: a falling IGF-1 on an unchanged
+          protocol is what tolerance looks like, and it does not announce itself as a symptom. The
+          <a href="/markers/igf-1/">IGF-1 page</a> covers the age-dependent reference interval.`,
+          `Prolactin and cortisol are on this compound&rsquo;s panel for a reason that does not apply
+          to the selective ones &mdash; the <a href="/markers/prolactin/">prolactin page</a> covers
+          how easily that particular hormone is elevated by the draw itself, which matters when
+          looking for a drug effect. Water retention is reported more here than elsewhere in the
+          class, consistent with the size of the GH response.`,
+          `@@EV_THEORETICAL@@ There is no approved product and no controlled trial for the uses this
+          is put to. Identity and purity rest with whoever made the vial, and this site names no
+          vendor. Anything experienced while using it belongs with a clinician who has the full
+          picture.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and it reads as a coherent description of one property
+      seen from six angles: this compound is the potent, unselective, fast-tolerating end of a
+      family.`,
+    faq: [
+      ['Why not use it daily?', [
+        `Because it desensitises faster than anything else in the class — within weeks of continuous
+         use. The intermittent schedule in the app’s rows exists for that pharmacological reason rather
+         than as a general cycling convention.`]],
+      ['Is the cardiac effect real?', [
+        `In animal models, and it appears to run through CD36 rather than growth hormone — knockout
+         models still show it. No human trial has tested it for a cardiac indication, and there is no
+         approved use.`]],
+      ['How does it compare to ipamorelin?', [
+        `Larger acute pulse, much less selectivity — more cortisol and prolactin — and far faster
+         tolerance. Ipamorelin was developed specifically to avoid the second and third of those.`]],
+      ['How would I know it stopped working?', [
+        `IGF-1 falling on an unchanged protocol. Tolerance does not produce a symptom, which is the
+         argument for measuring rather than judging by feel.`]]
+    ],
+    basis: [
+      ['Potency and selectivity across the GHRP family',
+        'The growth hormone secretagogue characterisation literature of the 1990s'],
+      ['CD36 binding and GH-independent cardiac effects',
+        'Animal work including growth hormone receptor knockout models'],
+      ['Desensitisation kinetics',
+        'Reported across the GHRP literature as fastest for this compound'],
+      ['Modelled half-life and time to peak', 'app.html’s TL_PK entry']
+    ],
+    cta: `Tolerance shows up as a number falling, not as a feeling. TherapyLog charts IGF-1 against
+      the schedule that produced it.`
+  },
+
+  ghrp6: {
+    slug: 'ghrp-6',
+    h1: 'GHRP-6: the first one, and the one that makes you hungry',
+    title: 'GHRP-6: appetite as the defining effect | TherapyLog',
+    description: 'The original growth hormone releasing peptide, notable for strong ghrelin-driven hunger. Why that is mechanism rather than side effect.',
+    lede: `The compound the rest of the family was developed to improve on. It releases growth
+      hormone well and it makes people extremely hungry, and the second of those is not a flaw in
+      the design &mdash; it is what a ghrelin mimetic does when nothing has been trimmed off it.`,
+    sections: [
+      {
+        h2: 'Hunger is the point of comparison',
+        paras: [
+          `@@EV_ESTABLISHED@@ Ghrelin is the stomach hormone that signals hunger and also stimulates
+          growth hormone release; the two functions travel together in the natural molecule. GHRP-6
+          was among the first synthetic agonists at that receptor and it reproduces both effects
+          substantially. Everything that came after &mdash; GHRP-2, hexarelin, ipamorelin &mdash;
+          was an attempt to keep the growth hormone release while shedding something: appetite,
+          cortisol, prolactin, or all three.`,
+          `So the appetite stimulation is the baseline the family is measured against rather than an
+          unfortunate extra. It is strong enough to be the deciding factor for most people: useful
+          if the goal involves eating more, actively counterproductive during a caloric deficit,
+          which is the goal most people in this space actually have.`,
+          `@@EV_OFFLABEL@@ Cortisol and prolactin rise more with GHRP-6 than with any of the others
+          except hexarelin, and desensitisation is faster than with the selective compounds. Those
+          are the other two things later molecules were built to reduce. The
+          <a href="/compounds/ipamorelin/">ipamorelin page</a> covers what the end of that
+          development looked like.`
+        ]
+      },
+      {
+        h2: 'The clinical history, and where it stops',
+        paras: [
+          `@@EV_ESTABLISHED@@ GHRP-6 has a real research base. It was studied through the 1980s and
+          1990s as a growth hormone secretagogue, used in provocative testing of pituitary reserve,
+          and characterised properly &mdash; which is more than most peptides in this reference can
+          claim. There is also work in cardiac and tissue-protective contexts from the ghrelin
+          receptor&rsquo;s wider biology.`,
+          `What never happened is an approval for anything. The compound was superseded by
+          orally-active secretagogues in pharmaceutical development and by more selective peptides in
+          practice, and it survives now mostly in the research-peptide market. Its characterisation
+          is good; its clinical development is finished and negative by omission rather than by
+          result.`
+        ]
+      },
+      {
+        h2: 'What to measure, and what nobody established',
+        paras: [
+          `IGF-1 is the marker for whether the axis responded, as everywhere in this class &mdash;
+          a random serum growth hormone mostly reports where in a pulse the draw landed. The
+          <a href="/markers/igf-1/">IGF-1 page</a> covers the age-dependent range. Prolactin,
+          cortisol and fasting glucose are on this compound&rsquo;s panel specifically, and body
+          weight is on it for the obvious reason.`,
+          `Fasted administration and a pre-sleep dose follow from the same physiology as the rest of
+          the class: insulin blunts growth hormone release and the largest natural pulse is
+          nocturnal. That constraint is harder to keep here than with the other compounds, because
+          the drug itself is arguing against it.`,
+          `@@EV_THEORETICAL@@ What amplifying GH pulses does for a person with a normal axis remains
+          unestablished across this entire family. IGF-1 is a marker of exposure rather than of
+          benefit. There is no approved product, identity and purity rest with whoever made the
+          vial, and this site names no vendor. Anything experienced while using it &mdash; a rising
+          fasting glucose in particular &mdash; belongs with a clinician.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and every item is a comparison against a later
+      compound in the same family. That is a fair description of where this one sits.`,
+    faq: [
+      ['How strong is the hunger?', [
+        `Strong enough that it is the usual reason people stop, and strong enough that it is described
+         as a use rather than a side effect where increasing intake is the goal. It is mechanism: this
+         is a ghrelin mimetic with nothing trimmed off it.`]],
+      ['Is it obsolete?', [
+        `In development terms, yes — it was superseded by more selective peptides and by orally active
+         secretagogues. It remains well characterised, which is why it still appears in the reference.`]],
+      ['Does it raise cortisol?', [
+        `More than any of the family except hexarelin. That is why cortisol and prolactin sit on this
+         compound’s monitoring panel and not on ipamorelin’s.`]],
+      ['Can the hunger be avoided by timing?', [
+        `Taking it before sleep shifts when it lands rather than removing it, and the fasted requirement
+         works against eating anyway. If a caloric deficit is the goal, a more selective compound in the
+         family is the straightforward answer.`]]
+    ],
+    basis: [
+      ['Ghrelin receptor agonism and dual GH-appetite signalling',
+        'Standard endocrinology references on the GH secretagogue receptor'],
+      ['Comparative selectivity across the family',
+        'The secretagogue characterisation literature of the 1980s and 1990s'],
+      ['Use in provocative pituitary testing',
+        'Clinical studies of GHRP-6 as a test of GH reserve'],
+      ['Modelled half-life and time to peak', 'app.html’s TL_PK entry']
+    ],
+    cta: `A compound whose main effect is on appetite is one where the food log matters as much as
+      the dose. TherapyLog keeps both.`
+  },
+
+  selank: {
+    slug: 'selank',
+    h1: 'Selank: an anxiolytic peptide that is not a benzodiazepine, on evidence from one country',
+    title: 'Selank: anxiolysis without sedation | TherapyLog',
+    description: 'A tuftsin analogue approved in Russia for anxiety. What the GABA and BDNF claims rest on, and what has never been replicated.',
+    lede: `An anxiolytic with a mechanism that is not the usual one, a clinical history in a country
+      whose research rarely gets replicated elsewhere, and the same evidence gap that applies to
+      everything in that category.`,
+    sections: [
+      {
+        h2: 'Derived from an immune peptide, acting on anxiety',
+        paras: [
+          `@@EV_ESTABLISHED@@ Tuftsin is a naturally occurring tetrapeptide fragment of an
+          immunoglobulin, with immune-modulating activity. Selank is a synthetic heptapeptide
+          analogue of it, stabilised with a proline-glycine-proline tail &mdash; the same
+          stabilising trick used on <a href="/compounds/semax/">semax</a>, from the same research
+          programme.`,
+          `@@EV_THEORETICAL@@ Its reported mechanism is not the benzodiazepine one. Rather than
+          binding the GABA-A receptor directly, it is described as modulating GABA-A subunit
+          expression and affecting serotonin and dopamine turnover, alongside raising brain-derived
+          neurotrophic factor. The claimed consequence is the profile that makes it interesting:
+          anxiolysis without sedation, without cognitive dulling, and without the tolerance and
+          dependence that define the benzodiazepines.`,
+          `That is an appealing profile and it is exactly the kind of claim that needs independent
+          confirmation, because "works like a benzodiazepine without any of the drawbacks" is what
+          every anxiolytic in development has claimed. The app records no half-life for it &mdash;
+          none has been published &mdash; which is why the fact box above has no pharmacokinetic
+          rows.`
+        ]
+      },
+      {
+        h2: 'Approved there, unstudied here',
+        paras: [
+          `@@EV_OFFLABEL@@ Selank is an approved medicine in Russia for anxiety and asthenic
+          conditions, with clinical use behind it. That is more than most compounds in this reference
+          have. What does not exist is a published randomised controlled trial from investigators
+          outside the research tradition that produced it, which is the same limitation that applies
+          to semax, epithalon and the Khavinson peptides.`,
+          `The criticism is not that the work is wrong. It is that a finding concentrated in one
+          research lineage is weaker evidence than the same finding from several, and independent
+          replication is what is missing rather than what has failed. A reader outside Russia cannot
+          obtain the approved product in any case, so what is available is research-supply material
+          with identity and purity resting on whoever made it. This site names no vendor or testing
+          service.`
+        ]
+      },
+      {
+        h2: 'What people report, and the caution that matters',
+        paras: [
+          `Reported effects are subtle rather than dramatic: reduced anxiety without a sedative
+          feel, and some report better verbal fluency and mood. Nasal irritation is the common local
+          effect of the intranasal route. The app records no bloodwork, honestly &mdash; nothing on
+          a routine panel reflects this, so assessment is entirely subjective, which makes it easy
+          to attribute a good fortnight to the peptide.`,
+          `@@EV_THEORETICAL@@ The caution worth stating is about what anxiety is. It is a
+          diagnosable condition with treatments that work, and treating it with an unstudied peptide
+          instead of seeking care is the specific harm available here &mdash; more so than with most
+          compounds in this reference, because the symptom itself discourages people from going.
+          Anyone using this alongside psychiatric medication, or instead of seeking help for anxiety
+          that is affecting their life, should be having that conversation with a clinician.`,
+          `The <a href="/compounds/semax/">semax page</a> covers the other peptide from the same
+          programme, which is described as stimulating where this one is described as calming. Both
+          carry the same replication gap and the same sourcing problem.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The limited-Western-data item and the source-quality
+      item are the two that actually constrain what can be said here.`,
+    faq: [
+      ['Is it like a benzodiazepine?', [
+        `Not mechanistically. It is described as modulating GABA-A subunit expression rather than binding
+         the receptor directly, and the claimed absence of sedation, tolerance and dependence is the
+         reason it is interesting. That claim has not been independently tested.`]],
+      ['Why is there no half-life in the fact box?', [
+        `Because none has been published, so the app holds none. Duration figures quoted elsewhere for
+         this peptide are not coming from a characterisation study.`]],
+      ['Intranasal or injected?', [
+        `The approved clinical use is intranasal and the app records both routes. Whether intranasal
+         delivery produces a meaningful central concentration is the least well answered question about
+         this whole family.`]],
+      ['Can it replace treatment for anxiety?', [
+        `No, and that is the one thing on this page worth being direct about. Anxiety has treatments with
+         evidence behind them, and substituting an unstudied peptide is the specific risk here.`]]
+    ],
+    basis: [
+      ['Tuftsin analogue structure',
+        'The peptide’s published design; a stabilised heptapeptide analogue of an immunoglobulin fragment'],
+      ['GABA-A subunit and monoamine effects',
+        'Animal and cell work from the Russian research programme; not independently replicated in the West'],
+      ['Approval and clinical use',
+        'The approval string in the fact box is app.html’s own field, reproduced verbatim'],
+      ['Absence of pharmacokinetic data',
+        'app.html holds no half-life or time-to-peak entry for this compound, which is why no such rows appear above']
+    ],
+    cta: `A subjective effect with no lab behind it needs a dated record to mean anything.
+      TherapyLog keeps the dose and your own note together.`
+  },
+
+  cerebrolysin: {
+    slug: 'cerebrolysin',
+    h1: 'Cerebrolysin: a porcine brain extract with more trial data than most approved drugs',
+    title: 'Cerebrolysin: a large, contested evidence base | TherapyLog',
+    description: 'A peptide mixture approved in dozens of countries for stroke and dementia, with a large trial base and unfavourable independent reviews.',
+    lede: `Unusual in this reference for having too much evidence rather than too little &mdash; and
+      for that evidence pointing in two directions depending on who assembled it. Both halves of
+      that need saying.`,
+    sections: [
+      {
+        h2: 'What it actually is',
+        paras: [
+          `@@EV_ESTABLISHED@@ Cerebrolysin is not a single molecule. It is a standardised enzymatic
+          hydrolysate of porcine brain tissue: a mixture of low-molecular-weight peptides and free
+          amino acids, produced to a manufacturing specification rather than synthesised to a
+          formula. That makes it closer to a biological product than to the peptides elsewhere on
+          this site, and it is the reason there is no half-life in the fact box &mdash; the app
+          holds none, and a mixture does not have one.`,
+          `@@EV_THEORETICAL@@ The proposed mechanism is neurotrophic: the fragments are said to
+          mimic the action of endogenous neurotrophic factors, promoting neuronal survival,
+          synaptogenesis and plasticity after injury. That account is supported by animal and cell
+          work. Whether a peptide mixture given intravenously reaches the brain in a form that does
+          any of that in a human is the question the mechanism does not answer by itself.`,
+          `It requires intramuscular or intravenous administration &mdash; there is no oral or
+          intranasal route with systemic effect &mdash; and the courses described are daily for ten
+          to twenty days, repeated. That is a clinical undertaking rather than a supplement
+          schedule.`
+        ]
+      },
+      {
+        h2: 'A large evidence base, and what independent review made of it',
+        paras: [
+          `@@EV_OFFLABEL@@ It is an approved medicine in dozens of countries and has been studied in
+          well over a hundred clinical trials for acute ischaemic stroke, traumatic brain injury,
+          vascular dementia and Alzheimer&rsquo;s disease. By volume, that is more clinical
+          investigation than almost anything else in this reference.`,
+          `Independent systematic reviews have been considerably less positive than that volume
+          suggests. Cochrane reviews of cerebrolysin in acute ischaemic stroke have not found
+          evidence of benefit on death or dependence, and have raised concerns about the
+          concentration of trials among investigators connected to the manufacturer and about
+          reporting quality. Reviews in dementia have been similarly cautious. That is not the same
+          as saying it does not work; it is saying that a large body of trials has not convinced
+          reviewers who were not part of producing it.`,
+          `The honest summary for a reader is that the evidence is voluminous, geographically and
+          commercially concentrated, and unpersuasive to independent assessment. Anyone quoting the
+          number of studies without quoting the reviews is telling half of it.`
+        ]
+      },
+      {
+        h2: 'What that means for cognitive use in a healthy person',
+        paras: [
+          `Every indication it is approved for involves a damaged brain &mdash; stroke, injury,
+          dementia. @@EV_THEORETICAL@@ Use for cognitive enhancement in a healthy adult is
+          off-label everywhere it is approved and unstudied everywhere else. A neurotrophic agent
+          plausibly has more to do where there is damage to repair, which is the same logic that
+          applies to thymosin alpha-1 and immunity.`,
+          `The practical obstacles are real. It is not available in the United States, so it is
+          imported or compounded; it is porcine-derived, which matters for some people on dietary or
+          religious grounds; and being a protein-derived mixture given by injection, allergic
+          reaction is a genuine possibility rather than a boilerplate warning &mdash; which is why
+          a test dose appears in the app&rsquo;s own drawbacks list. This site names no vendor.`,
+          `Anyone considering this for a diagnosed neurological condition should be having the
+          conversation with the neurologist managing it, in a country where it is licensed if that
+          is possible. Anything on the drawbacks list below belongs in the same conversation.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the allergy item deserves more weight than its
+      position suggests: this is an injected biological mixture, not a synthetic peptide.`,
+    faq: [
+      ['If there are 130 studies, why is it not approved in the US?', [
+        `Because volume is not the same as persuasiveness. Independent systematic reviews, including
+         Cochrane, have not found convincing evidence of benefit in stroke and have raised concerns about
+         where the trials came from and how they were reported.`]],
+      ['Does it work for cognitive enhancement?', [
+        `That has not been studied. Every approved indication involves a damaged brain, and a neurotrophic
+         agent plausibly has less to do where there is nothing to repair.`]],
+      ['Why is there no half-life in the fact box?', [
+        `Because it is a mixture of many peptides rather than one molecule, and the app holds no entry. A
+         hydrolysate does not have a single half-life.`]],
+      ['Is a test dose really necessary?', [
+        `It is a porcine-derived protein mixture given by injection, so allergic reaction is a real
+         possibility rather than a formality. That is what the app’s own drawbacks list is pointing at.`]]
+    ],
+    basis: [
+      ['Composition as a standardised porcine brain hydrolysate',
+        'The product’s published manufacturing description'],
+      ['Approvals and trial volume',
+        'The approval string in the fact box is app.html’s own field; over a hundred clinical trials have been conducted'],
+      ['Independent systematic review findings',
+        'Cochrane reviews of cerebrolysin in acute ischaemic stroke and in dementia, which did not find evidence of benefit and raised reporting concerns'],
+      ['Absence of pharmacokinetic data',
+        'app.html holds no half-life or time-to-peak entry, which is why no such rows appear above']
+    ],
+    cta: `A ten to twenty day course repeated a few times a year is a schedule worth writing down.
+      TherapyLog keeps the dates.`
+  },
+
+  dsip: {
+    slug: 'dsip',
+    h1: 'DSIP: named for an effect that has been hard to reproduce',
+    title: 'DSIP: the sleep peptide, and its evidence | TherapyLog',
+    description: 'Delta sleep-inducing peptide was named in 1974 for an effect later studies struggled to replicate. What is actually known about it.',
+    lede: `A peptide whose name is a claim, made in 1974, that the subsequent fifty years have not
+      settled. That is unusual and worth knowing before reading anything else about it.`,
+    sections: [
+      {
+        h2: 'Where the name came from',
+        paras: [
+          `@@EV_THEORETICAL@@ DSIP was isolated from the blood of rabbits in induced slow-wave sleep
+          and named for what it appeared to do when transferred: increase delta sleep in recipients.
+          That original finding is real and is where the name comes from. What happened afterwards is
+          the interesting part &mdash; replication was inconsistent, the sleep effect proved
+          difficult to demonstrate reliably in later work, and the peptide&rsquo;s endogenous role
+          has never been clearly established.`,
+          `Later research has been more interested in it as a stress-response modulator than as a
+          hypnotic: effects on ACTH and cortisol, on stress-induced physiological changes, and some
+          antioxidant activity. Those are the mechanisms most often cited now, and they are a
+          different account from the one the name implies.`,
+          `The app models a very short half-life and flags it as an estimate, which is consistent
+          with a small peptide and means limited or absent human pharmacokinetic data. Anything
+          calculated from it inherits that.`
+        ]
+      },
+      {
+        h2: 'What the sleep claim rests on',
+        paras: [
+          `@@EV_THEORETICAL@@ Human work exists and is small, old and mixed. Some studies in people
+          with disturbed sleep reported improvements in sleep onset and subjective quality; others
+          found little. There is no modern randomised trial with polysomnography as the endpoint,
+          which is what would actually settle whether it increases slow-wave sleep in people.`,
+          `The reason that matters more than usual: sleep is one of the most placebo-responsive
+          things anyone measures, and self-reported sleep quality is unusually easy to shift with
+          expectation and with the ritual of taking something at bedtime. A compound whose only
+          available assessment is subjective, taken for an outcome that responds strongly to
+          expectation, is close to the worst case for judging by feel. A consumer sleep tracker is
+          not polysomnography, but it is at least an external measurement, and it is what the
+          app&rsquo;s own monitoring note suggests.`,
+          `@@EV_OFFLABEL@@ The use that has more internal logic is the one the app&rsquo;s entry
+          mentions in passing: growth hormone secretagogues taken too late disrupt sleep
+          architecture, and DSIP is described in that context as a corrective. That is a
+          hypothesis about an interaction rather than a finding, and the simpler answer to a
+          secretagogue disrupting sleep is usually to move the secretagogue.`
+        ]
+      },
+      {
+        h2: 'Sourcing, tolerance and the alternative worth naming',
+        paras: [
+          `There is no approved product anywhere. Identity and purity rest with whoever made the
+          vial, and this site names no vendor or testing service. The app&rsquo;s rows describe
+          intermittent rather than nightly use, on the basis that tolerance develops &mdash;
+          plausible for any sleep agent and not demonstrated for this one.`,
+          `The comparison worth making is with things that have been studied properly. Sleep is one
+          of the few areas in this reference where the boring interventions have strong evidence:
+          cognitive behavioural therapy for insomnia outperforms hypnotics in trials and holds up
+          after treatment stops. A person taking an unstudied peptide for chronic insomnia has
+          usually not tried the thing that works.`,
+          `Persistent sleep disruption is also a symptom rather than a diagnosis &mdash; sleep
+          apnoea, depression, thyroid disease and a long list of medications all cause it, and all
+          of them are worth excluding before treating the symptom. That conversation belongs with a
+          clinician, and anything on the drawbacks list below belongs in it too.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The first item is doing the most work: for a compound
+      named after an effect, the absence of large-scale human data on that effect is the story.`,
+    faq: [
+      ['Does it actually increase deep sleep?', [
+        `The original 1974 work said so and later replication has been inconsistent. There is no modern
+         randomised trial with polysomnography as an endpoint, which is what would answer it.`]],
+      ['Why is the assessment so unreliable?', [
+        `Because self-reported sleep quality responds strongly to expectation, and a bedtime ritual is
+         itself an intervention. A tracker is not polysomnography but it is at least external, which is
+         why the app suggests one.`]],
+      ['Should it be taken every night?', [
+        `The app’s rows describe intermittent use on the basis that tolerance develops. That is plausible
+         for any sleep agent and has not been demonstrated for this one specifically.`]],
+      ['What has better evidence for insomnia?', [
+        `Cognitive behavioural therapy for insomnia, which outperforms hypnotic drugs in trials and keeps
+         working after treatment ends. It is also worth excluding sleep apnoea, thyroid disease,
+         depression and medication effects before treating sleep as the problem.`]]
+    ],
+    basis: [
+      ['Original isolation and naming',
+        'Work published in 1974 isolating the peptide from blood during induced slow-wave sleep'],
+      ['Inconsistent replication of the sleep effect',
+        'Subsequent human and animal studies with mixed results; no modern polysomnographic trial'],
+      ['Stress-axis and antioxidant activity',
+        'The later DSIP literature, which shifted emphasis away from the hypnotic claim'],
+      ['Estimated half-life',
+        'app.html’s TL_PK entry, flagged est: limited or absent human pharmacokinetic data']
+    ],
+    cta: `Sleep is the outcome most distorted by expectation, so an external measure beats a memory.
+      TherapyLog keeps the dose beside what you recorded.`
+  },
+
+  mots: {
+    slug: 'mots-c',
+    h1: 'MOTS-c: a peptide encoded in mitochondrial DNA, discovered in 2015',
+    title: 'MOTS-c: a mitochondrial peptide, early | TherapyLog',
+    description: 'A peptide encoded by mitochondrial rather than nuclear DNA, proposed to mimic exercise metabolically. What is known ten years in.',
+    lede: `Genuinely novel biology &mdash; a peptide written into mitochondrial DNA rather than the
+      nucleus, which was not thought to happen. The science is interesting. The human evidence is
+      about as early as it gets.`,
+    sections: [
+      {
+        h2: 'Why the discovery mattered',
+        paras: [
+          `@@EV_ESTABLISHED@@ Mitochondria carry their own small genome, and it was long assumed to
+          encode only the handful of proteins needed for the electron transport chain. MOTS-c is one
+          of a small family of mitochondrial-derived peptides &mdash; short sequences encoded within
+          mitochondrial DNA that act as signalling molecules elsewhere in the cell and in
+          circulation. That was a real addition to the picture of how mitochondria communicate with
+          the rest of the body, and it is why the discovery attracted attention beyond the longevity
+          field.`,
+          `@@EV_THEORETICAL@@ Functionally, MOTS-c is reported to activate AMPK and to improve
+          glucose uptake in skeletal muscle through a route that does not depend on insulin. That is
+          the basis for the exercise-mimetic framing: AMPK activation is one of the things exercise
+          does, and circulating MOTS-c rises with exercise and declines with age. Animal work reports
+          improved metabolic measures and, in mice, extended healthspan.`,
+          `The app records no half-life, because none has been published for the material in
+          circulation, which is why the fact box above carries no pharmacokinetic rows.`
+        ]
+      },
+      {
+        h2: 'How early is early',
+        paras: [
+          `@@EV_THEORETICAL@@ The peptide was described in 2015. Human data consists of observational
+          work &mdash; circulating levels correlating with metabolic status, age and exercise &mdash;
+          and a small amount of early interventional work. There is no published randomised
+          controlled trial reporting a clinical outcome from administering it.`,
+          `That is a much thinner base than the enthusiasm around it suggests, and the app&rsquo;s
+          own drawbacks list is right to lead with it. "Very early human research stage" is the
+          accurate description, and a compound at that stage sold on animal healthspan data is the
+          familiar pattern this site keeps flagging.`,
+          `The observational finding is also worth reading carefully. Higher circulating MOTS-c in
+          metabolically healthier, more active people is consistent with it being a marker of
+          mitochondrial function rather than a cause of it. Administering the marker does not
+          necessarily produce the state, and distinguishing those two is exactly what an
+          interventional trial is for.`
+        ]
+      },
+      {
+        h2: 'What to measure, and the sourcing problem',
+        paras: [
+          `The app&rsquo;s panel is glucose-focused &mdash; fasting glucose, HbA1c, a metabolic panel
+          &mdash; which follows the proposed mechanism sensibly. The
+          <a href="/markers/hba1c-and-fasting-glucose/">HbA1c page</a> covers why those two markers
+          can disagree. Exercise capacity assessed consistently is the other honest measure, and
+          consistently is the operative word.`,
+          `@@EV_THEORETICAL@@ There is no approved product and no reference standard. Identity and
+          purity rest entirely with whoever made the vial, and for a sixteen-residue peptide sold
+          into an enthusiastic market, that is not a small caveat. This site names no vendor and no
+          testing service.`,
+          `The reasonable position is that this is real and novel biology at a stage where nobody
+          can say what administering it does to a person over months. Anyone using it should be
+          treating their own record as the only data available, and anyone with a metabolic
+          condition should be raising it with the clinician managing that.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the first two items are the honest summary of
+      everything else on this page.`,
+    faq: [
+      ['Does it really mimic exercise?', [
+        `It activates one of the pathways exercise activates, in animal and cell work. Exercise does a
+         great many other things at the same time, and no human trial has compared them. "Exercise
+         mimetic" is a mechanism claim being used as an outcome claim.`]],
+      ['Is there human trial data?', [
+        `Observational work relating circulating levels to metabolic status, and early interventional
+         work. No published randomised trial reporting a clinical outcome from administering it.`]],
+      ['Why is there no half-life in the fact box?', [
+        `Because none has been published for the material people are using, so the app holds none.`]],
+      ['If levels decline with age, does replacing them help?', [
+        `That is the hypothesis and it is not established. A level that tracks mitochondrial health may
+         be a marker rather than a cause, and administering a marker does not necessarily produce the
+         state it marks.`]]
+    ],
+    basis: [
+      ['Mitochondrial-derived peptides as a class',
+        'Described from 2015 onward; MOTS-c was among the first characterised'],
+      ['AMPK activation and insulin-independent glucose uptake',
+        'Cell and animal work from the discovery programme onward'],
+      ['Human evidence stage',
+        'Observational studies relating circulating levels to age, exercise and metabolic status; no randomised outcome trial'],
+      ['Absence of pharmacokinetic data',
+        'app.html holds no half-life or time-to-peak entry for this compound, which is why no such rows appear above']
+    ],
+    cta: `At this stage of evidence, your own dated record is the entire dataset. TherapyLog keeps
+      it beside the metabolic panel.`
+  },
+
+  vip: {
+    slug: 'vip',
+    h1: 'VIP: a real neuropeptide, attached to a protocol that is not consensus medicine',
+    title: 'VIP: the peptide and the CIRS protocol | TherapyLog',
+    description: 'Vasoactive intestinal peptide is well characterised physiology. The protocol it is best known for in this space is a different question.',
+    lede: `Two separate things share this page. VIP is a real, well-studied endogenous neuropeptide.
+      The reason most people encounter it is a specific practitioner protocol for a diagnosis that
+      mainstream medicine does not recognise, and those deserve to be separated.`,
+    sections: [
+      {
+        h2: 'The physiology is not in doubt',
+        paras: [
+          `@@EV_ESTABLISHED@@ Vasoactive intestinal peptide is a 28-amino-acid neuropeptide found
+          throughout the nervous system, the gut and the immune system. It is a potent vasodilator,
+          a bronchodilator, a regulator of intestinal secretion, and one of the more powerful
+          endogenous anti-inflammatory signals known &mdash; it shifts immune responses away from
+          inflammatory patterns and promotes regulatory T-cell activity. It is also the principal
+          neurotransmitter of the suprachiasmatic nucleus, which is the body clock.`,
+          `That is textbook physiology rather than a claim, and it is why VIP has been of
+          pharmaceutical interest for conditions including pulmonary arterial hypertension and
+          sarcoidosis. Its problem as a drug is delivery: it is cleared in minutes, which is why the
+          routes described are intranasal or inhaled rather than anything systemic and lasting. The
+          app records no half-life for the preparations in use, which is why the fact box carries no
+          pharmacokinetic rows.`
+        ]
+      },
+      {
+        h2: 'The protocol, described accurately',
+        paras: [
+          `@@EV_OFFLABEL@@ In this space VIP is known almost entirely through one framework: a
+          practitioner-developed protocol for chronic inflammatory response syndrome, attributed to
+          water-damaged buildings and biotoxin exposure, in which VIP is the final step after other
+          interventions. The app&rsquo;s own dosing rows name it.`,
+          `Being precise about its status matters. CIRS as defined by that protocol is not a
+          diagnosis recognised by mainstream medical bodies, its proposed biomarker panel &mdash;
+          TGF-beta1, C4a, MMP-9, MSH &mdash; is not validated for that purpose, and the protocol as
+          a whole has not been through controlled trials. That is not an accusation that the people
+          using it are unwell in no way; chronic fatigue, cognitive difficulty and multi-system
+          symptoms are real, and patients arriving at this protocol have usually been failed
+          elsewhere. It is a statement about what has been demonstrated.`,
+          `The honest reading is that a genuinely anti-inflammatory endogenous peptide has been
+          attached to an unvalidated diagnostic framework, and the strength of the first does not
+          transfer to the second. Anyone considering it should know which part rests on textbook
+          physiology and which part does not.`
+        ]
+      },
+      {
+        h2: 'Practical considerations',
+        paras: [
+          `There is no approved product. What is used is compounded, typically as an intranasal
+          preparation, and identity, concentration and sterility rest with the compounder. This site
+          names no pharmacy, clinic or testing service. It is also expensive relative to almost
+          everything else in this reference.`,
+          `@@EV_ESTABLISHED@@ The predictable effects follow from the pharmacology: flushing and
+          hypotension, because it is a potent vasodilator. That is a real consideration for anyone
+          already on blood-pressure medication or prone to orthostatic symptoms, and it is why the
+          app puts blood pressure on the monitoring list.`,
+          `The markers the protocol calls for are specialty tests with their own interpretive
+          problems, and a result on an unvalidated panel is not a finding. Anyone with persistent
+          multi-system symptoms deserves a diagnostic workup that excludes the things that are
+          treatable and well characterised first, and that is the conversation to have with a
+          clinician before this one.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the physician-guidance item is the one that
+      matters most here — less because of the peptide than because of what it is being used to
+      treat.`,
+    faq: [
+      ['Is CIRS a recognised diagnosis?', [
+        `Not by mainstream medical bodies, and the biomarker panel associated with it is not validated
+         for that use. The symptoms people bring to it are real; the framework interpreting them has not
+         been through the process that would establish it.`]],
+      ['Is VIP itself well studied?', [
+        `As physiology, yes — it is textbook material with a substantial literature. As a therapy
+         delivered intranasally for the indications it is used for here, no.`]],
+      ['Why intranasal?', [
+        `Because it is cleared in minutes, so a systemic route achieves little. Intranasal delivery is
+         an attempt to reach the central nervous system directly, which is a reasonable strategy and not
+         a demonstrated one.`]],
+      ['What are the immediate effects to expect?', [
+        `Flushing and a drop in blood pressure, both predictable from a potent vasodilator. That matters
+         for anyone on antihypertensives or prone to orthostatic symptoms, and it is why blood pressure is
+         on the monitoring list.`]]
+    ],
+    basis: [
+      ['VIP physiology',
+        'Standard references on neuropeptide and immune physiology; the anti-inflammatory and vasodilatory roles are well established'],
+      ['Status of the CIRS framework',
+        'Not recognised as a diagnosis by mainstream medical bodies; the associated biomarker panel is not validated for the purpose'],
+      ['Absence of controlled trials for the protocol',
+        'The protocol as a whole has not been evaluated in randomised trials'],
+      ['Absence of pharmacokinetic data',
+        'app.html holds no half-life or time-to-peak entry for the preparations in use']
+    ],
+    cta: `A protocol with many steps and specialty labs is one where the sequence and the dates
+      matter. TherapyLog keeps them straight.`
+  },
+
+  kissp: {
+    slug: 'kisspeptin-10',
+    h1: 'Kisspeptin-10: the switch above the axis, and why continuous dosing turns it off',
+    title: 'Kisspeptin-10: pulsatility is the drug | TherapyLog',
+    description: 'Kisspeptin sits upstream of GnRH and is the master switch of the reproductive axis. Given continuously it desensitises and suppresses.',
+    lede: `One level above everything else that acts on the testosterone axis. It also has the most
+      counterintuitive property in this reference: administered wrongly it does the exact opposite of
+      what it is taken for.`,
+    sections: [
+      {
+        h2: 'Upstream of the whole axis',
+        paras: [
+          `@@EV_ESTABLISHED@@ The hypothalamic-pituitary-gonadal axis is usually drawn starting at
+          GnRH. Kisspeptin sits above it: kisspeptin neurons drive the GnRH pulse generator, and
+          loss-of-function mutations in the kisspeptin receptor cause failure of puberty. That
+          finding, in the mid-2000s, is what established it as the master regulator of reproduction
+          rather than a modulator of it.`,
+          `Kisspeptin-10 is the C-terminal decapeptide fragment that retains receptor activity.
+          Administered to a person, it triggers GnRH release, which triggers luteinising hormone,
+          which triggers testosterone &mdash; an intact chain that only works if every link below it
+          works. The <a href="/markers/lh-fsh/">LH and FSH page</a> covers how the state of that
+          chain is established before anything is given.`
+        ]
+      },
+      {
+        h2: 'The property that makes it easy to get exactly wrong',
+        paras: [
+          `@@EV_ESTABLISHED@@ The GnRH system responds to pulses and shuts down under continuous
+          stimulation. This is not a subtlety &mdash; it is the basis of an entire drug class:
+          continuous GnRH agonists are used clinically to suppress testosterone in prostate cancer,
+          and they work by desensitising the very receptors they stimulate. The same logic runs one
+          level up.`,
+          `So kisspeptin given in properly spaced pulses raises testosterone, and kisspeptin given
+          continuously or too frequently desensitises the axis and lowers it. The app&rsquo;s own
+          drawbacks list says this in capitals, and it is right to. It is the only compound in this
+          reference where getting the schedule wrong does not merely reduce the effect but reverses
+          it.`,
+          `That is also why the app puts an LH surge thirty to sixty minutes after an injection on
+          the monitoring list. It is a direct test of whether the receptor is still responding, and
+          it is the closest thing available to a real-time check that the protocol is doing what it
+          is supposed to.`
+        ]
+      },
+      {
+        h2: 'What the research actually covers',
+        paras: [
+          `@@EV_OFFLABEL@@ Kisspeptin has been studied seriously in humans, mostly in reproductive
+          endocrinology: as a trigger for oocyte maturation in fertility treatment, in
+          investigations of hypothalamic amenorrhoea, and in studies of the axis itself. It is
+          genuine clinical research, and none of it is a trial of sustained testosterone restoration
+          in men. The app&rsquo;s regulatory string says exactly that.`,
+          `The app models a very short half-life and flags it as an estimate, consistent with a small
+          peptide cleared quickly. The practical difficulty follows: a compound that must be
+          delivered in properly separated pulses, with a very short half-life, on a schedule nobody
+          has established, is one where the margin for getting it wrong is narrow and the failure
+          mode is suppression.`,
+          `There is no approved product for this use. Identity and purity rest with whoever made the
+          vial, and this site names no vendor. Anyone considering it for hypogonadism should know
+          that <a href="/compounds/enclomiphene/">enclomiphene</a> and
+          <a href="/compounds/hcg/">hCG</a> address the same axis with far more human data behind
+          them, and that which if any is appropriate is a prescribing decision.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the last item is the one to read twice: continuous
+      dosing suppresses the axis rather than stimulating it.`,
+    faq: [
+      ['Why does continuous dosing suppress testosterone?', [
+        `Because the GnRH system responds to pulses and desensitises under constant stimulation. That is
+         the same mechanism continuous GnRH agonists use clinically to suppress testosterone in prostate
+         cancer. Kisspeptin sits one level above and behaves the same way.`]],
+      ['How would I know it is working?', [
+        `An LH surge thirty to sixty minutes after an injection, which is the app’s own monitoring
+         suggestion and is a direct test that the receptor is still responding.`]],
+      ['Has it been studied for raising testosterone?', [
+        `Not as a sustained restoration therapy. The human research is reproductive endocrinology —
+         fertility treatment, hypothalamic amenorrhoea, axis physiology — which is real research about a
+         different question.`]],
+      ['How does it compare to enclomiphene or hCG?', [
+        `Both act on the same axis with substantially more human data: enclomiphene at the hypothalamic
+         oestrogen receptor, hCG at the LH receptor on the testis. Kisspeptin acts above both and has the
+         least evidence for this use.`]]
+    ],
+    basis: [
+      ['Kisspeptin as the upstream regulator of GnRH',
+        'Established by loss-of-function mutation findings in the mid-2000s and the subsequent literature'],
+      ['Desensitisation under continuous stimulation',
+        'The same pharmacology that underlies continuous GnRH agonist therapy for androgen suppression'],
+      ['Human research context',
+        'Reproductive endocrinology studies including oocyte maturation triggering; not sustained testosterone restoration'],
+      ['Estimated half-life',
+        'app.html’s TL_PK entry, flagged est: limited or absent human pharmacokinetic data']
+    ],
+    cta: `A compound where the interval between doses decides the direction of the effect is one to
+      log precisely. TherapyLog records the time, not just the day.`
+  },
+
+  ara290: {
+    slug: 'ara-290',
+    h1: 'ARA-290: the tissue-protective half of erythropoietin, without the red cells',
+    title: 'ARA-290 (cibinetide): EPO without the EPO | TherapyLog',
+    description: 'A peptide from the helix B face of erythropoietin that activates the tissue repair receptor without raising haematocrit. What the trials found.',
+    lede: `Erythropoietin does two unrelated jobs through two different receptors. This peptide was
+      engineered to keep one of them and drop the other, which is an unusually clean piece of drug
+      design &mdash; and it has the phase II data to discuss.`,
+    sections: [
+      {
+        h2: 'Two receptors, one hormone',
+        paras: [
+          `@@EV_ESTABLISHED@@ Erythropoietin is known for stimulating red cell production, which it
+          does through the classical homodimeric EPO receptor on erythroid precursors. It also has a
+          tissue-protective role &mdash; anti-inflammatory, anti-apoptotic, promoting repair after
+          injury &mdash; and that runs through a completely different receptor complex, a
+          heterodimer of the EPO receptor and the beta-common receptor, often called the innate
+          repair receptor.`,
+          `ARA-290, also called cibinetide, is a short peptide corresponding to the helix B surface
+          of erythropoietin: the face that engages the repair receptor and not the erythropoietic
+          one. The design goal was therefore to get the tissue protection without raising
+          haematocrit, and that separation has held in trials &mdash; which matters, because raising
+          haematocrit is exactly what makes EPO unusable as a repair therapy and is a concern this
+          site&rsquo;s readers already track. The
+          <a href="/markers/hematocrit-on-trt/">haematocrit page</a> covers why.`,
+          `The app records no half-life for the preparations in circulation, which is why the fact
+          box carries no pharmacokinetic rows.`
+        ]
+      },
+      {
+        h2: 'What phase II reported',
+        paras: [
+          `@@EV_ESTABLISHED@@ ARA-290 has been through controlled human trials, principally in small
+          fibre neuropathy associated with sarcoidosis and in diabetic neuropathy. The reported
+          findings were reductions in neuropathic pain scores and, more interestingly, increases in
+          corneal nerve fibre density measured by confocal microscopy &mdash; a structural rather
+          than symptomatic endpoint, which is much harder to produce by expectation.`,
+          `It holds orphan drug designation for sarcoidosis. Development has not produced an approval,
+          and the trials are phase II: real, controlled, and not large enough or long enough to
+          establish what a phase III would.`,
+          `That is a considerably stronger position than most research peptides occupy, and it is
+          worth being precise about what it supports. The evidence is for neuropathic pain and nerve
+          fibre density in specific neuropathies. The app&rsquo;s own drawbacks list notes that body
+          composition data is limited, which is a polite way of saying the general repair and
+          anti-inflammatory uses it gets put to are extrapolation.`
+        ]
+      },
+      {
+        h2: 'The practical position',
+        paras: [
+          `@@EV_THEORETICAL@@ There is no approved product, so what is available is research-supply
+          material with identity and purity resting on whoever made it, and it is expensive. This
+          site names no vendor and no testing service.`,
+          `Monitoring is unusual for this reference in being mostly clinical: pain scales recorded
+          consistently, nerve conduction studies where available, inflammatory markers, and a full
+          blood count &mdash; the last one specifically to confirm that haematocrit is not rising,
+          which would suggest the material is not what it claims to be. That is the same
+          mislabelling-detector logic the HGH fragment page describes, and it is one of the more
+          useful checks available on an unapproved compound.`,
+          `Neuropathic pain is a diagnosable problem with treatments that have evidence behind them,
+          and it is also a symptom of conditions worth identifying &mdash; diabetes and B12
+          deficiency among them. Anyone treating it with an unapproved peptide before that workup
+          has happened is treating a symptom whose cause may be both findable and fixable. That is
+          the conversation to have with a clinician first.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and the fourth item is the honest one: the trials were
+      about neuropathy, and everything else it is used for is extrapolation from them.`,
+    faq: [
+      ['Does it raise haematocrit like EPO?', [
+        `No — that separation is the entire point of the molecule, and it held in the trials. A rising
+         haematocrit on this compound would suggest the vial contains something else, which is why a full
+         blood count is on the monitoring list.`]],
+      ['What did the trials actually measure?', [
+        `Neuropathic pain scores and corneal nerve fibre density in small fibre neuropathy. The second
+         is a structural endpoint, which makes it more persuasive than a symptom score alone.`]],
+      ['Is it approved for anything?', [
+        `No. It holds orphan drug designation for sarcoidosis, which is a development incentive rather
+         than an approval or an efficacy finding.`]],
+      ['Does it help with recovery or body composition?', [
+        `That has not been studied. The evidence is in neuropathy, and the app’s own drawbacks list says
+         body composition data is limited. Applying a neuropathy result to a training context is
+         extrapolation.`]]
+    ],
+    basis: [
+      ['Innate repair receptor versus the classical EPO receptor',
+        'The erythropoietin tissue-protection literature and the peptide’s published design rationale'],
+      ['Phase II findings in small fibre neuropathy',
+        'Controlled trials reporting reduced neuropathic pain and increased corneal nerve fibre density'],
+      ['Orphan drug designation',
+        'A development incentive for sarcoidosis; not an approval and not an efficacy finding'],
+      ['Absence of pharmacokinetic data',
+        'app.html holds no half-life or time-to-peak entry for this compound, which is why no such rows appear above']
+    ],
+    cta: `A pain score only means something as a series recorded the same way. TherapyLog keeps it
+      beside the dose.`
+  },
+
+  amino1mq: {
+    slug: '5-amino-1mq',
+    h1: '5-Amino-1MQ: an enzyme inhibitor with a coherent mechanism and no human data',
+    title: '5-Amino-1MQ: mechanism without evidence | TherapyLog',
+    description: 'An NNMT inhibitor proposed to raise cellular NAD+ and drive fat loss. The preclinical case is real; the human case does not exist yet.',
+    lede: `A small molecule with a specific, well-described target and a preclinical story that hangs
+      together. What it does not have is a single published human trial, which is worth holding on
+      to while reading anything that sells it.`,
+    sections: [
+      {
+        h2: 'What NNMT does, and what blocking it is meant to achieve',
+        paras: [
+          `@@EV_ESTABLISHED@@ Nicotinamide N-methyltransferase takes nicotinamide &mdash; the
+          salvage-pathway precursor cells use to regenerate NAD+ &mdash; and methylates it into a
+          form destined for excretion. High NNMT activity therefore diverts nicotinamide away from
+          NAD+ regeneration and consumes methyl groups doing it. NNMT is expressed strongly in
+          adipose tissue and liver, and its expression rises in obesity.`,
+          `@@EV_THEORETICAL@@ 5-Amino-1MQ is a small-molecule inhibitor of that enzyme. The proposed
+          consequence is straightforward: block the diversion, intracellular NAD+ rises in the
+          tissues where NNMT is most active, sirtuin signalling increases, and fat cells shift toward
+          oxidation. Rodent work has reported reduced fat mass without reduced food intake, which is
+          the finding that generated the interest.`,
+          `The <a href="/compounds/nmn-and-nr/">NMN and NR page</a> covers the other approach to the
+          same target: supplying more precursor rather than stopping its removal. The two are
+          mechanistically distinct routes to the same intracellular quantity, and only one of them
+          has human data showing the quantity actually moves.`
+        ]
+      },
+      {
+        h2: 'How thin the human evidence is',
+        paras: [
+          `@@EV_THEORETICAL@@ There is no published randomised controlled trial of 5-Amino-1MQ in
+          people. No published pharmacokinetics in people either &mdash; the app records no half-life
+          or time to peak, which is why the fact box has no pharmacokinetic rows, and the dosing row
+          it does hold is convention rather than a finding. The app&rsquo;s own drawbacks list says
+          research is primarily preclinical and dosing is not standardised, which is the accurate
+          summary.`,
+          `Two specific unknowns follow from the mechanism rather than from the absence of trials.
+          NNMT inhibition affects methyl-group metabolism, which touches a great deal more than fat
+          cells &mdash; DNA methylation among it &mdash; and nobody has characterised what sustained
+          inhibition does to that in a person. And NNMT expression varies substantially between
+          tissues and individuals, so the effect of inhibiting it is unlikely to be uniform.`,
+          `None of that makes it dangerous. It makes it unstudied, which is a different and more
+          accurate word, and it is the same position pentadeca arginate occupies on this site.`
+        ]
+      },
+      {
+        h2: 'What to do with it',
+        paras: [
+          `There is no approved product and it is sold as a compounded or research-supply oral
+          preparation. Identity, purity and content rest entirely with whoever made it, and this
+          site names no pharmacy, vendor or testing service.`,
+          `The app&rsquo;s monitoring list is body composition, glucose, insulin and HbA1c, which is
+          the sensible set for the proposed mechanism and is the only assessment available &mdash;
+          nothing measures NNMT activity or intracellular NAD+ outside a research setting. The
+          <a href="/markers/hba1c-and-fasting-glucose/">HbA1c page</a> covers why the two glucose
+          markers can disagree.`,
+          `The reasonable position is interest without confidence: a specific target, a coherent
+          preclinical case, and a complete absence of the evidence that would tell you whether any of
+          it happens in a person. Anyone using it should treat their own record as the entire
+          dataset, and anyone with a metabolic condition should be raising it with the clinician
+          managing it.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry, and it is refreshingly blunt: the first three items say
+      preclinical, unstudied and unstandardised, which is the whole picture.`,
+    faq: [
+      ['Is there any human data?', [
+        `No published randomised trial, and no published human pharmacokinetics. The evidence is
+         preclinical, and the dosing in circulation is convention rather than a finding.`]],
+      ['How is it different from taking NMN?', [
+        `Opposite ends of the same pathway. NMN supplies more precursor; this blocks the enzyme that
+         removes it. NMN has human data showing blood NAD+ rises; this has none showing anything happens
+         in a person.`]],
+      ['Why does methyl metabolism come up?', [
+        `Because the enzyme it inhibits consumes methyl groups. Blocking it does not only affect fat
+         cells — it changes the availability of methyl groups for other processes, DNA methylation
+         included, and nobody has characterised that under sustained inhibition.`]],
+      ['Why is there no half-life in the fact box?', [
+        `Because none has been published, so the app holds none. Any duration figure quoted for it
+         elsewhere is not from a characterisation study.`]]
+    ],
+    basis: [
+      ['NNMT function in nicotinamide and methyl-group metabolism',
+        'Established enzymology; expression is high in adipose tissue and rises in obesity'],
+      ['Preclinical fat-mass findings',
+        'Rodent studies reporting reduced fat mass without reduced food intake'],
+      ['Absence of human trial and pharmacokinetic data',
+        'No published randomised controlled trial or human pharmacokinetic study exists as of this review date'],
+      ['Regulatory status',
+        'The regulatory string in the fact box is app.html’s own field, reproduced verbatim']
+    ],
+    cta: `With no published dose and no published half-life, what you did and what followed is the
+      only evidence there is. TherapyLog keeps it.`
+  },
 };

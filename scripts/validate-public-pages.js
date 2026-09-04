@@ -323,7 +323,7 @@ if (compoundDefs) {
 
     /* The dosing table, if present, carries no stripped row. */
     const stripped = (entry.doses || []).filter((r) =>
-      /performance|cycle|blast|advanced|intermediate|\bpct\b|post-?cycle|restart/i.test(r.l) ||
+      /performance|cycle|blast|advanced|intermediate|\bpct\b|post-?cycle|restart|\bbulking\b/i.test(r.l) ||
       /during (a |an |the )?cycle|of (a |an |the )?cycle\b|post-?cycle|before starting serm|\bpct\b/i
         .test([r.d, r.f, r.c].filter(Boolean).join(' ')));
     const leaked = stripped.filter((r) => html.includes(esc(r.l)) && html.includes(esc(r.d)));

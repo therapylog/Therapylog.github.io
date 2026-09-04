@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Compound reference: half-life and dosing | TherapyLog</title>
-<meta name="description" content="One page per compound, built from the data the TherapyLog app runs on: modelled half-life, storage rule, monitoring panel and interactions.">
+<title>Tamoxifen: receptor blockade, not suppression | TherapyLog</title>
+<meta name="description" content="Tamoxifen blocks oestrogen at the receptor in breast tissue without lowering circulating estradiol. Why that matters for gynaecomastia.">
 <meta name="author" content="Joel Gonzales">
-<link rel="canonical" href="https://therapylog.app/compounds/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Compound reference: half-life and dosing | TherapyLog"><meta property="og:description" content="One page per compound, built from the data the TherapyLog app runs on: modelled half-life, storage rule, monitoring panel and interactions."><meta property="og:url" content="https://therapylog.app/compounds/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Compound reference: half-life and dosing | TherapyLog"><meta name="twitter:description" content="One page per compound, built from the data the TherapyLog app runs on: modelled half-life, storage rule, monitoring panel and interactions."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="canonical" href="https://therapylog.app/compounds/tamoxifen/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Tamoxifen: receptor blockade, not suppression | TherapyLog"><meta property="og:description" content="Tamoxifen blocks oestrogen at the receptor in breast tissue without lowering circulating estradiol. Why that matters for gynaecomastia."><meta property="og:url" content="https://therapylog.app/compounds/tamoxifen/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Tamoxifen: receptor blockade, not suppression | TherapyLog"><meta name="twitter:description" content="Tamoxifen blocks oestrogen at the receptor in breast tissue without lowering circulating estradiol. Why that matters for gynaecomastia."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -202,337 +202,163 @@ body.og-card .wrap{display:none}
       <a href="/guide">Guide</a>
       <a class="cta" href="/app">Open the app</a>
     </nav>
-    <div class="crumbs"><a href="/">Home</a> &rsaquo; Compounds</div>
-    <h1>Compound reference: what each one is, how it is dosed, and what to monitor</h1>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/compounds/">Compounds</a> &rsaquo; Tamoxifen</div>
+    <h1>Tamoxifen: a receptor blocker that leaves the hormone alone</h1>
 
-    <p class="lede">One page per compound, built from the same reference data the TherapyLog
-    app runs on &mdash; the modelled half-life, the storage rule, the monitoring panel, the
-    documented interactions &mdash; with the pharmacology written out rather than summarised into
-    a benefits list.</p>
+    <p class="lede">An aromatase inhibitor lowers the hormone. Tamoxifen leaves the hormone where it is and blocks the receptor in the tissue that matters. Those are different interventions with different consequences, and conflating them is the most common error made about it.</p>
 
     <div class="updated">Last reviewed: 4 September 2026</div>
 
-    <h2>What these pages are, and what they are not</h2>
+    <div class="facts">
+      <dl>
+        <dt>Also known as</dt><dd>Nolvadex, Tamox</dd>
+        <dt>Class</dt><dd>Ancillaries — AIs and SERMs</dd>
+        <dt>Regulatory status</dt><dd>FDA approved for breast cancer. Off-label for male gynecomastia and PCT.</dd>
+        <dt>Modelled half-life</dt><dd>6 days</dd>
+        <dt>Time to peak</dt><dd>5 h</dd>
+        <dt>Formulation</dt><dd>Oral</dd>
+        <dt>Storage</dt><dd>Room temperature and dry, in the original container with whatever desiccant came in it, out of light.</dd>
+        <dt>Once opened</dt><dd>Unchanged once opened, as long as it stays dry.</dd>
+        <dt>What ruins it</dt><dd>Humidity is the real enemy — a bathroom cabinet is the worst place in the house for these.</dd>
+        <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
+      </dl>
+    </div>
 
-    <p>Every fact in the boxes on a compound page is lifted from the app at build time: the
-    half-life and time to peak, the formulation, the storage rule and its handling caveat, the
-    monitoring panel, the drawbacks the app records, the dosing rows it holds, and the interaction
-    rules that name the compound. That means these pages cannot quietly disagree with the app, and
-    a change to the app's reference shows up here on the next build rather than never.</p>
+    <h2>Selective, and what the selectivity means</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Tamoxifen is a selective oestrogen receptor modulator: it antagonises the receptor in some tissues and acts as an agonist in others. In breast tissue it is an antagonist, which is the basis for both its oncology approval and its off-label use for gynaecomastia. In bone and in the liver it behaves more like an agonist, which is why it does not carry the bone-density concern that oestrogen suppression does and why it affects lipids the way it does.</p>
+    <p>That tissue selectivity is the whole reason to prefer it over an aromatase inhibitor for a breast-tissue problem. An aromatase inhibitor lowers estradiol everywhere &mdash; including the bone, the brain and the vasculature where a man needs it &mdash; to fix a problem in one tissue. Tamoxifen blocks the receptor where the problem is and leaves circulating estradiol intact. The <a href="/compounds/anastrozole/">anastrozole page</a> covers what over-suppression costs.</p>
+    <p>Its half-life is long &mdash; the app models about six days, and the active metabolites run longer still &mdash; so it accumulates over weeks and clears over weeks. An effect assessed at a fortnight is being assessed before the level has settled.</p>
 
-    <p>What they are not is a protocol. No page here tells a reader to take an amount, and
-    none of them reproduces the app's combination protocols &mdash; a combination presented as a
-    plan under a byline is a recommendation to run it, whatever the disclaimer underneath says.
-    The <a href="/tools/stack-checker/">combination checker</a> covers combinations from the other
-    direction, as a check for documented conflicts. There is no vendor, clinic, testing service or
-    discount code on any of these pages, and there will not be.</p>
+    <h2>What it does for gynaecomastia, and when</h2>
+    <p><span class="ev ev-off">Off-label or community practice</span> Gynaecomastia is glandular proliferation, and the window in which it responds to anything pharmacological is early. In the proliferative phase, while the tissue is tender and recently changed, receptor blockade can reduce or reverse it. Once the tissue has become fibrotic &mdash; typically after about a year &mdash; no drug reliably removes it, and surgery is the only thing that does. That timeline is the single most practically useful fact on this page.</p>
+    <p>It is also why the honest answer to "will this fix it" is a question about how long it has been there. Someone with tender, recently developed tissue is in a different situation from someone with a firm, painless, long-standing lump, and only the first has a pharmacological option worth trying.</p>
 
-    <p>Each page also publishes the drawbacks the app records and not the benefits it
-    records. That asymmetry is deliberate. A risk someone has not heard of is worth reading; a
-    list of benefits under the founder's byline on a page built to rank is advertising, and
-    labelling it otherwise would not change what it is.</p>
+    <h2>Why there is no dosing table on this page</h2>
+    <p>You will notice this page carries no reproduced dosing rows. That is deliberate and automatic: the two rows the app holds for tamoxifen are a post-cycle recovery protocol and a during-cycle prevention schedule, and the generator strips rows framed that way before a page is built. Every compound page here is filtered the same way; tamoxifen is simply the one entry where nothing survives it.</p>
+    <p>What is left to say is the approved pharmacology, which is what this page covers. The amounts used in the oncology indication are published in the labelling and are a prescribing matter, not a page&rsquo;s.</p>
+    <p>The risk worth naming is thromboembolism. Tamoxifen raises the risk of venous thromboembolic events, which is established in the oncology trial data, and it is the reason a personal or family history of clotting matters here more than it does with most things in this reference. Visual disturbance is the other class effect with a conventional instruction attached: blurring or persistent after-images are a reason to stop and contact the prescriber rather than to continue and watch. Anything on the drawbacks list below belongs in the same conversation.</p>
 
-    <h2>Which compounds get a page</h2>
+    <h2>How long one dose lasts</h2>
 
-    <p>The app's reference covers 130 compounds. 107 of them can be described
-    responsibly on a public page, and they are split into two groups that are presented
-    differently:</p>
+    <figure class="curve">
+<svg viewBox="0 0 720 300" role="img" aria-label="Modelled serum level after a single dose of Tamoxifen: rising to a peak at 5 h and falling to half the peak roughly one half-life (6 days) after that, shown as a percentage of the peak." xmlns="http://www.w3.org/2000/svg">
+<title>Modelled serum level after a single dose of Tamoxifen: rising to a peak at 5 h and falling to half the peak roughly one half-life (6 days) after that, shown as a percentage of the peak.</title>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="256" fill="#78859b" font-size="11" text-anchor="end">0%</text><line x1="52" y1="197.83" x2="702" y2="197.83" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="201.83" fill="#78859b" font-size="11" text-anchor="end">25%</text><line x1="52" y1="143.67" x2="702" y2="143.67" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="147.67" fill="#78859b" font-size="11" text-anchor="end">50%</text><line x1="52" y1="89.5" x2="702" y2="89.5" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="93.5" fill="#78859b" font-size="11" text-anchor="end">75%</text><line x1="52" y1="35.33" x2="702" y2="35.33" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="39.33" fill="#78859b" font-size="11" text-anchor="end">100%</text><line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="52" y="274" fill="#78859b" font-size="11" text-anchor="middle">0 min</text><line x1="214.5" y1="18" x2="214.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="214.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">7.5 days</text><line x1="377" y1="18" x2="377" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="377" y="274" fill="#78859b" font-size="11" text-anchor="middle">15 days</text><line x1="539.5" y1="18" x2="539.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="539.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">22.5 days</text><line x1="702" y1="18" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="702" y="274" fill="#78859b" font-size="11" text-anchor="middle">30 days</text>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<path d="M52 252 L54.71 40.75 L57.42 35.75 L60.13 38.54 L62.83 41.57 L65.54 44.61 L68.25 47.58 L70.96 50.5 L73.67 53.38 L76.38 56.24 L79.08 59.04 L81.79 61.81 L84.5 64.54 L87.21 67.23 L89.92 69.87 L92.63 72.49 L95.33 75.07 L98.04 77.61 L100.75 80.1 L103.46 82.57 L106.17 84.99 L108.88 87.38 L111.58 89.74 L114.29 92.08 L117 94.38 L119.71 96.63 L122.42 98.86 L125.13 101.05 L127.83 103.22 L130.54 105.34 L133.25 107.44 L135.96 109.52 L138.67 111.56 L141.38 113.57 L144.08 115.56 L146.79 117.51 L149.5 119.44 L152.21 121.35 L154.92 123.21 L157.63 125.06 L160.33 126.88 L163.04 128.67 L165.75 130.45 L168.46 132.18 L171.17 133.92 L173.88 135.61 L176.58 137.28 L179.29 138.92 L182 140.53 L184.71 142.13 L187.42 143.71 L190.13 145.27 L192.83 146.79 L195.54 148.3 L198.25 149.78 L200.96 151.25 L203.67 152.7 L206.38 154.11 L209.08 155.52 L211.79 156.91 L214.5 158.27 L217.21 159.61 L219.92 160.94 L222.63 162.24 L225.33 163.54 L228.04 164.79 L230.75 166.05 L233.46 167.28 L236.17 168.5 L238.87 169.69 L241.58 170.88 L244.29 172.03 L247 173.18 L249.71 174.3 L252.42 175.43 L255.13 176.51 L257.83 177.6 L260.54 178.68 L263.25 179.72 L265.96 180.76 L268.67 181.78 L271.38 182.8 L274.08 183.77 L276.79 184.77 L279.5 185.72 L282.21 186.68 L284.92 187.61 L287.63 188.54 L290.33 189.45 L293.04 190.34 L295.75 191.22 L298.46 192.09 L301.17 192.96 L303.88 193.8 L306.58 194.63 L309.29 195.45 L312 196.27 L314.71 197.07 L317.42 197.85 L320.13 198.63 L322.83 199.39 L325.54 200.15 L328.25 200.89 L330.96 201.63 L333.67 202.34 L336.38 203.06 L339.08 203.77 L341.79 204.46 L344.5 205.13 L347.21 205.81 L349.92 206.48 L352.63 207.13 L355.33 207.76 L358.04 208.41 L360.75 209.03 L363.46 209.64 L366.17 210.25 L368.88 210.85 L371.58 211.44 L374.29 212.03 L377 212.59 L379.71 213.15 L382.42 213.72 L385.12 214.26 L387.83 214.8 L390.54 215.34 L393.25 215.86 L395.96 216.38 L398.67 216.9 L401.38 217.4 L404.08 217.9 L406.79 218.37 L409.5 218.87 L412.21 219.33 L414.92 219.8 L417.63 220.26 L420.33 220.71 L423.04 221.17 L425.75 221.6 L428.46 222.06 L431.17 222.47 L433.88 222.9 L436.58 223.31 L439.29 223.72 L442 224.14 L444.71 224.53 L447.42 224.92 L450.13 225.31 L452.83 225.7 L455.54 226.06 L458.25 226.46 L460.96 226.82 L463.67 227.17 L466.37 227.54 L469.08 227.88 L471.79 228.23 L474.5 228.56 L477.21 228.9 L479.92 229.23 L482.63 229.55 L485.33 229.88 L488.04 230.2 L490.75 230.51 L493.46 230.81 L496.17 231.11 L498.88 231.42 L501.58 231.72 L504.29 232 L507 232.31 L509.71 232.59 L512.42 232.85 L515.13 233.13 L517.83 233.41 L520.54 233.67 L523.25 233.93 L525.96 234.19 L528.67 234.45 L531.38 234.69 L534.08 234.95 L536.79 235.19 L539.5 235.43 L542.21 235.66 L544.92 235.9 L547.63 236.14 L550.33 236.36 L553.04 236.59 L555.75 236.81 L558.46 237.03 L561.17 237.25 L563.88 237.44 L566.58 237.66 L569.29 237.87 L572 238.07 L574.71 238.26 L577.42 238.46 L580.13 238.65 L582.83 238.85 L585.54 239.04 L588.25 239.22 L590.96 239.41 L593.67 239.59 L596.38 239.76 L599.08 239.93 L601.79 240.1 L604.5 240.28 L607.21 240.45 L609.92 240.63 L612.63 240.78 L615.33 240.95 L618.04 241.1 L620.75 241.25 L623.46 241.41 L626.17 241.56 L628.88 241.71 L631.58 241.86 L634.29 242.01 L637 242.14 L639.71 242.29 L642.42 242.42 L645.13 242.57 L647.83 242.71 L650.54 242.84 L653.25 242.97 L655.96 243.09 L658.67 243.22 L661.38 243.35 L664.08 243.46 L666.79 243.59 L669.5 243.72 L672.21 243.83 L674.92 243.96 L677.63 244.07 L680.33 244.18 L683.04 244.29 L685.75 244.4 L688.46 244.5 L691.17 244.61 L693.88 244.72 L696.58 244.83 L699.29 244.94 L702 245.02 L702 252 L52 252 Z" fill="rgba(59,196,255,0.10)" stroke="none"/><path d="M52 252 L54.71 40.75 L57.42 35.75 L60.13 38.54 L62.83 41.57 L65.54 44.61 L68.25 47.58 L70.96 50.5 L73.67 53.38 L76.38 56.24 L79.08 59.04 L81.79 61.81 L84.5 64.54 L87.21 67.23 L89.92 69.87 L92.63 72.49 L95.33 75.07 L98.04 77.61 L100.75 80.1 L103.46 82.57 L106.17 84.99 L108.88 87.38 L111.58 89.74 L114.29 92.08 L117 94.38 L119.71 96.63 L122.42 98.86 L125.13 101.05 L127.83 103.22 L130.54 105.34 L133.25 107.44 L135.96 109.52 L138.67 111.56 L141.38 113.57 L144.08 115.56 L146.79 117.51 L149.5 119.44 L152.21 121.35 L154.92 123.21 L157.63 125.06 L160.33 126.88 L163.04 128.67 L165.75 130.45 L168.46 132.18 L171.17 133.92 L173.88 135.61 L176.58 137.28 L179.29 138.92 L182 140.53 L184.71 142.13 L187.42 143.71 L190.13 145.27 L192.83 146.79 L195.54 148.3 L198.25 149.78 L200.96 151.25 L203.67 152.7 L206.38 154.11 L209.08 155.52 L211.79 156.91 L214.5 158.27 L217.21 159.61 L219.92 160.94 L222.63 162.24 L225.33 163.54 L228.04 164.79 L230.75 166.05 L233.46 167.28 L236.17 168.5 L238.87 169.69 L241.58 170.88 L244.29 172.03 L247 173.18 L249.71 174.3 L252.42 175.43 L255.13 176.51 L257.83 177.6 L260.54 178.68 L263.25 179.72 L265.96 180.76 L268.67 181.78 L271.38 182.8 L274.08 183.77 L276.79 184.77 L279.5 185.72 L282.21 186.68 L284.92 187.61 L287.63 188.54 L290.33 189.45 L293.04 190.34 L295.75 191.22 L298.46 192.09 L301.17 192.96 L303.88 193.8 L306.58 194.63 L309.29 195.45 L312 196.27 L314.71 197.07 L317.42 197.85 L320.13 198.63 L322.83 199.39 L325.54 200.15 L328.25 200.89 L330.96 201.63 L333.67 202.34 L336.38 203.06 L339.08 203.77 L341.79 204.46 L344.5 205.13 L347.21 205.81 L349.92 206.48 L352.63 207.13 L355.33 207.76 L358.04 208.41 L360.75 209.03 L363.46 209.64 L366.17 210.25 L368.88 210.85 L371.58 211.44 L374.29 212.03 L377 212.59 L379.71 213.15 L382.42 213.72 L385.12 214.26 L387.83 214.8 L390.54 215.34 L393.25 215.86 L395.96 216.38 L398.67 216.9 L401.38 217.4 L404.08 217.9 L406.79 218.37 L409.5 218.87 L412.21 219.33 L414.92 219.8 L417.63 220.26 L420.33 220.71 L423.04 221.17 L425.75 221.6 L428.46 222.06 L431.17 222.47 L433.88 222.9 L436.58 223.31 L439.29 223.72 L442 224.14 L444.71 224.53 L447.42 224.92 L450.13 225.31 L452.83 225.7 L455.54 226.06 L458.25 226.46 L460.96 226.82 L463.67 227.17 L466.37 227.54 L469.08 227.88 L471.79 228.23 L474.5 228.56 L477.21 228.9 L479.92 229.23 L482.63 229.55 L485.33 229.88 L488.04 230.2 L490.75 230.51 L493.46 230.81 L496.17 231.11 L498.88 231.42 L501.58 231.72 L504.29 232 L507 232.31 L509.71 232.59 L512.42 232.85 L515.13 233.13 L517.83 233.41 L520.54 233.67 L523.25 233.93 L525.96 234.19 L528.67 234.45 L531.38 234.69 L534.08 234.95 L536.79 235.19 L539.5 235.43 L542.21 235.66 L544.92 235.9 L547.63 236.14 L550.33 236.36 L553.04 236.59 L555.75 236.81 L558.46 237.03 L561.17 237.25 L563.88 237.44 L566.58 237.66 L569.29 237.87 L572 238.07 L574.71 238.26 L577.42 238.46 L580.13 238.65 L582.83 238.85 L585.54 239.04 L588.25 239.22 L590.96 239.41 L593.67 239.59 L596.38 239.76 L599.08 239.93 L601.79 240.1 L604.5 240.28 L607.21 240.45 L609.92 240.63 L612.63 240.78 L615.33 240.95 L618.04 241.1 L620.75 241.25 L623.46 241.41 L626.17 241.56 L628.88 241.71 L631.58 241.86 L634.29 242.01 L637 242.14 L639.71 242.29 L642.42 242.42 L645.13 242.57 L647.83 242.71 L650.54 242.84 L653.25 242.97 L655.96 243.09 L658.67 243.22 L661.38 243.35 L664.08 243.46 L666.79 243.59 L669.5 243.72 L672.21 243.83 L674.92 243.96 L677.63 244.07 L680.33 244.18 L683.04 244.29 L685.75 244.4 L688.46 244.5 L691.17 244.61 L693.88 244.72 L696.58 244.83 L699.29 244.94 L702 245.02" fill="none" stroke="#3bc4ff" stroke-width="2" stroke-linejoin="round"/><line x1="56.51" y1="18" x2="56.51" y2="252" stroke="#4ade9a" stroke-width="1" stroke-dasharray="3 3"/><text x="61.51" y="30" fill="#4ade9a" font-size="10.5">peak</text><line x1="182" y1="18" x2="182" y2="252" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 3"/><text x="187" y="30" fill="#f59e0b" font-size="10.5">one half-life</text>
+<text x="377" y="292" fill="#78859b" font-size="11" text-anchor="middle">Time after one dose</text>
 
-    <ul>
-      <li><strong>Approved and available (54).</strong> Compounds obtainable lawfully in
-      the United States, either as a prescription drug &mdash; used on-label or off-label &mdash;
-      or as a dietary supplement, over-the-counter product or cosmetic. Their pages carry the
-      approval string from the app's reference in the fact box.</li>
-      <li><strong>Research and unapproved (53).</strong> Research compounds, molecules
-      still in trials, compounds compounded from an unapproved ingredient, and drugs approved
-      somewhere other than the United States. Their pages open with a regulatory block stating the
-      approval status, the fact that nobody has verified identity or purity for the vial in
-      question, and the storage caveat.</li>
+</svg>
+      <figcaption>Modelled level after a single dose as a percentage of that dose&rsquo;s own
+      peak, rising to the peak at 5 h and falling by half every
+      6 days. Drawn with the app&rsquo;s own <code>pkCurve</code> function.
+      The vertical axis is relative: the shape carries across people, the absolute
+      concentration does not.</figcaption>
+      </figure>
+
+    <p>Try other intervals on the <a href="/tools/half-life-calculator/">half-life and
+      steady-state calculator</a>, which runs the same function against whatever cadence you
+      type.</p>
+
+    <h2>What the app monitors alongside it</h2>
+
+    <p>The panel below is the app&rsquo;s own monitoring note for Tamoxifen,
+      verbatim. The analytes in it that have a page here are linked; those pages cover what each one measures, which assay produced it and how to read a trend.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Monitoring panel</dt><dd>Total T, LH, FSH, E2 at end of PCT. Goal: LH/FSH recovering, T returning toward baseline.</dd>
+      </dl>
+    </div>
+
+    <ul class="mon-list">
+      <li><a href="/markers/estradiol-sensitive-vs-standard/">Sensitive versus standard estradiol</a></li>
+      <li><a href="/markers/total-testosterone-immunoassay-vs-lcms/">Total testosterone</a></li>
+      <li><a href="/markers/lh-fsh/">LH and FSH</a></li>
     </ul>
 
-    <p>The remaining 23 are in the app and do not get a page here. They are the
-    anabolic-androgenic steroids and selective androgen receptor modulators used for
-    performance, and the reasoning is not squeamishness: a page about them under this byline,
-    written to rank, would function as promotion no matter how it was framed, and the honest
-    version of that page is one nobody would publish. They stay in the app, where they exist to
-    make a log accurate for someone already using them, and off the indexable site.</p>
+    <h2>Drawbacks and risks the app records</h2>
 
-    <h2>Approved and available</h2>
+    <p>From the app&rsquo;s own entry. The clot item is the one that changes who should be taking this at all rather than how much.</p>
 
-    <div class="cards">
-      <div class="tcard">
-        <h3><a href="/compounds/anastrozole/">Anastrozole</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Arimidex</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/berberine/">Berberine</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Berberine HCl, BBR</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cabergoline/">Cabergoline</a></h3>
-        <p>Additional Ancillaries &middot; Dostinex, Caber</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/clomiphene/">Clomiphene</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Clomid, Enclomiphene</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/creatine-monohydrate/">Creatine Monohydrate</a></h3>
-        <p>Performance and Recovery &middot; Creatine, Cr, creatine monohydrate</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dasatinib/">Dasatinib</a></h3>
-        <p>Senolytics and Autophagy &middot; Sprycel, senolytic Rx, BCR-ABL inhibitor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dhea/">DHEA</a></h3>
-        <p>DHEA and Adrenal &middot; Dehydroepiandrosterone, Prasterone</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dutasteride-and-finasteride/">Dutasteride / Finasteride</a></h3>
-        <p>Additional Ancillaries &middot; Avodart (Duta), Propecia (Fina), 5-ARIs</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/exemestane/">Exemestane</a></h3>
-        <p>Additional Ancillaries &middot; Aromasin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/fisetin/">Fisetin</a></h3>
-        <p>Senolytics and Autophagy &middot; 7,3',4'-flavon-3-ol, senolytic flavonoid</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hcg/">HCG</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Human Chorionic Gonadotropin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/levothyroxine-t4/">Levothyroxine (T4)</a></h3>
-        <p>Thyroid Hormones &middot; Synthroid, Levoxyl, LT4</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/liothyronine-t3/">Liothyronine (T3)</a></h3>
-        <p>Thyroid Hormones &middot; Cytomel, T3, LT3</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/low-dose-naltrexone/">Low-Dose Naltrexone</a></h3>
-        <p>Metabolic and Cardiovascular &middot; LDN</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/metformin/">Metformin</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Glucophage, Metformin HCl, Fortamet</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/natural-desiccated-thyroid/">Natural Desiccated Thyroid</a></h3>
-        <p>Thyroid Hormones &middot; NDT, Armour Thyroid, NatureThroid, WP Thyroid</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/nmn-and-nr/">NMN / NR (NAD+ Precursors)</a></h3>
-        <p>Nootropics and Longevity &middot; Nicotinamide Mononucleotide, Nicotinamide Riboside</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/proviron/">Proviron</a></h3>
-        <p>Additional Compounds &middot; Mesterolone, 1-Methyl-DHT</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/pt-141/">PT-141</a></h3>
-        <p>Sexual Health Peptides &middot; Bremelanotide, Vyleesi</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/rapamycin/">Rapamycin</a></h3>
-        <p>Longevity Compounds &middot; Sirolimus, Rapamune, mTOR inhibitor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/recombinant-hgh/">Recombinant HGH</a></h3>
-        <p>HGH and IGF-1 &middot; Somatropin, rHGH, Human Growth Hormone, Genotropin, Norditropin, Humatrope, Omnitrope, Somatropin (rhGH)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/semaglutide/">Semaglutide</a></h3>
-        <p>GLP-1 / Metabolic &middot; Ozempic, Wegovy</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tamoxifen/">Tamoxifen</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Nolvadex, Tamox</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/telmisartan/">Telmisartan</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Micardis</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tesamorelin/">Tesamorelin</a></h3>
-        <p>GH Secretagogues &middot; Egrifta, TH9507</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-cypionate/">Testosterone Cypionate</a></h3>
-        <p>Androgens / TRT &middot; Test C, TC</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-enanthate/">Testosterone Enanthate</a></h3>
-        <p>Androgens / TRT &middot; Test E, TE</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-pellets/">Testosterone Pellets</a></h3>
-        <p>Performance and Recovery &middot; Testopel, subcutaneous pellet implant, BHRT pellets</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/testosterone-propionate/">Testosterone Propionate</a></h3>
-        <p>Additional Compounds &middot; Test Prop, TP</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tirzepatide/">Tirzepatide</a></h3>
-        <p>GLP-1 / Metabolic &middot; Mounjaro, Zepbound</p>
+    <ul class="cards risks">
+      <li>Mood effects reported in some users</li>
+      <li>Visual disturbances (rare, reversible)</li>
+      <li>Blood clot risk at high doses</li>
+      <li>Not for long-term use</li>
+      <li>Hot flashes possible</li>
+    </ul>
+
+    <div class="shared">
+      <p>That list is the app&rsquo;s, not a complete adverse-effect profile, and none of it is a
+      diagnosis. Anything on it that you are actually experiencing belongs in front of the
+      clinician who prescribes or supervises for you &mdash; they are the only person who can
+      weigh it against your history, your other medications and your bloodwork.</p>
+    </div>
+
+    <h2>Interaction rules that name Tamoxifen</h2>
+
+    <p>From the app&rsquo;s interaction data, filtered so no rule naming a compound this
+      site does not publish appears. Not exhaustive, and not a safety clearance: a combination
+      that is not listed is one nobody has documented here, which is not the same as one that
+      is fine. The <a href="/tools/stack-checker/">combination checker</a> has the rest.</p>
+
+    <div class="pairs">
+      <div class="pair warn">
+        <div class="sev">Caution</div>
+        <h3>HCG Must Stop Before PCT SERMs Begin</h3>
+        <p>HCG should be used during the last 2 weeks of a cycle to prime the testes, then stopped completely before starting Nolvadex or Clomid. Running HCG concurrently with SERMs blunts the PCT response by continuing LH suppression via HCG's action.</p>
+        <p class="mon"><strong>What to watch:</strong> Timing critical: Stop HCG, wait 2 weeks after last long-ester injection, then start SERMs.</p>
       </div>
     </div>
 
-    <h2>Research and unapproved</h2>
+    <h2>Questions people actually ask</h2>
 
-    <p>Each of these opens with its regulatory status. None of them has been reviewed by a
-        regulator for identity, purity, potency or safety in people.</p>
+    <h3>Tamoxifen or an aromatase inhibitor for gynaecomastia?</h3>
+    <p>They work differently. Tamoxifen blocks the receptor in the tissue with the problem and leaves
+         circulating estradiol alone; an aromatase inhibitor lowers estradiol everywhere. For a
+         breast-tissue problem the first is the more targeted intervention. Which is appropriate is a
+         prescribing decision.</p>
+    <h3>Does it lower estradiol?</h3>
+    <p>No. It does not reduce production at all — it occupies the receptor. Someone expecting the
+         estradiol number on their panel to fall will be confused by a result that has not moved, and
+         the unchanged number is not evidence the drug is not working.</p>
+    <h3>How long does gynaecomastia stay treatable?</h3>
+    <p>Roughly the first year, while the tissue is still proliferative and usually tender. Once it
+         fibroses, no drug reliably reverses it. That makes the timing of the conversation more
+         important than the choice of drug.</p>
+    <h3>Why does this page show no dosing rows?</h3>
+    <p>Because both rows the app holds for tamoxifen are post-cycle or during-cycle protocols, and
+         the generator strips those from every compound page before building it. Tamoxifen is the one
+         entry where that leaves nothing.</p>
 
-    <div class="cards">
-      <div class="tcard">
-        <h3><a href="/compounds/5-amino-1mq/">5-Amino-1MQ</a></h3>
-        <p>Additional Compounds &middot; 5-Amino-1-methylquinolinium, AMQ</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/aod-9604/">AOD-9604</a></h3>
-        <p>Peptides &middot; Anti-Obesity Drug 9604, HGH Frag 177-191, HGH Fragment 176-191</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ara-290/">ARA-290</a></h3>
-        <p>Peptides &middot; Cibinetide, Helix B peptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/bpc-157/">BPC-157</a></h3>
-        <p>Peptides &middot; Body Protection Compound 157</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cagrilintide/">Cagrilintide</a></h3>
-        <p>Metabolic Peptides &middot; AM833, amylin analogue</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cerebrolysin/">Cerebrolysin</a></h3>
-        <p>Neurological and Cognitive &middot; FPF-1070, CERE</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cjc-1295/">CJC-1295</a></h3>
-        <p>Peptides &middot; Mod GRF 1-29 (without DAC)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/cjc-1295-with-dac/">CJC-1295 with DAC</a></h3>
-        <p>Anti-Inflammatory Peptides &middot; CJC-1295 DAC, Drug Affinity Complex</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/dsip/">DSIP</a></h3>
-        <p>Sleep and Neurological &middot; Delta Sleep-Inducing Peptide, DSIP nonapeptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/enclomiphene/">Enclomiphene</a></h3>
-        <p>Ancillaries — AIs and SERMs &middot; Androxal, Enclomifene, NF-1010</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/epithalon/">Epithalon</a></h3>
-        <p>Khavinson Bioregulators &middot; Epithalamin, Epitalon, Epithalone</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ghrp-2/">GHRP-2</a></h3>
-        <p>Peptides &middot; Pralmorelin, KP-102</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ghrp-6/">GHRP-6</a></h3>
-        <p>Peptides &middot; Growth Hormone Releasing Peptide-6</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hexarelin/">Hexarelin</a></h3>
-        <p>Peptides &middot; Examorelin, HEX</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/hgh-fragment-176-191/">HGH Fragment 176-191</a></h3>
-        <p>Peptides &middot; HGH Frag, Fragment 176-191</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ipamorelin/">Ipamorelin</a></h3>
-        <p>Peptides &middot; Ipa, Selective GHRP</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/kisspeptin-10/">Kisspeptin-10</a></h3>
-        <p>Peptides &middot; Metastin, KP-10</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/kpv/">KPV</a></h3>
-        <p>Anti-Inflammatory Peptides &middot; Lys-Pro-Val, Alpha-MSH C-terminal tripeptide, α-MSH(11-13)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/melanotan-ii/">Melanotan II</a></h3>
-        <p>Metabolic Peptides &middot; MT-2, bremelanotide precursor</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/mk-677/">MK-677 / Ibutamoren</a></h3>
-        <p>GH Secretagogues &middot; Nutrobal</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/mots-c/">MOTS-c</a></h3>
-        <p>Additional Peptides &middot; Mitochondrial Open Reading Frame Peptide, Humanin analogue</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/pentadeca-arginate/">Pentadeca Arginate</a></h3>
-        <p>Peptides &middot; PDA, PC-15</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/retatrutide/">Retatrutide</a></h3>
-        <p>Metabolic Peptides &middot; LY3437943, triple G agonist</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/selank/">Selank</a></h3>
-        <p>Neurological and Cognitive &middot; TP-7</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/semax/">Semax</a></h3>
-        <p>Neurological and Cognitive &middot; ACTH(4-7)PGP, Heptapeptide</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/sermorelin/">Sermorelin</a></h3>
-        <p>GH Secretagogues &middot; GHRH(1-29)</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/ss-31/">SS-31</a></h3>
-        <p>Peptides &middot; Elamipretide, MTP-131, Bendavia</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/tb-500/">TB-500</a></h3>
-        <p>Peptides &middot; Thymosin Beta-4</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/thymosin-alpha-1/">Thymosin Alpha-1</a></h3>
-        <p>Additional Peptides &middot; Ta1, Zadaxin, Thymalfasin</p>
-      </div>
-      <div class="tcard">
-        <h3><a href="/compounds/vip/">VIP</a></h3>
-        <p>Metabolic and Cardiovascular &middot; Vasoactive Intestinal Peptide</p>
-      </div>
+    <h2>Where the load-bearing numbers come from</h2>
+
+    <p>Named rather than linked. Publisher URLs move, and a citation that resolves to a
+      404 two years from now is worse than one you can search for by name &mdash; every entry
+      below is findable from the title and year alone.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Tissue-selective receptor modulation</dt><dd>Standard pharmacology of selective oestrogen receptor modulators</dd>
+        <dt>Thromboembolic risk</dt><dd>Established in the tamoxifen oncology trial data and carried in the approved labelling</dd>
+        <dt>Proliferative versus fibrotic gynaecomastia</dt><dd>The endocrinology and surgical literature on gynaecomastia natural history</dd>
+        <dt>Modelled half-life and time to peak</dt><dd>app.html’s TL_PK entry</dd>
+      </dl>
     </div>
-
-    <h2>The rest of the reference</h2>
-
-    <p>60 of the 107 publishable compounds have a page so far; the others
-    are being written in batches, and nothing is linked here until its page is live and has been
-    read end to end. In the meantime the app's own encyclopedia carries all 130 with the same
-    underlying data &mdash; <a href="/app">open it here</a>, no account needed. The
-    <a href="/tools/">calculators</a> cover reconstitution, syringe volumes and half-life
-    arithmetic, and the <a href="/markers/">lab-marker pages</a> cover the bloodwork that follows
-    most of these.</p>
 
     <div class="cta-box">
-      <p>The app holds the same reference data these pages are built from, plus the log that turns a dose and a lab result into a trend.</p>
-      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=compounds-hub"
-         id="tl-cta" data-campaign="compounds-hub">Open the reference</a>
+      <p>Whether tissue is weeks old or a year old changes what is possible. TherapyLog keeps the
+      dates that answer that.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=compound-tamoxifen"
+         id="tl-cta" data-campaign="compound-tamoxifen">Save this dose to your log</a>
     </div>
     <div class="byline">
       <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
       Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
       how these pages are written, sourced and corrected is set out in the
       <a href="/about/">editorial policy</a>.</p>
-    </div>
-    <div class="callout">
-      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
     </div>
     <div class="disclaimer">
       TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
@@ -660,11 +486,11 @@ function toast(msg) {
       }
     },
     {
-      "@type": "CollectionPage",
-      "@id": "https://therapylog.app/compounds/#page",
-      "url": "https://therapylog.app/compounds/",
-      "name": "Compound reference: half-life and dosing | TherapyLog",
-      "description": "One page per compound, built from the data the TherapyLog app runs on: modelled half-life, storage rule, monitoring panel and interactions.",
+      "@type": "Article",
+      "@id": "https://therapylog.app/compounds/tamoxifen/#page",
+      "url": "https://therapylog.app/compounds/tamoxifen/",
+      "name": "Tamoxifen: receptor blockade, not suppression | TherapyLog",
+      "description": "Tamoxifen blocks oestrogen at the receptor in breast tissue without lowering circulating estradiol. Why that matters for gynaecomastia.",
       "inLanguage": "en-US",
       "isPartOf": {
         "@id": "https://therapylog.app/#website"
@@ -690,6 +516,12 @@ function toast(msg) {
             "position": 2,
             "name": "Compounds",
             "item": "https://therapylog.app/compounds/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Tamoxifen",
+            "item": "https://therapylog.app/compounds/tamoxifen/"
           }
         ]
       }

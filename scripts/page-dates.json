@@ -1,6 +1,10 @@
 {
   "/compounds/": {
-    "hash": "49eea8baed1b48977b78cfb8273fd4e3525cf42c3557ddbb94813b68925f9f80",
+    "hash": "d5a72c48e7cb86274229bf4fd770f68f4f79b4d5ce40fb235175879c7e341a21",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/5-amino-1mq/": {
+    "hash": "f13ec32202f41f8e1917d33e50c2975b8acb5b3f5f758b879a0bcf9d83921362",
     "lastmod": "2026-09-04"
   },
   "/compounds/anastrozole/": {
@@ -9,6 +13,14 @@
   },
   "/compounds/aod-9604/": {
     "hash": "7732fb18ffd1f466992f4ded3831016d0529226ae45f6e3f642d76fb1f77bff7",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/ara-290/": {
+    "hash": "1aae45eb262ff1c1acc19e3ee79d264681a04892e658f29ce8e62ef749a9bdb7",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/berberine/": {
+    "hash": "bc3ffa010672ef17b75621d426a9b532f5559b19182c46fab6451b801b26ae39",
     "lastmod": "2026-09-04"
   },
   "/compounds/bpc-157/": {
@@ -23,6 +35,10 @@
     "hash": "1407bd349241943f71c95909026423442655246c17488a1964a7015d0072d1a6",
     "lastmod": "2026-09-04"
   },
+  "/compounds/cerebrolysin/": {
+    "hash": "68228767f2c16a9602e43eec2c6aede97cbeb44cd4780dd933be08217b1a7572",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/cjc-1295-with-dac/": {
     "hash": "0adc0415a5e998d9ea215a3ff3868fa6c86bb7f3458bf10d95ef0edeafe73729",
     "lastmod": "2026-09-04"
@@ -35,8 +51,20 @@
     "hash": "edd03683097ad48e2bf6d5950e36fbbae04f4faf818e7953b207aa78c7db82a6",
     "lastmod": "2026-09-04"
   },
+  "/compounds/creatine-monohydrate/": {
+    "hash": "07f6df6a11ed8c1f31b8f07bc8d51135b15c7dc5bc87d6eab5c32931351f1ab4",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/dasatinib/": {
+    "hash": "3a06ac5f96442c78540084a9c88fa6bdd889b0f404165e5d482c1cc7d139686f",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/dhea/": {
     "hash": "11967958e4fcf388b856237f1cec529141a224e7207c3ed98abd22f5b0e13b7d",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/dsip/": {
+    "hash": "1ef82601629f1614b6dc464340a49c0c296ad39f48dcac35cef4f79fae449188",
     "lastmod": "2026-09-04"
   },
   "/compounds/dutasteride-and-finasteride/": {
@@ -55,12 +83,24 @@
     "hash": "33ca97ff682649d898e4ee588ae5074135d67424a4430ddc55acb73706fce6c6",
     "lastmod": "2026-09-04"
   },
+  "/compounds/fisetin/": {
+    "hash": "2dd9ca24564df582136e9a0c26dafa02cfb23e3cdb278d9dd1c79ed6eb1b7a69",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/ghrp-2/": {
     "hash": "cd4e9c89fc5775adcd67bb000643b7ff8297d5928aa3865cc9ff44609ec12006",
     "lastmod": "2026-09-04"
   },
+  "/compounds/ghrp-6/": {
+    "hash": "2b9a58e1736863d999717be0ccfb2a97820449b6eafff06bba8b8eac47bf08e9",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/hcg/": {
     "hash": "964a892a77056a8745bedc464acc5bd8fed1bb6ec33c98fbd751ad96a015a6aa",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/hexarelin/": {
+    "hash": "92befb062be844ce34995c5e7dc4a1a71333beb87edfc68f335dffc04e63cc5e",
     "lastmod": "2026-09-04"
   },
   "/compounds/hgh-fragment-176-191/": {
@@ -69,6 +109,10 @@
   },
   "/compounds/ipamorelin/": {
     "hash": "cf451cee29fcd4eaf993a4bf2dfb135fae16f382725267cd53b23493923a5274",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/kisspeptin-10/": {
+    "hash": "78468533eda1fb24510c9e0ee067f94b362782db266bd93bd14ac8a9de6ab73e",
     "lastmod": "2026-09-04"
   },
   "/compounds/kpv/": {
@@ -99,12 +143,24 @@
     "hash": "9bcf2ddc5b87af8c81873311fa1cb0ab05486cd60a4a88e08ad0e7d88c4f73a8",
     "lastmod": "2026-09-04"
   },
+  "/compounds/mots-c/": {
+    "hash": "44c8082213cc3f53bcfbeb79b2be1bb5f25bb8081648c313053f3749beb5dc9f",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/natural-desiccated-thyroid/": {
+    "hash": "ac430a8de99fad45d03e72e31c26405a7e9ce035a6a3a5417bcf1445aaeca7e2",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/nmn-and-nr/": {
     "hash": "e09293ce3f29622c7dea499c6bd2f0465462181ab4bb6f846ca52a18927445d4",
     "lastmod": "2026-09-04"
   },
   "/compounds/pentadeca-arginate/": {
     "hash": "6594310a5fb7c0297ad23df9f45c95213dd30a566400b1f81cd25c748919c944",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/proviron/": {
+    "hash": "f7b853ba990ec5a36c8139f7fa4827fa833bd934926e9e2215dea09c7ccdefc3",
     "lastmod": "2026-09-04"
   },
   "/compounds/pt-141/": {
@@ -123,6 +179,10 @@
     "hash": "c145089e685f310291042b03e53410fbb713f7ab19578b6b2e4106e5111b7aef",
     "lastmod": "2026-09-04"
   },
+  "/compounds/selank/": {
+    "hash": "7d3a14770d3f6af639ee5acc566b5153bb0e3ce58d42571a6ef5f12382d57bfb",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/semaglutide/": {
     "hash": "07af20fd92ef15af1f142dd5b2a4f72d7e371daa49ed970988a4f6e0eeddfbd9",
     "lastmod": "2026-09-04"
@@ -139,8 +199,16 @@
     "hash": "71652d28db52af6857085e6778ac53643141858582bd0bd0a06676eea925bcf7",
     "lastmod": "2026-09-04"
   },
+  "/compounds/tamoxifen/": {
+    "hash": "704641f63a2a2a23f3a1e59ef627af45202776eca06f3026954ac9c8b6efd40a",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/tb-500/": {
     "hash": "56bff8d36c420dc3f140902d561ef0a15978e6b87bcb51bb479a5e2ba197ca0d",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/telmisartan/": {
+    "hash": "21a5f2b26fe0ef9d0bad1618f125b485db020155e562790e26a3a6e480706a96",
     "lastmod": "2026-09-04"
   },
   "/compounds/tesamorelin/": {
@@ -155,12 +223,24 @@
     "hash": "00a3c39abcf29ba6bcfec7ba7be60fccc72da5a4ac65e617284ff42e2f52fd38",
     "lastmod": "2026-09-04"
   },
+  "/compounds/testosterone-pellets/": {
+    "hash": "6dcf9a8225287be2a3aadf8398a1c55feffd998389df01ec175d7248320f67e1",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/testosterone-propionate/": {
+    "hash": "0a11234222981d63e396fdbcfff099f38ba95cdf4e21df6bf60b0905616b0df8",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/thymosin-alpha-1/": {
     "hash": "3cedb8bb272551adc53828cecdea82e6532385512e06ce284ee949994f2be5d4",
     "lastmod": "2026-09-04"
   },
   "/compounds/tirzepatide/": {
     "hash": "04ea0b8cea8eee3c2d1d64fe3c6a0924ec57482f1362b48670aeaa8475ad1841",
+    "lastmod": "2026-09-04"
+  },
+  "/compounds/vip/": {
+    "hash": "e6b0800e8d02f93b64eea82f4834da9bade3c5eeee048b872676eae07d703ac4",
     "lastmod": "2026-09-04"
   },
   "/markers/": {

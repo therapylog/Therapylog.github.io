@@ -553,6 +553,44 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**SEO Phase 3, batch 3 — twenty more /compounds/ pages (4 Sep 2026)**
+
+Ten Tier A and ten Tier B: testosterone propionate, proviron, testosterone
+pellets, tamoxifen, natural desiccated thyroid, creatine, berberine, fisetin,
+dasatinib and telmisartan; hexarelin, GHRP-6, selank, cerebrolysin, DSIP, MOTS-c,
+VIP, kisspeptin-10, ARA-290 and 5-Amino-1MQ. Sixty compound pages now, 871-1,379
+authored words each, worst sibling similarity 0.173 — the four growth hormone
+releasing peptides, as expected, and still well under the 0.4 ceiling. Sitemap
+103 to 123 URLs.
+
+- **Chosen to close out families and to correct things.** The GHRP set is now
+  complete (ipamorelin, GHRP-2, GHRP-6, hexarelin), which is what lets each page
+  be about what distinguishes it rather than about growth hormone in general.
+  Berberine exists to say plainly that it is not a GLP-1 agonist and the weight
+  effect is a couple of kilograms, not fifteen per cent. Creatine exists mostly
+  for one paragraph: it raises serum creatinine and gets healthy people referred
+  for renal workup, and cystatin C settles it.
+- **Tamoxifen ships with no dosing table and the page says why.** Both rows the
+  app holds are post-cycle or during-cycle protocols, so the strip filter removes
+  them and nothing survives. Rather than hide that, the page has a section
+  explaining that every compound page is filtered the same way and this is the
+  one entry where the filter leaves nothing.
+- **"bulking" added to the dose strip filter.** GHRP-6's "Bulking and Mass" row
+  was the only place that word appears anywhere in the reference, and it survived
+  the §7 word list. One row removed across the whole DB.
+- **A data disagreement flagged rather than papered over.** app.html's regulatory
+  field for natural desiccated thyroid says "FDA approved". Desiccated thyroid
+  products are not FDA-approved drugs — they predate the 1938 approval pathway
+  and are marketed under enforcement discretion. The fact box still reproduces
+  the app's string, because that is the policy, and the prose says openly that it
+  disagrees with the box and why. **Owner action: correct that field in
+  app.html.** This site's policy of reproducing app data verbatim only works if
+  the prose is allowed to contradict it in public when it is wrong.
+- **Forty-seven publishable compounds remain.** No generator or validator changes
+  beyond the filter word and the coded-word fix from batch 2.
+
+---
+
 **SEO Phase 3, batch 2 — twenty more /compounds/ pages (4 Sep 2026)**
 
 Ten Tier A and ten Tier B, chosen by search demand rather than alphabetically:
@@ -818,8 +856,9 @@ The Focus board holds the working sequence. This is the summary.
    marker pages deployed the same week), and marker queries sit in a different
    query space from compound queries, so waiting would not have informed the
    selection. **Batch 2 done 4 Sep 2026** — twenty more, also see §2, taking the
-   sitemap to 103 URLs. **67 publishable compounds remain**; keep picking by
-   search demand, not alphabetically.
+   sitemap to 103 URLs. **Batch 3 done 4 Sep 2026** — twenty more, taking it to
+   123. **47 publishable compounds remain**; keep picking by search demand, not
+   alphabetically.
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
 9. Decide the BYOK price. At $8.99/mo it sits $1 under Pro while the customer
