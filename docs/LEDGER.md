@@ -553,6 +553,56 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**Insulin added to the encyclopedia and a /compounds/insulin/ page written from
+scratch (4 Sep 2026)**
+
+The first compound added to `app.html`'s database rather than lifted from it,
+and the first public page authored without a DB entry already behind it.
+Requested by the owner: insulin is used at the top of bodybuilding, people ask
+about it, and what they find is written either by someone selling a protocol or
+by someone who will not discuss it at all. 131 compounds now, 81 pages, sitemap
+143 to 144 URLs.
+
+- **This is the one exception to "never edit app.html".** The standing rule
+  through Phases 0-3 was that the app's data and logic are read, never written.
+  The owner lifted it explicitly for this compound. What changed in `app.html`:
+  one DB entry under `metabolic`, one `TL_STORAGE.overrides` entry, three
+  `INTERACTIONS` rules, and the catalogue count. No logic, no functions, no CSS.
+- **The DB entry carries no performance dose and says so in the table.** Two
+  rows are the FDA-approved indications with "Individualised by a prescriber"
+  where a number would go, because that is what insulin dosing actually is --- an
+  output of measurement, not a figure read off a table. The third row is labelled
+  "Performance and body-composition use" with "No dose is published here", which
+  the app shows and the section 7 strip filter removes from the public page. An
+  explicit refusal inside the tool, nothing to copy on the web.
+- **Three interaction rules, and the GLP-1 one is the reason to add them at
+  all.** Insulin + semaglutide is `danger`: a recognised clinical interaction
+  where guidelines call for the insulin dose to come down, and this site's
+  audience is full of people on a GLP-1. Insulin + recombinant HGH is `danger`
+  --- the combination in the published fatality reports, dangerous precisely
+  because the two effects run on different clocks. Insulin + T3 is `warn`.
+- **The storage override deliberately declares no `medium`.** Every class medium
+  describes something mixed, decanted or swallowed. With `medium: 'aq'` the rows
+  rendered as "Before mixing" and "Once reconstituted", which is wrong for a
+  ready-to-use solution; omitting it gives "Unopened" and "Once opened" in both
+  the app and the generated page. `validate-storage.js` already permitted an
+  override with no medium --- the check is `!o.medium || CLASSES.includes(...)`.
+- **1,911 authored words, the longest page on the site.** Four sections:
+  mechanism, and why product timing rather than a single half-life is the whole
+  safety picture; the physique rationale and the fact that no controlled trial in
+  non-diabetic athletes exists or can; the failure mode in sequence, including
+  that the stage where someone could still save themselves ends before the danger
+  does; and a harm-reduction section --- CGM, fast carbohydrate within reach,
+  someone nearby who knows, glucagon, unit-versus-millilitre errors, and the
+  over-the-counter availability of regular human insulin in most US states.
+- **The count moved from 130 to 131 in eleven files.** `validate-encyclopedia.js`
+  rule 9 caught every marketing instance, which is what it was written for:
+  `app.html`, `index.html`, `download.html`, `marketing.html`, `guide.html`,
+  both providers pages, `docs/COMPOUNDS.md`, `docs/compounds.json` and the hub
+  template. `TIER_A` is 55 now and `assertTiers` expects it.
+- **Owner action after deploy:** `node scripts/indexnow-submit.js /compounds/insulin/ /compounds/`
+  submits just the two changed URLs.
+
 **SEO Phase 3, batch 4 — the last twenty /compounds/ pages, and the hub rebuilt
 (4 Sep 2026)**
 

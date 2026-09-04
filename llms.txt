@@ -63,7 +63,7 @@ the app cannot disagree about a number. All are free and need no account.
 - /tools/free-testosterone-calculator/: Free testosterone calculator — Free and bioavailable testosterone from total T, SHBG and albumin by the Vermeulen equation, in your lab’s units. Free, no account.
 - /tools/half-life-calculator/: Half-life and steady-state calculator — Half-life, time to steady state, accumulation ratio and peak-to-trough swing for 50 PK-modelled compounds. Free, no account.
 - /tools/syringe-builder/: Combined syringe planner — Plan a multi-compound draw, see the stacked fill level, and get warned when compounds should not share a syringe. Free, no account.
-- /tools/stack-checker/: Can you take these together? — 45 documented interaction pairs across testosterone ancillaries, GLP-1 medications and peptides — the mechanism and what to watch. Free, no account.
+- /tools/stack-checker/: Can you take these together? — 48 documented interaction pairs across testosterone ancillaries, GLP-1 medications and peptides — the mechanism and what to watch. Free, no account.
 
 ### Reconstitution, pre-filled per compound
 
