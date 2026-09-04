@@ -110,7 +110,9 @@ function build(ctx, api) {
     `    <h2>Reading your bloodwork instead</h2>`,
     `    <p>If what you actually want is help reading a lab report — what the number means,
     which assay produced it, and why two labs can disagree about the same blood — that is what
-    the <a href="/markers/">lab-marker pages</a> are for.</p>`,
+    the <a href="/markers/">lab-marker pages</a> are for. And if you want the compound itself
+    — what it is, what the app records about it and what it is monitored with — that is the
+    <a href="/compounds/">compound reference</a>.</p>`,
     shell.ctaBox('tools-hub',
       'The app is where these calculators live alongside the log they feed: doses, vials, bloodwork and the curve for everything you have entered.',
       'Open the app')

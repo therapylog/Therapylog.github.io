@@ -31,7 +31,7 @@ const walk = (dir, out = []) => {
   }
   return out;
 };
-const REFERENCE_PAGES = ['about', 'tools', 'markers'].flatMap((d) => walk(d)).sort();
+const REFERENCE_PAGES = ['about', 'tools', 'markers', 'compounds'].flatMap((d) => walk(d)).sort();
 
 const PUBLIC = ['index.html', 'download.html', 'pro.html', 'guide.html',
                 'partnership.html', 'privacy.html', 'terms.html',

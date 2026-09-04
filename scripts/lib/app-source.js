@@ -244,6 +244,89 @@ const TIER_C = Object.freeze([
 ]);
 const isTierC = (id) => TIER_C.includes(id);
 
+/* Tier A and Tier B (SEO-PLAN §7). Every publishable compound is in exactly one
+   of them, and the three lists together must cover DB — assertTiers() below is
+   what makes that a build failure rather than a silent omission.
+
+   The rule that produced these lists: a compound is Tier A when it can be
+   obtained lawfully in the United States, either as an FDA-approved drug (used
+   on-label or off-label) or as a dietary supplement, OTC or cosmetic product.
+   Everything else publishable is Tier B — research compounds, trial-stage
+   molecules, compounds compounded from an unapproved API, and drugs approved
+   only outside the US.
+
+   That last group is where these lists diverge from §7's estimate of 56 Tier A
+   and 46 Tier B. Thymosin Alpha-1, Cerebrolysin, Selank, Semax, Epithalon and
+   Pinealon are approved somewhere — Russia, or 35-50 other countries — and not
+   here. §7 reads as having counted them as "approved compounds". A US reader
+   cannot get any of them on a prescription, so they carry the Tier B regulatory
+   block instead, which is the more protective placement: Tier B publishes with
+   labelling, it does not withhold. Actual split is 54 Tier A, 53 Tier B, and
+   the counts are asserted below so a DB change cannot move a compound between
+   tiers unnoticed.
+
+   Explicit lists rather than a regex over the approval prose: the prose is
+   authored copy that can be reworded at any time, and a classifier that reads
+   it would silently reclassify a compound when someone fixes a typo. */
+const TIER_A = Object.freeze([
+  /* FDA-approved prescription drugs. Testosterone cypionate and enanthate are
+     here despite an approval string that talks about off-label dosing: the
+     esters themselves are approved, and the string is describing supra-TRT use.
+     tprop and proviron are §7's borderline pair, defaulted to Tier A with the
+     performance-row strip filter, as §7 directs. */
+  'tc', 'te', 'tprop', 'testpellets', 'progesterone', 'proviron',
+  'sema', 'tirz', 'tesam', 'rhgh',
+  'ai1', 'nolv', 'clom', 'hcg2', 'exemest', 'caberg', 'dutast',
+  't3', 't4', 'ndt',
+  'metformin', 'telmisartan', 'acarbose', 'rapamycin', 'dasatinib', 'ldn',
+  'gonadorelin', 'pt141', 'oxytocin',
+  'raloxifene', 'isotretinoin', 'caberbromo',
+  /* Dietary supplements, OTC and cosmetic products. */
+  'dhea', 'pregnenolone', 'keto-dhea', 'nad', 'akg2', 'akglutarate',
+  'berberine', 'resveratrol', 'fisetin', 'quercetin', 'spermidine',
+  'taurine', 'ala', 'nalt', 'glycine-supp', 'lithium-or', 'melatonin-ther',
+  'creatine', 'urolithin', 'collagen-pep', 'argireline', 'ghkcu'
+]);
+
+const TIER_B = Object.freeze([
+  /* Research peptides and growth-hormone secretagogues. */
+  'bpc', 'tb5', 'cjc', 'ipa', 'pda', 'll37', 'aod9604', 'hghfrag', 'hexarelin',
+  'ghrp2', 'ghrp6', 'ss31', 'humanin', 'kissp', 'ara290', 'larazotide',
+  'serm2', 'dac', 'bpc157sys', 'tbnouveau', 'kpv', 'follistatin', 'mots',
+  'p21pep', 'dihexa', 'vip', 'dsip', 'kisspeptin54', 'cardiogen',
+  /* §7's borderline trio, defaulted to Tier B. */
+  'mk677', 'igf1lr3', 'mt2',
+  /* Trial-stage molecules with no approval anywhere. */
+  'retatrutide', 'cagrilintide', 'amino1mq', 'slupp332',
+  /* Approved outside the US only, or compounded from an unapproved API. */
+  'thymalpha', 'cerebrolysin', 'selank', 'semax', 'epi', 'pinealon',
+  'thymalin', 'vilon', 'cortagen', 'ventfort', 'sigumir', 'chonluten',
+  'bonomarlot', 'crystagen', 'enclo', 'estriol', 'nad-iv'
+]);
+
+const tierOf = (id) =>
+  TIER_C.includes(id) ? 'C' : TIER_A.includes(id) ? 'A' : TIER_B.includes(id) ? 'B' : null;
+
+/* Every id in DB lands in exactly one tier, and no tier names an id DB does not
+   have. Called by the generator before it writes anything and re-run by
+   validate-public-pages.js, so adding a compound to app.html without tiering it
+   fails the build rather than quietly producing no page. */
+function assertTiers(byId) {
+  const ids = Object.keys(byId);
+  const problems = [];
+  for (const id of ids) if (!tierOf(id)) problems.push(`${id} is in DB but in no tier`);
+  for (const [name, list] of [['TIER_A', TIER_A], ['TIER_B', TIER_B], ['TIER_C', TIER_C]]) {
+    for (const id of list) if (!byId[id]) problems.push(`${name} names ${id}, which DB does not have`);
+  }
+  const dup = TIER_A.filter((id) => TIER_B.includes(id) || TIER_C.includes(id))
+    .concat(TIER_B.filter((id) => TIER_C.includes(id)));
+  dup.forEach((id) => problems.push(`${id} is in more than one tier`));
+  if (TIER_A.length !== 54) problems.push(`TIER_A has ${TIER_A.length} ids, expected 54`);
+  if (TIER_B.length !== 53) problems.push(`TIER_B has ${TIER_B.length} ids, expected 53`);
+  if (problems.length) throw new Error('tier policy is inconsistent:\n  ' + problems.join('\n  '));
+  return { A: TIER_A.length, B: TIER_B.length, C: TIER_C.length, total: ids.length };
+}
+
 /* Eight names in the interaction arrays carry a parenthetical that matches no
    DB name or aka, so they cannot be resolved by index. Resolved by hand here
    and checked by validate-public-pages.js, which fails if a name stops
@@ -378,6 +461,6 @@ return { MARKER_REGISTRY, LAB_REF, LAB_FIELDS, resolveMarker, normalizeValue,
 module.exports = {
   ROOT, APP, readApp, sha, matchBracket, literal, declaration, fnSource, block,
   templateLiteral,
-  TIER_C, isTierC, DRUG_NAME_TO_ID, loadAppData, loadRegistry, loadRanges, constSource,
+  TIER_C, isTierC, TIER_A, TIER_B, tierOf, assertTiers, DRUG_NAME_TO_ID, loadAppData, loadRegistry, loadRanges, constSource,
   extractCss, splitRules, CSS_WANTED, attributionSnippet
 };

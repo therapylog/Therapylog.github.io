@@ -16,6 +16,7 @@ on:
       - 'about/**'
       - 'tools/**'
       - 'markers/**'
+      - 'compounds/**'
       - 'support.html'
       - 'scripts/validate-compliance.js'
       - '.github/workflows/validate-compliance.yml'

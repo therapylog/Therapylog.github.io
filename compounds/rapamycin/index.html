@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Rapamycin: mTOR Inhibition, Dosing Patterns and Monitoring | TherapyLog</title>
+<meta name="description" content="An approved immunosuppressant used off-label at weekly intervals for longevity — the mTORC1 rationale, the animal evidence, and what the human data covers.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/compounds/rapamycin/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Rapamycin: mTOR Inhibition, Dosing Patterns and Monitoring | TherapyLog"><meta property="og:description" content="An approved immunosuppressant used off-label at weekly intervals for longevity — the mTORC1 rationale, the animal evidence, and what the human data covers."><meta property="og:url" content="https://therapylog.app/compounds/rapamycin/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Rapamycin: mTOR Inhibition, Dosing Patterns and Monitoring | TherapyLog"><meta name="twitter:description" content="An approved immunosuppressant used off-label at weekly intervals for longevity — the mTORC1 rationale, the animal evidence, and what the human data covers."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.risks{display:block;list-style:none;margin:6px 0 20px;padding:0}
+.risks li{padding:9px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.risks li:first-child{border-top:none}
+.note.reg{border-left-color:var(--warm)}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/compounds/">Compounds</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/compounds/">Compounds</a> &rsaquo; Rapamycin</div>
+    <h1>Rapamycin: mTOR, weekly dosing, and what the evidence does and does not show</h1>
+
+    <p class="lede">An approved transplant drug with the most consistent lifespan-extension record of any molecule in animal studies, used off-label at a fraction of the transplant amount and a seventh of the frequency. What the weekly interval is trying to achieve, and where the human evidence stops.</p>
+
+    <div class="updated">Last reviewed: 4 September 2026</div>
+
+    <div class="facts">
+      <dl>
+        <dt>Also known as</dt><dd>Sirolimus, Rapamune, mTOR inhibitor</dd>
+        <dt>Class</dt><dd>Longevity Compounds</dd>
+        <dt>Regulatory status</dt><dd>FDA APPROVED as Rapamune for transplant rejection. Off-label weekly longevity dosing. Requires physician prescription.</dd>
+        <dt>Modelled half-life</dt><dd>2.6 days</dd>
+        <dt>Time to peak</dt><dd>1.5 h</dd>
+        <dt>Formulation</dt><dd>Oral</dd>
+        <dt>Storage</dt><dd>Room temperature and dry, in the original container with whatever desiccant came in it, out of light.</dd>
+        <dt>Once opened</dt><dd>Unchanged once opened, as long as it stays dry.</dd>
+        <dt>What ruins it</dt><dd>Humidity is the real enemy — a bathroom cabinet is the worst place in the house for these.</dd>
+        <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
+      </dl>
+    </div>
+
+    <h2>Two complexes, and why the interval is the whole design</h2>
+    <p>mTOR is a kinase that sits at the centre of the cell's decision about whether to grow or to recycle. It exists in two complexes. mTORC1 senses amino acids, energy and growth factors and drives protein synthesis while suppressing autophagy; mTORC2 is involved in insulin signalling and cytoskeletal organisation. Rapamycin inhibits mTORC1 acutely and selectively. It inhibits mTORC2 only with sustained exposure &mdash; and mTORC2 inhibition is where the glucose intolerance and much of the immunosuppression come from.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> That distinction is the entire argument for weekly rather than daily administration. The modelled half-life is about two and a half days, so a weekly interval allows the level to fall substantially between doses, which is intended to give intermittent mTORC1 inhibition without the sustained exposure that engages mTORC2. Whether that separation holds cleanly in humans at the amounts used is inference from cell and animal work rather than something demonstrated in a human trial. It is a well-reasoned protocol built on an incompletely tested premise, and it should be described that way.</p>
+
+    <h2>What the animal evidence shows, and what human data exists</h2>
+    <p><span class="ev ev-est">Established clinical use</span> The animal record is unusually strong. The National Institute on Aging's Interventions Testing Program &mdash; a multi-site programme designed specifically to weed out results that do not replicate &mdash; found rapamycin extended median and maximum lifespan in genetically heterogeneous mice, and did so when started at 600 days of age, which is roughly late middle age. Lifespan extension has since been reproduced in yeast, worms, flies and mice. Very few interventions have that record.</p>
+    <p><span class="ev ev-theo">Animal-only or theoretical</span> Human evidence for the longevity use is another matter. A small randomised trial of an mTOR inhibitor in older adults reported improved response to influenza vaccination, which is a measure of immune ageing rather than of lifespan. A placebo-controlled trial of weekly rapamycin in healthy adults has reported on safety and self-reported outcomes over a year. Dogs are being studied in an ongoing programme. None of that is a lifespan result in humans, and no such result exists.</p>
+    <p>The honest summary is that the mechanism is real, the animal data is the best in the field, the human data covers safety and surrogate markers over months rather than outcomes over decades, and the gap between those two statements is where all the uncertainty lives.</p>
+
+    <h2>The adverse effects that actually turn up</h2>
+    <p>Aphthous ulcers &mdash; mouth sores &mdash; are the most common complaint at intermittent amounts and are usually the first sign that the amount is too high for that person. Lipid elevation, particularly triglycerides, is well documented at transplant amounts and is reported at intermittent ones. Glucose intolerance is the effect most closely tied to sustained exposure and is the reason fasting glucose is on the panel.</p>
+    <p>Impaired wound healing and immunosuppression are the two that change what someone should do rather than what they should watch. Both are dose- and exposure-dependent, both are established at transplant amounts, and both are reasons the timing of any planned surgery, dental procedure or live vaccine is a conversation to have in advance rather than afterwards. Rapamycin also has substantial interactions through CYP3A4 and P-glycoprotein &mdash; grapefruit, several antifungals and several antibiotics among them &mdash; which is one of the clearer cases for a prescriber holding the whole medication list.</p>
+    <p>None of this is a page's decision to make. Rapamycin requires a prescription, the off-label use is genuinely off-label, and the person weighing an ulcer or a lipid panel against the reason someone started should be the clinician who prescribed it.</p>
+
+    <h2>How long one dose lasts</h2>
+
+    <figure class="curve">
+<svg viewBox="0 0 720 300" role="img" aria-label="Modelled serum level after a single dose of Rapamycin: rising to a peak at 1.5 h and falling to half the peak roughly one half-life (2.6 days) after that, shown as a percentage of the peak." xmlns="http://www.w3.org/2000/svg">
+<title>Modelled serum level after a single dose of Rapamycin: rising to a peak at 1.5 h and falling to half the peak roughly one half-life (2.6 days) after that, shown as a percentage of the peak.</title>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="256" fill="#78859b" font-size="11" text-anchor="end">0%</text><line x1="52" y1="197.83" x2="702" y2="197.83" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="201.83" fill="#78859b" font-size="11" text-anchor="end">25%</text><line x1="52" y1="143.67" x2="702" y2="143.67" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="147.67" fill="#78859b" font-size="11" text-anchor="end">50%</text><line x1="52" y1="89.5" x2="702" y2="89.5" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="93.5" fill="#78859b" font-size="11" text-anchor="end">75%</text><line x1="52" y1="35.33" x2="702" y2="35.33" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="39.33" fill="#78859b" font-size="11" text-anchor="end">100%</text><line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="52" y="274" fill="#78859b" font-size="11" text-anchor="middle">0 min</text><line x1="214.5" y1="18" x2="214.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="214.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">3.2 days</text><line x1="377" y1="18" x2="377" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="377" y="274" fill="#78859b" font-size="11" text-anchor="middle">6.5 days</text><line x1="539.5" y1="18" x2="539.5" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="539.5" y="274" fill="#78859b" font-size="11" text-anchor="middle">9.7 days</text><line x1="702" y1="18" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="702" y="274" fill="#78859b" font-size="11" text-anchor="middle">12.9 days</text>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<path d="M52 252 L54.71 35.62 L57.42 37.35 L60.13 40.4 L62.83 43.44 L65.54 46.43 L68.25 49.37 L70.96 52.28 L73.67 55.14 L76.38 57.98 L79.08 60.75 L81.79 63.5 L84.5 66.19 L87.21 68.85 L89.92 71.47 L92.63 74.07 L95.33 76.63 L98.04 79.14 L100.75 81.61 L103.46 84.06 L106.17 86.47 L108.88 88.85 L111.58 91.17 L114.29 93.49 L117 95.76 L119.71 97.99 L122.42 100.2 L125.13 102.39 L127.83 104.54 L130.54 106.64 L133.25 108.72 L135.96 110.78 L138.67 112.81 L141.38 114.81 L144.08 116.76 L146.79 118.71 L149.5 120.61 L152.21 122.5 L154.92 124.36 L157.63 126.18 L160.33 127.98 L163.04 129.78 L165.75 131.51 L168.46 133.25 L171.17 134.96 L173.88 136.63 L176.58 138.27 L179.29 139.92 L182 141.52 L184.71 143.1 L187.42 144.66 L190.13 146.2 L192.83 147.72 L195.54 149.21 L198.25 150.69 L200.96 152.14 L203.67 153.57 L206.38 154.98 L209.08 156.38 L211.79 157.75 L214.5 159.09 L217.21 160.44 L219.92 161.74 L222.63 163.04 L225.33 164.31 L228.04 165.57 L230.75 166.81 L233.46 168.02 L236.17 169.23 L238.87 170.43 L241.58 171.59 L244.29 172.74 L247 173.87 L249.71 175 L252.42 176.1 L255.13 177.19 L257.83 178.27 L260.54 179.33 L263.25 180.37 L265.96 181.39 L268.67 182.41 L271.38 183.4 L274.08 184.38 L276.79 185.35 L279.5 186.31 L282.21 187.26 L284.92 188.17 L287.63 189.1 L290.33 189.99 L293.04 190.88 L295.75 191.77 L298.46 192.63 L301.17 193.48 L303.88 194.32 L306.58 195.15 L309.29 195.95 L312 196.75 L314.71 197.55 L317.42 198.33 L320.13 199.11 L322.83 199.87 L325.54 200.61 L328.25 201.34 L330.96 202.08 L333.67 202.8 L336.38 203.49 L339.08 204.18 L341.79 204.88 L344.5 205.55 L347.21 206.22 L349.92 206.87 L352.63 207.52 L355.33 208.15 L358.04 208.78 L360.75 209.4 L363.46 210.01 L366.17 210.62 L368.88 211.2 L371.58 211.79 L374.29 212.37 L377 212.94 L379.71 213.5 L382.42 214.06 L385.12 214.6 L387.83 215.12 L390.54 215.67 L393.25 216.19 L395.96 216.71 L398.67 217.2 L401.38 217.7 L404.08 218.2 L406.79 218.68 L409.5 219.15 L412.21 219.63 L414.92 220.09 L417.63 220.54 L420.33 221 L423.04 221.45 L425.75 221.88 L428.46 222.32 L431.17 222.73 L433.88 223.16 L436.58 223.57 L439.29 223.99 L442 224.38 L444.71 224.76 L447.42 225.18 L450.13 225.55 L452.83 225.94 L455.54 226.3 L458.25 226.67 L460.96 227.04 L463.67 227.39 L466.37 227.75 L469.08 228.1 L471.79 228.43 L474.5 228.77 L477.21 229.1 L479.92 229.44 L482.63 229.75 L485.33 230.07 L488.04 230.4 L490.75 230.7 L493.46 231 L496.17 231.31 L498.88 231.61 L501.58 231.89 L504.29 232.18 L507 232.48 L509.71 232.76 L512.42 233.02 L515.13 233.3 L517.83 233.56 L520.54 233.82 L523.25 234.08 L525.96 234.34 L528.67 234.6 L531.38 234.84 L534.08 235.1 L536.79 235.34 L539.5 235.58 L542.21 235.81 L544.92 236.05 L547.63 236.27 L550.33 236.51 L553.04 236.72 L555.75 236.94 L558.46 237.16 L561.17 237.38 L563.88 237.57 L566.58 237.79 L569.29 237.98 L572 238.2 L574.71 238.39 L577.42 238.59 L580.13 238.78 L582.83 238.96 L585.54 239.15 L588.25 239.35 L590.96 239.52 L593.67 239.69 L596.38 239.87 L599.08 240.04 L601.79 240.21 L604.5 240.39 L607.21 240.56 L609.92 240.71 L612.63 240.88 L615.33 241.04 L618.04 241.19 L620.75 241.36 L623.46 241.51 L626.17 241.64 L628.88 241.79 L631.58 241.95 L634.29 242.1 L637 242.23 L639.71 242.38 L642.42 242.51 L645.13 242.64 L647.83 242.79 L650.54 242.92 L653.25 243.05 L655.96 243.18 L658.67 243.29 L661.38 243.42 L664.08 243.55 L666.79 243.66 L669.5 243.79 L672.21 243.9 L674.92 244.03 L677.63 244.13 L680.33 244.24 L683.04 244.35 L685.75 244.46 L688.46 244.57 L691.17 244.68 L693.88 244.78 L696.58 244.89 L699.29 245 L702 245.09 L702 252 L52 252 Z" fill="rgba(59,196,255,0.10)" stroke="none"/><path d="M52 252 L54.71 35.62 L57.42 37.35 L60.13 40.4 L62.83 43.44 L65.54 46.43 L68.25 49.37 L70.96 52.28 L73.67 55.14 L76.38 57.98 L79.08 60.75 L81.79 63.5 L84.5 66.19 L87.21 68.85 L89.92 71.47 L92.63 74.07 L95.33 76.63 L98.04 79.14 L100.75 81.61 L103.46 84.06 L106.17 86.47 L108.88 88.85 L111.58 91.17 L114.29 93.49 L117 95.76 L119.71 97.99 L122.42 100.2 L125.13 102.39 L127.83 104.54 L130.54 106.64 L133.25 108.72 L135.96 110.78 L138.67 112.81 L141.38 114.81 L144.08 116.76 L146.79 118.71 L149.5 120.61 L152.21 122.5 L154.92 124.36 L157.63 126.18 L160.33 127.98 L163.04 129.78 L165.75 131.51 L168.46 133.25 L171.17 134.96 L173.88 136.63 L176.58 138.27 L179.29 139.92 L182 141.52 L184.71 143.1 L187.42 144.66 L190.13 146.2 L192.83 147.72 L195.54 149.21 L198.25 150.69 L200.96 152.14 L203.67 153.57 L206.38 154.98 L209.08 156.38 L211.79 157.75 L214.5 159.09 L217.21 160.44 L219.92 161.74 L222.63 163.04 L225.33 164.31 L228.04 165.57 L230.75 166.81 L233.46 168.02 L236.17 169.23 L238.87 170.43 L241.58 171.59 L244.29 172.74 L247 173.87 L249.71 175 L252.42 176.1 L255.13 177.19 L257.83 178.27 L260.54 179.33 L263.25 180.37 L265.96 181.39 L268.67 182.41 L271.38 183.4 L274.08 184.38 L276.79 185.35 L279.5 186.31 L282.21 187.26 L284.92 188.17 L287.63 189.1 L290.33 189.99 L293.04 190.88 L295.75 191.77 L298.46 192.63 L301.17 193.48 L303.88 194.32 L306.58 195.15 L309.29 195.95 L312 196.75 L314.71 197.55 L317.42 198.33 L320.13 199.11 L322.83 199.87 L325.54 200.61 L328.25 201.34 L330.96 202.08 L333.67 202.8 L336.38 203.49 L339.08 204.18 L341.79 204.88 L344.5 205.55 L347.21 206.22 L349.92 206.87 L352.63 207.52 L355.33 208.15 L358.04 208.78 L360.75 209.4 L363.46 210.01 L366.17 210.62 L368.88 211.2 L371.58 211.79 L374.29 212.37 L377 212.94 L379.71 213.5 L382.42 214.06 L385.12 214.6 L387.83 215.12 L390.54 215.67 L393.25 216.19 L395.96 216.71 L398.67 217.2 L401.38 217.7 L404.08 218.2 L406.79 218.68 L409.5 219.15 L412.21 219.63 L414.92 220.09 L417.63 220.54 L420.33 221 L423.04 221.45 L425.75 221.88 L428.46 222.32 L431.17 222.73 L433.88 223.16 L436.58 223.57 L439.29 223.99 L442 224.38 L444.71 224.76 L447.42 225.18 L450.13 225.55 L452.83 225.94 L455.54 226.3 L458.25 226.67 L460.96 227.04 L463.67 227.39 L466.37 227.75 L469.08 228.1 L471.79 228.43 L474.5 228.77 L477.21 229.1 L479.92 229.44 L482.63 229.75 L485.33 230.07 L488.04 230.4 L490.75 230.7 L493.46 231 L496.17 231.31 L498.88 231.61 L501.58 231.89 L504.29 232.18 L507 232.48 L509.71 232.76 L512.42 233.02 L515.13 233.3 L517.83 233.56 L520.54 233.82 L523.25 234.08 L525.96 234.34 L528.67 234.6 L531.38 234.84 L534.08 235.1 L536.79 235.34 L539.5 235.58 L542.21 235.81 L544.92 236.05 L547.63 236.27 L550.33 236.51 L553.04 236.72 L555.75 236.94 L558.46 237.16 L561.17 237.38 L563.88 237.57 L566.58 237.79 L569.29 237.98 L572 238.2 L574.71 238.39 L577.42 238.59 L580.13 238.78 L582.83 238.96 L585.54 239.15 L588.25 239.35 L590.96 239.52 L593.67 239.69 L596.38 239.87 L599.08 240.04 L601.79 240.21 L604.5 240.39 L607.21 240.56 L609.92 240.71 L612.63 240.88 L615.33 241.04 L618.04 241.19 L620.75 241.36 L623.46 241.51 L626.17 241.64 L628.88 241.79 L631.58 241.95 L634.29 242.1 L637 242.23 L639.71 242.38 L642.42 242.51 L645.13 242.64 L647.83 242.79 L650.54 242.92 L653.25 243.05 L655.96 243.18 L658.67 243.29 L661.38 243.42 L664.08 243.55 L666.79 243.66 L669.5 243.79 L672.21 243.9 L674.92 244.03 L677.63 244.13 L680.33 244.24 L683.04 244.35 L685.75 244.46 L688.46 244.57 L691.17 244.68 L693.88 244.78 L696.58 244.89 L699.29 245 L702 245.09" fill="none" stroke="#3bc4ff" stroke-width="2" stroke-linejoin="round"/><line x1="55.15" y1="18" x2="55.15" y2="252" stroke="#4ade9a" stroke-width="1" stroke-dasharray="3 3"/><text x="60.15" y="30" fill="#4ade9a" font-size="10.5">peak</text><line x1="182" y1="18" x2="182" y2="252" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 3"/><text x="187" y="30" fill="#f59e0b" font-size="10.5">one half-life</text>
+<text x="377" y="292" fill="#78859b" font-size="11" text-anchor="middle">Time after one dose</text>
+
+</svg>
+      <figcaption>Modelled level after a single dose as a percentage of that dose&rsquo;s own
+      peak, rising to the peak at 1.5 h and falling by half every
+      2.6 days. Drawn with the app&rsquo;s own <code>pkCurve</code> function.
+      The vertical axis is relative: the shape carries across people, the absolute
+      concentration does not.</figcaption>
+      </figure>
+
+    <p>Try other intervals on the <a href="/tools/half-life-calculator/">half-life and
+      steady-state calculator</a>, which runs the same function against whatever cadence you
+      type.</p>
+
+    <h2>The dosing rows the app records</h2>
+
+    <p><span class="ev ev-est">Established clinical use</span> Reproduced from the app&rsquo;s reference so you can
+      see what it holds, not as a recommendation. Which row applies to a particular person, if
+      any, is a clinical decision this page does not make &mdash; and rows describing
+      supraphysiological or post-cycle use are filtered out before this table is built, so what
+      you see here is a subset.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Label</th><th>Amount</th><th>Route and frequency</th><th>Duration recorded</th></tr></thead>
+        <tbody>
+          <tr><td>Longevity (intermittent)</td><td class="num">5-10mg once weekly</td><td class="num">Weekly oral fasted</td><td class="num">Ongoing — reassess every 6 months</td></tr>
+          <tr><td>Conservative start</td><td class="num">2-5mg once weekly</td><td class="num">Weekly oral</td><td class="num">3 months then reassess</td></tr>
+          <tr><td>Medical (transplant)</td><td class="num">Daily dosing</td><td class="num">Physician directed</td><td class="num">Ongoing — different protocol</td></tr>
+          <tr><td>Longevity Protocol</td><td class="num">2–6mg</td><td class="num">Oral weekly, fasted</td><td class="num">Ongoing with physician supervision</td></tr>
+          <tr><td>Conservative Start</td><td class="num">1–2mg</td><td class="num">Oral weekly</td><td class="num">3 months, then reassess</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What the app monitors alongside it</h2>
+
+    <p>The panel below is the app&rsquo;s own monitoring note for Rapamycin,
+      verbatim. The analytes in it that have a page here are linked; those pages cover what each one measures, which assay produced it and how to read a trend.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Monitoring panel</dt><dd>Fasting glucose (mTOR affects insulin sensitivity), lipid panel, CBC (infection monitoring), wound healing assessment, mouth sore tracking. Physician oversight required.</dd>
+      </dl>
+    </div>
+
+    <ul class="mon-list">
+      <li><a href="/markers/hba1c-and-fasting-glucose/">HbA1c and fasting glucose</a></li>
+    </ul>
+
+    <h2>Drawbacks and risks the app records</h2>
+
+    <p>From the app's own entry, and note that it mixes transplant-dose effects with intermittent-dose ones. That distinction matters more here than on most compounds: several of these are established at daily transplant amounts and are the specific thing weekly administration is designed to avoid.</p>
+
+    <ul class="cards risks">
+      <li>FDA approved only as immunosuppressant — off-label longevity use</li>
+      <li>Immunosuppression at higher doses — infection risk</li>
+      <li>Wound healing impairment at therapeutic doses</li>
+      <li>Mouth sores (aphthous ulcers) common</li>
+      <li>Lipid elevation in some users</li>
+      <li>Requires physician oversight — not OTC</li>
+      <li>Immunosuppression at transplant doses</li>
+      <li>Impairs wound healing</li>
+      <li>Elevated triglycerides</li>
+      <li>Must be physician prescribed and supervised</li>
+      <li>Significant drug interactions</li>
+      <li>Long-term longevity use safety data still emerging</li>
+    </ul>
+
+    <div class="shared">
+      <p>That list is the app&rsquo;s, not a complete adverse-effect profile, and none of it is a
+      diagnosis. Anything on it that you are actually experiencing belongs in front of the
+      clinician who prescribes or supervises for you &mdash; they are the only person who can
+      weigh it against your history, your other medications and your bloodwork.</p>
+    </div>
+
+    <h2>Interaction rules that name Rapamycin</h2>
+
+    <p>From the app&rsquo;s interaction data, filtered so no rule naming a compound this
+      site does not publish appears. Not exhaustive, and not a safety clearance: a combination
+      that is not listed is one nobody has documented here, which is not the same as one that
+      is fine. The <a href="/tools/stack-checker/">combination checker</a> has the rest.</p>
+
+    <div class="pairs">
+      <div class="pair info">
+        <div class="sev">Worth knowing</div>
+        <h3>Rapamycin + TRT — Monitor for mTOR Effects on Muscle</h3>
+        <p>mTOR is required for muscle protein synthesis. Rapamycin's mTOR inhibition could theoretically blunt anabolic effects of testosterone. At weekly longevity doses (5-10mg), this effect is minimal due to intermittent dosing. Ensure adequate protein intake and resistance training.</p>
+        <p class="mon"><strong>What to watch:</strong> Body composition, lean mass tracking, strength metrics. Dose rapamycin weekly (not daily) to minimize muscle synthesis blunting.</p>
+      </div>
+    </div>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>Why weekly rather than daily?</h3>
+    <p>To let the level fall far enough between doses that mTORC2 is not sustainedly inhibited,
+         while still inhibiting mTORC1 periodically. That is the rationale. It rests on the
+         differential sensitivity of the two complexes, which is established in cells, and on the
+         assumption that a weekly interval achieves the separation in people, which is not
+         directly demonstrated.</p>
+    <h3>Is rapamycin the same as sirolimus?</h3>
+    <p>Yes — sirolimus is the generic name and rapamycin the original. Everolimus is a related
+         but distinct molecule with a shorter half-life, and results from one do not transfer
+         automatically to the other.</p>
+    <h3>How long does one dose last?</h3>
+    <p>The app models a half-life of about two and a half days, so roughly five days for most of
+         a dose to clear and about twelve for it to be effectively gone. The curve on this page is
+         drawn with the app's own function; the
+         <a href="/tools/half-life-calculator/">half-life calculator</a> will run other
+         intervals.</p>
+    <h3>What does the monitoring panel look for?</h3>
+    <p>Fasting glucose and lipids because those are the metabolic effects, a complete blood
+         count because immunosuppression shows up there, and a deliberate check for mouth sores
+         and wound healing because those are the early clinical signals. The app's panel is in
+         the monitoring section above.</p>
+
+    <h2>Where the load-bearing numbers come from</h2>
+
+    <p>Named rather than linked. Publisher URLs move, and a citation that resolves to a
+      404 two years from now is worse than one you can search for by name &mdash; every entry
+      below is findable from the title and year alone.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Lifespan extension in mice started in late life</dt><dd>NIA Interventions Testing Program, Rapamycin fed late in life extends lifespan in genetically heterogeneous mice, Nature, 2009</dd>
+        <dt>Improved vaccination response in older adults</dt><dd>Trial of an mTOR inhibitor on immune function in the elderly, Science Translational Medicine, 2014</dd>
+        <dt>Placebo-controlled weekly dosing in healthy adults</dt><dd>PEARL trial, reported 2024</dd>
+        <dt>mTORC1 versus mTORC2 sensitivity</dt><dd>Cell-biology literature on differential complex sensitivity to rapamycin; the weekly interval is an inference from it, not a finding of it</dd>
+      </dl>
+    </div>
+
+    <div class="cta-box">
+      <p>Weekly dosing with a two-and-a-half-day half-life makes the date of the last dose the
+      most important number on the page. TherapyLog keeps it.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=compound-rapamycin"
+         id="tl-cta" data-campaign="compound-rapamycin">Save this dose to your log</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://therapylog.app/compounds/rapamycin/#page",
+      "url": "https://therapylog.app/compounds/rapamycin/",
+      "name": "Rapamycin: mTOR Inhibition, Dosing Patterns and Monitoring | TherapyLog",
+      "description": "An approved immunosuppressant used off-label at weekly intervals for longevity — the mTORC1 rationale, the animal evidence, and what the human data covers.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-04",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compounds",
+            "item": "https://therapylog.app/compounds/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Rapamycin",
+            "item": "https://therapylog.app/compounds/rapamycin/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>
