@@ -154,6 +154,7 @@ takes precedence over any generic range shown.
 - /markers/prolactin/: Prolactin: what actually raises it, and what one high draw does not mean — Prolactin is easy to elevate by accident and easy to over-treat. What raises it, why a single high value is usually repeated before anything is done, and how the units differ.
 - /markers/shbg/: SHBG: what it does, what raises and lowers it, and why it drives your free testosterone — Sex hormone-binding globulin decides how much of your testosterone is available. What raises and lowers it, why high SHBG on TRT is a common complaint, and how to read it.
 - /markers/total-testosterone-immunoassay-vs-lcms/: Total testosterone: immunoassay versus LC/MS-MS, and the range by age — Why two labs report different total testosterone from the same blood, what the reference range does with age, and how to read a result when the method is not stated.
+- /markers/trt-bloodwork-checklist/: The bloodwork checklist: which markers, which assay, when to draw — Which markers to order, which assay to specify, what context to record beside each result, and how often to draw. Generated from the app’s own marker registry.
 
 ## Disclaimer
 

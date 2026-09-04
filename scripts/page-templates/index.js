@@ -155,6 +155,7 @@ function buildAll(ctx) {
     require('./pages-halflife.js'),
     require('./pages-stack.js'),
     require('./pages-markers.js'),
+    require('./pages-markers-checklist.js'),
     require('./pages-markers-hub.js')
   ];
   const api = {
