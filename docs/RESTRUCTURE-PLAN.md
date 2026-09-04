@@ -33,7 +33,61 @@ Caveat, stated honestly: the reviewer crashed on the Log tab and may never have
 opened the encyclopedia. 1.4.3 has **not been ruled out** — it has only not been
 raised. Plan as if a deeper review could raise it; do not plan as if it already has.
 
-### 0.1 The crash, diagnosed
+### 0.1 The native shell is not a copy of the web app — and one of the gaps is C-0
+
+Investigated while scoping Phase 0.2 and worth stating before anything else,
+because it changes what Phase 0 is for.
+
+`therapylog-app/www/index.html` was assumed to be a stale copy of `app.html`.
+It is not. A declaration-level diff of the two files shows they have **diverged
+in both directions**: 29 top-level declarations exist only in the shell, 28 only
+on the web.
+
+**Only in the shell** — a native layer the web app has never had:
+`TLNative` (3,048 bytes: `active`, `platform`, `_ln`, `permission`, `request`,
+`_cancelPending`, `reschedule`), the `LN` / `Capacitor.Plugins.LocalNotifications`
+bridge, `TLIAP.validate` and `CdvPurchase.store.localReceipts` receipt
+validation, and a supply/refill set (`tlSetSupply`, `supply`, `expiring`,
+`dosesSince`, `daysUsed`).
+
+**Only on the web** — among them, `AI_CONSENT`, `aiConsented`, `aiPersonalized`,
+`setAIPersonalize`, `showAICtxConsent`, `tl_ai_personalize`,
+`DISCLAIMER_VERSION`, `ABROAD` / `usApproved` / `isResearch`, and
+`discreetReminders`.
+
+That first group in the second list is **C-0 from `COMPLIANCE-AUDIT.md`** — the
+finding that document calls "the most serious thing in this audit."
+
+| | `context:` sent to the AI endpoint |
+|---|---|
+| `app.html` (web) | `context: aiPersonalized() ? getFullCtx() : ""` |
+| `www/index.html` (**submitted to both stores**) | `context: getFullCtx()` — unconditional |
+
+`grep -c` for `aiPersonalized`, `AI_CONSENT`, `showAICtxConsent`,
+`tl_ai_personalize` and `"General mode"` returns **0 for every one of them** in
+the shell.
+
+So the C-0 remediation — the real privacy switch, the consent sheet naming
+Anthropic, the General mode `privacy.html` promises — **was fixed on the web
+only, and never re-synced into the native builds.** Every native-app user of
+the AI assistant transmits the payload headed `"COMPLETE USER HEALTH PROFILE:"`
+— active protocol, PCT plan, body composition, recent injections with dose and
+site, normalised lab panels, symptoms — while the privacy policy tells them a
+mode exists that prevents exactly that.
+
+`COMPLIANCE-AUDIT.md` marks C-0 `[fixed]`. It is fixed in one of the two
+binaries that ship it. **This is an active exposure of the same FTC §5 /
+Health Breach Notification Rule kind the audit was written to close, and it is
+the reason Phase 0.2 is urgent rather than housekeeping.**
+
+The remedy is not the sync script this plan originally called for — that would
+have deleted `TLNative` and the receipt validation. It is a **merge**: lift the
+native layer into `app.html` behind `Capacitor.isNativePlatform()` guards (the
+shell's own call sites are already written as `window.TLNative && TLNative.active()`,
+so they no-op cleanly on web), and only then make `www/index.html` a generated
+artifact with a `--check` guard.
+
+### 0.2 The crash, diagnosed
 
 `app.html` invokes the camera through a plain web control:
 
@@ -54,7 +108,7 @@ descriptions at all**.
 This is a deterministic crash on every iOS device. The reviewer's iPad was
 incidental. **Fix: two `PlistBuddy` lines.**
 
-### 0.2 The IAP finding, diagnosed
+### 0.3 The IAP finding, diagnosed
 
 The wiring is correct — the shell calls `TLIAP.showPurchaseSheet()` on
 `Capacitor.getPlatform() === 'ios'`, with products `com.therapylog.app.pro.monthly`
@@ -67,7 +121,7 @@ resolves itself — but do not rely on that. Add a permanent, always-visible
 **Upgrade** and **Restore Purchases** pair in Settings, and write App Review
 notes naming the exact taps.
 
-### 0.3 The 1.4.1 finding, diagnosed
+### 0.4 The 1.4.1 finding, diagnosed
 
 Apple's remedy — "attach your regulatory approval documentation" — is not
 available to you and never will be. So the store build must stop being the kind
@@ -205,14 +259,20 @@ useful — no phase depends on a later one to be worth having.
 | # | Work | Repo |
 |---|---|---|
 | 0.1 | Add `NSCameraUsageDescription` + `NSPhotoLibraryUsageDescription` (and `NSPhotoLibraryAddUsageDescription`) via `PlistBuddy` in the iOS build step. Android: confirm `CAMERA` / media permissions in the generated manifest. | `therapylog-app` |
-| 0.2 | Generate `www/index.html` from `Therapylog.github.io/app.html` at build time; add a `--check` guard that fails CI when the committed copy is stale, mirroring `build-pages.js --check`. | both |
+| 0.2 | **Merge the shell's native layer into `app.html`** behind `Capacitor` guards — `TLNative`, the LocalNotifications bridge, `TLIAP.validate` receipt validation, the supply/refill set — then make `www/index.html` a generated artifact with a `--check` staleness guard. **Do not sync before merging: a blind copy deletes the native layer.** | both |
+| 0.2a | **Carry the C-0 privacy fix into the native builds.** This is the highest-priority item in the phase and arguably in the plan — the shipped native binaries send the full health profile to the AI endpoint unconditionally while `privacy.html` promises a switch that prevents it. | both |
 | 0.3 | Permanent **Upgrade** and **Restore Purchases** rows in Settings, visible on iOS regardless of entitlement state. | `Therapylog.github.io` |
 | 0.4 | Written App Review notes: demo account, exact taps to reach the paywall, IAP product ids, and a statement that the app neither diagnoses nor recommends treatment. | — |
 | 0.5 | iPad-viewport smoke test in CI covering launch → Log → camera → paywall. The existing `ui-check-*.js` scripts are the pattern. | `Therapylog.github.io` |
 | 0.6 | Google Play: complete the verified Organization Account and the Health apps declaration. This was the *only* thing Play ever rejected. | — |
 
-**Exit:** an iOS build that does not crash and whose IAPs a reviewer can find in
-under thirty seconds. 0.6 clears Play's only known blocker.
+**Exit:** one codebase behind platform guards rather than two that drift; the
+privacy behaviour the policy describes actually shipping on every platform; an
+iOS build that does not crash and whose IAPs a reviewer can find in under thirty
+seconds. 0.6 clears Play's only known blocker.
+
+**0.2a is not release-gated.** It should ship on its own, ahead of everything
+else here, whether or not a store submission follows.
 
 ### Phase 1 — Schema tagging  ·  *in progress*
 
