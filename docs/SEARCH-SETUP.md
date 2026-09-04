@@ -59,7 +59,13 @@ Goes first: Bing's fast path imports from it.
    **Add, never replace** — the `@` host already holds the SPF TXT record, and a hostname
    can carry many TXT records. Deleting SPF to make room breaks mail deliverability.
 5. Wait 5–15 minutes, then Verify. Re-clickable if it fails the first time.
-6. Sitemaps → `sitemap.xml` → Submit. Expect Success and 44 URLs within a day.
+6. Sitemaps → paste the **full URL** `https://therapylog.app/sitemap.xml` → Submit.
+   A Domain property spans www, non-www and every subdomain, so the field shows **no
+   prefix** and a bare `sitemap.xml` will not resolve. (The URL-prefix property is the one
+   that prefills `https://therapylog.app/`.) Sitemaps also only accepts a submission on a
+   *verified* property — confirm the green verified state first. The file is live and
+   correct: 200, `application/xml`, and `robots.txt` points at it. Nothing on the site links
+   to it, and nothing needs to. Expect Success and 44 URLs within a day.
 7. URL Inspection → Request Indexing (~10/day) on:
    - `/tools/`
    - `/tools/peptide-reconstitution-calculator/`
