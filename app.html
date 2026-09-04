@@ -2466,6 +2466,10 @@ const resp = await fetch(AI_ENDPOINT,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({ mode:"chat", context: aiPersonalized() ? getFullCtx() : "", messages:S.chatHist, byok:byokKey,
+/* Native iOS proves entitlement with the App Store receipt token; the web build
+   has no receipt and sends "". Kept here rather than in a native-only copy of
+   this function, so app.html is the one implementation both platforms run. */
+iosToken: (window.TLTier && TLTier.iosToken && TLTier.iosToken()) || "",
 license: (window.TLTier && window.TLTier.licenseKey()) || "" })
 });
 const data = await resp.json(); removeThinking(tid);
@@ -2511,9 +2515,6 @@ if (n) n.textContent = v === "on"
    default because it is what makes the assistant useful, but defaulting it on
    silently is how we got here — so the first personalized message asks, names
    who receives the data, and records what was agreed and when. */
-function aiCtxConsented() {
-try { return !!localStorage.getItem("tl_ai_ctx_ok"); } catch(e){ return false; }
-}
 /* Two AI paths send data off-device and each needs its own answer: chat sends
    the protocol and labs you logged, the scanner sends the report image itself,
    identifiers and all. Same sheet, different copy and different stored key. */
@@ -4340,6 +4341,9 @@ method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ mode: 'labscan', messages: [{ role: 'user', content }],
 byok: (function(){ try { return localStorage.getItem('tl_ai_mode')==='byok' ? (localStorage.getItem('tl_ai_key')||'') : ''; } catch(e){ return ''; } })(),
+/* Native iOS proves entitlement with the App Store receipt token; the web build
+   has no receipt and sends "". See the matching line in sendChat(). */
+iosToken: (window.TLTier && TLTier.iosToken && TLTier.iosToken()) || "",
 license: (window.TLTier && window.TLTier.licenseKey()) || "" })
 });
 const data = await response.json();
