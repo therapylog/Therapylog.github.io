@@ -4,6 +4,7 @@ on:
     paths:
       - 'tools/**'
       - 'markers/**'
+      - 'compounds/**'
       - 'about/**'
       - '404.html'
       - 'sitemap.xml'

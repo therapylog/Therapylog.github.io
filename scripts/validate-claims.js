@@ -70,7 +70,7 @@ const walkPages = (dir, out = []) => {
   }
   return out;
 };
-const REFERENCE_PAGES = ['about', 'tools', 'markers'].flatMap((d) => walkPages(d)).sort();
+const REFERENCE_PAGES = ['about', 'tools', 'markers', 'compounds'].flatMap((d) => walkPages(d)).sort();
 
 const PAGES = ['index.html', 'download.html', 'pro.html', 'guide.html',
                'support.html', 'providers/index.html', 'providers/apply.html']

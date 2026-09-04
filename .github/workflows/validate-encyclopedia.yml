@@ -5,7 +5,7 @@ on:
     # are scanned by rule 9 and were missing from this list.
     paths: ['app.html', 'docs/compounds.json', 'docs/COMPOUNDS.md', 'index.html', 'marketing.html',
             'download.html', 'pro.html', '404.html',
-            'about/**', 'tools/**', 'markers/**', 'scripts/**']
+            'about/**', 'tools/**', 'markers/**', 'compounds/**', 'scripts/**']
   pull_request:
 jobs:
   validate:

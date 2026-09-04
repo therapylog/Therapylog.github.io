@@ -47,9 +47,22 @@ const formula = (lines) =>
   `    <div class="formula">${lines.map(esc).join('<br>')}</div>`;
 
 /* app.html's dosing rows carry performance and cycle protocols. Those never
-   appear on a page under the founder's byline (SEO-PLAN §7). */
-const PERF = /performance|cycle|blast|advanced|intermediate/i;
-const publishableDoses = (entry) => (entry.doses || []).filter((r) => !PERF.test(r.l));
+   appear on a page under the founder's byline (SEO-PLAN §7).
+
+   Two patterns, because "cycle" means two different things in this data. In a
+   row label it is nearly always the bodybuilding sense, so the label filter is
+   the broad one §7 specifies. In the frequency and duration fields it is
+   usually the Khavinson peptides' "10-day pulse cycles, twice a year", which is
+   the dosing pattern those compounds are actually studied at — filtering the
+   whole row on the same pattern emptied fourteen compounds' tables of
+   legitimate content. So the row fields get a narrower test that catches use
+   during or after a suppressive cycle and leaves a pulse schedule alone. It
+   removes four rows in total: tamoxifen's two, clomiphene's PCT row and HCG's
+   pre-PCT primer. */
+const PERF = /performance|cycle|blast|advanced|intermediate|\bpct\b|post-?cycle|restart/i;
+const CYCLE_CONTEXT = /during (a |an |the )?cycle|of (a |an |the )?cycle\b|post-?cycle|before starting serm|\bpct\b/i;
+const publishableDoses = (entry) => (entry.doses || []).filter((r) =>
+  !PERF.test(r.l) && !CYCLE_CONTEXT.test([r.d, r.f, r.c].filter(Boolean).join(' ')));
 
 const regStatus = (entry) =>
   entry.approval || (entry.reg && entry.reg.status) || entry.status || entry.approvalStatus || null;
@@ -65,9 +78,13 @@ const monPanel = (entry) => {
 function storageRows(app, id) {
   const s = app.storageFor(id);
   if (!s) return [];
+  /* "Before mixing" only means anything for a lyophilised powder. An oil vial
+     or a tablet is never mixed, and the label read as a mistake on those. */
+  const mixed = s.medium === 'aq' || /reconstitut/i.test(s.label || '');
   return [
-    ['Before mixing', esc(s.before)],
-    s.after ? ['After mixing', esc(s.after)] : null,
+    [mixed ? 'Before mixing' : 'Storage', esc(s.before)],
+    s.after ? [mixed ? 'After mixing' : 'Once opened', esc(s.after)] : null,
+    s.avoid ? ['What ruins it', esc(s.avoid)] : null,
     ['Handling caveat', `<em>${esc(app.TL_STORAGE.caveat)}</em>`]
   ].filter(Boolean);
 }
@@ -156,7 +173,9 @@ function buildAll(ctx) {
     require('./pages-stack.js'),
     require('./pages-markers.js'),
     require('./pages-markers-checklist.js'),
-    require('./pages-markers-hub.js')
+    require('./pages-markers-hub.js'),
+    require('./pages-compounds.js'),
+    require('./pages-compounds-hub.js')
   ];
   const api = {
     esc, factBox, EV, table, formula, publishableDoses, regStatus, monPanel,

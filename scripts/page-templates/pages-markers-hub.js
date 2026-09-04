@@ -99,7 +99,8 @@ function build(ctx, api) {
     and a generic one only when your report did not carry one, keeps the assay method with the
     value, and charts the trend. It runs in the browser and needs no account —
     <a href="/app">open it here</a>. The <a href="/guide">user guide</a> covers the bloodwork tab
-    in detail, and the <a href="/tools/">calculators</a> cover the dosing arithmetic.</p>`,
+    in detail, the <a href="/tools/">calculators</a> cover the dosing arithmetic, and the
+    <a href="/compounds/">compound pages</a> cover what moves each of these markers.</p>`,
 
     shell.ctaBox('markers-hub',
       'Logging a marker with its unit, its printed reference interval and its assay method beside it is what makes a trend mean anything.',

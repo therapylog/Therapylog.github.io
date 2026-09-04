@@ -553,6 +553,79 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**SEO Phase 3, batch 1 — the first twenty /compounds/ pages (4 Sep 2026)**
+
+Implements `docs/SEO-PLAN.md` §7, first of the twenty-at-a-time batches. Ten
+Tier A and ten Tier B compounds, plus the generated `/compounds/` hub. Every page
+runs 971–1,379 authored words outside the shared blocks against a 450 floor, and
+the worst sibling-similarity pair is 0.143 against a 0.4 ceiling.
+
+- **The tier policy is now data, not prose.** `TIER_A` (54) and `TIER_B` (53)
+  sit beside `TIER_C` (23) in `scripts/lib/app-source.js` as explicit frozen
+  lists, with `assertTiers()` failing the build if the three do not partition
+  DB's 130 ids exactly. Explicit lists rather than a regex over the approval
+  strings: those strings are authored copy, and a classifier reading them would
+  silently reclassify a compound the next time someone fixes a typo.
+- **Where the split diverges from §7's estimate, and why.** §7 guessed 56 Tier A
+  and 46 Tier B. The rule actually applied — Tier A means obtainable lawfully in
+  the US as an approved drug or as a supplement, OTC or cosmetic — puts thymosin
+  alpha-1, cerebrolysin, selank, semax, epithalon and pinealon in Tier B instead.
+  All are approved somewhere and none is obtainable here on a prescription, so
+  they carry the regulatory block. Tier B publishes *with* labelling; it does not
+  withhold, so this is the more protective placement rather than a downgrade.
+- **What the pages publish from the app, and what they refuse to.** Name,
+  aliases, class, regulatory string, PK row, storage rule and caveat, monitoring
+  panel, filtered dosing rows, drawbacks list and interaction rules are all
+  lifted at build time. `summary` and `pros` are never rendered: `summary`
+  carries editorial lines and `pros` is a benefits list, and both read as
+  advertising under a founder's byline on a page built to rank. `cons` **is**
+  rendered. Publishing the risks and withholding the benefits is deliberate, and
+  each page says so in its own words.
+- **`stacks[]` is not rendered at all**, which goes further than §7 asked (it
+  only required stripping groups naming a Tier C compound). A combination
+  presented as a plan under this byline is a recommendation to run it, which is
+  what B-5 forbids; the combination content lives on `/tools/stack-checker/`,
+  framed as a conflict check. It also closes the last route by which a Tier C
+  name could reach one of these pages.
+- **The dose strip filter needed two patterns, not one.** §7's word list applied
+  to the whole row emptied fourteen compounds' tables — "cycle" in a frequency
+  field is usually the Khavinson peptides' "10-day pulse cycles, twice a year",
+  which is the schedule those compounds are actually studied at. The label keeps
+  the broad pattern; the row fields get a narrower one that catches use during or
+  after a suppressive cycle. Net effect is four rows removed: tamoxifen's two,
+  clomiphene's PCT row and HCG's pre-PCT primer.
+- **The authored-word floor was counting app text on every page type.** The
+  exclusion used a non-greedy scan to the first closing tag, so a nested `<div>`
+  ended the match early — an interaction block is
+  `<div class="pair"><div class="sev">…</div>…</div>`, and only the inner div was
+  removed. Testosterone cypionate's fourteen interaction rules were worth roughly
+  700 words a compound page would have been credited with writing.
+  `stripBlocks()` now counts tag depth. The real numbers were lower everywhere:
+  `/tools/stack-checker/` reported 3,218 authored words and has 590. Every page
+  still clears its floor.
+- **New assertions in `validate-public-pages.js`:** the tier partition; every
+  `/compounds/` page maps to a tiered compound; every Tier B page carries the
+  regulatory block, the app's own approval string and the storage caveat
+  verbatim; no page reproduces a combination protocol line (scanned with the
+  interaction, drawbacks and table blocks removed, because those legitimately
+  carry app text that collides — sermorelin's own dosing row is "Sermorelin
+  200mcg + Ipamorelin 200mcg"); no stripped dosing row leaks; the benefits list
+  never appears; and no bodybuilding-coded word in a `/compounds/` slug or title.
+- **Sources are named, not linked.** Phase 2's citation pass could not resolve
+  publisher URLs from this sandbox, and a link that 404s in two years is worse
+  than a title and a year you can search. Each page carries a "where the
+  load-bearing numbers come from" block naming trial, journal and year.
+- **Internal linking is derived, not chosen.** A compound page links to a marker
+  page only when the app's own monitoring note for that compound names one of
+  that marker's registry aliases — the inverse of the matching the marker pages
+  already use. A monitoring note that stops naming a marker drops the link rather
+  than leaving a wrong one.
+
+Sitemap is 83 URLs, up from 62. Batch 2 onward: add entries to
+`scripts/page-templates/compounds-content.js`; everything else is wired.
+
+---
+
 **SEO Phase 2 — the fifteen /markers/ pages (3 Sep 2026)**
 
 Implements `docs/SEO-PLAN.md` §6. Fifteen marker pages plus
@@ -689,9 +762,15 @@ The Focus board holds the working sequence. This is the summary.
 4. Generate the 30 class illustrations + hero renders, wire into the encyclopedia
    and landing page (`/assets/art/class-{id}.png`, ids match `compounds.json`).
 5. Compliance pass module in the Marketing Suite — gates all content publishing.
-6. Compound pages, batches of 20 weekly with human review. Tier A and B only
-   (`docs/SEO-PLAN.md` §7); gated on the marker pages having four weeks of
-   Search Console data, not on the named author (resolved).
+6. **SEO Phase 3 — compound pages**, batches of 20 with human review. Tier A and
+   B only (`docs/SEO-PLAN.md` §7). **Batch 1 done 4 Sep 2026** — see §2: twenty
+   pages plus the `/compounds/` hub, tier lists frozen and asserted, generator
+   and validators wired so a batch is now content-only work. The four-week
+   Search Console gate was waived deliberately: there is no query data yet (the
+   marker pages deployed the same week), and marker queries sit in a different
+   query space from compound queries, so waiting would not have informed the
+   selection. **87 publishable compounds remain**; pick the next twenty by search
+   demand, not alphabetically.
 7. Weekly blog pipeline from PubMed / Europe PMC / ClinicalTrials.gov.
 8. Decide white-label and pouch priority relative to core app growth.
 9. Decide the BYOK price. At $8.99/mo it sits $1 under Pro while the customer

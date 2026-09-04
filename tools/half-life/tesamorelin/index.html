@@ -141,6 +141,10 @@ td.num{font-family:'DM Mono',monospace;color:var(--text)}
 .pair p:last-child{margin-bottom:0}
 .pair .mon{font-size:12.5px;color:var(--text3)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.risks{display:block;list-style:none;margin:6px 0 20px;padding:0}
+.risks li{padding:9px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.risks li:first-child{border-top:none}
+.note.reg{border-left-color:var(--warm)}
 .tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
 .tcard h3{margin:0 0 6px;font-size:15px}
 .tcard h3 a{color:var(--text)}
@@ -194,6 +198,7 @@ body.og-card .wrap{display:none}
       <a href="/">Home</a>
       <a href="/tools/">Tools</a>
       <a href="/markers/">Lab markers</a>
+      <a href="/compounds/">Compounds</a>
       <a href="/guide">Guide</a>
       <a class="cta" href="/app">Open the app</a>
     </nav>
@@ -204,7 +209,7 @@ body.og-card .wrap{display:none}
       half-life, peaking 15 min after a dose. What that means for how long
       it lasts, how much it builds up, and when bloodwork is worth drawing.</p>
 
-    <div class="updated">Last reviewed: 3 September 2026</div>
+    <div class="updated">Last reviewed: 4 September 2026</div>
 
     <div class="facts">
       <dl>
@@ -221,6 +226,7 @@ body.og-card .wrap{display:none}
         <dt>Monitoring panel</dt><dd>IGF-1 every 3 months (critical), fasting glucose, HbA1c, visceral fat assessment, lipid panel.</dd>
         <dt>Before mixing</dt><dd>Sealed powder tolerates room temperature in transit, but keep it refrigerated at 2–8 °C (36–46 °F) for anything beyond a few weeks, or frozen for months. Keep it dark — the carton it shipped in is doing a job.</dd>
         <dt>After mixing</dt><dd>Once reconstituted with bacteriostatic water: refrigerate at 2–8 °C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window — plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only. Kits are usually ten vials: only the one you mixed is on that 28-day clock — the sealed ones keep their own, much longer shelf life, so store them as powder, not as solution.</dd>
+        <dt>What ruins it</dt><dd>Do not freeze a reconstituted vial. Repeated freeze–thaw is one of the more reliable ways to degrade a peptide.</dd>
         <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
       </dl>
     </div>
@@ -336,7 +342,7 @@ body.og-card .wrap{display:none}
     </div>
     <div class="byline">
       <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
-      Last reviewed 3 September 2026. The calculator on this page runs the same code as the app;
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
       how these pages are written, sourced and corrected is set out in the
       <a href="/about/">editorial policy</a>.</p>
     </div>
@@ -481,7 +487,7 @@ function toast(msg) {
       "publisher": {
         "@id": "https://therapylog.app/#organization"
       },
-      "dateModified": "2026-09-03",
+      "dateModified": "2026-09-04",
       "breadcrumb": {
         "@type": "BreadcrumbList",
         "itemListElement": [

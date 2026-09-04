@@ -28,6 +28,9 @@ const path = require('path');
 const vm = require('vm');
 
 const A = require('./lib/app-source.js');
+/* The generator's own escaper, so a check for "this app string appears on the
+   page" compares what was actually written rather than the raw source. */
+const { esc } = require('./page-templates/shell.js');
 
 const ROOT = A.ROOT;
 const results = [];
@@ -50,7 +53,7 @@ function publicPages() {
       else if (e.name === 'index.html') out.push(rel);
     }
   };
-  ['tools', 'markers', 'about'].forEach((d) => { if (exists(d)) walk(d); });
+  ['tools', 'markers', 'compounds', 'about'].forEach((d) => { if (exists(d)) walk(d); });
   return out.sort();
 }
 
@@ -241,6 +244,113 @@ for (const rel of pages) {
   const opts = [...html.matchAll(/<option[^>]*>([^<]+)<\/option>/g)].map((m) => m[1].trim());
   const badOpts = opts.filter((o) => tierCNames.some((n) => o.replace(/ \(estimated\)$/, '') === n));
   t(`${url} offers no Tier C compound in a dropdown`, badOpts.length === 0, badOpts.join(', '));
+}
+
+/* ---- 3b. the tier policy for /compounds/ pages -------------------------- */
+
+/* §7 asks for a denylist in the generator and an assertion here. The generator
+   throws on a Tier C id; this is the assertion that the shipped files agree,
+   plus the three rules a compound page carries that no other page type does. */
+try {
+  const counts = A.assertTiers(app.byId);
+  t('every compound in app.html is in exactly one tier',
+    counts.A + counts.B + counts.C === counts.total,
+    `${counts.A} A + ${counts.B} B + ${counts.C} C of ${counts.total}`);
+} catch (e) {
+  t('every compound in app.html is in exactly one tier', false, e.message);
+}
+
+const compoundDefs = (() => {
+  try { return require(path.join(ROOT, 'scripts', 'page-templates', 'compounds-content.js')); }
+  catch (e) { return null; }
+})();
+t('the compound content module loads', compoundDefs !== null);
+
+if (compoundDefs) {
+  const bySlug = new Map(Object.entries(compoundDefs).map(([id, d]) => [d.slug, id]));
+  const compoundPages = pages.filter((rel) => /^compounds\/[^/]+\/index\.html$/.test(rel));
+
+  /* Every protocol line in every stack group in the app, so a page cannot start
+     reproducing the combination protocols the generator deliberately drops.
+     The lines, not the group labels: a group is called "Fat Loss / Recomp" or
+     "Longevity Protocol", and those collide with ordinary prose and with the
+     app's own dosing-row labels. A line like "Test Cyp 100-150mg/wk" collides
+     with nothing. */
+  const stackLines = new Set();
+  Object.values(app.byId).forEach((d) => (d.stacks || []).forEach((g) => {
+    /* Only lines carrying an amount. A group also holds bare instructions like
+       "Monitor prolactin", which the app repeats inside interaction rules that a
+       page is allowed to show — matching on those flagged a legitimate page. A
+       line with a number in it is a protocol row and nothing else. */
+    (g.d || []).forEach((line) => {
+      if (line && line.length > 12 && /\d/.test(line)) stackLines.add(line);
+    });
+  }));
+
+  for (const rel of compoundPages) {
+    const url = urlOf(rel);
+    const html = read(rel);
+    const slug = url.split('/')[2];
+    const id = bySlug.get(slug);
+    t(`${url} maps to a compound in the content module`, !!id, slug);
+    if (!id) continue;
+
+    const tier = A.tierOf(id);
+    t(`${url} publishes a Tier A or Tier B compound`, tier === 'A' || tier === 'B', `tier ${tier}`);
+
+    const entry = app.byId[id];
+    /* Tier B: §7 requires the approval string, the storage caveat and no vendor. */
+    if (tier === 'B') {
+      const reg = entry.approval || (entry.reg && entry.reg.status) || entry.status || entry.approvalStatus;
+      t(`${url} (Tier B) carries the regulatory block`, /class="note reg"/.test(html));
+      t(`${url} (Tier B) states the app's own approval string`, !!reg && html.includes(esc(reg)),
+        reg || 'no approval field');
+      t(`${url} (Tier B) carries the storage caveat verbatim`,
+        !app.storageFor(id) || html.includes(esc(app.TL_STORAGE.caveat)));
+    }
+
+    /* No page reproduces a combination protocol. */
+    /* Scanned with the app-data blocks removed. The interaction rules, the
+       drawbacks list and the dosing table all legitimately carry app text that
+       can coincide with a stack line — sermorelin's own dosing row is literally
+       "Sermorelin 200mcg + Ipamorelin 200mcg", and its drawbacks list names the
+       pairing it is less potent than. What must not appear is a protocol in the
+       page's prose, its fact boxes or its FAQs, which is what is left. */
+    const proseOnly = ['pair', 'risks', 'tbl'].reduce((h, c) => stripBlocks(h, c), html);
+    const shown = [...stackLines].filter((line) => proseOnly.includes(esc(line)));
+    t(`${url} reproduces no combination protocol from the app`, shown.length === 0,
+      shown.slice(0, 3).join(' | '));
+
+    /* The dosing table, if present, carries no stripped row. */
+    const stripped = (entry.doses || []).filter((r) =>
+      /performance|cycle|blast|advanced|intermediate|\bpct\b|post-?cycle|restart/i.test(r.l) ||
+      /during (a |an |the )?cycle|of (a |an |the )?cycle\b|post-?cycle|before starting serm|\bpct\b/i
+        .test([r.d, r.f, r.c].filter(Boolean).join(' ')));
+    const leaked = stripped.filter((r) => html.includes(esc(r.l)) && html.includes(esc(r.d)));
+    t(`${url} shows no stripped dosing row`, leaked.length === 0, leaked.map((r) => r.l).join(', '));
+
+    /* The app's own benefits list is never rendered. */
+    const pros = (entry.pros || []).filter((x) => x.length > 12 && html.includes(esc(x)));
+    t(`${url} does not reproduce the app's benefits list`, pros.length === 0, pros.join(' | '));
+  }
+
+  /* SEO-PLAN §9: no bodybuilding-coded word in a title or a slug. Scoped to
+     /compounds/ because two tool pages predate the rule and keep their names on
+     purpose — /tools/stack-checker/ is what the feature is called in the app and
+     what people search for. Every compound page is new, so there is no reason to
+     grandfather anything here. */
+  const CODED = /\b(cycle|stack|peak|alpha|apex|elite|prime|max|beast)\b/i;
+  for (const rel of compoundPages) {
+    const url = urlOf(rel);
+    const title = (read(rel).match(/<title>([^<]*)<\/title>/) || [])[1] || '';
+    t(`${url} slug carries no bodybuilding-coded word`, !CODED.test(url), url);
+    t(`${url} title carries no bodybuilding-coded word`, !CODED.test(title), title);
+  }
+
+  t('every compound in the content module shipped a page',
+    Object.values(compoundDefs).every((d) => exists('compounds/' + d.slug + '/index.html')),
+    Object.values(compoundDefs).filter((d) => !exists('compounds/' + d.slug + '/index.html'))
+      .map((d) => d.slug).join(', '));
 }
 
 /* ---- 4. the drift guard: inlined functions match app.html --------------- */
@@ -928,25 +1038,58 @@ for (const rel of pages) {
    the widget, the formula blocks, tables, figure captions, the CTA, the byline,
    the disclaimer and the footer excluded. That is the content that has to carry
    the page. */
+/* Remove every element carrying `cls`, balanced. A non-greedy scan to the first
+   closing tag is not enough: an interaction block is
+   `<div class="pair"><div class="sev">…</div>…</div>`, and stopping at the
+   inner close left the interaction's own title and description in the count —
+   seven hundred words of app.html text that a compound page would have been
+   credited with writing. */
+function stripBlocks(html, cls) {
+  const open = new RegExp(`<(div|figure|ol|ul|section)\\b[^>]*class="[^"]*\\b${cls}\\b[^"]*"[^>]*>`, 'g');
+  let out = html;
+  for (let guard = 0; guard < 200; guard++) {
+    open.lastIndex = 0;
+    const m = open.exec(out);
+    if (!m) return out;
+    const tag = m[1];
+    const tags = new RegExp(`<(/?)${tag}\\b[^>]*>`, 'g');
+    tags.lastIndex = m.index + m[0].length;
+    let depth = 1, end = -1, t;
+    while ((t = tags.exec(out))) {
+      depth += t[1] ? -1 : 1;
+      if (depth === 0) { end = t.index + t[0].length; break; }
+    }
+    out = out.slice(0, m.index) + ' ' + (end === -1 ? '' : out.slice(end));
+  }
+  return out;
+}
+
+/* Words in the page's own prose: paragraphs, list items and subheadings, with
+   the widget, the formula blocks, tables, figure captions, the CTA, the byline,
+   the disclaimer and the footer excluded. That is the content that has to carry
+   the page. */
 function authoredWords(html) {
   let s = html
     .replace(/<script[\s\S]*?<\/script>/g, '')
     .replace(/<style[\s\S]*?<\/style>/g, '')
     .replace(/<!--[\s\S]*?-->/g, '');
-  /* Drop the excluded containers by class, non-greedily to the matching close
-     of the block they open. The generated markup nests these predictably. */
   /* `shared` marks boilerplate that is identical on every page of a type — the
      "your lab's range wins" block, for one. Counting it would let a page hit its
      minimum on text it did not write, which is exactly what the floor exists to
      stop: a gutted marker page still cleared 600 words on boilerplate alone.
      `sources`, `mon-list` and `sfx` are generated from app data or are link
-     lists, so they are not authored prose either. */
+     lists, so they are not authored prose either.
+
+     `pair` is each interaction block, whose title, description and monitoring
+     line are app.html's text. `callout` is the shared calculator disclaimer,
+     `reg` the shared Tier B regulatory block, `risks` the app's own drawbacks
+     list. `pair` does not match class="pairs" — \b will not break between
+     "pair" and "s" — so the wrapper is left alone and each block inside it is
+     removed on its own. */
   ['widget', 'formula', 'cta-box', 'byline', 'disclaimer', 'foot', 'facts', 'tbl',
-   'topnav', 'crumbs', 'shared', 'sources', 'mon-list', 'sfx', 'cards']
-    .forEach((cls) => {
-      const re = new RegExp(`<(div|figure|ol|ul)[^>]*class="[^"]*\\b${cls}\\b[^"]*"[\\s\\S]*?<\\/\\1>`, 'g');
-      s = s.replace(re, ' ');
-    });
+   'topnav', 'crumbs', 'shared', 'sources', 'mon-list', 'sfx', 'cards', 'pair',
+   'callout', 'risks', 'reg']
+    .forEach((cls) => { s = stripBlocks(s, cls); });
   s = s.replace(/<figcaption[\s\S]*?<\/figcaption>/g, ' ')
        .replace(/<table[\s\S]*?<\/table>/g, ' ')
        .replace(/<svg[\s\S]*?<\/svg>/g, ' ');
@@ -957,6 +1100,8 @@ function authoredWords(html) {
 }
 
 const MIN_WORDS = [
+  [/^\/compounds\/[^/]+\/$/, 450, 'compound page'],
+  [/^\/compounds\/$/, 250, 'compounds hub'],
   [/^\/tools\/half-life\/[^/]+\/$/, 200, 'per-compound half-life page'],
   [/^\/tools\/[a-z0-9-]+-reconstitution-calculator\/$/, 200, 'compound reconstitution page'],
   [/^\/markers\/[^/]+\/$/, 600, 'marker page'],
@@ -992,6 +1137,7 @@ function jaccard(a, b) {
   return inter / (a.size + b.size - inter);
 }
 const FAMILIES = [
+  [/^\/compounds\/[^/]+\/$/, 'compound pages', 0.4],
   [/^\/tools\/half-life\/[^/]+\/$/, 'half-life pages', 0.5],
   [/^\/tools\/[a-z0-9-]+-reconstitution-calculator\/$/, 'reconstitution pages', 0.65]
 ];

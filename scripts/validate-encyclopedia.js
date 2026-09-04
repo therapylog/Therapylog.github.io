@@ -126,7 +126,7 @@ const walkRefs = (dir, out = []) => {
   return out;
 };
 const RULE9_WHEN_PRESENT = ['404.html']
-  .concat(['about', 'tools', 'markers'].flatMap((d) => walkRefs(d)).sort());
+  .concat(['about', 'tools', 'markers', 'compounds'].flatMap((d) => walkRefs(d)).sort());
 RULE9_REQUIRED.forEach((f) => {
   if (!fs.existsSync(path.join(ROOT, f))) fail(`rule 9: ${f} is missing — the count guard cannot run`);
 });
