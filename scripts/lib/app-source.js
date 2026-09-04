@@ -279,6 +279,9 @@ const TIER_A = Object.freeze([
   'ai1', 'nolv', 'clom', 'hcg2', 'exemest', 'caberg', 'dutast',
   't3', 't4', 'ndt',
   'metformin', 'telmisartan', 'acarbose', 'rapamycin', 'dasatinib', 'ldn',
+  /* Approved, and in the US the easiest of all of these to obtain: regular human
+     insulin is sold over the counter in most states. Tier A on both counts. */
+  'insulin',
   'gonadorelin', 'pt141', 'oxytocin',
   'raloxifene', 'isotretinoin', 'caberbromo',
   /* Dietary supplements, OTC and cosmetic products. */
@@ -321,7 +324,7 @@ function assertTiers(byId) {
   const dup = TIER_A.filter((id) => TIER_B.includes(id) || TIER_C.includes(id))
     .concat(TIER_B.filter((id) => TIER_C.includes(id)));
   dup.forEach((id) => problems.push(`${id} is in more than one tier`));
-  if (TIER_A.length !== 54) problems.push(`TIER_A has ${TIER_A.length} ids, expected 54`);
+  if (TIER_A.length !== 55) problems.push(`TIER_A has ${TIER_A.length} ids, expected 55`);
   if (TIER_B.length !== 53) problems.push(`TIER_B has ${TIER_B.length} ids, expected 53`);
   if (problems.length) throw new Error('tier policy is inconsistent:\n  ' + problems.join('\n  '));
   return { A: TIER_A.length, B: TIER_B.length, C: TIER_C.length, total: ids.length };

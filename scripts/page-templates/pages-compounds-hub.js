@@ -36,10 +36,11 @@ const GROUPS = [
     ids: ['t4', 't3', 'ndt'] },
 
   { id: 'metabolic', title: 'Weight and metabolic',
-    blurb: `The incretin drugs and what is behind them in trials, the older metabolic compounds
-            people combine with them, and one research compound with no human data at all.`,
-    ids: ['sema', 'tirz', 'retatrutide', 'cagrilintide', 'metformin', 'berberine', 'acarbose',
-          'telmisartan', 'ldn', 'amino1mq', 'slupp332'] },
+    blurb: `The incretin drugs and what is behind them in trials, the older metabolic
+            compounds people combine with them, the hormone all of this is ultimately about,
+            and one research compound with no human data at all.`,
+    ids: ['sema', 'tirz', 'retatrutide', 'cagrilintide', 'insulin', 'metformin', 'berberine',
+          'acarbose', 'telmisartan', 'ldn', 'amino1mq', 'slupp332'] },
 
   { id: 'growth-hormone', title: 'Growth hormone, IGF-1 and muscle signalling',
     blurb: `Growth hormone itself, the releasing-hormone analogues, the ghrelin receptor
@@ -143,7 +144,7 @@ ${g.ids.map(card).join('\n')}
     </div>`,
     /* No digit may sit next to the word "compound" here. validate-encyclopedia
        rule 9 matches /(\d+)\+?[- ][Cc]ompound/ and holds any count of 40 or
-       more to the real catalogue size of 130 — which is right, because a page
+       more to the real catalogue size of 131 — which is right, because a page
        printing "60 compound…" reads as a claim about how many the app covers.
        The count of pages goes in on its own. */
     `    <p class="hint">${total} pages so far. Type to filter, or press Enter to jump
@@ -170,7 +171,7 @@ ${g.ids.map(card).join('\n')}
     labelling it otherwise would not change what it is.</p>`,
 
     `    <h2 id="which-compounds">Which compounds get a page</h2>`,
-    `    <p>The app's reference covers 130 compounds. ${publishable} of them can be described
+    `    <p>The app's reference covers 131 compounds. ${publishable} of them can be described
     responsibly on a public page, and they are split into two groups that are presented
     differently:</p>`,
     `    <ul>
@@ -194,7 +195,7 @@ ${g.ids.map(card).join('\n')}
     `    <h2 id="the-rest">The rest of the reference</h2>`,
     `    <p>${total} of the ${publishable} publishable compounds have a page so far; the others
     are being written in batches, and nothing is linked here until its page is live and has been
-    read end to end. In the meantime the app's own encyclopedia carries all 130 with the same
+    read end to end. In the meantime the app's own encyclopedia carries all 131 with the same
     underlying data &mdash; <a href="/app">open it here</a>, no account needed. The
     <a href="/tools/">calculators</a> cover reconstitution, syringe volumes and half-life
     arithmetic, and the <a href="/markers/">lab-marker pages</a> cover the bloodwork that follows

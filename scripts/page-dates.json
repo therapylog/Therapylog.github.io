@@ -1,6 +1,6 @@
 {
   "/compounds/": {
-    "hash": "1cd9ecde389c6305a347f8de789de1c1f52a1e0345d3beb282756b735114a140",
+    "hash": "743d4deccb71fe49fcb5da08c7dc6cb505777ba8d233513c8dc8a624b8ececff",
     "lastmod": "2026-09-04"
   },
   "/compounds/5-amino-1mq/": {
@@ -131,6 +131,10 @@
     "hash": "43fd50470a9a0f36cb6906a8cab181aaec00e8ef78166f88d5db618bae01b9d0",
     "lastmod": "2026-09-04"
   },
+  "/compounds/insulin/": {
+    "hash": "9ad88a0bc3917402c3ebd8b77ae51dfa6f2af7e42463cd6e4108fc793547e560",
+    "lastmod": "2026-09-04"
+  },
   "/compounds/ipamorelin/": {
     "hash": "cc135d16f331e1194b2c905565f15c654f1051a0894f6cab4da3a0b4152ca4cd",
     "lastmod": "2026-09-04"
@@ -156,7 +160,7 @@
     "lastmod": "2026-09-04"
   },
   "/compounds/liothyronine-t3/": {
-    "hash": "e4f6828d190e40c5cf38306a4814d099bae67f1fc027a67f4f26d74d88febce3",
+    "hash": "c8eb1ea3a109740f7ce9d3e4d4421476d1e4ebf2e4558f698376cb2fb03b953c",
     "lastmod": "2026-09-04"
   },
   "/compounds/ll-37/": {
@@ -236,7 +240,7 @@
     "lastmod": "2026-09-04"
   },
   "/compounds/recombinant-hgh/": {
-    "hash": "785d671402aca51588464c0e8b54571ff4adb79b9eba0543245380c18192daff",
+    "hash": "5316d801c8d21791b272af862656324e51d155a6fa4a9fbf56fe4bbc9ad40b00",
     "lastmod": "2026-09-04"
   },
   "/compounds/retatrutide/": {
@@ -248,7 +252,7 @@
     "lastmod": "2026-09-04"
   },
   "/compounds/semaglutide/": {
-    "hash": "4dc1c0592ce0bc6a529166e8d85356811150ef4d897bfffb8c1d6f93ecf35aa4",
+    "hash": "dfbed05c6675bb97336fe27a0f12f7cd5a935d003240f1569f84dd1e3e87790b",
     "lastmod": "2026-09-04"
   },
   "/compounds/semax/": {
@@ -348,7 +352,7 @@
     "lastmod": "2026-09-04"
   },
   "/markers/hba1c-and-fasting-glucose/": {
-    "hash": "4b3ffb13c4e9246fc67367c26fe63010987954714c76394a4c0e1e9fcfc98f76",
+    "hash": "f0b7e3bafab2d9115142b081421531d1a6be0d46904e3d8a6bfb56bc2a776284",
     "lastmod": "2026-09-04"
   },
   "/markers/hematocrit-on-trt/": {
@@ -448,7 +452,7 @@
     "lastmod": "2026-09-04"
   },
   "/tools/half-life/semaglutide/": {
-    "hash": "b5436e81c9ba840c4874a6a1b77c24360e8a398511eae669633046330bd0c03c",
+    "hash": "ee1c7a202273a9dcd1c20f134592a6dd592162a1e851d12ed40e58bfaa633177",
     "lastmod": "2026-09-04"
   },
   "/tools/half-life/sermorelin/": {
@@ -496,7 +500,7 @@
     "lastmod": "2026-09-04"
   },
   "/tools/stack-checker/": {
-    "hash": "14791e7e9c9f41fa93253e2bbc033a1ccc8f97f100642157c7c1aedeae3f4fd2",
+    "hash": "edb146c5eec4ade0362b1f31c0d8a770b3b8deb4edf5aec16eb736405ac839f3",
     "lastmod": "2026-09-04"
   },
   "/tools/syringe-builder/": {

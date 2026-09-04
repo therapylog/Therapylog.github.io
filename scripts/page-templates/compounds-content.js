@@ -8133,4 +8133,193 @@ module.exports = {
     cta: `Self-assessed cognition is the easiest measurement to fool yourself with. TherapyLog keeps
       a dated record so you are comparing notes rather than impressions.`
   },
+  insulin: {
+    slug: 'insulin',
+    h1: 'Insulin: the one compound here where a mistake can kill you the same afternoon',
+    title: 'Insulin: what it does and what it costs | TherapyLog',
+    description: 'The hormone every metabolic compound here is ultimately about, and the one practice in bodybuilding with a same-day fatal failure mode.',
+    lede: `This page exists because people use insulin for physique goals and because the
+      information they find is usually written either by someone selling a protocol or by someone
+      who will not discuss it at all. Neither helps. What follows is what the hormone does, what
+      the evidence for the non-medical use actually is, and what the failure mode looks like &mdash;
+      in enough detail to make a decision with.`,
+    sections: [
+      {
+        h2: 'What insulin does',
+        paras: [
+          `@@EV_ESTABLISHED@@ Insulin is a 51-amino-acid peptide hormone made by the beta cells of
+          the pancreas. Its central job is to move things out of the bloodstream and into cells:
+          glucose, amino acids and potassium. It switches the body from breaking fuel down to
+          storing it &mdash; glycogen synthesis up, gluconeogenesis down, lipolysis suppressed,
+          protein synthesis supported. It has been in clinical use since 1922 and there is no
+          hormone in medicine that is better characterised.`,
+          `Injected insulin replaces or supplements that signal. In type 1 diabetes it is not a
+          treatment but a requirement, and in type 2 it is added when other agents stop holding the
+          line. Products differ mainly in timing: rapid-acting analogues (lispro, aspart) begin
+          working within about fifteen minutes and are finished in a few hours; regular human
+          insulin is slower on both ends; long-acting analogues (glargine, degludec) are designed
+          to sit flat across a day or more. That difference in timing is the whole safety picture,
+          which is why this page carries no single half-life figure &mdash; the number depends
+          entirely on which product is in the vial.`,
+          `Everything else in this site&rsquo;s metabolic section is, in one way or another, about
+          this hormone. <a href="/compounds/metformin/">Metformin</a> reduces hepatic glucose
+          output and improves sensitivity to it. The
+          <a href="/compounds/semaglutide/">GLP-1 agonists</a> amplify the body&rsquo;s own
+          glucose-dependent insulin release. <a href="/compounds/berberine/">Berberine</a> and
+          <a href="/compounds/acarbose/">acarbose</a> blunt the glucose load that provokes it.
+          Insulin is the only one that bypasses the regulation entirely, and that is exactly what
+          makes it different.`
+        ]
+      },
+      {
+        h2: 'Why it appears in bodybuilding, and what the evidence is',
+        paras: [
+          `@@EV_THEORETICAL@@ The physique rationale is nutrient partitioning: insulin drives
+          glucose and amino acids into muscle, so administering it around training or around a
+          large carbohydrate feed is supposed to fill glycogen faster and improve the anabolic
+          response. It is usually described alongside growth hormone, on the reasoning that growth
+          hormone raises glucose and insulin lowers it. At the top of the sport this is an open
+          practice rather than a rumour.`,
+          `The evidence for benefit in a healthy, well-fed, resistance-trained person is not
+          weak &mdash; it is absent. There are no controlled trials of insulin for muscle gain or
+          body composition in non-diabetic athletes, and there is no realistic prospect of one,
+          because no ethics committee will approve deliberately inducing hypoglycaemia in healthy
+          volunteers for a physique endpoint. What exists is mechanism, case series and the
+          testimony of people with a reason to be believed and a reason not to be.`,
+          `There is a specific reason to be sceptical of the mechanism as applied. In a person who
+          is eating enough, training hard and already on supraphysiologic androgens, muscle protein
+          synthesis is not obviously insulin-limited &mdash; the studies that separate insulin&rsquo;s
+          effect from amino acid availability generally find that insulin permits protein synthesis
+          rather than driving it, and that ordinary post-meal levels are enough to saturate that
+          permission. Much of the visible change people attribute to it is glycogen and the water
+          that comes with glycogen, which is real, and is not the same thing as tissue.`,
+          `@@EV_ESTABLISHED@@ What is not in doubt is that insulin promotes fat storage with the
+          same enthusiasm it promotes glycogen storage. It does not select for the outcome anyone
+          wants.`
+        ]
+      },
+      {
+        h2: 'The failure mode',
+        paras: [
+          `@@EV_ESTABLISHED@@ Hypoglycaemia is not a side effect of insulin in the way that nausea
+          is a side effect of a GLP-1. It is the same action, taken further than intended. Every
+          other compound on this site has a risk profile you would notice over weeks or months and
+          could act on. This one has a risk that can begin within twenty minutes and be
+          irreversible within an hour.`,
+          `The sequence is consistent. Early: sweating, tremor, a racing heart, hunger, anxiety
+          &mdash; the adrenaline response to a falling glucose. Then the brain runs short:
+          confusion, slurred speech, poor judgement, an inability to recognise what is happening or
+          to do the simple thing that would fix it. Then seizure, then coma. The critical feature
+          is that the stage where a person could still save themselves ends before the danger does.
+          Once someone is unconscious, they cannot eat, and there is nothing about insulin that
+          wears off fast enough to matter.`,
+          `That is why sleep is the recurring circumstance in the case reports. So is being alone.
+          Hypoglycaemic deaths and permanent hypoglycaemic brain injury in bodybuilders are
+          documented in the medical literature, and the accounts share a pattern: a dose taken, a
+          meal that did not follow, and no one present. Prolonged neuroglycopenia does not always
+          kill &mdash; sometimes it leaves someone alive with a brain that no longer works
+          properly, which is the outcome that rarely gets discussed.`,
+          `@@EV_ESTABLISHED@@ There is a second, quieter failure mode. Insulin drives potassium
+          into cells along with glucose, and a large dose can drop serum potassium enough to cause
+          arrhythmia. It is the reason hospitals give insulin deliberately to treat
+          hyperkalaemia. It is invisible without a blood test, and it does not announce itself the
+          way a hypo does.`,
+          `The margin also moves, which is the part that catches experienced users rather than new
+          ones. Alcohol suppresses the liver&rsquo;s ability to release stored glucose, so the same
+          dose goes further after drinking. Unplanned cardio, a hot shower, a sauna, heat, a missed
+          or delayed meal, a smaller meal than expected, an injection into a site about to be
+          exercised &mdash; each of these deepens the same drop. A dose that was fine ten times is
+          not thereby a safe dose.`
+        ]
+      },
+      {
+        h2: 'Why there is no dose on this page, and what to know if it is in your protocol anyway',
+        paras: [
+          `Every compound page on this site strips performance dosing, and this is the one where
+          that policy needs no defending. Prescribed insulin is titrated by a clinician against
+          measured glucose: an estimate from body weight and current control, then weeks of
+          adjustment against readings. The dose is an output of measurement. There is no table it
+          can be read off, and a number published here would be a number applied by someone whose
+          circumstances it was never derived from.`,
+          `If insulin is in your protocol for any reason, medical or not, the boring part is the
+          entire safety system. Glucose measured before and after each dose and again before
+          sleep; a continuous glucose monitor if you can get one, because it is the only monitoring
+          that works while you are asleep and it alarms before you would notice. Fast-acting
+          carbohydrate within arm&rsquo;s reach every single time &mdash; glucose tablets, juice,
+          regular soda, not something that needs cooking. Someone nearby who knows what you have
+          taken and what a hypo looks like, because the person having one is the person least able
+          to describe it. Glucagon, as a nasal powder or an auto-injector, is what that person uses
+          when you can no longer swallow, and it is available on prescription. If someone is
+          confused or unresponsive: emergency services first, glucagon if it is there, nothing by
+          mouth into an unconscious person.`,
+          `@@EV_ESTABLISHED@@ Two more things worth knowing plainly. Insulin syringes are marked in
+          units rather than millilitres, and pens deliver in units too &mdash; unit-versus-millilitre
+          confusion and pen-versus-syringe confusion are documented sources of tenfold overdose in
+          hospitals, where people do this professionally. And in the United States, regular human
+          insulin is sold without a prescription in most states, which makes the most dangerous
+          compound in this reference also one of the easiest to obtain. Cheap and available are
+          facts about supply chains, not about safety.`,
+          `The honest summary is that insulin has an unmatched record as replacement therapy for
+          people who cannot make their own, and no controlled evidence at all as a physique drug,
+          set against a failure mode that is fast, common in the case reports, and unforgiving of
+          an ordinary bad day. That is a real trade-off and it belongs to the person making it, but
+          it should be made with a doctor who knows what else you are taking rather than from a
+          forum thread.`
+        ]
+      }
+    ],
+    consLede: `From the app&rsquo;s own entry. The first two items are the page: everything else is
+      a consequence of them.`,
+    faq: [
+      ['Is insulin legal to buy?', [
+        `In the United States, regular human insulin &mdash; Humulin R and Novolin R &mdash; is sold
+         without a prescription in most states. The rapid- and long-acting analogues require one. Being
+         legal and being safe are unrelated questions here, and the availability is a large part of why
+         the risk is worth spelling out.`]],
+      ['Does it actually build muscle?', [
+        `There are no controlled trials in non-diabetic athletes, and there are unlikely ever to be, because
+         inducing hypoglycaemia in healthy volunteers for a physique endpoint is not approvable. The
+         mechanistic case is that insulin permits protein synthesis rather than driving it, and that ordinary
+         post-meal levels already saturate that. Much of the visible effect is glycogen and water.`]],
+      ['What does a hypo feel like?', [
+        `Sweating, shaking, a racing heart, sudden hunger and anxiety first. Then confusion, slurred speech
+         and impaired judgement as the brain runs short of glucose &mdash; and that stage is the problem,
+         because it removes the ability to recognise what is happening and act on it. Seizure and coma follow.`]],
+      ['What do you do if someone is confused or unresponsive?', [
+        `If they can still swallow reliably, fast-acting carbohydrate: glucose tablets, juice, regular soda.
+         If they cannot, call emergency services and give glucagon if it is available &mdash; nasal or
+         auto-injector. Never put anything in the mouth of an unconscious person.`]],
+      ['Why does this page carry no dose?', [
+        `Because insulin dosing is titrated against measured glucose by someone who can see the whole
+         picture, not chosen from a reference table. Every compound page here strips performance dosing;
+         this is the one where publishing a number could kill a reader.`]],
+      ['Does it interact with semaglutide or tirzepatide?', [
+        `Yes, and it is a recognised clinical interaction rather than a theoretical one. GLP-1 agonists lower
+         glucose and suppress appetite, so the same insulin dose goes further. Guidelines call for the insulin
+         to be reduced when a GLP-1 is started or increased, under medical supervision.`]]
+    ],
+    basis: [
+      ['Glucose, amino acid and potassium uptake into cells',
+        'Established endocrinology; the basis for insulin therapy since 1922'],
+      ['FDA approval for diabetes mellitus',
+        'Approved and on the WHO Model List of Essential Medicines'],
+      ['Over-the-counter availability of regular human insulin',
+        'Sold without prescription in most US states; the analogues are prescription-only'],
+      ['Muscle gain in non-diabetic athletes',
+        'No controlled trials exist; the case rests on mechanism and on reports from users'],
+      ['Insulin permits rather than drives protein synthesis',
+        'Clamp studies separating insulin from amino acid availability in healthy adults'],
+      ['Hypoglycaemic death and brain injury in bodybuilders',
+        'Documented in published case reports; sleep and being alone recur in the accounts'],
+      ['Hypokalaemia from a large dose',
+        'Established; insulin with glucose is a standard hospital treatment for hyperkalaemia'],
+      ['Alcohol deepening hypoglycaemia',
+        'Established: alcohol suppresses hepatic glucose output'],
+      ['Unit-versus-millilitre dosing errors',
+        'A documented source of tenfold overdose in clinical settings']
+    ],
+    cta: `If insulin is in your protocol, the record is not paperwork &mdash; it is the thing that
+      lets someone else reconstruct what happened. TherapyLog keeps the dose, the time and the
+      glucose together.`
+  },
 };

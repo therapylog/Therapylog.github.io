@@ -106,6 +106,7 @@ const COMPOUND_CLASS = {
   tprop: 'Androgen (testosterone ester)',
   proviron: 'Androgen (DHT derivative)',
   amino1mq: 'Metabolic research compound',
+  insulin: 'Peptide hormone',
   isotretinoin: 'Retinoid',
   raloxifene: 'Selective oestrogen receptor modulator',
   caberbromo: 'Dopamine agonist',
