@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Thyroid Panel: TSH, Free T4, Free T3 and Reverse T3 | TherapyLog</title>
+<meta name="description" content="How to read TSH, free T4, free T3, reverse T3 and thyroid antibodies — including why testosterone lowers total T4 with no thyroid disease at all.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/markers/thyroid-panel/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Thyroid Panel: TSH, Free T4, Free T3 and Reverse T3 | TherapyLog"><meta property="og:description" content="How to read TSH, free T4, free T3, reverse T3 and thyroid antibodies — including why testosterone lowers total T4 with no thyroid disease at all."><meta property="og:url" content="https://therapylog.app/markers/thyroid-panel/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Thyroid Panel: TSH, Free T4, Free T3 and Reverse T3 | TherapyLog"><meta name="twitter:description" content="How to read TSH, free T4, free T3, reverse T3 and thyroid antibodies — including why testosterone lowers total T4 with no thyroid disease at all."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/markers/">Lab markers</a> &rsaquo; Thyroid panel</div>
+    <h1>Thyroid panel: TSH, free T4, free T3, reverse T3 and thyroid antibodies</h1>
+
+    <p class="lede">Testosterone lowers thyroxine-binding globulin, so a man on TRT can post a low total T4 with a completely normal thyroid. That one binding-protein effect explains more alarming thyroid panels in this population than thyroid disease does — and it is why this panel is read on free hormones, not totals.</p>
+
+    <div class="updated">Last reviewed: 4 September 2026</div>
+
+    <h2>What the panel actually measures</h2>
+    <p>TSH is not a thyroid hormone. It is made by the pituitary, and it is the brain's instruction to the thyroid rather than the thyroid's output. The gland itself secretes mostly thyroxine (T4) and a little triiodothyronine (T3); most of the T3 circulating in you was made outside the thyroid, by enzymes stripping an iodine off T4 in liver, kidney and other tissue. Reverse T3 comes off the same T4 pool by a different cut and does nothing. TPO and thyroglobulin antibodies are not hormones at all — they are immune proteins aimed at the gland.</p>
+    <p>The other split on the panel is bound against free. Well over 99 per cent of the T4 and T3 in blood is stuck to carrier proteins — thyroxine-binding globulin (TBG) mainly, then transthyretin and albumin. A <em>total</em> T4 counts everything, bound and unbound. A <em>free</em> T4 estimates the small unbound fraction, which is the part that reaches tissue. Both are on this panel. They are not the same measurement and they do not fail in the same way.</p>
+    <p><span class="ev ev-est">Established clinical use</span> TSH is the first test for a reason, and it is not tradition. Because the pituitary is itself reading thyroid hormone and responding to it, TSH integrates the signal and amplifies it, so it moves before free T4 has visibly left its range. Guideline practice is to use serum TSH as the initial test for suspected primary thyroid dysfunction, and as the test used to monitor replacement once someone is on it <sup class="cite"><a href="#src-1">1</a></sup>. Free T4 is the confirming measurement, not the screening one.</p>
+
+    <h2>Why testosterone lowers your total T4</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Androgens lower thyroxine-binding globulin, and this has been measured directly rather than inferred. When women with normal thyroid function were given an androgen, serum TBG and total T4 fell over the following weeks while free T4 and TSH did not move at all <sup class="cite"><a href="#src-2">2</a></sup>. Oestrogen does the opposite — it raises TBG, and hypothyroid women started on oestrogen needed more thyroxine because more of it was being held in the bound compartment <sup class="cite"><a href="#src-3">3</a></sup>. Less carrier protein, less total hormone, same free hormone.</p>
+    <p>For a man on testosterone that has one very practical consequence. A total T4 sitting at the bottom of the reference range, or under it, alongside a normal TSH and a normal free T4, is the expected binding-protein signature of androgen exposure. It is not hypothyroidism, and it does not become hypothyroidism because the number printed in bold on the report. Total T3 shifts the same way for the same reason. That is why this panel is read on free hormones, and why the totals — which the app still stores, because your report prints them — are the weaker two numbers on it.</p>
+    <p>There is one group for whom this matters a great deal rather than a little: people already taking thyroid hormone. In the same study, hypothyroid women on a settled replacement dose became biochemically over-replaced once the androgen was added, because their dose had been fitted to the old binding-protein state <sup class="cite"><a href="#src-2">2</a></sup>. The oestrogen study is the mirror image <sup class="cite"><a href="#src-3">3</a></sup>. So if you take levothyroxine, liothyronine or desiccated thyroid and you start, stop or substantially change testosterone — or change an aromatase inhibitor, which moves oestrogen — the panel is worth repeating a few weeks later. What happens to the thyroid dose after that is a decision for whoever prescribes it, and they need to be told the testosterone changed.</p>
+
+    <h2>TSH first, and what a TSH number is worth</h2>
+    <p><span class="ev ev-est">Established clinical use</span> The relationship between TSH and free T4 is roughly logarithmic rather than proportional: a small movement in free T4 produces a large movement in TSH. Analysis of repeated measurements within individuals found that the log TSH to free T4 relationship is predominantly linear inside a given person, even though it looks messy and non-linear once you pool a population <sup class="cite"><a href="#src-4">4</a></sup>. The useful reading is that TSH is a sensitive amplifier of <em>your</em> thyroid state, and that your own serial values carry more information than where you happen to sit in someone else's distribution.</p>
+    <p>An amplifier is also twitchy. TSH has a diurnal rhythm, moves with acute illness, and lags a real change in thyroid hormone by weeks rather than days. A single out-of-range TSH with normal free hormones is a reason to repeat the test, not a diagnosis. It is also the number watched over time on this panel, which is why TSH sits on the monitoring list for levothyroxine, liothyronine, desiccated thyroid and lithium in the app rather than being a one-off screen.</p>
+    <p>Every pattern above is a reason to take the panel, the units and the assay to the clinician who manages your thyroid, not a reason to adjust anything on your own. A thyroid result read in isolation from symptoms and from the rest of the panel is exactly the kind of number that gets treated when it should have been repeated.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> About the 0.5–2.5 optimal band in the fact box: it is a convention and should be treated as one. It draws on population data in which most people without thyroid antibodies sit comfortably below 2.5, and on a long-running argument that an upper reference limit near 4.0 is inflated by undiagnosed autoimmune disease sitting inside the reference population. That argument has been made carefully and repeatedly, and it has not been settled <sup class="cite"><a href="#src-5">5</a></sup>. The band is non-diagnostic. Being outside it is not a finding, being inside it is not a clean bill of health, and the interval your own laboratory printed against your own result on its own analyser beats both. A TSH outside <em>that</em> interval on repeat testing is the version worth taking to the clinician who prescribes for you.</p>
+
+    <h2>Reverse T3, honestly</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Reverse T3 is what you get when an enzyme takes the iodine off the inner ring of T4 instead of the outer one. It is inactive. It rises reliably when the body down-regulates thyroid hormone turnover, and the clearest demonstration is nutritional: in fasted men serum T3 fell by roughly half with a reciprocal rise in reverse T3, while a hypocaloric diet that removed carbohydrate lowered T3 without significantly raising rT3 <sup class="cite"><a href="#src-6">6</a></sup>. Illness, surgery, injury and sustained energy deficit push the same way, a pattern usually called non-thyroidal illness syndrome <sup class="cite"><a href="#src-7">7</a></sup>.</p>
+    <p><span class="ev ev-theo">Animal-only or theoretical</span> What is not established is the model built on top of that. The "reverse T3 dominance" story — that rT3 blocks T3 at the receptor, producing tissue hypothyroidism behind a normal TSH, and that the free T3 to reverse T3 ratio is therefore a target to be corrected — is a mechanistic extrapolation. It has not been shown to identify people who benefit from treatment. The American Thyroid Association's position is that in healthy, non-hospitalised people, measuring reverse T3 does not help determine whether hypothyroidism exists and is not clinically useful <sup class="cite"><a href="#src-8">8</a></sup>, and rT3 testing is not recommended in professional practice guidelines for thyroid function <sup class="cite"><a href="#src-9">9</a></sup>.</p>
+    <p>That is worth saying plainly rather than sneering at, because the observation underneath it is real. The people who order rT3 are usually tired, usually dieting or training hard, and usually holding a panel that looks slightly off — and a low T3 with a high rT3 is precisely what a body under sustained energy restriction produces. An aggressive cut, a GLP-1-driven drop in intake, a heavy training block or a recent illness will all do it. The finding is genuine; what it means is that you are in a deficit or unwell, not that your thyroid needs a drug. This is why the app publishes a reference range for rT3 and deliberately publishes no optimal band — there is no target here worth naming, and inventing one would imply a treatment decision the evidence does not support. If the pattern persists once intake and illness are accounted for, that is a conversation with your prescribing clinician about why, not a number to chase.</p>
+
+    <h2>Antibodies, biotin, and the assay that produced the number</h2>
+    <p><span class="ev ev-est">Established clinical use</span> Thyroid peroxidase and thyroglobulin antibodies answer a different question from the rest of the panel: not whether the gland is working, but why. Their value is prognostic. In the twenty-year follow-up of the Whickham cohort, a raised TSH alone and positive thyroid antibodies alone each raised the odds of developing overt hypothyroidism substantially, and the two together raised them far more than either did on its own — with a considerably larger effect in men than in women <sup class="cite"><a href="#src-10">10</a></sup>. A positive TPO alongside a normal TSH usually changes nothing this month. It changes how closely the panel is watched, and for how long.</p>
+    <p><span class="ev ev-est">Established clinical use</span> Biotin is the most under-known cause of an alarming thyroid panel in a supplement-taking population, and this is a supplement-taking population. Most automated thyroid immunoassays run on biotin–streptavidin chemistry, and circulating biotin from a hair-skin-and-nails product or a stacked B-complex competes with it. The direction of the error depends on the assay format: competitive assays, which is how free T4 and free T3 are measured, read falsely <em>high</em>, while sandwich assays, which is how TSH is measured, read falsely <em>low</em> <sup class="cite"><a href="#src-11">11</a></sup>. The result imitates hyperthyroidism well enough that published cases were worked up and diagnosed as Graves' disease before anyone asked about the supplement <sup class="cite"><a href="#src-12">12</a></sup>. The FDA has issued guidance to diagnostic manufacturers on testing for and disclosing biotin interference precisely because it is neither rare nor obvious <sup class="cite"><a href="#src-13">13</a></sup>.</p>
+    <p>Method matters in a quieter way too. Free T4 and free T3 on a routine panel are estimates produced by an immunoassay, not direct measurements of unbound hormone, and different manufacturers' methods disagree with each other and with equilibrium dialysis followed by mass spectrometry, with the gap widest away from the middle of the range <sup class="cite"><a href="#src-14">14</a></sup>. They are also sensitive to abnormal binding proteins: in familial dysalbuminaemic hyperthyroxinaemia, where an albumin variant binds T4 unusually, current free hormone immunoassays return wrong answers <sup class="cite"><a href="#src-15">15</a></sup>. That is the same class of problem as the TBG shift at the top of this page, and it is why a free T4 that moved when you changed laboratories may have moved because the assay changed rather than because you did.</p>
+    <p>So the working rule for a panel that does not match how you feel is unglamorous. Repeat it, on the same platform as last time, after stopping biotin, and tell the laboratory what you take — supplements and testosterone included. A result that survives that is worth acting on; one that does not was an artefact, and acting on it would have been the mistake. What to do about a result that does survive is not something a reference page can tell you, because the answer turns on your antibodies, your symptoms, your other medication and your own laboratory's intervals. That decision belongs to the clinician who prescribes your thyroid medication — and if you are also on testosterone, they need to know that too, because the two panels move each other.</p>
+
+    <h2>What the app records for this marker</h2>
+
+    <div class="facts">
+      <dl>
+        <dt>Marker</dt><dd>TSH</dd>
+        <dt>Panel group</dt><dd>thyroid</dd>
+        <dt>Canonical unit</dt><dd>mIU/L</dd>
+        <dt>Units accepted</dt><dd><strong>mIU/L</strong> <em>(canonical)</em><br>uIU/mL <em>(× 1 → mIU/L)</em><br>mcIU/mL <em>(× 1 → mIU/L)</em><br>mIU/mL <em>(× 1000 → mIU/L)</em></dd>
+        <dt>Generic reference range</dt><dd>0.4–4 mIU/L <em>— generic reference range, male default. Your lab's printed interval takes precedence over this.</em></dd>
+        <dt>Optimal band</dt><dd>0.5–2.5 mIU/L <span class="nondx">non-diagnostic</span></dd>
+        <dt>LOINC</dt><dd>3016-3, 11580-8 <em>— unverified seed, not checked against a vendor payload</em></dd>
+      </dl>
+    </div>
+
+    <div class="widget">
+      <div class="card">
+        <div class="card-title">Unit converter</div>
+        <p class="hint">Runs the app's own conversion, which means it refuses the
+        conversions the app refuses instead of approximating them.</p>
+        <div class="ig"><label class="il" for="mk-key">Marker</label>
+          <select id="mk-key" onchange="mkConvert()"><option value="tsh">TSH</option><option value="ft4">Free T4</option><option value="ft3">Free T3</option><option value="rt3">Reverse T3</option><option value="tpo">TPO Antibodies</option><option value="tgab">Thyroglobulin Antibodies</option><option value="t4total">Total T4</option><option value="t3total">Total T3</option></select></div>
+        <div class="ig"><label class="il" for="mk-val">Value as your report prints it</label>
+          <input id="mk-val" type="text" inputmode="decimal" placeholder="e.g. 96" oninput="mkConvert()"></div>
+        <div class="ig"><label class="il" for="mk-unit">Unit on your report</label>
+          <select id="mk-unit" onchange="mkConvert()"></select></div>
+        <div id="mk-out"></div>
+      </div>
+    </div>
+
+    <div class="shared">
+    <h2>Your lab's range wins</h2>
+    <p>The reference interval printed on your own report is the one that counts, and it is the
+    one TherapyLog flags against when your report carries it. That is not deference for its own
+    sake: a reference interval belongs to the assay, the instrument and the population the lab
+    validated it on, and two labs measuring the same blood can legitimately print different
+    intervals. A generic range — like the one in the fact box above — is what the app falls back
+    to when your report did not include one, and it is the weaker of the two.</p>
+    <p>The same applies to any optimal band. Those are drawn from clinical literature and
+    community practice for reading a trend over time, they are
+    <span class="nondx">non-diagnostic</span>, and sitting outside one is not by itself a
+    finding. What a value means for you is a question for the clinician who can see your whole
+    chart.</p>
+    </div>
+
+    <h2>Compounds whose monitoring panel includes this marker</h2>
+
+    <p>Generated by matching this marker's own aliases against the monitoring note on every
+      compound in the app's reference, so the list is the app's, not an author's.</p>
+
+    <ul class="mon-list">
+      <li>Liothyronine (T3) <span class="src">Free T3, Free T4, TSH, Reverse T3, heart rate (resting), blood pressure, bone density (long-term). TSH will suppress — this is expected at therapeutic T3 doses.</span></li>
+      <li>Levothyroxine (T4) <span class="src">Free T4, Free T3, TSH, Reverse T3 at 6-8 weeks after any dose change, then every 6-12 months stable.</span></li>
+      <li>Natural Desiccated Thyroid <span class="src">Free T4, Free T3, TSH, heart rate. TSH typically suppresses — guide dose by Free T3 target.</span></li>
+      <li>Lithium Orotate <span class="src">TSH (thyroid) every 6 months, kidney function (creatinine, eGFR) annually. Mood and cognitive self-assessment.</span></li>
+    </ul>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>Why is my total T4 low on testosterone but my free T4 normal?</h3>
+    <p>Testosterone lowers thyroxine-binding globulin, the main carrier protein for thyroid hormone
+           in blood. Less carrier means less bound hormone, so the total falls while the unbound
+           fraction that actually reaches tissue stays where it was. A low total T4 with a normal free
+           T4 and a normal TSH on testosterone is the expected pattern, not a thyroid problem. Total T3
+           behaves the same way.</p>
+    <p>It is a different situation if you already take thyroid hormone. That dose was fitted to
+           your previous binding-protein state, so a change in testosterone can shift the panel enough
+           to matter. Repeat the panel a few weeks after the change and take it to the clinician who
+           prescribes the thyroid medication.</p>
+    <h3>Should I test reverse T3?</h3>
+    <p>Reverse T3 tells you the body is down-regulating thyroid hormone turnover — from illness,
+           injury, fasting or a sustained energy deficit. That signal is real and reproducible. What it
+           does not do is diagnose hypothyroidism or identify people who benefit from treatment, and it
+           is not recommended in professional guidelines for thyroid function testing.</p>
+    <p>TherapyLog carries a reference range for reverse T3 and no optimal band, deliberately. There
+           is no target here worth naming, and publishing one would imply a treatment decision the
+           evidence does not support.</p>
+    <h3>Is a TSH of 3.5 too high?</h3>
+    <p>It is inside almost every laboratory's reference interval and outside the 0.5–2.5 band you
+           will see quoted in community discussion. That band is a convention drawn from population
+           data and an unsettled argument about the upper reference limit. It is not a guideline
+           threshold and it is non-diagnostic — being outside it is not a finding.</p>
+    <p>What matters more is the interval your own laboratory printed on your own report, whether
+           the value is stable across repeat draws, whether your free T4 is normal, and whether you
+           have thyroid antibodies. A TSH outside your own lab's interval on repeat testing is the
+           version worth taking to your clinician.</p>
+    <h3>Can biotin supplements affect a thyroid test?</h3>
+    <p>Yes, and it is the first thing to rule out on a panel that looks dramatic but does not match
+           how you feel. Most automated thyroid immunoassays run on biotin–streptavidin chemistry. High
+           circulating biotin pushes free T4 and free T3 falsely high and TSH falsely low, producing a
+           picture that closely resembles hyperthyroidism.</p>
+    <p>Published cases have been worked up and diagnosed as Graves' disease before anyone asked
+           about the supplement. Stop biotin before a draw and tell the laboratory you were taking it.
+           Assays vary in how susceptible they are, so the laboratory is the right place to ask.</p>
+    <h3>Does a positive TPO antibody mean I need treatment?</h3>
+    <p>Not on its own. Antibodies establish that thyroid dysfunction, if it appears, is autoimmune
+           in origin. They do not by themselves mean the gland is failing now, and a positive TPO with
+           a normal TSH is generally watched rather than treated.</p>
+    <p>What they change is prognosis. In long-term follow-up data a raised TSH and positive
+           antibodies each increased the odds of progressing to overt hypothyroidism, and the two
+           together increased it far more, with a notably larger effect in men. In practice that means
+           a closer monitoring interval, and how close is a decision for your clinician.</p>
+
+    <h2>Sources</h2>
+
+    <p>Every claim above that is not a definition is either labelled by evidence tier or
+    carries a numbered reference to one of these.</p>
+
+    <ol class="sources">
+      <li id="src-1">
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4267409/" rel="nofollow noopener" target="_blank">Jonklaas J, Bianco AC, Bauer AJ, et al., Guidelines for the Treatment of Hypothyroidism: Prepared by the American Thyroid Association Task Force on Thyroid Hormone Replacement, Thyroid 24(12):1670–1751 (2014)</a>
+        <span class="src">Establishes serum TSH as the initial test for suspected primary thyroid dysfunction and as the test used to monitor thyroid hormone replacement.</span>
+      </li>
+      <li id="src-2">
+        <a href="https://www.acpjournals.org/doi/10.7326/0003-4819-121-4-199408150-00002" rel="nofollow noopener" target="_blank">Arafah BM, Decreased levothyroxine requirement in women with hypothyroidism during androgen therapy for breast cancer, Ann Intern Med 121(4):247–251 (1994)</a>
+        <span class="src">Androgen lowered thyroxine-binding globulin and total T4 while free T4 and TSH stayed unchanged in euthyroid women, and over-replaced those already taking thyroxine.</span>
+      </li>
+      <li id="src-3">
+        <a href="https://www.nejm.org/doi/full/10.1056/NEJM200106073442302" rel="nofollow noopener" target="_blank">Arafah BM, Increased need for thyroxine in women with hypothyroidism during estrogen therapy, N Engl J Med 344(23):1743–1749 (2001)</a>
+        <span class="src">The mirror-image experiment: oestrogen raised TBG and increased the thyroxine requirement in treated hypothyroid women.</span>
+      </li>
+      <li id="src-4">
+        <a href="https://academic.oup.com/jcem/article/101/3/1151/2804899" rel="nofollow noopener" target="_blank">Rothacker KM, Brown SJ, Hadlow NC, Wardrop R, Walsh JP, Reconciling the Log-Linear and Non–Log-Linear Nature of the TSH-Free T4 Relationship: Intra-Individual Analysis of a Large Population, J Clin Endocrinol Metab 101(3):1151 (2016)</a>
+        <span class="src">Within an individual the log TSH to free T4 relationship is predominantly linear, even where the pooled population relationship is not.</span>
+      </li>
+      <li id="src-5">
+        <a href="https://www.nature.com/articles/nrendo.2011.13" rel="nofollow noopener" target="_blank">Laurberg P, Andersen S, Carlé A, Karmisholt J, Knudsen N, Pedersen IB, The TSH upper reference limit: where are we at?, Nat Rev Endocrinol 7(4):232–239 (2011)</a>
+        <span class="src">Reviews the unresolved argument over lowering the TSH upper reference limit from about 4.0 towards 2.5, which is where the community 'optimal' band comes from.</span>
+      </li>
+      <li id="src-6">
+        <a href="https://academic.oup.com/jcem/article/42/1/197/2685319" rel="nofollow noopener" target="_blank">Spaulding SW, Chopra IJ, Sherwin RS, Lyall SS, Effect of caloric restriction and dietary composition on serum T3 and reverse T3 in man, J Clin Endocrinol Metab 42(1):197–200 (1976)</a>
+        <span class="src">Fasting roughly halved serum T3 with a reciprocal rise in reverse T3; a carbohydrate-free hypocaloric diet lowered T3 without significantly raising rT3.</span>
+      </li>
+      <li id="src-7">
+        <a href="https://www.ncbi.nlm.nih.gov/books/NBK285570/" rel="nofollow noopener" target="_blank">The Non-Thyroidal Illness Syndrome, Endotext (NCBI Bookshelf)</a>
+        <span class="src">Describes the low-T3, high-rT3 pattern as a physiological response to illness and energy restriction rather than thyroid failure.</span>
+      </li>
+      <li id="src-8">
+        <a href="https://www.thyroid.org/thyroid-function-tests/" rel="nofollow noopener" target="_blank">American Thyroid Association, Thyroid Function Tests</a>
+        <span class="src">States that in healthy, non-hospitalised people reverse T3 measurement does not help determine whether hypothyroidism exists and is not clinically useful.</span>
+      </li>
+      <li id="src-9">
+        <a href="https://www.annclinlabsci.org/content/50/3/383.full" rel="nofollow noopener" target="_blank">Trust your Endocrinologist – Report and Recommendations on the Ordering of Reverse T3 Testing, Ann Clin Lab Sci 50(3):383 (2020)</a>
+        <span class="src">Finds rT3 testing is not recommended by professional practice guidelines and that most orders audited were not clinically justified.</span>
+      </li>
+      <li id="src-10">
+        <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2265.1995.tb01894.x" rel="nofollow noopener" target="_blank">Vanderpump MPJ, Tunbridge WMG, French JM, et al., The incidence of thyroid disorders in the community: a twenty-year follow-up of the Whickham Survey, Clin Endocrinol 43:55–68 (1995)</a>
+        <span class="src">Quantifies how a raised TSH and positive thyroid antibodies, separately and together, change the odds of progressing to overt hypothyroidism, with a larger effect in men.</span>
+      </li>
+      <li id="src-11">
+        <a href="https://academic.oup.com/edrv/article/39/5/830/5048350" rel="nofollow noopener" target="_blank">Favresse J, Burlacu MC, Maiter D, Gruson D, Interferences With Thyroid Function Immunoassays: Clinical Implications and Detection Algorithm, Endocr Rev 39(5):830–850 (2018)</a>
+        <span class="src">Reviews biotin, macro-TSH, heterophile, anti-streptavidin and anti-ruthenium interference, including the format-dependent direction of biotin error on TSH versus free T4 and free T3.</span>
+      </li>
+      <li id="src-12">
+        <a href="https://academic.oup.com/jcem/article/101/9/3251/2806423" rel="nofollow noopener" target="_blank">Elston MS, Sehgal S, Du Toit S, Yarndley T, Conaglen JV, Factitious Graves' Disease Due to Biotin Immunoassay Interference — A Case and Review of the Literature, J Clin Endocrinol Metab 101(9):3251–3255 (2016)</a>
+        <span class="src">Documents biotin interference producing a thyroid panel indistinguishable from Graves' disease, with a review of similar published cases.</span>
+      </li>
+      <li id="src-13">
+        <a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents/testing-biotin-interference-in-vitro-diagnostic-devices" rel="nofollow noopener" target="_blank">US Food and Drug Administration, Testing for Biotin Interference in In Vitro Diagnostic Devices (guidance)</a>
+        <span class="src">FDA guidance directing diagnostic manufacturers to test for and disclose biotin interference, which is why the problem is treated as routine rather than exotic.</span>
+      </li>
+      <li id="src-14">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/37848158/" rel="nofollow noopener" target="_blank">Large method differences for free thyroid hormone assays in the hyperthyroid range can affect assessment of hyperthyroid status: comparison of Abbott Alinity to Roche Cobas, Siemens Centaur and equilibrium dialysis LC-MS/MS (PubMed 37848158)</a>
+        <span class="src">Shows that free T4 and free T3 results are method-dependent and that platforms diverge materially from equilibrium dialysis with mass spectrometry.</span>
+      </li>
+      <li id="src-15">
+        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7222281/" rel="nofollow noopener" target="_blank">Familial dysalbuminaemic hyperthyroxinaemia interferes with current free thyroid hormone immunoassay methods</a>
+        <span class="src">Demonstrates that an abnormal binding protein makes routine free thyroid hormone immunoassays give wrong answers — the same failure mode as an altered TBG state.</span>
+      </li>
+    </ol>
+
+    <div class="cta-box">
+      <p>TherapyLog logs this marker with the unit, the reference interval your report printed and the assay method beside it, so a trend cannot silently switch methods on you.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=thyroid-panel"
+         id="tl-cta" data-campaign="thyroid-panel">Log your bloodwork</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+
+var MARKER_REGISTRY = {
+  "tsh": Object.assign({"label":"TSH","group":"thyroid","loinc":["3016-3","11580-8"],"aliases":["tsh","thyroid stimulating hormone","thyrotropin"],"canonicalUnit":"mIU/L","optimal":[0.5,2.5]}, { units: { "mIU/L": 1, "uIU/mL": 1, "mcIU/mL": 1, "mIU/mL": 1000 } }),
+  "ft4": Object.assign({"label":"Free T4","group":"thyroid","loinc":["3024-7"],"aliases":["free t4","t4 free","free thyroxine","ft4","t4, free"],"canonicalUnit":"ng/dL","optimal":[1,1.7]}, { units: { "ng/dL": 1, "pmol/L": 0.0777 } }),
+  "ft3": Object.assign({"label":"Free T3","group":"thyroid","loinc":["3051-0"],"aliases":["free t3","t3 free","free triiodothyronine","ft3","t3, free"],"canonicalUnit":"pg/mL","optimal":[3.2,4.2]}, { units: { "pg/mL": 1, "pmol/L": 0.651 } }),
+  "rt3": Object.assign({"label":"Reverse T3","group":"thyroid","loinc":["3053-6"],"aliases":["reverse t3","rt3","t3 reverse"],"canonicalUnit":"ng/dL"}, { units: { "ng/dL": 1, "ng/mL": 100 } }),
+  "tpo": Object.assign({"label":"TPO Antibodies","group":"thyroid","loinc":["8099-8","11572-5"],"aliases":["tpo","tpo antibodies","thyroid peroxidase antibodies","anti-tpo","thyroperoxidase antibody"],"canonicalUnit":"IU/mL"}, { units: { "IU/mL": 1, "U/mL": 1, "kIU/L": 1 } }),
+  "tgab": Object.assign({"label":"Thyroglobulin Antibodies","group":"thyroid","loinc":["8098-0"],"aliases":["thyroglobulin antibodies","tgab","anti-thyroglobulin","thyroglobulin ab"],"canonicalUnit":"IU/mL"}, { units: { "IU/mL": 1, "U/mL": 1, "kIU/L": 1 } }),
+  "t4total": Object.assign({"label":"Total T4","group":"thyroid","loinc":["3026-2"],"aliases":["total t4","t4 total","t4, total","thyroxine total","thyroxine"],"canonicalUnit":"mcg/dL"}, { units: { "mcg/dL": 1, "ug/dL": 1, "nmol/L": 0.0777 } }),
+  "t3total": Object.assign({"label":"Total T3","group":"thyroid","loinc":[],"aliases":["total t3","t3 total","t3, total","triiodothyronine total","triiodothyronine"],"canonicalUnit":"ng/dL"}, { units: { "ng/dL": 1, "nmol/L": 65.1 } })
+};
+
+const _norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+function normalizeValue(key, value, unit) {
+const m = MARKER_REGISTRY[key];
+if (!m) return { ok:false, reason:'unknown-marker' };
+
+const raw = String(value == null ? '' : value).trim();
+const v = typeof value === 'number' ? value : parseFloat(raw.replace(/[<>,]/g, ''));
+if (!isFinite(v)) return { ok:false, reason:'non-numeric' };
+/* "<3" is an assay limit, not the number 3 — keep the operator as provenance. */
+const censoredAs = /^[<>]/.test(raw) ? raw : null;
+
+const u = String(unit == null ? '' : unit).trim();
+const uKey = Object.keys(m.units).find(k => _norm(k) === _norm(u));
+
+if (!u || uKey === m.canonicalUnit) {
+return { ok:true, value:v, unit:m.canonicalUnit, converted:false, unitAssumed:!u, censoredAs };
+}
+if ((m.noConvert || []).some(n => _norm(n) === _norm(u))) {
+return { ok:false, reason:'no-valid-conversion', unit:u, note:m.unitNote };
+}
+if (!uKey) return { ok:false, reason:'unrecognized-unit', unit:u };
+
+const f = m.units[uKey];
+const out = typeof f === 'function' ? f(v) : v * f;
+return { ok:true, value:Math.round(out * 1e4) / 1e4, unit:m.canonicalUnit,
+converted:true, from:`${raw || v} ${u}`, note:m.unitNote, censoredAs };
+}
+
+
+function mkUnits() {
+  var key = document.getElementById('mk-key').value;
+  var sel = document.getElementById('mk-unit');
+  var m = MARKER_REGISTRY[key];
+  var keep = sel.value;
+  sel.innerHTML = Object.keys(m.units).concat(m.noConvert || [])
+    .map(function (u) { return '<option value="' + u + '">' + u + '</option>'; }).join('');
+  if (keep && Object.keys(m.units).concat(m.noConvert || []).indexOf(keep) >= 0) sel.value = keep;
+}
+
+function mkConvert() {
+  var key = document.getElementById('mk-key').value;
+  var out = document.getElementById('mk-out');
+  if (document.getElementById('mk-unit').options.length === 0 ||
+      !MARKER_REGISTRY[key].units[document.getElementById('mk-unit').value] &&
+      (MARKER_REGISTRY[key].noConvert || []).indexOf(document.getElementById('mk-unit').value) < 0) {
+    mkUnits();
+  }
+  var raw = document.getElementById('mk-val').value;
+  if (!raw.trim()) { out.innerHTML = '<p class="hint">Enter a value to convert.</p>'; return; }
+  var r = normalizeValue(key, raw, document.getElementById('mk-unit').value);
+  if (r.ok) {
+    out.innerHTML = '<div class="mk-result"><strong>' + r.value + ' ' + r.unit + '</strong>' +
+      (r.converted ? '<span class="src">converted from ' + r.from + '</span>'
+                   : '<span class="src">already in the canonical unit</span>') +
+      (r.censoredAs ? '<span class="src">reported as ' + r.censoredAs +
+        ' — an assay limit, not a measured value</span>' : '') +
+      (r.note ? '<span class="src">' + r.note + '</span>' : '') + '</div>';
+  } else {
+    var why = {
+      'no-valid-conversion': 'There is no valid conversion for that unit, so the app refuses it rather than approximating.',
+      'unrecognized-unit': 'That unit is not one this marker is reported in.',
+      'non-numeric': 'That is not a number the converter can read.',
+      'unknown-marker': 'Unknown marker.'
+    }[r.reason] || r.reason;
+    out.innerHTML = '<div class="mk-result bad"><strong>Not converted</strong><span class="src">' +
+      why + (r.note ? ' ' + r.note : '') + '</span></div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  mkUnits(); mkConvert();
+});
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://therapylog.app/markers/thyroid-panel/#page",
+      "url": "https://therapylog.app/markers/thyroid-panel/",
+      "name": "Thyroid Panel: TSH, Free T4, Free T3 and Reverse T3 | TherapyLog",
+      "description": "How to read TSH, free T4, free T3, reverse T3 and thyroid antibodies — including why testosterone lowers total T4 with no thyroid disease at all.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-04",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Lab markers",
+            "item": "https://therapylog.app/markers/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Thyroid panel",
+            "item": "https://therapylog.app/markers/thyroid-panel/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

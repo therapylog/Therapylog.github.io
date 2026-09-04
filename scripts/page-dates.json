@@ -1,14 +1,22 @@
 {
   "/markers/": {
-    "hash": "4538610e4e51b505a86d2aa6601480645db1370813fca435043b8ed5761c0849",
+    "hash": "2c6bd16329749c09d911b671e957583b33bafd9a0312bb9ecfaf8980c89a2397",
     "lastmod": "2026-09-04"
   },
   "/markers/apob-vs-ldl/": {
     "hash": "7e1b6bd34ac071d3e3f55581504d16121da47c66f80f36a7dff1835fba823459",
     "lastmod": "2026-09-04"
   },
+  "/markers/dht/": {
+    "hash": "ef4f85cf279ec5832ad5620f7431f31f3bc51334fd049bd1607ee8a47689fd4b",
+    "lastmod": "2026-09-04"
+  },
   "/markers/estradiol-sensitive-vs-standard/": {
     "hash": "15f512aa8beec73368fa94e5db1512d600e67264ba5919ed378098c1ed4f4c47",
+    "lastmod": "2026-09-04"
+  },
+  "/markers/ferritin-and-iron-panel/": {
+    "hash": "da7a6629a413f25cab7ecff40dd38ac27bb97bd57b620d6521ab51314c5b4749",
     "lastmod": "2026-09-04"
   },
   "/markers/free-vs-total-testosterone/": {
@@ -20,7 +28,7 @@
     "lastmod": "2026-09-04"
   },
   "/markers/hematocrit-on-trt/": {
-    "hash": "217d966c467cec9f5b6883a21936af9ff9bd19db6e7294bad429415380e5ae07",
+    "hash": "0be25b78c1a5749a83e518641203ed3bb89a0fd1febbac47255eb56eb1f0b471",
     "lastmod": "2026-09-04"
   },
   "/markers/igf-1/": {
@@ -31,6 +39,10 @@
     "hash": "64db85c0367a5981e10cc292b833ecdb9a591791d3928c4712248a62c904402f",
     "lastmod": "2026-09-04"
   },
+  "/markers/lipoprotein-a/": {
+    "hash": "ed43a11f70ff55ed8e7238f477cc063b1ad37409a861bd61521e3c7cb3025dbd",
+    "lastmod": "2026-09-04"
+  },
   "/markers/prolactin/": {
     "hash": "fb2ead95bc7bb738524f3b758f0bc8ff86ac5087c9d7cf0526c5d07217f968e6",
     "lastmod": "2026-09-04"
@@ -39,12 +51,20 @@
     "hash": "9e7ef24101333c4e84df973621dd838e7e9adc0fd577762db9ef4136b0b1d877",
     "lastmod": "2026-09-04"
   },
+  "/markers/thyroid-panel/": {
+    "hash": "c3a6d02425ff7737c6952509c56fdf59d2d2f7272c2197bc680f4017b7fa8027",
+    "lastmod": "2026-09-04"
+  },
   "/markers/total-testosterone-immunoassay-vs-lcms/": {
     "hash": "20cc152878bff933acd4c5ec0c647e3c6b6c19eb7836e8cef6502b8b7a03e840",
     "lastmod": "2026-09-04"
   },
   "/markers/trt-bloodwork-checklist/": {
-    "hash": "25c9c89e874005b67083d201df6e7ec1439439d64047ea13443cbf4eb4879ca1",
+    "hash": "5b621142ad6bb90b1646a2365c3f11665b8db461ab5a86098660221732aca3dc",
+    "lastmod": "2026-09-04"
+  },
+  "/markers/vitamin-d/": {
+    "hash": "d956939c9f0d9bd36e9bd9a3c204f0b167e38290b567b530d306a1b576c569cd",
     "lastmod": "2026-09-04"
   },
   "/tools/": {
