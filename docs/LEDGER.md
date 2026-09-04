@@ -553,6 +553,43 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**IndexNow submission automated (4 Sep 2026)**
+
+`scripts/indexnow-submit.js` had to be run by hand after every deploy, and the
+owner reasonably could not tell from Bing's own documentation what to do -- that
+page offers CMS plugins for platforms this site does not use and a four-step
+manual setup whose first two steps were already done here. It now runs itself.
+
+- **`.github/workflows/indexnow.yml`** fires on every merge to `main`, diffs the
+  merge against the main it landed on, and submits only the URLs that actually
+  changed. Also `workflow_dispatch` with an `all` toggle for a deliberate
+  whole-sitemap resubmission.
+- **This is the one workflow in the repo that makes a network call.** Every
+  other one is hermetic on purpose: validation must not depend on someone
+  else's uptime. Submission is a different kind of job -- it has no verdict to
+  give and nothing downstream depends on it -- so it is a separate workflow
+  rather than a step bolted onto validation. The rationale is written into the
+  file so the next person does not have to reconstruct it.
+- **`scripts/indexnow-changed.js`** maps changed repo paths to public URLs and
+  filters the result through `sitemap.xml`. The sitemap being the authority is
+  what makes the mapping safe: a renamed script, a deleted page, a docs edit or
+  a path that is not a page at all produces nothing. Two rules cover the site --
+  a directory index publishes its directory, any other `.html` publishes itself
+  without the extension -- so `providers/apply.html` is `/providers/apply` and
+  `providers/index.html` is `/providers/`.
+- **Empty means submit nothing, and that needed guarding.**
+  `indexnow-submit.js` with no arguments submits the entire sitemap, which is
+  the exact opposite of what the workflow wants when nothing public changed. The
+  workflow checks for an empty list before calling it and the footgun is now
+  documented at the top of both scripts.
+- **Verified against three real merges** before shipping: the badge fix (1 URL),
+  insulin (14), and Phase 3 batches 2-4 (131). A docs-and-scripts-only push
+  correctly submits nothing, and paths outside the sitemap -- including an
+  absolute URL or a traversal attempt passed as a filename -- produce no output.
+- **Still owner-side:** resubmitting `sitemap.xml` in Search Console and Bing
+  Webmaster. Google does not participate in IndexNow, so nothing here affects
+  Google discovery.
+
 **The encyclopedia's regulatory badge rewritten (4 Sep 2026)**
 
 `getApprovalBadge()` classified a compound by substring-testing its approval
