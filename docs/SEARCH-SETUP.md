@@ -20,7 +20,7 @@ this says how, with the account and record detail filled in.
 | Search Console | **Not verified** | no `google-site-verification` TXT, no token in repo |
 | Bing | **Not verified** | no `msvalidate.01`, no `BingSiteAuth.xml` |
 | Sitemap | **Live, 44 URLs** | `https://therapylog.app/sitemap.xml` → 200 |
-| IndexNow key | **Live** | `b9905eb333a13114d6497ca202a607df.txt` → 200, contents correct |
+| IndexNow key | **Rotated 4 Sep 2026** | Now `615f8693ff6f4e55a3985a0ae070b7a3` — the key Bing Webmaster Tools generated. Replaces the earlier self-generated `b9905eb…`, which was live and equally valid; rotated only so the dashboard and the hosted file agree. **Not live until this lands on `main` and Pages rebuilds.** |
 | Vercel site project | **Built, no domain** | `therapylog-github-io` connected to this repo; last deploy READY and rendering; no production target, no custom domain |
 | Analytics script | **On all 46 pages** | `LAUNCH-CHECKLIST.md` §4's "13 pages" is stale |
 
@@ -90,8 +90,16 @@ with Yandex, Naver and Seznam. Google takes no part in IndexNow.
      `- BingSiteAuth.xml` under `include:` in `_config.yml`** — Jekyll skips it otherwise
      and the file 404s.
 3. Sitemaps → confirm `https://therapylog.app/sitemap.xml` is listed.
-4. Settings → IndexNow. Key file is already live; the key is
-   `b9905eb333a13114d6497ca202a607df`.
+4. Settings → IndexNow. The key is `615f8693ff6f4e55a3985a0ae070b7a3` — the one Bing
+   generated for you, now the one this repo hosts.
+
+   IndexNow keys are **not credentials**: the whole scheme works by publishing the key at a
+   public URL, so it is fine in a repo, in a dashboard screenshot, or in chat. Any key you
+   control is valid — Bing's generated key has no special status, it is just a convenience.
+   What matters is that `https://therapylog.app/<key>.txt` exists and contains exactly that
+   key. Rotation is "add the new file, delete the old one"; `scripts/indexnow-submit.js`
+   finds whichever 32-hex `.txt` sits at the repo root and refuses to run if there is more
+   than one.
 5. `node scripts/indexnow-submit.js` (add `--dry-run` to inspect the payload). Run after
    any deploy that changes pages; it reads `sitemap.xml`, so new pages need no script edit.
 
