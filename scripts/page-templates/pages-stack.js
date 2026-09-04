@@ -127,7 +127,7 @@ ${blocks}
 
   return [api.render(ctx, {
     url: '/tools/stack-checker/',
-    title: 'Can you take these together? Compound combination checker | TherapyLog',
+    title: 'Can you take these together? Combination check | TherapyLog',
     description: `${pairs.length} documented interaction pairs across testosterone ancillaries, ` +
       'GLP-1 medications and peptides — the mechanism and what to watch. Free, no account.',
     trail: api.toolsTrail([{ name: 'Combination checker', url: '/tools/stack-checker/',

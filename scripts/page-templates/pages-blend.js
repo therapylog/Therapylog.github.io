@@ -491,8 +491,8 @@ function build(ctx, api) {
     out.push(api.render(ctx, {
       url,
       title: b.title + ' | TherapyLog',
-      description: `What one draw of a ${b.nickname} vial delivers of each component, and why a ` +
-        `fixed ratio cannot match what each compound is dosed at on its own. Free, no account.`,
+      description: `What one draw of a ${b.nickname} vial delivers of each component, and ` +
+        `why a fixed ratio cannot match either compound alone. Free, no account.`,
       trail: api.toolsTrail([{ name: b.title, url, absolute: api.SITE + url }]),
       body,
       script: ctx.W.prologue({ attribution }) + '\n\n' + widget.fns + '\n\n' +

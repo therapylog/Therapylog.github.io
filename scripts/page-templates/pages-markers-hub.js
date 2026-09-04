@@ -110,8 +110,8 @@ function build(ctx, api) {
   return [api.render(ctx, {
     url: '/markers/',
     title: 'Lab markers, read with the assay in mind | TherapyLog',
-    description: 'Reference pages for the lab markers people on hormone therapy and peptide ' +
-      'protocols track, written with the assay method named wherever it changes the answer.',
+    description: 'Reference pages for the lab markers people on hormone therapy and ' +
+      'peptides track, with the assay named wherever it changes the answer.',
     type: 'CollectionPage',
     trail: [
       { name: 'Home', url: '/', absolute: api.SITE + '/' },

@@ -20,9 +20,8 @@ module.exports = {
   tc: {
     slug: 'testosterone-cypionate',
     h1: 'Testosterone cypionate: how long it lasts, how it is dosed, and what to monitor',
-    title: 'Testosterone Cypionate: Half-Life, Dosing and Monitoring | TherapyLog',
-    description: 'What the cypionate ester does to the release curve, why the schedule is ' +
-      'usually weekly or twice weekly, and the bloodwork that follows testosterone therapy.',
+    title: 'Testosterone Cypionate: half-life and dosing | TherapyLog',
+    description: 'What the cypionate ester does to the release curve, why the schedule is weekly or twice weekly, and the bloodwork that follows.',
     lede: `A six-day modelled half-life, a peak two days after the injection, and a panel that
       changes in fairly predictable ways. What the ester actually does, and what the numbers on
       the follow-up bloodwork are answering.`,
@@ -144,7 +143,7 @@ module.exports = {
   te: {
     slug: 'testosterone-enanthate',
     h1: 'Testosterone enanthate: the ester, the schedule, and where it differs from cypionate',
-    title: 'Testosterone Enanthate: Half-Life, Dosing and Monitoring | TherapyLog',
+    title: 'Testosterone Enanthate: half-life and dosing | TherapyLog',
     description: 'A four-and-a-half-day modelled half-life, a shorter ester chain than ' +
       'cypionate, and the one formulation difference that actually shows up in practice.',
     lede: `Two carbons shorter than cypionate, modelled at a four-and-a-half-day half-life, and
@@ -257,9 +256,8 @@ module.exports = {
   sema: {
     slug: 'semaglutide',
     h1: 'Semaglutide: what it does, how it is titrated, and what to watch',
-    title: 'Semaglutide: Mechanism, Titration and Monitoring | TherapyLog',
-    description: 'The GLP-1 receptor agonist behind the STEP and SELECT trials — mechanism, ' +
-      'why titration is measured in four-week steps, and what the follow-up panel looks for.',
+    title: 'Semaglutide: mechanism and titration | TherapyLog',
+    description: 'The GLP-1 agonist behind the STEP and SELECT trials: mechanism, why titration runs in four-week steps, and what the panel asks.',
     lede: `A GLP-1 receptor agonist engineered to survive for a week in a body that clears the
       natural hormone in minutes. What that engineering did, what the trials measured, and the
       two things worth monitoring that are not the number on the scale.`,
@@ -367,7 +365,7 @@ module.exports = {
   tirz: {
     slug: 'tirzepatide',
     h1: 'Tirzepatide: two receptors, one peptide, and what that changes',
-    title: 'Tirzepatide: Mechanism, Titration and Monitoring | TherapyLog',
+    title: 'Tirzepatide: mechanism and titration | TherapyLog',
     description: 'A single peptide acting at both the GIP and GLP-1 receptors — what the ' +
       'dual mechanism adds, what SURMOUNT-1 measured, and how the titration is paced.',
     lede: `One molecule that binds two incretin receptors rather than one. What the GIP arm
@@ -470,9 +468,8 @@ module.exports = {
   metformin: {
     slug: 'metformin',
     h1: 'Metformin: how it works, why the longevity interest, and what it depletes',
-    title: 'Metformin: Mechanism, Dosing Patterns and Monitoring | TherapyLog',
-    description: 'The biguanide behind most metabolic protocols — hepatic glucose output, ' +
-      'AMPK, the B12 problem, the renal limit, and where the longevity evidence actually is.',
+    title: 'Metformin: mechanism, dosing and monitoring | TherapyLog',
+    description: 'Hepatic glucose output, AMPK, the B12 problem, the renal limit, and where the longevity evidence for metformin actually is.',
     lede: `Sixty years of use, one of the best-characterised safety profiles in medicine, and a
       second life as a longevity candidate on evidence that is thinner than its reputation
       suggests. What it does, and the two monitoring items that are genuinely non-optional.`,
@@ -588,7 +585,7 @@ module.exports = {
   rapamycin: {
     slug: 'rapamycin',
     h1: 'Rapamycin: mTOR, weekly dosing, and what the evidence does and does not show',
-    title: 'Rapamycin: mTOR Inhibition, Dosing Patterns and Monitoring | TherapyLog',
+    title: 'Rapamycin: mTOR inhibition and weekly dosing | TherapyLog',
     description: 'An approved immunosuppressant used off-label at weekly intervals for ' +
       'longevity — the mTORC1 rationale, the animal evidence, and what the human data covers.',
     lede: `An approved transplant drug with the most consistent lifespan-extension record of any
@@ -704,7 +701,7 @@ module.exports = {
   ai1: {
     slug: 'anastrozole',
     h1: 'Anastrozole: aromatase inhibition, and why over-suppression is the failure mode',
-    title: 'Anastrozole: Aromatase Inhibition, Dosing and Monitoring | TherapyLog',
+    title: 'Anastrozole: aromatase inhibition and dosing | TherapyLog',
     description: 'How anastrozole blocks estradiol synthesis, why low-estradiol symptoms look ' +
       'like high-estradiol symptoms, and why the sensitive assay is the whole game.',
     lede: `A competitive aromatase inhibitor with a two-day half-life, approved in oncology and
@@ -819,9 +816,8 @@ module.exports = {
   hcg2: {
     slug: 'hcg',
     h1: 'HCG: an LH substitute with a much longer half-life, and what it is actually for',
-    title: 'HCG: LH Receptor Agonism, Dosing and Monitoring | TherapyLog',
-    description: 'Why human chorionic gonadotropin acts like luteinising hormone, why it lasts ' +
-      'so much longer, and what it does to testicular volume, fertility and estradiol.',
+    title: 'HCG: LH receptor agonism and dosing | TherapyLog',
+    description: 'Why hCG acts like luteinising hormone, why it lasts a hundred times longer, and what it does to testicular volume and estradiol.',
     lede: `A placental hormone that binds the same receptor as luteinising hormone and stays in
       circulation roughly a hundred times longer. That single pharmacokinetic fact is why it is
       used the way it is, and it explains most of what people find surprising about it.`,
@@ -927,7 +923,7 @@ module.exports = {
   clom: {
     slug: 'clomiphene',
     h1: 'Clomiphene: two isomers in one tablet, and why that matters more than the dose',
-    title: 'Clomiphene: SERM Pharmacology, Dosing and Monitoring | TherapyLog',
+    title: 'Clomiphene: SERM pharmacology and dosing | TherapyLog',
     description: 'Clomiphene citrate is a mixture of two stereoisomers with very different ' +
       'half-lives and effects. What that means for men taking it off-label.',
     lede: `A selective oestrogen receptor modulator approved for female infertility and used
@@ -1033,7 +1029,7 @@ module.exports = {
   rhgh: {
     slug: 'recombinant-hgh',
     h1: 'Recombinant human growth hormone: a short serum half-life with long-acting effects',
-    title: 'Recombinant HGH (Somatropin): Pharmacology and Monitoring | TherapyLog',
+    title: 'Recombinant HGH (somatropin): pharmacology | TherapyLog',
     description: 'Somatropin clears from serum in hours but acts through IGF-1 for a day or ' +
       'more. Why IGF-1 is the titration marker, and what the dose-dependent effects are.',
     lede: `Bioidentical human growth hormone, produced recombinantly and identical to the
@@ -1142,7 +1138,7 @@ module.exports = {
   bpc: {
     slug: 'bpc-157',
     h1: 'BPC-157: what the animal literature shows, and what nobody has tested in people',
-    title: 'BPC-157: Evidence, Routes and What Is Unknown | TherapyLog',
+    title: 'BPC-157: the evidence, and what is unknown | TherapyLog',
     description: 'A synthetic pentadecapeptide with a large animal literature and almost no ' +
       'human trial data. What the studies actually did, and where the gaps are.',
     lede: `Fifteen amino acids derived from a sequence found in human gastric juice, with one of
@@ -1260,9 +1256,8 @@ module.exports = {
   tb5: {
     slug: 'tb-500',
     h1: 'TB-500 and thymosin beta-4: a naming problem worth understanding first',
-    title: 'TB-500: Thymosin Beta-4, Evidence and What Is Unknown | TherapyLog',
-    description: 'TB-500 is usually described as thymosin beta-4, but the two are not the ' +
-      'same molecule. What the actual research covers, and what that means for the peptide sold.',
+    title: 'TB-500 and thymosin beta-4: the evidence | TherapyLog',
+    description: 'TB-500 is described as thymosin beta-4, but the two are not the same molecule. What the research covers, and what that means.',
     lede: `A peptide named after a protein it is a fragment of, with a research literature that
       mostly belongs to the full protein rather than to the fragment. Sorting that out first makes
       everything else on the subject easier to read.`,
@@ -1372,9 +1367,8 @@ module.exports = {
   cjc: {
     slug: 'cjc-1295',
     h1: 'CJC-1295 without DAC: a name that describes a different molecule',
-    title: 'CJC-1295 (Mod GRF 1-29): GHRH Analogue Pharmacology | TherapyLog',
-    description: 'What is sold as CJC-1295 without DAC is modified GRF(1-29), a thirty-minute ' +
-      'peptide. The DAC is what made CJC-1295 long-acting. Why the distinction changes everything.',
+    title: 'CJC-1295 without DAC: what it actually is | TherapyLog',
+    description: 'What is sold as CJC-1295 without DAC is modified GRF(1-29), a thirty-minute peptide. The DAC was the innovation in the name.',
     lede: `A growth-hormone-releasing hormone analogue with a half-life the app models at thirty
       minutes, sold under a name that belongs to a molecule with a half-life of about a week. The
       naming is the first thing to understand, because it determines the dosing.`,
@@ -1484,9 +1478,8 @@ module.exports = {
   ipa: {
     slug: 'ipamorelin',
     h1: 'Ipamorelin: a ghrelin receptor agonist selected for what it does not do',
-    title: 'Ipamorelin: Selective GH Secretagogue Pharmacology | TherapyLog',
-    description: 'Ipamorelin releases growth hormone through the ghrelin receptor with little ' +
-      'effect on cortisol or prolactin. What that selectivity is worth, and what is unproven.',
+    title: 'Ipamorelin: selective GH secretagogue | TherapyLog',
+    description: 'Ipamorelin releases growth hormone through the ghrelin receptor with little cortisol or prolactin effect. What the selectivity is worth.',
     lede: `A five-amino-acid peptide developed to release growth hormone without the cortisol and
       prolactin rise that earlier compounds in its class produced. The selectivity is the reason it
       displaced them, and it is also the clearest thing anyone can say about it.`,
@@ -1592,9 +1585,8 @@ module.exports = {
   retatrutide: {
     slug: 'retatrutide',
     h1: 'Retatrutide: three receptors, phase III, and nothing on a pharmacy shelf',
-    title: 'Retatrutide: Triple Agonist Pharmacology and Trial Data | TherapyLog',
-    description: 'A GIP, GLP-1 and glucagon receptor agonist in late-stage trials. What the ' +
-      'glucagon arm adds, what phase II measured, and why nothing available is the trial drug.',
+    title: 'Retatrutide: triple agonist, trial data | TherapyLog',
+    description: 'A GIP, GLP-1 and glucagon agonist in late-stage trials. What the glucagon arm adds, and why nothing sold is the trial drug.',
     lede: `A single peptide acting at three receptors, with phase II weight-loss results above
       anything approved. It is not approved anywhere, and that fact is the most important thing on
       this page rather than a footnote to it.`,
@@ -1696,9 +1688,8 @@ module.exports = {
   mk677: {
     slug: 'mk-677',
     h1: 'MK-677: sustained growth hormone elevation, and what the two-year trial found',
-    title: 'MK-677 (Ibutamoren): Pharmacology and Trial Evidence | TherapyLog',
-    description: 'An orally active ghrelin receptor agonist with a day-long half-life. What ' +
-      'continuous rather than pulsatile GH elevation does, and what the longest human trial showed.',
+    title: 'MK-677 (ibutamoren): what the trials found | TherapyLog',
+    description: 'An oral ghrelin receptor agonist with a day-long half-life. What continuous rather than pulsatile GH does, and what two years of it showed.',
     lede: `The only orally active growth hormone secretagogue in common use, and the one with the
       most human trial data behind it. That data is worth reading carefully, because it is more
       informative than the marketing and less flattering.`,
@@ -1798,9 +1789,8 @@ module.exports = {
   serm2: {
     slug: 'sermorelin',
     h1: 'Sermorelin: the GHRH fragment that used to be an approved drug',
-    title: 'Sermorelin: GHRH(1-29) Pharmacology and Status | TherapyLog',
-    description: 'Sermorelin is GHRH(1-29), once marketed as an approved product and withdrawn ' +
-      'for commercial reasons. What it does, and why its half-life is measured in minutes.',
+    title: 'Sermorelin: GHRH(1-29) and a lapsed approval | TherapyLog',
+    description: 'Sermorelin is GHRH(1-29), once an approved product and withdrawn for commercial reasons. Why its half-life is twelve minutes.',
     lede: `The first twenty-nine amino acids of growth hormone releasing hormone, which is the
       whole active part of the hormone. It has an unusual regulatory history for a compound in
       this category: it used to be an approved medicine.`,
@@ -1907,9 +1897,8 @@ module.exports = {
   cagrilintide: {
     slug: 'cagrilintide',
     h1: 'Cagrilintide: the amylin arm, and why it is studied alongside semaglutide',
-    title: 'Cagrilintide: Amylin Analogue Pharmacology and Trials | TherapyLog',
-    description: 'A long-acting amylin analogue acting through a different satiety pathway from ' +
-      'GLP-1. What amylin does, what the combination trials measured, and its regulatory status.',
+    title: 'Cagrilintide: the amylin analogue | TherapyLog',
+    description: 'A long-acting amylin analogue working through a satiety pathway GLP-1 does not touch. What amylin does, and what trials measured.',
     lede: `A once-weekly analogue of amylin &mdash; the pancreatic hormone released alongside
       insulin at every meal. It is interesting mostly because it works through a pathway the GLP-1
       drugs do not touch, which is why it is being developed as a partner rather than a rival.`,
@@ -2011,9 +2000,8 @@ module.exports = {
   epi: {
     slug: 'epithalon',
     h1: 'Epithalon: a four-amino-acid peptide and a single-lineage evidence base',
-    title: 'Epithalon: Telomerase Claims and the State of the Evidence | TherapyLog',
-    description: 'Epithalon is a tetrapeptide studied almost exclusively by one research group. ' +
-      'What the claims are, where they come from, and what independent replication exists.',
+    title: 'Epithalon: the telomerase claims examined | TherapyLog',
+    description: 'A tetrapeptide studied almost entirely by one research group. What the telomerase claims are, and what replication exists.',
     lede: `Four amino acids, a pulse schedule of ten days twice a year, and a set of claims about
       telomerase and lifespan that rest almost entirely on the work of one research lineage. That
       last fact is the most useful thing to know before reading anything else about it.`,
@@ -2115,7 +2103,7 @@ module.exports = {
   pda: {
     slug: 'pentadeca-arginate',
     h1: 'Pentadeca arginate: a new name with almost no published literature behind it',
-    title: 'Pentadeca Arginate (PDA): What Is Actually Known | TherapyLog',
+    title: 'Pentadeca arginate (PDA): what is known | TherapyLog',
     description: 'PDA is presented as an improved BPC-157. What is published about it, what is ' +
       'inferred from BPC-157, and what is marketing — separated out.',
     lede: `A compound that arrived in the peptide market recently, described as a more stable

@@ -256,8 +256,8 @@ function build(ctx, api) {
     out.push(api.render(ctx, {
       url: '/tools/' + slug + '/',
       title: 'Peptide reconstitution calculator | TherapyLog',
-      description: 'Work out the bacteriostatic water to add and the units to draw — or start ' +
-        'from the dose you want and solve backwards. Free, no account, same code as the app.',
+      description: 'Work out the bacteriostatic water to add and the units to draw — or ' +
+        'start from the dose you want and solve backwards. Free, no account.',
       trail: api.toolsTrail([{ name: 'Reconstitution calculator', url: '/tools/' + slug + '/',
                               absolute: api.SITE + '/tools/' + slug + '/' }]),
       body,

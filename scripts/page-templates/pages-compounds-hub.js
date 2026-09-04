@@ -104,9 +104,9 @@ function build(ctx, api) {
 
   return [api.render(ctx, {
     url: '/compounds/',
-    title: 'Compound reference: half-life, dosing and monitoring | TherapyLog',
-    description: 'One page per compound, built from the reference data the TherapyLog app runs ' +
-      'on: modelled half-life, storage rule, monitoring panel and documented interactions.',
+    title: 'Compound reference: half-life and dosing | TherapyLog',
+    description: 'One page per compound, built from the data the TherapyLog app runs on: ' +
+      'modelled half-life, storage rule, monitoring panel and interactions.',
     type: 'CollectionPage',
     trail: [
       { name: 'Home', url: '/', absolute: api.SITE + '/' },
