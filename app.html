@@ -2226,9 +2226,8 @@ document.getElementById("enc-dp").innerHTML = `
       <div class="dn">${drug.name}</div>
       <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;align-items:center">
         <span class="dct" style="background:${drug.cc}15;color:${drug.cc};border:1px solid ${drug.cc}30">${drug.cls}</span>
-        ${drug.approval ? `<span style="font-size:9px;font-weight:700;letter-spacing:0.06em;padding:3px 8px;border-radius:20px;text-transform:uppercase;${drug.approval.includes("FDA APPROVED") ? "background:rgba(74,222,154,0.15);color:var(--accent);border:1px solid rgba(74,222,154,0.3)" : drug.approval.includes("Phase") ? "background:rgba(245,158,11,0.15);color:var(--accent3);border:1px solid rgba(245,158,11,0.3)" : "background:rgba(248,113,113,0.1);color:var(--danger);border:1px solid rgba(248,113,113,0.25)"}">${drug.approval.includes("FDA APPROVED") ? "FDA Approved" : drug.approval.includes("Phase II") ? "Phase II Trials" : drug.approval.includes("Phase I") ? "Phase I Trials" : drug.approval.includes("Orphan") ? "Orphan Drug" : "Research Only"}</span>` : ""}
+        ${getApprovalBadge(drug.approval || drug.approvalStatus || drug.status)}
       </div>
-      ${drug.approval ? `<div style="margin-top:6px">${getApprovalBadge(drug.approval)}</div>` : ""}
       ${drug.aka ? `<div style="font-size:11px;color:var(--text2);margin-top:5px">Also known as: ${drug.aka}</div>` : ""}
     </div>
     <div class="ds"><div class="dst">Research Summary</div><div style="font-size:13px;line-height:1.7">${drug.summary}</div></div>
@@ -5171,24 +5170,43 @@ notes:"Follow a graduated loading protocol under physiotherapy guidance. Return 
 }
 ];
 TEMPLATES.push(...NEW_TEMPLATES);
+/* The badge for one compound's regulatory field.
+   A plain substring test cannot tell "FDA approved" from "not FDA approved",
+   and in this database the negation is the more common phrase — that is how
+   eighteen research compounds, Melanotan II among them, came to wear a green
+   approval badge. So the field is read one clause at a time and a clause
+   carrying a negation makes no claim. Two further rules matter: a claim
+   qualified by another country ("approved in 50+ countries") is not a US
+   approval, and a claim about a different molecule inside a "research
+   compound" entry ("PT-141 is FDA approved") is not a claim about this one. */
 function getApprovalBadge(approvalText) {
 if (!approvalText) return '';
-const t = approvalText.toUpperCase();
-if (t.includes('FDA APPROVED') && !t.includes('OFF-LABEL'))
-return '<span class="enc-badge fda">✓ FDA Approved</span>';
-if (t.includes('FDA APPROVED') && t.includes('OFF-LABEL'))
-return '<span class="enc-badge rx">Rx — Off-label Use</span>';
-if (t.includes('PHASE II') || t.includes('PHASE 2'))
-return '<span class="enc-badge phase">Phase II Trials</span>';
-if (t.includes('PHASE I') || t.includes('PHASE 1'))
-return '<span class="enc-badge phase">Phase I Trials</span>';
-if (t.includes('APPROVED IN') || t.includes('50+ COUNTRIES'))
-return '<span class="enc-badge rx">Approved Internationally</span>';
-if (t.includes('DIETARY SUPPLEMENT') || t.includes('OTC'))
-return '<span class="enc-badge otc">OTC Supplement</span>';
-if (t.includes('ORPHAN'))
-return '<span class="enc-badge phase">Orphan Designation</span>';
-return '<span class="enc-badge research">Research Only</span>';
+const t = String(approvalText).toUpperCase().replace(/\s+/g, ' ').trim();
+const badge = (cls, text) => '<span class="enc-badge ' + cls + '">' + text + '</span>';
+/* Entries with no prose field carry a one-word status instead. */
+const SHORT = { 'RESEARCH': ['research', 'Research Only'], 'PRESCRIPTION': ['rx', 'Prescription Only'],
+'CONTROLLED': ['rx', 'Controlled Substance'], 'COMPOUNDED': ['rx', 'Compounded'] };
+if (SHORT[t]) return badge(SHORT[t][0], SHORT[t][1]);
+const clauses = t.split(/[.;]|\s—\s/).map(c => c.trim()).filter(Boolean);
+const NEG = /\b(NOT|NO|NEVER|WITHOUT|PENDING|AWAITING|EXPECTED?|LACKS?|UNCERTAIN)\b/;
+const ABROAD = /\bIN \d+\+? COUNTRIES\b|\bINTERNATIONALLY\b|\bIN (THE )?(EU|UK|RUSSIA|CHINA|JAPAN|GERMANY|AUSTRALIA|CANADA|MEXICO|KOREA|SOME COUNTRIES)\b/;
+const claims = (re, also) => clauses.some(c => re.test(c) && !NEG.test(c) && (!also || also(c)));
+const isResearch = /\bRESEARCH COMPOUND\b|\bRESEARCH ONLY\b/.test(t);
+const supplement = /\bDIETARY SUPPLEMENT|\bSUPPLEMENTS? IN (THE )?US|\bOTC\b|\bSOLD AS .{0,20}SUPPLEMENT|\bNUTRACEUTICAL|\bCOSMETIC/.test(t);
+const usApproved = !isResearch && claims(/\bFDA[- ]?APPROV/, c => !ABROAD.test(c));
+const abroad = claims(/\bAPPROV/, c => ABROAD.test(c));
+const rx = /\bPRESCRIPTION\b|\bPHYSICIAN\b|\bCOMPOUND(ED|ING)\b/.test(t);
+if (supplement) return badge('otc', 'OTC Supplement');
+if (/\bOFF-?LABEL\b/.test(t) && (usApproved || rx)) return badge('rx', 'Rx — Off-label Use');
+if (usApproved) return badge('fda', '✓ FDA Approved');
+if (abroad) return badge('rx', 'Approved Internationally');
+if (/\bPHASE (III|3)/.test(t)) return badge('phase', 'Phase III Trials');
+if (/\bPHASE (II|2)/.test(t)) return badge('phase', 'Phase II Trials');
+if (/\bPHASE (I|1)/.test(t)) return badge('phase', 'Phase I Trials');
+if (/\bORPHAN\b/.test(t) && !/IN PROGRESS/.test(t)) return badge('phase', 'Orphan Designation');
+if (rx && !isResearch) return badge('rx', 'Rx — Not FDA Approved');
+if (/\bSCHEDULE (I|II|III|IV|V)\b|\bCONTROLLED SUBSTANCE\b/.test(t)) return badge('rx', 'Controlled Substance');
+return badge('research', 'Research Only');
 }
 const CLINIC_INTERACTIONS = [
 { drugs:["Gonadorelin","HCG"], severity:"warn",

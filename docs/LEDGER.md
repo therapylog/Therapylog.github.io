@@ -553,6 +553,42 @@ output because GitHub Pages has no build step.
   28 new URLs to Bing and friends. Google picks them up from the sitemap and
   internal links only.
 
+**The encyclopedia's regulatory badge rewritten (4 Sep 2026)**
+
+`getApprovalBadge()` classified a compound by substring-testing its approval
+field. "Not FDA approved" contains "FDA approved", so the negation read as the
+claim: **eighteen compounds wore a green FDA-approved badge that should not
+have** -- Melanotan II, retatrutide, larazotide, GHRP-2, KPV and the NAD+ IV
+protocol among them. Melanotan II earned it from a sentence about a different
+molecule, "PT-141 (bremelanotide) is FDA approved". The NDT correction landed in
+the same trap on its way past, which is how this was found.
+
+- **Claims are now read clause by clause, and a clause carrying a negation makes
+  no claim.** Three further rules: a claim qualified by another country
+  ("approved in 50+ countries") is not a US approval; an entry that calls itself
+  a research compound is not making a US approval claim whatever else the field
+  says; and Phase III is tested before Phase II before Phase I, because
+  `"PHASE III".includes("PHASE II")` is true and every Phase III compound was
+  being badged Phase II.
+- **The duplicate badge is gone.** The detail header rendered two: an inline
+  pill built from its own uppercase-only substring test, and `getApprovalBadge()`
+  right below it. They disagreed on any entry whose field was not uppercase --
+  NDT showed a red "Research Only" pill above a green "FDA Approved" badge. The
+  pill is deleted and the function is now the single source.
+- **Twenty-four entries had no badge at all** because they carry a one-word
+  `status` or `approvalStatus` instead of the prose `approval` field. The call
+  site falls back to those, and the function maps the four words the database
+  uses: Research, Prescription, Controlled, Compounded.
+- **Two new outcomes, both from real strings in the data:** "Rx — Not FDA
+  Approved" for a prescription or compounded product with no approval
+  (enclomiphene, NDT), and "Controlled Substance" for a schedule that would
+  otherwise fall through to research. No new CSS -- all five `.enc-badge`
+  classes already existed.
+- **All 131 entries were classified and read by hand** before the change
+  shipped, then checked in a browser across eight compounds spanning every
+  outcome. app.html is the only file that changed: no generated page reads this
+  function, which is why `build-pages --check` passes untouched.
+
 **NDT regulatory field corrected in app.html (4 Sep 2026)**
 
 `app.html`'s regulatory field for natural desiccated thyroid said "FDA
