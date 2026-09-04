@@ -58,6 +58,28 @@ PUBLIC.forEach((rel) => {
   t(`${rel} links the consumer health data policy`, linkTo(html, 'health-data-privacy'));
 });
 
+/* ---- 1b. Exactly one <h1> on every indexable page ----------------------- */
+/* Bing Webmaster's site scan flagged /app and /pro as missing an <h1>, and it
+   was right about both: pro.html had no heading element at all and app.html's
+   only <h1> lived inside a markdown renderer's template literal. Scripts and
+   styles are stripped before counting for exactly that reason — a heading a
+   crawler never sees is not a heading.
+
+   marketing.html is deliberately absent: it is noindex,nofollow, so no crawler
+   scans it and no ranking depends on it. Generated pages are not here either;
+   validate-public-pages.js already asserts a single <h1> on every one of them. */
+const visibleMarkup = (html) => html
+  .replace(/<script[\s\S]*?<\/script>/g, '')
+  .replace(/<style[\s\S]*?<\/style>/g, '')
+  .replace(/<!--[\s\S]*?-->/g, '');
+
+PUBLIC.concat(['app.html']).forEach((rel) => {
+  const html = read(rel);
+  if (html === null) return;
+  const n = (visibleMarkup(html).match(/<h1[\s>]/g) || []).length;
+  t(`${rel} has exactly one <h1>`, n === 1, `found ${n}`);
+});
+
 /* ---- 2. No unsubstantiated verification or testing claims --------------- */
 /* The directory sold a "Verified" badge by tier while telling readers the
    badge was "earned, not bought", and offered "products tested" over sellers
