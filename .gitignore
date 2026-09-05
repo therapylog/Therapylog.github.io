@@ -1,0 +1,4 @@
+# Local render output from scripts/audit-injection-sites.py
+build/
+
+__pycache__/

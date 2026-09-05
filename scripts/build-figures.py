@@ -26,15 +26,14 @@ OUT = os.path.join(ROOT, 'assets', 'figures')
 
 # Generous windows around each figure — the component pass does the real work,
 # so these only need to contain the figure and exclude the opposite one.
-# Windows are deliberately GENEROUS — wide enough to contain the whole figure
-# including the fingers, and to sweep up some label text along the way. The
-# component pass removes the labels, so the only job here is to separate the two
-# figures from each other. Tight windows are the trap: the first pass used them
-# and silently amputated the hands, because the fingers are drawn in light line
-# work that sits further out than the dense torso columns suggest.
+# One figure per file now, so there is no window to choose — the whole image is
+# the window and the component pass does the rest. The earlier two-figures-per-
+# file art needed hand-picked spans, and picking them too tight is what
+# amputated the hands: fingers are drawn in light line work that sits further
+# out than the dense torso columns suggest.
 SRC = {
-    'male':   ('assets/male figure.jpg',   [(0, 462), (468, 1023)]),
-    'female': ('assets/female figure.jpg', [(0, 530), (536, 1023)]),
+    'male':   {'front': 'assets/male front.jpg',   'back': 'assets/male back.jpg'},
+    'female': {'front': 'assets/female front.jpg', 'back': 'assets/female back.jpg'},
 }
 VIEWS = ['front', 'back']
 # No resampling. Baking an upscale into the asset only enlarges the file and
@@ -69,10 +68,10 @@ def largest_blob(mask):
 def main():
     os.makedirs(OUT, exist_ok=True)
     widths = {}
-    for sex, (path, spans) in SRC.items():
-        g = np.array(Image.open(os.path.join(ROOT, path)).convert('L')).astype(np.float32)
-        for view, (x0, x1) in zip(VIEWS, spans):
-            sub = g[:, x0:x1 + 1]
+    for sex, files in SRC.items():
+        for view in VIEWS:
+            sub = np.array(Image.open(os.path.join(ROOT, files[view]))
+                           .convert('L')).astype(np.float32)
             keep = largest_blob(sub < 215)
             ys, xs = np.where(keep)
             crop = sub[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
