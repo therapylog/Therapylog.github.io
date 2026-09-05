@@ -118,7 +118,7 @@ async function openLabsTab(page, port) {
   });
   await page.goto(`http://127.0.0.1:${port}/app.html`);
   await page.waitForTimeout(1200);
-  await page.locator('button:has-text("I Understand")').first().click();
+  await page.locator('button[onclick="acceptDisclaimer()"]').first().click();
   await page.waitForTimeout(250);
   await page.locator('button:has-text("Skip setup, explore first")').first().click();
   await page.waitForTimeout(400);
@@ -140,6 +140,12 @@ async function openLabsTab(page, port) {
   /* ============ manual entry, filtering, user-defined markers ============ */
   {
     const page = await browser.newPage({ viewport: { width: 414, height: 1000 }, deviceScaleFactor: 2 });
+
+  /* No off-origin requests. The Google Fonts stylesheet cannot resolve on an
+     offline or sandboxed machine, and waiting for it to time out is most of
+     the run. Per-file API stubs are registered separately and still win,
+     because routes registered earlier take precedence. */
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
     const errors = [];
     page.on('pageerror', (e) => errors.push('PAGEERROR: ' + e.message));
     await openLabsTab(page, port);
@@ -222,6 +228,12 @@ async function openLabsTab(page, port) {
   /* ============ file intake and the scan round-trip ============ */
   {
     const page = await browser.newPage({ viewport: { width: 414, height: 1000 }, deviceScaleFactor: 2 });
+
+  /* No off-origin requests. The Google Fonts stylesheet cannot resolve on an
+     offline or sandboxed machine, and waiting for it to time out is most of
+     the run. Per-file API stubs are registered separately and still win,
+     because routes registered earlier take precedence. */
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
     const errors = [];
     page.on('pageerror', (e) => errors.push('PAGEERROR: ' + e.message));
   // stand in for the AI endpoint, and keep what the app sent
