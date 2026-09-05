@@ -134,7 +134,7 @@ ${blocks}
                             absolute: api.SITE + '/tools/stack-checker/' }]),
     calcDisclaimer: false,
     body,
-    script: W.prologue({ attribution }) + '\n\n' + widget.fns
+    script: W.prologue({ attribution, gate: true }) + '\n\n' + widget.fns
   })];
 }
 

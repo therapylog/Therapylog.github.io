@@ -73,6 +73,103 @@ function syringeFragment(src, syrSizes) {
   return new Function('SYR_SIZES', 'return `' + tpl + '`;')(syrSizes).trim();
 }
 
+const GATE_SCRIPT = String.raw`/* ---- the one-free-run gate -----------------------------------------------
+   Every tool page arrives with its worked example already computed. That stays
+   free and unconditional: it is what proves the tool works, it is what the
+   page ranks on, and a crawler never gets past it because a crawler never
+   touches a control.
+
+   What is metered is the visitor running the tool on THEIR numbers. The first
+   recalculation is free. The second raises the wall.
+
+   Deliberately a soft gate. It is a conversion prompt, not DRM — clearing site
+   data resets it and that is fine. What it must not do is lie: it disables the
+   controls rather than hiding a result that was already computed, so nothing is
+   sitting in the DOM pretending to be locked.
+
+   Tool pages are same-origin with /app, so a subscriber's entitlement is
+   readable here and paying users never meet the gate at all. */
+(function () {
+  var FREE_RUNS = 1;
+  var KEY = 'tl_gate:' + location.pathname;
+
+  function subscribed() {
+    try {
+      var e = JSON.parse(localStorage.getItem('tl_ent') || 'null');
+      if (!e || !e.tier || e.tier === 'free') return false;
+      /* An expired plan is not a plan. Mirrors tlEffectiveTier()'s check. */
+      if (e.expires && Date.now() > e.expires * 1000) return false;
+      return true;
+    } catch (_) { return false; }
+  }
+  function runs() { try { return parseInt(localStorage.getItem(KEY) || '0', 10) || 0; } catch (_) { return 0; } }
+  function bump() { try { localStorage.setItem(KEY, String(runs() + 1)); } catch (_) {} }
+
+  function controls() {
+    return [].slice.call(document.querySelectorAll('.card input, .card select, .card button'))
+      .filter(function (el) { return !el.closest('.cta-box'); });
+  }
+
+  function wall() {
+    if (document.getElementById('tl-gate')) return;
+    controls().forEach(function (el) {
+      el.disabled = true;
+      el.style.opacity = '0.45';
+      el.style.cursor = 'not-allowed';
+    });
+    var host = document.querySelector('.card');
+    if (!host) return;
+    var d = document.createElement('div');
+    d.id = 'tl-gate';
+    d.style.cssText = 'margin-top:14px;padding:16px 18px;border-radius:12px;' +
+      'background:var(--surface2);border:1px solid var(--border2);' +
+      'border-left:3px solid var(--accent)';
+    d.innerHTML =
+      '<div style="font-size:14.5px;font-weight:600;margin-bottom:6px">That is the free run</div>' +
+      '<div style="font-size:13.5px;color:var(--text2);line-height:1.6;margin-bottom:12px">' +
+      'The worked example above stays on the page, and the arithmetic is the same the app runs. ' +
+      'Running it on your own numbers whenever you like is part of TherapyLog — along with the ' +
+      'dose log it saves into, bloodwork trends across every panel, a clinical report your ' +
+      'physician can actually read, steady-state modelling, and the full dosing and stacking ' +
+      'detail on 131 compounds.</div>' +
+      '<a class="btn btn-p" href="/pro?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=gate" ' +
+      'style="text-decoration:none;display:block;text-align:center;line-height:1.4">See what Pro includes</a>' +
+      '<div style="font-size:12px;color:var(--text3);margin-top:9px;text-align:center">' +
+      'Already subscribed? <a href="/app" style="color:var(--text2)">Open the app</a> and this page unlocks.</div>';
+    host.parentNode.insertBefore(d, host.nextSibling);
+  }
+
+  function arm() {
+    if (subscribed()) return;
+    if (runs() > FREE_RUNS) { wall(); return; }
+    var counted = false;
+    /* One interaction burst counts as one run: someone adjusting three fields
+       for a single calculation has run the tool once, not three times. */
+    function onUse() {
+      if (counted) return;
+      counted = true;
+      bump();
+      if (runs() > FREE_RUNS) setTimeout(wall, 400);
+    }
+    ['change', 'click'].forEach(function (evt) {
+      document.addEventListener(evt, function (e) {
+        var el = e.target;
+        if (!el || !el.closest) return;
+        if (!el.closest('.card')) return;
+        if (el.closest('.cta-box')) return;
+        if (!/^(INPUT|SELECT|BUTTON)$/.test(el.tagName)) return;
+        onUse();
+      }, true);
+    });
+  }
+
+  /* Arm after the page's own pre-fill has run, so the worked example never
+     counts against the visitor. */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(arm, 0); });
+  } else { setTimeout(arm, 0); }
+})();`;
+
 /* ---- the shared script prologue ----------------------------------------- */
 
 /* Globals the lifted functions reach for, and nothing more. gd(), showPage(),
@@ -81,6 +178,7 @@ function syringeFragment(src, syrSizes) {
    that needs one and not notice. */
 function prologue(o) {
   const parts = [];
+  o = o || {};
   parts.push(`/* ---------------------------------------------------------------------------
    Everything between here and the end of this script is either lifted verbatim
    from app.html at build time (scripts/build-pages.js) or a small shim that
@@ -123,6 +221,11 @@ function toast(msg) {
     });
   } catch (e) {}
 })();`);
+  /* The one-free-run gate ships only on pages with a calculator to meter.
+     Reference pages carry controls too — the marker pages have a unit
+     converter — and metering those would gate browsing, not a paid tool. */
+  if (o.gate) parts.push(GATE_SCRIPT);
+
   return parts.join('\n');
 }
 
