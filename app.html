@@ -1549,6 +1549,9 @@ const DB_STORE = "appdata";
 const DB_KEY = "tlv2";
 const AI_ENDPOINT = "https://api.therapylog.app/api/ai-research";
 const AI_DAILY_CAP = 0;
+/* Turns of conversation sent upstream with each question. Matches
+   AI_MAX_HISTORY_MESSAGES in the API, which enforces it. */
+var TL_CHAT_SEND_TURNS = 12;
 const AI_COOLDOWN_MS = 8000;
 let _idb = null;
 let _memCache = null;
@@ -2485,7 +2488,14 @@ try {
 const resp = await fetch(AI_ENDPOINT,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({ mode:"chat", context: aiPersonalized() ? getFullCtx() : "", messages:S.chatHist, byok:byokKey,
+body:JSON.stringify({ mode:"chat", context: aiPersonalized() ? getFullCtx() : "",
+/* Send recent turns, not the whole thread. This array used to grow without
+   limit and go up in full on every question, so a long conversation cost more
+   and more in input tokens while the customer was still charged one question
+   per turn. The API caps this too — it holds the key — but sending less is
+   cheaper than having it trimmed on arrival. Local memory is untouched: the
+   user keeps the full thread on screen. */
+messages: S.chatHist.slice(-TL_CHAT_SEND_TURNS), byok:byokKey,
 /* Native iOS proves entitlement with the App Store receipt token; the web build
    has no receipt and sends "". Kept here rather than in a native-only copy of
    this function, so app.html is the one implementation both platforms run. */

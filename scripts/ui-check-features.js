@@ -403,6 +403,48 @@ const toolTab = async (page, tab) => {
     }
   }
 
+  /* ===== a long thread does not send itself over and over ===== */
+  {
+    const { page, errors } = await openApp(browser, port, { pro: true });
+    /* Personalized mode is the default, so sendChat asks for C-0 consent and
+       returns before the request unless it has already been given. Without
+       this the body is empty and every assertion about it passes vacuously. */
+    await page.evaluate(() => {
+      try { localStorage.setItem("tl_ai_ctx_ok", JSON.stringify({ v: 1, at: new Date().toISOString() })); } catch (e) {}
+    });
+    let sent = [];
+    await page.route("**/api/ai-research", (r) => {
+      sent.push(JSON.parse(r.request().postData() || "{}"));
+      return r.fulfill({ status: 200, contentType: "application/json",
+                         body: JSON.stringify({ content: [{ type: "text", text: "ok" }] }) });
+    });
+    const r = await page.evaluate(async () => {
+      /* 40 turns of prior conversation, the shape saveChatMemory keeps. */
+      /* S is a top-level declaration, so it is in scope here but not on window. */
+      S.chatHist = [];
+      for (let i = 0; i < 20; i++) {
+        S.chatHist.push({ role: "user", content: "q" + i });
+        S.chatHist.push({ role: "assistant", content: "a" + i });
+      }
+      const before = S.chatHist.length;
+      window._lastAISend = 0;
+      const el = document.getElementById("chat-in");
+      if (el) el.value = "the newest question";
+      await window.sendChat();
+      return { before, after: S.chatHist.length };
+    });
+    await page.waitForTimeout(700);
+    const body = sent[0] || {};
+    const msgs = body.messages || [];
+    t("a 40-turn thread sends only the recent turns",
+      msgs.length > 0 && msgs.length <= 12, "sent " + msgs.length);
+    t("the newest question is always included",
+      JSON.stringify(msgs).includes("the newest question"), JSON.stringify(msgs.slice(-1)));
+    t("local memory keeps the whole thread", r.after > 12, JSON.stringify(r));
+    t("trimming raises no page errors", errors.length === 0, errors.join(" | "));
+    await page.close();
+  }
+
   /* ===== the service worker stays off native ===== */
   {
     const page = await browser.newPage({ viewport: { width: 414, height: 900 } });
