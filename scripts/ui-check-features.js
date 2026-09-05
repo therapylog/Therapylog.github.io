@@ -254,6 +254,98 @@ const toolTab = async (page, tab) => {
     await page.close();
   }
 
+  /* ===== the managed-AI quota counter ===== */
+  {
+    const page = await browser.newPage({ viewport: { width: 414, height: 900 } });
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
+    /* Reply the way the API does: the quota fields ride on the AI response. */
+    let reply = { content: [{ type: "text", text: "ok" }],
+                  _tl_remaining: 43, _tl_limit: 50, _tl_remaining_day: 9, _tl_limit_day: 12 };
+    await page.route("**/api/ai-research", (r) =>
+      r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(reply) }));
+    await page.addInitScript(() => {
+      localStorage.setItem("tl_ent", JSON.stringify({
+        tier: "pro", status: "active", source: "license", lifetime: true,
+        plan: "lifetime", key: "TL-TEST", verifiedAt: Date.now(), expires: null }));
+      localStorage.setItem("tl_ai_ctx_ok", JSON.stringify({ v: 1, at: new Date().toISOString() }));
+    });
+    await page.goto(`http://127.0.0.1:${port}/${PAGE}`);
+    await page.waitForTimeout(900);
+    const disc = page.locator('button[onclick="acceptDisclaimer()"]').first();
+    if (await disc.count() && await disc.isVisible().catch(() => false)) {
+      await disc.click(); await page.waitForTimeout(250);
+      const skip = page.locator('button:has-text("Skip setup, explore first")').first();
+      if (await skip.count() && await skip.isVisible().catch(() => false)) { await skip.click(); await page.waitForTimeout(400); }
+    }
+
+    const before = await page.evaluate(() => {
+      const el = document.getElementById("ai-quota");
+      return { text: el.textContent, shown: el.style.display !== "none" };
+    });
+    t("the counter is hidden before anything is known", !before.shown && !before.text, JSON.stringify(before));
+
+    /* one chat question */
+    await page.evaluate(() => window.showHub("me", document.getElementById("nav-me")));
+    await page.waitForTimeout(200);
+    await page.evaluate(() => window.switchHubSection("me", "ai", null));
+    await page.waitForTimeout(300);
+    await page.evaluate(() => { const e = document.getElementById("chat-in"); if (e) e.value = "hello"; });
+    await page.evaluate(() => window.sendChat());
+    await page.waitForTimeout(900);
+
+    const after = await page.evaluate(() => {
+      const el = document.getElementById("ai-quota");
+      return { text: el.textContent, shown: el.style.display !== "none" };
+    });
+    t("the counter shows both windows after a request",
+      after.shown && /9 left today/.test(after.text) && /43 this month/.test(after.text), JSON.stringify(after));
+
+    /* the lab-tab copy reads the same store */
+    const lab = await page.evaluate(() => {
+      const el = document.getElementById("lab-quota");
+      return el ? { text: el.textContent, shown: el.style.display !== "none" } : null;
+    });
+    t("the scan tab shows the same figure", lab && /9 left today/.test(lab.text), JSON.stringify(lab));
+
+    /* it survives a reload without spending a request */
+    await page.reload();
+    await page.waitForTimeout(1100);
+    const reloaded = await page.evaluate(() => document.getElementById("ai-quota").textContent);
+    t("the figure survives a reload", /43 this month/.test(reloaded), reloaded);
+
+    /* running out is called out, not just counted down */
+    reply = { content: [{ type: "text", text: "ok" }], _tl_remaining: 0, _tl_limit: 50, _tl_remaining_day: 0, _tl_limit_day: 12 };
+    await page.evaluate(() => { window._lastAISend = 0; });
+    await page.evaluate(() => { const e = document.getElementById("chat-in"); if (e) e.value = "again"; });
+    await page.evaluate(() => window.sendChat());
+    await page.waitForTimeout(900);
+    const empty = await page.evaluate(() => {
+      const el = document.getElementById("ai-quota");
+      return { text: el.textContent, color: el.style.color };
+    });
+    t("nothing left is coloured as a warning", /0 left today/.test(empty.text) && /accent3/.test(empty.color), JSON.stringify(empty));
+
+    /* BYOK has no limit to show */
+    reply = { content: [{ type: "text", text: "ok" }] };
+    /* sendChat refuses inside AI_COOLDOWN_MS (8s) and returns before it ever
+       reaches the endpoint, so without clearing this the send is a no-op and
+       the counter keeps the previous value — which reads as a failure of the
+       quota logic rather than of the test. */
+    await page.evaluate(() => { window._lastAISend = 0; });
+    await page.evaluate(() => { const e = document.getElementById("chat-in"); if (e) e.value = "byok"; });
+    await page.evaluate(() => window.sendChat());
+    await page.waitForTimeout(900);
+    const byok = await page.evaluate(() => {
+      const el = document.getElementById("ai-quota");
+      return { text: el.textContent, shown: el.style.display !== "none" };
+    });
+    t("a response with no quota clears the counter", !byok.shown && !byok.text, JSON.stringify(byok));
+    t("the quota counter raises no page errors", errors.length === 0, errors.join(" | "));
+    await page.close();
+  }
+
   /* ===== the service worker stays off native ===== */
   {
     const page = await browser.newPage({ viewport: { width: 414, height: 900 } });
