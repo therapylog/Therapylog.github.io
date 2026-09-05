@@ -2219,7 +2219,18 @@ document.getElementById("enc-dpage").style.display="";
 document.getElementById("enc-bl").textContent = S.curCls.name;
 const prosHTML = drug.pros.map(p=>`<div style="display:flex;gap:4px;font-size:11px;padding:2px 0;line-height:1.4"><span style="color:var(--accent);flex-shrink:0">✓</span><span>${p}</span></div>`).join("");
 const consHTML = drug.cons.map(c=>`<div style="display:flex;gap:4px;font-size:11px;padding:2px 0;line-height:1.4"><span style="color:var(--danger);flex-shrink:0">⚠</span><span>${c}</span></div>`).join("");
-const dosesHTML = drug.doses.map(d=>`<tr><td>${d.l}</td><td>${d.d}</td><td>${d.f}</td><td>${d.c}</td></tr>`).join("");
+/* The free half of an entry is what the compound IS — summary, pros, cons,
+   regulatory status, storage. The paid half is what to DO with it: doses,
+   progression and stacking. That line is also the one the App Store's 1.4.1
+   finding cares about, so the two splits are deliberately the same split. */
+const _encFull = !(window.TLTier && TLTier.isStd && !TLTier.isStd());
+const dosesHTML = _encFull
+  ? drug.doses.map(d=>`<tr><td>${d.l}</td><td>${d.d}</td><td>${d.f}</td><td>${d.c}</td></tr>`).join("")
+  : `<tr><td colspan="4" style="padding:14px;text-align:center;cursor:pointer" onclick="if(window.TLTier)TLTier.check('encyclopedia_advanced')">
+       <div style="font-size:12.5px;font-weight:600">🔒 ${drug.doses.length} dosing ${drug.doses.length===1?'row':'rows'} — Pro</div>
+       <div style="font-size:11px;color:var(--text2);margin-top:3px">Level, dose, frequency and duration as reported in the literature.</div>
+       <div style="font-size:11px;font-weight:600;color:var(--accent3);margin-top:6px">Unlock →</div>
+     </td></tr>`;
 const stacksHTML = (drug.stacks||[]).map(s=>`
     <div style="margin-bottom:9px">
       <div style="font-size:11px;font-weight:600;color:var(--text2);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em">${s.g}</div>
@@ -2246,10 +2257,15 @@ document.getElementById("enc-dp").innerHTML = `
     <div class="ds">
       <div class="dst">Dosing and Cycles</div>
       <table class="dt"><tr><th>Level</th><th>Dose</th><th>Frequency</th><th>Duration</th></tr>${dosesHTML}</table>
-      <div style="font-size:12px;color:var(--text2);margin-top:9px;line-height:1.6;padding:9px;background:var(--surface2);border-radius:8px"><strong style="color:var(--text)">Progression: </strong>${drug.prog}</div>
+      <div style="font-size:12px;color:var(--text2);margin-top:9px;line-height:1.6;padding:9px;background:var(--surface2);border-radius:8px"><strong style="color:var(--text)">Progression: </strong>${_encFull ? drug.prog : 'Included with Pro.'}</div>
     </div>
     ${tlStorageSection(drug.id)}
-    ${drug.stacks&&drug.stacks.length ? `<div class="ds"><div class="dst">Stack Recommendations</div>${stacksHTML}</div>` : ""}
+    ${drug.stacks&&drug.stacks.length ? `<div class="ds"><div class="dst">Stack Recommendations</div>${
+      _encFull ? stacksHTML
+      : `<div style="padding:12px;text-align:center;cursor:pointer" onclick="if(window.TLTier)TLTier.check('encyclopedia_advanced')">
+           <div style="font-size:12.5px;font-weight:600">🔒 ${drug.stacks.length} documented ${drug.stacks.length===1?'combination':'combinations'} — Pro</div>
+           <div style="font-size:11px;font-weight:600;color:var(--accent3);margin-top:6px">Unlock →</div>
+         </div>`}</div>` : ""}
     <div class="ds"><div class="dst">Bloodwork Monitoring</div><div style="font-size:13px;line-height:1.7">${drug.mon || "No specific bloodwork monitoring noted for this compound."}</div></div>
     ${drug.sideEffects ? `<div class="ds"><div class="dst">Side Effects</div><div style="font-size:13px;line-height:1.7">${drug.sideEffects}</div></div>` : ""}
     ${drug.interactions ? `<div class="ds"><div class="dst">Interactions</div><div style="font-size:13px;line-height:1.7">${drug.interactions}</div></div>` : ""}
@@ -8270,7 +8286,7 @@ isPro: function() { return this.get() === 'pro'; },
 isStd: function() { return ['standard','byok','pro'].includes(this.get()); },
 check: function(feat) {
 var pro = ['ai_scanner','ai_assistant'];
-var std = ['bloodwork_trends','clinical_reports','blood_pressure','symptoms','cycle_tracker','refill_tracker','progress_photos'];
+var std = ['bloodwork_trends','clinical_reports','blood_pressure','symptoms','cycle_tracker','refill_tracker','progress_photos','encyclopedia_advanced','pk_advanced'];
 /* BYOK holders get the AI features — the server just makes them supply the key. */
 if (pro.indexOf(feat) >= 0 && this.get() === 'byok') {
 if (!this.hasOwnKey()) {
@@ -8799,6 +8815,115 @@ return { v, unit: 'mg' };
 
 const PK_COLORS = ['#4ade9a','#3bc4ff','#f59e0b','#f472b6','#a78bfa','#2dd4bf','#fb923c','#e879f9'];
 let _pkChart = null;
+/* ---- steady-state pharmacokinetics --------------------------------------
+ * One-compartment, first-order elimination. Everything here is arithmetic on a
+ * published half-life and a dosing interval the user chose — it models a curve,
+ * it does not measure a person, and it says so wherever it is displayed.
+ *
+ * This is the part the per-dose chart cannot show: split a daily dose across two
+ * or three administrations and total exposure is unchanged, but the peak falls
+ * and the trough rises. That trade is the whole reason people ask whether to run
+ * oxandrolone twice a day or GH two or three times.
+ */
+function tlPkSteadyState(halfLifeH, intervalH, tmaxH) {
+  if (!(halfLifeH > 0) || !(intervalH > 0)) return null;
+  const ke = Math.LN2 / halfLifeH;
+  const decay = Math.exp(-ke * intervalH);
+
+  /* Accumulation ratio: how much higher steady state sits than a single dose. */
+  const accumulation = 1 / (1 - decay);
+
+  /* Relative peak and trough at steady state, in multiples of the amount one
+     dose contributes. Unitless on purpose — a concentration would be a claim
+     about the user's blood. */
+  const peak = accumulation;
+  const trough = accumulation * decay;
+
+  /* Peak-to-trough swing. The number that actually answers "should I split it". */
+  const fluctuationPct = peak > 0 ? ((peak - trough) / peak) * 100 : 0;
+
+  return {
+    halfLifeH, intervalH,
+    dosesPerDay: 24 / intervalH,
+    accumulation,
+    peak, trough,
+    peakToTrough: trough > 0 ? peak / trough : Infinity,
+    fluctuationPct,
+    /* 90% of steady state is reached at 3.32 half-lives regardless of interval. */
+    timeToSteadyStateH: 3.32 * halfLifeH,
+    /* Fraction of one dose still present when the next is due. */
+    carryover: decay,
+    tmaxH: tmaxH || null,
+  };
+}
+
+/* Compare splitting the SAME total daily amount across n administrations.
+   Total exposure is identical in every row; only the shape changes. */
+function tlPkSplitComparison(halfLifeH, splits, tmaxH) {
+  return (splits || [1, 2, 3, 4]).map((n) => {
+    const ss = tlPkSteadyState(halfLifeH, 24 / n, tmaxH);
+    if (!ss) return null;
+    /* Each administration carries 1/n of the day's amount, so scale the
+       relative peak and trough by that share to keep the rows comparable. */
+    const share = 1 / n;
+    return {
+      perDay: n,
+      intervalH: 24 / n,
+      relPeak: ss.peak * share,
+      relTrough: ss.trough * share,
+      fluctuationPct: ss.fluctuationPct,
+      peakToTrough: ss.peakToTrough,
+      carryover: ss.carryover,
+    };
+  }).filter(Boolean);
+}
+
+/* Steady-state panel. Gated: the per-dose curve is free, the dosing-frequency
+   analysis is not — it is the question people actually pay to answer. */
+function renderPkSteadyState(activeMeds) {
+const host = document.getElementById('pk-ss');
+if (!host) return;
+if (!activeMeds || !activeMeds.length) { host.innerHTML = ''; return; }
+if (window.TLTier && TLTier.isStd && !TLTier.isStd()) {
+host.innerHTML = `
+  <div class="card" style="margin-bottom:8px;cursor:pointer" onclick="if(window.TLTier)TLTier.check('pk_advanced')">
+    <div style="font-size:13px;font-weight:600">🔒 Steady state &amp; dosing frequency — Pro</div>
+    <div style="font-size:11px;color:var(--text2);margin-top:3px;line-height:1.55">How far levels swing between doses, how much accumulates, how long steady state takes, and what changes if the same daily amount is split across two or three administrations.</div>
+    <div style="font-size:11px;font-weight:600;color:var(--accent3);margin-top:7px">Unlock →</div>
+  </div>`;
+return;
+}
+host.innerHTML = activeMeds.map(m => {
+const pk = pkParamsFor(m); if (!pk || !pk.hl) return '';
+const rows = tlPkSplitComparison(pk.hl, [1,2,3], pk.tmax);
+const ss = tlPkSteadyState(pk.hl, 24, pk.tmax);
+return `
+  <div class="card" style="margin-bottom:8px">
+    <div style="font-size:13px;font-weight:600">${m}</div>
+    <div style="font-size:11px;color:var(--text2);margin-top:2px;font-family:'DM Mono',monospace">t½ ${pk.hl}h · accumulates ${ss.accumulation.toFixed(2)}× on daily dosing · 90% of steady state at ${(ss.timeToSteadyStateH/24).toFixed(1)} days</div>
+    <div style="overflow-x:auto;margin-top:9px">
+    <table style="width:100%;border-collapse:collapse;font-size:11.5px">
+      <tr style="color:var(--text3);text-align:left">
+        <th style="padding:3px 8px 3px 0;font-weight:500">Per day</th>
+        <th style="padding:3px 8px;font-weight:500">Interval</th>
+        <th style="padding:3px 8px;font-weight:500">Peak</th>
+        <th style="padding:3px 8px;font-weight:500">Trough</th>
+        <th style="padding:3px 0;font-weight:500">Swing</th>
+      </tr>
+      ${rows.map(r => `<tr style="border-top:1px solid var(--border)">
+        <td style="padding:5px 8px 5px 0;font-variant-numeric:tabular-nums">${r.perDay}×</td>
+        <td style="padding:5px 8px;font-variant-numeric:tabular-nums;color:var(--text2)">${r.intervalH}h</td>
+        <td style="padding:5px 8px;font-variant-numeric:tabular-nums">${r.relPeak.toFixed(2)}</td>
+        <td style="padding:5px 8px;font-variant-numeric:tabular-nums">${r.relTrough.toFixed(2)}</td>
+        <td style="padding:5px 0;font-variant-numeric:tabular-nums">${r.fluctuationPct.toFixed(0)}%</td>
+      </tr>`).join('')}
+    </table>
+    </div>
+    <div style="font-size:10.5px;color:var(--text3);margin-top:8px;line-height:1.55">Same total daily amount in every row — only the split changes. Peak and trough are relative and unitless: they model a curve from a published half-life, not a measurement of your blood.</div>
+  </div>`;
+}).join('');
+}
+
 function renderPKLevels() {
 const wrap = document.getElementById('pk-list'); if (!wrap) return;
 const d = gd();
@@ -8914,6 +9039,7 @@ return `<div class="card" style="padding:11px 14px;margin-bottom:8px;border-styl
     <button class="btn btn-p" style="width:auto;padding:8px 14px;font-size:11px" onclick="pkSaveOverride('${key}','${k}')">Include</button>
   </div>
 </div>`; }).join('');
+renderPkSteadyState(active);
 }
 function pkToggleEdit(k) { const el = document.getElementById('pk-edit-'+k); if (el) el.style.display = el.style.display === 'none' ? '' : 'none'; }
 function pkSaveOverride(key, k) {
@@ -9155,7 +9281,7 @@ div.innerHTML = `
   </div>
   <div id="pk-empty" class="empty" style="display:none"><div class="empty-icon">📈</div>Log doses and your estimated serum levels chart here — half-life and time-to-peak modelled per compound.</div>
   <div class="sec-label" style="margin-top:14px">Compounds &amp; Half-Lives</div>
-  <div id="pk-list"></div>
+  <div id="pk-list"></div><div id="pk-ss"></div>
   <div style="font-size:10.5px;color:var(--text3);line-height:1.6;padding:8px 6px;text-align:center">Educational estimate from published elimination half-lives (one-compartment model with absorption). Individual pharmacokinetics vary widely — this is a visualization, not a measurement or medical guidance.</div>`;
 w && w.parentNode.insertBefore(div, w.nextSibling);
 }
