@@ -4,7 +4,50 @@
 `Therapylog.github.io/app.html` against `therapylog-app/www/index.html`,
 adversarially audited. Companion to `RESTRUCTURE-PLAN.md` phase 0.2.
 
-**Status:** plan only. Steps 1-4 (the C-0 path) are already done; 5-19 are not.
+**Status: superseded in approach, still useful as a per-function record.**
+
+The plan below assumed the two copies would be reconciled function by function
+and then both maintained. That is no longer how it works. `www/index.html` is
+now generated:
+
+    vendor/app.html          this file, copied into therapylog-app, never edited there
+  + shell/overrides/<fn>.js  one file per function that must differ
+  + shell/native.js          the Capacitor layer
+  = www/index.html
+
+`therapylog-app/scripts/build-shell.js --check` runs in that repo's CI, so the
+two copies cannot drift again — which was the actual problem. See
+`therapylog-app/shell/README.md`.
+
+What that changed, against the classification below:
+
+- The **16 site-newer** functions needed no work at all. They are simply what
+  the generator emits, because `app.html` is the input.
+- The **23 site-only** functions likewise arrived for free: the scheduling
+  engine, the PCT builder, the clinical analysis, PK steady-state, discreet
+  reminders. The shell had none of them and now has all of them.
+- The **6 platform** functions turned out to be **3** (`checkNotifSupport`,
+  `requestNotifPermission`, `scheduleAllReminders`), and even those are inert
+  on the web — their native branch is behind `window.TLNative &&
+  TLNative.active()` — so they belong upstream in `app.html` too.
+- The **16 shell-newer** functions are the only real remaining work. They sit
+  in `shell/overrides/` as explicit, readable files rather than as invisible
+  drift, and each is either work to merge back into `app.html` or a stale copy
+  to delete. The per-function port plans below still apply to those.
+
+Three things the classification did not catch, all found while building the
+generator and all fixed:
+
+- `getBPStage` in the shell called a hypertensive crisis "Stage 1" whenever one
+  of the two numbers was normal. 200/85 told the user to modify their lifestyle.
+- The shell gated 5 features where the web app gated 15, so six features
+  advertised as paid shipped free in the store binaries.
+- `TLNative.reschedule()` ignored the discreet-reminders switch, so OS
+  notifications named the compound and dose on the lock screen with the switch
+  on. (This one the plan *did* flag, under `scheduleAllReminders`.)
+
+Steps 1-4 (the C-0 path) are done. The per-function detail below is retained
+because it is the reasoning behind each override that still exists.
 
 
 ## Why this exists
