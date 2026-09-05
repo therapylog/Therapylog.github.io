@@ -4546,6 +4546,228 @@ function renderReportPreview() {
 const preview = document.getElementById('report-preview');
 preview.style.display = 'none';
 }
+/* ---- clinical analysis ---------------------------------------------------
+ *
+ * The report this feeds used to be a snapshot: it read bwEntries[0] and printed
+ * it. A physician got the latest numbers and no way to see movement, so the
+ * useful question — what changed, and over what — was left for them to do by
+ * hand from a list.
+ *
+ * This computes the movement. It is deliberately and completely non-interpretive:
+ * it reports direction, magnitude and what else was logged over the same
+ * interval, and never says whether a value is good, bad, expected, concerning,
+ * or attributable to anything. No thresholds, no verdicts, no recommendations.
+ * The physician draws the conclusions; this exists so they are drawing them from
+ * the whole record instead of one panel.
+ *
+ * Pure: takes the store, returns data, touches no DOM.
+ */
+function tlClinicalAnalysis(d, LAB_FIELDS, opts) {
+  opts = opts || {};
+  const now = opts.now || Date.now();
+  const DAY = 864e5;
+  const entries = (d && d.entries) || [];
+  const proto = (d && d.proto) || null;
+  const bodyComp = (d && d.bodyComp) || [];
+
+  const ts = (e) => new Date(e.ts).getTime();
+  const asc = (a, b) => ts(a) - ts(b);
+  const round = (n, p) => Math.round(n * Math.pow(10, p)) / Math.pow(10, p);
+  const dayStr = (t) => new Date(t).toISOString().slice(0, 10);
+
+  const bw = entries.filter((e) => e.type === 'bloodwork' && e.labs).sort(asc);
+  const meds = entries.filter((e) => e.type === 'medication' && e.medication).sort(asc);
+  const symp = entries.filter((e) => e.type === 'symptom').sort(asc);
+  const wts = entries.filter((e) => e.type === 'weight' && e.weight).sort(asc);
+
+  /* ---- panels ---------------------------------------------------------- */
+  const protoStart = proto && proto.start ? new Date(proto.start).getTime() : null;
+  const panels = bw.map((e) => {
+    const t = ts(e);
+    return {
+      ts: t,
+      date: e.labDate || dayStr(t),
+      labs: e.labs,
+      weekOfProtocol: protoStart === null ? null
+        : Math.floor((t - protoStart) / (7 * DAY)),
+    };
+  });
+
+  /* ---- per-marker trajectory ------------------------------------------- */
+  const markers = [];
+  (LAB_FIELDS || []).forEach((f) => {
+    const points = panels
+      .filter((p) => p.labs[f.key] !== undefined && p.labs[f.key] !== null && p.labs[f.key] !== '')
+      .map((p) => ({ ts: p.ts, date: p.date, v: Number(p.labs[f.key]) }))
+      .filter((p) => isFinite(p.v));
+    if (!points.length) return;
+    const first = points[0], last = points[points.length - 1];
+    const abs = points.length > 1 ? round(last.v - first.v, 2) : null;
+    const pct = points.length > 1 && first.v !== 0
+      ? round(((last.v - first.v) / Math.abs(first.v)) * 100, 1) : null;
+    markers.push({
+      key: f.key, label: f.label, unit: f.unit,
+      points, n: points.length,
+      first, last,
+      abs, pct,
+      /* direction only — never a judgement about the direction */
+      dir: abs === null ? 'single' : abs > 0 ? 'up' : abs < 0 ? 'down' : 'flat',
+      spanDays: points.length > 1 ? Math.round((last.ts - first.ts) / DAY) : 0,
+    });
+  });
+
+  /* ---- what was logged between consecutive panels ----------------------- */
+  /* The point of the whole file. A physician can see that a marker moved and,
+     in the same row, everything else the patient logged over exactly that
+     interval — without the app asserting any relationship between the two. */
+  const medsInWindow = (from, to) => {
+    const inWin = meds.filter((e) => ts(e) > from && ts(e) <= to);
+    const byName = {};
+    inWin.forEach((e) => {
+      const k = e.medication;
+      (byName[k] = byName[k] || { name: k, count: 0, doses: [] }).count++;
+      if (e.dose) byName[k].doses.push(String(e.dose));
+    });
+    return Object.values(byName).map((m) => {
+      const uniq = [...new Set(m.doses)];
+      return { name: m.name, count: m.count, doses: uniq,
+               doseChanged: uniq.length > 1 };
+    }).sort((a, b) => b.count - a.count);
+  };
+
+  const intervals = [];
+  for (let i = 1; i < panels.length; i++) {
+    const a = panels[i - 1], b = panels[i];
+    const days = Math.round((b.ts - a.ts) / DAY);
+    const during = medsInWindow(a.ts, b.ts);
+    const before = medsInWindow(a.ts - (b.ts - a.ts), a.ts);
+    const nBefore = new Set(before.map((m) => m.name));
+    const nDuring = new Set(during.map((m) => m.name));
+    const movers = markers.map((m) => {
+      const pa = m.points.find((p) => p.ts === a.ts);
+      const pb = m.points.find((p) => p.ts === b.ts);
+      if (!pa || !pb) return null;
+      const delta = round(pb.v - pa.v, 2);
+      if (delta === 0) return null;
+      return { key: m.key, label: m.label, unit: m.unit,
+               from: pa.v, to: pb.v, delta,
+               pct: pa.v !== 0 ? round((delta / Math.abs(pa.v)) * 100, 1) : null };
+    }).filter(Boolean)
+      .sort((x, y) => Math.abs(y.pct || 0) - Math.abs(x.pct || 0));
+
+    /* Dose changes matter in two directions and only one of them is visible
+       from inside a single window. A compound logged at one dose all through
+       this interval and a different dose all through the previous one has
+       changed — that is the dose adjustment a physician most wants to see next
+       to the marker movement — but each window on its own looks consistent. */
+    const prevBy = {};
+    before.forEach((m) => { prevBy[m.name] = m.doses; });
+    const doseChanges = [];
+    during.forEach((m) => {
+      if (m.doseChanged) doseChanges.push({ name: m.name, from: null, to: m.doses, within: true });
+      const prev = prevBy[m.name];
+      if (prev && prev.length && m.doses.length &&
+          prev.join('|') !== m.doses.join('|')) {
+        doseChanges.push({ name: m.name, from: prev, to: m.doses, within: false });
+      }
+    });
+
+    intervals.push({
+      fromDate: a.date, toDate: b.date, fromTs: a.ts, toTs: b.ts, days,
+      logged: during,
+      started: [...nDuring].filter((n) => !nBefore.has(n)),
+      stopped: [...nBefore].filter((n) => !nDuring.has(n)),
+      doseChanges,
+      movers,
+    });
+  }
+
+  /* ---- adherence -------------------------------------------------------- */
+  /* Same 30-day expected-vs-logged shape the dashboard card already uses, so
+     the report and the dashboard cannot disagree. */
+  let adherence = null;
+  if (proto && Array.isArray(proto.meds) && proto.meds.length) {
+    const win = opts.adherenceDays || 30;
+    const since = now - win * DAY;
+    const logged = meds.filter((e) => ts(e) >= since).length;
+    const expected = proto.meds.reduce((sum, m) => {
+      const f = (m.freq && m.freq.times) || 1;
+      const per = (m.freq && m.freq.perWeek) || (m.freq && m.freq.days && m.freq.days.length) || 7;
+      return sum + Math.round((win / 7) * (f * (per || 1)));
+    }, 0);
+    const gaps = [];
+    const recent = meds.filter((e) => ts(e) >= since).map(ts).sort((a, b) => a - b);
+    for (let i = 1; i < recent.length; i++) {
+      const g = Math.round((recent[i] - recent[i - 1]) / DAY);
+      if (g >= 4) gaps.push({ from: dayStr(recent[i - 1]), to: dayStr(recent[i]), days: g });
+    }
+    adherence = {
+      windowDays: win, logged, expected,
+      pct: expected > 0 ? Math.min(100, Math.round((logged / expected) * 100)) : null,
+      gaps,
+    };
+  }
+
+  /* ---- symptoms --------------------------------------------------------- */
+  const byCat = {};
+  symp.forEach((e) => {
+    const c = e.category || 'Unspecified';
+    const b = (byCat[c] = byCat[c] || { name: c, count: 0, sev: [], firstTs: ts(e), lastTs: ts(e) });
+    b.count++;
+    if (isFinite(Number(e.severity))) b.sev.push(Number(e.severity));
+    b.lastTs = ts(e);
+  });
+  const symptoms = {
+    total: symp.length,
+    categories: Object.values(byCat).map((b) => {
+      const mean = b.sev.length ? round(b.sev.reduce((s, v) => s + v, 0) / b.sev.length, 1) : null;
+      /* Split at the midpoint and compare halves. An odd count puts the middle
+         reading in neither half, so three entries still compare first to last
+         rather than reporting nothing — which is what the naive floor(n/2)
+         version did, and three entries is a common real case. */
+      const half = Math.floor(b.sev.length / 2);
+      const early = b.sev.slice(0, half);
+      const late = b.sev.slice(b.sev.length - half);
+      const avg = (a) => a.reduce((s, v) => s + v, 0) / a.length;
+      return {
+        name: b.name, count: b.count, meanSeverity: mean,
+        first: dayStr(b.firstTs), last: dayStr(b.lastTs),
+        severityDir: b.sev.length >= 3 ? (avg(late) > avg(early) ? 'up'
+          : avg(late) < avg(early) ? 'down' : 'flat') : null,
+      };
+    }).sort((a, b) => b.count - a.count),
+  };
+
+  /* ---- body composition -------------------------------------------------- */
+  const series = (arr, get, key) => {
+    const pts = arr.map((e) => ({ ts: new Date(e.ts || e.date).getTime(), v: Number(get(e)) }))
+      .filter((p) => isFinite(p.v) && isFinite(p.ts)).sort((a, b) => a.ts - b.ts);
+    if (!pts.length) return null;
+    const f = pts[0], l = pts[pts.length - 1];
+    return { key, n: pts.length, first: f, last: l,
+             abs: pts.length > 1 ? round(l.v - f.v, 2) : null,
+             pct: pts.length > 1 && f.v !== 0 ? round(((l.v - f.v) / Math.abs(f.v)) * 100, 1) : null,
+             spanDays: Math.round((l.ts - f.ts) / DAY) };
+  };
+  const body = {
+    weight: series(wts, (e) => e.weight, 'weight'),
+    bodyFat: series(bodyComp, (e) => e.bf, 'bodyFat'),
+    lean: series(bodyComp, (e) => e.lean, 'lean'),
+  };
+
+  /* ---- coverage ---------------------------------------------------------- */
+  const all = entries.map(ts).filter(isFinite).sort((a, b) => a - b);
+  const coverage = {
+    firstEntry: all.length ? dayStr(all[0]) : null,
+    lastEntry: all.length ? dayStr(all[all.length - 1]) : null,
+    days: all.length ? Math.round((all[all.length - 1] - all[0]) / DAY) : 0,
+    counts: { bloodwork: bw.length, medication: meds.length,
+              symptom: symp.length, weight: wts.length, bodyComp: bodyComp.length },
+  };
+
+  return { panels, markers, intervals, adherence, symptoms, body, coverage };
+}
+
 function generateReport() {
 /* Standard and above. Gated here rather than on the button so the same check
    covers every caller — the dashboard shortcut and the guide both call this. */
@@ -4693,6 +4915,86 @@ html += `
       </div>
     </div>`;
 }
+/* ---- trajectory and interval analysis --------------------------------- */
+/* Everything above this point is a snapshot of the latest values. This is the
+   part a physician cannot reconstruct from a list: how each marker moved, and
+   what else the patient logged over exactly the interval it moved in.
+   Strictly descriptive — direction and magnitude, never a judgement, never a
+   suggested change. */
+const _an = (typeof tlClinicalAnalysis === 'function')
+  ? tlClinicalAnalysis(d, typeof LAB_FIELDS !== 'undefined' ? LAB_FIELDS : [], {}) : null;
+const _sign = (n) => (n > 0 ? '+' : '') + n;
+const _arrow = (dir) => dir === 'up' ? '&#9650;' : dir === 'down' ? '&#9660;' : '&#9644;';
+const _hd = (txt) => `<div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#64748b;margin-bottom:10px;display:flex;align-items:center;gap:8px">${txt}<div style="flex:1;height:1px;background:#e2e8f0"></div></div>`;
+
+if (inclLabs && _an && _an.markers.some((m) => m.n > 1)) {
+const rows = _an.markers.filter((m) => m.n > 1).map((m) => `
+      <tr style="border-bottom:1px solid #f1f5f9">
+        <td style="padding:5px 8px 5px 0;font-size:11.5px">${m.label}</td>
+        <td style="padding:5px 8px;font-size:11.5px;font-variant-numeric:tabular-nums;color:#64748b">${m.first.v}</td>
+        <td style="padding:5px 8px;font-size:11.5px;font-variant-numeric:tabular-nums;font-weight:600">${m.last.v}</td>
+        <td style="padding:5px 8px;font-size:11.5px;font-variant-numeric:tabular-nums">${_sign(m.abs)}</td>
+        <td style="padding:5px 8px;font-size:11.5px;font-variant-numeric:tabular-nums">${m.pct === null ? '—' : _sign(m.pct) + '%'}</td>
+        <td style="padding:5px 0;font-size:11.5px;color:#94a3b8">${m.unit || ''}</td>
+      </tr>`).join('');
+html += `
+    <div style="margin-bottom:20px">
+      ${_hd('Marker Trajectories')}
+      <div style="font-size:10.5px;color:#94a3b8;margin-bottom:8px">Movement across ${_an.panels.length} panels spanning ${_an.markers[0] ? _an.markers[0].spanDays : 0} days, earliest to most recent. Descriptive only — no reference intervals applied and no interpretation offered.</div>
+      <table style="width:100%;border-collapse:collapse">
+        <tr style="border-bottom:1.5px solid #e2e8f0">
+          <th style="text-align:left;padding:0 8px 5px 0;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8">Marker</th>
+          <th style="text-align:left;padding:0 8px 5px;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8">First</th>
+          <th style="text-align:left;padding:0 8px 5px;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8">Latest</th>
+          <th style="text-align:left;padding:0 8px 5px;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8">Change</th>
+          <th style="text-align:left;padding:0 8px 5px;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8">%</th>
+          <th style="text-align:left;padding:0 0 5px;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8">Unit</th>
+        </tr>
+        ${rows}
+      </table>
+    </div>`;
+}
+
+if (inclLabs && _an && _an.intervals.length) {
+html += `
+    <div style="margin-bottom:20px">
+      ${_hd('Between Panels')}
+      <div style="font-size:10.5px;color:#94a3b8;margin-bottom:10px">What the patient logged over each interval between draws, alongside the markers that moved in that same interval. The two are presented together for reference; no causal relationship is asserted.</div>
+      ${_an.intervals.map((iv) => `
+        <div style="border:1px solid #e2e8f0;border-radius:8px;padding:11px 13px;margin-bottom:9px;page-break-inside:avoid">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
+            <div style="font-size:12.5px;font-weight:700;color:#0f172a">${iv.fromDate} &rarr; ${iv.toDate}</div>
+            <div style="font-size:10.5px;color:#94a3b8">${iv.days} days</div>
+          </div>
+          <div style="font-size:11px;color:#475569;margin-top:6px"><strong style="color:#64748b">Logged:</strong> ${iv.logged.length ? iv.logged.map((m) => `${m.name} &times;${m.count}${m.doses.length ? ' (' + m.doses.join(', ') + ')' : ''}`).join(' &middot; ') : 'nothing logged in this interval'}</div>
+          ${iv.doseChanges.filter((c) => !c.within).length ? `<div style="font-size:11px;color:#475569;margin-top:3px"><strong style="color:#64748b">Dose change:</strong> ${iv.doseChanges.filter((c) => !c.within).map((c) => `${c.name} ${c.from.join('/')} &rarr; ${c.to.join('/')}`).join('; ')}</div>` : ''}
+          ${iv.started.length ? `<div style="font-size:11px;color:#475569;margin-top:3px"><strong style="color:#64748b">First logged:</strong> ${iv.started.join(', ')}</div>` : ''}
+          ${iv.stopped.length ? `<div style="font-size:11px;color:#475569;margin-top:3px"><strong style="color:#64748b">No longer logged:</strong> ${iv.stopped.join(', ')}</div>` : ''}
+          ${iv.movers.length ? `<div style="margin-top:7px;padding-top:7px;border-top:1px dashed #e2e8f0;display:flex;flex-wrap:wrap;gap:5px">
+            ${iv.movers.slice(0, 8).map((m) => `<span style="font-size:10.5px;padding:2.5px 7px;border-radius:5px;background:#f1f5f9;color:#334155;font-variant-numeric:tabular-nums">${m.label} ${m.from}&rarr;${m.to}${m.pct === null ? '' : ' (' + _sign(m.pct) + '%)'}</span>`).join('')}
+          </div>` : ''}
+        </div>`).join('')}
+    </div>`;
+}
+
+if (_an && _an.adherence && _an.adherence.gaps.length) {
+html += `
+    <div style="margin-bottom:20px">
+      ${_hd('Logging Gaps')}
+      <div style="font-size:10.5px;color:#94a3b8;margin-bottom:8px">Intervals of four days or more between logged doses in the last ${_an.adherence.windowDays} days. A gap means nothing was recorded; it does not establish that nothing was taken.</div>
+      ${_an.adherence.gaps.map((g) => `<div style="font-size:11.5px;color:#475569;padding:3px 0">${g.from} &rarr; ${g.to} &middot; <span style="font-variant-numeric:tabular-nums">${g.days} days</span></div>`).join('')}
+    </div>`;
+}
+
+if (_an) {
+html += `
+    <div style="margin-bottom:20px">
+      ${_hd('Record Coverage')}
+      <div style="font-size:11.5px;color:#475569">${_an.coverage.days} days of records${_an.coverage.firstEntry ? ` (${_an.coverage.firstEntry} to ${_an.coverage.lastEntry})` : ''} &middot; ${_an.coverage.counts.medication} doses &middot; ${_an.coverage.counts.bloodwork} panels &middot; ${_an.coverage.counts.symptom} symptom entries &middot; ${_an.coverage.counts.weight} weights &middot; ${_an.coverage.counts.bodyComp} body composition entries</div>
+      <div style="font-size:10.5px;color:#94a3b8;margin-top:5px">All figures are self-reported by the patient and were entered by them in the app. Nothing here has been verified against a laboratory or pharmacy record.</div>
+    </div>`;
+}
+
 html += `
     <div style="border-top:1px solid #e2e8f0;padding-top:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center">
       <div style="font-size:10px;color:#94a3b8">Generated by TherapyLog · ${today}</div>
