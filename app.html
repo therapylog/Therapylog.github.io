@@ -1666,6 +1666,10 @@ const ft = (iso) => new Date(iso).toLocaleTimeString("en-US",{hour:"numeric",min
 function toast(m) { const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2200); }
 function updateDate() { const d=new Date(); document.getElementById("hdate").innerHTML=d.toLocaleDateString("en-US",{weekday:"short"}).toUpperCase()+"<br>"+d.toLocaleDateString("en-US",{month:"short",day:"numeric"}); }
 function showLogTab(btn, tab) {
+/* Gate before anything is shown or hidden, so a declined upgrade leaves the
+   user on the tab they were already looking at rather than a blank panel. */
+if (tab === 'bp' && window.TLTier && !TLTier.check('blood_pressure')) return;
+if (tab === 'symp' && window.TLTier && !TLTier.check('symptoms')) return;
 if (tab === 'labs') { const slot = document.getElementById('lt-labs-slot'), lt = document.getElementById('lt-labs'); if (slot && lt && lt.previousElementSibling !== slot) slot.after(lt); }
 ["weight","meds","body","symp","bp","labs"].forEach(t => {
 const el = document.getElementById("lt-"+t);
@@ -4543,6 +4547,9 @@ const preview = document.getElementById('report-preview');
 preview.style.display = 'none';
 }
 function generateReport() {
+/* Standard and above. Gated here rather than on the button so the same check
+   covers every caller — the dashboard shortcut and the guide both call this. */
+if (window.TLTier && !TLTier.check('clinical_reports')) return;
 const d = gd();
 const p = d.profile || {};
 const proto = d.proto;
@@ -5656,6 +5663,9 @@ el.textContent = 'Not yet enabled — tap below to enable.';
 }
 let clinicModeActive = false;
 function toggleClinicMode() {
+/* Gate only on the way IN — a lapsed plan must never trap someone inside
+   clinic view with no way back out. */
+if (!clinicModeActive && window.TLTier && !TLTier.check('clinical_reports')) return;
 clinicModeActive = !clinicModeActive;
 updateClinicToggleUI();
 if (clinicModeActive) {
@@ -6234,6 +6244,7 @@ container.innerHTML = `
     </div>`;
 }
 function showBWTab(btn, tab) {
+if (tab === 'trends' && window.TLTier && !TLTier.check('bloodwork_trends')) return;
 ['overview','trends','log','history'].forEach(t => {
 const el = document.getElementById('bw-'+t);
 if (el) el.style.display = t===tab ? '' : 'none';
@@ -6440,6 +6451,23 @@ const alerts = calcRefillAlerts();
 const container = document.getElementById('dash-refills');
 if (!container) return;
 if (!alerts.length) { container.innerHTML = ''; return; }
+/* Free tier sees a locked teaser rather than nothing. Returning early here would
+   hide the feature entirely, which is worse on both counts — the user cannot tell
+   the app noticed they are running low, and they never learn the feature exists. */
+if (window.TLTier && TLTier.isStd && !TLTier.isStd()) {
+container.innerHTML = `
+    <div class="sec-label" style="margin-top:0">Refill Alerts</div>
+    <div class="card" style="margin-bottom:8px;cursor:pointer;border-color:rgba(245,158,11,0.35)" onclick="if(window.TLTier)TLTier.check('refill_tracker')">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <div>
+          <div style="font-size:13px;font-weight:600">🔒 ${alerts.length} refill ${alerts.length === 1 ? 'alert' : 'alerts'}</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px">Days remaining on each compound, from what you have logged.</div>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:var(--accent3);white-space:nowrap">Unlock →</div>
+      </div>
+    </div>`;
+return;
+}
 container.innerHTML = `
     <div class="sec-label" style="margin-top:0">Refill Alerts</div>
     ${alerts.map(a => `
@@ -6791,6 +6819,14 @@ b.classList.toggle('active', b.id === 'hbtn-' + section);
 }
 }
 function switchHubSection(hub, section, btn) {
+/* Same reasoning as showLogTab: refuse before hubState moves, so declining
+   the upgrade leaves the current section intact.
+   Written out per feature rather than through a lookup map, so every gate in
+   this file is findable with a grep for TLTier.check('<feature>') — which is
+   how the entitlement audit checks coverage. */
+if (section === 'cycle' && window.TLTier && !TLTier.check('cycle_tracker')) return;
+if (section === 'femcycle' && window.TLTier && !TLTier.check('cycle_tracker')) return;
+if (section === 'photos' && window.TLTier && !TLTier.check('progress_photos')) return;
 _tlScrollTop();
 hubState[hub] = section;
 /* the Plan & backup card lives on Settings, so refresh it as that section opens

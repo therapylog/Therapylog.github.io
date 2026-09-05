@@ -187,6 +187,34 @@ if (emailLib) {
   t('email sets List-Unsubscribe headers', /List-Unsubscribe/.test(emailLib));
 }
 
+/* ---- entitlement coverage ------------------------------------------------ */
+
+/* Every feature TLTier advertises as paid must actually be enforced somewhere.
+ *
+ * This exists because it was not true. TLTier.check() has always known about
+ * nine features, and app.html called it for two of them — so bloodwork trends,
+ * clinical reports, blood pressure, symptom logging, cycle tracking, refill
+ * alerts and progress check-ins were advertised on /pro and shipped free. The
+ * gates are cheap to add and equally cheap to lose in a refactor, so the
+ * expected set is derived from TLTier itself rather than hard-coded here: add a
+ * feature to the pro/std arrays without gating it and this fails.
+ *
+ * Call sites must be written out literally as TLTier.check('<feature>'). A
+ * lookup map or a computed key would pass a human reading the code and fail
+ * this check, which is the intended trade — greppable gates are auditable ones. */
+const proArr = app.match(/var pro = \[([^\]]*)\]/);
+const stdArr = app.match(/var std = \[([^\]]*)\]/);
+t('TLTier.check() declares its pro and std feature arrays', !!proArr && !!stdArr);
+if (proArr && stdArr) {
+  const declared = [proArr[1], stdArr[1]]
+    .flatMap((a) => [...a.matchAll(/'([a-z_]+)'/g)].map((m) => m[1]));
+  t('TLTier declares at least the nine known paid features', declared.length >= 9,
+    `found ${declared.length}: ${declared.join(', ')}`);
+  const ungated = declared.filter((f) => !new RegExp(`TLTier\\.check\\('${f}'\\)`).test(app));
+  t('every paid feature TLTier declares is gated at a call site', ungated.length === 0,
+    ungated.length ? `advertised but never enforced: ${ungated.join(', ')}` : '');
+}
+
 /* ---- report ------------------------------------------------------------- */
 const failed = results.filter(([ok]) => !ok);
 results.forEach(([ok, name, detail]) => {
@@ -198,4 +226,5 @@ if (failed.length) {
 }
 console.log(`compliance OK: ${results.length} checks — legal links on every public page, ` +
             `no unsubstantiated verification claims, no placeholder listings, ` +
-            `the privacy switch the policy promises, and CAN-SPAM email requisites`);
+            `the privacy switch the policy promises, every advertised paid feature `+
+            `actually gated, and CAN-SPAM email requisites`);
