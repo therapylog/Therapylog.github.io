@@ -209,7 +209,7 @@ function insulinPage(ctx, api) {
       url: '/tools/insulin-syringe-units-calculator/',
       absolute: api.SITE + '/tools/insulin-syringe-units-calculator/' }]),
     body,
-    script: W.prologue({ attribution }) + '\n\n' + INSULIN_JS +
+    script: W.prologue({ attribution, gate: true }) + '\n\n' + INSULIN_JS +
       '\n\ndocument.addEventListener(\'DOMContentLoaded\', function () { isuCalc(); });'
   });
 }
@@ -441,7 +441,7 @@ function trtPage(ctx, api) {
       absolute: api.SITE + '/tools/trt-dose-calculator/' }]),
     body,
     script: [
-      W.prologue({ attribution }),
+      W.prologue({ attribution, gate: true }),
       emitSteadyState(),
       ctx.A.fnSource(app.src, 'pkCurve'),
       `var TRT_PK = ${JSON.stringify(pk)};`,
@@ -720,7 +720,7 @@ function freeTPage(ctx, api) {
       absolute: api.SITE + '/tools/free-testosterone-calculator/' }]),
     body,
     script: [
-      W.prologue({ attribution }),
+      W.prologue({ attribution, gate: true }),
       `var FT_UNITS = ${JSON.stringify(units)};`,
       `var FT_REF = ${JSON.stringify(ref)};`,
       FREET_JS,
@@ -858,7 +858,7 @@ function syringePage(ctx, api) {
       absolute: api.SITE + '/tools/syringe-builder/' }]),
     body,
     script: [
-      W.prologue({ attribution }),
+      W.prologue({ attribution, gate: true }),
       widget.fns,
       `document.addEventListener('DOMContentLoaded', function () { ${widget.init} });`
     ].join('\n\n')
@@ -1179,7 +1179,7 @@ function halfLifeCalcPage(ctx, api) {
       absolute: api.SITE + '/tools/half-life-calculator/' }]),
     body,
     script: [
-      W.prologue({ attribution }),
+      W.prologue({ attribution, gate: true }),
       emitSteadyState(),
       A.fnSource(app.src, 'pkCurve'),
       A.fnSource(app.src, 'pkParseDose'),
