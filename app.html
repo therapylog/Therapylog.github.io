@@ -4569,6 +4569,203 @@ function renderReportPreview() {
 const preview = document.getElementById('report-preview');
 preview.style.display = 'none';
 }
+/* ---- protocol scheduling -------------------------------------------------
+ *
+ * One question, asked everywhere: what is due on day N?
+ *
+ * Adherence, refill maths, the PK curve, reminders, the week view and the
+ * calendar export all ask it. Before this they each re-derived it from
+ * `med.freq`, which could express daily, every-N-days, weekly-on-weekdays and
+ * monthly — and nothing else. No on/off cycling, no staggered starts, no
+ * fixed-length runs inside a longer protocol, no tapers, no clock times, no
+ * dose changes at a phase boundary.
+ *
+ * So this is the one place that answers it. Everything else calls tlDueOn().
+ *
+ * Legacy `freq` objects still work: tlNormalizeRule() lifts them into the new
+ * shape, so existing saved protocols keep running without a migration.
+ *
+ * Day granularity, local time. A dose is due on a calendar day, not at an
+ * instant — the clock times are labels on that day, not scheduling precision.
+ */
+
+var TL_DAY_MS = 864e5;
+
+/* Local midnight for a date-ish input. Avoids the UTC shift that makes a dose
+   land on the wrong day for anyone west of Greenwich. */
+function tlDay(d) {
+  if (d === null || d === undefined) return null;
+  var x = (d instanceof Date) ? new Date(d.getTime()) : new Date(d);
+  if (isNaN(x)) {
+    /* "2026-09-05" parses as UTC; re-read it as local so the day is right. */
+    var m = String(d).match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!m) return null;
+    x = new Date(+m[1], +m[2] - 1, +m[3]);
+  } else if (/^\d{4}-\d{2}-\d{2}$/.test(String(d))) {
+    var p = String(d).split('-');
+    x = new Date(+p[0], +p[1] - 1, +p[2]);
+  }
+  x.setHours(0, 0, 0, 0);
+  return x;
+}
+function tlDaysBetween(a, b) {
+  var A = tlDay(a), B = tlDay(b);
+  if (!A || !B) return null;
+  return Math.round((B - A) / TL_DAY_MS);
+}
+
+/* ---- normalisation ------------------------------------------------------ */
+
+/* Accepts either a new-style rule or a legacy { name, dose, freq } med and
+   returns the new shape. Unknown legacy types fall through to daily, which is
+   what the old code did by omission. */
+function tlNormalizeRule(m) {
+  if (!m) return null;
+  if (m.every || m.weekdays || m.pattern || m.daily || m.monthly || m.taper) {
+    return Object.assign({ times: ['09:00'] }, m);
+  }
+  var f = m.freq || {};
+  var r = { compound: m.compound || m.name, dose: m.dose, times: null };
+
+  if (Array.isArray(f.times)) r.times = f.times.slice();
+  else if (typeof f.times === 'number') r.times = f.times === 2 ? ['08:00', '21:00'] : ['08:00'];
+
+  if (f.type === 'daily') r.daily = true;
+  else if (f.type === 'interval') r.every = { days: f.interval || 1 };
+  else if (f.type === 'weekly') r.weekdays = f.days || null, r.weeklyCount = f.count || null;
+  else if (f.type === 'monthly') r.monthly = true;
+  else r.daily = true;
+
+  if (!r.times) r.times = r.daily ? ['08:00'] : ['09:00'];
+  return r;
+}
+
+/* Weekly rules may name weekdays explicitly, or say "twice a week" and let the
+   protocol's start day decide — which is what the app has always done. */
+function tlWeekdaysFor(rule, protoStart) {
+  if (rule.weekdays && rule.weekdays.length) return rule.weekdays;
+  var s = tlDay(protoStart);
+  if (!s) return [1];
+  var base = s.getDay();
+  return rule.weeklyCount === 2 ? [base, (base + 3) % 7] : [base];
+}
+
+/* ---- the window --------------------------------------------------------- */
+
+/* A rule may start and stop inside a longer protocol: "orals for six weeks of a
+   sixteen-week run", "compound B begins in week 4". Weeks are 1-based because
+   that is how people say them — week 1 is the first week. */
+function tlRuleWindow(rule, protoStart) {
+  var s = tlDay(rule.start || protoStart);
+  var fromDay = 0, toDay = Infinity;
+  if (rule.fromWeek) fromDay = (rule.fromWeek - 1) * 7;
+  if (rule.fromDay !== undefined && rule.fromDay !== null) fromDay = rule.fromDay;
+  if (rule.toWeek) toDay = rule.toWeek * 7 - 1;
+  if (rule.toDay !== undefined && rule.toDay !== null) toDay = rule.toDay;
+  if (rule.forWeeks) toDay = fromDay + rule.forWeeks * 7 - 1;
+  return { anchor: s, fromDay: fromDay, toDay: toDay };
+}
+
+/* ---- the dose ----------------------------------------------------------- */
+
+/* A taper is a list of doses stepped through per week or per day. Past the end
+   of the list the rule is finished, which is what makes 40/40/20/20 terminate
+   without needing a separate stop date. */
+function tlDoseOn(rule, offsetInWindow) {
+  if (!rule.taper || !rule.taper.length) return rule.dose;
+  var per = rule.per === 'day' ? 1 : 7;
+  var idx = Math.floor(offsetInWindow / per);
+  return idx < rule.taper.length ? rule.taper[idx] : null;
+}
+
+/* ---- the question ------------------------------------------------------- */
+
+/* Returns the administrations due on `date`, or [] for a rest day. */
+function tlDueOn(ruleOrMed, date, protoStart) {
+  var rule = tlNormalizeRule(ruleOrMed);
+  if (!rule) return [];
+  var w = tlRuleWindow(rule, protoStart);
+  if (!w.anchor) return [];
+
+  var off = tlDaysBetween(w.anchor, date);
+  if (off === null || off < w.fromDay || off > w.toDay) return [];
+
+  /* Offset measured from the point the rule actually starts, so a taper or an
+     on/off pattern on a staggered compound counts from its own first day
+     rather than the protocol's. */
+  var rel = off - w.fromDay;
+
+  var due = false;
+  if (rule.daily) due = true;
+  else if (rule.every && rule.every.days) {
+    var n = rule.every.days;
+    if (Number.isInteger(n)) due = rel % n === 0;
+    else {
+      /* Fractional intervals are the common case, not an edge case: "every 3.5
+         days" is how twice-weekly testosterone is actually written. Modulo on
+         an integer day offset only lands when the fraction closes, so `rel %
+         3.5 === 0` fires weekly instead of twice weekly — silently, and on the
+         single most common schedule this app supports.
+         Instead: the k-th dose falls on round(k * n), so a day is due when some
+         whole k rounds onto it. */
+      var k = Math.round(rel / n);
+      due = k >= 0 && Math.round(k * n) === rel;
+    }
+  }
+  else if (rule.every && rule.every.weeks) due = rel % (rule.every.weeks * 7) === 0;
+  else if (rule.weekdays || rule.weeklyCount) {
+    due = tlWeekdaysFor(rule, protoStart).indexOf(tlDay(date).getDay()) >= 0;
+  } else if (rule.monthly) {
+    due = tlDay(date).getDate() === w.anchor.getDate();
+  } else if (rule.taper) {
+    /* A bare taper with no frequency means every day of its step. */
+    due = true;
+  }
+
+  /* On/off cycling composes with everything above: 5 on, 2 off applies to the
+     days the rule would otherwise fire, not to the calendar. */
+  if (due && rule.pattern && rule.pattern.on) {
+    var period = rule.pattern.on + (rule.pattern.off || 0);
+    if (period > 0) due = (rel % period) < rule.pattern.on;
+  }
+  if (!due) return [];
+
+  var dose = tlDoseOn(rule, rel);
+  if (dose === null || dose === undefined) return [];
+
+  var times = rule.times && rule.times.length ? rule.times : ['09:00'];
+  return times.map(function (t) {
+    return { compound: rule.compound, dose: dose, time: t };
+  });
+}
+
+/* Every administration due between two dates, inclusive. The shape every
+   caller wanted and each of them was building by hand. */
+function tlScheduleRange(rules, from, to, protoStart) {
+  var out = [];
+  var a = tlDay(from), b = tlDay(to);
+  if (!a || !b || b < a) return out;
+  for (var d = new Date(a); d <= b; d.setDate(d.getDate() + 1)) {
+    var day = new Date(d);
+    var doses = [];
+    (rules || []).forEach(function (r) {
+      doses = doses.concat(tlDueOn(r, day, protoStart));
+    });
+    if (doses.length) {
+      doses.sort(function (x, y) { return String(x.time).localeCompare(String(y.time)); });
+      out.push({ date: new Date(day), doses: doses });
+    }
+  }
+  return out;
+}
+
+/* How many administrations a protocol expects over a window. What adherence
+   should divide by, instead of the per-week approximation it used before. */
+function tlExpectedDoses(rules, from, to, protoStart) {
+  return tlScheduleRange(rules, from, to, protoStart)
+    .reduce(function (n, day) { return n + day.doses.length; }, 0);
+}
+
 /* ---- clinical analysis ---------------------------------------------------
  *
  * The report this feeds used to be a snapshot: it read bwEntries[0] and printed
@@ -4713,11 +4910,18 @@ function tlClinicalAnalysis(d, LAB_FIELDS, opts) {
     const win = opts.adherenceDays || 30;
     const since = now - win * DAY;
     const logged = meds.filter((e) => ts(e) >= since).length;
-    const expected = proto.meds.reduce((sum, m) => {
-      const f = (m.freq && m.freq.times) || 1;
-      const per = (m.freq && m.freq.perWeek) || (m.freq && m.freq.days && m.freq.days.length) || 7;
-      return sum + Math.round((win / 7) * (f * (per || 1)));
-    }, 0);
+    /* Ask the scheduler rather than approximating. The old form multiplied a
+       per-week guess by the window, which cannot see a taper, an on/off
+       pattern, a compound that starts in week 4 or one that stopped last
+       week — so adherence was measured against doses the protocol never
+       actually called for. */
+    const expected = (typeof tlExpectedDoses === 'function')
+      ? tlExpectedDoses(proto.meds, new Date(since), new Date(now), proto.start)
+      : proto.meds.reduce((sum, m) => {
+          const f = (m.freq && m.freq.times) || 1;
+          const per = (m.freq && m.freq.perWeek) || (m.freq && m.freq.days && m.freq.days.length) || 7;
+          return sum + Math.round((win / 7) * (f * (per || 1)));
+        }, 0);
     const gaps = [];
     const recent = meds.filter((e) => ts(e) >= since).map(ts).sort((a, b) => a - b);
     for (let i = 1; i < recent.length; i++) {
