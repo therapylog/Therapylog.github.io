@@ -346,6 +346,63 @@ const toolTab = async (page, tab) => {
     await page.close();
   }
 
+  /* ===== the BYOK key box matches what the server will accept ===== */
+  {
+    /* api/ai-research.js: canByok = tier === "pro" || tier === "byok".
+       Standard is what a lifetime purchase grants, and it is not on that list —
+       so the app must not offer it a key box, and must not tell it the key
+       bought unlimited AI. */
+    const cases = [
+      { tier: "free",     plan: null,       allowed: false },
+      { tier: "standard", plan: "lifetime", allowed: false },
+      { tier: "byok",     plan: "byok",     allowed: true  },
+      { tier: "pro",      plan: "annual",   allowed: true  },
+    ];
+    for (const c of cases) {
+      const page = await browser.newPage({ viewport: { width: 414, height: 900 } });
+      const errors = [];
+      page.on("pageerror", (e) => errors.push(e.message));
+      await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
+      await page.addInitScript((ent) => {
+        localStorage.setItem("tl_ent", JSON.stringify({
+          tier: ent.tier, status: "active", source: "license", lifetime: ent.plan === "lifetime",
+          plan: ent.plan, key: "TL-TEST", verifiedAt: Date.now(), expires: null }));
+      }, c);
+      await page.goto(`http://127.0.0.1:${port}/${PAGE}`);
+      await page.waitForTimeout(900);
+      const disc = page.locator('button[onclick="acceptDisclaimer()"]').first();
+      if (await disc.count() && await disc.isVisible().catch(() => false)) {
+        await disc.click(); await page.waitForTimeout(250);
+        const skip = page.locator('button:has-text("Skip setup, explore first")').first();
+        if (await skip.count() && await skip.isVisible().catch(() => false)) { await skip.click(); await page.waitForTimeout(400); }
+      }
+      const r = await page.evaluate(() => {
+        window.setAIMode("byok");
+        const row = document.getElementById("byok-key-row");
+        const note = document.getElementById("byok-not-on-plan");
+        const el = document.getElementById("byok-key");
+        if (el) el.value = "sk-ant-testkeyvalue";
+        let toasted = "";
+        const realToast = window.toast;
+        window.toast = (m) => { toasted = m; };
+        window.saveByokKey();
+        window.toast = realToast;
+        let stored = null;
+        try { stored = localStorage.getItem("tl_ai_key"); } catch (e) {}
+        return { tier: window.TLTier.get(), boxShown: row && row.style.display !== "none",
+                 noteShown: !!note && note.style.display !== "none", toasted, stored: !!stored };
+      });
+      t(`${c.tier}: key box ${c.allowed ? "offered" : "withheld"}`, r.boxShown === c.allowed, JSON.stringify(r));
+      t(`${c.tier}: key ${c.allowed ? "saved" : "refused"}`, r.stored === c.allowed, JSON.stringify(r));
+      if (!c.allowed) {
+        t(`${c.tier}: told why, not told "unlimited"`,
+          r.noteShown && !/unlimited/i.test(r.toasted), JSON.stringify(r));
+      }
+      t(`${c.tier}: no page errors`, errors.length === 0, errors.join(" | "));
+      await page.close();
+    }
+  }
+
   /* ===== the service worker stays off native ===== */
   {
     const page = await browser.newPage({ viewport: { width: 414, height: 900 } });

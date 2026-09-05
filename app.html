@@ -2512,9 +2512,44 @@ function toggleAISettings() {
 const b=document.getElementById("ai-settings-body"), c=document.getElementById("ai-set-caret");
 const open=b.style.display==="none"; b.style.display=open?"block":"none"; if(c) c.textContent=open?"▴":"▾";
 }
+/* Which plans may actually send their own key. Mirrors the server exactly:
+   api/ai-research.js allows BYOK for tier "pro" or "byok" and 402s everyone
+   else. Standard — which is what a lifetime purchase grants — is not on that
+   list, so showing it the key box was an invitation to a dead end. */
+function tlCanByok() {
+  if (!window.TLTier) return false;
+  return TLTier.get() === "byok" || TLTier.isPro();
+}
+
 function setAIMode(m) {
 try { localStorage.setItem("tl_ai_mode", m); } catch(e){}
-const row=document.getElementById("byok-key-row"); if(row) row.style.display = m==="byok" ? "block" : "none";
+tlSyncByokRow(m);
+}
+
+/* The key box, or the reason there isn't one. Both call sites used to set
+   display straight from the mode, with no idea whether the plan could use it:
+   a Standard user could switch to BYOK, paste a key, and be told "AI is now
+   unlimited on this device" — then get a 402 on the next question. */
+function tlSyncByokRow(mode) {
+  const row = document.getElementById("byok-key-row");
+  if (!row) return;
+  const wants = mode === "byok";
+  const allowed = tlCanByok();
+  row.style.display = wants && allowed ? "block" : "none";
+  let note = document.getElementById("byok-not-on-plan");
+  if (wants && !allowed) {
+    if (!note) {
+      note = document.createElement("div");
+      note.id = "byok-not-on-plan";
+      note.style.cssText = "font-size:11.5px;color:var(--accent3);line-height:1.5;margin-top:10px";
+      row.parentNode.insertBefore(note, row);
+    }
+    note.textContent = "Your plan doesn't include the AI assistant, so your own key can't be used with it yet. " +
+                       "The BYOK and Pro plans both allow it.";
+    note.style.display = "";
+  } else if (note) {
+    note.style.display = "none";
+  }
 }
 /* Personalized vs General. This is a PRIVACY switch and is deliberately separate
    from tl_ai_mode, which is a BILLING switch (whose API key pays). The privacy
@@ -2668,6 +2703,11 @@ function saveByokKey() {
 const el=document.getElementById("byok-key"); const k=(el.value||"").trim();
 if (!k) { toast("Paste your API key first"); return; }
 if (!k.startsWith("sk-ant-")) { toast("That doesn't look like an Anthropic key"); return; }
+/* Never promise unlimited to a plan the server will refuse. */
+if (!tlCanByok()) {
+toast("Your plan doesn't include the AI assistant — see therapylog.app/pro");
+return;
+}
 try { localStorage.setItem("tl_ai_key", k); localStorage.setItem("tl_ai_mode","byok"); } catch(e){}
 toast("Key saved — AI is now unlimited on this device");
 }
@@ -2675,7 +2715,7 @@ function initAISettings() {
 let mode="managed"; try { mode=localStorage.getItem("tl_ai_mode")||"managed"; } catch(e){}
 const radios=document.querySelectorAll('input[name="aimode"]');
 radios.forEach(r=>{ r.checked = (r.value===mode); });
-const row=document.getElementById("byok-key-row"); if(row) row.style.display = mode==="byok" ? "block" : "none";
+tlSyncByokRow(mode);
 const keyEl=document.getElementById("byok-key");
 if (keyEl) { try { keyEl.value=localStorage.getItem("tl_ai_key")||""; } catch(e){} }
 const p = aiPersonalized() ? "on" : "off";
