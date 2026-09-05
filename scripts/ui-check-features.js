@@ -23,7 +23,11 @@ let chromium;
 try { ({ chromium } = require("playwright-core")); }
 catch (e) { console.error("ui-check-features: playwright-core is not installed — skipping."); process.exit(0); }
 
-const ROOT = path.join(__dirname, "..");
+/* Defaults to this repo's app.html. Point it at the generated native shell to
+   check the same features survived the build:
+     TL_APP_ROOT=../therapylog-app TL_APP_PAGE=www/index.html node scripts/ui-check-features.js */
+const ROOT = path.resolve(__dirname, "..", process.env.TL_APP_ROOT || ".");
+const PAGE = process.env.TL_APP_PAGE || "app.html";
 const EXE = ["/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
              "/opt/pw-browsers/chromium/chrome-linux/chrome",
              process.env.CHROMIUM_PATH].filter(Boolean).find((p) => fs.existsSync(p));
@@ -57,6 +61,9 @@ async function openApp(browser, port, { pro } = {}) {
     if (m.type() !== "error") return;
     const s = m.text();
     if (/Failed to load resource|_vercel\/insights|ERR_FAILED/.test(s)) return;
+    /* /sw.js and /_vercel/insights exist only on the deployed site; the
+       service worker reports its own 404 with this wording. */
+    if (/bad HTTP response code \(404\) was received when fetching the script/.test(s)) return;
     errors.push("console: " + s);
   });
 
@@ -77,7 +84,7 @@ async function openApp(browser, port, { pro } = {}) {
         plan: "lifetime", key: "TL-TEST", verifiedAt: Date.now(), expires: null }));
     });
   }
-  await page.goto(`http://127.0.0.1:${port}/app.html`);
+  await page.goto(`http://127.0.0.1:${port}/${PAGE}`);
   await page.waitForTimeout(900);
 
   const disc = page.locator('button[onclick="acceptDisclaimer()"]').first();
@@ -245,6 +252,49 @@ const toolTab = async (page, tab) => {
     t("an unlisted feature gates rather than unlocking", gated.unknown === false, gated.unknown);
     t("gating raises no page errors", errors.length === 0, errors.join(" | "));
     await page.close();
+  }
+
+  /* ===== the service worker stays off native ===== */
+  {
+    const page = await browser.newPage({ viewport: { width: 414, height: 900 } });
+    await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
+    /* Stand in for the Capacitor runtime, which injects this before the page
+       script runs. A service worker in the native WebView would cache the
+       bundle and then serve the previous build's assets after an app update. */
+    const tries = [];
+    await page.addInitScript(() => {
+      window.Capacitor = { isNativePlatform: () => true, getPlatform: () => "ios", Plugins: {} };
+      const reg = navigator.serviceWorker && navigator.serviceWorker.register;
+      if (reg) {
+        navigator.serviceWorker.register = function (u) {
+          window.__swTried = (window.__swTried || []).concat(u);
+          return Promise.reject(new Error("blocked by test"));
+        };
+      }
+    });
+    await page.goto(`http://127.0.0.1:${port}/${PAGE}`);
+    await page.waitForTimeout(900);
+    const tried = await page.evaluate(() => window.__swTried || []);
+    t("no service worker is registered on native", tried.length === 0, JSON.stringify(tried));
+    await page.close();
+
+    const web = await browser.newPage({ viewport: { width: 414, height: 900 } });
+    await web.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
+    await web.addInitScript(() => {
+      const reg = navigator.serviceWorker && navigator.serviceWorker.register;
+      if (reg) {
+        navigator.serviceWorker.register = function (u) {
+          window.__swTried = (window.__swTried || []).concat(u);
+          return Promise.reject(new Error("blocked by test"));
+        };
+      }
+    });
+    await web.goto(`http://127.0.0.1:${port}/${PAGE}`);
+    await web.waitForTimeout(900);
+    const webTried = await web.evaluate(() => window.__swTried || []);
+    t("the web build still registers its service worker",
+      webTried.length === 1 && webTried[0] === "/sw.js", JSON.stringify(webTried));
+    await web.close();
   }
 
   /* ===== the C-0 consent overlay actually reaches the screen ===== */

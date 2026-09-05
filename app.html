@@ -3436,7 +3436,15 @@ const d = gd(); d.proto = null; sd(d);
 toast('Protocol cleared');
 renderCycle();
 }
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(()=>{}); }
+/* Web only. The native shell has no /sw.js to fetch, so registration 404s in
+   the console on every launch, and a service worker inside a Capacitor WebView
+   is worse than useless: every asset is already local, and the cache it builds
+   would go on serving the previous build's files after an app update. The
+   Capacitor check is undefined on the web, so the PWA registers exactly as before. */
+if ('serviceWorker' in navigator &&
+    !(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform())) {
+  navigator.serviceWorker.register('/sw.js').catch(()=>{});
+}
 function isIOSBrowserTab() {
 return /iP(hone|ad|od)/.test(navigator.userAgent) && !window.matchMedia('(display-mode: standalone)').matches && !navigator.standalone;
 }
