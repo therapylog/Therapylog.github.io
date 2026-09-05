@@ -26,13 +26,21 @@ OUT = os.path.join(ROOT, 'assets', 'figures')
 
 # Generous windows around each figure — the component pass does the real work,
 # so these only need to contain the figure and exclude the opposite one.
+# Windows are deliberately GENEROUS — wide enough to contain the whole figure
+# including the fingers, and to sweep up some label text along the way. The
+# component pass removes the labels, so the only job here is to separate the two
+# figures from each other. Tight windows are the trap: the first pass used them
+# and silently amputated the hands, because the fingers are drawn in light line
+# work that sits further out than the dense torso columns suggest.
 SRC = {
-    'male':   ('assets/male figure.jpg',   [(20, 260), (620, 864)]),
-    'female': ('assets/female figure.jpg', [(150, 350), (668, 878)]),
+    'male':   ('assets/male figure.jpg',   [(0, 462), (468, 1023)]),
+    'female': ('assets/female figure.jpg', [(0, 530), (536, 1023)]),
 }
 VIEWS = ['front', 'back']
-TARGET_H = 760   # common height so the male and female figures sit at one scale
-PAD = 12
+# No resampling. Baking an upscale into the asset only enlarges the file and
+# softens the edges; CSS scales it, and the image sharpens for free the day
+# higher-resolution source art arrives.
+PAD = 8
 
 
 def largest_blob(mask):
@@ -79,20 +87,18 @@ def main():
             rgba = np.dstack([np.full(crop.shape + (3,), 255, np.uint8),
                               (a * 255).astype(np.uint8)]).astype(np.uint8)
             img = Image.fromarray(rgba)
-            w, h = img.size
-            nw = max(1, round(w * TARGET_H / h))
-            img = img.resize((nw, TARGET_H), Image.LANCZOS)
-            widths.setdefault(sex, {})[view] = nw
+            widths.setdefault(sex, {})[view] = img.size
             img.save(os.path.join(OUT, f'{sex}-{view}.png'))
 
     # One canvas per sex so front and back register exactly when switching.
     for sex, views in widths.items():
-        W, H = max(views.values()) + PAD * 2, TARGET_H + PAD * 2
+        W = max(v[0] for v in views.values()) + PAD * 2
+        H = max(v[1] for v in views.values()) + PAD * 2
         for view in VIEWS:
             p = os.path.join(OUT, f'{sex}-{view}.png')
             im = Image.open(p)
             canvas = Image.new('RGBA', (W, H), (255, 255, 255, 0))
-            canvas.paste(im, ((W - im.size[0]) // 2, PAD), im)
+            canvas.paste(im, ((W - im.size[0]) // 2, (H - im.size[1]) // 2), im)
             # Only alpha carries information under a mask; LA halves the bytes.
             canvas.convert('LA').save(p, optimize=True)
         print(f'{sex}: {W}x{H}')
