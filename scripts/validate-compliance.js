@@ -202,17 +202,34 @@ if (emailLib) {
  * Call sites must be written out literally as TLTier.check('<feature>'). A
  * lookup map or a computed key would pass a human reading the code and fail
  * this check, which is the intended trade — greppable gates are auditable ones. */
-const proArr = app.match(/var pro = \[([^\]]*)\]/);
-const stdArr = app.match(/var std = \[([^\]]*)\]/);
-t('TLTier.check() declares its pro and std feature arrays', !!proArr && !!stdArr);
-if (proArr && stdArr) {
-  const declared = [proArr[1], stdArr[1]]
-    .flatMap((a) => [...a.matchAll(/'([a-z_]+)'/g)].map((m) => m[1]));
-  t('TLTier declares at least the nine known paid features', declared.length >= 9,
-    `found ${declared.length}: ${declared.join(', ')}`);
-  const ungated = declared.filter((f) => !new RegExp(`TLTier\\.check\\('${f}'\\)`).test(app));
+const freeArr = app.match(/var FREE = \[([\s\S]*?)\]/);
+const proArr = app.match(/var PRO = \[([^\]]*)\]/);
+const paidArr = app.match(/var PAID = \[([\s\S]*?)\]/);
+t('TLTier.check() declares FREE, PRO and PAID', !!freeArr && !!proArr && !!paidArr);
+if (freeArr && proArr && paidArr) {
+  const names = (m) => [...m[1].matchAll(/'([a-z_]+)'/g)].map((x) => x[1]);
+  const free = names(freeArr), paid = [...names(proArr), ...names(paidArr)];
+
+  const ungated = paid.filter((f) => !new RegExp(`TLTier\\.check\\('${f}'\\)`).test(app));
   t('every paid feature TLTier declares is gated at a call site', ungated.length === 0,
     ungated.length ? `advertised but never enforced: ${ungated.join(', ')}` : '');
+
+  /* The inverse, which matters just as much now the model is an allowlist: a
+     feature on the free list must not be sitting behind a gate somewhere. That
+     would be a paywall on something the pricing page says is free. */
+  const wronglyGated = free.filter((f) => new RegExp(`TLTier\\.check\\('${f}'\\)`).test(app));
+  t('no free feature is gated at a call site', wronglyGated.length === 0,
+    wronglyGated.length ? `free but gated: ${wronglyGated.join(', ')}` : '');
+
+  const overlap = free.filter((f) => paid.includes(f));
+  t('no feature is both free and paid', overlap.length === 0, overlap.join(', '));
+
+  /* Every gated call site must name a feature one of the lists knows about,
+     or the console warning fires in production and nobody sees it. */
+  const called = [...new Set([...app.matchAll(/TLTier\.check\('([a-z_]+)'\)/g)].map((m) => m[1]))];
+  const unknown = called.filter((f) => !free.includes(f) && !paid.includes(f));
+  t('every gated call site names a declared feature', unknown.length === 0,
+    unknown.length ? `gated but undeclared: ${unknown.join(', ')}` : '');
 }
 
 /* ---- report ------------------------------------------------------------- */

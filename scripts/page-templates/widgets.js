@@ -128,12 +128,14 @@ const GATE_SCRIPT = String.raw`/* ---- the one-free-run gate -------------------
       '<div style="font-size:14.5px;font-weight:600;margin-bottom:6px">That is the free run</div>' +
       '<div style="font-size:13.5px;color:var(--text2);line-height:1.6;margin-bottom:12px">' +
       'The worked example above stays on the page, and the arithmetic is the same the app runs. ' +
-      'Running it on your own vial as often as you like — and saving the result to a dose log ' +
-      'that remembers what you drew and when — is part of TherapyLog.</div>' +
-      '<a class="btn btn-p" href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=gate" ' +
-      'style="text-decoration:none;display:block;text-align:center;line-height:1.4">Open the app</a>' +
+      'Running it on your own numbers whenever you like is part of TherapyLog — along with the ' +
+      'dose log it saves into, bloodwork trends across every panel, a clinical report your ' +
+      'physician can actually read, steady-state modelling, and the full dosing and stacking ' +
+      'detail on 131 compounds.</div>' +
+      '<a class="btn btn-p" href="/pro?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=gate" ' +
+      'style="text-decoration:none;display:block;text-align:center;line-height:1.4">See what Pro includes</a>' +
       '<div style="font-size:12px;color:var(--text3);margin-top:9px;text-align:center">' +
-      'Already subscribed? <a href="/app" style="color:var(--text2)">Open it here</a> and this page unlocks.</div>';
+      'Already subscribed? <a href="/app" style="color:var(--text2)">Open the app</a> and this page unlocks.</div>';
     host.parentNode.insertBefore(d, host.nextSibling);
   }
 

@@ -2988,6 +2988,13 @@ notes:"Timing critical: HCG in last 2 weeks of cycle, stop HCG, wait 2 weeks, st
 },
 ];
 function showToolTab(btn, tab) {
+/* Capture stays free, analysis does not. calc (reconstitution), body (body
+   composition) and interact (the interaction checker) are free: the first two
+   because they are how data gets in, the third because gating a safety warning
+   is the one trade this app should never make. */
+if (tab === 'templates' && window.TLTier && !TLTier.check('protocol_templates')) return;
+if (tab === 'symptom' && window.TLTier && !TLTier.check('correlations')) return;
+if (tab === 'cost' && window.TLTier && !TLTier.check('cost_tracking')) return;
 ["interact","templates","body","symptom","cost","calc","syringe","manage"].forEach(t => {
 const el = document.getElementById("tool-"+t);
 if (el) el.style.display = t===tab ? "" : "none";
@@ -8285,18 +8292,41 @@ hasOwnKey: function() { try { return !!localStorage.getItem('tl_ai_key'); } catc
 isPro: function() { return this.get() === 'pro'; },
 isStd: function() { return ['standard','byok','pro'].includes(this.get()); },
 check: function(feat) {
-var pro = ['ai_scanner','ai_assistant'];
-var std = ['bloodwork_trends','clinical_reports','blood_pressure','symptoms','cycle_tracker','refill_tracker','progress_photos','encyclopedia_advanced','pk_advanced'];
+/* An ALLOWLIST, not a blocklist. Everything not named in FREE needs a plan.
+   The lists used to run the other way — name the paid features, and anything
+   unnamed was free — which is how nine advertised features shipped with two
+   of them enforced. Inverting it means a new feature is paid until someone
+   deliberately decides to give it away, and a typo'd feature key gates rather
+   than silently unlocking. */
+var FREE = ['daily_log','bloodwork_manual','body_comp','encyclopedia',
+            'reconstitution','reminders','interactions'];
+/* Pro specifically — the managed-AI features. */
+var PRO = ['ai_scanner','ai_assistant'];
+/* Any paid plan. Kept as an explicit list so validate-compliance.js can still
+   check that every one of them is actually enforced at a call site. */
+var PAID = ['bloodwork_trends','clinical_reports','blood_pressure','symptoms',
+            'cycle_tracker','refill_tracker','progress_photos',
+            'encyclopedia_advanced','pk_advanced',
+            'protocol_templates','correlations','cost_tracking'];
+
+if (FREE.indexOf(feat) >= 0) return true;
+
 /* BYOK holders get the AI features — the server just makes them supply the key. */
-if (pro.indexOf(feat) >= 0 && this.get() === 'byok') {
+if (PRO.indexOf(feat) >= 0 && this.get() === 'byok') {
 if (!this.hasOwnKey()) {
 if (typeof toast === 'function') toast('Add your own API key in AI Settings — your plan is bring-your-own-key');
 return false;
 }
 return true;
 }
-if (pro.indexOf(feat) >= 0 && !this.isPro()) { this.prompt('pro', feat); return false; }
-if (std.indexOf(feat) >= 0 && !this.isStd()) { this.prompt('std', feat); return false; }
+if (PRO.indexOf(feat) >= 0) { if (!this.isPro()) { this.prompt('pro', feat); return false; } return true; }
+
+/* Anything else — including a key nobody remembered to list — needs a plan.
+   Failing closed is the point; an unrecognised key is a bug, so say so. */
+if (PAID.indexOf(feat) < 0 && typeof console !== 'undefined' && console.warn) {
+console.warn('TLTier.check: unlisted feature "' + feat + '" — gated by default. Add it to FREE or PAID.');
+}
+if (!this.isStd()) { this.prompt('std', feat); return false; }
 return true;
 },
 names: {
@@ -8308,7 +8338,12 @@ blood_pressure: 'Blood Pressure Tracker',
 symptoms: 'Symptom Logging',
 cycle_tracker: 'Cycle Tracker',
 refill_tracker: 'Refill Tracker',
-progress_photos: 'Progress Check-Ins'
+progress_photos: 'Progress Check-Ins',
+encyclopedia_advanced: 'Dosing & Stacking Detail',
+pk_advanced: 'Steady-State & Dosing Frequency',
+protocol_templates: 'Protocol Templates',
+correlations: 'Symptom Correlations',
+cost_tracking: 'Cost & Supply Tracking'
 },
 prompt: function(tier, feat) {
 var name = this.names[feat] || feat;
