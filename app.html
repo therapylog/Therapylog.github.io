@@ -2996,7 +2996,7 @@ if (tab === 'templates' && window.TLTier && !TLTier.check('protocol_templates'))
 if (tab === 'symptom' && window.TLTier && !TLTier.check('correlations')) return;
 if (tab === 'cost' && window.TLTier && !TLTier.check('cost_tracking')) return;
 if (tab === 'pct' && window.TLTier && !TLTier.check('pct_builder')) return;
-if (tab === 'pct') setTimeout(renderPctBuilder, 0);
+if (tab === 'pct' && typeof renderPctBuilder === 'function') setTimeout(renderPctBuilder, 0);
 ["interact","templates","body","symptom","cost","calc","syringe","manage","pct"].forEach(t => {
 const el = document.getElementById("tool-"+t);
 if (el) el.style.display = t===tab ? "" : "none";
