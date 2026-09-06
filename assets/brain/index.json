@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "4e7af172a671c129",
+ "generated": "c315003a4aee4057",
  "counts": {
   "compound": 131,
   "marker": 100,
@@ -3048,8 +3048,16 @@
     "testosterone serum",
     "tott"
    ],
-   "text": "Total Testosterone — lab marker\n\ntypical reference range 300–1000 ng/dL; commonly cited optimal band 500–900 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L, ng/mL. Canonical unit is ng/dL.\n\nAssay caveat: LC/MS-MS and immunoassay diverge materially at low concentrations. Do not trend across methods without flagging the switch.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Total Testosterone — lab marker\n\nTotal testosterone — all testosterone in serum, both the fraction bound to SHBG and albumin and the small free fraction.\n\nWhy it matters here: The headline number on TRT, and the one most people fixate on. It is also the least informative of the three testosterone measures on its own, because most of what it counts is bound and biologically unavailable.\n\nHow to read it: Most labs run roughly 264–916 ng/dL for adult men. Treated men are commonly targeted into the upper half. What matters more than the absolute number is where it sits relative to your free testosterone and SHBG, and whether symptoms track it. A total of 900 with SHBG of 80 can feel worse than a total of 550 with SHBG of 25.\n\nWhen it is high: On TRT, usually dose, injection frequency or draw timing rather than anything pathological. Supraphysiologic totals raise hematocrit and estradiol conversion. If genuinely high off-treatment, an androgen-secreting source is the rare consideration.\n\nWhen it is low: Untreated low total testosterone splits into primary (testicular — LH and FSH high) and secondary (pituitary/hypothalamic — LH and FSH low or inappropriately normal). That distinction changes the treatment entirely, which is why LH and FSH belong on the same panel. On TRT, a low total means dose, absorption, injection technique or an ester-timing artifact.\n\nWhat invalidates the result: Draw timing dominates. Testosterone peaks in the morning, so a same-day comparison against a previous afternoon draw is not a real change. On injections, trough (immediately before the next dose) is the standard comparison point — a peak draw two days post-injection will read dramatically higher and means nothing without saying so. Immunoassay and LC-MS/MS diverge; do not trend across a method switch.\n\ntypical reference range 300–1000 ng/dL; commonly cited optimal band 500–900 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L, ng/mL. Canonical unit is ng/dL.\n\nAssay caveat: LC/MS-MS and immunoassay diverge materially at low concentrations. Do not trend across methods without flagging the switch.\n\nRelated playbook: HPTA suppression & recovery.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "playbook:HPTA suppression & recovery",
+    "marker:freet",
+    "marker:shbg",
+    "marker:e2",
+    "marker:lh",
+    "marker:fsh",
+    "marker:bioavailt"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "tott"
@@ -3075,8 +3083,12 @@
     "testosteronefreeequilibriumdialysis",
     "testosterone free equilibrium dialysis"
    ],
-   "text": "Free Testosterone — lab marker\n\ntypical reference range 8–25 pg/mL; commonly cited optimal band 15–25 pg/mL.\n\nUnits seen on lab reports: pg/mL, pmol/L, ng/dL, ng/L. Canonical unit is pg/mL.\n\nAssay caveat: Direct immunoassay free T is unreliable. Equilibrium dialysis is the reference method. Calculated values depend on the SHBG assay.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Free Testosterone — lab marker\n\nFree testosterone — the small unbound fraction, typically 1–3% of total, that is immediately available to tissue.\n\nWhy it matters here: Symptoms track free testosterone far better than total. This is the number that explains why two people with identical totals feel completely different.\n\nHow to read it: Roughly 50–210 pg/mL by direct assay in adult men, though ranges vary widely by method. Calculated free T (Vermeulen equation, from total T, SHBG and albumin) is generally considered more reliable than direct analog immunoassay, which is known to be inaccurate. If your lab reports a direct free T, treat it as approximate.\n\nWhen it is high: Usually low SHBG rather than high total. High free T with a normal total is the classic low-SHBG picture and can produce androgenic side effects — oily skin, acne, shedding — at a total that looks unremarkable.\n\nWhen it is low: High SHBG binding it up, or genuinely low total. Low free T with a high-normal total is the most common reason someone feels untreated on paper-adequate TRT. Addressing SHBG (or dosing pattern) matters more than raising the dose here.\n\nWhat invalidates the result: Direct analog free T assays are poorly standardised and can be materially wrong. If a result contradicts symptoms, ask whether the lab calculated it or measured it, and get SHBG and albumin so it can be calculated.\n\ntypical reference range 8–25 pg/mL; commonly cited optimal band 15–25 pg/mL.\n\nUnits seen on lab reports: pg/mL, pmol/L, ng/dL, ng/L. Canonical unit is pg/mL.\n\nAssay caveat: Direct immunoassay free T is unreliable. Equilibrium dialysis is the reference method. Calculated values depend on the SHBG assay.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tott",
+    "marker:shbg",
+    "marker:bioavailt"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "freet"
@@ -3100,9 +3112,12 @@
     "estradiol, ultra-sensitive",
     "estradiol ultra sensitive"
    ],
-   "text": "Estradiol — lab marker\n\ntypical reference range 10–40 pg/mL; commonly cited optimal band 20–35 pg/mL.\n\nUnits seen on lab reports: pg/mL, pmol/L. Canonical unit is pg/mL.\n\nAssay caveat: CRITICAL for this population. Standard E2 immunoassay is not valid in males at typical concentrations. Sensitive/LC-MS-MS required. If method is unknown, say so rather than interpreting.\n\nRelated playbook: High estradiol.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "Estradiol — lab marker\n\nEstradiol (E2) — the primary oestrogen, produced in men mainly by aromatisation of testosterone in fat and other tissue.\n\nWhy it matters here: Necessary, not an enemy. Estradiol drives libido, erectile function, bone density, joint comfort and mood in men. Both ends of the range cause problems, and crashing it is generally worse than running it a little high.\n\nHow to read it: In men, use a sensitive assay (LC-MS/MS); the standard immunoassay is designed for female ranges and reads unreliably at male concentrations. Sensitive male ranges typically run about 8–35 pg/mL, but treated men often sit above that and feel fine. The ratio to testosterone and the presence of symptoms matter far more than the number.\n\nWhen it is high: Higher testosterone dose, more body fat (more aromatase), alcohol, and some compounds. Symptoms worth acting on are water retention, nipple sensitivity, emotional lability and blood pressure. An elevated number with no symptoms is usually not a reason to medicate.\n\nWhen it is low: Aromatase inhibitors are the usual cause, and over-suppression is common and unpleasant — joint pain, dry joints, dead libido, anhedonia, and long-term bone density loss. Crashed E2 often gets mistaken for low testosterone.\n\nWhat invalidates the result: Assay choice is the single biggest source of confusion here. A non-sensitive immunoassay in a man can read substantially high and trigger unnecessary AI use. Confirm which assay was run before acting on the number.\n\ntypical reference range 10–40 pg/mL; commonly cited optimal band 20–35 pg/mL.\n\nUnits seen on lab reports: pg/mL, pmol/L. Canonical unit is pg/mL.\n\nAssay caveat: CRITICAL for this population. Standard E2 immunoassay is not valid in males at typical concentrations. Sensitive/LC-MS-MS required. If method is unknown, say so rather than interpreting.\n\nRelated playbook: High estradiol.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:High estradiol"
+    "playbook:High estradiol",
+    "marker:tott",
+    "marker:shbg",
+    "marker:estrone"
    ],
    "route": {
     "view": "bloodwork",
@@ -3120,8 +3135,13 @@
     "sexhormonebindingglobulin",
     "sex hormone-binding globulin"
    ],
-   "text": "SHBG — lab marker\n\ntypical reference range 10–57 nmol/L.\n\nUnits seen on lab reports: nmol/L, ug/mL, mcg/mL. Canonical unit is nmol/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "SHBG — lab marker\n\nSex hormone binding globulin — the liver-made protein that binds testosterone and estradiol tightly and controls how much stays free.\n\nWhy it matters here: The single most useful modifier on any hormone panel, and the most commonly ignored. SHBG is why the same dose produces completely different free levels in different people.\n\nHow to read it: Roughly 10–57 nmol/L in adult men. Low SHBG means more free hormone per unit of total and often suits less frequent dosing; high SHBG means the opposite and frequently responds to more frequent, smaller injections. Neither is a disease by itself.\n\nWhen it is high: Thyroid excess, liver disease, oestrogen, ageing, low body fat, some anticonvulsants, and calorie restriction. High SHBG blunts free testosterone and is a common reason someone feels flat despite a strong total.\n\nWhen it is low: Insulin resistance and metabolic syndrome are the big ones — low SHBG is a recognised marker of insulin resistance and worth taking seriously as a metabolic signal, not just a dosing variable. Also obesity, androgen use, hypothyroidism, and glucocorticoids.\n\nWhat invalidates the result: Genuinely low SHBG makes total testosterone look deceptively adequate and free testosterone look alarming. Reading either in isolation gives the wrong answer.\n\ntypical reference range 10–57 nmol/L.\n\nUnits seen on lab reports: nmol/L, ug/mL, mcg/mL. Canonical unit is nmol/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tott",
+    "marker:freet",
+    "marker:insulin",
+    "marker:e2"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "shbg"
@@ -3137,9 +3157,12 @@
     "luteinizing hormone",
     "luteinizinghormone"
    ],
-   "text": "LH — lab marker\n\ntypical reference range 1.5–9.3 mIU/mL.\n\nUnits seen on lab reports: mIU/mL, IU/L, mIU/L. Canonical unit is mIU/mL.\n\nRelated playbook: HPTA suppression & recovery.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "LH — lab marker\n\nLuteinising hormone — the pituitary signal that tells the testes to produce testosterone.\n\nWhy it matters here: Splits low testosterone into primary and secondary, which is the fork that determines treatment. Also the marker that shows how suppressed you are and how recovery is going.\n\nHow to read it: Roughly 1.7–8.6 IU/L in adult men. On exogenous testosterone, expect it near zero — that is the expected pharmacology, not a finding. Off treatment, a low or normal LH with low testosterone points to a pituitary/hypothalamic cause; a high LH with low testosterone points to the testes.\n\nWhen it is high: Primary testicular failure, or the rebound during a SERM-based restart. Clomiphene and enclomiphene raise LH deliberately.\n\nWhen it is low: Exogenous testosterone (expected), and otherwise pituitary suppression from prolactin excess, opioids, glucocorticoids, severe stress or energy deficit.\n\nWhat invalidates the result: Measuring LH while on TRT tells you almost nothing except that the TRT is working as designed. It is informative before treatment and during a restart, not during steady-state therapy.\n\ntypical reference range 1.5–9.3 mIU/mL.\n\nUnits seen on lab reports: mIU/mL, IU/L, mIU/L. Canonical unit is mIU/mL.\n\nRelated playbook: HPTA suppression & recovery.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:HPTA suppression & recovery"
+    "playbook:HPTA suppression & recovery",
+    "marker:fsh",
+    "marker:tott",
+    "marker:prolactin"
    ],
    "route": {
     "view": "bloodwork",
@@ -3157,9 +3180,11 @@
     "folliclestimulatinghormone",
     "follicle-stimulating hormone"
    ],
-   "text": "FSH — lab marker\n\ntypical reference range 1.5–12.4 mIU/mL.\n\nUnits seen on lab reports: mIU/mL, IU/L, mIU/L. Canonical unit is mIU/mL.\n\nRelated playbook: HPTA suppression & recovery.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "FSH — lab marker\n\nFollicle-stimulating hormone — the pituitary signal driving Sertoli cell function and sperm production.\n\nWhy it matters here: The fertility half of the pituitary picture. Read with LH.\n\nHow to read it: Roughly 1.5–12.4 IU/L in adult men. Suppressed on exogenous testosterone, like LH.\n\nWhen it is high: Primary testicular failure, particularly with impaired spermatogenesis. An isolated high FSH with normal testosterone can indicate Sertoli-cell damage with intact Leydig function.\n\nWhen it is low: Exogenous androgens, or the same pituitary causes as low LH.\n\nWhat invalidates the result: Same as LH — near-zero on TRT is expected and not a result to act on. If fertility is the concern, a semen analysis answers the question that FSH only gestures at.\n\ntypical reference range 1.5–12.4 mIU/mL.\n\nUnits seen on lab reports: mIU/mL, IU/L, mIU/L. Canonical unit is mIU/mL.\n\nRelated playbook: HPTA suppression & recovery.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:HPTA suppression & recovery"
+    "playbook:HPTA suppression & recovery",
+    "marker:lh",
+    "marker:tott"
    ],
    "route": {
     "view": "bloodwork",
@@ -3175,9 +3200,12 @@
     "prolactin",
     "prl"
    ],
-   "text": "Prolactin — lab marker\n\ntypical reference range 2–18 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, mIU/L. Canonical unit is ng/mL.\n\nRelated playbook: High prolactin.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "Prolactin — lab marker\n\nProlactin — a pituitary hormone that, when elevated in men, suppresses the gonadal axis and blunts sexual function.\n\nWhy it matters here: A specific, treatable cause of dead libido and erectile trouble that gets misattributed to estradiol constantly. Also the marker to check before escalating AI use for symptoms that are actually prolactin-driven.\n\nHow to read it: Roughly 4–15 ng/mL in adult men. Mild elevation is common and often benign; substantial elevation warrants investigation rather than immediate treatment.\n\nWhen it is high: 19-nor compounds (nandrolone, trenbolone) are the common cause in this population. Otherwise: prolactinoma, hypothyroidism, antipsychotics and some antidepressants, stress, and recent nipple stimulation. Persistent unexplained elevation warrants pituitary imaging rather than empirical dopamine agonist use.\n\nWhen it is low: Rarely clinically significant on its own.\n\nWhat invalidates the result: Prolactin rises with stress, sleep, food and even the venepuncture itself. A single mildly high result should be repeated, fasting and rested, before anyone treats it. Macroprolactin — a biologically inactive complex — can also produce a falsely high result and is worth excluding.\n\ntypical reference range 2–18 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, mIU/L. Canonical unit is ng/mL.\n\nRelated playbook: High prolactin.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:High prolactin"
+    "playbook:High prolactin",
+    "marker:tott",
+    "marker:e2",
+    "marker:tsh"
    ],
    "route": {
     "view": "bloodwork",
@@ -3199,8 +3227,12 @@
     "dehydroepiandrosteronesulfate",
     "dhea-sulfate"
    ],
-   "text": "DHEA-S — lab marker\n\ntypical reference range 80–560 mcg/dL; commonly cited optimal band 200–450 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, umol/L, ug/mL. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "DHEA-S — lab marker\n\nDHEA sulphate — the adrenal androgen precursor, and the most stable measure of adrenal androgen output.\n\nWhy it matters here: An upstream substrate for testosterone and oestrogen. Declines steadily with age and is a common supplement target.\n\nHow to read it: Highly age-dependent — roughly 100–500 mcg/dL in adult men, falling substantially each decade. Compare against age-matched rather than the whole adult range.\n\nWhen it is high: Supplementation is the usual cause. Markedly high warrants exclusion of an adrenal source.\n\nWhen it is low: Ageing, chronic stress, adrenal insufficiency, and glucocorticoid use.\n\nWhat invalidates the result: DHEA-S is preferred over plain DHEA because it is far more stable through the day. Supplemental DHEA aromatises, so it can raise estradiol as well as testosterone.\n\ntypical reference range 80–560 mcg/dL; commonly cited optimal band 200–450 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, umol/L, ug/mL. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:cortam",
+    "marker:tott",
+    "marker:androstenedione"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "dheas"
@@ -3224,8 +3256,12 @@
     "cortisol total",
     "cortam"
    ],
-   "text": "Cortisol AM — lab marker\n\ntypical reference range 6–23 mcg/dL; commonly cited optimal band 10–20 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, nmol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Cortisol AM — lab marker\n\nMorning cortisol — the adrenal stress hormone, measured at its daily peak.\n\nWhy it matters here: Chronically elevated cortisol opposes much of what hormone therapy is for: it is catabolic, worsens insulin sensitivity, suppresses the gonadal axis and wrecks sleep. Low cortisol is a different and more urgent problem.\n\nHow to read it: Roughly 6–23 mcg/dL drawn at 8am. Timing is not optional — cortisol falls through the day, so an afternoon draw against a morning range is meaningless.\n\nWhen it is high: Acute stress, illness, poor sleep, aggressive dieting, overtraining, and exogenous steroids. Genuinely and persistently high warrants investigation for Cushing syndrome.\n\nWhen it is low: Adrenal insufficiency is the concern, and it can be life-threatening. Suppression from exogenous glucocorticoids is the common cause. Persistently low morning cortisol with fatigue, low blood pressure and salt craving is a see-a-doctor finding, not a supplement problem.\n\nWhat invalidates the result: A single random cortisol is nearly uninterpretable. Draw it at 8am, note the time on the result, and understand that acute stress including a difficult blood draw will raise it.\n\ntypical reference range 6–23 mcg/dL; commonly cited optimal band 10–20 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, nmol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:cortisolpm",
+    "marker:dheas",
+    "marker:tott"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "cortam"
@@ -3249,8 +3285,12 @@
     "somatomedin c",
     "somatomedinc"
    ],
-   "text": "IGF-1 — lab marker\n\ntypical reference range 100–300 ng/mL; commonly cited optimal band 150–280 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "IGF-1 — lab marker\n\nInsulin-like growth factor 1 — produced by the liver in response to growth hormone, and the practical proxy for GH status.\n\nWhy it matters here: GH itself is pulsatile and essentially unmeasurable on a random draw. IGF-1 is stable, so it is what actually gets used to assess GH secretagogues, peptides and exogenous GH.\n\nHow to read it: Strongly age-dependent — always compare against an age-matched range or the reported Z-score, never the whole adult range. Many using GH secretagogues aim for the upper end of age-matched.\n\nWhen it is high: GH or secretagogue use, and acromegaly at the pathological end. Sustained high IGF-1 carries theoretical concerns around tissue growth and is not a \"more is better\" marker.\n\nWhen it is low: GH deficiency, poor nutrition, liver disease, hypothyroidism, and poorly controlled diabetes. IGF-1 falls in energy deficit, so a low value in someone dieting hard may reflect the diet rather than the axis.\n\nWhat invalidates the result: Nutritional status affects it substantially, so a value taken mid-cut understates GH axis function. Age-matching is not optional — a value that is normal for the whole adult range may be markedly low or high for your decade.\n\ntypical reference range 100–300 ng/mL; commonly cited optimal band 150–280 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:igfbp3",
+    "marker:glucose",
+    "marker:insulin"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "igf1"
@@ -3269,8 +3309,13 @@
     "insulinfasting",
     "insulin fasting"
    ],
-   "text": "Fasting Insulin — lab marker\n\ntypical reference range 0–25 mcIU/mL; commonly cited optimal band 0–8 mcIU/mL.\n\nUnits seen on lab reports: mcIU/mL, uIU/mL, uU/mL, mIU/L, pmol/L. Canonical unit is mcIU/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Fasting Insulin — lab marker\n\nFasting insulin — how much insulin the pancreas is producing to hold glucose at its fasting level.\n\nWhy it matters here: The earliest of the metabolic markers to move. Insulin rises to compensate for resistance long before glucose or HbA1c drift, so a normal glucose with a high insulin is a real finding that the standard panel misses entirely.\n\nHow to read it: Often reported as normal up to 25 uIU/mL, but that range reflects the population rather than health; many working on metabolic optimisation aim under 8. Combine with glucose to compute HOMA-IR.\n\nWhen it is high: Insulin resistance, and in this context GH, secretagogues and MK-677. Also the mechanism linking low SHBG to metabolic dysfunction.\n\nWhen it is low: Good insulin sensitivity, prolonged fasting, or impaired pancreatic output — the last needs C-peptide to distinguish.\n\nWhat invalidates the result: Frequently left off standard panels, which is why insulin resistance goes undetected for years. Ask for it explicitly.\n\ntypical reference range 0–25 mcIU/mL; commonly cited optimal band 0–8 mcIU/mL.\n\nUnits seen on lab reports: mcIU/mL, uIU/mL, uU/mL, mIU/L, pmol/L. Canonical unit is mcIU/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:glucose",
+    "marker:hba1c",
+    "marker:shbg",
+    "marker:cpeptide"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "insulin"
@@ -3291,8 +3336,12 @@
     "glucose serum",
     "glucoseserum"
    ],
-   "text": "Fasting Glucose — lab marker\n\ntypical reference range 70–99 mg/dL; commonly cited optimal band 75–90 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Fasting Glucose — lab marker\n\nFasting glucose — blood sugar after an overnight fast.\n\nWhy it matters here: The basic metabolic screen, and directly relevant here: growth hormone secretagogues, MK-677 and exogenous GH all worsen glucose handling, while GLP-1 agonists improve it.\n\nHow to read it: Under 100 mg/dL is normal, 100–125 is prediabetic range, 126 and above on repeat testing meets the diabetes threshold. A single value is a screen, not a diagnosis.\n\nWhen it is high: Insulin resistance, GH and secretagogue use, glucocorticoids, poor sleep, acute stress, and an incomplete fast.\n\nWhen it is low: Excess insulin, prolonged fasting, and in this population insulin or aggressive GLP-1 dosing. Symptomatic hypoglycaemia is an urgent problem.\n\nWhat invalidates the result: Fasting means fasting — coffee with milk, or a fast under eight hours, invalidates it. Fasting glucose is also the least sensitive of the three metabolic markers; HbA1c and fasting insulin catch problems earlier.\n\ntypical reference range 70–99 mg/dL; commonly cited optimal band 75–90 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:hba1c",
+    "marker:insulin",
+    "marker:cpeptide"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "glucose"
@@ -3312,8 +3361,12 @@
     "hgb a1c",
     "hgba1c"
    ],
-   "text": "HbA1c — lab marker\n\ntypical reference range 4–5.6 %; commonly cited optimal band 4.5–5.3 %.\n\nUnits seen on lab reports: %, mmol/mol. Canonical unit is %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "HbA1c — lab marker\n\nGlycated haemoglobin — the fraction of haemoglobin with glucose attached, reflecting average blood sugar over roughly the preceding three months.\n\nWhy it matters here: Averages out the day-to-day noise that makes single glucose readings unreliable. The standard measure of long-term glycaemic control.\n\nHow to read it: Under 5.7% is normal, 5.7–6.4% prediabetic, 6.5% and above meets the diabetes threshold. Many aiming for metabolic optimisation target the low 5s.\n\nWhen it is high: Sustained hyperglycaemia. Also falsely raised by anything that extends red cell lifespan, such as iron deficiency anaemia.\n\nWhen it is low: Genuinely good control — or falsely low from anything that shortens red cell lifespan.\n\nWhat invalidates the result: This is the trap specific to this population. HbA1c depends on red cells living about 120 days. On TRT with a raised hematocrit and increased red cell turnover, or after a blood donation, HbA1c reads falsely low and can mask real dysglycaemia. If hematocrit is high or you donate regularly, trust fasting insulin and glucose over HbA1c.\n\ntypical reference range 4–5.6 %; commonly cited optimal band 4.5–5.3 %.\n\nUnits seen on lab reports: %, mmol/mol. Canonical unit is %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:glucose",
+    "marker:insulin",
+    "marker:hct"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "hba1c"
@@ -3333,8 +3386,14 @@
     "cholesterol total",
     "chol"
    ],
-   "text": "Total Cholesterol — lab marker\n\ntypical reference range 125–200 mg/dL; commonly cited optimal band 125–180 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Total Cholesterol — lab marker\n\nTotal cholesterol — all cholesterol across all particles.\n\nWhy it matters here: The least informative lipid number, since it sums favourable and unfavourable fractions together.\n\nHow to read it: Roughly under 200 mg/dL conventionally, but the breakdown matters far more than the total.\n\nWhen it is high: Can reflect high LDL, high HDL, or both. Uninterpretable without the fractions.\n\nWhen it is low: Rarely a concern in itself.\n\nWhat invalidates the result: A \"good\" total cholesterol can conceal a poor ApoB, and a \"high\" total can be driven by favourable HDL. Do not act on this number alone.\n\ntypical reference range 125–200 mg/dL; commonly cited optimal band 125–180 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "playbook:Lipid strain",
+    "marker:ldl",
+    "marker:hdl",
+    "marker:nonhdl",
+    "marker:apob"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "chol"
@@ -3359,9 +3418,12 @@
     "ldl calculated",
     "ldlcalculated"
    ],
-   "text": "LDL Cholesterol — lab marker\n\ntypical reference range 0–100 mg/dL; commonly cited optimal band 0–70 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nAssay caveat: Friedewald is unreliable when triglycerides are high. Note which was used.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "LDL Cholesterol — lab marker\n\nLDL cholesterol — the cholesterol carried in low-density lipoproteins, usually calculated rather than measured.\n\nWhy it matters here: The conventional risk marker, and the one most people know. Adequate, but ApoB is better.\n\nHow to read it: Optimal is generally considered under 100 mg/dL, with lower targets at higher risk.\n\nWhen it is high: Anabolic use (especially orals), saturated fat intake, genetics, hypothyroidism, and insulin resistance.\n\nWhen it is low: Generally favourable.\n\nWhat invalidates the result: Usually calculated by the Friedewald equation, which becomes unreliable when triglycerides are high or the sample is not fasting. If triglycerides are above about 400 mg/dL the calculated LDL is not trustworthy.\n\ntypical reference range 0–100 mg/dL; commonly cited optimal band 0–70 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nAssay caveat: Friedewald is unreliable when triglycerides are high. Note which was used.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:Lipid strain"
+    "playbook:Lipid strain",
+    "marker:apob",
+    "marker:nonhdl",
+    "marker:trig"
    ],
    "route": {
     "view": "bloodwork",
@@ -3381,9 +3443,12 @@
     "hdlc",
     "hdl c"
    ],
-   "text": "HDL Cholesterol — lab marker\n\ntypical reference range 40–300 mg/dL; commonly cited optimal band 50–300 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "HDL Cholesterol — lab marker\n\nHDL cholesterol — cholesterol in high-density lipoproteins.\n\nWhy it matters here: The marker most dramatically suppressed by anabolic steroid use, particularly orals, where it can be driven very low.\n\nHow to read it: Roughly above 40 mg/dL in men, with higher generally better — though the causal picture is more complicated than the correlation suggests.\n\nWhen it is high: Exercise, alcohol in moderation, and genetics.\n\nWhen it is low: Oral anabolic compounds crush HDL, sometimes to single digits. Also insulin resistance, smoking, and inactivity.\n\nWhat invalidates the result: Raising HDL pharmacologically has not shown the benefit the correlation implies, so treat a suppressed HDL as a signal about what is causing it rather than a target to medicate.\n\ntypical reference range 40–300 mg/dL; commonly cited optimal band 50–300 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:Lipid strain"
+    "playbook:Lipid strain",
+    "marker:apob",
+    "marker:trig",
+    "marker:nonhdl"
    ],
    "route": {
     "view": "bloodwork",
@@ -3401,9 +3466,13 @@
     "triglyceride",
     "trig"
    ],
-   "text": "Triglycerides — lab marker\n\ntypical reference range 0–150 mg/dL; commonly cited optimal band 0–100 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "Triglycerides — lab marker\n\nTriglycerides — circulating fat, largely from diet and hepatic production.\n\nWhy it matters here: A sensitive marker of insulin resistance and metabolic health, and it interferes with LDL calculation when high.\n\nHow to read it: Under 150 mg/dL is normal; many aiming for metabolic health target under 100. Must be fasting to interpret.\n\nWhen it is high: Insulin resistance, alcohol, refined carbohydrate intake, and a non-fasting sample. Very high levels carry pancreatitis risk.\n\nWhen it is low: Generally favourable; very low can accompany malabsorption.\n\nWhat invalidates the result: Highly sensitive to the last meal and to alcohol in the preceding days. A non-fasting triglyceride is close to uninterpretable and invalidates the calculated LDL alongside it.\n\ntypical reference range 0–150 mg/dL; commonly cited optimal band 0–100 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:Lipid strain"
+    "playbook:Lipid strain",
+    "marker:ldl",
+    "marker:hdl",
+    "marker:insulin",
+    "marker:glucose"
    ],
    "route": {
     "view": "bloodwork",
@@ -3424,8 +3493,13 @@
     "non hdl chol",
     "nonhdl"
    ],
-   "text": "Non-HDL Cholesterol — lab marker\n\ntypical reference range 0–130 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Non-HDL Cholesterol — lab marker\n\nNon-HDL cholesterol — total cholesterol minus HDL, capturing all atherogenic particles.\n\nWhy it matters here: A better risk marker than LDL-C alone and, unlike LDL-C, valid on a non-fasting sample. A good free proxy when ApoB is unavailable.\n\nHow to read it: Generally targeted about 30 mg/dL above the LDL target, so under roughly 130 mg/dL for general risk.\n\nWhen it is high: Same drivers as high ApoB.\n\nWhen it is low: Generally favourable.\n\nWhat invalidates the result: Requires no extra test — it is arithmetic from a standard panel, and it is more informative than the LDL value most people read instead.\n\ntypical reference range 0–130 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "playbook:Lipid strain",
+    "marker:apob",
+    "marker:ldl",
+    "marker:chol"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "nonhdl"
@@ -3445,8 +3519,14 @@
     "apolipoproteinb100",
     "apolipoprotein b 100"
    ],
-   "text": "ApoB — lab marker\n\ntypical reference range 0–90 mg/dL; commonly cited optimal band 0–80 mg/dL.\n\nUnits seen on lab reports: mg/dL, g/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "ApoB — lab marker\n\nApolipoprotein B — one molecule sits on every atherogenic particle, so this counts particles directly.\n\nWhy it matters here: The best single lipid marker for cardiovascular risk, and the one that matters most in this population because anabolic use degrades the lipid picture in ways LDL-C alone understates.\n\nHow to read it: Roughly under 90 mg/dL for general risk, with lower targets for higher-risk individuals. Where ApoB and LDL-C disagree, ApoB is the one to believe.\n\nWhen it is high: Anabolic steroid use — particularly orals — is a strong driver, along with insulin resistance, genetics and diet. Elevated ApoB is the mechanism by which long-term AAS use damages cardiovascular health, and it is frequently the marker that moves first.\n\nWhen it is low: Generally favourable. Very low warrants no concern in most contexts.\n\nWhat invalidates the result: Not on standard lipid panels; ask for it. Discordance between a normal LDL-C and a high ApoB is common and is exactly the situation where relying on the standard panel gives false reassurance.\n\ntypical reference range 0–90 mg/dL; commonly cited optimal band 0–80 mg/dL.\n\nUnits seen on lab reports: mg/dL, g/L. Canonical unit is mg/dL.\n\nRelated playbook: Lipid strain.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "playbook:Lipid strain",
+    "marker:ldl",
+    "marker:nonhdl",
+    "marker:ldlp",
+    "marker:lpa"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "apob"
@@ -3465,8 +3545,11 @@
     "lipoproteina",
     "lipoprotein a"
    ],
-   "text": "Lp(a) — lab marker\n\ntypical reference range 0–75 nmol/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Lp(a) — lab marker\n\nLipoprotein(a) — a genetically determined atherogenic particle.\n\nWhy it matters here: An independent cardiovascular risk factor that is almost entirely genetic and largely unaffected by lifestyle. Worth measuring once.\n\nHow to read it: Usually under 30 mg/dL or under 75 nmol/L, though units vary and are not interchangeable.\n\nWhen it is high: Genetic. Elevated Lp(a) raises risk independently and shifts how aggressively other modifiable risk factors should be managed.\n\nWhen it is low: Favourable.\n\nWhat invalidates the result: Because it is genetic and stable, it needs measuring only once in a lifetime for most people — but that once is genuinely worth doing, and most people never have it done.\n\ntypical reference range 0–75 nmol/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:apob",
+    "marker:ldl"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "lpa"
@@ -3491,8 +3574,12 @@
     "cardiocrp",
     "crp"
    ],
-   "text": "hs-CRP — lab marker\n\ntypical reference range 0–1 mg/L; commonly cited optimal band 0–0.5 mg/L.\n\nUnits seen on lab reports: mg/L, mg/dL. Canonical unit is mg/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "hs-CRP — lab marker\n\nHigh-sensitivity C-reactive protein — an acute phase protein and the standard marker of systemic inflammation.\n\nWhy it matters here: Both a cardiovascular risk marker and a general inflammation signal. The high-sensitivity assay is the one that matters for risk stratification.\n\nHow to read it: Under 1.0 mg/L is low cardiovascular risk, 1–3 average, above 3 high. Above 10 usually means an acute process rather than baseline risk.\n\nWhen it is high: Any infection or injury, obesity, poor sleep, and recent hard training. Chronically elevated hs-CRP is a real cardiovascular signal.\n\nWhen it is low: Favourable.\n\nWhat invalidates the result: A single high value after a cold or a hard session says nothing about baseline risk. Repeat when well and rested before drawing conclusions.\n\ntypical reference range 0–1 mg/L; commonly cited optimal band 0–0.5 mg/L.\n\nUnits seen on lab reports: mg/L, mg/dL. Canonical unit is mg/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:esr",
+    "marker:fibrinogen",
+    "marker:apob"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "crp"
@@ -3509,8 +3596,12 @@
     "thyroidstimulatinghormone",
     "thyrotropin"
    ],
-   "text": "TSH — lab marker\n\ntypical reference range 0.4–4 mIU/L; commonly cited optimal band 0.5–2.5 mIU/L.\n\nUnits seen on lab reports: mIU/L, uIU/mL, mcIU/mL, mIU/mL. Canonical unit is mIU/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "TSH — lab marker\n\nThyroid stimulating hormone — the pituitary signal telling the thyroid to produce hormone.\n\nWhy it matters here: The screening test for thyroid function, and an inverse one: it rises when thyroid output is low. Thyroid dysfunction mimics low testosterone closely enough that it belongs on any fatigue workup.\n\nHow to read it: Roughly 0.45–4.5 mIU/L, though many clinicians consider the upper end of that range too permissive and target 1–2.5. Interpret with free T4 — TSH alone cannot distinguish a pituitary problem from a thyroid one.\n\nWhen it is high: Primary hypothyroidism, usually Hashimoto thyroiditis in developed countries — check TPO antibodies. Also recovery from illness and biotin interference.\n\nWhen it is low: Hyperthyroidism, excess thyroid replacement, and central hypothyroidism where the pituitary itself is underactive.\n\nWhat invalidates the result: Biotin supplements — common in hair and nail products, often at high doses — interfere with many thyroid immunoassays and can produce a picture that looks like hyperthyroidism. Stop biotin for 48–72 hours before drawing. TSH also varies diurnally, running higher in early morning.\n\ntypical reference range 0.4–4 mIU/L; commonly cited optimal band 0.5–2.5 mIU/L.\n\nUnits seen on lab reports: mIU/L, uIU/mL, mcIU/mL, mIU/mL. Canonical unit is mIU/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ft4",
+    "marker:ft3",
+    "marker:tpo"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "tsh"
@@ -3531,8 +3622,12 @@
     "ft4",
     "t4, free"
    ],
-   "text": "Free T4 — lab marker\n\ntypical reference range 0.8–1.8 ng/dL; commonly cited optimal band 1–1.7 ng/dL.\n\nUnits seen on lab reports: ng/dL, pmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Free T4 — lab marker\n\nFree thyroxine — the unbound fraction of the main circulating thyroid hormone.\n\nWhy it matters here: The confirmatory test alongside TSH. A high TSH with a low free T4 is overt hypothyroidism; a high TSH with a normal free T4 is subclinical.\n\nHow to read it: Roughly 0.82–1.77 ng/dL.\n\nWhen it is high: Hyperthyroidism or over-replacement.\n\nWhen it is low: Hypothyroidism. Low free T4 with a low or normal TSH points to a pituitary cause.\n\nWhat invalidates the result: Same biotin interference as TSH.\n\ntypical reference range 0.8–1.8 ng/dL; commonly cited optimal band 1–1.7 ng/dL.\n\nUnits seen on lab reports: ng/dL, pmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tsh",
+    "marker:ft3",
+    "marker:rt3"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ft4"
@@ -3553,8 +3648,12 @@
     "ft3",
     "t3, free"
    ],
-   "text": "Free T3 — lab marker\n\ntypical reference range 2.3–4.2 pg/mL; commonly cited optimal band 3.2–4.2 pg/mL.\n\nUnits seen on lab reports: pg/mL, pmol/L. Canonical unit is pg/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Free T3 — lab marker\n\nFree triiodothyronine — the unbound fraction of the biologically active thyroid hormone.\n\nWhy it matters here: T4 is largely a prohormone; T3 does the work. Symptoms track free T3 better than free T4 in some people.\n\nHow to read it: Roughly 2.0–4.4 pg/mL.\n\nWhen it is high: Hyperthyroidism, T3-containing replacement.\n\nWhen it is low: Hypothyroidism, and impaired T4-to-T3 conversion which can occur in illness, energy deficit and chronic stress.\n\nWhat invalidates the result: Falls in dieting and illness as a normal adaptive response — a low free T3 mid-cut is often the diet, not the thyroid.\n\ntypical reference range 2.3–4.2 pg/mL; commonly cited optimal band 3.2–4.2 pg/mL.\n\nUnits seen on lab reports: pg/mL, pmol/L. Canonical unit is pg/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ft4",
+    "marker:rt3",
+    "marker:tsh"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ft3"
@@ -3572,8 +3671,12 @@
     "t3 reverse",
     "t3reverse"
    ],
-   "text": "Reverse T3 — lab marker\n\ntypical reference range 9–25 ng/dL.\n\nUnits seen on lab reports: ng/dL, ng/mL. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Reverse T3 — lab marker\n\nReverse T3 — an inactive isomer produced when T4 is converted down the alternate path.\n\nWhy it matters here: Proposed as a marker of impaired conversion under stress or illness. Its clinical utility is genuinely contested.\n\nHow to read it: Roughly 9.2–24.1 ng/dL. Often interpreted as a free T3 to reverse T3 ratio.\n\nWhen it is high: Acute illness, energy deficit, high cortisol, and severe stress.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: Mainstream endocrinology largely does not use this marker and considers a raised reverse T3 an appropriate adaptation rather than a treatable problem. Treat claims built on it with appropriate scepticism.\n\ntypical reference range 9–25 ng/dL.\n\nUnits seen on lab reports: ng/dL, ng/mL. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ft3",
+    "marker:ft4",
+    "marker:cortam"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "rt3"
@@ -3596,8 +3699,12 @@
     "thyroperoxidase antibody",
     "thyroperoxidaseantibody"
    ],
-   "text": "TPO Antibodies — lab marker\n\ntypical reference range 0–34 IU/mL.\n\nUnits seen on lab reports: IU/mL, U/mL, kIU/L. Canonical unit is IU/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "TPO Antibodies — lab marker\n\nThyroid peroxidase antibodies — autoantibodies against a thyroid enzyme.\n\nWhy it matters here: Identifies autoimmune thyroid disease, which is the most common cause of hypothyroidism.\n\nHow to read it: Usually under about 9 IU/mL; positive indicates autoimmunity.\n\nWhen it is high: Hashimoto thyroiditis, and sometimes Graves disease. A positive result with a normal TSH predicts future hypothyroidism and justifies periodic monitoring.\n\nWhen it is low: Normal.\n\nWhat invalidates the result: A positive antibody with normal thyroid function is not a disease requiring treatment — it is a reason to check thyroid function periodically.\n\ntypical reference range 0–34 IU/mL.\n\nUnits seen on lab reports: IU/mL, U/mL, kIU/L. Canonical unit is IU/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tsh",
+    "marker:tgab",
+    "marker:ft4"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "tpo"
@@ -3612,8 +3719,14 @@
     "hematocrit",
     "hct"
    ],
-   "text": "Hematocrit — lab marker\n\ntypical reference range 38–48 %; commonly cited optimal band 40–47 %.\n\nUnits seen on lab reports: %, L/L, fraction. Canonical unit is %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Hematocrit — lab marker\n\nHematocrit — the percentage of blood volume made up of red cells.\n\nWhy it matters here: The most important safety marker on testosterone therapy. Testosterone stimulates erythropoiesis, and the resulting rise in hematocrit is the most common reason a TRT protocol has to be changed.\n\nHow to read it: Roughly 38.3–48.6% in adult men. Many clinicians act above 52–54%; the exact threshold varies and the trend matters as much as the value. Rising steadily across draws is more concerning than one high reading.\n\nWhen it is high: Testosterone dose and delivery method — injections raise it more than gels. Also sleep apnoea (a major and frequently missed contributor), smoking, dehydration, altitude, and diuretics. Sustained elevation raises blood viscosity and thrombotic risk.\n\nWhen it is low: Bleeding, iron deficiency, chronic disease, over-frequent donation, and haemodilution. Low hematocrit on TRT is unusual enough to look for a separate cause.\n\nWhat invalidates the result: Dehydration inflates it — a draw after a fasted morning weights session with no water reads higher than reality. Hydrate normally before the draw. Also: a high hematocrit falsely lowers HbA1c, so metabolic screening becomes unreliable at the same time.\n\ntypical reference range 38–48 %; commonly cited optimal band 40–47 %.\n\nUnits seen on lab reports: %, L/L, fraction. Canonical unit is %.\n\nRelated playbook: High hematocrit.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "playbook:High hematocrit",
+    "marker:hgb",
+    "marker:rbc",
+    "marker:ferritin",
+    "marker:hba1c"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "hct"
@@ -3629,9 +3742,13 @@
     "hgb",
     "hb"
    ],
-   "text": "Hemoglobin — lab marker\n\ntypical reference range 13.5–17.5 g/dL; commonly cited optimal band 14–17 g/dL.\n\nUnits seen on lab reports: g/dL, g/L, mmol/L. Canonical unit is g/dL.\n\nRelated playbook: High hematocrit.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "Hemoglobin — lab marker\n\nHaemoglobin — the oxygen-carrying protein in red cells, measured as concentration.\n\nWhy it matters here: Moves with hematocrit and carries the same TRT-related meaning. Roughly a third of the hematocrit value.\n\nHow to read it: Roughly 13.2–16.6 g/dL in adult men. Read alongside hematocrit rather than alone.\n\nWhen it is high: Same drivers as high hematocrit.\n\nWhen it is low: Anaemia from any cause. The MCV points at which kind — low suggests iron deficiency, high suggests B12 or folate.\n\nWhat invalidates the result: Same hydration caveat as hematocrit.\n\ntypical reference range 13.5–17.5 g/dL; commonly cited optimal band 14–17 g/dL.\n\nUnits seen on lab reports: g/dL, g/L, mmol/L. Canonical unit is g/dL.\n\nRelated playbook: High hematocrit.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:High hematocrit"
+    "playbook:High hematocrit",
+    "marker:hct",
+    "marker:rbc",
+    "marker:mcv",
+    "marker:ferritin"
    ],
    "route": {
     "view": "bloodwork",
@@ -3649,9 +3766,12 @@
     "redbloodcellcount",
     "erythrocytes"
    ],
-   "text": "RBC — lab marker\n\ntypical reference range 4.3–5.7 M/uL; commonly cited optimal band 4.5–5.5 M/uL.\n\nUnits seen on lab reports: M/uL, x10E6/uL, 10*12/L, million/uL. Canonical unit is M/uL.\n\nRelated playbook: High hematocrit.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "text": "RBC — lab marker\n\nRed blood cell count — how many red cells per volume.\n\nWhy it matters here: The third member of the red cell trio. Adds little beyond hematocrit and haemoglobin in this context.\n\nHow to read it: Roughly 4.35–5.65 million/uL in adult men.\n\nWhen it is high: Same as hematocrit — testosterone-driven erythrocytosis being the common one here.\n\nWhen it is low: Anaemia, bleeding, marrow suppression.\n\nWhat invalidates the result: Interpret with the indices (MCV, MCH) rather than alone; the count says how many, not whether they are normal.\n\ntypical reference range 4.3–5.7 M/uL; commonly cited optimal band 4.5–5.5 M/uL.\n\nUnits seen on lab reports: M/uL, x10E6/uL, 10*12/L, million/uL. Canonical unit is M/uL.\n\nRelated playbook: High hematocrit.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
    "related": [
-    "playbook:High hematocrit"
+    "playbook:High hematocrit",
+    "marker:hct",
+    "marker:hgb",
+    "marker:mcv"
    ],
    "route": {
     "view": "bloodwork",
@@ -3669,8 +3789,12 @@
     "whitebloodcellcount",
     "leukocytes"
    ],
-   "text": "WBC — lab marker\n\ntypical reference range 3.8–10.8 K/uL; commonly cited optimal band 4.5–8 K/uL.\n\nUnits seen on lab reports: K/uL, x10E3/uL, 10*9/L, thousand/uL. Canonical unit is K/uL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "WBC — lab marker\n\nWhite blood cell count — total circulating immune cells.\n\nWhy it matters here: General screen for infection, inflammation and marrow problems.\n\nHow to read it: Roughly 3.4–10.8 thousand/uL. The differential matters more than the total.\n\nWhen it is high: Infection, inflammation, stress, glucocorticoids, and hard recent exercise. Markedly and persistently high needs proper investigation.\n\nWhen it is low: Viral infection, some medications, marrow suppression, and autoimmune causes. Persistently low warrants follow-up.\n\nWhat invalidates the result: Rises transiently after intense training and with acute stress, including the draw itself.\n\ntypical reference range 3.8–10.8 K/uL; commonly cited optimal band 4.5–8 K/uL.\n\nUnits seen on lab reports: K/uL, x10E3/uL, 10*9/L, thousand/uL. Canonical unit is K/uL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:neut",
+    "marker:lymph",
+    "marker:crp"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "wbc"
@@ -3687,8 +3811,11 @@
     "plateletcount",
     "plt"
    ],
-   "text": "Platelets — lab marker\n\ntypical reference range 150–400 K/uL; commonly cited optimal band 175–350 K/uL.\n\nUnits seen on lab reports: K/uL, x10E3/uL, 10*9/L. Canonical unit is K/uL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Platelets — lab marker\n\nPlatelet count — the cells responsible for clotting.\n\nWhy it matters here: Relevant to bleeding and clotting risk, which matters alongside a raised hematocrit.\n\nHow to read it: Roughly 150–450 thousand/uL.\n\nWhen it is high: Inflammation, iron deficiency, and marrow disorders. High platelets with a high hematocrit compounds thrombotic risk.\n\nWhen it is low: Some medications, liver disease, autoimmune destruction, and heavy alcohol use. Markedly low is a bleeding risk and needs prompt attention.\n\nWhat invalidates the result: Clumping in the tube produces a falsely low count; a repeat in a different tube type resolves it.\n\ntypical reference range 150–400 K/uL; commonly cited optimal band 175–350 K/uL.\n\nUnits seen on lab reports: K/uL, x10E3/uL, 10*9/L. Canonical unit is K/uL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:hct",
+    "marker:mpv"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "plt"
@@ -3704,8 +3831,13 @@
     "mean corpuscular volume",
     "meancorpuscularvolume"
    ],
-   "text": "MCV — lab marker\n\ntypical reference range 80–100 fL.\n\nUnits seen on lab reports: fL, um3. Canonical unit is fL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "MCV — lab marker\n\nMean corpuscular volume — the average size of a red cell.\n\nWhy it matters here: The most useful single index for working out what kind of anaemia is present.\n\nHow to read it: Roughly 79–97 fL. Low is microcytic, high is macrocytic.\n\nWhen it is high: B12 or folate deficiency, alcohol, hypothyroidism, and some medications. Raised MCV is one of the more reliable quiet markers of heavy drinking.\n\nWhen it is low: Iron deficiency and thalassaemia trait.\n\nWhat invalidates the result: A normal MCV can hide combined deficiencies pulling in opposite directions — iron deficiency plus B12 deficiency can average out to normal.\n\ntypical reference range 80–100 fL.\n\nUnits seen on lab reports: fL, um3. Canonical unit is fL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:hgb",
+    "marker:ferritin",
+    "marker:b12",
+    "marker:folate"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "mcv"
@@ -3725,8 +3857,11 @@
     "polys",
     "neut"
    ],
-   "text": "Neutrophils — lab marker\n\ntypical reference range 40–70 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Neutrophils — lab marker\n\nNeutrophils — the percentage of white cells that are neutrophils, the first responders to bacterial infection.\n\nWhy it matters here: The largest fraction of the differential; shifts point toward bacterial infection or stress.\n\nHow to read it: Roughly 40–70% of white cells. The absolute count is more meaningful than the percentage.\n\nWhen it is high: Bacterial infection, stress, glucocorticoids, and acute exercise.\n\nWhen it is low: Viral infection, some drugs, and marrow suppression. A very low absolute neutrophil count is a genuine infection risk.\n\nWhat invalidates the result: Percentages shift when any other line changes; always read the absolute count alongside.\n\ntypical reference range 40–70 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:wbc",
+    "marker:neutabs"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "neut"
@@ -3745,8 +3880,11 @@
     "lymphs",
     "lymph"
    ],
-   "text": "Lymphocytes — lab marker\n\ntypical reference range 20–45 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Lymphocytes — lab marker\n\nLymphocytes — the percentage of white cells that are lymphocytes, the adaptive immune line.\n\nWhy it matters here: Shifts opposite to neutrophils in most acute illness.\n\nHow to read it: Roughly 20–45% of white cells.\n\nWhen it is high: Viral infection and some chronic conditions.\n\nWhen it is low: Acute stress, glucocorticoids, and some infections.\n\nWhat invalidates the result: Same percentage-versus-absolute caveat as neutrophils.\n\ntypical reference range 20–45 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:wbc",
+    "marker:lymphabs"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "lymph"
@@ -3764,8 +3902,13 @@
     "creatinine serum",
     "creat"
    ],
-   "text": "Creatinine — lab marker\n\ntypical reference range 0.6–1.2 mg/dL.\n\nUnits seen on lab reports: mg/dL, umol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Creatinine — lab marker\n\nCreatinine — a muscle breakdown product cleared by the kidneys, used as the standard kidney function proxy.\n\nWhy it matters here: The default renal marker, and one that systematically misleads in muscular people. This population is exactly the group in which it fails.\n\nHow to read it: Roughly 0.76–1.27 mg/dL. But creatinine is produced in proportion to muscle mass, so a heavily muscled person will run higher without any kidney impairment at all.\n\nWhen it is high: Reduced kidney function — or simply more muscle. Also dehydration, high protein intake, creatine supplementation, and recent intense training.\n\nWhen it is low: Low muscle mass, and pregnancy.\n\nWhat invalidates the result: The single most common false alarm in this population. A muscular lifter taking creatine, drawing blood dehydrated after training, will produce a creatinine that looks like early kidney disease and is nothing of the sort. Cystatin C is not muscle-dependent and settles the question — ask for it before accepting a kidney diagnosis based on creatinine alone.\n\ntypical reference range 0.6–1.2 mg/dL.\n\nUnits seen on lab reports: mg/dL, umol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:egfr",
+    "marker:cystatinc",
+    "marker:bun",
+    "marker:ck"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "creat"
@@ -3783,8 +3926,11 @@
     "blood urea nitrogen",
     "bloodureanitrogen"
    ],
-   "text": "BUN — lab marker\n\ntypical reference range 7–25 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "BUN — lab marker\n\nBlood urea nitrogen — a nitrogen waste product from protein metabolism.\n\nWhy it matters here: Reflects both kidney function and protein intake and hydration, which limits it as a kidney marker.\n\nHow to read it: Roughly 6–24 mg/dL. The BUN:creatinine ratio helps separate dehydration from intrinsic kidney problems.\n\nWhen it is high: Dehydration, high protein intake, gastrointestinal bleeding, and reduced kidney function. High protein diets routinely raise BUN without any pathology.\n\nWhen it is low: Low protein intake, liver disease, and overhydration.\n\nWhat invalidates the result: A raised BUN in someone eating 250g of protein a day and training fasted is usually diet and hydration, not kidneys.\n\ntypical reference range 7–25 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:creat",
+    "marker:egfr"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "bun"
@@ -3810,8 +3956,12 @@
     "gfr calc if af amer",
     "gfrcalcifafamer"
    ],
-   "text": "eGFR — lab marker\n\ntypical reference range 60–120 mL/min; commonly cited optimal band 90–120 mL/min.\n\nUnits seen on lab reports: mL/min, mL/min/1.73m2, mL/min/1.73 m2, mL/min/{1.73_m2}. Canonical unit is mL/min.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "eGFR — lab marker\n\nEstimated glomerular filtration rate — a calculated estimate of kidney filtering capacity.\n\nWhy it matters here: The number that gets used to stage kidney disease. It is calculated from creatinine, so it inherits every one of creatinine's limitations.\n\nHow to read it: Above 90 mL/min/1.73m2 is normal; 60–89 mildly reduced; below 60 sustained defines chronic kidney disease.\n\nWhen it is high: Normal.\n\nWhen it is low: Reduced kidney function — or, very commonly here, high muscle mass inflating creatinine and deflating the estimate.\n\nWhat invalidates the result: A muscular person can be told they have stage 2 or 3 kidney disease purely from a creatinine-based eGFR. A cystatin C-based eGFR is the appropriate next step before accepting that. Do not stop training or panic on a creatinine-based eGFR alone.\n\ntypical reference range 60–120 mL/min; commonly cited optimal band 90–120 mL/min.\n\nUnits seen on lab reports: mL/min, mL/min/1.73m2, mL/min/1.73 m2, mL/min/{1.73_m2}. Canonical unit is mL/min.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:creat",
+    "marker:cystatinc",
+    "marker:bun"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "egfr"
@@ -3826,8 +3976,12 @@
     "sodium",
     "na"
    ],
-   "text": "Sodium — lab marker\n\ntypical reference range 136–145 mEq/L.\n\nUnits seen on lab reports: mEq/L, mmol/L. Canonical unit is mEq/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Sodium — lab marker\n\nSodium — the main extracellular electrolyte, tightly regulated and central to fluid balance.\n\nWhy it matters here: Relevant to blood pressure and to water retention on hormone therapy.\n\nHow to read it: Roughly 134–144 mmol/L. The body defends this range tightly, so deviations are meaningful.\n\nWhen it is high: Dehydration, and rarely excess mineralocorticoid.\n\nWhen it is low: Overhydration, some diuretics, and SIADH. Severe or rapidly falling sodium is a medical emergency and can cause seizures.\n\nWhat invalidates the result: Very high blood glucose or triglycerides can produce a falsely low sodium reading.\n\ntypical reference range 136–145 mEq/L.\n\nUnits seen on lab reports: mEq/L, mmol/L. Canonical unit is mEq/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:potassium",
+    "marker:chloride",
+    "marker:aldosterone"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "sodium"
@@ -3842,8 +3996,12 @@
     "potassium",
     "k"
    ],
-   "text": "Potassium — lab marker\n\ntypical reference range 3.5–5.1 mEq/L.\n\nUnits seen on lab reports: mEq/L, mmol/L. Canonical unit is mEq/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Potassium — lab marker\n\nPotassium — the main intracellular electrolyte, critical to cardiac and muscle function.\n\nWhy it matters here: Narrow safe range and direct cardiac consequences at both ends.\n\nHow to read it: Roughly 3.5–5.2 mmol/L.\n\nWhen it is high: Kidney impairment, potassium-sparing diuretics, ACE inhibitors, and severe tissue damage. Genuinely high potassium is a cardiac emergency.\n\nWhen it is low: Diuretics, vomiting or diarrhoea, and low intake.\n\nWhat invalidates the result: The most common cause of a high potassium result is haemolysis in the sample — a difficult draw or a clenched fist releases potassium from red cells. An unexpected high potassium in a well person should be repeated before anyone acts.\n\ntypical reference range 3.5–5.1 mEq/L.\n\nUnits seen on lab reports: mEq/L, mmol/L. Canonical unit is mEq/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:sodium",
+    "marker:magnesium",
+    "marker:creat"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "potassium"
@@ -3865,8 +4023,11 @@
     "hco3",
     "bicarb"
    ],
-   "text": "Bicarbonate — lab marker\n\ntypical reference range 22–29 mEq/L.\n\nUnits seen on lab reports: mEq/L, mmol/L. Canonical unit is mEq/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Bicarbonate — lab marker\n\nBicarbonate — the main buffer in the acid-base system.\n\nWhy it matters here: Screens for metabolic acidosis and alkalosis.\n\nHow to read it: Roughly 20–29 mmol/L.\n\nWhen it is high: Metabolic alkalosis, vomiting, and diuretics.\n\nWhen it is low: Metabolic acidosis, kidney disease, and prolonged ketogenic dieting.\n\nWhat invalidates the result: Falls if the sample sits before analysis.\n\ntypical reference range 22–29 mEq/L.\n\nUnits seen on lab reports: mEq/L, mmol/L. Canonical unit is mEq/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:chloride",
+    "marker:sodium"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "bicarb"
@@ -3884,8 +4045,13 @@
     "calcium total",
     "ca"
    ],
-   "text": "Calcium — lab marker\n\ntypical reference range 8.5–10.5 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Calcium — lab marker\n\nCalcium — mostly skeletal, with the small serum fraction tightly regulated by PTH and vitamin D.\n\nWhy it matters here: Read with PTH and vitamin D. Relevant to bone health on long-term therapy.\n\nHow to read it: Roughly 8.7–10.2 mg/dL. Must be corrected for albumin, since about half is albumin-bound.\n\nWhen it is high: Hyperparathyroidism, malignancy, excess vitamin D, and thiazide diuretics. Persistent hypercalcaemia needs investigation.\n\nWhen it is low: Vitamin D deficiency, hypoparathyroidism, kidney disease, and low albumin.\n\nWhat invalidates the result: Low albumin lowers total calcium without lowering the active ionised fraction. Correct for albumin or measure ionised calcium before treating.\n\ntypical reference range 8.5–10.5 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:albumin",
+    "marker:pth",
+    "marker:vitd",
+    "marker:phos"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "calcium"
@@ -3904,8 +4070,12 @@
     "protein total",
     "tprot"
    ],
-   "text": "Total Protein — lab marker\n\ntypical reference range 6–8.5 g/dL.\n\nUnits seen on lab reports: g/dL, g/L. Canonical unit is g/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Total Protein — lab marker\n\nTotal protein — albumin plus globulins.\n\nWhy it matters here: A crude screen; the split between the two fractions is where the information is.\n\nHow to read it: Roughly 6.0–8.5 g/dL.\n\nWhen it is high: Dehydration, chronic inflammation, and paraproteinaemia.\n\nWhen it is low: Malnutrition, liver disease, and protein loss.\n\nWhat invalidates the result: A normal total can hide a low albumin offset by a high globulin.\n\ntypical reference range 6–8.5 g/dL.\n\nUnits seen on lab reports: g/dL, g/L. Canonical unit is g/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:albumin",
+    "marker:globulin",
+    "marker:agratio"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "tprot"
@@ -3922,8 +4092,13 @@
     "albuminserum",
     "albumin serum"
    ],
-   "text": "Albumin — lab marker\n\ntypical reference range 3.5–5 g/dL.\n\nUnits seen on lab reports: g/dL, g/L. Canonical unit is g/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Albumin — lab marker\n\nAlbumin — the main plasma protein, made by the liver.\n\nWhy it matters here: A marker of hepatic synthetic function and nutritional status, and a required input for calculated free testosterone.\n\nHow to read it: Roughly 3.5–5.5 g/dL.\n\nWhen it is high: Usually dehydration rather than anything else.\n\nWhen it is low: Liver disease, inflammation, malnutrition, and kidney loss. Low albumin lowers total calcium without lowering the physiologically active ionised calcium.\n\nWhat invalidates the result: Needed to calculate free and bioavailable testosterone. Without it, those values are estimates built on an assumed albumin.\n\ntypical reference range 3.5–5 g/dL.\n\nUnits seen on lab reports: g/dL, g/L. Canonical unit is g/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tprot",
+    "marker:globulin",
+    "marker:freet",
+    "marker:calcium"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "albumin"
@@ -3943,8 +4118,12 @@
     "bilirubin",
     "tbili"
    ],
-   "text": "Total Bilirubin — lab marker\n\ntypical reference range 0.1–1.2 mg/dL.\n\nUnits seen on lab reports: mg/dL, umol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Total Bilirubin — lab marker\n\nTotal bilirubin — the pigment from red cell breakdown, cleared by the liver.\n\nWhy it matters here: Screens for haemolysis and for hepatic or biliary problems.\n\nHow to read it: Roughly 0.1–1.2 mg/dL.\n\nWhen it is high: Gilbert syndrome is common, benign and affects several percent of people — it produces a mildly raised unconjugated bilirubin that rises with fasting, stress or illness and means nothing. Also haemolysis, biliary obstruction, and liver disease.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: A mildly raised total bilirubin with everything else normal, rising when you fast, is usually Gilbert syndrome and causes a great deal of unnecessary alarm. The direct fraction distinguishes it.\n\ntypical reference range 0.1–1.2 mg/dL.\n\nUnits seen on lab reports: mg/dL, umol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:dbili",
+    "marker:alt",
+    "marker:alkphos"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "tbili"
@@ -3964,8 +4143,13 @@
     "altsgpt",
     "alt sgpt"
    ],
-   "text": "ALT — lab marker\n\ntypical reference range 7–40 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "ALT — lab marker\n\nAlanine aminotransferase — an enzyme concentrated in liver cells, released when they are damaged.\n\nWhy it matters here: The more liver-specific of the two transaminases, and the primary marker for hepatic strain from oral compounds.\n\nHow to read it: Roughly 7–56 U/L, though many labs use ranges now considered too permissive. Read alongside AST and, critically, GGT.\n\nWhen it is high: Oral 17-alpha-alkylated compounds are the serious concern in this population and can cause genuine hepatotoxicity. But by far the most common cause of a mildly raised ALT here is resistance training — muscle damage releases both transaminases. Also fatty liver, alcohol, and many medications.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: This is the most misread pair on the panel. A hard training session in the days before a draw routinely produces ALT and AST in the 60–100 range in healthy lifters. GGT is the tiebreaker: raised transaminases with a normal GGT usually points to muscle, while raised transaminases with a raised GGT points to the liver. Rest 72 hours before drawing if the question matters.\n\ntypical reference range 7–40 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ast",
+    "marker:ggt",
+    "marker:ck",
+    "marker:alkphos"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "alt"
@@ -3985,8 +4169,12 @@
     "astsgot",
     "ast sgot"
    ],
-   "text": "AST — lab marker\n\ntypical reference range 10–40 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "AST — lab marker\n\nAspartate aminotransferase — an enzyme present in liver, but also heavily in skeletal and cardiac muscle.\n\nWhy it matters here: Less liver-specific than ALT, which is exactly what makes the pair informative together.\n\nHow to read it: Roughly 10–40 U/L. The AST:ALT ratio carries information — a ratio above 2 is classically associated with alcohol-related liver injury.\n\nWhen it is high: Muscle damage from training is the most common cause here. Also liver injury, alcohol, and cardiac events.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: Same training artifact as ALT, more pronounced because AST is more abundant in muscle. Check CK alongside — a high CK with high AST confirms a muscle source.\n\ntypical reference range 10–40 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:alt",
+    "marker:ck",
+    "marker:ggt"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ast"
@@ -4006,8 +4194,12 @@
     "alk phos",
     "alkphos"
    ],
-   "text": "Alk Phosphatase — lab marker\n\ntypical reference range 44–147 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Alk Phosphatase — lab marker\n\nAlkaline phosphatase — an enzyme from liver, bile ducts and bone.\n\nWhy it matters here: Distinguishes biliary from hepatocellular patterns, and reflects bone turnover.\n\nHow to read it: Roughly 44–121 U/L. Higher in adolescents and in healing fractures.\n\nWhen it is high: Biliary obstruction, bone turnover, and some medications. GGT helps distinguish liver from bone origin.\n\nWhen it is low: Zinc deficiency, malnutrition, and hypothyroidism.\n\nWhat invalidates the result: A raised alk phos with a normal GGT suggests bone rather than liver.\n\ntypical reference range 44–147 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ggt",
+    "marker:calcium",
+    "marker:vitd"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "alkphos"
@@ -4039,8 +4231,12 @@
     "vitd25hydroxy",
     "vitd"
    ],
-   "text": "Vitamin D — lab marker\n\ntypical reference range 30–100 ng/mL; commonly cited optimal band 50–80 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Vitamin D — lab marker\n\nVitamin D, measured as 25-hydroxyvitamin D — the storage form and the correct one to test.\n\nWhy it matters here: Involved in bone health, immune function and, on some evidence, testosterone production. Very commonly deficient.\n\nHow to read it: Under 20 ng/mL is deficient, 20–29 insufficient, 30–100 sufficient. Many target 40–60.\n\nWhen it is high: Over-supplementation. Genuine toxicity is uncommon but causes hypercalcaemia.\n\nWhen it is low: Limited sun exposure, darker skin, obesity (it sequesters in fat), malabsorption, and northern latitudes in winter.\n\nWhat invalidates the result: Test 25-hydroxy, not 1,25-dihydroxy — the active form is tightly regulated and can look normal in deficiency, which makes it the wrong test.\n\ntypical reference range 30–100 ng/mL; commonly cited optimal band 50–80 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:calcium",
+    "marker:pth",
+    "marker:phos"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "vitd"
@@ -4059,8 +4255,12 @@
     "vitamin b-12",
     "vitamin b 12"
    ],
-   "text": "Vitamin B12 — lab marker\n\ntypical reference range 200–900 pg/mL; commonly cited optimal band 400–900 pg/mL.\n\nUnits seen on lab reports: pg/mL, ng/L, pmol/L. Canonical unit is pg/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Vitamin B12 — lab marker\n\nVitamin B12 — required for red cell production and neurological function.\n\nWhy it matters here: Deficiency causes fatigue and neurological symptoms that overlap heavily with low testosterone.\n\nHow to read it: Roughly 232–1245 pg/mL, though the lower end of that range is widely considered inadequate — symptoms occur in the 200–400 range and many target above 500.\n\nWhen it is high: Supplementation, and rarely liver disease or myeloproliferative conditions.\n\nWhen it is low: Poor intake (particularly on plant-based diets), metformin, proton pump inhibitors, and absorption problems including pernicious anaemia.\n\nWhat invalidates the result: Serum B12 is an imperfect measure of functional status. If symptoms suggest deficiency with a low-normal B12, methylmalonic acid is the more sensitive test.\n\ntypical reference range 200–900 pg/mL; commonly cited optimal band 400–900 pg/mL.\n\nUnits seen on lab reports: pg/mL, ng/L, pmol/L. Canonical unit is pg/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:folate",
+    "marker:mcv",
+    "marker:homocysteine"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "b12"
@@ -4076,8 +4276,14 @@
     "iron storage",
     "ironstorage"
    ],
-   "text": "Ferritin — lab marker\n\ntypical reference range 12–300 ng/mL; commonly cited optimal band 50–200 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, mcg/L, pmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Ferritin — lab marker\n\nFerritin — the iron storage protein, and the best single measure of total body iron stores.\n\nWhy it matters here: Directly relevant on TRT: repeated blood donation to manage hematocrit depletes iron, and low ferritin causes fatigue that gets misread as inadequate testosterone.\n\nHow to read it: Roughly 30–400 ng/mL in men. Below 30 indicates depleted stores; many feel best above 50–100.\n\nWhen it is high: Iron overload and haemochromatosis, but also — importantly — inflammation, since ferritin is an acute phase reactant. Also liver disease and alcohol.\n\nWhen it is low: Iron deficiency, blood loss, and frequent donation. This is common in men managing hematocrit by donating and is a frequent cause of unexplained fatigue on otherwise well-managed TRT.\n\nWhat invalidates the result: Because ferritin rises with inflammation, a normal ferritin does not exclude iron deficiency if CRP is elevated. Check iron saturation alongside. And if you donate blood regularly, check ferritin — you can be iron deficient with a perfectly normal hematocrit.\n\ntypical reference range 12–300 ng/mL; commonly cited optimal band 50–200 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, mcg/L, pmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:iron",
+    "marker:ironsat",
+    "marker:tibc",
+    "marker:hct",
+    "marker:crp"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ferritin"
@@ -4095,8 +4301,11 @@
     "dihydrotestosteroneserum",
     "dihydrotestosterone serum"
    ],
-   "text": "DHT — lab marker\n\ntypical reference range 30–85 ng/dL.\n\nUnits seen on lab reports: ng/dL, pg/mL, nmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "DHT — lab marker\n\nDihydrotestosterone — a more potent androgen converted from testosterone by 5-alpha reductase in skin, prostate and hair follicles.\n\nWhy it matters here: Drives the androgenic side of therapy: libido and erectile function on one side, hair loss, acne and prostate growth on the other. Explains why two people at the same testosterone level have very different side effect profiles.\n\nHow to read it: Roughly 30–85 ng/dL in adult men, and it rises proportionally on TRT. Transdermal delivery raises it disproportionately because skin is rich in 5-alpha reductase.\n\nWhen it is high: Transdermal testosterone, high total testosterone, and individual 5AR activity. Associated with shedding in genetically susceptible people and with prostate symptoms.\n\nWhen it is low: Finasteride or dutasteride, which is the point of taking them. Very low DHT has its own costs — libido, erectile quality and mood are all reported to suffer in some people, and post-finasteride symptoms are a real and contested topic worth understanding before starting.\n\nWhat invalidates the result: Suppressing DHT to protect hair is a trade, not a free action. Understand both sides before committing.\n\ntypical reference range 30–85 ng/dL.\n\nUnits seen on lab reports: ng/dL, pg/mL, nmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tott",
+    "marker:psa"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "dht"
@@ -4116,8 +4325,13 @@
     "bioavailablet",
     "bioavailt"
    ],
-   "text": "Bioavailable Testosterone — lab marker\n\ntypical reference range 110–575 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L, pg/mL. Canonical unit is ng/dL.\n\nAssay caveat: Bioavailable testosterone is usually calculated from total T, SHBG and albumin, so it inherits the error in those assays.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Bioavailable Testosterone — lab marker\n\nBioavailable testosterone — the free fraction plus the loosely albumin-bound fraction, which also dissociates readily at tissue.\n\nWhy it matters here: Arguably the most physiologically meaningful of the three testosterone measures, since albumin-bound testosterone is functionally available even though it is not free.\n\nHow to read it: Typically reported around 110–575 ng/dL in adult men. Read it the same way as free testosterone: relative to symptoms rather than against a population range.\n\nWhen it is high: Same drivers as high free testosterone — usually low SHBG or a high dose.\n\nWhen it is low: High SHBG or low total. Same reasoning as free testosterone.\n\nWhat invalidates the result: Requires albumin to calculate. If albumin was not drawn, the number is an assumption.\n\ntypical reference range 110–575 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L, pg/mL. Canonical unit is ng/dL.\n\nAssay caveat: Bioavailable testosterone is usually calculated from total T, SHBG and albumin, so it inherits the error in those assays.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tott",
+    "marker:freet",
+    "marker:shbg",
+    "marker:albumin"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "bioavailt"
@@ -4132,8 +4346,11 @@
     "progesterone",
     "prog"
    ],
-   "text": "Progesterone — lab marker\n\ntypical reference range 0.1–1.2 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Progesterone — lab marker\n\nProgesterone — present in men at low levels as a precursor, and a primary therapeutic hormone in female protocols.\n\nWhy it matters here: Central to female hormone therapy and to cycle tracking. In men it is mostly a precursor, though it has some 5-alpha reductase inhibition and neurosteroid activity.\n\nHow to read it: In men, typically under 1.4 ng/mL. In cycling women it varies enormously by cycle phase, so the phase must be recorded for the number to mean anything at all.\n\nWhen it is high: Supplementation, and in women the luteal phase.\n\nWhen it is low: In women, anovulation or the follicular phase. In men, rarely acted on in isolation.\n\nWhat invalidates the result: A progesterone level on a cycling woman without a cycle day attached is uninterpretable.\n\ntypical reference range 0.1–1.2 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:e2",
+    "marker:pregnenolone"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "progesterone"
@@ -4153,8 +4370,11 @@
     "estroneserum",
     "estrone serum"
    ],
-   "text": "Estrone E1 — lab marker\n\ntypical reference range 10–60 pg/mL.\n\nUnits seen on lab reports: pg/mL, pmol/L. Canonical unit is pg/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Estrone E1 — lab marker\n\nEstrone (E1) — a weaker oestrogen that interconverts with estradiol and is produced substantially in adipose tissue.\n\nWhy it matters here: A reservoir that can convert back to estradiol, which is why oestrogen control sometimes fails to track estradiol alone, particularly at higher body fat.\n\nHow to read it: Roughly 10–60 pg/mL in adult men. Rarely ordered and rarely necessary.\n\nWhen it is high: Higher body fat, higher aromatisation, oral oestrogen.\n\nWhen it is low: Aromatase inhibition.\n\nWhat invalidates the result: Not a first-line marker. Order it when the estradiol picture does not fit the symptoms, not routinely.\n\ntypical reference range 10–60 pg/mL.\n\nUnits seen on lab reports: pg/mL, pmol/L. Canonical unit is pg/mL.\n\nRelated playbook: High estradiol.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "playbook:High estradiol",
+    "marker:e2"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "estrone"
@@ -4169,8 +4389,11 @@
     "androstenedione",
     "androstendione"
    ],
-   "text": "Androstenedione — lab marker\n\ntypical reference range 40–150 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Androstenedione — lab marker\n\nAndrostenedione — an adrenal and gonadal androgen precursor sitting upstream of both testosterone and oestrone.\n\nWhy it matters here: Useful when working out whether an androgen excess is adrenal or gonadal in origin.\n\nHow to read it: Roughly 40–150 ng/dL in adult men.\n\nWhen it is high: Adrenal hyperplasia, PCOS in women, supplementation, and adrenal tumours in rare cases.\n\nWhen it is low: Adrenal suppression, glucocorticoid use.\n\nWhat invalidates the result: Rises with the same stressors as other adrenal steroids; interpret with DHEA-S and cortisol rather than alone.\n\ntypical reference range 40–150 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:dheas",
+    "marker:tott"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "androstenedione"
@@ -4184,8 +4407,11 @@
    "terms": [
     "pregnenolone"
    ],
-   "text": "Pregnenolone — lab marker\n\ntypical reference range 22–237 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Pregnenolone — lab marker\n\nPregnenolone — the most upstream steroid hormone, from which the rest of the steroid cascade is built.\n\nWhy it matters here: Popular as a supplement on the theory that it lifts everything downstream. The evidence for that in practice is thin.\n\nHow to read it: Assay standardisation is poor and reference ranges vary considerably between labs. Interpret cautiously.\n\nWhen it is high: Supplementation.\n\nWhen it is low: Statins, ageing, and glucocorticoid use are proposed contributors; the clinical significance of an isolated low value is not well established.\n\nWhat invalidates the result: Between weak assay standardisation and unclear clinical meaning, this is a marker that generates more concern than it resolves.\n\ntypical reference range 22–237 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:dheas",
+    "marker:progesterone"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "pregnenolone"
@@ -4206,8 +4432,10 @@
     "cortisol evening",
     "cortisolevening"
    ],
-   "text": "Cortisol PM — lab marker\n\ntypical reference range 2–14 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, nmol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Cortisol PM — lab marker\n\nAfternoon or evening cortisol — the trough of the daily rhythm.\n\nWhy it matters here: Read against the morning value it shows whether the diurnal curve is intact. A flattened curve is a more useful finding than either number alone.\n\nHow to read it: Typically about half the morning value by late afternoon. A PM value close to the AM value suggests a flattened rhythm.\n\nWhen it is high: Disrupted sleep, shift work, chronic stress, late training, evening stimulants.\n\nWhen it is low: Expected — this is the trough.\n\nWhat invalidates the result: Only interpretable alongside a same-day morning draw and the exact collection times.\n\ntypical reference range 2–14 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, nmol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:cortam"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "cortisolpm"
@@ -4221,8 +4449,11 @@
    "terms": [
     "aldosterone"
    ],
-   "text": "Aldosterone — lab marker\n\ntypical reference range 3–16 ng/dL.\n\nUnits seen on lab reports: ng/dL, pmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Aldosterone — lab marker\n\nAldosterone — the adrenal hormone controlling sodium retention and, through it, blood volume and pressure.\n\nWhy it matters here: Relevant when blood pressure rises on therapy and the usual explanations do not fit.\n\nHow to read it: Highly posture- and sodium-dependent; usually interpreted as a ratio to renin rather than alone.\n\nWhen it is high: Primary hyperaldosteronism is an under-diagnosed and treatable cause of resistant hypertension, particularly with low potassium.\n\nWhen it is low: Adrenal insufficiency, some antihypertensives.\n\nWhat invalidates the result: Posture, sodium intake and several common blood pressure medications all shift it. Testing needs specific preparation to be meaningful — this is one to run with a physician rather than order independently.\n\ntypical reference range 3–16 ng/dL.\n\nUnits seen on lab reports: ng/dL, pmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:potassium",
+    "marker:sodium"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "aldosterone"
@@ -4241,8 +4472,12 @@
     "parathyroidhormoneintact",
     "parathyroid hormone intact"
    ],
-   "text": "PTH — lab marker\n\ntypical reference range 15–65 pg/mL.\n\nUnits seen on lab reports: pg/mL, ng/L, pmol/L. Canonical unit is pg/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "PTH — lab marker\n\nParathyroid hormone — the primary regulator of calcium, working with vitamin D and the kidneys.\n\nWhy it matters here: Read with calcium and vitamin D. Relevant to bone density, which matters on long-term hormone therapy.\n\nHow to read it: Roughly 15–65 pg/mL. Never interpretable without a simultaneous calcium.\n\nWhen it is high: Primary hyperparathyroidism (with high calcium), or secondary to vitamin D deficiency or kidney disease (with normal or low calcium). The distinction matters.\n\nWhen it is low: Hypoparathyroidism, high calcium from another source.\n\nWhat invalidates the result: PTH without calcium drawn at the same time cannot be interpreted at all.\n\ntypical reference range 15–65 pg/mL.\n\nUnits seen on lab reports: pg/mL, ng/L, pmol/L. Canonical unit is pg/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:calcium",
+    "marker:vitd",
+    "marker:phos"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "pth"
@@ -4263,8 +4498,10 @@
     "insulinlikegrowthfactorbindingprotein3",
     "insulin like growth factor binding protein 3"
    ],
-   "text": "IGFBP-3 — lab marker\n\ntypical reference range 3.4–7.8 mg/L.\n\nUnits seen on lab reports: mg/L, ug/mL, mcg/mL. Canonical unit is mg/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "IGFBP-3 — lab marker\n\nIGF binding protein 3 — the main carrier for IGF-1, itself GH-dependent.\n\nWhy it matters here: Read as a ratio to IGF-1 it indicates how much IGF-1 is actually free and active. Adds resolution when IGF-1 alone does not fit the picture.\n\nHow to read it: Age-dependent like IGF-1. Usually interpreted as the IGF-1 to IGFBP-3 ratio.\n\nWhen it is high: GH excess.\n\nWhen it is low: GH deficiency, malnutrition, liver disease.\n\nWhat invalidates the result: Rarely necessary. IGF-1 alone answers most questions; add this when results are inconsistent.\n\ntypical reference range 3.4–7.8 mg/L.\n\nUnits seen on lab reports: mg/L, ug/mL, mcg/mL. Canonical unit is mg/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:igf1"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "igfbp3"
@@ -4285,8 +4522,11 @@
     "thyroxinetotal",
     "thyroxine"
    ],
-   "text": "Total T4 — lab marker\n\ntypical reference range 4.5–12 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, nmol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Total T4 — lab marker\n\nTotal T4 — bound plus free thyroxine.\n\nWhy it matters here: Largely superseded by free T4, since it moves with binding protein changes rather than thyroid function.\n\nHow to read it: Roughly 4.5–12.0 mcg/dL.\n\nWhen it is high: Hyperthyroidism, or raised binding proteins from oestrogen.\n\nWhen it is low: Hypothyroidism, or reduced binding proteins.\n\nWhat invalidates the result: Oestrogen raises thyroid binding globulin and therefore total T4 without changing thyroid status. Free T4 avoids this entirely.\n\ntypical reference range 4.5–12 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, nmol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ft4",
+    "marker:tsh"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "t4total"
@@ -4307,8 +4547,11 @@
     "triiodothyroninetotal",
     "triiodothyronine"
    ],
-   "text": "Total T3 — lab marker\n\ntypical reference range 71–180 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Total T3 — lab marker\n\nTotal T3 — bound plus free triiodothyronine.\n\nWhy it matters here: Same binding-protein limitation as total T4.\n\nHow to read it: Roughly 71–180 ng/dL.\n\nWhen it is high: Hyperthyroidism, T3 supplementation.\n\nWhen it is low: Hypothyroidism, impaired conversion, illness.\n\nWhat invalidates the result: Prefer free T3 for the same reason.\n\ntypical reference range 71–180 ng/dL.\n\nUnits seen on lab reports: ng/dL, nmol/L. Canonical unit is ng/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ft3",
+    "marker:ft4"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "t3total"
@@ -4329,8 +4572,11 @@
     "thyroglobulin ab",
     "thyroglobulinab"
    ],
-   "text": "Thyroglobulin Antibodies — lab marker\n\ntypical reference range 0–1 IU/mL.\n\nUnits seen on lab reports: IU/mL, U/mL, kIU/L. Canonical unit is IU/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Thyroglobulin Antibodies — lab marker\n\nThyroglobulin antibodies — autoantibodies against the thyroid storage protein.\n\nWhy it matters here: A second autoimmune thyroid marker, occasionally positive when TPO is not.\n\nHow to read it: Usually under about 1 IU/mL.\n\nWhen it is high: Autoimmune thyroid disease.\n\nWhen it is low: Normal.\n\nWhat invalidates the result: Adds little beyond TPO in most cases; useful when suspicion is high and TPO is negative.\n\ntypical reference range 0–1 IU/mL.\n\nUnits seen on lab reports: IU/mL, U/mL, kIU/L. Canonical unit is IU/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tpo",
+    "marker:tsh"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "tgab"
@@ -4349,8 +4595,11 @@
     "rdwcv",
     "rdw cv"
    ],
-   "text": "RDW — lab marker\n\ntypical reference range 11.5–15 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "RDW — lab marker\n\nRed cell distribution width — how variable red cell size is.\n\nWhy it matters here: Rises early in developing deficiency, sometimes before the MCV moves, and is independently associated with cardiovascular outcomes.\n\nHow to read it: Roughly 11.5–15.4%.\n\nWhen it is high: Mixed or developing deficiency, recent bleeding, and recovering anaemia. A high RDW with a normal MCV suggests something is changing.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: Frequently ignored, though it is one of the more useful early signals on a CBC.\n\ntypical reference range 11.5–15 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:mcv",
+    "marker:ferritin"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "rdw"
@@ -4366,8 +4615,11 @@
     "mean corpuscular hemoglobin",
     "meancorpuscularhemoglobin"
    ],
-   "text": "MCH — lab marker\n\ntypical reference range 27–33 pg.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "MCH — lab marker\n\nMean corpuscular haemoglobin — average haemoglobin content per red cell.\n\nWhy it matters here: Tracks with MCV and adds modest resolution to anaemia classification.\n\nHow to read it: Roughly 26.6–33.0 pg.\n\nWhen it is high: Macrocytic anaemia.\n\nWhen it is low: Iron deficiency, thalassaemia.\n\nWhat invalidates the result: Rarely adds anything beyond MCV.\n\ntypical reference range 27–33 pg.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:mcv",
+    "marker:mchc"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "mch"
@@ -4383,8 +4635,11 @@
     "mean corpuscular hemoglobin concentration",
     "meancorpuscularhemoglobinconcentration"
    ],
-   "text": "MCHC — lab marker\n\ntypical reference range 32–36 g/dL.\n\nUnits seen on lab reports: g/dL, g/L. Canonical unit is g/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "MCHC — lab marker\n\nMean corpuscular haemoglobin concentration — haemoglobin concentration within red cells.\n\nWhy it matters here: Mostly a quality-control index; genuine abnormalities are uncommon.\n\nHow to read it: Roughly 31.5–35.7 g/dL.\n\nWhen it is high: Spherocytosis, or a lipaemic sample producing a spurious result.\n\nWhen it is low: Iron deficiency.\n\nWhat invalidates the result: An unexpectedly high MCHC is more often a sample problem than a real finding.\n\ntypical reference range 32–36 g/dL.\n\nUnits seen on lab reports: g/dL, g/L. Canonical unit is g/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:mch",
+    "marker:mcv"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "mchc"
@@ -4400,8 +4655,10 @@
     "mean platelet volume",
     "meanplateletvolume"
    ],
-   "text": "MPV — lab marker\n\ntypical reference range 7.5–12.5 fL.\n\nUnits seen on lab reports: fL, um3. Canonical unit is fL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "MPV — lab marker\n\nMean platelet volume — average platelet size.\n\nWhy it matters here: Larger platelets are younger and more active. Occasionally informative alongside the platelet count.\n\nHow to read it: Roughly 7.5–12.5 fL.\n\nWhen it is high: Increased platelet turnover.\n\nWhen it is low: Marrow production problems.\n\nWhat invalidates the result: Drifts with time in the tube before analysis, so minor variation is not meaningful.\n\ntypical reference range 7.5–12.5 fL.\n\nUnits seen on lab reports: fL, um3. Canonical unit is fL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:plt"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "mpv"
@@ -4418,8 +4675,11 @@
     "monos",
     "mono"
    ],
-   "text": "Monocytes — lab marker\n\ntypical reference range 3–12 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Monocytes — lab marker\n\nMonocytes — the white cell line that becomes tissue macrophages.\n\nWhy it matters here: Rises in chronic inflammation and recovery phases.\n\nHow to read it: Roughly 2–12% of white cells.\n\nWhen it is high: Chronic infection, inflammation, and recovery from acute infection.\n\nWhen it is low: Rarely significant alone.\n\nWhat invalidates the result: Small absolute numbers mean percentage swings look larger than they are.\n\ntypical reference range 3–12 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:wbc",
+    "marker:crp"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "mono"
@@ -4435,8 +4695,10 @@
     "eosinophils %",
     "eos"
    ],
-   "text": "Eosinophils — lab marker\n\ntypical reference range 0–5 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Eosinophils — lab marker\n\nEosinophils — white cells involved in allergic and parasitic responses.\n\nWhy it matters here: A useful pointer toward allergy, atopy or drug reaction.\n\nHow to read it: Roughly 0–5% of white cells.\n\nWhen it is high: Allergy, asthma, drug reactions, and parasitic infection. Markedly high warrants investigation.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: Suppressed by glucocorticoids, which can mask an allergic picture.\n\ntypical reference range 0–5 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:wbc"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "eos"
@@ -4453,8 +4715,10 @@
     "basos",
     "baso"
    ],
-   "text": "Basophils — lab marker\n\ntypical reference range 0–2 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Basophils — lab marker\n\nBasophils — the rarest white cell line, involved in histamine release.\n\nWhy it matters here: Rarely informative; occasionally relevant to myeloproliferative disorders.\n\nHow to read it: Roughly 0–3% of white cells.\n\nWhen it is high: Uncommon; persistent elevation can point to a myeloproliferative process.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: Counts are so small that a percentage change usually reflects counting noise.\n\ntypical reference range 0–2 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:wbc"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "baso"
@@ -4476,8 +4740,11 @@
     "neutrophils abs",
     "neutrophilsabs"
    ],
-   "text": "Neutrophils (Absolute) — lab marker\n\ntypical reference range 1.8–7.8 K/uL.\n\nUnits seen on lab reports: K/uL, x10E3/uL, 10*9/L. Canonical unit is K/uL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Neutrophils (Absolute) — lab marker\n\nAbsolute neutrophil count — neutrophils per volume rather than as a percentage.\n\nWhy it matters here: The number that actually determines infection risk.\n\nHow to read it: Roughly 1.4–7.0 thousand/uL. Below about 1.5 is neutropenia; below 0.5 is a serious infection risk.\n\nWhen it is high: Bacterial infection, stress, glucocorticoids.\n\nWhen it is low: Needs investigation, particularly if persistent. Benign ethnic neutropenia is common and harmless but is a diagnosis of exclusion.\n\nWhat invalidates the result: The percentage can look normal while the absolute count is low.\n\ntypical reference range 1.8–7.8 K/uL.\n\nUnits seen on lab reports: K/uL, x10E3/uL, 10*9/L. Canonical unit is K/uL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:neut",
+    "marker:wbc"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "neutabs"
@@ -4498,8 +4765,11 @@
     "lymphocytes abs",
     "lymphocytesabs"
    ],
-   "text": "Lymphocytes (Absolute) — lab marker\n\ntypical reference range 0.85–3.9 K/uL.\n\nUnits seen on lab reports: K/uL, x10E3/uL, 10*9/L. Canonical unit is K/uL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Lymphocytes (Absolute) — lab marker\n\nAbsolute lymphocyte count — lymphocytes per volume.\n\nWhy it matters here: More meaningful than the percentage for assessing immune status.\n\nHow to read it: Roughly 0.7–3.1 thousand/uL.\n\nWhen it is high: Viral infection, some lymphoproliferative conditions.\n\nWhen it is low: Glucocorticoids, acute stress, and persistent low counts warrant investigation.\n\nWhat invalidates the result: Falls with acute stress including a difficult blood draw.\n\ntypical reference range 0.85–3.9 K/uL.\n\nUnits seen on lab reports: K/uL, x10E3/uL, 10*9/L. Canonical unit is K/uL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:lymph",
+    "marker:wbc"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "lymphabs"
@@ -4518,8 +4788,11 @@
     "apolipoprotein a-1",
     "apolipoprotein a 1"
    ],
-   "text": "ApoA1 — lab marker\n\ntypical reference range 94–300 mg/dL; commonly cited optimal band 140–300 mg/dL.\n\nUnits seen on lab reports: mg/dL, g/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "ApoA1 — lab marker\n\nApolipoprotein A1 — the main structural protein of HDL particles.\n\nWhy it matters here: A more direct measure of HDL particle number than HDL cholesterol.\n\nHow to read it: Roughly above 120 mg/dL in men. The ApoB:ApoA1 ratio is a useful summary risk figure.\n\nWhen it is high: Generally favourable.\n\nWhen it is low: Falls sharply with oral anabolic use, alongside HDL.\n\nWhat invalidates the result: Adds most value as part of the ApoB:ApoA1 ratio rather than alone.\n\ntypical reference range 94–300 mg/dL; commonly cited optimal band 140–300 mg/dL.\n\nUnits seen on lab reports: mg/dL, g/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:hdl",
+    "marker:apob"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "apoa1"
@@ -4539,8 +4812,12 @@
     "ldl particles",
     "ldlparticles"
    ],
-   "text": "LDL Particle Number — lab marker\n\ntypical reference range 0–1260 nmol/L; commonly cited optimal band 0–1000 nmol/L.\n\nAssay caveat: Particle counts from NMR and ion mobility are not interchangeable; do not trend across platforms.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "LDL Particle Number — lab marker\n\nLDL particle number — a direct count of LDL particles, usually by NMR.\n\nWhy it matters here: Like ApoB, it captures risk that LDL cholesterol misses when particles are small and numerous.\n\nHow to read it: Interpreted against percentile-based targets that vary by lab and method.\n\nWhen it is high: Insulin resistance, anabolic use, and genetics. High particle number with normal LDL cholesterol is the classic discordance.\n\nWhen it is low: Favourable.\n\nWhat invalidates the result: ApoB gives essentially the same information more cheaply and with better standardisation. Choose one.\n\ntypical reference range 0–1260 nmol/L; commonly cited optimal band 0–1000 nmol/L.\n\nAssay caveat: Particle counts from NMR and ion mobility are not interchangeable; do not trend across platforms.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:apob",
+    "marker:smallldl",
+    "marker:ldl"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ldlp"
@@ -4563,8 +4840,12 @@
     "ldlsmall",
     "smallldl"
    ],
-   "text": "Small LDL Particles — lab marker\n\ntypical reference range 0–527 nmol/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Small LDL Particles — lab marker\n\nSmall dense LDL particles — the subfraction most associated with atherogenesis.\n\nWhy it matters here: Rises with insulin resistance and hypertriglyceridaemia.\n\nHow to read it: Reported against method-specific reference ranges.\n\nWhen it is high: Insulin resistance, high triglycerides, and metabolic syndrome.\n\nWhen it is low: Favourable.\n\nWhat invalidates the result: Largely redundant once ApoB and triglycerides are known.\n\ntypical reference range 0–527 nmol/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ldlp",
+    "marker:apob",
+    "marker:trig"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "smallldl"
@@ -4579,8 +4860,11 @@
     "homocysteine",
     "hcy"
    ],
-   "text": "Homocysteine — lab marker\n\ntypical reference range 4–15 umol/L; commonly cited optimal band 4–9 umol/L.\n\nUnits seen on lab reports: umol/L, mg/L. Canonical unit is umol/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Homocysteine — lab marker\n\nHomocysteine — an amino acid intermediate that accumulates when B-vitamin dependent metabolism is impaired.\n\nWhy it matters here: Associated with cardiovascular and cognitive risk, and directly responsive to B12, folate and B6 status.\n\nHow to read it: Roughly under 15 umol/L conventionally, though many target under 10.\n\nWhen it is high: B12, folate or B6 deficiency, MTHFR variants, kidney impairment, and hypothyroidism.\n\nWhen it is low: Not a concern.\n\nWhat invalidates the result: Lowering homocysteine with B vitamins has not reliably reduced cardiovascular events in trials, so treat it as a marker of B-vitamin status more than a target in itself.\n\ntypical reference range 4–15 umol/L; commonly cited optimal band 4–9 umol/L.\n\nUnits seen on lab reports: umol/L, mg/L. Canonical unit is umol/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:b12",
+    "marker:folate"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "homocysteine"
@@ -4596,8 +4880,12 @@
     "fibrinogen activity",
     "fibrinogenactivity"
    ],
-   "text": "Fibrinogen — lab marker\n\ntypical reference range 200–400 mg/dL.\n\nUnits seen on lab reports: mg/dL, g/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Fibrinogen — lab marker\n\nFibrinogen — a clotting protein that is also an acute phase reactant.\n\nWhy it matters here: Contributes to both inflammation assessment and thrombotic risk, which matters alongside a raised hematocrit.\n\nHow to read it: Roughly 200–400 mg/dL.\n\nWhen it is high: Inflammation, infection, smoking, and oestrogen. Combined with a high hematocrit it compounds clotting risk.\n\nWhen it is low: Liver disease, and consumptive coagulopathy.\n\nWhat invalidates the result: Rises non-specifically with any inflammation, so interpret alongside CRP.\n\ntypical reference range 200–400 mg/dL.\n\nUnits seen on lab reports: mg/dL, g/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:crp",
+    "marker:hct",
+    "marker:plt"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "fibrinogen"
@@ -4616,8 +4904,10 @@
     "o3index",
     "omega3"
    ],
-   "text": "Omega-3 Index — lab marker\n\ntypical reference range 2–12 %; commonly cited optimal band 8–12 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Omega-3 Index — lab marker\n\nOmega-3 index — EPA and DHA as a percentage of red cell membrane fatty acids.\n\nWhy it matters here: A stable measure of long-term omega-3 status, reflecting months rather than recent intake.\n\nHow to read it: Generally above 8% is considered desirable; below 4% is low.\n\nWhen it is high: High intake of fatty fish or supplementation.\n\nWhen it is low: Low intake. Common on Western diets.\n\nWhat invalidates the result: Reflects red cell membranes, so it changes slowly — do not expect a supplement started last week to show up.\n\ntypical reference range 2–12 %; commonly cited optimal band 8–12 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:trig"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "omega3"
@@ -4633,8 +4923,11 @@
     "cpeptide",
     "c peptide"
    ],
-   "text": "C-Peptide — lab marker\n\ntypical reference range 0.8–3.9 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "C-Peptide — lab marker\n\nC-peptide — released in equal amounts to insulin when the pancreas makes it, but not present in injected insulin.\n\nWhy it matters here: Distinguishes insulin the body made from insulin that was administered — the one marker that separates endogenous from exogenous.\n\nHow to read it: Roughly 0.8–3.9 ng/mL fasting. Interpret against a simultaneous glucose.\n\nWhen it is high: Insulin resistance with a compensating pancreas, or an insulin-secreting tumour in rare cases.\n\nWhen it is low: Reduced pancreatic output. Low C-peptide with high measured insulin means the insulin is exogenous.\n\nWhat invalidates the result: Renally cleared, so kidney impairment raises it independently of pancreatic function.\n\ntypical reference range 0.8–3.9 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:insulin",
+    "marker:glucose"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "cpeptide"
@@ -4649,8 +4942,11 @@
     "chloride",
     "cl"
    ],
-   "text": "Chloride — lab marker\n\ntypical reference range 98–107 mEq/L.\n\nUnits seen on lab reports: mEq/L, mmol/L. Canonical unit is mEq/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Chloride — lab marker\n\nChloride — an extracellular anion that moves with sodium and participates in acid-base balance.\n\nWhy it matters here: Mostly interpreted as part of the anion gap rather than alone.\n\nHow to read it: Roughly 96–106 mmol/L.\n\nWhen it is high: Dehydration and metabolic acidosis.\n\nWhen it is low: Vomiting, and some diuretics.\n\nWhat invalidates the result: Rarely informative in isolation.\n\ntypical reference range 98–107 mEq/L.\n\nUnits seen on lab reports: mEq/L, mmol/L. Canonical unit is mEq/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:sodium",
+    "marker:bicarb"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "chloride"
@@ -4665,8 +4961,11 @@
     "magnesium",
     "mg"
    ],
-   "text": "Magnesium — lab marker\n\ntypical reference range 1.6–2.3 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L, mEq/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Magnesium — lab marker\n\nMagnesium — a cofactor in hundreds of enzymatic reactions including muscle and cardiac function.\n\nWhy it matters here: Commonly low, commonly supplemented, and relevant to sleep, cramps and blood pressure.\n\nHow to read it: Roughly 1.6–2.3 mg/dL — but serum magnesium is a poor reflection of total body stores, since most is intracellular.\n\nWhen it is high: Kidney impairment, and excessive supplementation.\n\nWhen it is low: Poor intake, diuretics, alcohol, GI losses, and proton pump inhibitors.\n\nWhat invalidates the result: A normal serum magnesium does not rule out deficiency. RBC magnesium reflects stores better if the question matters.\n\ntypical reference range 1.6–2.3 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L, mEq/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:calcium",
+    "marker:potassium"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "magnesium"
@@ -4684,8 +4983,12 @@
     "inorganicphosphorus",
     "phos"
    ],
-   "text": "Phosphorus — lab marker\n\ntypical reference range 2.5–4.5 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Phosphorus — lab marker\n\nPhosphorus — a mineral partnering calcium in bone and central to cellular energy.\n\nWhy it matters here: Read with calcium, PTH and vitamin D as part of the bone panel.\n\nHow to read it: Roughly 2.5–4.5 mg/dL.\n\nWhen it is high: Kidney impairment, and excess vitamin D.\n\nWhen it is low: Hyperparathyroidism, refeeding syndrome, and antacid use.\n\nWhat invalidates the result: Rises with haemolysis and falls after eating carbohydrate — draw fasting.\n\ntypical reference range 2.5–4.5 mg/dL.\n\nUnits seen on lab reports: mg/dL, mmol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:calcium",
+    "marker:pth",
+    "marker:vitd"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "phos"
@@ -4701,8 +5004,11 @@
     "uricacid",
     "urate"
    ],
-   "text": "Uric Acid — lab marker\n\ntypical reference range 3.4–7 mg/dL.\n\nUnits seen on lab reports: mg/dL, umol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Uric Acid — lab marker\n\nUric acid — the end product of purine metabolism.\n\nWhy it matters here: Relevant to gout risk, and rises with high protein intake, diuretics and some anabolic use.\n\nHow to read it: Roughly 3.7–8.6 mg/dL in men.\n\nWhen it is high: High purine intake, alcohol, diuretics, dehydration, kidney impairment, and rapid weight loss. High uric acid predicts gout and is associated with hypertension.\n\nWhen it is low: Rarely a concern.\n\nWhat invalidates the result: Rises during aggressive dieting as tissue breaks down, so a cut can push it up transiently.\n\ntypical reference range 3.4–7 mg/dL.\n\nUnits seen on lab reports: mg/dL, umol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:creat",
+    "marker:egfr"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "uricacid"
@@ -4719,8 +5025,12 @@
     "globulintotal",
     "globulin total"
    ],
-   "text": "Globulin — lab marker\n\ntypical reference range 1.5–4.5 g/dL.\n\nUnits seen on lab reports: g/dL, g/L. Canonical unit is g/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Globulin — lab marker\n\nGlobulin — total protein minus albumin, comprising immune and transport proteins.\n\nWhy it matters here: Rises with chronic inflammation and immune activation.\n\nHow to read it: Roughly 2.0–3.5 g/dL.\n\nWhen it is high: Chronic inflammation, infection, and paraproteinaemia if markedly raised.\n\nWhen it is low: Immune deficiency, and protein loss.\n\nWhat invalidates the result: A calculated value, so it inherits any error in albumin or total protein.\n\ntypical reference range 1.5–4.5 g/dL.\n\nUnits seen on lab reports: g/dL, g/L. Canonical unit is g/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:albumin",
+    "marker:tprot",
+    "marker:agratio"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "globulin"
@@ -4740,8 +5050,11 @@
     "albumin globulin ratio",
     "ag ratio"
    ],
-   "text": "A/G Ratio — lab marker\n\ntypical reference range 1.2–2.2 ratio.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "A/G Ratio — lab marker\n\nAlbumin to globulin ratio.\n\nWhy it matters here: A summary of the protein picture; a falling ratio suggests inflammation or liver dysfunction.\n\nHow to read it: Usually about 1.1–2.5.\n\nWhen it is high: Rarely of concern.\n\nWhen it is low: Chronic inflammation, liver disease, or paraproteinaemia — worth investigating if persistently low.\n\nWhat invalidates the result: Derived, so it adds nothing that reading albumin and globulin separately does not.\n\ntypical reference range 1.2–2.2 ratio.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:albumin",
+    "marker:globulin"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "agratio"
@@ -4762,8 +5075,12 @@
     "conjugatedbilirubin",
     "dbili"
    ],
-   "text": "Direct Bilirubin — lab marker\n\ntypical reference range 0–0.3 mg/dL.\n\nUnits seen on lab reports: mg/dL, umol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Direct Bilirubin — lab marker\n\nDirect (conjugated) bilirubin — the fraction the liver has already processed.\n\nWhy it matters here: Splits a raised total bilirubin into pre-hepatic and hepatic/post-hepatic causes.\n\nHow to read it: Roughly 0.0–0.3 mg/dL.\n\nWhen it is high: Biliary obstruction or hepatocellular disease. A raised direct fraction is more concerning than a raised total alone.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: The value that separates benign Gilbert syndrome from something needing attention.\n\ntypical reference range 0–0.3 mg/dL.\n\nUnits seen on lab reports: mg/dL, umol/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tbili",
+    "marker:alkphos",
+    "marker:ggt"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "dbili"
@@ -4783,8 +5100,12 @@
     "gamma gt",
     "gammagt"
    ],
-   "text": "GGT — lab marker\n\ntypical reference range 9–48 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "GGT — lab marker\n\nGamma-glutamyl transferase — a biliary enzyme that is not present in skeletal muscle.\n\nWhy it matters here: The single most useful marker for settling the \"is my raised ALT from lifting or from my liver\" question, which is one of the most common lab questions in this population.\n\nHow to read it: Roughly 9–48 U/L.\n\nWhen it is high: Alcohol (it is sensitive to it), biliary obstruction, fatty liver, and enzyme-inducing medications. Raised GGT alongside raised transaminases makes a hepatic source much more likely.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: Frequently omitted from basic panels, which is a shame given how much interpretive work it does. Ask for it if you use orals or have unexplained transaminase elevation.\n\ntypical reference range 9–48 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:alt",
+    "marker:ast",
+    "marker:alkphos"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ggt"
@@ -4801,8 +5122,11 @@
     "lactatedehydrogenase",
     "ld"
    ],
-   "text": "LDH — lab marker\n\ntypical reference range 120–250 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "LDH — lab marker\n\nLactate dehydrogenase — an enzyme present in nearly every tissue.\n\nWhy it matters here: A very non-specific marker of cell turnover or damage.\n\nHow to read it: Roughly 122–222 U/L.\n\nWhen it is high: Haemolysis, muscle damage, tissue injury, and some malignancies. Raised after hard training like the transaminases.\n\nWhen it is low: Not clinically significant.\n\nWhat invalidates the result: So non-specific that an isolated elevation rarely changes anything. A haemolysed sample raises it artefactually.\n\ntypical reference range 120–250 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ast",
+    "marker:ck"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ldh"
@@ -4821,8 +5145,13 @@
     "creatine phosphokinase",
     "creatinephosphokinase"
    ],
-   "text": "Creatine Kinase — lab marker\n\ntypical reference range 44–196 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Creatine Kinase — lab marker\n\nCreatine kinase — an enzyme released from damaged muscle.\n\nWhy it matters here: The marker that explains most unexplained transaminase elevations in people who train. Confirms whether a raised AST and ALT came from muscle rather than liver.\n\nHow to read it: Roughly 39–308 U/L, but lifters routinely run well above that with no pathology at all. Values in the thousands after an unaccustomed heavy session are common.\n\nWhen it is high: Recent intense or eccentric training, and this population lives here. Also statins, and rhabdomyolysis at the dangerous end — very high CK with dark urine and severe muscle pain is a medical emergency.\n\nWhen it is low: Low muscle mass.\n\nWhat invalidates the result: Drawing after training makes CK, AST, ALT and LDH all rise together, producing a panel that looks like liver disease. Rest 72 hours before a draw if liver interpretation matters.\n\ntypical reference range 44–196 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ast",
+    "marker:alt",
+    "marker:creat",
+    "marker:ldh"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ck"
@@ -4836,8 +5165,10 @@
    "terms": [
     "amylase"
    ],
-   "text": "Amylase — lab marker\n\ntypical reference range 25–125 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Amylase — lab marker\n\nAmylase — a digestive enzyme from pancreas and salivary glands.\n\nWhy it matters here: Screens for pancreatitis, which is relevant on GLP-1 agonists where pancreatitis is a recognised though uncommon risk.\n\nHow to read it: Roughly 25–125 U/L.\n\nWhen it is high: Pancreatitis, salivary gland problems, and kidney impairment. Lipase is more specific.\n\nWhen it is low: Rarely significant.\n\nWhat invalidates the result: Less specific than lipase; a raised amylase alone does not establish pancreatitis.\n\ntypical reference range 25–125 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:lipase"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "amylase"
@@ -4851,8 +5182,10 @@
    "terms": [
     "lipase"
    ],
-   "text": "Lipase — lab marker\n\ntypical reference range 10–60 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Lipase — lab marker\n\nLipase — a pancreatic digestive enzyme.\n\nWhy it matters here: The more specific pancreatic marker, and the one that matters on GLP-1 therapy.\n\nHow to read it: Roughly 0–60 U/L, though ranges vary widely by method.\n\nWhen it is high: Pancreatitis. GLP-1 agonists can raise lipase modestly without pancreatitis, which complicates interpretation. Severe persistent abdominal pain radiating to the back with a raised lipase needs urgent assessment.\n\nWhen it is low: Rarely significant.\n\nWhat invalidates the result: An asymptomatic mild elevation on a GLP-1 is common; severe abdominal pain with any elevation is not something to monitor at home.\n\ntypical reference range 10–60 U/L.\n\nUnits seen on lab reports: U/L, IU/L. Canonical unit is U/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:amylase"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "lipase"
@@ -4868,8 +5201,11 @@
     "cystatinc",
     "cystatin-c"
    ],
-   "text": "Cystatin C — lab marker\n\ntypical reference range 0.5–1 mg/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Cystatin C — lab marker\n\nCystatin C — a protein filtered by the kidneys whose level does not depend on muscle mass.\n\nWhy it matters here: The answer to the creatinine problem. For anyone with substantial muscle mass, this is the more accurate kidney marker by a wide margin.\n\nHow to read it: Roughly 0.6–1.0 mg/L. Used to compute a cystatin C-based eGFR.\n\nWhen it is high: Genuinely reduced kidney function. Also raised by thyroid dysfunction, glucocorticoids, and obesity.\n\nWhen it is low: Normal.\n\nWhat invalidates the result: Not on standard panels — ask for it specifically. If creatinine or eGFR has ever flagged, this is the test that tells you whether it was real.\n\ntypical reference range 0.5–1 mg/L.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:creat",
+    "marker:egfr"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "cystatinc"
@@ -4888,8 +5224,13 @@
     "iron total",
     "irontotal"
    ],
-   "text": "Iron — lab marker\n\ntypical reference range 50–180 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, umol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Iron — lab marker\n\nSerum iron — circulating iron bound to transferrin at the moment of the draw.\n\nWhy it matters here: Part of the iron panel, but far too variable to interpret alone.\n\nHow to read it: Roughly 38–169 mcg/dL.\n\nWhen it is high: Recent supplementation, haemochromatosis, and haemolysis.\n\nWhen it is low: Deficiency, inflammation, and normal daily variation.\n\nWhat invalidates the result: Swings substantially through the day and rises sharply after an iron supplement. Draw fasting, in the morning, and having held supplements — and never interpret it without ferritin and saturation.\n\ntypical reference range 50–180 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, umol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:ferritin",
+    "marker:tibc",
+    "marker:ironsat",
+    "marker:transferrin"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "iron"
@@ -4907,8 +5248,12 @@
     "iron binding capacity",
     "ironbindingcapacity"
    ],
-   "text": "TIBC — lab marker\n\ntypical reference range 250–450 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, umol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "TIBC — lab marker\n\nTotal iron binding capacity — how much iron transferrin could carry.\n\nWhy it matters here: Rises in iron deficiency as the body upregulates transport. Part of the panel needed to compute saturation.\n\nHow to read it: Roughly 250–450 mcg/dL.\n\nWhen it is high: Iron deficiency.\n\nWhen it is low: Inflammation, malnutrition, and iron overload.\n\nWhat invalidates the result: Only meaningful alongside serum iron and ferritin.\n\ntypical reference range 250–450 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, umol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:iron",
+    "marker:ferritin",
+    "marker:ironsat"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "tibc"
@@ -4922,8 +5267,11 @@
    "terms": [
     "transferrin"
    ],
-   "text": "Transferrin — lab marker\n\ntypical reference range 200–360 mg/dL.\n\nUnits seen on lab reports: mg/dL, g/L, mg/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Transferrin — lab marker\n\nTransferrin — the protein that transports iron in blood.\n\nWhy it matters here: Closely related to TIBC and largely interchangeable with it.\n\nHow to read it: Roughly 200–360 mg/dL.\n\nWhen it is high: Iron deficiency.\n\nWhen it is low: Inflammation, liver disease, and malnutrition.\n\nWhat invalidates the result: Redundant if TIBC was measured.\n\ntypical reference range 200–360 mg/dL.\n\nUnits seen on lab reports: mg/dL, g/L, mg/L. Canonical unit is mg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tibc",
+    "marker:iron"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "transferrin"
@@ -4945,8 +5293,12 @@
     "ironsat",
     "tsat"
    ],
-   "text": "Iron Saturation — lab marker\n\ntypical reference range 15–50 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Iron Saturation — lab marker\n\nIron saturation — serum iron as a percentage of TIBC.\n\nWhy it matters here: The most useful single number on the iron panel for distinguishing deficiency from overload, and it holds up when ferritin is confounded by inflammation.\n\nHow to read it: Roughly 15–55%. Below 20% suggests deficiency; sustained above 45–50% raises the question of overload.\n\nWhen it is high: Haemochromatosis and iron overload — worth taking seriously, since untreated overload damages liver, heart and pancreas.\n\nWhen it is low: Iron deficiency.\n\nWhat invalidates the result: The number to trust when ferritin is unreliable because CRP is up.\n\ntypical reference range 15–50 %.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:iron",
+    "marker:tibc",
+    "marker:ferritin"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "ironsat"
@@ -4967,8 +5319,12 @@
     "vitamin b9",
     "vitaminb9"
    ],
-   "text": "Folate — lab marker\n\ntypical reference range 3–20 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Folate — lab marker\n\nFolate — a B vitamin required alongside B12 for red cell production and methylation.\n\nWhy it matters here: Deficiency causes macrocytic anaemia indistinguishable from B12 deficiency on a CBC.\n\nHow to read it: Roughly above 3.0 ng/mL in serum; red cell folate reflects longer-term status better.\n\nWhen it is high: Supplementation. High folate with low B12 can mask the haematological signs of B12 deficiency while neurological damage continues.\n\nWhen it is low: Poor intake, alcohol, malabsorption, and some medications.\n\nWhat invalidates the result: Supplementing folate without checking B12 can hide a B12 deficiency until neurological damage is established. Check both.\n\ntypical reference range 3–20 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L, nmol/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:b12",
+    "marker:mcv",
+    "marker:homocysteine"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "folate"
@@ -4983,8 +5339,10 @@
     "zinc",
     "zn"
    ],
-   "text": "Zinc — lab marker\n\ntypical reference range 60–130 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, umol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "Zinc — lab marker\n\nZinc — a mineral involved in testosterone synthesis, immune function and wound healing.\n\nWhy it matters here: Popular supplement in this population on the basis of its role in testosterone production. Genuine deficiency does impair testosterone; supplementing beyond repletion does not raise it further.\n\nHow to read it: Roughly 60–130 mcg/dL, though serum zinc reflects status poorly.\n\nWhen it is high: Over-supplementation. Sustained high zinc intake induces copper deficiency, which causes its own anaemia and neurological problems.\n\nWhen it is low: Poor intake, malabsorption, and heavy sweating.\n\nWhat invalidates the result: Serum zinc is a weak measure of body stores. And high-dose zinc supplementation over months depletes copper — if you take zinc long term, take it with copper or check both.\n\ntypical reference range 60–130 mcg/dL.\n\nUnits seen on lab reports: mcg/dL, ug/dL, umol/L. Canonical unit is mcg/dL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:tott"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "zinc"
@@ -5004,8 +5362,11 @@
     "erythrocyte sedimentation rate",
     "erythrocytesedimentationrate"
    ],
-   "text": "ESR — lab marker\n\ntypical reference range 0–15 mm/hr.\n\nUnits seen on lab reports: mm/hr, mm/h. Canonical unit is mm/hr.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "ESR — lab marker\n\nErythrocyte sedimentation rate — how fast red cells settle, an indirect inflammation measure.\n\nWhy it matters here: An older, slower-moving inflammation marker. Largely superseded by CRP but still used.\n\nHow to read it: Roughly under 15–20 mm/hr in men, rising with age.\n\nWhen it is high: Inflammation, infection, anaemia, and pregnancy.\n\nWhen it is low: Polycythaemia — and this matters here, because a high hematocrit lowers ESR and can mask inflammation.\n\nWhat invalidates the result: Responds much more slowly than CRP, and is affected by red cell count. On TRT with a high hematocrit, a normal ESR is less reassuring than it looks.\n\ntypical reference range 0–15 mm/hr.\n\nUnits seen on lab reports: mm/hr, mm/h. Canonical unit is mm/hr.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:crp",
+    "marker:hct"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "esr"
@@ -5024,8 +5385,11 @@
     "psatotal",
     "psa total"
    ],
-   "text": "PSA — lab marker\n\ntypical reference range 0–4 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
-   "related": [],
+   "text": "PSA — lab marker\n\nProstate specific antigen — a protein produced by prostate tissue, benign and malignant alike.\n\nWhy it matters here: The standard prostate safety monitor on testosterone therapy. Testosterone does not appear to cause prostate cancer on current evidence, but it can accelerate an existing one, so a baseline before starting and periodic monitoring after is the accepted practice.\n\nHow to read it: Commonly under 4.0 ng/mL, but interpretation is age-dependent and the trend matters more than the absolute value. A rise of more than about 1.4 ng/mL within a year, or any rise crossing a threshold, is what prompts referral rather than a single reading.\n\nWhen it is high: Benign prostatic hyperplasia, prostatitis, recent ejaculation, cycling, catheterisation, digital rectal examination, and prostate cancer. Most elevated PSA is not cancer, but sorting that out is a urologist question and not one to resolve by waiting.\n\nWhen it is low: Finasteride and dutasteride roughly halve PSA. This matters enormously: if you take a 5AR inhibitor, your PSA must be doubled to compare against standard thresholds, or a real problem will be missed.\n\nWhat invalidates the result: Ejaculation within 48 hours, cycling, and a recent DRE all raise it. Abstain for two days and draw before any examination. And the 5AR inhibitor halving effect is the single most consequential PSA pitfall in this population.\n\ntypical reference range 0–4 ng/mL.\n\nUnits seen on lab reports: ng/mL, ug/L. Canonical unit is ng/mL.\n\nReference ranges vary by lab. A single value out of range is a prompt to look closer, not a diagnosis.",
+   "related": [
+    "marker:dht",
+    "marker:tott"
+   ],
    "route": {
     "view": "bloodwork",
     "marker": "psa"

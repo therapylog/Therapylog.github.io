@@ -38,6 +38,13 @@ const ROOT = path.join(__dirname, '..');
 const APP = path.join(ROOT, 'app.html');
 const OUT = path.join(ROOT, 'assets', 'brain', 'index.json');
 
+/* The narrative layer for lab markers. app.html's MARKER_REGISTRY is a parsing
+   layer — LOINC codes, aliases, unit conversions — and LAB_REF adds ranges.
+   Neither says what a value means, which is the actual question. Authored
+   separately because it is written content on a different revision cadence
+   from the app's code. */
+const MARKER_GUIDE = require(path.join(ROOT, 'assets', 'brain', 'markers.js'));
+
 function scriptBlocks(html) {
   const out = [];
   const re = /<script(?![^>]*\bsrc=)([^>]*)>([\s\S]*?)<\/script>/g;
@@ -127,10 +134,20 @@ function compoundText(d, cls) {
   return p.join('\n\n');
 }
 
-function markerText(key, reg, ref, playbook) {
+function markerText(key, reg, ref, playbook, guide) {
   const p = [];
   const label = (reg && reg.label) || (ref && ref.name) || key;
   p.push(`${label} — lab marker`);
+  /* The authored guide first: it is what actually answers the question. The
+     registry's ranges and assay notes follow as supporting detail. */
+  if (guide) {
+    if (guide.what) p.push(guide.what);
+    if (guide.why) p.push('Why it matters here: ' + guide.why);
+    if (guide.read) p.push('How to read it: ' + guide.read);
+    if (guide.high) p.push('When it is high: ' + guide.high);
+    if (guide.low) p.push('When it is low: ' + guide.low);
+    if (guide.pitfall) p.push('What invalidates the result: ' + guide.pitfall);
+  }
   if (ref) {
     const unit = ref.unit || (reg && reg.canonicalUnit) || '';
     const bits = [];
@@ -200,12 +217,13 @@ const PLAYBOOK_SYNONYMS = {
    are twelve of them and a fuzzy match here would silently mis-route a lab
    question to the wrong protocol. */
 const MARKER_PLAYBOOK = {
-  hematocrit: 'High hematocrit', hgb: 'High hematocrit', rbc: 'High hematocrit',
-  estradiol: 'High estradiol', e2: 'High estradiol',
+  hct: 'High hematocrit', hgb: 'High hematocrit', rbc: 'High hematocrit',
+  e2: 'High estradiol', estrone: 'High estradiol',
   prolactin: 'High prolactin',
   ldl: 'Lipid strain', hdl: 'Lipid strain', trig: 'Lipid strain',
-  apoB: 'Lipid strain', cholesterol: 'Lipid strain',
-  lh: 'HPTA suppression & recovery', fsh: 'HPTA suppression & recovery'
+  apob: 'Lipid strain', chol: 'Lipid strain', nonhdl: 'Lipid strain',
+  lh: 'HPTA suppression & recovery', fsh: 'HPTA suppression & recovery',
+  tott: 'HPTA suppression & recovery'
 };
 
 function build() {
@@ -247,18 +265,48 @@ function build() {
     throw new Error(`playbooks with no synonyms — add them to PLAYBOOK_SYNONYMS: ${unmapped.join(', ')}`);
   }
 
+  /* Every marker must have a guide entry. A marker added to app.html without
+     one would silently ship as a bare reference range again — which is the
+     exact gap this file was written to close, and nothing else would catch it. */
+  const missingGuide = Object.keys(d.MARKER_REGISTRY).filter((k) => !MARKER_GUIDE[k]);
+  if (missingGuide.length) {
+    throw new Error(`markers with no guide entry — add them to assets/brain/markers.js: ${missingGuide.join(', ')}`);
+  }
+  /* A mistyped key here fails silently — the playbook link simply never
+     appears, and the marker ships without the half of the answer that says
+     what to do. Both sides of the map get checked. */
+  const badMarkerKey = Object.keys(MARKER_PLAYBOOK).filter((k) => !d.MARKER_REGISTRY[k]);
+  if (badMarkerKey.length) {
+    throw new Error(`MARKER_PLAYBOOK names markers that do not exist: ${badMarkerKey.join(', ')}`);
+  }
+  const badPlaybookName = Object.values(MARKER_PLAYBOOK).filter((t) => !playbookByTitle[t]);
+  if (badPlaybookName.length) {
+    throw new Error(`MARKER_PLAYBOOK points at playbooks that do not exist: ${[...new Set(badPlaybookName)].join(', ')}`);
+  }
+
+  const staleGuide = Object.keys(MARKER_GUIDE).filter((k) => !d.MARKER_REGISTRY[k]);
+  if (staleGuide.length) {
+    throw new Error(`markers.js describes markers app.html no longer has: ${staleGuide.join(', ')}`);
+  }
+
   for (const key of Object.keys(d.MARKER_REGISTRY)) {
     const reg = d.MARKER_REGISTRY[key];
     const ref = d.LAB_REF[key];
     const pb = MARKER_PLAYBOOK[key];
+    const guide = MARKER_GUIDE[key];
+    /* Cross-marker links are as much of the answer as the marker itself: a
+       raised ALT means something different next to a raised GGT than next to a
+       raised CK, and creatinine means something different next to cystatin C. */
+    const rel = (guide.related || []).filter((r) => d.MARKER_REGISTRY[r]).map((r) => `marker:${r}`);
+    if (pb && playbookByTitle[pb]) rel.unshift(`playbook:${pb}`);
     entries.push({
       id: `marker:${key}`,
       kind: 'marker',
       title: reg.label || key,
       subtitle: reg.group || 'lab marker',
       terms: terms(reg.label, reg.aliases || [], key, ref && ref.name),
-      text: markerText(key, reg, ref, pb && playbookByTitle[pb] ? pb : null),
-      related: pb && playbookByTitle[pb] ? [`playbook:${pb}`] : [],
+      text: markerText(key, reg, ref, pb && playbookByTitle[pb] ? pb : null, guide),
+      related: rel,
       route: { view: 'bloodwork', marker: key }
     });
   }
