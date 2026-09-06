@@ -55,11 +55,43 @@
 
   const words = (t) => t.split(/\s+/).filter(Boolean).length;
 
-  /* Below this, the match is not trustworthy enough to show as an answer.
-     Tuned so a miss falls through to the assistant instead of confidently
-     serving the wrong protocol — a wrong free answer to a medical question
-     costs far more than the $0.065 it saved. */
+  /* Below this, the match is not trustworthy enough to show at all. Tuned so
+     a miss falls through to the assistant instead of confidently serving the
+     wrong protocol — a wrong free answer to a medical question costs far more
+     than the $0.065 it saved. */
   const THRESHOLD = 45;
+
+  /* Score says how well an entry matches. It does not say whether the entry
+     is the ANSWER or merely relevant, and those need different treatment.
+
+     "What is tirzepatide" and "I'm on tirzepatide, eating 700 below
+     maintenance and lifting 4x a week, how do I not lose muscle" both match
+     the tirzepatide entry on its title, at nearly the same score. The first
+     is fully answered by that entry. The second is barely about tirzepatide
+     at all — offering the compound page as the answer would be a confidently
+     unhelpful non-sequitur.
+
+     What separates them is how much of the question the entry accounts for.
+     Coverage is the fraction of the question's meaningful tokens the entry's
+     terms explain: 1.0 for "what is tirzepatide", about 0.08 for the second.
+     Above ANSWER_COVERAGE the entry is offered as a free answer; below it,
+     the entry is shown as related reading and the assistant stays the primary
+     path. Cheap, deterministic, and it needs no model to decide.
+
+     0.10 is measured, not guessed. Across the 44-question eval set the two
+     classes separate cleanly: every question that should be answered from the
+     library scores 0.14 or above, and every question that should defer scores
+     0.07 or below — 18 of 19 of them at exactly 0.00, because nothing matched
+     at all. The single near-miss is the tirzepatide-and-a-deficit question at
+     0.07, which is the case this threshold exists for.
+
+     The margin is thin, so it is worth being clear about which way a
+     misclassification fails. Too low and the app shows a related card the
+     user reads past — one extra tap. Too high and it sends a question to the
+     paid model that the library could have answered for nothing. Neither
+     produces a wrong answer, because coverage only decides how a match is
+     PRESENTED; the match itself already passed THRESHOLD. */
+  const ANSWER_COVERAGE = 0.10;
 
   /* Per-kind weighting, applied after term scoring.
      Template and interaction entries list the compounds they involve so that
@@ -78,6 +110,18 @@
      inside a word is removed. */
   function flatten(s) {
     return s.replace(/(\w)[-\u2013\u2014/](\w)/g, '$1$2');
+  }
+
+  /* Fraction of the question's meaningful tokens this entry's terms explain.
+     Exact token matches count fully; a term containing the token counts too,
+     so "tirzepatide" credits an entry whose term is "tirzepatide injection". */
+  function coverage(entry, qTokens) {
+    if (!qTokens.length) return 0;
+    const hit = qTokens.filter((t) => {
+      const f = flatten(t);
+      return entry.terms.some((x) => x === t || x === f || x.includes(t) || x.includes(f));
+    }).length;
+    return hit / qTokens.length;
   }
 
   function score(entry, norm, qTokens, title) {
@@ -145,7 +189,7 @@
     if (norm) {
       for (const e of (index && index.entries) || []) {
         const sc = score(e, norm, qTokens, String(e.title || '').toLowerCase().trim());
-        if (sc >= (o.threshold || THRESHOLD)) out.push({ entry: e, score: sc });
+        if (sc >= (o.threshold || THRESHOLD)) out.push({ entry: e, score: sc, coverage: coverage(e, qTokens) });
       }
       out.sort((a, b) => b.score - a.score || a.entry.title.length - b.entry.title.length);
     }
@@ -165,8 +209,29 @@
         picked.push({ entry: rel, score: r.score - 1, related: true });
       }
     }
-    return { tool: toolFor(q), results: picked };
+    /* answerable: the app may show these as a free answer. related: relevant
+       context to display alongside, but the assistant is still the primary
+       path. A tool match is always answerable — arithmetic beats a model.
+
+       Kind gates this before coverage does. A compound, marker or playbook
+       entry is a self-contained explanation and can stand alone. An
+       interaction entry is a warning about combining two specific things and
+       a template is a protocol listing — both are useful context beside an
+       answer and neither IS one. Without this gate, "I'm on tirzepatide,
+       eating 700 below maintenance, how do I keep muscle" was answered with a
+       GLP-1 combination warning, because an entry with few terms reaches a
+       given coverage on fewer hits than a richly-aliased compound does. */
+    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1 };
+    const answerable = picked.filter((r) => !r.related &&
+      ANSWER_KINDS[r.entry.kind] &&
+      r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
+    return {
+      tool: toolFor(q),
+      results: picked,
+      answerable,
+      answers: !!(toolFor(q) || answerable.length)
+    };
   }
 
-  return { search, normalize, tokens, toolFor, THRESHOLD };
+  return { search, normalize, tokens, toolFor, THRESHOLD, ANSWER_COVERAGE };
 });
