@@ -1,6 +1,6 @@
 {
  "version": 1,
- "count": 318,
+ "count": 377,
  "sources": [
   {
    "id": "pmid-11715139",
@@ -111,6 +111,24 @@
    "citedBy": []
   },
   {
+   "id": "pmid-40666246",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/40666246/",
+   "title": "A systematic review: impact of dry needling, isometric, and eccentric exercises on pain and function in individuals with patellar tendinopathy (Front Rehabil Sci 2024; PMC12259690)",
+   "note": "PMID 40666246, resolved from PMC12259690 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The original isometric analgesia protocol (Rio et al., BJSM 2015) was: leg-extension isometric holds at 60 degrees of knee flexion, 5 sets x",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-41029871",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41029871/",
+   "title": "Acute to chronic workload ratio (ACWR) for predicting sports injury risk: a systematic review and meta-analysis. BMC Sports Sci Med Rehabil. 2025",
+   "note": "PMID 41029871, resolved from PMC12487117 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Current pooled evidence does not rescue ACWR as a decision rule. The 2025 meta-analytic position is that elevated ACWR may associate with in",
+   "topic": "load-management",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-42662491",
    "url": "https://pubmed.ncbi.nlm.nih.gov/42662491/",
    "title": "Acute:chronic workload ratio and load management for team sports: a multilevel meta-analysis.",
@@ -169,6 +187,15 @@
    "citedBy": []
   },
   {
+   "id": "pmid-28514618",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28514618/",
+   "title": "Aerobic or Resistance Exercise, or Both, in Dieting Obese Older Adults (Villareal et al., N Engl J Med 2017;376:1943-1955; DOI 10.1056/NEJMoa1616338)",
+   "note": "PMID 28514618, resolved from 10.1056/NEJMoa1616338 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Resistance training, not protein, is the primary lever. In a head-to-head trial in dieting older adults, the resistance arm lost 1.1 kg lean",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-26891166",
    "url": "https://pubmed.ncbi.nlm.nih.gov/26891166/",
    "title": "American College of Sports Medicine Joint Position Statement. Nutrition and Athletic Performance.",
@@ -223,6 +250,24 @@
    "citedBy": []
   },
   {
+   "id": "pmid-42299185",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42299185/",
+   "title": "Anabolic Steroid-Induced Cholestatic Jaundice in a Young Adult: An Emerging Clinical Challenge Underscoring the Importance of a Thorough Drug History",
+   "note": "PMID 42299185, resolved from PMC13264516 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The single most decision-relevant monitoring fact: 17-alpha-alkylated AAS produce BLAND CANALICULAR CHOLESTASIS, in which bilirubin rises ma",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-36060356",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36060356/",
+   "title": "Anabolic Steroid-Induced Cholestatic Liver Injury: A Case Report",
+   "note": "PMID 36060356, resolved from PMC9426951 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The single most decision-relevant monitoring fact: 17-alpha-alkylated AAS produce BLAND CANALICULAR CHOLESTASIS, in which bilirubin rises ma",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "sciencedirect-03e5dece",
    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0960076023000833",
    "title": "Analytical variation concerning total 25-hydroxyvitamin D measurement, where are we now? A DEQAS review of current assay performance. J Steroid Biochem Mol Biol (2023)",
@@ -250,6 +295,15 @@
    ]
   },
   {
+   "id": "pmid-33214235",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33214235/",
+   "title": "Androgenic anabolic steroid-induced liver injury: two case reports assessed for causality by the updated RUCAM score and a comprehensive review of the literature",
+   "note": "PMID 33214235, resolved from PMC7678230 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The single most decision-relevant monitoring fact: 17-alpha-alkylated AAS produce BLAND CANALICULAR CHOLESTASIS, in which bilirubin rises ma",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "drugs-be2ef459",
    "url": "https://www.drugs.com/history/androxal.html",
    "title": "Androxal (enclomiphene): What is it and is it FDA approved? — Drugs.com",
@@ -263,6 +317,15 @@
    "url": "https://pubmed.ncbi.nlm.nih.gov/15456328/",
    "title": "Antipsychotic-induced hyperprolactinaemia: mechanisms, clinical features and management.",
    "note": "PMID 15456328; Drugs 2004; doi:10.2165/00003495-200464200-00003. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: Even when a prolactin-raising drug is a plausible explanation, biochemically confirmed hyperprolactinaemia still warrants exclusion of other causes, i",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-33380894",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33380894/",
+   "title": "Antipsychotics-induced hyperprolactinemia and screening for macroprolactin (PMC7745162)",
+   "note": "PMID 33380894, resolved from PMC7745162 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Macroprolactin screening should be done before treatment is started, not after it fails. Because macroprolactinaemia frequently causes misdi",
    "topic": "prolactin",
    "tier": "clinical",
    "citedBy": []
@@ -367,6 +430,15 @@
    ]
   },
   {
+   "id": "pmid-24411003",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/24411003/",
+   "title": "Atorvastatin 10 mg plus ezetimibe versus titration to atorvastatin 40 mg: attainment of European and Canadian guideline lipid targets in high-risk subjects >=65 years",
+   "note": "PMID 24411003, resolved from PMC3901347 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Where a statin alone is insufficient for the ApoB target, ezetimibe 10 mg once daily added to a statin gives roughly an additional 23.8% LDL",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "academic-1e459bac",
    "url": "https://academic.oup.com/jcem/article/95/10/4743/2835251",
    "title": "Bachman E, Feng R, Travison T, Li M, Olbina G, Ostland V, Ulloor J, Zhang A, Basaria S, Ganz T, Westerman M, Bhasin S. Testosterone suppresses hepcidin in men: a potential mechanism for testosterone-induced erythrocytosis. Journal of Clinical Endocrinology &amp; Metabolism, 95(10):4743–4747, 2010.",
@@ -413,6 +485,15 @@
     "markers/hematocrit-on-trt/",
     "markers/lh-fsh/"
    ]
+  },
+  {
+   "id": "pmid-36976950",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36976950/",
+   "title": "Biceps Brachii and Brachioradialis Excitation in Biceps Curl Exercise: Different Handgrips, Different Synergy (PMC10054060)",
+   "note": "PMID 36976950, resolved from PMC10054060 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Forearm position drives which elbow flexor takes the load in curling: biceps brachii activation is highest in the supinated curl, lower in t",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "academic-18016c0b",
@@ -485,6 +566,15 @@
    "citedBy": [
     "markers/dht/"
    ]
+  },
+  {
+   "id": "pmid-28533317",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28533317/",
+   "title": "Cardiovascular Toxicity of Illicit Anabolic-Androgenic Steroid Use (Circulation)",
+   "note": "PMID 28533317, resolved from 10.1161/CIRCULATIONAHA.116.026945 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The lipid changes translate into measurable arterial disease, not just numbers on a panel: in 86 AAS users with at least 2 years of exposure",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "pmid-24407184",
@@ -631,6 +721,42 @@
    "citedBy": []
   },
   {
+   "id": "pmid-24567684",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/24567684/",
+   "title": "Comparative Analysis of Acromiohumeral Distances According to the Locations of the Arms and Humeral Rotation (PMC3927051)",
+   "note": "PMID 24567684, resolved from PMC3927051 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Arm position under load changes the actual subacromial clearance, and this is what makes some pressing/pulling patterns hurt. Under a 4 kg l",
+   "topic": "rehab-shoulder",
+   "tier": "preclinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-12147925",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12147925/",
+   "title": "Comparative Effects of Telmisartan in the Treatment of Hypertension",
+   "note": "PMID 12147925, resolved from PMC8101834 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The specific pharmacologic case for telmisartan over other ARBs, where one is being chosen: terminal elimination half-life ~24 hours and a 2",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-39749123",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39749123/",
+   "title": "Comparison between dutasteride and finasteride in hair regrowth and reversal of miniaturization in male and female androgenetic alopecia: a systematic review (Dermatology Reports)",
+   "note": "PMID 39749123, resolved from PMC11694415 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Pooled analyses agree with the head-to-head: dutasteride 0.5 mg increases hair counts more than finasteride 1 mg, and Korean 5-year follow-u",
+   "topic": "hair-5ar",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-17341994",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/17341994/",
+   "title": "Comparison of Increasing Doses of Olmesartan Medoxomil, Losartan Potassium, and Valsartan in Patients With Essential Hypertension (Journal of Clinical Hypertension)",
+   "note": "PMID 17341994, resolved from 10.1111/j.1524-6175.2007.06395.x via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: If telmisartan is not the agent chosen, labelled ARB dose ranges for hypertension are: losartan 25-100 mg/day (may be split twice daily), va",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "sciencedirect-1b17ed77",
    "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743609515311565",
    "title": "Comparison of the Steady-State Pharmacokinetics, Metabolism, and Variability of a Transdermal Testosterone Patch Versus a Transdermal Testosterone Gel in Hypogonadal Men. The Journal of Sexual Medicine.",
@@ -663,6 +789,15 @@
    "title": "Current and future advances in practice: aromatase inhibitor-induced arthralgia",
    "note": "Real: Kim S, Chen N, Reid P, Rheumatol Adv Pract 2024;8(2):rkae024, PMID 38601139, PMC11003819. Journal, volume, issue and article ID all match. Abstract seen reports a mean AI-induced arthralgia incidence of 39.1% - inside the claim's 35-50% range - plus risk factors (shorter time since last menstrual period, pre-existing joint pain) and that most AIAs were non-inflammatory. However it reports me",
    "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-20556780",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20556780/",
+   "title": "Dahm KT, Brurberg KG, Jamtvedt G, Hagen KB. Advice to rest in bed versus advice to stay active for acute low-back pain and sciatica. Cochrane Database Syst Rev 2010;CD007612",
+   "note": "PMID 20556780, resolved from 10.1002/14651858.CD007612.pub2 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Bed rest is not a treatment and is mildly harmful. High-quality evidence shows people with acute low back pain advised to rest in bed have s",
+   "topic": "rehab-back",
    "tier": "clinical",
    "citedBy": []
   },
@@ -767,6 +902,24 @@
    "citedBy": []
   },
   {
+   "id": "pmid-42037117",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42037117/",
+   "title": "Dietary Strategies and Nutritional Management in Patients Receiving GLP-1 and Dual GIP/GLP-1 Receptor Agonists as Adjuncts to Lifestyle Interventions: A Systematic Review of Randomised Clinical Trials (Paulo et al., Diab",
+   "note": "PMID 42037117, resolved from PMC13244000 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: On calorie density and food selection, the published guidance is directional rather than quantified: adequate protein distribution, fibre-ri",
+   "topic": "nutrition-glp1",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-30013836",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30013836/",
+   "title": "Differences in electromyographic activity of biceps brachii and brachioradialis while performing three variants of curl (J Phys Ther Sci / PMC6047503)",
+   "note": "PMID 30013836, resolved from PMC6047503 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Forearm position drives which elbow flexor takes the load in curling: biceps brachii activation is highest in the supinated curl, lower in t",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmc-5878890",
    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5878890/",
    "title": "Dignass A, Farrag K, Stein J. Limitations of serum ferritin in diagnosing iron deficiency in inflammatory conditions. International Journal of Chronic Diseases, 2018:9394060, 2018.",
@@ -774,6 +927,15 @@
    "citedBy": [
     "markers/ferritin-and-iron-panel/"
    ]
+  },
+  {
+   "id": "pmid-42355836",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42355836/",
+   "title": "Discordance Between Patient-Reported Outcomes and Heel-Rise Limb Symmetry After Surgical Repair of Acute Achilles Tendon Rupture. J Clin Med",
+   "note": "PMID 42355836, resolved from 10.3390/jcm15124669 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The 90% limb-symmetry threshold widely used as a return gate is a convention, not a validated cut-point, and which heel-rise parameter you m",
+   "topic": "load-management",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "pmid-33550376",
@@ -839,6 +1001,15 @@
    "citedBy": []
   },
   {
+   "id": "pmid-36512463",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36512463/",
+   "title": "Editorial Comment: Secondary polycythemia in men receiving testosterone therapy increases risk of MACE and VTE in the first year of therapy",
+   "note": "PMID 36512463, resolved from PMC9881804 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The case FOR acting on hematocrit rests on one large observational finding: men with secondary polycythemia on testosterone therapy had a hi",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-23620489",
    "url": "https://pubmed.ncbi.nlm.nih.gov/23620489/",
    "title": "Effect of androgenic-anabolic steroids and heavy strength training on patellar tendon morphological and mechanical properties.",
@@ -854,6 +1025,15 @@
    "note": "PMID 40407232; Am J Sports Med 2025; doi:10.1177/03635465251340701. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: The human evidence linking androgen use to tendon rupture is real but weak in kind: it is cross-sectional and self-reported, not prospective. In 142 m",
    "topic": "load-management",
    "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-41975358",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41975358/",
+   "title": "Effect of scapular stabilization and mobilization-based rehabilitation on pain and shoulder function in subacromial impingement syndrome: a randomized controlled trial. BMC Musculoskelet Disord (PMC13088711)",
+   "note": "PMID 41975358, resolved from PMC13088711 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Scapular-focused strengthening (serratus anterior, lower and middle trapezius, rhomboids) is a standard component with published dosing, and",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
    "citedBy": []
   },
   {
@@ -898,6 +1078,15 @@
    "title": "Effectiveness of Painful Versus Nonpainful Exercise on Pain Intensity, Disability, and Other Patient-Reported Outcomes in Adults With Chronic Musculoskeletal Pain: An Updated Systematic Review With Meta-Analysis.",
    "note": "PMID 40699606; J Orthop Sports Phys Ther 2025; doi:10.2519/jospt.2025.13253. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: You are allowed to train into pain. Meta-analysis of RCTs in chronic musculoskeletal pain found protocols that permit or encourage pain during exercis",
    "topic": "rehab-back",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-41440796",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41440796/",
+   "title": "Effects of a Scapular-Focused Exercise Protocol for Patients with Rotator Cuff-Related Pain Syndrome - A Randomized Clinical Trial (PMC12734323)",
+   "note": "PMID 41440796, resolved from PMC12734323 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Scapular-focused strengthening (serratus anterior, lower and middle trapezius, rhomboids) is a standard component with published dosing, and",
+   "topic": "rehab-shoulder",
    "tier": "clinical",
    "citedBy": []
   },
@@ -989,6 +1178,15 @@
    "note": "PMID 33850757; Transl Androl Urol 2021; doi:10.21037/tau-20-919. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: For men who are NOT on exogenous testosterone — the obesity-driven secondary hypogonadism phenotype — AI monotherapy has the best male randomized supp",
    "topic": "ai-protocols",
    "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-42647355",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42647355/",
+   "title": "Electromyographic Analysis of Latissimus Dorsi Activation During Common Resistance Training Exercises: A Narrative Review (J Funct Morphol Kinesiol 2026;11(3):315)",
+   "note": "PMID 42647355, resolved from 10.3390/jfmk11030315 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Elbow flexors are loaded LEAST by movements that hold the elbow extended throughout — the straight-arm pulldown and barbell pullover, where",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
    "citedBy": []
   },
   {
@@ -1172,6 +1370,24 @@
    "citedBy": []
   },
   {
+   "id": "pmid-41330610",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41330610/",
+   "title": "FIMPACT 10-year follow-up, BMJ 2025 (PMC12670246; doi:10.1136/bmj-2025-086201)",
+   "note": "PMID 41330610, resolved from PMC12670246 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The Finnish FIMPACT trial replicated this against an EXERCISE THERAPY arm as well as a sham-surgery arm: decompression gave no benefit over",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-33020137",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33020137/",
+   "title": "FIMPACT 5-year follow-up (PMC7788208)",
+   "note": "PMID 33020137, resolved from PMC7788208 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The Finnish FIMPACT trial replicated this against an EXERCISE THERAPY arm as well as a sham-surgery arm: decompression gave no benefit over",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-9777765",
    "url": "https://pubmed.ncbi.nlm.nih.gov/9777765/",
    "title": "Finasteride in the treatment of men with androgenetic alopecia. Finasteride Male Pattern Hair Loss Study Group.",
@@ -1344,6 +1560,24 @@
    "citedBy": []
   },
   {
+   "id": "pmid-20556750",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20556750/",
+   "title": "Hagen KB et al. Bed rest for acute low-back pain and sciatica (PMC)",
+   "note": "PMID 20556750, resolved from PMC10762886 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Bed rest is not a treatment and is mildly harmful. High-quality evidence shows people with acute low back pain advised to rest in bed have s",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-32816787",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32816787/",
+   "title": "Hall M, et al. Optimising outcomes of exercise and corticosteroid injection in patients with subacromial pain (impingement) syndrome: a factorial randomised trial. Br J Sports Med 2021 (PMC7907566)",
+   "note": "PMID 32816787, resolved from PMC7907566 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: How much SUPERVISION you need is genuinely contested, and you should know both results. GRASP (n=708, the largest trial) found up to six sup",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "academic-a9b68db3",
    "url": "https://academic.oup.com/jcem/article/98/10/3971/2834017",
    "title": "Handelsman &amp; Wartofsky, Requirement for Mass Spectrometry Sex Steroid Assays, J Clin Endocrinol Metab 98(10):3971 (2013)",
@@ -1472,6 +1706,15 @@
    "citedBy": []
   },
   {
+   "id": "pmid-32991699",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32991699/",
+   "title": "Impellizzeri FM, Ward P, Coutts AJ, Bornn L, McCall A. Training load and injury part 2: questionable research practices hijack the truth and mislead well-intentioned clinicians. J Orthop Sports Phys Ther. 2020;50(10):577",
+   "note": "PMID 32991699, resolved from PMC7534938 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: No ACWR study has estimated causal effects. Recommending that someone manipulate their ACWR to change injury rates is, in the critics' words",
+   "topic": "load-management",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-28863033",
    "url": "https://pubmed.ncbi.nlm.nih.gov/28863033/",
    "title": "Increased blood pressure and aortic stiffness among abusers of anabolic androgenic steroids: potential effect of suppressed natriuretic peptides in plasma?",
@@ -1508,11 +1751,47 @@
    "citedBy": []
   },
   {
+   "id": "pmid-25622594",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25622594/",
+   "title": "Ingwersen KG, et al. Study protocol, Trials 2015 (PMC4318133)",
+   "note": "PMID 25622594, resolved from PMC4318133 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Heavy load is NOT required. In the double-blind RoCTEx trial, 12 weeks of progressive HIGH-load strength training was no better than traditi",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-28875153",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28875153/",
+   "title": "Ingwersen KG, et al. Three Months of Progressive High-Load Versus Traditional Low-Load Strength Training Among Patients With Rotator Cuff Tendinopathy (RoCTEx). Orthop J Sports Med 2017;5(8)",
+   "note": "PMID 28875153, resolved from PMC5576542 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Heavy load is NOT required. In the double-blind RoCTEx trial, 12 weeks of progressive HIGH-load strength training was no better than traditi",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-28642676",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28642676/",
+   "title": "International Society of Sports Nutrition Position Stand: protein and exercise (Jäger et al., JISSN 2017;14:20)",
+   "note": "PMID 28642676, resolved from PMC5477153 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: For resistance-trained people in a hypocaloric period, the ISSN position stand sets protein at 2.3–3.1 g/kg bodyweight/day to maximise reten",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-34719942",
    "url": "https://pubmed.ncbi.nlm.nih.gov/34719942/",
    "title": "Interventions for the Management of Acute and Chronic Low Back Pain: Revision 2021.",
    "note": "PMID 34719942; J Orthop Sports Phys Ther 2021; doi:10.2519/jospt.2021.0304. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: Adding a formal graded-activity protocol on top of general exercise has not been shown to beat general exercise alone. The 2021 JOSPT/APTA clinical pr",
    "topic": "rehab-back",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-11500785",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11500785/",
+   "title": "Iron deficiency in blood donors",
+   "note": "PMID 11500785, resolved from PMC11164459 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The iron-depletion consequence of a repeated-donation schedule is quantified and substantial: in male donors, one unit per year halved serum",
+   "topic": "on-cycle-support",
    "tier": "clinical",
    "citedBy": []
   },
@@ -1560,6 +1839,24 @@
    "citedBy": [
     "markers/lipoprotein-a/"
    ]
+  },
+  {
+   "id": "pmid-26362436",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/26362436/",
+   "title": "Kanayama G, DeLuca J, Meehan WP, Hudson JI, Isaacs S, Baggish A, Weiner R, Micheli L, Pope HG. Ruptured Tendons in Anabolic-Androgenic Steroid Users: A Cross-Sectional Cohort Study. Am J Sports Med. 2015;43(11)",
+   "note": "PMID 26362436, resolved from 10.1177/0363546515602010 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The human evidence linking androgen use to tendon rupture is real but weak in kind: it is cross-sectional and self-reported, not prospective",
+   "topic": "load-management",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-30707445",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30707445/",
+   "title": "Karjalainen TV, et al. Subacromial decompression surgery for rotator cuff disease. Cochrane Database Syst Rev 2019;1:CD005619",
+   "note": "PMID 30707445, resolved from 10.1002/14651858.CD005619.pub3 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Cochrane grades the surgery question as settled at HIGH certainty — the strongest evidence grade Cochrane issues. Subacromial decompression",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "nature-e7c0ef3d",
@@ -1640,6 +1937,15 @@
    "note": "PMID 42020128; BMJ Open 2026; doi:10.1136/bmjopen-2026-116911. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: Protein target: 1.2-2.0 g/kg body mass per day is the range used as the reference standard for lean-mass preservation during a hypocaloric diet in the",
    "topic": "nutrition-glp1",
    "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-35146569",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/35146569/",
+   "title": "Lean mass sparing in resistance-trained athletes during caloric restriction: the role of resistance training volume (Roth et al., Eur J Appl Physiol 2022)",
+   "note": "PMID 35146569, resolved from PMC9012799 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Programming implication — volume above a moderate dose buys nothing extra in a deficit, and a fraction of your normal volume maintains what",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
    "citedBy": []
   },
   {
@@ -1733,6 +2039,15 @@
    "citedBy": []
   },
   {
+   "id": "pmid-36198626",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36198626/",
+   "title": "Long-Term Effectiveness and Safety of Dutasteride versus Finasteride in Patients with Male Androgenic Alopecia in South Korea: A Multicentre Chart Review Study (Ann Dermatol)",
+   "note": "PMID 36198626, resolved from PMC9561294 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Dutasteride for hair loss is 0.5 mg once daily. This is approved for male androgenetic alopecia in South Korea (2009), Japan (2015) and Taiw",
+   "topic": "hair-5ar",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "pmid-38321615",
    "url": "https://pubmed.ncbi.nlm.nih.gov/38321615/",
    "title": "Long-term efficacy and safety of dutasteride 0.5 mg in Korean men with androgenetic alopecia: 5-year data demonstrating clinical improvement with sustained efficacy.",
@@ -1766,6 +2081,24 @@
    "note": "Fully matches: JCEM vol 90, issue 5, 1 May 2005, pages 2595-2602, DOI 10.1210/jc.2004-0802, first author Andrea D Coviello (Univ. of Washington), co-authors including Matsumoto and Bremner. Abstract confirms the claim's design: 29 men with normal reproductive physiology randomised to testosterone enanthate 200 mg weekly plus saline placebo or hCG 125, 250 or 500 IU every other day for 3 weeks; int",
    "topic": "pct",
    "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-32550971",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32550971/",
+   "title": "Macroprolactinemia in patients with hyperprolactinemia: an experience from a single tertiary center",
+   "note": "PMID 32550971, resolved from PMC7282613 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Macroprolactin — a biologically largely inactive high-molecular-weight prolactin complex — is a common cause of a falsely elevated total pro",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-23304187",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/23304187/",
+   "title": "Macroprolactinemia: Diagnostic, Clinical, and Pathogenic Significance (Shimatsu & Hattori)",
+   "note": "PMID 23304187, resolved from PMC3529459 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Macroprolactin — a biologically largely inactive high-molecular-weight prolactin complex — is a common cause of a falsely elevated total pro",
+   "topic": "prolactin",
+   "tier": "clinical",
    "citedBy": []
   },
   {
@@ -1821,6 +2154,15 @@
    "citedBy": [
     "markers/vitamin-d/"
    ]
+  },
+  {
+   "id": "pmid-38802121",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38802121/",
+   "title": "Manual therapy and exercise for lateral elbow pain (Wallis JA et al., Cochrane Database Syst Rev 2024, CD013042.pub2)",
+   "note": "PMID 38802121, resolved from 10.1002/14651858.CD013042.pub2 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Set expectations honestly: the 2024 Cochrane review (evidence current to 31 January 2024) found that manual therapy, prescribed exercise, or",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "frontiersin-94e10ec0",
@@ -1884,6 +2226,24 @@
    "citedBy": [
     "markers/prolactin/"
    ]
+  },
+  {
+   "id": "pmid-15892894",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15892894/",
+   "title": "Metabolic effect of telmisartan and losartan in hypertensive patients with metabolic syndrome",
+   "note": "PMID 15892894, resolved from PMC1174877 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Telmisartan is a partial PPAR-gamma agonist at concentrations achievable with standard oral antihypertensive doses — a property not shared b",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-33467271",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33467271/",
+   "title": "Multifaceted Exercise Prescription in the Management of an Overhead Athlete with Suspected Distal Biceps Tendinopathy: A Case Report (Holshouser & Jayaseelan, J Funct Morphol Kinesiol 2020;5(3):56)",
+   "note": "PMID 33467271, resolved from PMC7739288 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Distal biceps tendinopathy has no randomised evidence — the loading dose in the literature is case-report level. The published eccentric pro",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "pmid-39265590",
@@ -1985,6 +2345,15 @@
    "citedBy": []
   },
   {
+   "id": "pmid-35281761",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/35281761/",
+   "title": "Omega-3 Fatty Acids Improve Functionality of High-Density Lipoprotein in Individuals With High Cardiovascular Risk: A Randomized, Parallel, Controlled and Double-Blind Clinical Trial",
+   "note": "PMID 35281761, resolved from PMC8905646 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Omega-3 fatty acids do not fix androgen-induced dyslipidemia and can move LDL the wrong way. In high-CV-risk adults, 1,800 mg/day EPA+DHA im",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "pmid-19381855",
    "url": "https://pubmed.ncbi.nlm.nih.gov/19381855/",
    "title": "Oral tamoxifen citrate treatment is more effective in normogonadotropic patients who have follicle-stimulating hormone levels within the lower half of normal",
@@ -1999,6 +2368,15 @@
    "title": "Oxymetholone for the treatment of HIV-wasting: a double-blind, randomized, placebo-controlled phase III trial in eugonadal men and women.",
    "note": "PMID 12815555; HIV Clin Trials 2003; doi:10.1310/hct.2003.4.3.002. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: The best dose-response human hepatotoxicity data for any 17-alpha-alkylated oral comes from the oxymetholone HIV-wasting RCT: 89 patients randomized t",
    "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-33632313",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33632313/",
+   "title": "Pain-guided activity modification during treatment for patellar tendinopathy: a feasibility and pilot randomized clinical trial",
+   "note": "PMID 33632313, resolved from PMC7905015 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Extension of the pain-monitoring model beyond the Achilles is thinly tested. In patellar tendinopathy the pain-guided activity modification",
+   "topic": "load-management",
    "tier": "clinical",
    "citedBy": []
   },
@@ -2045,6 +2423,15 @@
    "note": "Real. Mauras N et al., J Clin Endocrinol Metab 88(12):5951, Dec 2003; PMID 14671195 matches exactly (also academic.oup.com/jcem/article-abstract/88/12/5951). Abstract text seen in results confirms every specific in the claim: healthy eugonadal males aged 14-26, n=12, crossover randomisation to 25 or 50 mg exemestane daily for 10 days with a 14-day washout; estradiol suppression comparable at both",
    "topic": "ai-protocols",
    "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-35790713",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/35790713/",
+   "title": "Pharmacological treatment strategies for antipsychotic-induced hyperprolactinemia: a systematic review and network meta-analysis (Transl Psychiatry, DOI 10.1038/s41398-022-02027-4)",
+   "note": "PMID 35790713, resolved from PMC9256633 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Treating mild prolactin elevation may be pointless. In a systematic review and network meta-analysis of pharmacological strategies for antip",
+   "topic": "prolactin",
+   "tier": "clinical",
    "citedBy": []
   },
   {
@@ -2192,6 +2579,15 @@
    "citedBy": []
   },
   {
+   "id": "pmid-35084703",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/35084703/",
+   "title": "Putting 'Heavy' into Heavy Slow Resistance, PMC9124646",
+   "note": "PMID 35084703, resolved from PMC9124646 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: A peer-reviewed commentary (Morrison & Cook, Sports Medicine 2022) argues that published HSR protocols do not actually control the loading p",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "drugs-a45ae159",
    "url": "https://www.drugs.com/pro/raloxifene-hydrochloride-tablets.html",
    "title": "Raloxifene Hydrochloride Tablets: Package Insert / Prescribing Info / MOA",
@@ -2207,6 +2603,15 @@
    "note": "Real and correctly identified. Title, journal (Journal of Bone and Mineral Metabolism) and DOI 10.1007/BF02383389 all match; the cited URL was the top result. Visible abstract text supports the mechanistic claim well: raloxifene is described as 'a complete estrogen antagonist' in breast tissue and uteri while behaving as 'a potent estrogen agonist' in bone and serum lipids, with tissue-specific ef",
    "topic": "serms-gyno",
    "tier": "preclinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-40099202",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/40099202/",
+   "title": "Rapid Resolution of Anabolic Androgenic Steroid-Induced Refractory Pruritus and Bile Cast Nephropathy With Therapeutic Plasma Exchange (JGH Open)",
+   "note": "PMID 40099202, resolved from 10.1002/jgh3.70130 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Severe 17-AA cholestasis can progress to bilirubin levels that cause secondary organ injury: documented cases reached 56-62 mg/dL, and marke",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
    "citedBy": []
   },
   {
@@ -2274,6 +2679,15 @@
    ]
   },
   {
+   "id": "pmid-29596307",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/29596307/",
+   "title": "Resistance Training Prevents Muscle Loss Induced by Caloric Restriction in Obese Elderly Individuals: A Systematic Review and Meta-Analysis (Sardeli et al., Nutrients 2018)",
+   "note": "PMID 29596307, resolved from PMC5946208 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Resistance training, not protein, is the primary lever. In a head-to-head trial in dieting older adults, the resistance arm lost 1.1 kg lean",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-36114738",
    "url": "https://pubmed.ncbi.nlm.nih.gov/36114738/",
    "title": "Resistance training volume does not influence lean mass preservation during energy restriction in trained males.",
@@ -2337,6 +2751,15 @@
    ]
   },
   {
+   "id": "pmid-35050717",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/35050717/",
+   "title": "Secondary Polycythemia in Men Receiving Testosterone Therapy Increases Risk of Major Adverse Cardiovascular Events and Venous Thromboembolism in the First Year of Therapy (Journal of Urology)",
+   "note": "PMID 35050717, resolved from 10.1097/JU.0000000000002437 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The case FOR acting on hematocrit rests on one large observational finding: men with secondary polycythemia on testosterone therapy had a hi",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-27413851",
    "url": "https://pubmed.ncbi.nlm.nih.gov/27413851/",
    "title": "Self-Treatment of Gynecomastia in Bodybuilders Who Use Anabolic Steroids",
@@ -2364,6 +2787,15 @@
    "citedBy": []
   },
   {
+   "id": "pmid-42396141",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42396141/",
+   "title": "Sexual dysfunction associated with 5α-reductase inhibitors in the treatment of androgenetic alopecia: a systematic review (2025)",
+   "note": "PMID 42396141, resolved from PMC13322902 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Honest bottom line on persistence: on-treatment sexual side effects are real, uncommon, and in most men resolve — sometimes even without sto",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-38552905",
    "url": "https://pubmed.ncbi.nlm.nih.gov/38552905/",
    "title": "Sexual dysfunction with 5-alpha-reductase inhibitor therapy for androgenetic alopecia: A global propensity score matched retrospective cohort study.",
@@ -2378,6 +2810,42 @@
    "title": "Should exercises be painful in the management of chronic musculoskeletal pain? A systematic review and meta-analysis.",
    "note": "PMID 28596288; Br J Sports Med 2017; doi:10.1136/bjsports-2016-097383. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: Pain during exercise does not have to be avoided. Protocols that permit exercising INTO pain give a small short-term advantage over strictly pain-free",
    "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-39286715",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39286715/",
+   "title": "Silymarin as an Antioxidant Therapy in Chronic Liver Diseases: A Comprehensive Review",
+   "note": "PMID 39286715, resolved from PMC11404857 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Silymarin (milk thistle) as on-cycle liver protection has no supporting human evidence in this context. Silymarin has anti-inflammatory, ant",
+   "topic": "on-cycle-support",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-31536511",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31536511/",
+   "title": "Silymarin in non-cirrhotics with non-alcoholic steatohepatitis: A randomized, double-blind, placebo controlled trial",
+   "note": "PMID 31536511, resolved from PMC6752871 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Silymarin (milk thistle) as on-cycle liver protection has no supporting human evidence in this context. Silymarin has anti-inflammatory, ant",
+   "topic": "on-cycle-support",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-38726410",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38726410/",
+   "title": "Silymarin: Unveiling its pharmacological spectrum and therapeutic potential in liver diseases - A comprehensive narrative review",
+   "note": "PMID 38726410, resolved from PMC11077231 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Silymarin (milk thistle) as on-cycle liver protection has no supporting human evidence in this context. Silymarin has anti-inflammatory, ant",
+   "topic": "on-cycle-support",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-27162233",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/27162233/",
+   "title": "Simple decision rules can reduce reinjury risk by 84% after ACL reconstruction (DOI)",
+   "note": "PMID 27162233, resolved from 10.1136/bjsports-2016-096031 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The strongest numeric return-to-sport criteria data are from ACL reconstruction, not tendinopathy: delaying return to pivoting sport reduced",
+   "topic": "load-management",
    "tier": "clinical",
    "citedBy": []
   },
@@ -2553,6 +3021,24 @@
    "citedBy": []
   },
   {
+   "id": "pmid-30102356",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30102356/",
+   "title": "Testosterone plays a permissive role in angiotensin II-induced hypertension and cardiac hypertrophy in male rats - PMC",
+   "note": "PMID 30102356, resolved from PMC6335213 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The mechanistic rationale for blocking the renin-angiotensin system specifically in androgen-driven hypertension is preclinical, not human.",
+   "topic": "on-cycle-support",
+   "tier": "preclinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-37950322",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37950322/",
+   "title": "Testosterone replacement therapy is associated with increased odds of Achilles tendon injury and subsequent surgery: a matched retrospective analysis",
+   "note": "PMID 37950322, resolved from PMC10638827 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Prescribed testosterone therapy shows an association with tendon injury in insurance-database studies, but the absolute risk is very small a",
+   "topic": "load-management",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-42626745",
    "url": "https://pubmed.ncbi.nlm.nih.gov/42626745/",
    "title": "Testosterone Therapy and Tendon Injury: Clinical Evidence, Biological Mechanisms, and Sports Medicine Implications.",
@@ -2587,6 +3073,15 @@
    "citedBy": [
     "markers/hematocrit-on-trt/"
    ]
+  },
+  {
+   "id": "pmid-39212549",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39212549/",
+   "title": "Testosterone therapy-induced erythrocytosis: can phlebotomy be justified?",
+   "note": "PMID 39212549, resolved from PMC11466264 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: The case AGAINST reflexive phlebotomy is equally documented and is routinely omitted from community advice: no published data show an associ",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "pmid-37705825",
@@ -2661,11 +3156,29 @@
    "citedBy": []
   },
   {
+   "id": "pmid-16100522",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/16100522/",
+   "title": "The effects of aromatase inhibitors on lipids and thrombosis",
+   "note": "PMID 16100522, resolved from PMC2361692 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Aromatase inhibitors taken as on-cycle support can worsen the lipid and bone picture, and the human evidence is genuinely mixed rather than",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "pmid-42213208",
    "url": "https://pubmed.ncbi.nlm.nih.gov/42213208/",
    "title": "The hook effect in macroprolactinomas: tumor size thresholds, prolactin patterns, and clinical consequences - a systematic review.",
    "note": "PMID 42213208; Pituitary 2026; doi:10.1007/s11102-026-01705-6. Verified against PubMed: the identifier resolves to this work and the title matches what was cited. Supports: The opposite artefact also exists: the high-dose hook effect, in which prolactin so high that it saturates assay antibodies produces a falsely LOW or",
    "topic": "prolactin",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-39445286",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39445286/",
+   "title": "The Impact of Acute Exercise on Blood Work Parameters: A Case Report of a Healthy Male University Student",
+   "note": "PMID 39445286, resolved from PMC11498664 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: ALT and AST are close to useless as standalone liver markers in people who lift, and the confound lasts a week. In 15 healthy men unaccustom",
+   "topic": "on-cycle-support",
    "tier": "clinical",
    "citedBy": []
   },
@@ -2796,6 +3309,15 @@
    ]
   },
   {
+   "id": "pmid-41718640",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41718640/",
+   "title": "Update of guideline for diagnosis and treatment of subacromial pain syndrome: Dutch Orthopedic Association. Part 1: preventive measures, diagnostics, and non-surgical treatment. Acta Orthop (PMC12908218)",
+   "note": "PMID 41718640, resolved from PMC12908218 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: Guideline position, current as of the 2025 Dutch Orthopaedic Association update: treat subacromial pain non-operatively, with a STRONG recom",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-25254005",
    "url": "https://pubmed.ncbi.nlm.nih.gov/25254005/",
    "title": "Urysiak-Czubatka E, Kmieć ML, Broniarczyk-Dyła G. Assessment of the usefulness of dihydrotestosterone in the diagnostics of patients with androgenetic alopecia. Postepy Dermatol Alergol 2014;31(4):207-215.",
@@ -2867,6 +3389,15 @@
    "citedBy": [
     "markers/ferritin-and-iron-panel/"
    ]
+  },
+  {
+   "id": "pmid-36999107",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36999107/",
+   "title": "Wrist Extensor Training With Blood Flow Restriction for the Management of Lateral Elbow Tendinopathy: A Case Report (PMC10043636)",
+   "note": "PMID 36999107, resolved from PMC10043636 via the NCBI id converter. The identifier resolves to a real indexed record; the title here is as the researcher cited it and was not independently re-fetched. Supports: If heavy load cannot be tolerated, low-load resistance training with blood flow restriction is an elbow-specific studied alternative: a rand",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "pmid-8651107",
