@@ -172,6 +172,11 @@ function playbookText(s) {
   if (s.labs) p.push('Labs: ' + s.labs);
   if (lines(s.resp).length) p.push('Commonly discussed responses:\n' + s.resp.map((x) => `• ${x}`).join('\n'));
   if (s.esc) p.push('Escalate / seek care: ' + s.esc);
+  /* The evidence note carries the uncertainty language — "no trial has ever",
+     "unlicensed for this purpose". Those are exactly the phrases someone types
+     when they are trying to find out whether a practice is actually supported,
+     so it belongs in the searchable text and not only on screen. */
+  if (s.ev) p.push('What the evidence says: ' + s.ev);
   return p.join('\n\n');
 }
 
@@ -184,6 +189,10 @@ function playbookText(s) {
    sends a prolactin question to the estradiol protocol is worse than no
    match at all. */
 const PLAYBOOK_SYNONYMS = {
+  'Liver strain': ['liver', 'liver damage', 'liver values', 'liver enzymes', 'alt', 'ast',
+    'alt high', 'ast high', 'ggt', 'bilirubin', 'jaundice', 'yellow eyes', 'hepatotoxic',
+    'hepatotoxicity', 'liver toxic', 'liver support', 'tudca', 'nac', '17aa', '17-aa',
+    'methylated', 'oral steroid liver', 'cholestasis', 'liver panel', 'lft', 'lfts'],
   'High prolactin': ['prolactin', 'prolactinoma', 'cabergoline', 'caber', 'lactation',
     'nipple discharge', 'dead libido', 'no libido', '19-nor', 'deca dick', 'tren dick'],
   'High estradiol': ['estradiol', 'e2', 'estrogen', 'high e2', 'estrogen high',
@@ -260,6 +269,43 @@ function build() {
   if (orphaned.length) {
     throw new Error(`PLAYBOOK_SYNONYMS names playbooks app.html no longer has: ${orphaned.join(', ')}`);
   }
+  /* Every citation on a playbook must resolve to a record that was actually
+     retrieved and checked. The research files are the checked set: every PMID
+     in claims.json was confirmed against PubMed with get_article_metadata, and
+     every setid in labels.json came back from the DailyMed retrieval.
+
+     This exists because a plausible-looking identifier is the easiest thing in
+     the world to write and the hardest to notice — one was typed into this very
+     file during authoring and only a check like this caught it. A citation that
+     does not resolve is worse than no citation: it borrows authority it has not
+     earned. */
+  {
+    const research = path.join(ROOT, 'assets', 'brain', 'research');
+    const claims = JSON.parse(fs.readFileSync(path.join(research, 'claims.json'), 'utf8')).claims;
+    const labels = JSON.parse(fs.readFileSync(path.join(research, 'labels.json'), 'utf8')).labels;
+    const pmids = new Set(claims.map((c) => String(c.pmid || '').trim()));
+    const setids = new Set(labels.map((l) => String(l.dailymedUrl || '').split('setid=')[1]).filter(Boolean));
+    const bad = [];
+    for (const s of d.SIDEFX) {
+      for (const row of (s.src || [])) {
+        if (!Array.isArray(row) || row.length !== 2 || !row[0] || !row[1]) {
+          bad.push(`${s.t}: malformed src row ${JSON.stringify(row)} — expected [identifier, what it shows]`);
+          continue;
+        }
+        const [id] = row;
+        if (String(id).indexOf('label:') === 0) {
+          if (!setids.has(String(id).slice(6))) bad.push(`${s.t}: DailyMed setid ${String(id).slice(6)} is not in labels.json`);
+        } else if (!pmids.has(String(id))) {
+          bad.push(`${s.t}: PMID ${id} is not in claims.json — it was never retrieved or checked`);
+        }
+      }
+      if (s.ev && !(s.src || []).length) bad.push(`${s.t}: has an evidence note but cites nothing`);
+    }
+    if (bad.length) {
+      throw new Error('playbook citations do not resolve to retrieved research:\n  ' + bad.join('\n  '));
+    }
+  }
+
   const unmapped = d.SIDEFX.map((s) => s.t).filter((t) => !PLAYBOOK_SYNONYMS[t]);
   if (unmapped.length) {
     throw new Error(`playbooks with no synonyms — add them to PLAYBOOK_SYNONYMS: ${unmapped.join(', ')}`);
