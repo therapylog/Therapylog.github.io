@@ -268,7 +268,7 @@
 
   <div class="page-eyebrow">Legal</div>
   <h1>Terms of <em>Use</em></h1>
-  <p class="page-meta">Effective: June 10, 2026 &nbsp;·&nbsp; TherapyLog LLC &nbsp;·&nbsp; Floresville, Texas</p>
+  <p class="page-meta">Effective: September 1, 2026 &nbsp;·&nbsp; TherapyLog LLC &nbsp;·&nbsp; Floresville, Texas</p>
 
   <!-- Medical disclaimer banner -->
   <div class="medical-banner">
@@ -300,7 +300,7 @@
   <!-- 1 -->
   <div class="section" id="acceptance">
     <h2><span class="section-num">01</span> Acceptance of Terms</h2>
-    <p>By accessing or using TherapyLog — whether through the web app at <strong>therapylog.app</strong>, the iOS application, the Android application, or any other platform we support — you agree to be bound by these Terms of Use ("Terms"). If you do not agree, do not use TherapyLog.</p>
+    <p>By accessing or using TherapyLog — whether through the web app at <strong>therapylog.app</strong>, the installable home-screen (PWA) version of it, or any other platform we support — you agree to be bound by these Terms of Use ("Terms"). If you do not agree, do not use TherapyLog.</p>
     <p>These Terms constitute a legally binding agreement between you and <strong>TherapyLog LLC</strong>, a Texas limited liability company ("TherapyLog," "we," "us," or "our").</p>
   </div>
 
@@ -343,11 +343,12 @@
   <!-- 5 -->
   <div class="section" id="data">
     <h2><span class="section-num">05</span> Your Data and Privacy</h2>
-    <p><strong>Local-first storage.</strong> By default, all personal health data you enter into TherapyLog is stored <strong>locally on your device</strong> using your browser's IndexedDB and localStorage. TherapyLog LLC does not have access to, collect, store, or transmit your personal health logs, measurements, medication entries, or lab values to any server.</p>
+    <p><strong>Local-first storage.</strong> All personal health data you enter into TherapyLog is stored <strong>locally on your device</strong> using your browser&#39;s IndexedDB and localStorage. TherapyLog LLC does not hold a copy of your health logs, measurements, medication entries or lab values on its servers, cannot read them, and does not back them up. <strong>The one exception is the AI assistant.</strong> If you use it in Personalized mode, the question and the context described in Section 6 pass through our API to Anthropic to generate a reply; if you use it in General mode, only your typed question is sent. The lab scanner likewise transmits the image you choose to upload. Nothing sent this way is stored on our servers. Full detail is in the <a href="/privacy">Privacy Policy</a>.</p>
     <p><strong>You own your data.</strong> Your data belongs to you. You can export a full backup at any time from Settings → Backup. You can delete all data at any time from Settings → Backup → Reset.</p>
     <p><strong>No sale of personal data.</strong> TherapyLog LLC does not sell your personal data to any third party for any purpose.</p>
     <p><strong>Texas privacy.</strong> TherapyLog LLC is a small business as defined by the U.S. Small Business Administration. As such, it is generally exempt from the full requirements of the Texas Data Privacy and Security Act (TDPSA), Texas Business and Commerce Code Ch. 541. Consistent with TDPSA Section 541.002, we do not sell sensitive personal data without consent — and as noted above, we do not sell personal data at all.</p>
-    <p><strong>Analytics and infrastructure.</strong> Limited technical data (such as session metadata for payment processing and API rate limiting) may be processed by our infrastructure partners (Stripe, Vercel, Upstash) in the ordinary course of providing the service. These providers process data under their own privacy policies and are not authorized to use it for their own purposes.</p>
+    <p><strong>Analytics and infrastructure.</strong> Limited technical data (such as session metadata for payment processing and API rate limiting) may be processed by our infrastructure partners — <strong>Stripe</strong> (payments), <strong>Vercel</strong> (hosting and cookie-free aggregate analytics), <strong>Upstash</strong> (rate limiting), <strong>Resend</strong> (email) and <strong>Anthropic</strong> (the AI assistant) — in the ordinary course of providing the service. These providers process data under their own privacy policies and are not authorized to use it for their own purposes. The complete, current list is in the <a href="/privacy">Privacy Policy</a>, which governs if the two ever differ.</p>
+    <p><strong>Other states.</strong> The paragraph above concerns Texas. Residents of other states may have additional rights — including under Washington&#39;s My Health My Data Act, which has no small-business exemption. See the <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a>.</p>
     <p><strong>Data security.</strong> While we take reasonable technical measures to protect the service, no system is perfectly secure. Because your health data is stored locally on your device, its security depends in part on the security of your device and browser. We strongly recommend enabling device-level passcode protection.</p>
   </div>
 
@@ -365,10 +366,11 @@
   <div class="section" id="subscriptions">
     <h2><span class="section-num">07</span> Subscriptions and Payment</h2>
     <p>Certain features of TherapyLog require a paid subscription ("Pro"). By subscribing, you authorize us to charge the applicable fee to your selected payment method on a recurring basis (monthly or annually, depending on your plan).</p>
-    <p><strong>Pricing.</strong> Current pricing is displayed at checkout. We reserve the right to change pricing with reasonable advance notice. Price changes will not apply to your current billing period.</p>
+    <p><strong>Plans and pricing.</strong> TherapyLog Pro is offered monthly or annually, and a BYOK tier (you supply your own Anthropic API key) is offered on the same cadence. A one-time <strong>lifetime</strong> licence was sold previously and was retired on 24 August 2026; existing lifetime licences remain valid, do not renew, and are not charged again. Current pricing for every plan is displayed at <a href="/pro">therapylog.app/pro</a> and again at checkout before you are charged. We reserve the right to change pricing with reasonable advance notice. Price changes will not apply to your current billing period.</p>
+    <p><strong>Automatic renewal.</strong> Subscription plans renew automatically at the end of each billing period, at the price shown at checkout, until you cancel. The plan, the price, the billing interval and the renewal date are all shown before you complete the purchase and again in your confirmation email. Cancel at any time from the Stripe billing portal linked in that email, or by emailing <a href="mailto:hello@therapylog.app">hello@therapylog.app</a> — one message is enough and we will do it for you. A lifetime purchase does not renew and has nothing to cancel.</p>
     <p><strong>Cancellation.</strong> You may cancel your subscription at any time. Cancellation takes effect at the end of the current billing period. No partial refunds are issued for unused time in a billing period, except where required by applicable law.</p>
     <p><strong>Refunds.</strong> All purchases are generally final. If you believe you have been charged in error, contact us at <a href="mailto:hello@therapylog.app" style="color:var(--accent)">hello@therapylog.app</a> within 14 days of the charge.</p>
-    <p><strong>iOS subscriptions</strong> are managed through Apple and subject to Apple's payment terms. <strong>Web subscriptions</strong> are processed by Stripe, Inc. and subject to Stripe's terms of service. We do not store full payment card data.</p>
+    <p>All subscriptions are processed by <strong>Stripe, Inc.</strong> and subject to Stripe&#39;s terms of service. We do not store full payment card data. TherapyLog is not listed in the App Store or on Google Play, so there is <strong>no Apple or Google in-app billing</strong> — if that ever changes, these Terms will be updated before it does.</p>
     <p><strong>Free features.</strong> Core logging and tracking functionality is available without a subscription. Pro features (including managed AI access above free limits) require a paid plan.</p>
   </div>
 

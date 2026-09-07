@@ -1,0 +1,7 @@
+# Local render output from scripts/audit-injection-sites.py
+build/
+
+__pycache__/
+
+# Transient: CI and the ui-check scripts npm-install acorn/playwright-core here.
+node_modules/

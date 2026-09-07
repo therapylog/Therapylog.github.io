@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verified Provider Directory — TherapyLog</title><meta name="description" content="Browse verified hormone and peptide therapy providers."><meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="TherapyLog Verified Provider Directory"><meta property="og:description" content="Browse verified hormone and peptide therapy providers."><meta property="og:url" content="https://therapylog.app/directory/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="TherapyLog Verified Provider Directory"><meta name="twitter:description" content="Browse verified hormone and peptide therapy providers."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png"><link rel="canonical" href="https://therapylog.app/directory/"><link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<title>Provider Directory — TherapyLog</title><meta name="description" content="Browse listed hormone therapy providers. Listings are paid advertising."><meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="TherapyLog Provider Directory"><meta property="og:description" content="Browse listed hormone therapy providers. Listings are paid advertising."><meta property="og:url" content="https://therapylog.app/directory/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="TherapyLog Provider Directory"><meta name="twitter:description" content="Browse listed hormone therapy providers. Listings are paid advertising."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png"><link rel="canonical" href="https://therapylog.app/directory/"><link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body { background:#0a0c0f !important; color:#e8edf5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
@@ -108,9 +108,9 @@
 </nav>
 
 <div class="hero">
-  <div class="verified-badge">✓ TherapyLog Verified Network</div>
-  <h1>Verified <span>provider directory</span></h1>
-  <p>Every clinic, supplier, and coach below has passed TherapyLog's verification process — licenses confirmed, products tested, credentials checked. Connect with trusted partners with confidence.</p>
+  <div class="verified-badge">Paid listings · licence-checked</div>
+  <h1>Provider <span>directory</span></h1>
+  <p>Clinics and coaches who have applied to be listed and had their licence or certification checked against the issuing body's public register. <strong>Listings are paid advertising</strong> and placement depends on the tier purchased. A listing is not a recommendation, an endorsement, or a substitute for your own due diligence — and we do not test, inspect, or vouch for anyone's products.</p>
 </div>
 
 <div class="controls">
@@ -132,14 +132,14 @@
   <div class="empty" id="empty" style="display:none">
     <div class="empty-icon">🔍</div>
     <h3>No matches found</h3>
-    <p>Try a different search term or filter. New verified partners are added regularly.</p>
+    <p>Try a different search term or filter.</p>
   </div>
 </div>
 
 <div class="apply-cta">
   <div class="apply-box">
     <h2>Want to be listed here?</h2>
-    <p>Join the TherapyLog Verified Network. Founding partner pricing is locked in for life, and listing fees can be offset by affiliate commissions.</p>
+    <p>List your clinic or coaching practice. Listing fees are flat, published, and do not vary with how many patients or customers you receive from us.</p>
     <div class="apply-btns">
       <a href="/providers/apply" class="btn-primary">Apply for a Listing</a>
       <a href="/partnership" class="btn-secondary">See the Partner Program →</a>
@@ -148,7 +148,7 @@
 </div>
 
 <footer>
-  <p>© 2026 TherapyLog · <a href="/privacy">Privacy</a> · <a href="/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a></p>
+  <p>© 2026 TherapyLog · <a href="/privacy">Privacy</a> · <a href="/health-data-privacy">Consumer Health Data</a> · <a href="/terms">Terms</a> · <a href="/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a></p>
 </footer>
 
 <script src="providers-data.js"></script>
@@ -199,7 +199,7 @@ function renderDirectory() {
     return;
   }
   empty.style.display = 'none';
-  countEl.textContent = `${filtered.length} verified partner${filtered.length > 1 ? 's' : ''}`;
+  countEl.textContent = `${filtered.length} listing${filtered.length === 1 ? '' : 's'}`;
 
   grid.innerHTML = filtered.map(p => {
     const isVerified = p.tier === 'verified' || p.tier === 'featured';
@@ -214,13 +214,13 @@ function renderDirectory() {
 
     return `
     <div class="card ${p.tier === 'featured' ? 'featured' : ''}">
-      ${p.tier === 'featured' ? '<div class="featured-tag">★ Featured Partner</div>' : ''}
+      ${p.tier === 'featured' ? '<div class="featured-tag">Paid placement</div>' : ''}
       <div class="card-top">
         <div class="card-icon">${escapeHtml(p.icon || '🏢')}</div>
         <div class="card-titlewrap">
           <div class="card-name">${escapeHtml(p.name)}</div>
           <div class="card-type">${escapeHtml(p.typeLabel || '')}</div>
-          ${isVerified ? '<div class="badge-verified">✓ TherapyLog Verified</div>' : ''}
+          ${isVerified ? '<div class="badge-verified">Licence checked</div>' : ''}
         </div>
       </div>
       ${p.location ? `<div class="card-location">📍 ${escapeHtml(p.location)}</div>` : ''}

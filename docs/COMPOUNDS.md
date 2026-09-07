@@ -1,6 +1,6 @@
 # TherapyLog Compound Inventory
 
-130 unique compounds across 30 classifications.
+131 unique compounds across 30 classifications.
 
 Every compound is stored once, under its canonical class. Compounds that belong in
 more than one class are cross-listed: the extra classes show them with a link to the
@@ -159,7 +159,7 @@ _Adrenal hormone precursors and optimization_
 - **7-Keto DHEA** `keto-dhea` — *7-Keto, 3-acetyl-7-oxo-DHEA*
 
 ## ❤️ Metabolic and Cardiovascular  
-`metabolic` · #f87171 · 5 compounds · 1 cross-listed
+`metabolic` · #f87171 · 6 compounds · 1 cross-listed
 
 _Compounds for metabolic health, longevity, and cardioprotection_
 
@@ -168,6 +168,7 @@ _Compounds for metabolic health, longevity, and cardioprotection_
 - **Telmisartan** `telmisartan` — *Micardis*
 - **Low-Dose Naltrexone** `ldn` — *LDN*
 - **VIP** `vip` — *Vasoactive Intestinal Peptide*
+- **Insulin** `insulin` — *Humulin R, Novolin R, regular human insulin, insulin lispro, aspart, glargine*
 - ↗ **Acarbose** `acarbose` — full entry under Longevity Compounds
 
 ## 🔬 Longevity Compounds  
