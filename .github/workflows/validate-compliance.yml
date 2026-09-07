@@ -25,9 +25,9 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
       # Four regressions that are easy to make and expensive to find: a legal
       # link disappearing from a page that takes money, a verification or
       # product-testing claim we cannot substantiate, a placeholder listing

@@ -63,6 +63,12 @@ let BROWSER = null;
 let BASE = null;
 async function open(url, viewport) {
   const page = await BROWSER.newPage({ viewport: viewport || { width: 1000, height: 900 } });
+
+  /* No off-origin requests. The Google Fonts stylesheet cannot resolve on an
+     offline or sandboxed machine, and waiting for it to time out is most of
+     the run. Per-file API stubs are registered separately and still win,
+     because routes registered earlier take precedence. */
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
   const errs = [];
   page.on("pageerror", (e) => errs.push("js: " + String(e.message || e).slice(0, 160)));
   page.on("response", (r) => {

@@ -28,10 +28,10 @@ jobs:
       # Two commits, so HEAD^ exists and the merge can be diffed against the
       # main it landed on. A merge commit's first parent is the previous main,
       # so this is everything the merge brought in.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with: { fetch-depth: 2 }
-      - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
 
       - name: Which URLs changed
         id: urls

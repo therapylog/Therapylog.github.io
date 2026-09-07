@@ -1,0 +1,1698 @@
+{
+ "note": "Researched but NOT yet existence-checked. Must not be rendered as a source or cited in content until verified. Citations carrying a PubMed identifier have been verified against PubMed and promoted to manual.json; what remains here is largely publisher URLs with no PMID, PMC id or DOI to resolve against.",
+ "count": 188,
+ "sources": [
+  {
+   "url": "https://tau.amegroups.org/article/view/111026/html",
+   "title": "5-alpha reductase inhibitors use in prostatic disease and beyond (Chislett et al., Transl Androl Urol)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "The isoforms sit in different tissues, which is why dual inhibition matters for scalp and why it also broadens systemic exposure. Type I predominates in skin \u2014 sebaceous glands, sweat glands, keratinocytes \u2014 and accounts for roughly a third of circulating DHT. Type II predominates in prostate, epidi",
+   "dose": "Type I \u2248 33% of circulating DHT (skin-dominant); type II \u2248 66% (genitourinary-dominant). No dosing parameter \u2014 this is anatomy.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s40278-015-9548-6",
+   "title": "Adverse event reporting in clinical trials of finasteride for androgenic alopecia: a meta-analysis (Belknap SM et al., JAMA Dermatol 2015;151:600-606)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "The reason the argument cannot be settled from the trial record is that the trial record is inadequate. A 2015 meta-analysis of 34 published finasteride AGA trials concluded the available toxicity information is very limited, of poor quality, and systematically biased \u2014 no pivotal trial systematical",
+   "dose": "34 published clinical trial reports of finasteride in men with androgenic alopecia assessed for safety-reporting quality; none provided adequate adverse-event characterization.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://ishrs.org/patients/treatments-for-hair-loss/medications/dutasteride/",
+   "title": "Dutasteride for Hair Loss: Dosage, Efficacy & Side-Effects \u2014 International Society of Hair Restoration Surgery",
+   "topic": "hair-5ar",
+   "tier": "off-label",
+   "claim": "Dutasteride for hair loss is 0.5 mg once daily. This is approved for male androgenetic alopecia in South Korea (2009), Japan (2015) and Taiwan, but it is off-label in the United States, where only finasteride 1 mg is FDA-approved for this indication. GSK halted the US Phase III programme for commerc",
+   "dose": "Dutasteride 0.5 mg PO once daily. Off-label in the US; on-label at this exact dose in South Korea, Japan and Taiwan.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK603726/",
+   "title": "Dutasteride \u2014 StatPearls, NCBI Bookshelf",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "Isoform coverage is the core pharmacological difference: finasteride selectively inhibits type II 5-alpha reductase and lowers serum DHT by roughly 70%; dutasteride inhibits both type I and type II and lowers serum DHT by more than 90%. Dutasteride's potency against type I is about 3-fold and agains",
+   "dose": "Finasteride 1 mg/d: ~70% serum DHT suppression. Dutasteride 0.5 mg/d: >90% (reported ~94-95% at 24 weeks in BPH populations). Scalp-tissue DHT reduction reported as ~90-95% (dutasteride) vs ~65-70% (finasteride).",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/topics/medicine-and-dentistry/dutasteride",
+   "title": "Dutasteride \u2014 an overview, ScienceDirect Topics (drawn from published pharmacology reviews)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "Half-life is the practical asymmetry nobody plans for: finasteride clears in hours, dutasteride in weeks. If you develop an adverse effect on dutasteride, stopping does not give you a fast washout \u2014 expect months, not days, for drug levels to fall.",
+   "dose": "Finasteride elimination half-life ~5-6 hours. Dutasteride terminal elimination half-life ~5 weeks, implying roughly 4-6 months to substantially clear after the last dose.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2025.1718208/full",
+   "title": "Expanding the therapeutic landscape of minoxidil for androgenetic alopecia: topical, oral and sublingual formulations (Frontiers in Pharmacology 2025)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "Topical minoxidil is a prodrug requiring follicular sulfotransferase (SULT1A1) to convert it to minoxidil sulfate. Individuals with low or absent follicular SULT1A1 activity are the mechanistic non-responders \u2014 this is the best current explanation for why a correctly-applied 12-month course does not",
+   "dose": "No dosing parameter \u2014 this is a per-person enzyme trait. A colorimetric plucked-hair SULT1A1 assay has been used to predict response in small single-centre studies; it is not standard of care and there is no validated activity cutoff.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.medscape.com/viewarticle/761948",
+   "title": "FDA Announces Safety Label Changes to Finasteride (Medscape, April 2012)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "WHAT IS DOCUMENTED, post-discontinuation: the FDA revised the Propecia label in 2011-2012 to add erectile dysfunction, libido disorders, ejaculation disorders and orgasm disorders that continued after the drug was stopped. This came from 421 post-marketing AERS reports (1998-2011), of which 59 descr",
+   "dose": "421 AERS sexual-dysfunction reports 1998-2011; 59 with \u22653 months persistence after discontinuation. Label revised April 2012 (ED added 2011). No incidence denominator exists for spontaneous reports.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/jdv.15548",
+   "title": "Finasteride for androgenetic alopecia is not associated with sexual dysfunction: a survey-based, single-centre, controlled study (Haber et al., JEADV 2019)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "The counter-evidence is real too, and it points at confounding. A global propensity-score-matched retrospective cohort (TriNetX) found an initially significant increase in sexual dysfunction with 5-ARI that lost significance once men with hypertension, depression, smoking, obesity and diabetes were ",
+   "dose": "Propensity-matched cohorts drawn from a global federated EHR network; risk elevation not sustained after exclusion of five confounding comorbidity classes. No dosing parameter.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK513329/",
+   "title": "Finasteride \u2014 StatPearls, NCBI Bookshelf",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "Finasteride's benefit is maintenance-only. Serum DHT returns toward baseline within roughly two weeks of the last dose, and the hair-count gain is lost within about 12 months of stopping. There is no 'course' of finasteride \u2014 stopping returns you to the untreated trajectory.",
+   "dose": "Reversal of hair count within ~12 months of discontinuation; DHT normalizes within ~14 days. Effectively an indefinite daily commitment.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/jcem/article/89/5/2179/2844345",
+   "title": "Marked Suppression of Dihydrotestosterone in Men with Benign Prostatic Hyperplasia by Dutasteride, a Dual 5\u03b1-Reductase Inhibitor (Clark et al., J Clin Endocrinol Metab 2004;89:2179)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "Isoform coverage is the core pharmacological difference: finasteride selectively inhibits type II 5-alpha reductase and lowers serum DHT by roughly 70%; dutasteride inhibits both type I and type II and lowers serum DHT by more than 90%. Dutasteride's potency against type I is about 3-fold and agains",
+   "dose": "Finasteride 1 mg/d: ~70% serum DHT suppression. Dutasteride 0.5 mg/d: >90% (reported ~94-95% at 24 weeks in BPH populations). Scalp-tissue DHT reduction reported as ~90-95% (dutasteride) vs ~65-70% (finasteride).",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2012/020788s020s021s023lbl.pdf",
+   "title": "PROPECIA (finasteride) tablets \u2014 FDA approved labeling, 2012 revision (020788s020s021s023)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "WHAT IS DOCUMENTED, post-discontinuation: the FDA revised the Propecia label in 2011-2012 to add erectile dysfunction, libido disorders, ejaculation disorders and orgasm disorders that continued after the drug was stopped. This came from 421 post-marketing AERS reports (1998-2011), of which 59 descr",
+   "dose": "421 AERS sexual-dysfunction reports 1998-2011; 59 with \u22653 months persistence after discontinuation. Label revised April 2012 (ED added 2011). No incidence denominator exists for spontaneous reports.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1743-6109.2011.02255.x",
+   "title": "Persistent Sexual Side Effects of Finasteride for Male Pattern Hair Loss (Irwig MS, Kolukula S, J Sex Med 2011;8:1747-53)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "WHAT IS CONTESTED: whether that persistence is caused by the drug. The strongest case-series evidence \u2014 Irwig 2011, men reporting persistent dysfunction a mean of 40 months after stopping after a mean 28 months of use \u2014 was self-selected from men who sought out an internet-recruited study, has no co",
+   "dose": "Mean finasteride exposure 28 months; mean duration of persistent symptoms at interview 40 months post-cessation. Reported symptom rates within that self-selected cohort: 94% low libido, 92% erectile dysfunction, 92% decreased arousal, 69% orgasm problems.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/10.1002/tre.972",
+   "title": "Post-finasteride syndrome: real or myth? (Carson C, Trends in Urology & Men's Health 2024)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "WHAT IS CONTESTED: whether that persistence is caused by the drug. The strongest case-series evidence \u2014 Irwig 2011, men reporting persistent dysfunction a mean of 40 months after stopping after a mean 28 months of use \u2014 was self-selected from men who sought out an internet-recruited study, has no co",
+   "dose": "Mean finasteride exposure 28 months; mean duration of persistent symptoms at interview 40 months post-cessation. Reported symptom rates within that self-selected cohort: 94% low libido, 92% erectile dysfunction, 92% decreased arousal, 69% orgasm problems.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://medicaljournalssweden.se/actadv/article/view/3046",
+   "title": "Same meta-analysis, journal record (Acta Dermato-Venereologica)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "WHAT IS DOCUMENTED, on-treatment: 5-alpha reductase inhibitors raise the risk of sexual dysfunction while you take them. Pooled across 15 randomized double-blind placebo-controlled trials (4,495 men), the relative risk was 1.57 overall \u2014 statistically significant for finasteride, not statistically s",
+   "dose": "Finasteride 1 mg/d: RR 1.66 (95% CI 1.20-2.30). Dutasteride 0.5 mg/d: RR 1.37 (95% CI 0.81-2.32, not significant). Combined 5-ARI: RR 1.57 (95% CI 1.19-2.08). 15 RCTs, 4,495 subjects.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0190962213011717",
+   "title": "Same trial, publisher record (ScienceDirect / JAAD)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "In the largest head-to-head, dutasteride 0.5 mg/day beat finasteride 1 mg/day on hair count and hair width at 24 weeks, with dose-dependent gains across dutasteride doses and comparable adverse event rates. The caveat that matters: this comparison ran 24 weeks, not years.",
+   "dose": "917 men aged 20-50 randomized to dutasteride 0.02, 0.1 or 0.5 mg/d, finasteride 1 mg/d, or placebo for 24 weeks; hair count and width measured in a 2.54 cm diameter target area.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://news.feinberg.northwestern.edu/2015/04/01/belknap-baldness-safety/",
+   "title": "Sexual Dysfunction Inadequately Reported In Hair Loss Drug Trials For Men (Northwestern University Feinberg School of Medicine)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "The reason the argument cannot be settled from the trial record is that the trial record is inadequate. A 2015 meta-analysis of 34 published finasteride AGA trials concluded the available toxicity information is very limited, of poor quality, and systematically biased \u2014 no pivotal trial systematical",
+   "dose": "34 published clinical trial reports of finasteride in men with androgenic alopecia assessed for safety-reporting quality; none provided adequate adverse-event characterization.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.researchgate.net/publication/346724504_Sulfotransferase_SULT1A1_activity_in_hair_follicle_a_prognostic_marker_of_response_to_the_minoxidil_treatment_in_patients_with_androgenetic_alopecia_a_review",
+   "title": "Sulfotransferase SULT1A1 activity in hair follicle, a prognostic marker of response to minoxidil treatment in patients with androgenetic alopecia: a review",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "Topical minoxidil is a prodrug requiring follicular sulfotransferase (SULT1A1) to convert it to minoxidil sulfate. Individuals with low or absent follicular SULT1A1 activity are the mechanistic non-responders \u2014 this is the best current explanation for why a correctly-applied 12-month course does not",
+   "dose": "No dosing parameter \u2014 this is a per-person enzyme trait. A colorimetric plucked-hair SULT1A1 assay has been used to predict response in small single-centre studies; it is not standard of care and there is no validated activity cutoff.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.tandfonline.com/doi/full/10.1080/09546634.2025.2480739",
+   "title": "Whether the transient hair shedding phase exists after minoxidil treatment and does it predict treatment efficacy? A retrospective study in androgenetic alopecia patients (J Dermatolog Treat 2025)",
+   "topic": "hair-5ar",
+   "tier": "clinical",
+   "claim": "Expect a transient increase in shedding in the first weeks of minoxidil. It is drug-induced immediate telogen release, not treatment failure, and in a retrospective series it correlated with better subsequent density in 5% users. Reported window is roughly weeks 2-8, resolving within a few weeks.",
+   "dose": "Shedding typically begins ~2 weeks after starting and subsides by ~8-12 weeks; reported as 4-8 weeks of increased shedding on 5% and 8-12 weeks on 2%. Do not stop during this window.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S1268773113001318",
+   "title": "Anabolic androgenic steroids reverse the beneficial effect of exercise on tendon biomechanics: an experimental study. Ann Phys Rehabil Med",
+   "topic": "load-management",
+   "tier": "preclinical",
+   "claim": "The mechanistic case that androgens weaken tendon is essentially animal data, and it points at a stiffness/strain tradeoff rather than outright weakness. In rats, nandrolone plus loading increased tendon cross-sectional area and stiffness but reduced failure strain and produced the lowest fracture s",
+   "dose": "Preclinical dosing does not translate: 12-week rat protocols with supraphysiologic nandrolone decanoate. No human-equivalent dose can be inferred from these.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.sagepub.com/doi/abs/10.1177/03635465251340701",
+   "title": "Damgaard A et al. Effect of Current and Former Anabolic-Androgenic Steroid Abuse on the Patellar Tendon. Am J Sports Med. 2025;53(8):1978-1987",
+   "topic": "load-management",
+   "tier": "off-label",
+   "claim": "Human tendon mechanical data in androgen users are inconsistent and do not show a clear 'weakened tendon'. Long-term AAS users had roughly 19% larger patellar tendon cross-sectional area and 26% higher stiffness and modulus than trained non-users in one study; a 2025 study found no difference in pat",
+   "dose": "none - these are observational measurements, not a prescription. Note the direction of effect differs across studies (stiffer in one, more compliant in another), so no loading adjustment can be justified from tendon mechanics data.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/pdf/10.2519/jospt.2014.5164",
+   "title": "Excessive Progression in Weekly Running Distance and Risk of Running-Related Injuries (full text PDF)",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "For progression rate there is a better-grounded number than ACWR, from prospective running data: increasing weekly running distance by more than 30% over a 2-week period raised the rate of distance-related injuries (patellofemoral pain, ITB syndrome, medial tibial stress syndrome, patellar tendinopa",
+   "dose": "Keep 2-week increases in weekly running volume under 30%; the study's comparator groups were <10% (or regression), 10-30%, and >30%. Cohort: 874 healthy novice runners, GPS-tracked, 1 year.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://efsma.org/images/pdf/publications/Br-J-Sports-Med-2016-Gabbett-273-80.pdf",
+   "title": "Gabbett TJ. The training-injury prevention paradox (full text PDF), Br J Sports Med 2016;50:273-280",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "The acute:chronic workload ratio as popularised prescribes a 'sweet spot' of approximately 0.8-1.3 and flags ratios above 1.5 as high injury risk. These are the numbers people quote; they come from observational team-sport data presented in an editorial figure.",
+   "dose": "Acute load = rolling 7-day total; chronic load = rolling 28-day average. Target ratio 0.8-1.3; >1.5 flagged as danger zone. Load units are not standardised across the source studies (session-RPE x minutes, GPS distance, high-speed distance, ball-throw counts all appear).",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ovid.com/journals/bjsme/fulltext/10.1136/bjsports-2016-096031~simple-decision-rules-can-reduce-reinjury-risk-by-84-after",
+   "title": "Grindem H, Snyder-Mackler L, Moksnes H, Engebretsen L, Risberg MA. Simple decision rules can reduce reinjury risk by 84% after ACL reconstruction. Br J Sports Med. 2016;50(13):804-808",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "The strongest numeric return-to-sport criteria data are from ACL reconstruction, not tendinopathy: delaying return to pivoting sport reduced reinjury by 51% for each month of delay up to 9 months, with no further benefit after 9 months; and passing a criteria battery (all tests >90% symmetry) was as",
+   "dose": "Time gate: 9 months post-reconstruction. Criteria gate: quadriceps strength limb symmetry index and hop-test symmetry all >90%, plus Knee Outcome Survey-ADL and global rating of function scores >90. Cohort: 106 pivoting-sport athletes, 2-year prospective follow-up.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.researchgate.net/publication/339667279_Acute_to_random_workload_ratio_is_'as'_associated_with_injury_as_acute_to_actual_chronic_workload_ratio_time_to_dismiss_ACWR_and_its_components",
+   "title": "Impellizzeri FM et al. Acute to random workload ratio is 'as' associated with injury as acute to actual chronic workload ratio: time to dismiss ACWR and its components",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "The specific sweet-spot figure that made ACWR famous was formally challenged: a group of authors requested retraction or erratum from BJSM after the figure had been republished at least seven times, including in an IOC consensus statement where it was presented as a validated model. A separate analy",
+   "dose": "none. The random-denominator result means the ratio's apparent predictive signal does not depend on the chronic load actually being that athlete's chronic load.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.humankinetics.com/view/journals/ijspp/15/6/article-p907.xml",
+   "title": "Impellizzeri FM, Tenan MS, Kempton T, Novak A, Coutts AJ. Acute:Chronic Workload Ratio: Conceptual Issues and Fundamental Pitfalls. Int J Sports Physiol Perform. 2020;15(6):907-913",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "ACWR is mathematically coupled: the acute load sits inside the chronic load it is divided by, which generates correlation between the ratio and outcomes irrespective of any real physiological relationship. This is a structural defect in the metric, not a study-quality issue.",
+   "dose": "none (this is a critique of the metric's construction). The 'uncoupled' variant, where the 28-day denominator excludes the most recent 7 days, was proposed to address it; whether it materially changes conclusions is itself disputed.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.semanticscholar.org/paper/Acute:Chronic-Workload-Ratio:-Conceptual-Issues-and-Impellizzeri-Tenan/ede5743a426fd6429d28f8505500a3f771dbcf8b",
+   "title": "Impellizzeri FM, Tenan MS, Kempton T, Novak A, Coutts AJ. Acute:Chronic Workload Ratio: Conceptual Issues and Fundamental Pitfalls. Int J Sports Physiol Perform. 2020;15(6):907-913",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "No ACWR study has estimated causal effects. Recommending that someone manipulate their ACWR to change injury rates is, in the critics' words, conjecture and an over-interpretation of the data. The window lengths (7 days acute, 28 days chronic) have no physiological derivation.",
+   "dose": "none. There is no validated ACWR value to train toward, because no intervention trial has shown that acting on the ratio changes injury incidence.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://osf.io/preprints/sportfxiv/gs8yu",
+   "title": "Impellizzeri FM, Woodcock S, McCall A, Ward P, Coutts AJ. The acute-chronic workload ratio-injury figure and its 'sweet spot' are flawed (preprint)",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "The specific sweet-spot figure that made ACWR famous was formally challenged: a group of authors requested retraction or erratum from BJSM after the figure had been republished at least seven times, including in an IOC consensus statement where it was presented as a validated model. A separate analy",
+   "dose": "none. The random-denominator result means the ratio's apparent predictive signal does not depend on the chronic load actually being that athlete's chronic load.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://escholarship.org/content/qt5630p9xg/qt5630p9xg.pdf",
+   "title": "Jones IA, Togashi R, Heckmann N, Vangsness CT. Anabolic steroids and tendons: a review of their mechanical, structural, and biologic effects. J Orthop Res. 2018",
+   "topic": "load-management",
+   "tier": "preclinical",
+   "claim": "The mechanistic case that androgens weaken tendon is essentially animal data, and it points at a stiffness/strain tradeoff rather than outright weakness. In rats, nandrolone plus loading increased tendon cross-sectional area and stiffness but reduced failure strain and produced the lowest fracture s",
+   "dose": "Preclinical dosing does not translate: 12-week rat protocols with supraphysiologic nandrolone decanoate. No human-equivalent dose can be inferred from these.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/10.2519/jospt.2014.5164",
+   "title": "Nielsen RO, Parner ET, Nohr EA, Sorensen H, Lind M, Rasmussen S. Excessive progression in weekly running distance and risk of running-related injuries. J Orthop Sports Phys Ther. 2014;44(10):739-747",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "For progression rate there is a better-grounded number than ACWR, from prospective running data: increasing weekly running distance by more than 30% over a 2-week period raised the rate of distance-related injuries (patellofemoral pain, ITB syndrome, medial tibial stress syndrome, patellar tendinopa",
+   "dose": "Keep 2-week increases in weekly running volume under 30%; the study's comparator groups were <10% (or regression), 10-30%, and >30%. Cohort: 874 healthy novice runners, GPS-tracked, 1 year.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://esskajournals.onlinelibrary.wiley.com/doi/10.1007/s00167-009-0889-7",
+   "title": "Silbernagel KG et al. A new measurement of heel-rise endurance with the ability to detect functional deficits in patients with Achilles tendon rupture. Knee Surg Sports Traumatol Arthrosc. 2010",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "The 90% limb-symmetry threshold widely used as a return gate is a convention, not a validated cut-point, and which heel-rise parameter you measure changes the answer substantially. After Achilles rupture, symmetry on repetition count overstates recovery relative to total work: mean LSI 84% for repet",
+   "dose": "Single-leg heel-rise test; LSI = (involved / uninvolved) x 100; conventional gate >=90%. Measure heel-rise HEIGHT and total WORK, not repetitions alone, because repetitions alone conceal deficits.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/ptj/article-pdf/77/12/1690/10761598/ptj1690.pdf",
+   "title": "Thome\u00e9 R. A comprehensive treatment approach for patellofemoral pain syndrome in young women. Phys Ther. 1997;77(12):1690-1703",
+   "topic": "load-management",
+   "tier": "clinical",
+   "claim": "The 24-hour rule is the actual decision variable, not the in-session pain: pain (and, for the Achilles, morning stiffness) must have returned to the pre-session baseline by the following morning. Pain that has not settled by the next morning means the previous session's dose was too high.",
+   "dose": "Reassessment window: next morning, on waking, before activity. Criterion: symptoms back to pre-session baseline. If not met, repeat the previous tolerated dose rather than progressing, and do not add volume until two consecutive sessions clear the next-morning check.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0020138398001831",
+   "title": "Ultrastructural analysis of ruptured tendon from anabolic steroid users. Injury",
+   "topic": "load-management",
+   "tier": "off-label",
+   "claim": "Human tendon mechanical data in androgen users are inconsistent and do not show a clear 'weakened tendon'. Long-term AAS users had roughly 19% larger patellar tendon cross-sectional area and 26% higher stiffness and modulus than trained non-users in one study; a 2025 study found no difference in pat",
+   "dose": "none - these are observational measurements, not a prescription. Note the direction of effect differs across studies (stiffer in one, more compliant in another), so no loading adjustment can be justified from tendon mechanics data.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://stillmed.olympics.com/media/Documents/Athletes/Medical-Scientific/Consensus-Statements/REDs/BJSM-IOC-consensus-statement-on-Relative-Energy-Deficiency-in-Sport-REDs.pdf",
+   "title": "2023 International Olympic Committee's (IOC) consensus statement on Relative Energy Deficiency in Sport (REDs) \u2014 British Journal of Sports Medicine",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Hard floor beneath any deficit: energy availability at or below 30 kcal/kg fat-free mass/day is the clinical low-energy-availability threshold, at which LH pulsatility is disrupted and bone-formation markers decline. This bounds how aggressive a cut can be regardless of protein intake, and it is the",
+   "dose": "Energy availability = (intake kcal \u2212 exercise energy expenditure kcal) / kg FFM. Keep \u226530 kcal/kg FFM/day as an absolute floor; \u226545 kcal/kg FFM/day supports weight maintenance and full physiological function; 30\u201345 is the suboptimal at-risk band.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.humankinetics.com/downloadpdf/journals/ijsnem/24/2/article-p127.xml",
+   "title": "A Systematic Review of Dietary Protein During Caloric Restriction in Resistance Trained Lean Athletes: A Case for Higher Intakes (Helms, Zinn, Rowlands, Brown; IJSNEM 2014;24(2):127-138)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Expressed per fat-free mass \u2014 the better-scaling denominator, and the one that matters if you carry meaningful body fat \u2014 the target is 2.3\u20133.1 g/kg FFM/day, scaled upward with the severity of caloric restriction and with leanness. Using g/kg FFM rather than g/kg bodyweight avoids over-prescribing p",
+   "dose": "2.3\u20133.1 g/kg fat-free mass/day. Worked example: 80 kg at 15% body fat = 68 kg FFM \u2192 156\u2013211 g/day. The same person dosed on bodyweight at 3.1 g/kg would be told 248 g/day, which the FFM framing shows is unnecessary.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.lww.com/nsca-scj/fulltext/9900/effect_of_dietary_protein_on_fat_free_mass_in.179.aspx",
+   "title": "Effect of Dietary Protein on Fat-Free Mass in Energy Restricted, Resistance-Trained Individuals (journal full text)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "A 2025 Bayesian meta-regression of 29 studies confirms a linear dose-response between protein intake and favourable fat-free mass change in energy-restricted resistance-trained individuals \u2014 with no plateau detected inside the studied range. The relationship is stronger when protein is expressed per",
+   "dose": "\u03b2 = 0.06 standardised FFM effect per additional 1 g/kg FFM/day (95% highest-density credible interval 0.01 to 0.12); >97% posterior probability of a positive linear dose-response. No upper inflection point identified \u2014 the 3.1 g/kg FFM ceiling is a convention, not a measured plateau.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://doi.org/10.1519/SSC.0000000000000888",
+   "title": "Effect of Dietary Protein on Fat-Free Mass in Energy Restricted, Resistance-Trained Individuals: An Updated Systematic Review With Meta-Regression (Strength & Conditioning Journal, 2025; DOI 10.1519/SSC.0000000000000888)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "A 2025 Bayesian meta-regression of 29 studies confirms a linear dose-response between protein intake and favourable fat-free mass change in energy-restricted resistance-trained individuals \u2014 with no plateau detected inside the studied range. The relationship is stronger when protein is expressed per",
+   "dose": "\u03b2 = 0.06 standardised FFM effect per additional 1 g/kg FFM/day (95% highest-density credible interval 0.01 to 0.12); >97% posterior probability of a positive linear dose-response. No upper inflection point identified \u2014 the 3.1 g/kg FFM ceiling is a convention, not a measured plateau.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.tandfonline.com/doi/abs/10.1080/07315724.1999.10718838",
+   "title": "Effects of Resistance vs. Aerobic Training Combined With an 800 Calorie Liquid Diet on Lean Body Mass and Resting Metabolic Rate (Bryner et al., J Am Coll Nutr 1999;18(2):115-121)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Resistance training, not protein, is the primary lever. In a head-to-head trial in dieting older adults, the resistance arm lost 1.1 kg lean mass versus 2.8 kg in the aerobic arm at matched weight loss; in an aggressive 800 kcal/day diet, resistance training abolished lean body mass loss entirely wh",
+   "dose": "Villareal: 3 sessions/week, 6 months. Bryner: resistance training 3 days/week, 10 stations, progressing from 2 sets of 8\u201315 reps to 4 sets of 8\u201315 reps over 12 weeks on 800 kcal/day. Outcomes \u2014 Villareal lean mass: RT \u22121.1 \u00b1 0.3 kg (\u22122%), combined \u22121.7 \u00b1 0.3 kg (\u22123%), aerobic \u22122.8 \u00b1 0.3 kg (\u22125%). Bryner: no LBM decrease in the RT arm; control arm fell from 51 to 47 kg LBM, with RMR rising in the RT arm and falling in the control arm.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://faseb.onlinelibrary.wiley.com/doi/abs/10.1096/fj.13-230227",
+   "title": "Effects of high-protein diets on fat-free mass and muscle protein synthesis following weight loss (FASEB Journal, Wiley)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Controlled feeding trial with three protein arms shows the benefit saturates: at a 40% deficit for 21 days, both 1.6 g/kg/day (2\u00d7 RDA) and 2.4 g/kg/day (3\u00d7 RDA) lowered the proportion of weight lost as fat-free mass versus 0.8 g/kg/day, but 3\u00d7 RDA gave no additional protection over 2\u00d7 RDA. The margi",
+   "dose": "0.8 vs 1.6 vs 2.4 g/kg/day for 31 days (10 d weight maintenance, then 21 d at 40% energy deficit), n = 39. Both 1.6 and 2.4 g/kg reduced the FFM fraction of weight loss and increased fat loss (P<0.05); no separation between 1.6 and 2.4 g/kg.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://doi.org/10.1096/fj.13-230227",
+   "title": "Effects of high-protein diets on fat-free mass and muscle protein synthesis following weight loss: a randomized controlled trial (Pasiakos et al., FASEB J 2013;27(9):3837-3847; DOI 10.1096/fj.13-230227)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Controlled feeding trial with three protein arms shows the benefit saturates: at a 40% deficit for 21 days, both 1.6 g/kg/day (2\u00d7 RDA) and 2.4 g/kg/day (3\u00d7 RDA) lowered the proportion of weight lost as fat-free mass versus 0.8 g/kg/day, but 3\u00d7 RDA gave no additional protection over 2\u00d7 RDA. The margi",
+   "dose": "0.8 vs 1.6 vs 2.4 g/kg/day for 31 days (10 d weight maintenance, then 21 d at 40% energy deficit), n = 39. Both 1.6 and 2.4 g/kg reduced the FFM fraction of weight loss and increased fat loss (P<0.05); no separation between 1.6 and 2.4 g/kg.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://doi.org/10.1111/sms.14075",
+   "title": "Energy deficiency impairs resistance training gains in lean mass but not strength (Wiley full text, DOI 10.1111/sms.14075)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Deficit magnitude threshold, absolute: a meta-regression of resistance-training trials in energy deficit found that a deficit of about 500 kcal/day is where lean mass gains are abolished. Beyond that, resistance training stops adding lean mass and starts merely limiting loss.",
+   "dose": "Keep the deficit \u2264500 kcal/day if lean mass preservation or gain is the goal. Meta-regression outcome: lean mass gains impaired in RT-with-deficit vs RT-without-deficit (ES = \u22120.57, p = 0.02); strength gains not impaired (ES = \u22120.31, p = 0.28). Inclusion: RCTs with RT in energy deficit \u22653 weeks.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/pii/S0002916522065595",
+   "title": "Higher compared with lower dietary protein during an energy deficit combined with intense exercise (ScienceDirect full text)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Controlled feeding trial: at a ~40% energy deficit with high-volume resistance plus interval training 6 d/wk for 4 weeks, 2.4 g/kg/day produced a net gain in lean mass while 1.2 g/kg/day produced none \u2014 and the higher-protein group also lost more fat. This is the strongest evidence that lean mass ga",
+   "dose": "2.4 g/kg/day vs 1.2 g/kg/day; ~40% deficit (33 \u00b1 1 kcal/kg LBM/day); 4 weeks; RT + HIIT 6 days/week. LBM: +1.2 \u00b1 1.0 kg vs +0.1 \u00b1 1.0 kg. Fat mass: \u22124.8 \u00b1 1.6 kg vs \u22123.5 \u00b1 1.4 kg. Strength and Wingate outcomes improved equally in both arms.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://doi.org/10.3945/ajcn.115.119339",
+   "title": "Higher compared with lower dietary protein during an energy deficit combined with intense exercise promotes greater lean mass gain and fat mass loss: a randomized trial (Longland et al., Am J Clin Nutr 2016;103(3):738-74",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Controlled feeding trial: at a ~40% energy deficit with high-volume resistance plus interval training 6 d/wk for 4 weeks, 2.4 g/kg/day produced a net gain in lean mass while 1.2 g/kg/day produced none \u2014 and the higher-protein group also lost more fat. This is the strongest evidence that lean mass ga",
+   "dose": "2.4 g/kg/day vs 1.2 g/kg/day; ~40% deficit (33 \u00b1 1 kcal/kg LBM/day); 4 weeks; RT + HIIT 6 days/week. LBM: +1.2 \u00b1 1.0 kg vs +0.1 \u00b1 1.0 kg. Fat mass: \u22124.8 \u00b1 1.6 kg vs \u22123.5 \u00b1 1.4 kg. Strength and Wingate outcomes improved equally in both arms.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://stillmed.olympics.com/media/Documents/Athletes/Medical-Scientific/Consensus-Statements/REDs/IOC-consensus-statement-Relative-Energy-Deficiency-in-Sport-2018.pdf",
+   "title": "IOC consensus statement on relative energy deficiency in sport (RED-S): 2018 update",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Hard floor beneath any deficit: energy availability at or below 30 kcal/kg fat-free mass/day is the clinical low-energy-availability threshold, at which LH pulsatility is disrupted and bone-formation markers decline. This bounds how aggressive a cut can be regardless of protein intake, and it is the",
+   "dose": "Energy availability = (intake kcal \u2212 exercise energy expenditure kcal) / kg FFM. Keep \u226530 kcal/kg FFM/day as an absolute floor; \u226545 kcal/kg FFM/day supports weight maintenance and full physiological function; 30\u201345 is the suboptimal at-risk band.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ovid.com/jnls/acsm-msse/fulltext/10.1249/mss.0b013e3181b2ef8e~increased-protein-intake-reduces-lean-body-mass-loss-during",
+   "title": "Increased Protein Intake Reduces Lean Body Mass Loss during Weight Loss in Athletes (Ovid full text)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "Controlled feeding trial: in trained athletes cut to 60% of habitual energy intake for 2 weeks, 2.3 g/kg/day protein reduced lean body mass loss roughly five-fold versus 1.0 g/kg/day, with no difference in fat loss or performance between arms. This is the cleanest short-term demonstration that prote",
+   "dose": "2.3 g/kg/day (~35% of energy) vs 1.0 g/kg/day (~15% of energy), 2 weeks at 60% of habitual intake. LBM change: \u22120.3 \u00b1 0.3 kg (high protein) vs \u22121.6 \u00b1 0.3 kg (control), P = 0.006. n = 20.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1186/s12970-017-0177-8",
+   "title": "International Society of Sports Nutrition Position Stand: protein and exercise (Springer full text, DOI 10.1186/s12970-017-0177-8)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "For resistance-trained people in a hypocaloric period, the ISSN position stand sets protein at 2.3\u20133.1 g/kg bodyweight/day to maximise retention of lean body mass \u2014 roughly double the 1.4\u20132.0 g/kg/day it recommends at maintenance. This is the single most-cited target for the deficit case.",
+   "dose": "2.3\u20133.1 g/kg bodyweight/day during the deficit; 1.4\u20132.0 g/kg/day at maintenance. Scale toward the top of the range as leanness increases and as the deficit deepens.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jandonline.org/article/S2212-2672(15)01802-X/abstract",
+   "title": "Position of the Academy of Nutrition and Dietetics, Dietitians of Canada, and the American College of Sports Medicine: Nutrition and Athletic Performance (J Acad Nutr Diet 2016;116:501-528)",
+   "topic": "nutrition-deficit",
+   "tier": "clinical",
+   "claim": "The mainstream sports-medicine position (ACSM / Academy of Nutrition and Dietetics / Dietitians of Canada) is more conservative than ISSN: 1.2\u20132.0 g/kg/day for athletes generally, rising to 1.6\u20132.4 g/kg/day during weight loss. Where the two bodies disagree, the disagreement is about the top of the r",
+   "dose": "1.2\u20132.0 g/kg bodyweight/day baseline; 1.6\u20132.4 g/kg bodyweight/day during energy restriction, spread across the day. Treat ~1.6 g/kg as a floor, not a target.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1186/s12933-023-01765-z",
+   "title": "Combination of exercise and GLP-1 receptor agonist treatment reduces severity of metabolic syndrome, abdominal obesity, and inflammation: a randomized controlled trial (Sandsdal et al., Cardiovasc Diabetol; DOI 10.1186/s",
+   "topic": "nutrition-glp1",
+   "tier": "clinical",
+   "claim": "Adding structured exercise to a GLP-1 agonist roughly doubles the body-composition benefit versus the drug alone. In the S-LiTE randomised trial (195 adults, 1 year after an 8-week low-calorie diet producing ~13 kg loss), the exercise-plus-liraglutide arm reduced body-fat percentage by 3.9 percentag",
+   "dose": "Liraglutide 3.0 mg/day plus a structured moderate-to-vigorous exercise programme, 52 weeks. The exercise programme in S-LiTE was predominantly aerobic; the exact weekly session structure and set/rep prescription were not verifiable in this search and should not be assumed to be resistance training.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2028198",
+   "title": "Healthy Weight Loss Maintenance with Exercise, Liraglutide, or Both Combined (Lundgren et al., N Engl J Med 384:1719-1730; DOI 10.1056/NEJMoa2028198)",
+   "topic": "nutrition-glp1",
+   "tier": "clinical",
+   "claim": "Adding structured exercise to a GLP-1 agonist roughly doubles the body-composition benefit versus the drug alone. In the S-LiTE randomised trial (195 adults, 1 year after an 8-week low-calorie diet producing ~13 kg loss), the exercise-plus-liraglutide arm reduced body-fat percentage by 3.9 percentag",
+   "dose": "Liraglutide 3.0 mg/day plus a structured moderate-to-vigorous exercise programme, 52 weeks. The exercise programme in S-LiTE was predominantly aerobic; the exact weekly session structure and set/rep prescription were not verifiable in this search and should not be assumed to be resistance training.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.semanticscholar.org/paper/84c354b38ba32d2f06a58c1f56afe8da8bc11744",
+   "title": "How much protein can the body use in a single meal for muscle-building? (record)",
+   "topic": "nutrition-glp1",
+   "tier": "off-label",
+   "claim": "Protein prioritisation under appetite suppression should be per-meal, not just per-day: roughly 0.4 g/kg body mass at each of 3-4 meals, giving a daily total of about 1.6-2.2 g/kg. For a 90 kg adult that is ~36 g of protein per meal across 4 meals. This matters more on a GLP-1 than off it, because t",
+   "dose": "0.4 g/kg body mass per meal (range 0.4-0.55 g/kg), across 4 meals; daily total 1.6-2.2 g/kg.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://scholarlycommons.pacific.edu/cgi/viewcontent.cgi?article=1012&context=biochem",
+   "title": "How much protein can the body use in a single meal for muscle-building? Implications for daily protein distribution (Schoenfeld & Aragon, J Int Soc Sports Nutr)",
+   "topic": "nutrition-glp1",
+   "tier": "off-label",
+   "claim": "Protein prioritisation under appetite suppression should be per-meal, not just per-day: roughly 0.4 g/kg body mass at each of 3-4 meals, giving a daily total of about 1.6-2.2 g/kg. For a 90 kg adult that is ~36 g of protein per meal across 4 meals. This matters more on a GLP-1 than off it, because t",
+   "dose": "0.4 g/kg body mass per meal (range 0.4-0.55 g/kg), across 4 meals; daily total 1.6-2.2 g/kg.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/jes/article/5/Supplement_1/A16/6240360",
+   "title": "Impact of Semaglutide on Body Composition in Adults With Overweight or Obesity: Exploratory Analysis of the STEP 1 Study (Wilding et al., Journal of the Endocrine Society 5(Suppl 1):A16)",
+   "topic": "nutrition-glp1",
+   "tier": "clinical",
+   "claim": "STEP 1 (semaglutide 2.4 mg) DXA substudy: total lean body mass fell 9.7% from baseline while total fat mass fell 19.3% and regional visceral fat fell 27.4%, over 68 weeks in which body weight fell 15.0% (vs -3.6% on placebo). Lean mass as a proportion of total body mass rose ~3 percentage points. n=",
+   "dose": "Semaglutide 2.4 mg subcutaneously once weekly, 68 weeks, plus lifestyle intervention. DXA at screening and week 68.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.researchgate.net/publication/353140244_Impact_of_Semaglutide_on_Body_Composition_in_Adults_With_Overweight_or_Obesity_Exploratory_Analysis_of_the_STEP_1_Study",
+   "title": "Impact of Semaglutide on Body Composition in Adults With Overweight or Obesity: Exploratory Analysis of the STEP 1 Study (record)",
+   "topic": "nutrition-glp1",
+   "tier": "clinical",
+   "claim": "STEP 1 (semaglutide 2.4 mg) DXA substudy: total lean body mass fell 9.7% from baseline while total fat mass fell 19.3% and regional visceral fat fell 27.4%, over 68 weeks in which body weight fell 15.0% (vs -3.6% on placebo). Lean mass as a proportion of total body mass rose ~3 percentage points. n=",
+   "dose": "Semaglutide 2.4 mg subcutaneously once weekly, 68 weeks, plus lifestyle intervention. DXA at screening and week 68.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2025.1566498/full",
+   "title": "Investigating nutrient intake during use of glucagon-like peptide-1 receptor agonist: a cross-sectional study (Frontiers in Nutrition, DOI 10.3389/fnut.2025.1566498)",
+   "topic": "nutrition-glp1",
+   "tier": "clinical",
+   "claim": "The shortfall is not confined to protein \u2014 energy and multiple micronutrients also fall below recommended standards on GLP-1 therapy. A cross-sectional nutrient-intake study characterised GLP-1 users' diets as inadequate in energy, protein and key micronutrients relative to reference standards. Inde",
+   "dose": "none for micronutrients specifically \u2014 no retrieved study established a supplementation dose. A multivitamin is a common clinical fallback but no retrieved source specifies one.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.thelancet.com/journals/landia/article/PIIS2213-8587(24)00272-9/abstract",
+   "title": "Muscle matters: the effects of medically induced weight loss on skeletal muscle (Lancet Diabetes & Endocrinology)",
+   "topic": "nutrition-glp1",
+   "tier": "clinical",
+   "claim": "Across the incretin literature as a whole, roughly 25-40% of the weight lost on GLP-1 and GLP-1/GIP agonists is lean mass. This range brackets both headline trials: ~25% in the SURMOUNT-1 DXA substudy and, by the STEP 1 substudy's own fat and lean percentages applied to its baseline composition, rou",
+   "dose": "none \u2014 this is an observed range across trials, not a prescribable parameter.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12419545/",
+   "title": "Suboptimal protein intake for hypocaloric diet needs while using glucagon-like peptide-1 receptor agonists (Journal of the International Society of Sports Nutrition)",
+   "topic": "nutrition-glp1",
+   "tier": "clinical",
+   "claim": "Yes \u2014 measured intake falls well below intended intake on these drugs, and protein is where the shortfall lands. In a study of 60 GLP-1 receptor agonist users, only 43% reached 1.2 g/kg/day of protein, only 10% reached 1.6 g/kg/day, and only 5% reached 2.0 g/kg/day; mean measured intake was 88.1 +/-",
+   "dose": "Reference thresholds used in these studies: 1.2 / 1.6 / 2.0 g protein per kg body mass per day. Observed medians fell below all three for most users.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/jsm/article/22/Supplement_4/qdaf320.159/8375080",
+   "title": "(159) Investigating the Effect of Intramuscular Versus Subcutaneous Testosterone on Hematocrit Levels (Journal of Sexual Medicine)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Route and frequency of administration affect erythrocytosis rates at TRT doses, but the evidence is not unanimous. A systematic review and Bayesian network meta-analysis of randomized trials found intramuscular formulations were associated with higher rates of erythrocytosis and higher hemoglobin an",
+   "dose": "route/formulation choice rather than a mg dose; specific regimens are individualized and prescriber-led",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0021915014015603",
+   "title": "Achieving goal lipid levels with ezetimibe plus statin add-on or switch therapy compared with doubling the statin dose. A pooled analysis (Atherosclerosis)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "Where a statin alone is insufficient for the ApoB target, ezetimibe 10 mg once daily added to a statin gives roughly an additional 23.8% LDL-C reduction, and outperforms doubling the statin dose on the atherogenic-particle measures specifically: non-HDL-C -22.50% and ApoB -17.23% versus statin dose ",
+   "dose": "ezetimibe 10 mg orally once daily added to an existing statin",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0306987716302158",
+   "title": "Anabolic androgenic steroid-induced hepatotoxicity (Medical Hypotheses)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Hepatotoxicity is a property of the 17-alpha-alkyl modification, not of androgens generally. The 17-alpha-alkyl substitution retards hepatic metabolism to make the compound orally bioavailable, and that same structural change is inextricably linked to hepatotoxicity; 17-alpha-alkylated AAS induce a ",
+   "dose": "none (structure-activity claim; applies to any dose of a 17-alpha-alkylated oral)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.aidsmap.com/news/mar-2003/anabolic-steroid-oxymetholone-safe-and-effective-treatment-hiv-related-wasting",
+   "title": "Anabolic steroid oxymetholone safe and effective treatment for HIV-related wasting (aidsmap)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The best dose-response human hepatotoxicity data for any 17-alpha-alkylated oral comes from the oxymetholone HIV-wasting RCT: 89 patients randomized to oxymetholone 50 mg twice daily (100 mg/day), 50 mg three times daily (150 mg/day) or placebo for 16 weeks. ALT rose to more than five times baseline",
+   "dose": "oxymetholone 50 mg orally twice daily (100 mg/day) or three times daily (150 mg/day) for 16 weeks \u2014 the doses studied in the trial",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.pharmacists.ca/cpha-ca/assets/File/cpha-on-the-issues/Angiotensin%20II%20Receptor%20Antagonist.pdf",
+   "title": "Angiotensin II Receptor Antagonist dosing table (Canadian Pharmacists Association)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "If telmisartan is not the agent chosen, labelled ARB dose ranges for hypertension are: losartan 25-100 mg/day (may be split twice daily), valsartan 80-320 mg once daily, olmesartan 20-40 mg once daily, candesartan 4-32 mg/day. There is no evidence favouring any of these over another specifically in ",
+   "dose": "losartan 25-100 mg/day; valsartan 80-320 mg once daily; olmesartan 20-40 mg once daily; candesartan 4-32 mg/day",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s11886-021-01608-x",
+   "title": "Athletes and Hypertension (Current Cardiology Reports)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "ACE inhibitors and ARBs are the preferred first-line antihypertensive classes in athletes and strength-training populations, on three grounds: no measurable impairment of maximal oxygen uptake or energy metabolism, no anti-doping prohibition, and (for ARBs) no cough. Diuretics are banned at all time",
+   "dose": "class-level recommendation; individual agent and dose are prescriber-led",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ahajournals.org/doi/10.1161/CIRCULATIONAHA.124.071117",
+   "title": "Cardiovascular Disease in Anabolic Androgenic Steroid Users (Circulation)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The lipid changes translate into measurable arterial disease, not just numbers on a panel: in 86 AAS users with at least 2 years of exposure versus 54 controls, users had greater coronary plaque volume with a dose-response relationship between cumulative AAS exposure and plaque burden, calcium score",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ajconline.org/article/S0002-9149(02)02994-6/fulltext",
+   "title": "Comparative effects of rosuvastatin and atorvastatin across their dose ranges in patients with hypercholesterolemia and without active arterial disease (American Journal of Cardiology)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "Statin therapy in this population is an extrapolation from general lipid management, with one athlete-specific practical finding: alternate-day rosuvastatin dosing achieves 30-40% LDL-C reduction with improved tolerability and is described as a validated strategy for athletes who cannot tolerate dai",
+   "dose": "rosuvastatin: statin choice and dose are individualized and prescriber-led; the athlete-specific documented regimen is alternate-day rosuvastatin (mg per dose not specified in retrieved text) achieving 30-40% LDL-C reduction",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.nature.com/articles/s41387-017-0007-8",
+   "title": "Comparison of the effect of omega-3 supplements and fresh fish on lipid profile: a randomized, open-labeled trial (Nutrition & Diabetes)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "Omega-3 fatty acids do not fix androgen-induced dyslipidemia and can move LDL the wrong way. In high-CV-risk adults, 1,800 mg/day EPA+DHA improved HDL particle distribution (large HDL +28.7%, small HDL -10.6%) but in a separate randomized comparison LDL levels INCREASED in the omega-3 supplement gro",
+   "dose": "1,800 mg/day combined EPA+DHA (HDL-functionality trial); 2 g/day omega-3 capsules for 8 weeks (supplement vs fresh fish trial)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://ashpublications.org/bloodadvances/article/9/9/2108/535485/Diagnosis-management-and-outcomes-of-drug-induced",
+   "title": "Diagnosis, management, and outcomes of drug-induced erythrocytosis: a systematic review (Blood Advances 9(9):2108-2118)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Guideline thresholds for action on hematocrit are genuinely discordant, and anyone quoting a single number is overstating the consensus. The 2018 Endocrine Society guideline: withhold testosterone at hematocrit >54% until it normalizes, evaluate the patient for hypoxia and sleep apnea, then resume a",
+   "dose": "action thresholds, not drug doses: withhold at Hct >54% (Endocrine Society), resume at a reduced dose \u2014 the size of the reduction is individualized and prescriber-led and is not specified by any guideline",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.atherosclerosis-journal.com/article/S0021-9150(19)30084-X/fulltext",
+   "title": "Diminished cholesterol efflux mediated by HDL and coronary artery disease in young male anabolic androgenic steroid users (Atherosclerosis)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The lipid changes translate into measurable arterial disease, not just numbers on a panel: in 86 AAS users with at least 2 years of exposure versus 54 controls, users had greater coronary plaque volume with a dose-response relationship between cumulative AAS exposure and plaque burden, calcium score",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.revistagastroenterologiamexico.org/en-drug-induced-liver-injury-secondary-anabolic-articulo-S2255534X19300702",
+   "title": "Drug-induced liver injury secondary to anabolic steroid use (Revista de Gastroenterologia de Mexico)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "Severe 17-AA cholestasis can progress to bilirubin levels that cause secondary organ injury: documented cases reached 56-62 mg/dL, and marked hyperbilirubinemia in steroid-induced liver toxicity can cause acute renal failure (bile cast nephropathy) that generally resolves once cholestasis is correct",
+   "dose": "therapeutic plasma exchange and other rescue therapies are hospital-level, prescriber-led interventions; no outpatient dose applies",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/pii/S2666667726003107",
+   "title": "Dyslipidemia management in athletes: A comparative commentary on the 2026 ACC/AHA/Multisociety Guideline and contemporary sports cardiology recommendations",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "Statin therapy in this population is an extrapolation from general lipid management, with one athlete-specific practical finding: alternate-day rosuvastatin dosing achieves 30-40% LDL-C reduction with improved tolerability and is described as a validated strategy for athletes who cannot tolerate dai",
+   "dose": "rosuvastatin: statin choice and dose are individualized and prescriber-led; the athlete-specific documented regimen is alternate-day rosuvastatin (mg per dose not specified in retrieved text) achieving 30-40% LDL-C reduction",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/pii/S0006497120727813",
+   "title": "Effect of Blood Donation on Iron Stores As Evaluated by Serum Ferritin (Blood)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The iron-depletion consequence of a repeated-donation schedule is quantified and substantial: in male donors, one unit per year halved serum ferritin. Male donors were able to give 2-3 units per year without an appreciable incidence of iron deficiency \u2014 meaning a schedule beyond roughly that is wher",
+   "dose": "donation frequency: 2-3 units per year in males was the threshold below which iron deficiency was not appreciable; iron repletion in the cited work was supplementation for 56 days post-donation (elemental iron dose not captured in retrieved text \u2014 dose is prescriber-led)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0011393X05806599",
+   "title": "Effect of tauroursodeoxycholic acid on serum liver enzymes and dyspeptic symptoms in patients with chronic active hepatitis (Current Therapeutic Research)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "TUDCA, the most commonly used 'on-cycle liver support', has real human data \u2014 but none of it is in androgen users. In human trials in chronic active hepatitis, TUDCA lowered AST 44%, ALT 49% and GGT 38%, with effect evident at 1 month and maximal at 3 months. Doses used in human trials were 500 mg/d",
+   "dose": "TUDCA 500 mg/day in two divided doses with meals, or 1,750 mg/day for 4 weeks \u2014 the doses used in human trials of OTHER liver conditions; no dose is established for use during androgen exposure",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/jcem/article-abstract/93/3/914/2598663",
+   "title": "Effects of Graded Doses of Testosterone on Erythropoiesis in Healthy Young and Older Men (JCEM)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The hematocrit rise is dose-dependent and steeply so at supraphysiologic doses. In the graded-dose study using GnRH agonist plus weekly testosterone enanthate at 25, 50, 125, 300 or 600 mg, hemoglobin and hematocrit rose linearly and dose-dependently in both young and older men, with larger rises in",
+   "dose": "testosterone enanthate 25, 50, 125, 300 or 600 mg intramuscularly weekly for 20 weeks (the doses studied)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0026049597902675",
+   "title": "Effects of short-term stanozolol administration on serum lipoproteins in hepatic lipase deficiency (Metabolism)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The HDL collapse on ORAL (17-alpha-alkylated) androgens is mechanistically distinct and far more severe than on injectables: it is driven by induction of hepatic lipase. Stanozolol 6 mg/day for 2 weeks raised hepatic lipase activity a mean of 277%, with HDL-C falling 49%, HDL2 90%, HDL3 16% and ApoA",
+   "dose": "stanozolol 6 mg/day orally for 2 weeks (the dose studied \u2014 a description of what was measured, not a recommendation)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743609522000583",
+   "title": "Erythrocytosis in Subcutaneous Testosterone Replacement Therapy (Sexual Medicine Reviews)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Route and frequency of administration affect erythrocytosis rates at TRT doses, but the evidence is not unanimous. A systematic review and Bayesian network meta-analysis of randomized trials found intramuscular formulations were associated with higher rates of erythrocytosis and higher hemoglobin an",
+   "dose": "route/formulation choice rather than a mg dose; specific regimens are individualized and prescriber-led",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.auanet.org/guidelines-and-quality/guidelines/testosterone-deficiency-guideline",
+   "title": "Evaluation and Management of Testosterone Deficiency: AUA Guideline",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Guideline thresholds for action on hematocrit are genuinely discordant, and anyone quoting a single number is overstating the consensus. The 2018 Endocrine Society guideline: withhold testosterone at hematocrit >54% until it normalizes, evaluate the patient for hypoxia and sleep apnea, then resume a",
+   "dose": "action thresholds, not drug doses: withhold at Hct >54% (Endocrine Society), resume at a reduced dose \u2014 the size of the reduction is individualized and prescriber-led and is not specified by any guideline",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.fda.gov/drugs/drug-alerts-and-statements/fda-issues-class-wide-labeling-changes-testosterone-products",
+   "title": "FDA issues class-wide labeling changes for testosterone products",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Blood pressure elevation is a class effect of testosterone itself, not only of supraphysiologic stacks. In February/March 2025 the FDA required class-wide labeling changes adding a warning about increased blood pressure to ALL testosterone products, based on the postmarket ambulatory BP monitoring (",
+   "dose": "none (label-level class action; applies across all approved testosterone dose forms)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.urologytimes.com/view/fda-issues-label-changes-for-testosterone-products-following-traverse-post-market-studies",
+   "title": "FDA issues labeling changes for testosterone products following TRAVERSE, postmarket studies (Urology Times)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Blood pressure elevation is a class effect of testosterone itself, not only of supraphysiologic stacks. In February/March 2025 the FDA required class-wide labeling changes adding a warning about increased blood pressure to ALL testosterone products, based on the postmarket ambulatory BP monitoring (",
+   "dose": "none (label-level class action; applies across all approved testosterone dose forms)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://clinicaltrials.gov/study/NCT07039539",
+   "title": "Harm Reduction Intervention for Anabolic-androgenic Steroids Users: a Randomized Controlled Trial (ClinicalTrials.gov NCT07039539)",
+   "topic": "on-cycle-support",
+   "tier": "community",
+   "claim": "No controlled trial has tested any antihypertensive, lipid-lowering agent, phlebotomy protocol or hepatoprotectant in people using supraphysiologic androgens. Current protocols in this population rely on expert opinion and limited studies, and robust randomized controlled trials are explicitly ident",
+   "dose": "none \u2014 this claim is precisely that no dose for any support agent has been established in this population",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1186/s12954-025-01294-w",
+   "title": "Harm reduction measures in a recreational gym user with anabolic androgenic steroid dependence: a case report in the context of current best clinical practice (Harm Reduction Journal)",
+   "topic": "on-cycle-support",
+   "tier": "community",
+   "claim": "No controlled trial has tested any antihypertensive, lipid-lowering agent, phlebotomy protocol or hepatoprotectant in people using supraphysiologic androgens. Current protocols in this population rely on expert opinion and limited studies, and robust randomized controlled trials are explicitly ident",
+   "dose": "none \u2014 this claim is precisely that no dose for any support agent has been established in this population",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://pure.amsterdamumc.nl/ws/portalfiles/portal/142203519/Health-effects-of-androgen-abuse.pdf",
+   "title": "Health effects of androgen abuse: a review of the HAARLEM study",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "In the HAARLEM prospective cohort (100 men self-administering an androgen cycle, mean ~898 mg/week, median 13 weeks), systolic BP rose 6.87 mmHg (95% CI 4.34-9.40) and diastolic BP rose 3.17 mmHg (1.29-5.04) versus baseline during use, and returned to baseline by 3 months after the cycle. This is ob",
+   "dose": "none (observational; cohort mean self-administered dose ~898 mg/week androgen, median 13 weeks)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cghjournal.org/article/S1542-3565(07)00228-5/fulltext",
+   "title": "Hepatotoxicity Associated With Dietary Supplements Containing Anabolic Steroids (Clinical Gastroenterology and Hepatology)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "17-alpha-alkylated exposure is not confined to compounds people know they are taking: hepatotoxicity has been documented from dietary supplements containing anabolic steroids, meaning an over-the-counter 'prohormone' or designer supplement can produce the same cholestatic injury as a labelled oral A",
+   "dose": "none (exposure-source and long-term-risk claim)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.europeanreview.org/wp/wp-content/uploads/7-16-Hepatotoxicity-associated-with-illicit-use-of-anabolic-androgenic-steroids-in-doping.pdf",
+   "title": "Hepatotoxicity associated with illicit use of anabolic androgenic steroids in doping (European Review for Medical and Pharmacological Sciences)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Hepatotoxicity is a property of the 17-alpha-alkyl modification, not of androgens generally. The 17-alpha-alkyl substitution retards hepatic metabolism to make the compound orally bioavailable, and that same structural change is inextricably linked to hepatotoxicity; 17-alpha-alkylated AAS induce a ",
+   "dose": "none (structure-activity claim; applies to any dose of a 17-alpha-alkylated oral)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.medrxiv.org/content/10.1101/2024.11.18.24317516.full.pdf",
+   "title": "Impact of Androgenic Anabolic Steroids on Cardiovascular Health in Men and Women - part of the Fitness Doping in Denmark (FIDO-DK) study",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Specialist services for this population exist and are the appropriate referral route rather than self-management: the Anabolenpoli AAS outpatient clinic at Spaarne Gasthuis, Haarlem (established 2011) and the Center of Expertise for Anabolic Steroids at Spaarne Gasthuis and Elisabeth-TweeSteden hosp",
+   "dose": "none (service/referral claim)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.lww.com/jhypertension/Abstract/2018/02000/Increased_blood_pressure_and_aortic_stiffness.11.aspx",
+   "title": "Increased blood pressure and aortic stiffness among abusers of anabolic androgenic steroids: potential effect of suppressed natriuretic peptides in plasma? (Journal of Hypertension)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Current AAS users have measurably higher 24-hour ambulatory systolic BP than strength-training controls: 132 (129-135) vs 124 (120-128) mmHg, with systolic hypertension in 51% vs 17%. The same cohort showed suppressed MR-proANP (a natriuretic peptide) and increased aortic stiffness, and aortic stiff",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cmaj.ca/content/192/32/e913",
+   "title": "Investigation and management of erythrocytosis (CMAJ 192:E913-E918)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "A raised hematocrit on androgens should not be attributed to the androgen alone without checking the other drivers, because they are additive and treatable. Hypoxia is the most common cause of secondary erythrocytosis (COPD, obstructive sleep apnea, smoking). In one analysis, significant predictors ",
+   "dose": "none (diagnostic evaluation, not a drug)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://karger.com/tmh/article/48/2/71/301672/Long-Term-Course-of-Haemoglobin-and-Ferritin",
+   "title": "Long-Term Course of Haemoglobin and Ferritin Values in High-Frequency Donors of Whole Blood and Double Erythrocyte Apheresis (Transfusion Medicine and Hemotherapy 48(2):71)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The iron-depletion consequence of a repeated-donation schedule is quantified and substantial: in male donors, one unit per year halved serum ferritin. Male donors were able to give 2-3 units per year without an appreciable incidence of iron deficiency \u2014 meaning a schedule beyond roughly that is wher",
+   "dose": "donation frequency: 2-3 units per year in males was the threshold below which iron deficiency was not appreciable; iron repletion in the cited work was supplementation for 56 days post-donation (elemental iron dose not captured in retrieved text \u2014 dose is prescriber-led)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.aafp.org/afp/2002/0801/p445",
+   "title": "Managing Hypertension in Athletes and Physically Active Patients (American Family Physician)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "ACE inhibitors and ARBs are the preferred first-line antihypertensive classes in athletes and strength-training populations, on three grounds: no measurable impairment of maximal oxygen uptake or energy metabolism, no anti-doping prohibition, and (for ARBs) no cough. Diuretics are banned at all time",
+   "dose": "class-level recommendation; individual agent and dose are prescriber-led",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2011/020850s032lbl.pdf",
+   "title": "Micardis (telmisartan) tablets - FDA prescribing information",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Telmisartan dosing for hypertension (FDA label): usual starting dose 40 mg once daily; maintenance 40-80 mg once daily; BP response is dose-related across 20-80 mg; most of the antihypertensive effect appears within 2 weeks with maximal reduction generally at 4 weeks. If more reduction than 80 mg pr",
+   "dose": "telmisartan 40 mg orally once daily to start; 40-80 mg once daily maintenance; dose-related response across 20-80 mg; 80 mg/day is the labelled ceiling for monotherapy",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://bpspubs.onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2125.2007.03001.x",
+   "title": "Muscular exercise can cause highly pathological liver function tests in healthy men (British Journal of Clinical Pharmacology)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "ALT and AST are close to useless as standalone liver markers in people who lift, and the confound lasts a week. In 15 healthy men unaccustomed to weightlifting, a single 1-hour weightlifting session significantly raised AST, ALT, LD, CK and myoglobin (P<0.01), and all five remained elevated for at l",
+   "dose": "none (a 1-hour weightlifting session was the exposure)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743609520301697",
+   "title": "Obstructive Sleep Apnea Is Associated With Polycythemia in Hypogonadal Men on Testosterone Replacement Therapy",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "A raised hematocrit on androgens should not be attributed to the androgen alone without checking the other drivers, because they are additive and treatable. Hypoxia is the most common cause of secondary erythrocytosis (COPD, obstructive sleep apnea, smoking). In one analysis, significant predictors ",
+   "dose": "none (diagnostic evaluation, not a drug)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/10.1111/j.1751-7141.2008.00010.x",
+   "title": "Ongoing Telmisartan Alone and in Combination With Ramipril Global Endpoint Trial (ONTARGET): Implications for Reduced Cardiovascular Risk (Preventive Cardiology)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Telmisartan 80 mg once daily has hard outcome data: in ONTARGET (n=25,620 high-risk patients) it was non-inferior to ramipril 10 mg daily for the composite of cardiovascular death, MI, stroke or heart failure hospitalization (HR 0.99, 95% CI 0.94-1.05), with less cough (1.1% vs 4.2%) and less angioe",
+   "dose": "telmisartan 80 mg once daily; comparator ramipril 10 mg once daily",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.njmonline.nl/article_ft.php?a=1978&d=1301&i=215",
+   "title": "Outpatient clinic for users of anabolic androgenic steroids: an overview (Netherlands Journal of Medicine)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Specialist services for this population exist and are the appropriate referral route rather than self-management: the Anabolenpoli AAS outpatient clinic at Spaarne Gasthuis, Haarlem (established 2011) and the Center of Expertise for Anabolic Steroids at Spaarne Gasthuis and Elisabeth-TweeSteden hosp",
+   "dose": "none (service/referral claim)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/10.1002/clc.70257?af=R",
+   "title": "Preventing Atherosclerotic Cardiovascular Disease in Young Male Androgen Abusers (Clinical Cardiology)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The oral/injectable split holds for ApoB as well as HDL: orally bioavailable androgens consistently raise LDL-C (HAARLEM showed +0.4 mmol/L, ~14% relative to baseline; one review reports an average LDL-C increase of 36%), and ApoB shows the same dichotomy between injectable and orally bioavailable a",
+   "dose": "none (class-level pharmacodynamic claim)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/and.14372",
+   "title": "Prospective study on blood pressure, lipid metabolism and erythrocytosis during and after androgen abuse (Smit et al., Andrologia)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "In the HAARLEM prospective cohort (100 men self-administering an androgen cycle, mean ~898 mg/week, median 13 weeks), systolic BP rose 6.87 mmHg (95% CI 4.34-9.40) and diastolic BP rose 3.17 mmHg (1.29-5.04) versus baseline during use, and returned to baseline by 3 months after the cycle. This is ob",
+   "dose": "none (observational; cohort mean self-administered dose ~898 mg/week androgen, median 13 weeks)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7208663/",
+   "title": "SAT-038 Ambulatory Blood Pressure Increases in Hypogonadal Men Who Develop Increases in Hematocrit on Oral Testosterone Undecanoate",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The measured magnitude of the testosterone BP effect in formal ABPM studies is modest but real: with oral testosterone undecanoate, 24-hour, awake and sleep systolic BP rose 3.8, 5.2 and 4.3 mmHg from baseline (diastolic 1.2, 1.7, 1.7 mmHg); a different oral TU formulation showed 24-h systolic incre",
+   "dose": "TRT-range oral testosterone undecanoate as labelled; specific mg not captured in retrieved abstract text",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S1043661820305818",
+   "title": "Statin therapy in athletes and patients performing regular intense exercise - Position paper from the International Lipid Expert Panel (ILEP)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "Statin therapy in this population is an extrapolation from general lipid management, with one athlete-specific practical finding: alternate-day rosuvastatin dosing achieves 30-40% LDL-C reduction with improved tolerability and is described as a validated strategy for athletes who cannot tolerate dai",
+   "dose": "rosuvastatin: statin choice and dose are individualized and prescriber-led; the athlete-specific documented regimen is alternate-day rosuvastatin (mg per dose not specified in retrieved text) achieving 30-40% LDL-C reduction",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.alzdiscovery.org/uploads/cognitive_vitality_media/Tauroursodeoxycholic-Acid-Cognitive-Vitality-For-Researchers.pdf",
+   "title": "Tauroursodeoxycholic Acid (TUDCA) - Cognitive Vitality research review (Alzheimer's Drug Discovery Foundation)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "TUDCA, the most commonly used 'on-cycle liver support', has real human data \u2014 but none of it is in androgen users. In human trials in chronic active hepatitis, TUDCA lowered AST 44%, ALT 49% and GGT 38%, with effect evident at 1 month and maximal at 3 months. Doses used in human trials were 500 mg/d",
+   "dose": "TUDCA 500 mg/day in two divided doses with meals, or 1,750 mg/day for 4 weeks \u2014 the doses used in human trials of OTHER liver conditions; no dose is established for use during androgen exposure",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.drugs.com/dosage/telmisartan.html",
+   "title": "Telmisartan Dosage Guide + Max Dose, Adjustments (Drugs.com)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Telmisartan dosing for hypertension (FDA label): usual starting dose 40 mg once daily; maintenance 40-80 mg once daily; BP response is dose-related across 20-80 mg; most of the antihypertensive effect appears within 2 weeks with maximal reduction generally at 4 weeks. If more reduction than 80 mg pr",
+   "dose": "telmisartan 40 mg orally once daily to start; 40-80 mg once daily maintenance; dose-related response across 20-80 mg; 80 mg/day is the labelled ceiling for monotherapy",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa0801317",
+   "title": "Telmisartan, Ramipril, or Both in Patients at High Risk for Vascular Events (New England Journal of Medicine)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Telmisartan 80 mg once daily has hard outcome data: in ONTARGET (n=25,620 high-risk patients) it was non-inferior to ramipril 10 mg daily for the composite of cardiovascular death, MI, stroke or heart failure hospitalization (HR 0.99, 95% CI 0.94-1.05), with less cough (1.1% vs 4.2%) and less angioe",
+   "dose": "telmisartan 80 mg once daily; comparator ramipril 10 mg once daily",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.drugs.com/pro/telmisartan.html",
+   "title": "Telmisartan: Package Insert / Prescribing Information (Drugs.com professional monograph)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Telmisartan dosing for hypertension (FDA label): usual starting dose 40 mg once daily; maintenance 40-80 mg once daily; BP response is dose-related across 20-80 mg; most of the antihypertensive effect appears within 2 weeks with maximal reduction generally at 4 weeks. If more reduction than 80 mg pr",
+   "dose": "telmisartan 40 mg orally once daily to start; 40-80 mg once daily maintenance; dose-related response across 20-80 mg; 80 mg/day is the labelled ceiling for monotherapy",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/biolreprod/article/100/1/139/5068168",
+   "title": "Testosterone plays a permissive role in angiotensin II-induced hypertension and cardiac hypertrophy in male rats (Biology of Reproduction)",
+   "topic": "on-cycle-support",
+   "tier": "preclinical",
+   "claim": "The mechanistic rationale for blocking the renin-angiotensin system specifically in androgen-driven hypertension is preclinical, not human. In male rats, castration abolished the angiotensin II-induced BP increase, and the hypertensive and cardiac hypertrophy response was greater in intact and testo",
+   "dose": "none (animal model)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S014929182200282X",
+   "title": "The Effect of Anastrozole on the Lipid Profile: Systematic Review and Meta-analysis of Randomized Controlled Trials",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "Aromatase inhibitors taken as on-cycle support can worsen the lipid and bone picture, and the human evidence is genuinely mixed rather than reassuring. Anastrozole administration in humans can decrease total cholesterol and HDL-C with no effect on LDL-C or triglycerides, with aromatase inhibitors ty",
+   "dose": "anastrozole dosing in men is off-label, individualized and prescriber-led; the retrieved human studies describe short-term administration without a dose captured in abstract text",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.auajournals.org/doi/10.1097/JU.0000000000002188",
+   "title": "The Effect of Route of Testosterone on Changes in Hematocrit: A Systematic Review and Bayesian Network Meta-Analysis of Randomized Trials (Journal of Urology)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Route and frequency of administration affect erythrocytosis rates at TRT doses, but the evidence is not unanimous. A systematic review and Bayesian network meta-analysis of randomized trials found intramuscular formulations were associated with higher rates of erythrocytosis and higher hemoglobin an",
+   "dose": "route/formulation choice rather than a mg dose; specific regimens are individualized and prescriber-led",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/full/10.1111/j.1478-3231.2010.02445.x",
+   "title": "The dark side of sports: using steroids may harm your liver (Liver International)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "Hepatotoxicity is a property of the 17-alpha-alkyl modification, not of androgens generally. The 17-alpha-alkyl substitution retards hepatic metabolism to make the compound orally bioavailable, and that same structural change is inextricably linked to hepatotoxicity; 17-alpha-alkylated AAS induce a ",
+   "dose": "none (structure-activity claim; applies to any dose of a 17-alpha-alkylated oral)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://professionaleducation.blood.ca/en/transfusion/publications/importance-iron-whole-blood-donors-canadian-perspective",
+   "title": "The importance of iron for whole blood donors: a Canadian perspective (Canadian Blood Services)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "The iron-depletion consequence of a repeated-donation schedule is quantified and substantial: in male donors, one unit per year halved serum ferritin. Male donors were able to give 2-3 units per year without an appreciable incidence of iron deficiency \u2014 meaning a schedule beyond roughly that is wher",
+   "dose": "donation frequency: 2-3 units per year in males was the threshold below which iron deficiency was not appreciable; iron repletion in the cited work was supplementation for 56 days post-donation (elemental iron dose not captured in retrieved text \u2014 dose is prescriber-led)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1186/s12882-019-1384-0",
+   "title": "The potential effects of anabolic-androgenic steroids and growth hormone as commonly used sport supplements on the kidney: a systematic review (BMC Nephrology)",
+   "topic": "on-cycle-support",
+   "tier": "clinical",
+   "claim": "There is a second, non-RAS mechanism in androgen users that an ARB does not address: suppression of natriuretic peptides. Current AAS users show decreased plasma MR-proANP alongside their elevated 24-hour systolic BP, and the proposed mechanism is that testosterone lowers natriuretic peptides that n",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/ajh/article/26/6/829/187355",
+   "title": "Tissue-Specific Peroxisome Proliferator Activated Receptor Gamma Expression and Metabolic Effects of Telmisartan (American Journal of Hypertension)",
+   "topic": "on-cycle-support",
+   "tier": "off-label",
+   "claim": "Telmisartan is a partial PPAR-gamma agonist at concentrations achievable with standard oral antihypertensive doses \u2014 a property not shared by the other clinically used ARBs, which have measurably lower receptor affinity, lipophilicity and cell permeability. In hypertensive patients with metabolic sy",
+   "dose": "telmisartan 40-80 mg once daily (labelled antihypertensive range; the exact dose used in the telmisartan-vs-losartan metabolic syndrome comparison was not captured in retrieved abstract text)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S014929182300348X",
+   "title": "Early Pharmacologic Approaches to Avert Anabolic Steroid-induced Male Infertility: A Narrative Review (Urology; ScienceDirect S014929182300348X)",
+   "topic": "pct",
+   "tier": "off-label",
+   "claim": "Narrative reviews of early pharmacologic strategies for AAS-induced infertility give working dose ranges: hCG 125\u2013500 IU every other day, clomiphene citrate 12.5\u201350 mg/day, recombinant LH 125\u2013500 IU every other day, recombinant FSH 75\u2013150 IU 1\u20133x/week, and hMG 75\u2013150 IU 1\u20133x/week. These are ranges a",
+   "dose": "hCG 125\u2013500 IU EOD; clomiphene 12.5\u201350 mg/day; rLH 125\u2013500 IU EOD; rFSH 75\u2013150 IU 1\u20133x/week; hMG 75\u2013150 IU 1\u20133x/week",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://doi.org/10.1093/ejendo/lvad164",
+   "title": "Factors predicting normalization of reproductive hormones after cessation of anabolic-androgenic steroids in men (DOI 10.1093/ejendo/lvad164)",
+   "topic": "pct",
+   "tier": "community",
+   "claim": "In a 641-man clinical cohort tested within 36 months of AAS cessation, only 48.2% had fully normalised reproductive hormones (LH, FSH and total testosterone all in range). Odds of recovery were lower with greater cumulative AAS use and with AAS use exceeding 6 months. Self-reported PCT use was assoc",
+   "dose": "none \u2014 the PCT regimens were self-selected and not standardised in this cohort",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-020-0507-8",
+   "title": "Cardiac valvular abnormalities associated with use and cumulative exposure of cabergoline for hyperprolactinemia: the CATCH study (BMC Endocr Disord, DOI 10.1186/s12902-020-0507-8)",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "Cabergoline-associated valve change appears dose-related: compared with bromocriptine, cabergoline use and higher cumulative cabergoline exposure were associated with a higher prevalence of valvular regurgitation, which was primarily mild.",
+   "dose": "risk tracks cumulative mg, not a single weekly dose \u2014 the comparison was made across the full range of cumulative exposure in prolactinoma treatment",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/020664s016lbl.pdf",
+   "title": "DOSTINEX (cabergoline) tablets, for oral use \u2014 US prescribing information",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "FDA-labelled cabergoline (Dostinex) dosing for hyperprolactinaemic disorders \u2014 idiopathic or due to pituitary adenoma \u2014 starts at 0.25 mg orally twice weekly, is titrated upward in 0.25 mg twice-weekly increments at intervals of no less than 4 weeks to normalise serum prolactin, and has a maximum re",
+   "dose": "0.25 mg PO twice weekly to start; increase by 0.25 mg twice weekly at intervals of no less than 4 weeks; maximum labelled dose 1 mg twice weekly (= 2 mg/week)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.endocrine.org/clinical-practice-guidelines/hyperprolactinemia",
+   "title": "Diagnosis and Treatment of Hyperprolactinemia \u2014 Endocrine Society clinical practice guideline landing page",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "The Endocrine Society guideline states that control of hyperprolactinaemia requires cabergoline doses ranging from 0.25 to 3 mg/week, with occasional patients requiring up to 11 mg/week; it recommends cabergoline in preference to other dopamine agonists because of higher rates of prolactin normalisa",
+   "dose": "0.25-3 mg/week typical; occasionally up to 11 mg/week in resistant prolactinoma (above the 2 mg/week labelled maximum)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/jcem/article/104/7/2527/5371252",
+   "title": "Dopamine Agonist-Induced Impulse Control Disorders in Patients With Prolactinoma: A Cross-Sectional Multicenter Study (J Clin Endocrinol Metab 104(7):2527)",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "Impulse control disorders are a documented and dose-related harm of cabergoline that is arguably more relevant at community doses than valve disease. Reported prevalence in prolactinoma or hyperprolactinaemia patients on dopamine agonists ranges from 7.5% to 46% across studies, with cabergoline more",
+   "dose": "prescriber-led: risk rises with cumulative dopamine agonist dose and duration; no threshold dose below which ICDs have been shown not to occur was retrieved",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/10.1111/cen.13940",
+   "title": "Echocardiography and monitoring patients receiving dopamine agonist therapy for hyperprolactinaemia: A joint position statement of the British Society of Echocardiography, the British Heart Valve Society and the Society ",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "Echocardiographic monitoring recommendations are stratified by weekly dose, and the recommending bodies disagree on the threshold. A 2019 joint position statement of the British Society of Echocardiography, British Heart Valve Society and Society for Endocrinology recommends a pre-treatment baseline",
+   "dose": "monitoring thresholds: >2 mg/week \u2192 baseline + annual echo (BSE/BHVS/SfE); \u22642 mg/week \u2192 5-yearly echo (BSE/BHVS/SfE); alternative targeted trigger: >3 mg/week for >5 years, audible murmur, or continued treatment after age 50",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/BF03349302",
+   "title": "Effect of vitamin B6 on the serum concentration of pituitary hormones in normal humans and under pathologic conditions (J Endocrinol Invest, DOI 10.1007/BF03349302)",
+   "topic": "prolactin",
+   "tier": "off-label",
+   "claim": "Older human pharmacology supports a genuine but acute and modest dopaminergic effect of pyridoxine on prolactin: it produced an acute fall in plasma prolactin in normal subjects with roughly 52% suppression at 90 minutes, suppressed pimozide-induced prolactin secretion the way levodopa does (implyin",
+   "dose": "acute intravenous/oral pyridoxine challenge doses in these physiology studies were not retrieved; the only dose with a stated protocol is the 600 mg/day x 16 weeks regimen above",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.endocrinepractice.org/article/S1530-891X(25)00137-5/abstract",
+   "title": "Impulse Control Disorders in Patients With Hyperprolactinemia on Dopamine Agonist Therapy \u2014 How Concerned Should We Be? (Endocrine Practice)",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "Impulse control disorders are a documented and dose-related harm of cabergoline that is arguably more relevant at community doses than valve disease. Reported prevalence in prolactinoma or hyperprolactinaemia patients on dopamine agonists ranges from 7.5% to 46% across studies, with cabergoline more",
+   "dose": "prescriber-led: risk rises with cumulative dopamine agonist dose and duration; no threshold dose below which ICDs have been shown not to occur was retrieved",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/jcem/article/106/2/e711/6009022",
+   "title": "Incidence of Cabergoline-Associated Valvulopathy in Primary Care Patients With Prolactinoma Using Hard Cardiac Endpoints (J Clin Endocrinol Metab 106(2):e711)",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "The echocardiographic regurgitation signal has not translated into hard cardiac outcomes at prolactinoma doses: in a primary-care cohort using hard cardiac endpoints, neither univariate nor multivariate analysis showed a significant association between cabergoline treatment at any cumulative dosage ",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cambridge.org/core/journals/bjpsych-advances/article/management-of-antipsychoticinduced-hyperprolactinaemia/6495A80D8850C4233ACDF8F4EDEC1A0C",
+   "title": "Management of antipsychotic-induced hyperprolactinaemia (BJPsych Advances, Cambridge Core)",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "Even when a prolactin-raising drug is a plausible explanation, biochemically confirmed hyperprolactinaemia still warrants exclusion of other causes, in particular tumours in the hypothalamic-pituitary area. Attributing an elevated prolactin to a drug or compound and treating empirically is the mecha",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.mayoclinicproceedings.org/article/S0025-6196(11)61587-5/fulltext",
+   "title": "Medication-Induced Hyperprolactinemia (Mayo Clinic Proceedings)",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "Magnitude of prolactin elevation helps but does not settle whether imaging is needed. Drug-induced hyperprolactinaemia is typically characterised by prolactin of 25-100 ng/mL (530-2130 mIU/L), but the most potent dopamine blockers \u2014 metoclopramide, risperidone, amisulpride and the phenothiazines \u2014 c",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/jcem/article/104/2/523/5094016",
+   "title": "Meta-Analysis of the Prevalence of Cardiac Valvulopathy in Patients With Hyperprolactinemia Treated With Cabergoline (J Clin Endocrinol Metab 104(2):523)",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "In a meta-analysis of hyperprolactinaemic patients treated with cabergoline, tricuspid regurgitation was significantly more common than in controls (OR 3.74, 95% CI 1.79-7.80, p<0.001), with no significant increase in any other valvulopathy. In no patient was tricuspid valve dysfunction diagnosed be",
+   "dose": "cumulative exposure of 204-443 mg over roughly 3.7-6.75 years of continuous therapy \u2014 the exposure at which this signal was measured",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK599196/",
+   "title": "Pharmacological Causes of Hyperprolactinemia \u2014 Endotext (NCBI Bookshelf NBK599196)",
+   "topic": "prolactin",
+   "tier": "clinical",
+   "claim": "Magnitude of prolactin elevation helps but does not settle whether imaging is needed. Drug-induced hyperprolactinaemia is typically characterised by prolactin of 25-100 ng/mL (530-2130 mIU/L), but the most potent dopamine blockers \u2014 metoclopramide, risperidone, amisulpride and the phenothiazines \u2014 c",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.steroidal.com/steroids-news/progesterone-prolactin-clearing-confusion/",
+   "title": "Progesterone And Prolactin: Clearing Confusion (Steroidal)",
+   "topic": "prolactin",
+   "tier": "community",
+   "claim": "The claim that 19-nor compounds (nandrolone, trenbolone) raise prolactin rests on community bloodwork anecdote, not on human trial data. Searching for human evidence returned essentially only bodybuilding-community sources, which themselves state that the proposed mechanism \u2014 progestin activity at t",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.steroidal.com/steroids-side-effects/prolactin/prolactin-anabolic-steroids/",
+   "title": "Prolactin & Anabolic Steroids (Steroidal)",
+   "topic": "prolactin",
+   "tier": "community",
+   "claim": "The claim that 19-nor compounds (nandrolone, trenbolone) raise prolactin rests on community bloodwork anecdote, not on human trial data. Searching for human evidence returned essentially only bodybuilding-community sources, which themselves state that the proposed mechanism \u2014 progestin activity at t",
+   "dose": "none",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.nejm.org/doi/abs/10.1056/NEJM198208123070719",
+   "title": "Pyridoxine (B6) Suppresses the Rise in Prolactin and Increases the Rise in Growth Hormone Induced by Exercise (N Engl J Med, DOI 10.1056/NEJM198208123070719)",
+   "topic": "prolactin",
+   "tier": "off-label",
+   "claim": "Older human pharmacology supports a genuine but acute and modest dopaminergic effect of pyridoxine on prolactin: it produced an acute fall in plasma prolactin in normal subjects with roughly 52% suppression at 90 minutes, suppressed pimozide-induced prolactin secretion the way levodopa does (implyin",
+   "dose": "acute intravenous/oral pyridoxine challenge doses in these physiology studies were not retrieved; the only dose with a stated protocol is the 600 mg/day x 16 weeks regimen above",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://acsearch.acr.org/docs/3148734/Narrative/",
+   "title": "ACR Appropriateness Criteria: Suspected Spine Infection",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "For anyone self-injecting \u2014 hormones, peptides, or anything else \u2014 spinal epidural abscess and vertebral osteomyelitis are the red flag category that applies to you specifically and that generic lifter advice ignores. Injection-associated bacteraemia seeds the spine; 39% of patients with spinal epid",
+   "dose": "none \u2014 this is an escalation rule. Threshold: new severe back pain plus fever, night sweats, unremitting/night-waking pain, or spinal percussion tenderness in anyone who has injected in the preceding weeks \u2192 same-week (or same-day if febrile/neurological) medical assessment with ESR/CRP and MRI, not physiotherapy. ESR was elevated in 100% of patients with spine pain plus another SEA risk factor in one series.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://tourniquets.org/wp-content/uploads/PDFs/ACSM-Progression-models-in-resistance-training-for-healthy-adults-2009.pdf",
+   "title": "ACSM Position Stand: Progression Models in Resistance Training for Healthy Adults (full PDF)",
+   "topic": "rehab-back",
+   "tier": "off-label",
+   "claim": "For the load-progression arithmetic itself, the only concrete numbers with a guideline behind them come from resistance-training science, not back-pain research: increase load by 2\u201310% once you can complete 1\u20132 repetitions above the target rep number for a given set, with the lower end of that range",
+   "dose": "Load increase 2\u201310% when the current workload can be performed for 1\u20132 repetitions over the desired number; larger % for large-muscle-mass lifts, smaller for small-muscle-mass lifts. Source population: healthy adults, not people reloading after a back-pain flare.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/10.2519/jospt.2015.5021",
+   "title": "Aasa B, Berglund L, Michaelson P, Aasa U. Individualized low-load motor control exercises and education versus a high-load lifting exercise and education... a randomized controlled trial. J Orthop Sports Phys Ther 2015;4",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "The single most transferable reloading rule for a lifter comes from the JOSPT high-load lifting trial, and it is a concrete, three-part gate rather than a pain score alone. Participants deadlifting with mechanical low back pain were told that pain intensity under 50 mm on a 100 mm visual analogue sc",
+   "dose": "Pain \u226450 mm/100 mm VAS during the lift; pain must subside after each completed set; movement pattern and spinal position must not change. Programme structure used: 12 supervised sessions over 8 weeks \u2014 2 sessions/week in weeks 1\u20134, then 1 session/week in weeks 5\u20138; ~60 minutes per session for the high-load lifting group, 20\u201330 minutes for the low-load motor control group. n=70 with recurrent nociceptive-mechanical low back pain.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.lww.com/nsca-jscr/fulltext/2015/07000/which_patients_with_low_back_pain_benefit_from.6.aspx",
+   "title": "Berglund et al. \u2014 JSCR full record",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Heavy-lifting rehab works better for some people than others, and the predictors are measurable at baseline. In the deadlift-training cohort (n=35, 8 weeks supervised by a physiotherapist with powerlifting experience), the participants who benefited had LESS baseline disability, LESS baseline pain i",
+   "dose": "Triage parameters measured at baseline: pain intensity, disability score, and Biering-S\u00f8rensen isometric back-extensor endurance hold time. n=35, 8-week programme. The trial does not publish a cut-off value for the Biering-S\u00f8rensen hold that separates responders from non-responders \u2014 the relationship is continuous, so the threshold is individualized.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.gponline.com/cauda-equina-syndrome-changes-nice-cks-red-flags/musculoskeletal-disorders/article/1464440",
+   "title": "Cauda equina syndrome: changes to NICE CKS red flags (GPonline)",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "STOP AND GO TO AN EMERGENCY DEPARTMENT THE SAME DAY for suspected cauda equina syndrome. The NICE Clinical Knowledge Summaries red-flag set, revised with the Medical Protection Society specifically to catch it earlier, is: (1) difficulty initiating micturition or impaired sensation of urinary flow \u2014",
+   "dose": "none \u2014 this is a symptom checklist, not a dosed intervention. Action parameter: same-day emergency presentation for urgent MRI, not a routine GP/physio appointment. Zero training until cleared.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cochrane.org/evidence/CD007612_advice-rest-bed-versus-advice-stay-active-acute-low-back-pain-and-sciatica",
+   "title": "Cochrane plain-language summary, CD007612",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Bed rest is not a treatment and is mildly harmful. High-quality evidence shows people with acute low back pain advised to rest in bed have slightly MORE pain and slightly LESS functional recovery than those advised to stay active. For sciatica specifically, there is moderate-quality evidence of litt",
+   "dose": "Zero days of prescribed bed rest. Resume normal daily activity as tolerated immediately; the comparator that beat bed rest in these trials was simple advice to stay active, not a structured programme.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://physicaltherapyfirst.com/blog/2023/10/30/continued-sports-activity-using-a-pain-monitoring-model-during-rehabilitation-in-patients-with-achilles-tendinopathy/",
+   "title": "Continued Sports Activity, Using a Pain-Monitoring Model \u2014 clinical summary",
+   "topic": "rehab-back",
+   "tier": "off-label",
+   "claim": "A second, more conservative pain-monitoring rule \u2014 well validated in tendinopathy, extrapolated to spinal reloading \u2014 adds the missing 24-hour dimension: pain \u22645/10 during the activity, no significant increase afterwards, and back to baseline by the following morning. If the next-morning check fails",
+   "dose": "Pain \u22645/10 during activity; no significant post-activity increase; pain returns to baseline by the next morning. Failing the morning-after check = reduce load at the next session. Derived from an RCT in 38 patients with Achilles tendinopathy in which continued running/jumping under this model produced no negative effects.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/10.2519/jospt.2021.0304",
+   "title": "George SZ, Fritz JM, Silfies SP, et al. Interventions for the Management of Acute and Chronic Low Back Pain: Revision 2021. J Orthop Sports Phys Ther 2021;51(11):CPG1\u2013CPG60",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Adding a formal graded-activity protocol on top of general exercise has not been shown to beat general exercise alone. The 2021 JOSPT/APTA clinical practice guideline cites a trial (Bello et al) comparing a general exercise programme to the same programme delivered with graded activity, finding no d",
+   "dose": "Comparison timepoints 4 and 12 weeks; no between-group difference. No dose advantage identified for graded activity over general exercise, so progression scheme choice is individualized.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD014461.pub2/full",
+   "title": "Han CS et al. Red flags to screen for vertebral fracture in people presenting with low back pain. Cochrane Database Syst Rev 2023;CD014461",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Most individual red flags are close to useless in isolation \u2014 they are high-sensitivity screens with terrible specificity, which is why 'I have night pain, do I have cancer' is a bad question. Of 24 red flags for malignancy, only 'history of cancer' has acceptable validity: it moves the probability ",
+   "dose": "Numbers: pre-test probability of spinal malignancy in primary-care low back pain \u22480.7%; post-test with history of cancer \u224833%. 29 fracture red flags and 24 malignancy red flags identified; only 13 (25%) were evaluated in more than one study.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD009790.pub2/full",
+   "title": "Hayden JA et al. Exercise therapy for chronic low back pain. Cochrane Database Syst Rev 2021;CD009790.pub2",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Exercise therapy beats no treatment / usual care / placebo for chronic low back pain, but the effect is moderate, not miraculous \u2014 and it is larger for pain than for function. Pooled across 249 trials and 24,486 adults (mean age 44): pain mean difference \u221215.2 points on a 0\u2013100 scale (95% CI \u221218.3 t",
+   "dose": "Effect sizes on 0\u2013100 scales: pain \u221215.2 (MCID 15); function \u22126.8 (MCID 10). The review did not identify a single superior exercise dose or modality \u2014 dose is individualized because no dose-defining trial exists in this pooled dataset.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.medicalprotection.org/uk/articles/mps-works-with-nice-to-revise-cauda-equina-syndrome-red-flags",
+   "title": "MPS works with NICE to revise cauda equina syndrome red flags (Medical Protection Society)",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "STOP AND GO TO AN EMERGENCY DEPARTMENT THE SAME DAY for suspected cauda equina syndrome. The NICE Clinical Knowledge Summaries red-flag set, revised with the Medical Protection Society specifically to catch it earlier, is: (1) difficulty initiating micturition or impaired sensation of urinary flow \u2014",
+   "dose": "none \u2014 this is a symptom checklist, not a dosed intervention. Action parameter: same-day emergency presentation for urgent MRI, not a routine GP/physio appointment. Zero training until cleared.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cmaj.ca/content/184/11/E613.short",
+   "title": "Menezes Costa L da C et al. The prognosis of acute and persistent low-back pain: a meta-analysis. CMAJ 2012;184(11):E613\u201324",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Know the expected trajectory so you can tell a normal course from a deteriorating one. Two independent meta-analyses agree: acute low back pain improves steeply in the first ~6 weeks and then plateaus. Menezes Costa 2012 \u2014 mean pain 52/100 at onset, 23 at 6 weeks, 12 at 26 weeks, 6 at 52 weeks. Wall",
+   "dose": "Benchmark: expect roughly a 50%+ reduction in pain score by 6 weeks in acute non-specific low back pain. Re-evaluation trigger: no meaningful improvement by 6 weeks, or worsening at any point.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://academic.oup.com/ofid/article/11/10/ofae553/7778945",
+   "title": "Microbes Causing Spinal Epidural Infection in Patients Who Use Drugs. Open Forum Infect Dis 2024;11(10):ofae553",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "For anyone self-injecting \u2014 hormones, peptides, or anything else \u2014 spinal epidural abscess and vertebral osteomyelitis are the red flag category that applies to you specifically and that generic lifter advice ignores. Injection-associated bacteraemia seeds the spine; 39% of patients with spinal epid",
+   "dose": "none \u2014 this is an escalation rule. Threshold: new severe back pain plus fever, night sweats, unremitting/night-waking pain, or spinal percussion tenderness in anyone who has injected in the preceding weeks \u2192 same-week (or same-day if febrile/neurological) medical assessment with ESR/CRP and MRI, not physiotherapy. ESR was elevated in 100% of patients with spine pain plus another SEA risk factor in one series.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.nice.org.uk/guidance/ng59/chapter/recommendations",
+   "title": "NICE NG59 Recommendations \u2014 Low back pain and sciatica in over 16s",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Do not treat this with the drawer. NICE NG59 states: do not offer paracetamol alone for managing low back pain; do not routinely offer opioids for acute low back pain; and do not offer opioids at all for chronic low back pain. Given that this audience already has access to injectables and a high tol",
+   "dose": "Paracetamol monotherapy: not recommended at any dose for low back pain. Opioids: not routinely for acute, not at all for chronic. NG59 also emphasises avoiding unnecessary imaging and encouraging self-management.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK562933/",
+   "title": "NICE NG59 \u2014 full guideline (NCBI Bookshelf)",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Do not treat this with the drawer. NICE NG59 states: do not offer paracetamol alone for managing low back pain; do not routinely offer opioids for acute low back pain; and do not offer opioids at all for chronic low back pain. Given that this audience already has access to injectables and a high tol",
+   "dose": "Paracetamol monotherapy: not recommended at any dose for low back pain. Opioids: not routinely for acute, not at all for chronic. NG59 also emphasises avoiding unnecessary imaging and encouraging self-management.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.nice.org.uk/guidance/ng59",
+   "title": "NICE NG59: Low back pain and sciatica in over 16s \u2014 assessment and management",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "The motor deficits that count as 'severe or progressive bilateral neurological deficit' are named explicitly: major motor weakness of knee extension, ankle eversion, or foot dorsiflexion. Practically, for a lifter this means you cannot lock out a bodyweight-free knee extension, cannot evert the foot",
+   "dose": "none \u2014 clinical sign. Action parameter: same-day emergency assessment. Do not attempt to 'train around' a documented dorsiflexion or eversion weakness.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.fieldfisher.com/en/injury-claims/insights/nice-guideline-changes-to-red-flag-symptoms-for-diagnosing-cauda-equina-syndrome",
+   "title": "NICE Updates Red Flag Signs for Cauda Equina Diagnosis",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "STOP AND GO TO AN EMERGENCY DEPARTMENT THE SAME DAY for suspected cauda equina syndrome. The NICE Clinical Knowledge Summaries red-flag set, revised with the Medical Protection Society specifically to catch it earlier, is: (1) difficulty initiating micturition or impaired sensation of urinary flow \u2014",
+   "dose": "none \u2014 this is a symptom checklist, not a dosed intervention. Action parameter: same-day emergency presentation for urgent MRI, not a routine GP/physio appointment. Zero training until cleared.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/topics/medicine-and-dentistry/saddle-anesthesia",
+   "title": "Saddle Anesthesia \u2014 overview (ScienceDirect Topics, aggregating clinical texts)",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Timing is the prognostic variable, which is why the early bladder flags matter more than the late ones. Severe impairment of bladder function, bilateral saddle anaesthesia, and a pre-operative duration of more than 2 days are associated with poor neurological recovery after surgical decompression. P",
+   "dose": "Threshold parameter: >2 days of established severe bladder dysfunction before decompression predicts poor recovery. Presentation target is hours, not days.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/10.2519/jospt.2020.9218",
+   "title": "Saraceni et al. \u2014 JOSPT full record",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Do not use 'you flexed your spine' as the explanation for the flare, and do not build the reload around never flexing. A systematic review with meta-analysis found low-quality evidence that greater lumbar spine flexion during lifting was NOT a risk factor for low back pain onset or persistence, and ",
+   "dose": "none \u2014 this is a negative finding about a purported risk factor. Practical parameter: technique cueing during reload should target consistency and control (see the 'movement pattern must not change' gate above), not flexion elimination.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.merckmanuals.com/professional/neurologic-disorders/spinal-cord-disorders/spinal-epidural-abscess",
+   "title": "Spinal Epidural Abscess \u2014 Merck Manual Professional Edition",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "For anyone self-injecting \u2014 hormones, peptides, or anything else \u2014 spinal epidural abscess and vertebral osteomyelitis are the red flag category that applies to you specifically and that generic lifter advice ignores. Injection-associated bacteraemia seeds the spine; 39% of patients with spinal epid",
+   "dose": "none \u2014 this is an escalation rule. Threshold: new severe back pain plus fever, night sweats, unremitting/night-waking pain, or spinal percussion tenderness in anyone who has injected in the preceding weeks \u2192 same-week (or same-day if febrile/neurological) medical assessment with ESR/CRP and MRI, not physiotherapy. ESR was elevated in 100% of patients with spine pain plus another SEA risk factor in one series.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cmaj.ca/content/196/2/E29",
+   "title": "Wallwork SB et al. The clinical course of acute, subacute and persistent low back pain: a systematic review and meta-analysis. CMAJ 2024;196(2):E29",
+   "topic": "rehab-back",
+   "tier": "clinical",
+   "claim": "Know the expected trajectory so you can tell a normal course from a deteriorating one. Two independent meta-analyses agree: acute low back pain improves steeply in the first ~6 weeks and then plateaus. Menezes Costa 2012 \u2014 mean pain 52/100 at onset, 23 at 6 weeks, 12 at 26 weeks, 6 at 52 weeks. Wall",
+   "dose": "Benchmark: expect roughly a 50%+ reduction in pain score by 6 weeks in acute non-specific low back pain. Re-evaluation trigger: no meaningful improvement by 6 weeks, or worsening at any point.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-67361732457-1/fulltext",
+   "title": "CSAW, Lancet full text",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "Arthroscopic subacromial decompression is not better than SHAM surgery. In CSAW (n=313, 32 UK hospitals, all participants had already failed non-operative care including exercise and >=1 steroid injection), decompression and diagnostic-arthroscopy-only were statistically indistinguishable at 6 month",
+   "dose": "Surgical comparison, not a dosed intervention. Oxford Shoulder Score (0-48) at 6 months: decompression 32.7 (SD 11.6) vs arthroscopy-only 34.2 (SD 9.2), mean difference -1.3 (95% CI -3.9 to 1.3, p=0.31). vs no treatment 29.4 (SD 11.9): decompression +2.8 (0.5 to 5.2, p=0.019); arthroscopy-only +4.2 (1.8 to 6.6, p=0.0014) \u2014 neither clinically important.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/10.2519/jospt.2025.13253",
+   "title": "Effectiveness of Painful Versus Nonpainful Exercise... An Updated Systematic Review With Meta-Analysis. J Orthop Sports Phys Ther 2025;55(8):527-537",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "Pain during exercise does not have to be avoided. Protocols that permit exercising INTO pain give a small short-term advantage over strictly pain-free protocols, with no difference by 3-12 months. The practical rule most trials used: pain is allowed, and must settle to baseline within 24 hours.",
+   "dose": "Meta-analysis base (Smith 2017): 9 papers from 7 trials, 385 participants; small but significant short-term benefit for painful exercise (moderate quality evidence); no clear superiority at medium or long term. Protocols varied from pain 'allowed' to pain 'advised', with or without a numeric pain-scale cap, and recovery windows from immediate to within 24 hours. The 2025 JOSPT update (search Oct 2016-May 2024) found the effect UNCLEAR but reaffirmed that pain need not be avoided.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2024.1393235/full",
+   "title": "Effects of bench press technique variations on musculoskeletal shoulder loads and potential injury risk. Front Physiol 2024;15:1393235",
+   "topic": "rehab-shoulder",
+   "tier": "preclinical",
+   "claim": "For BENCH PRESS specifically, the modifiable variables with modelled load evidence are grip width, shoulder abduction angle and scapular position. A grip under 1.5 biacromial widths lowers acromioclavicular compression, glenohumeral posterior shear and rotator cuff activity. Wide (2 biacromial width",
+   "dose": "Modelling study: 10 experienced strength athletes performed 21 flat barbell bench variations \u2014 grip widths of 1, 1.5 and 2 biacromial widths (BAW); shoulder abduction angles 45, 70 and 90 degrees; scapula neutral, retracted, released. Prescription that fell out: grip <1.5 BAW, abduction at or below 45 degrees (tuck the elbows), scapula neutral or released rather than hard-retracted. These are modelled musculoskeletal loads, not clinical pain outcomes.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jshoulderelbow.org/article/S1058-2746(15)00483-8/abstract",
+   "title": "Empty can exercise provokes more pain and has undesirable biomechanics compared with the full can exercise. J Shoulder Elbow Surg 2015",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "Drop the EMPTY CAN (thumb-down lateral/scaption raise). It provokes more pain than the FULL CAN (thumb-up) at essentially the same supraspinatus recruitment \u2014 you are paying pain for no extra training stimulus. Substitute the full can, i.e. scapular-plane elevation with the humerus externally rotate",
+   "dose": "Substitution, not a dose. Swap empty-can raises for full-can (thumb-up) scaption; keep the loaded portion at or below 90 degrees of elevation. Sets/reps follow whatever program you are running (e.g. 3x15 per Holmgren).",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2022.825880/full",
+   "title": "Front vs Back and Barbell vs Machine Overhead Press: An Electromyographic Analysis and Implications For Resistance Training. Front Physiol 2022;13:825880",
+   "topic": "rehab-shoulder",
+   "tier": "community",
+   "claim": "BEHIND-THE-NECK pressing is the one overhead variation where the substitution case is weakest on evidence but strongest on mechanism \u2014 front pressing is the sensible default. There is no RCT in subacromial pain comparing the two; the available work is EMG and narrative, and it concludes overhead pre",
+   "dose": "Substitution, not a dose. Default to a front press (or landmine/neutral-grip press) while symptomatic; the retrieved literature gives no threshold, no rep scheme and no return-to-behind-neck criterion. Treat 'when to go back overhead' as individualised and symptom-guided, because no trial has tested it.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK572843/",
+   "title": "GRASP full text (PMC8343092) and NIHR monograph (NBK572843)",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "How much SUPERVISION you need is genuinely contested, and you should know both results. GRASP (n=708, the largest trial) found up to six supervised physiotherapy sessions no better than a SINGLE best-practice advice session over 12 months. SUPPORT (n=256) found supervised exercise clearly better tha",
+   "dose": "GRASP: progressive exercise = 6 or fewer physiotherapy sessions vs best-practice advice = 1 physiotherapy session; SPADI adjusted mean difference over 12 months -0.66 (99% CI -4.52 to 3.20); corticosteroid injection vs none -1.11 (-4.47 to 2.26). SUPPORT: physiotherapist-led exercise individualised and progressed over 6-8 sessions across 12-16 weeks, in three stages (1: scapular stability, active exercise without resistance; 2: ROM with scapular control, isometrics, stretches; 3: through-range resistance exercise); SPADI adjusted mean difference vs leaflet at 6 months -8.23 (95% CI -14.14 to -2.32). Ultrasound-guided vs unguided injection: no difference at 6 weeks, 6 or 12 months.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://cdle.colorado.gov/sites/cdle/files/Holmgren_2012.pdf",
+   "title": "Holmgren T, et al. (mirrored full text PDF, Colorado DLE)",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "The best-specified rotator-cuff/scapular program in the trial literature (Holmgren 2012, BMJ) is six exercises: two ECCENTRIC rotator cuff exercises (supraspinatus, and infraspinatus/teres minor), three concentric/eccentric scapular exercises (middle and lower trapezius, rhomboids, serratus anterior",
+   "dose": "Each strengthening exercise: 3 sets x 15 reps, TWICE DAILY, weeks 1-8; then ONCE daily, weeks 8-12. Posterior shoulder stretch: 30-60 s hold, 3 repetitions, twice daily. Load progressed with free weights or elastic bands as tolerated. Both trial arms also received one subacromial corticosteroid injection at entry, with exercise starting 2 weeks later.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(21)00846-1/fulltext",
+   "title": "Hopewell S, et al. Progressive exercise compared with best practice advice, with or without corticosteroid injection, for rotator cuff disorders (GRASP). Lancet 2021;398:416-428",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "How much SUPERVISION you need is genuinely contested, and you should know both results. GRASP (n=708, the largest trial) found up to six supervised physiotherapy sessions no better than a SINGLE best-practice advice session over 12 months. SUPPORT (n=256) found supervised exercise clearly better tha",
+   "dose": "GRASP: progressive exercise = 6 or fewer physiotherapy sessions vs best-practice advice = 1 physiotherapy session; SPADI adjusted mean difference over 12 months -0.66 (99% CI -4.52 to 3.20); corticosteroid injection vs none -1.11 (-4.47 to 2.26). SUPPORT: physiotherapist-led exercise individualised and progressed over 6-8 sessions across 12-16 weeks, in three stages (1: scapular stability, active exercise without resistance; 2: ROM with scapular control, isometrics, stretches; 3: through-range resistance exercise); SPADI adjusted mean difference vs leaflet at 6 months -8.23 (95% CI -14.14 to -2.32). Ultrasound-guided vs unguided injection: no difference at 6 weeks, 6 or 12 months.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/pii/S2095254614000106",
+   "title": "Overhead shoulder press - in front of the head or behind the head? J Sport Health Sci",
+   "topic": "rehab-shoulder",
+   "tier": "community",
+   "claim": "BEHIND-THE-NECK pressing is the one overhead variation where the substitution case is weakest on evidence but strongest on mechanism \u2014 front pressing is the sensible default. There is no RCT in subacromial pain comparing the two; the available work is EMG and narrative, and it concludes overhead pre",
+   "dose": "Substitution, not a dose. Default to a front press (or landmine/neutral-grip press) while symptomatic; the retrieved literature gives no threshold, no rep scheme and no return-to-behind-neck criterion. Treat 'when to go back overhead' as individualised and symptom-guided, because no trial has tested it.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.sagepub.com/doi/10.1177/2325967117723292",
+   "title": "RoCTEx primary results, publisher record (doi:10.1177/2325967117723292)",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "Heavy load is NOT required. In the double-blind RoCTEx trial, 12 weeks of progressive HIGH-load strength training was no better than traditional LOW-load exercise for rotator cuff tendinopathy. If heavy external rotation hurts, low-load band work is not a downgrade in expected outcome \u2014 pick the loa",
+   "dose": "Both arms: 12 weeks, 6 individually guided physiotherapist sessions plus home exercise 3x/week. DASH change: high-load 7.11 points (95% CI 3.07-11.16) vs low-load 8.39 (4.35-12.44); adjusted between-group difference -1.37 (-6.72 to 3.99), p=0.61. No difference in pain, ROM or strength. Note a significant interaction with concomitant corticosteroid (p=0.028) favouring high-load in injected patients only.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28818450/",
+   "title": "SUPPORT trial exercise intervention development and delivery, Physiotherapy 2017",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "How much SUPERVISION you need is genuinely contested, and you should know both results. GRASP (n=708, the largest trial) found up to six supervised physiotherapy sessions no better than a SINGLE best-practice advice session over 12 months. SUPPORT (n=256) found supervised exercise clearly better tha",
+   "dose": "GRASP: progressive exercise = 6 or fewer physiotherapy sessions vs best-practice advice = 1 physiotherapy session; SPADI adjusted mean difference over 12 months -0.66 (99% CI -4.52 to 3.20); corticosteroid injection vs none -1.11 (-4.47 to 2.26). SUPPORT: physiotherapist-led exercise individualised and progressed over 6-8 sessions across 12-16 weeks, in three stages (1: scapular stability, active exercise without resistance; 2: ROM with scapular control, isometrics, stretches; 3: through-range resistance exercise); SPADI adjusted mean difference vs leaflet at 6 months -8.23 (95% CI -14.14 to -2.32). Ultrasound-guided vs unguided injection: no difference at 6 weeks, 6 or 12 months.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/pii/S1058274624009467",
+   "title": "Same article, publisher full text",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "The Holmgren gains held at 10 years, and people who avoided surgery were not worse off \u2014 they had BETTER shoulder function than those who went to theatre. Deferring surgery to do the program is not a delay tactic that costs you later.",
+   "dose": "Original 12-week dose (3x15 twice daily then once daily); 10-year outcome, no maintenance dose specified in the retrieved record. 83/97 (86%) followed up; primary outcome Constant-Murley at 10 years.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s00167-012-2012-8",
+   "title": "Same article, publisher record (doi:10.1007/s00167-012-2012-8)",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "Adding heavy ECCENTRIC cuff loading on top of a standard program buys measurable strength but not less pain. Expect ~15% more isometric abduction strength at 90 degrees scaption \u2014 and no additional improvement in pain or function.",
+   "dose": "Both arms: 9 physiotherapy treatments over 12 weeks (n=61; traditional training n=30 vs traditional + heavy-load eccentric n=31). Outcome at 6 and 12 weeks. Result: 15% higher gain in isometric abduction strength at 90 degrees of scapular abduction in the eccentric group; no superiority for pain or shoulder function. The retrieved record does not state the eccentric sets/reps \u2014 treat that parameter as unverified here.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41718641/",
+   "title": "Same guideline, Part 2: Operative considerations. Acta Orthop (PMC12908219; PMID 41718641)",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "Guideline position, current as of the 2025 Dutch Orthopaedic Association update: treat subacromial pain non-operatively, with a STRONG recommendation AGAINST subacromial decompression. A corticosteroid injection is positioned as an enabler of exercise, not a substitute for it, in people too painful ",
+   "dose": "Guideline timeline: for isolated symptomatic non-traumatic supraspinatus tears, start exercise-based therapy (with corticosteroid injection where pain blocks participation) and consider cuff repair only if no improvement after 3-6 months. Suprascapular nerve block is an option for therapy-resistant cases. No sets/reps are specified at guideline level \u2014 dosing is delegated to the trial protocols above.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S1440244008001916",
+   "title": "The 'empty can' and 'full can' tests do not selectively activate supraspinatus. J Sci Med Sport",
+   "topic": "rehab-shoulder",
+   "tier": "clinical",
+   "claim": "Drop the EMPTY CAN (thumb-down lateral/scaption raise). It provokes more pain than the FULL CAN (thumb-up) at essentially the same supraspinatus recruitment \u2014 you are paying pain for no extra training stimulus. Substitute the full can, i.e. scapular-plane elevation with the humerus externally rotate",
+   "dose": "Substitution, not a dose. Swap empty-can raises for full-can (thumb-up) scaption; keep the loaded portion at or below 90 degrees of elevation. Sets/reps follow whatever program you are running (e.g. 3x15 per Holmgren).",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jsams.org/article/S1440-2440(22)00265-1/fulltext",
+   "title": "The effect of bench press technique variations in grip width, shoulder abduction angle and scapula pose on musculoskeletal shoulder loads and injury risk. J Sci Med Sport 2022",
+   "topic": "rehab-shoulder",
+   "tier": "preclinical",
+   "claim": "For BENCH PRESS specifically, the modifiable variables with modelled load evidence are grip width, shoulder abduction angle and scapular position. A grip under 1.5 biacromial widths lowers acromioclavicular compression, glenohumeral posterior shear and rotator cuff activity. Wide (2 biacromial width",
+   "dose": "Modelling study: 10 experienced strength athletes performed 21 flat barbell bench variations \u2014 grip widths of 1, 1.5 and 2 biacromial widths (BAW); shoulder abduction angles 45, 70 and 90 degrees; scapula neutral, retracted, released. Prescription that fell out: grip <1.5 BAW, abduction at or below 45 degrees (tuck the elbows), scapula neutral or released rather than hard-retracted. These are modelled musculoskeletal loads, not clinical pain outcomes.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://vbn.aau.dk/en/publications/isometric-exercise-and-pain-in-patellar-tendinopathy-a-randomized/",
+   "title": "Aalborg University research portal record for Holden et al. 2020 crossover trial",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "Isometric analgesia has failed to replicate. A pre-registered randomised crossover trial (Holden et al., J Sci Med Sport 2020, n=21, 7-day washout) found only a 0.9/10 mean reduction on the numeric rating scale immediately after high-load isometric exercise, the effect was NOT sustained at 45 min, a",
+   "dose": "Single session, high-load isometric vs dynamic resistance, 7-day washout; outcomes pre, immediately post, 45 min post; n=21",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jshoulderelbow.org/article/S1058-2746(10)00187-4/abstract",
+   "title": "Addition of isolated wrist extensor eccentric exercise to standard treatment for chronic lateral epicondylosis (J Shoulder Elbow Surg record)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "Adding an isolated eccentric wrist extensor exercise (rubber bar / FlexBar) to standard physiotherapy markedly improved all outcomes in chronic lateral epicondylosis in a prospective randomised trial (n=21; eccentric n=11 vs standard n=10), measured by DASH, VAS, tenderness and wrist/middle-finger e",
+   "dose": "The trial's exercise is eccentric wrist extension performed with a rubber bar, added to standard PT. The widely quoted dose is 3 sets of 15 repetitions once daily, but the abstract retrieved here did not state sets/reps/frequency \u2014 treat the 3x15 daily figure as unverified until the full text is checked.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.sagepub.com/doi/abs/10.1177/0363546515584760",
+   "title": "Beyer et al., Am J Sports Med 2015 (DOI 10.1177/0363546515584760)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The 6-second tempo is externally reproduced in a different tendon: the Achilles HSR trial (Beyer et al., Am J Sports Med 2015, n=58 with >3 months midportion Achilles tendinopathy) also used 3 s concentric and 3 s eccentric, 3 times per week for 12 weeks (seated calf raise, leg-press calf raise, sta",
+   "dose": "3 s concentric + 3 s eccentric, 3 exercises, 3x/week, 12 weeks (Achilles, not patellar)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ovid.com/jnls/cjsportsmed/fulltext/10.1097/jsm.0000000000000364~isometric-contractions-are-more-analgesic-than-isotonic",
+   "title": "Clinical Journal of Sport Medicine full text record (DOI 10.1097/jsm.0000000000000364)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The 4-week in-season RCT from the same group (Rio et al., Clin J Sport Med 2017) used a different intensity: isometric leg-extension holds at 60 degrees knee flexion at 80% MVIC, versus isotonic leg extension at 80% of 8RM, performed 4 times per week for 4 weeks in 20 jumping athletes (baseline medi",
+   "dose": "Isometric: 80% MVIC at 60 deg knee flexion, 4x/week, 4 weeks. Isotonic comparator: 80% of 8RM leg extension, 4x/week, 4 weeks. n=20 (10 per arm)",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.mdpi.com/2076-3417/12/21/11138",
+   "title": "Comparison of Electromyographic Activity during Barbell Pullover and Straight Arm Pulldown Exercises (Appl Sci 2022;12(21):11138)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "Elbow flexors are loaded LEAST by movements that hold the elbow extended throughout \u2014 the straight-arm pulldown and barbell pullover, where the elbow flexors are not the prime movers and the triceps (~19% MVIC) work to maintain elbow extension while latissimus dorsi (~18% MVIC) performs shoulder ext",
+   "dose": "Straight-arm pulldown / barbell pullover: triceps brachii ~19% MVIC, latissimus dorsi ~18% MVIC, elbow held extended so elbow-flexor demand is minimal. Use as the low-elbow-flexor-load pulling substitute.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.sagepub.com/doi/abs/10.1177/0363546506298279",
+   "title": "Continued Sports Activity, Using a Pain-Monitoring Model, during Rehabilitation in Patients with Achilles Tendinopathy: A Randomized Controlled Study (Silbernagel et al., Am J Sports Med 2007)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The numeric pain-monitoring rule: pain during and immediately after loading may reach but should not exceed 5/10 on a 0-10 scale, it must have returned to baseline by the following morning, and pain/stiffness must not increase from week to week. This is the Silbernagel pain-monitoring model, validat",
+   "dose": "Acceptable pain during a set: <=5/10. Acceptable 24-hour response: back to baseline by next morning. Trend rule: weekly pain and morning stiffness must not be rising. Exceed any of the three and the load was too high.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://onlinelibrary.wiley.com/doi/full/10.1111/j.1600-0838.2009.00949.x",
+   "title": "Corticosteroid injections, eccentric decline squat training and heavy slow resistance training in patellar tendinopathy (Kongsgaard et al., Scand J Med Sci Sports 2009)",
+   "topic": "rehab-tendon",
+   "tier": "off-label",
+   "claim": "The heavy slow resistance loading parameters themselves come from the lower-limb trials and are what you should transfer to the elbow in the absence of elbow-specific dosing: 6-second repetitions (3 s concentric, 3 s eccentric), 3-4 sets, three sessions per week separated by at least 48 hours, over ",
+   "dose": "3-4 sets; 15RM > 12RM > 10RM > 8RM > 6RM across 12 weeks; 3 s concentric + 3 s eccentric (6 s/rep); 3x/week with >=48 h between sessions. Applied to the elbow this is extrapolation from patellar and Achilles trials.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S0363502307004364",
+   "title": "Effect of Elbow Position on Grip Strength in the Evaluation of Lateral Epicondylitis (J Hand Surg Am)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "For the common extensor tendon specifically, the provocative variable is gripping with the elbow extended, not the pulling pattern per se. Pain at the lateral epicondyle during power grip occurs because extensor carpi radialis longus and brevis must counteract the wrist flexion moment generated by t",
+   "dose": "Diagnostic/monitoring metric: measure pain-free grip strength with elbow extended and elbow flexed. >=8% flexed-versus-extended difference flags the affected side (83% accurate). Programming implication: deadlifts, heavy holds, dead hangs and any straight-arm loaded grip are the highest-provocation pulls for the common extensor; bent-elbow rows with straps are lower.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.sagepub.com/doi/abs/10.1177/03635465221110214",
+   "title": "Effects of Heavy Slow Resistance Training Combined With Corticosteroid Injections or Tendon Needling in Patients With Lateral Elbow Tendinopathy (SAGE/AJSM record, doi 10.1177/03635465221110214)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The only elbow-specific heavy slow resistance trial ran 12 weeks of home-based HSR with elastic band, three sessions per week, using three exercises: wrist extension, wrist flexion, and supination/pronation, with a single physiotherapist check-in at week 4. Sixty patients with chronic unilateral lat",
+   "dose": "3 exercises (wrist extension, wrist flexion, supination/pronation) x 3 sessions/week x 12 weeks, elastic band, home-based, one supervised progression check at week 4. Exact set/rep/RM progression and tempo were not retrievable from the abstract in this environment.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S1050641116302978",
+   "title": "Electromyographic analysis of muscle activation during pull-up variations (Dickie et al., J Electromyogr Kinesiol 2017)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "Among pulling movements, elbow flexors are loaded MOST by supinated and narrow-neutral grips. A supinated grip (chin-up) produces significantly greater biceps brachii activation than a pronated grip (pull-up); across pull-up variations the narrow neutral grip showed the highest biceps brachii activa",
+   "dose": "Rank for distal biceps load, highest to lowest: narrow neutral-grip pull-up ~ chin-up (supinated) > pronated pull-up/wide-grip pulldown. Biceps brachii 78-96% MVIC during pull-up/chin-up. Data are from healthy trained lifters, not tendinopathy patients.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://embodiaapp.com/blog/488-heavy-slow-resistance-training-for-tendinopathy-achilles-patellar-elbow",
+   "title": "Heavy Slow Resistance Training for Tendinopathy: Achilles, Patellar & Elbow (protocol summary)",
+   "topic": "rehab-tendon",
+   "tier": "off-label",
+   "claim": "The heavy slow resistance loading parameters themselves come from the lower-limb trials and are what you should transfer to the elbow in the absence of elbow-specific dosing: 6-second repetitions (3 s concentric, 3 s eccentric), 3-4 sets, three sessions per week separated by at least 48 hours, over ",
+   "dose": "3-4 sets; 15RM > 12RM > 10RM > 8RM > 6RM across 12 weeks; 3 s concentric + 3 s eccentric (6 s/rep); 3x/week with >=48 h between sessions. Applied to the elbow this is extrapolation from patellar and Achilles trials.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.cell.com/heliyon/fulltext/S2405-8440(24)15202-4",
+   "title": "Heliyon full text (S2405-8440(24)15202-4)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "On comparative ranking, a 2024 systematic review and network meta-analysis of 7 trials using VISA-P found eccentric training alone ranked WORST for improving VISA-P, and concluded HSR is better suited for long-term knee function while progressive tendon-loading combined with isometric or moderate sl",
+   "dose": "Network meta-analysis of 7 RCTs; VISA-P as the outcome; no dose recommendation derived",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jsams.org/article/S1440-2440(19)30855-2/abstract",
+   "title": "Holden S, Lyng K, Graven-Nielsen T, Riel H, Olesen JL, Larsen LH, Rathleff MS. Isometric exercise and pain in patellar tendinopathy: A randomized crossover trial. J Sci Med Sport 2020;23:208-214",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "Isometric analgesia has failed to replicate. A pre-registered randomised crossover trial (Holden et al., J Sci Med Sport 2020, n=21, 7-day washout) found only a 0.9/10 mean reduction on the numeric rating scale immediately after high-load isometric exercise, the effect was NOT sustained at 45 min, a",
+   "dose": "Single session, high-load isometric vs dynamic resistance, 7-day washout; outcomes pre, immediately post, 45 min post; n=21",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.ovid.com/jnls/nsca-jscr/fulltext/10.1519/jsc.0000000000002954~impact-of-fat-grip-attachments-on-muscular-strength-and",
+   "title": "Impact of Fat Grip Attachments on Muscular Strength and Neuromuscular Activation During Resistance Exercise (J Strength Cond Res, doi 10.1519/JSC.0000000000002954)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "Grip aids do change recruitment, but modestly and in opposite directions. Lifting straps de-loaded forearm musculature by 16.0% during the first pull of the snatch, with biceps brachii showing the greatest de-load (-8.0%) and flexor carpi radialis -1.1%, while latissimus dorsi activation rose 17.2% ",
+   "dose": "Straps: forearm musculature -16.0% (first pull, snatch), biceps brachii -8.0%, FCR -1.1%, latissimus dorsi +17.2%. Fat/thick grips: significant increases in forearm flexor and biceps brachii activity (p<0.01), with reduced maximal repetitions. Practical rule: use straps on heavy holds/pulls during a symptomatic phase; do not use fat grips.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.fitasaphysio.com/uploads/4/3/3/4/43345381/br_j_sports_med-2015-rio-1277-83.pdf",
+   "title": "Isometric exercise induces analgesia and reduces inhibition in patellar tendinopathy (Rio et al., Br J Sports Med 2015;49:1277-83)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The isometric protocol that produced immediate analgesia in tendinopathy is 5 sets x 45-second holds at 70-80% of maximal voluntary isometric contraction with ~2 minutes rest between holds. In Rio et al. (patellar tendinopathy, athletes), this reduced pain immediately and the effect was still presen",
+   "dose": "5 sets x 45 s hold, 70-80% MVIC, ~120 s rest between sets; single bout produces analgesia lasting ~45 min. Typically repeated 1-2x/day during the irritable phase.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://researchprofiles.canberra.edu.au/en/publications/isometric-exercise-induces-analgesia-and-reduces-inhibition-in-pa/",
+   "title": "Isometric exercise induces analgesia and reduces inhibition in patellar tendinopathy \u2014 University of Canberra Research Portal record",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The isometric protocol that produced immediate analgesia in tendinopathy is 5 sets x 45-second holds at 70-80% of maximal voluntary isometric contraction with ~2 minutes rest between holds. In Rio et al. (patellar tendinopathy, athletes), this reduced pain immediately and the effect was still presen",
+   "dose": "5 sets x 45 s hold, 70-80% MVIC, ~120 s rest between sets; single bout produces analgesia lasting ~45 min. Typically repeated 1-2x/day during the irritable phase.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/10.2519/jospt.2022.0302",
+   "title": "Lateral Elbow Pain and Muscle Function Impairments: Clinical Practice Guidelines (Lucado et al., J Orthop Sports Phys Ther 2022;52(12))",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The JOSPT clinical practice guideline for lateral elbow pain recommends that clinicians advance progressive resistance exercise (grade B evidence), including upper-extremity kinetic-chain work (grade C), as symptoms allow once symptoms are less irritable, until function is restored. The guideline do",
+   "dose": "prescriber-led: the guideline sets the sequencing rule (irritability first, then progressive resistance, then kinetic chain) rather than fixed numbers, because the trials underpinning grade B used heterogeneous doses.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.physio-pedia.com/Lateral_Epicondyle_Tendinopathy_Toolkit:_Section_E_-_Exercise_Prescription",
+   "title": "Lateral Epicondyle Tendinopathy Toolkit: Section E - Exercise Prescription",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "A commonly used clinical progression schedule for the common extensor tendon, from guideline-level physiotherapy resources: weeks 0-2, 12-15 repetitions twice daily; weeks 2-6, 3 sets of 8-12 repetitions once daily; from week 6, 3 sets of 6-8 repetitions every other day with load progressed. This is",
+   "dose": "Weeks 0-2: 12-15 reps, 2x/day. Weeks 2-6: 3 x 8-12 reps, 1x/day. Week 6+: 3 x 6-8 reps, every other day, load progressed.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39559237/",
+   "title": "Li Y, Sun D, Fang Y, Lu Z, Shi F, Liu G, Gu Y. Mixed comparison of intervention with eccentric, isometric, and heavy slow resistance for VISA-P in adults with patellar tendinopathy: A systematic review and network meta-a",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "On comparative ranking, a 2024 systematic review and network meta-analysis of 7 trials using VISA-P found eccentric training alone ranked WORST for improving VISA-P, and concluded HSR is better suited for long-term knee function while progressive tendon-loading combined with isometric or moderate sl",
+   "dose": "Network meta-analysis of 7 RCTs; VISA-P as the outcome; no dose recommendation derived",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/abs/10.2519/jospt.2022.11211",
+   "title": "Low-Load Resistance Training With Blood Flow Restriction Is Effective for Managing Lateral Elbow Tendinopathy: A Randomized, Sham-Controlled Trial (J Orthop Sports Phys Ther 2022, doi 10.2519/jospt.2022.11211)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "If heavy load cannot be tolerated, low-load resistance training with blood flow restriction is an elbow-specific studied alternative: a randomised sham-controlled trial in lateral elbow tendinopathy delivered supervised exercise with BFR or sham BFR twice a week for 6 weeks (46 patients per group) a",
+   "dose": "Supervised low-load resistance exercise 2x/week for 6 weeks plus a home programme; outcomes at 6 and 12 weeks. Occlusion pressure, sets and reps were not retrievable from the abstract in this environment; a related wrist-extensor BFR study used a 30-15-15-15 repetition scheme.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://link.springer.com/article/10.1007/s40279-022-01641-y",
+   "title": "Morrison S, Cook J. Putting 'Heavy' into Heavy Slow Resistance. Sports Med 2022;52:1219-1222 (DOI 10.1007/s40279-022-01641-y)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "A peer-reviewed commentary (Morrison & Cook, Sports Medicine 2022) argues that published HSR protocols do not actually control the loading parameters they claim to: rate of loading, intensity as a percentage of maximum, time under tension, rest between sets, joint position and volume-load all intera",
+   "dose": "none \u2014 commentary; recommends explicit logging of rate of loading, intensity, time under tension, rest, joint angle and volume-load",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jospt.org/doi/10.2519/jospt.2015.5987",
+   "title": "Patellar Tendinopathy: Clinical Diagnosis, Load Management, and Advice for Challenging Case Presentations (Malliaras, Cook, Purdam, Rio; J Orthop Sports Phys Ther 2015)",
+   "topic": "rehab-tendon",
+   "tier": "community",
+   "claim": "Operationalised as a progress/hold/regress rule: PROGRESS the load next session if next-morning pain and stiffness are the same or better than baseline; HOLD the current load if pain rose during the session but settled within 24 hours; REGRESS (drop one RM step, or fall back to sub-pain-threshold is",
+   "dose": "Progress: next-morning pain <= baseline. Hold: pain rose but settled <24 h. Regress: >5/10 during set, OR >24 h to settle, OR rising week-on-week morning stiffness. Regression step = one RM level (e.g. 8RM back to 10RM) or back to isometrics.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.racgp.org.au/FSDEDEV/media/documents/Clinical%20Resources/HANDI/Physiotherapy-lateral-epicondylitis.pdf",
+   "title": "RACGP HANDI \u2014 Physiotherapy: lateral epicondylitis",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "A commonly used clinical progression schedule for the common extensor tendon, from guideline-level physiotherapy resources: weeks 0-2, 12-15 repetitions twice daily; weeks 2-6, 3 sets of 8-12 repetitions once daily; from week 6, 3 sets of 6-8 repetitions every other day with load progressed. This is",
+   "dose": "Weeks 0-2: 12-15 reps, 2x/day. Weeks 2-6: 3 x 8-12 reps, 1x/day. Week 6+: 3 x 6-8 reps, every other day, load progressed.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/S1440244015002315",
+   "title": "ScienceDirect record, J Sci Med Sport 2016;19(9):702-706 (S1440244015002315)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The other in-season RCT (van Ark et al., J Sci Med Sport 2016, n=29 jumping athletes, isometric vs isotonic 4 days/week for 4 weeks) found significant within-group improvement in pain and VISA-P for BOTH programs but NO significant between-group difference in NRS pain change or VISA-P change. This i",
+   "dose": "Isometric or isotonic program, 4 days/week, 4 weeks, n=29, athletes continuing training and competition unmodified",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://github.com/jacquescorbytuech/running-knowledge-base/blob/main/sources/silbernagel-2007-pain-monitoring.md",
+   "title": "Silbernagel 2007 pain-monitoring model \u2014 summary record",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The numeric pain-monitoring rule: pain during and immediately after loading may reach but should not exceed 5/10 on a 0-10 scale, it must have returned to baseline by the following morning, and pain/stiffness must not increase from week to week. This is the Silbernagel pain-monitoring model, validat",
+   "dose": "Acceptable pain during a set: <=5/10. Acceptable 24-hour response: back to baseline by next morning. Trend rule: weekly pain and morning stiffness must not be rising. Exceed any of the three and the load was too high.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://journals.lww.com/nsca-jscr/fulltext/2010/12000/surface_electromyographic_activation_patterns_and.27.aspx",
+   "title": "Surface Electromyographic Activation Patterns and Elbow Joint Motion During a Pull-Up, Chin-Up, or Perfect-Pullup Rotational Exercise (Youdas et al., J Strength Cond Res 2010;24(12):3404-14)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "Among pulling movements, elbow flexors are loaded MOST by supinated and narrow-neutral grips. A supinated grip (chin-up) produces significantly greater biceps brachii activation than a pronated grip (pull-up); across pull-up variations the narrow neutral grip showed the highest biceps brachii activa",
+   "dose": "Rank for distal biceps load, highest to lowest: narrow neutral-grip pull-up ~ chin-up (supinated) > pronated pull-up/wide-grip pulldown. Biceps brachii 78-96% MVIC during pull-up/chin-up. Data are from healthy trained lifters, not tendinopathy patients.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://doi.org/10.1177/17479541241296023",
+   "title": "The use of lifting straps during snatch alters muscle activation patterns (Lemus et al., Int J Sports Sci Coach 2025, doi 10.1177/17479541241296023)",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "Grip aids do change recruitment, but modestly and in opposite directions. Lifting straps de-loaded forearm musculature by 16.0% during the first pull of the snatch, with biceps brachii showing the greatest de-load (-8.0%) and flexor carpi radialis -1.1%, while latissimus dorsi activation rose 17.2% ",
+   "dose": "Straps: forearm musculature -16.0% (first pull, snatch), biceps brachii -8.0%, FCR -1.1%, latissimus dorsi +17.2%. Fat/thick grips: significant increases in forearm flexor and biceps brachii activity (p<0.01), with reduced maximal repetitions. Practical rule: use straps on heavy holds/pulls during a symptomatic phase; do not use fat grips.",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  },
+  {
+   "url": "https://www.jsams.org/article/S1440-2440(15)00231-5/fulltext",
+   "title": "van Ark M, et al. Do isometric and isotonic exercise programs reduce pain in athletes with patellar tendinopathy in-season? A randomised clinical trial. J Sci Med Sport 2016;19(9):702-706",
+   "topic": "rehab-tendon",
+   "tier": "clinical",
+   "claim": "The other in-season RCT (van Ark et al., J Sci Med Sport 2016, n=29 jumping athletes, isometric vs isotonic 4 days/week for 4 weeks) found significant within-group improvement in pain and VISA-P for BOTH programs but NO significant between-group difference in NRS pain change or VISA-P change. This i",
+   "dose": "Isometric or isotonic program, 4 days/week, 4 weeks, n=29, athletes continuing training and competition unmodified",
+   "verification": "pending \u2014 search budget exhausted; existence not independently confirmed"
+  }
+ ]
+}

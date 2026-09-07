@@ -495,7 +495,7 @@ function build(ctx, api) {
         `why a fixed ratio cannot match either compound alone. Free, no account.`,
       trail: api.toolsTrail([{ name: b.title, url, absolute: api.SITE + url }]),
       body,
-      script: ctx.W.prologue({ attribution }) + '\n\n' + widget.fns + '\n\n' +
+      script: ctx.W.prologue({ attribution, gate: true }) + '\n\n' + widget.fns + '\n\n' +
               `document.addEventListener('DOMContentLoaded', function () {\n  ${widget.init}\n});`
     }));
   }

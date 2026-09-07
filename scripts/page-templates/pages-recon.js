@@ -264,7 +264,7 @@ function build(ctx, api) {
       /* Pre-filled with the worked example from the copy above, so the result
          block is populated on arrival rather than after the visitor guesses
          what to type. */
-      script: W.prologue({ attribution }) + '\n\n' + widget.fns + '\n\n' +
+      script: W.prologue({ attribution, gate: true }) + '\n\n' + widget.fns + '\n\n' +
               `document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('uc-vial').value = 5;
   document.getElementById('uc-water').value = 2;
@@ -365,7 +365,7 @@ function build(ctx, api) {
         { name: c.display + ' reconstitution', url, absolute: api.SITE + url }
       ]),
       body,
-      script: W.prologue({ attribution }) + '\n\n' + widget.fns + '\n\n' +
+      script: W.prologue({ attribution, gate: true }) + '\n\n' + widget.fns + '\n\n' +
         `document.addEventListener('DOMContentLoaded', function () {\n` +
         `  document.getElementById('uc-vial').value = ${c.vialMg};\n` +
         `  document.getElementById('uc-water').value = ${c.bacMl};\n` +
