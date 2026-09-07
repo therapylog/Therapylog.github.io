@@ -89,9 +89,13 @@ with Yandex, Naver and Seznam. Google takes no part in IndexNow.
 1. `bing.com/webmasters` — sign in with the Google account, no Microsoft account needed.
 2. **Import from Google Search Console** → authorize → pick `therapylog.app`. Carries the
    verification and the sitemap across. This is why Part 1 goes first.
-   - Manual fallback: verify by XML file. Put `BingSiteAuth.xml` at the repo root **and add
-     `- BingSiteAuth.xml` under `include:` in `_config.yml`** — Jekyll skips it otherwise
-     and the file 404s.
+   - Manual fallback: verify by XML file. Download `BingSiteAuth.xml` from Bing, drop it at
+     the repo root, commit, and wait for the Pages build. **No `_config.yml` change is
+     needed** — an earlier version of this doc claimed you had to add it under `include:`,
+     which was wrong. Jekyll's `include:` is only for files it would otherwise skip
+     (dotfiles and `_`-prefixed files); `sitemap.xml`, `llms.txt` and `manifest.webmanifest`
+     are all live and none of them are listed there. A third option, if you would rather not
+     deploy a file at all, is Bing's CNAME method — one DNS record in the Squarespace panel.
 3. Sitemaps → confirm `https://therapylog.app/sitemap.xml` is listed.
 4. Settings → IndexNow. The key is `615f8693ff6f4e55a3985a0ae070b7a3` — the one Bing
    generated for you, now the one this repo hosts.
