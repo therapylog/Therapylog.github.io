@@ -1609,7 +1609,7 @@ const mine = new Set((d[k]||[]).map(x => x && x.ts));
 const extra = stored[k].filter(x => x && x.ts && !mine.has(x.ts));
 if (extra.length) d[k] = [...(d[k]||[]), ...extra];
 });
-if (Array.isArray(d.entries)) d.entries.sort((a,b) => new Date(b.ts)-new Date(a.ts));
+['entries','photos','bodyComp','femcycle'].forEach(k => { if (Array.isArray(d[k])) d[k].sort((a,b) => new Date(b.ts)-new Date(a.ts)); });
 }
 }
 } catch(e) {}
@@ -1619,7 +1619,13 @@ try { localStorage.setItem(DB_KEY, JSON.stringify(d)); } catch(e) {}
 sdAsync(d);
 }
 window.addEventListener('storage', (ev) => {
-if (ev.key !== DB_KEY || !ev.newValue) return;
+if (ev.key !== DB_KEY) return;
+if (!ev.newValue) {
+/* data was reset in another tab — drop this tab's cache instead of resurrecting it */
+_memCache = null;
+try { location.reload(); } catch(e) {}
+return;
+}
 try {
 _memCache = JSON.parse(ev.newValue);
 if (!window._tlTabToastShown && typeof toast === 'function') { window._tlTabToastShown = true; toast('Synced changes from another open tab'); }
@@ -1670,7 +1676,10 @@ function toast(m) { const t=document.getElementById("toast"); t.textContent=m; t
 function updateDate() { const d=new Date(); document.getElementById("hdate").innerHTML=d.toLocaleDateString("en-US",{weekday:"short"}).toUpperCase()+"<br>"+d.toLocaleDateString("en-US",{month:"short",day:"numeric"}); }
 function showLogTab(btn, tab) {
 /* Gate before anything is shown or hidden, so a declined upgrade leaves the
-   user on the tab they were already looking at rather than a blank panel. */
+   user on the tab they were already looking at rather than a blank panel.
+   Written as two literal check() calls on purpose: validate-compliance.js
+   proves every paid feature is gated by finding its call site, and it cannot
+   see a feature name built from a ternary. */
 if (tab === 'bp' && window.TLTier && !TLTier.check('blood_pressure')) return;
 if (tab === 'symp' && window.TLTier && !TLTier.check('symptoms')) return;
 if (tab === 'labs') { const slot = document.getElementById('lt-labs-slot'), lt = document.getElementById('lt-labs'); if (slot && lt && lt.previousElementSibling !== slot) slot.after(lt); }
@@ -3564,6 +3573,7 @@ if ('serviceWorker' in navigator &&
     !(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform())) {
   navigator.serviceWorker.register('/sw.js').catch(()=>{});
 }
+if (!window.Capacitor && 'serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(()=>{}); }
 function isIOSBrowserTab() {
 return /iP(hone|ad|od)/.test(navigator.userAgent) && !window.matchMedia('(display-mode: standalone)').matches && !navigator.standalone;
 }
@@ -3578,6 +3588,38 @@ function checkNotifSupport() {
 const permCard = document.getElementById('notif-permission-card');
 const enabledCard = document.getElementById('notif-enabled-card');
 if (!permCard || !enabledCard) return;
+if (window.TLNative && TLNative.active()) {
+TLNative.permission().then(perm => {
+if (perm === 'granted') {
+permCard.style.display = 'none';
+enabledCard.style.display = '';
+let hn = document.getElementById('notif-honesty-note');
+if (!hn) {
+hn = document.createElement('div');
+hn.id = 'notif-honesty-note';
+hn.style.cssText = 'font-size:11.5px;color:var(--text2);line-height:1.6;margin-top:8px';
+hn.innerHTML = 'Reminders are delivered by your phone even when TherapyLog is closed. The next 30 days of doses are scheduled and refresh automatically every time you open the app.';
+enabledCard.appendChild(hn);
+}
+TLNative.reschedule();
+} else if (perm === 'denied') {
+permCard.style.display = 'none';
+enabledCard.style.display = 'none';
+let dn = document.getElementById('notif-denied-note');
+if (!dn && permCard.parentElement) {
+dn = document.createElement('div');
+dn.id = 'notif-denied-note';
+dn.className = 'card';
+dn.innerHTML = '<div style="font-size:12.5px;color:var(--text2);line-height:1.6">\u{1F515} Notifications are turned off for TherapyLog in your phone\'s Settings, so dose reminders can\'t fire. Enable them under Settings \u2192 Notifications \u2192 TherapyLog, or use <b>Export to Calendar</b> below.</div>';
+permCard.parentElement.insertBefore(dn, permCard);
+}
+} else {
+permCard.style.display = '';
+enabledCard.style.display = 'none';
+}
+}).catch(() => {});
+return;
+}
 if (!('Notification' in window)) {
 if (isIOSBrowserTab()) {
 permCard.style.display = '';
@@ -3590,6 +3632,14 @@ if (Notification.permission === 'granted') {
 permCard.style.display = 'none';
 enabledCard.style.display = '';
 const dc = document.getElementById('notif-discreet'); if (dc) dc.checked = discreetReminders();
+let hn = document.getElementById('notif-honesty-note');
+if (!hn && enabledCard) {
+hn = document.createElement('div');
+hn.id = 'notif-honesty-note';
+hn.style.cssText = 'font-size:11.5px;color:var(--text2);line-height:1.6;margin-top:8px';
+hn.innerHTML = 'Heads up: these reminders fire while TherapyLog is open in your browser. For reminders that always fire — even with the app closed — use <b>Export to Calendar</b> below; your phone\'s calendar takes it from there.';
+enabledCard.appendChild(hn);
+}
 } else if (Notification.permission === 'denied') {
 permCard.style.display = 'none';
 enabledCard.style.display = 'none';
@@ -3607,6 +3657,14 @@ enabledCard.style.display = 'none';
 }
 }
 function requestNotifPermission() {
+if (window.TLNative && TLNative.active()) {
+TLNative.request().then(perm => {
+checkNotifSupport();
+if (perm === 'granted') { toast('Reminders enabled!'); TLNative.reschedule(); }
+else { toast('Notification permission denied'); }
+}).catch(() => {});
+return;
+}
 if (!('Notification' in window)) { toast(isIOSBrowserTab() ? 'On iPhone: Share → Add to Home Screen first, then enable reminders from the installed app' : 'Notifications not supported in this browser'); return; }
 Notification.requestPermission().then(perm => {
 checkNotifSupport();
@@ -3626,6 +3684,7 @@ try { localStorage.setItem('tl_notif_discreet', on ? '1' : '0'); } catch(e){}
 toast(on ? 'Reminders will not name the compound' : 'Reminders will name the compound and dose');
 }
 function scheduleAllReminders() {
+if (window.TLNative && TLNative.active()) { TLNative.reschedule(); return; }
 const d = gd();
 if (!d.proto || !d.proto.meds) return;
 const meds = parseMeds(d.proto.meds);
@@ -3768,7 +3827,7 @@ const [hh, mm] = time.split(':').map(Number);
 const start = new Date(); start.setHours(hh, mm, 0, 0);
 const _gOff = getDoseDays(med, (gd().proto || {}).start, 31);
 if (_gOff.length && _gOff[0] > 0) start.setDate(start.getDate() + _gOff[0]);
-else if (start < new Date()) start.setDate(start.getDate() + ((_gOff.length > 1 && med.freq && med.freq.type !== 'daily') ? _gOff[1] : 1));
+else if (start < new Date()) start.setDate(start.getDate() + ((med.freq && med.freq.type === 'daily') ? 1 : (_gOff.length > 1 ? _gOff[1] : 0)));
 const end = new Date(start.getTime() + 15*60*1000);
 const pad = n => String(n).padStart(2,'0');
 const f = dt => `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
@@ -3947,7 +4006,7 @@ if (startD && dd < startD) continue;
 const f = med.freq; let is = false;
 if (f.type === 'daily') is = true;
 else if (f.type === 'interval') { const ds = startD ? Math.round((dd - startD)/864e5) : (29 + i); is = ds >= 0 && ds % f.interval === 0; }
-else if (f.type === 'weekly') is = f.days && f.days.includes(dd.getDay());
+else if (f.type === 'weekly') { const wd = tlFreqDays(f, d.proto.start) || f.days || []; is = wd.includes(dd.getDay()); }
 else if (f.type === 'monthly') is = dd.getDate() === ((startD ? startD.getDate() : 1) || 1);
 if (is) cnt++;
 }
@@ -4107,7 +4166,7 @@ function getAllCustomMarkers() { return (gd().customMarkers || {}); }
 function customMarkerKey(name) { return CUSTOM_KEY_PREFIX + _norm(name).slice(0, 40); }
 
 /** Writes one definition into `d` without saving — the caller saves once. */
-function _defineCustomMarker(d, name, unit, lo, hi) {
+function _defineCustomMarker(d, name, unit, lo, hi, explicit) {
 const label = String(name || '').trim();
 if (!label) return null;
 /* if TherapyLog already tracks it, that field wins: it has units and a range */
@@ -4118,11 +4177,17 @@ if (key === CUSTOM_KEY_PREFIX) return null;
 d.customMarkers = d.customMarkers || {};
 const prev = d.customMarkers[key] || {};
 const num = v => (_isNum(parseFloat(v)) ? parseFloat(v) : null);
+const unitNew = String(unit || '').trim();
+const unitPrev = String(prev.unit || '').trim();
+const sameUnit = !unitPrev || !unitNew || unitPrev.toLowerCase() === unitNew.toLowerCase();
+/* explicit = typed into the marker form, so the user's unit and range win;
+   scanned panels only fill blanks and never overwrite a saved unit */
+const unitChanged = explicit && !sameUnit;
 d.customMarkers[key] = {
 name: label,
-unit: String(prev.unit || unit || '').trim(),
-lo: (!prev.unit || !unit || String(prev.unit).trim().toLowerCase() === String(unit).trim().toLowerCase()) && num(lo) !== null ? num(lo) : (_isNum(prev.lo) ? prev.lo : null),
-hi: (!prev.unit || !unit || String(prev.unit).trim().toLowerCase() === String(unit).trim().toLowerCase()) && num(hi) !== null ? num(hi) : (_isNum(prev.hi) ? prev.hi : null),
+unit: explicit ? (unitNew || unitPrev) : (unitPrev || unitNew),
+lo: (explicit || sameUnit) && num(lo) !== null ? num(lo) : (unitChanged ? null : (_isNum(prev.lo) ? prev.lo : null)),
+hi: (explicit || sameUnit) && num(hi) !== null ? num(hi) : (unitChanged ? null : (_isNum(prev.hi) ? prev.hi : null)),
 added: prev.added || nowStr()
 };
 return { key, builtIn: false };
@@ -4130,7 +4195,7 @@ return { key, builtIn: false };
 
 function addCustomMarker(name, unit, lo, hi) {
 const d = gd();
-const res = _defineCustomMarker(d, name, unit, lo, hi);
+const res = _defineCustomMarker(d, name, unit, lo, hi, true);
 if (res && !res.builtIn) sd(d);
 return res;
 }
@@ -6435,7 +6500,7 @@ current.femcycle = [...(current.femcycle||[]), ...newFc];
 merged += newFc.length;
 }
 /* settings objects: imported values fill gaps, anything set on this device wins */
-['customMarkers','pk','reminderTimes','labMeta'].forEach(k => {
+['customMarkers','pk','reminderTimes','labMeta','supply'].forEach(k => {
 if (importedData[k] && typeof importedData[k] === 'object' && !Array.isArray(importedData[k])) {
 current[k] = Object.assign({}, importedData[k], current[k] || {});
 }
@@ -7331,12 +7396,24 @@ else if (freq.type === 'monthly') dosesPerDay = 1 / 30;
 if (dosesPerDay <= 0) return;
 const daysPerVial = costData.monthly > 0 ? 30 / costData.monthly : null;
 if (!daysPerVial) return;
+const supply = (d.supply || {})[med.name];
+let daysRemaining, estimate;
+if (supply && supply.vials >= 0) {
+/* real inventory: vials on hand minus doses actually logged since the refill */
+const since = supply.sinceTs ? new Date(supply.sinceTs).getTime() : 0;
+const dosesSince = (d.entries||[]).filter(e => e.type === 'medication' && e.medication === med.name && new Date(e.ts).getTime() >= since).length;
+const daysUsed = dosesPerDay > 0 ? dosesSince / dosesPerDay : 0;
+daysRemaining = Math.max(0, supply.vials * daysPerVial - daysUsed);
+estimate = false;
+} else {
 const lastLog = (d.entries||[])
 .filter(e => e.type === 'medication' && e.medication === med.name)
 .sort((a,b) => new Date(b.ts) - new Date(a.ts))[0];
 if (!lastLog) return;
 const daysSinceLog = (Date.now() - new Date(lastLog.ts).getTime()) / (24*60*60*1000);
-const daysRemaining = Math.max(0, daysPerVial - daysSinceLog);
+daysRemaining = Math.max(0, daysPerVial - daysSinceLog);
+estimate = true;
+}
 if (daysRemaining <= 14) {
 alerts.push({
 name: med.name,
@@ -7345,7 +7422,10 @@ urgent: daysRemaining <= 7,
 dose: med.dose,
 freq: med.freq.label,
 cost: costData.price,
-unit: costData.unit
+unit: costData.unit,
+estimate: estimate,
+vials: supply ? supply.vials : null,
+since: supply ? supply.sinceTs : null
 });
 }
 });
@@ -7388,6 +7468,7 @@ container.innerHTML = `
           </div>
         </div>
         ${a.cost ? `<div style="font-size:11px;color:var(--text2);margin-top:6px">~$${a.cost} / ${a.unit}</div>` : ''}
+        <div onclick="tlSetSupply('${a.name.replace(/'/g, "\\'")}')" style="font-size:11px;color:var(--accent);margin-top:7px;cursor:pointer">${a.estimate ? 'Estimate — tap to enter how many vials you have' : `Based on ${a.vials} vial${a.vials === 1 ? '' : 's'} since ${fd(a.since)} — refilled? Tap to update`}</div>
       </div>`).join('')}`;
 }
 /* ACC/AHA staging: the HIGHER of the two readings decides the category, so the
@@ -7397,6 +7478,18 @@ container.innerHTML = `
    Discuss with physician", and the crisis branch below was unreachable for any
    isolated systolic or isolated diastolic emergency. On an app whose users take
    compounds that raise blood pressure, that is the wrong way round. */
+function tlSetSupply(name) {
+const v = prompt('How many vials/containers of ' + name + ' do you have on hand right now?');
+if (v === null) return;
+const n = parseFloat(v);
+if (!(n >= 0)) { toast('Enter a number of vials'); return; }
+const d = gd();
+d.supply = d.supply || {};
+d.supply[name] = { vials: n, sinceTs: new Date().toISOString() };
+sd(d);
+renderRefillAlerts();
+toast(name + ': ' + n + ' vial' + (n === 1 ? '' : 's') + ' on hand — the countdown now follows your logs');
+}
 function getBPStage(sys, dia) {
 if (!sys || !dia) return null;
 if (sys > 180 || dia > 120)
@@ -7715,7 +7808,12 @@ return;
 }
 const hubEl = document.getElementById('hub-' + hub);
 if (hubEl) hubEl.classList.add('active');
-const section = hubState[hub];
+let section = hubState[hub];
+/* a saved section can point at a gated tab from a lapsed plan — fall back silently */
+if ((section === 'femcycle' || section === 'photos') && window.TLTier && TLTier.isStd && !TLTier.isStd()) {
+section = (typeof HUB_SECTIONS !== 'undefined' && (HUB_SECTIONS[hub] || [])[0]) || section;
+hubState[hub] = section;
+}
 showHubSection(hub, section);
 if (hubEl) {
 hubEl.querySelectorAll('.hub-nav-btn').forEach(b => {
@@ -7732,6 +7830,7 @@ function switchHubSection(hub, section, btn) {
 if (section === 'cycle' && window.TLTier && !TLTier.check('cycle_tracker')) return;
 if (section === 'femcycle' && window.TLTier && !TLTier.check('cycle_tracker')) return;
 if (section === 'photos' && window.TLTier && !TLTier.check('progress_photos')) return;
+if ((section === 'femcycle' || section === 'photos') && window.TLTier && !TLTier.check(section === 'femcycle' ? 'cycle_tracker' : 'progress_photos')) return;
 _tlScrollTop();
 hubState[hub] = section;
 /* the Plan & backup card lives on Settings, so refresh it as that section opens
@@ -8317,6 +8416,7 @@ store.when()
 .verified(function(receipt) {
 receipt.finish();
 window.TLTier.set('pro', 'ios-iap');
+TLIAP.validate();
 try { localStorage.setItem('tl_iap_active','true'); } catch(e) {}
 ['tl-upgrade-overlay','tl-iap-overlay'].forEach(function(id){
 var el = document.getElementById(id); if(el) el.remove();
@@ -8327,7 +8427,52 @@ setTimeout(function(){ location.reload(); }, 800);
 store.initialize([Platform.APPLE_APPSTORE]).then(function() {
 self.initialized = true;
 if (self.isOwned()) window.TLTier.set('pro', 'ios-iap');
+/* re-check the receipt either way — this is what catches a cancelled subscription */
+self.validate();
 });
+},
+appReceipt: function() {
+try {
+if (window.CdvPurchase) {
+var lrs = CdvPurchase.store.localReceipts || [];
+for (var i = 0; i < lrs.length; i++) {
+var nd = lrs[i] && lrs[i].nativeData;
+if (nd && nd.appStoreReceipt) return nd.appStoreReceipt;
+}
+}
+} catch (e) {}
+try { return localStorage.getItem('tl_ios_receipt') || null; } catch (e) { return null; }
+},
+/** Ask our server to verify the App Store receipt with Apple. Success stores a
+ *  real expiry plus the signed token managed AI accepts; a definitive "ended"
+ *  clears the entitlement. Anything transient keeps what we have. */
+validate: function() {
+var receipt = this.appReceipt();
+if (!receipt) return Promise.resolve(false);
+try { localStorage.setItem('tl_ios_receipt', receipt); } catch (e) {}
+var before = tlReadEnt();
+return fetch(TL_VERIFY_ENDPOINT, {
+method: 'POST', headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ action: 'ios-receipt', receipt: receipt })
+}).then(function(r) { return r.json().catch(function(){ return {}; }).then(function(j) { return { st: r.status, j: j }; }); })
+.then(function(res) {
+if (res.st === 200 && res.j && res.j.ok) {
+tlWriteEnt({ tier: res.j.tier || 'pro', status: 'active', expires: res.j.expires || null,
+plan: res.j.plan || null, lifetime: false, willRenew: !!res.j.willRenew,
+key: null, iosToken: res.j.iosToken || null, verifiedAt: Date.now(), source: 'ios-iap' });
+return true;
+}
+if (res.st === 200 && res.j && res.j.ok === false) {
+var cur = tlReadEnt();
+/* only wipe what this check started from — a purchase that landed mid-flight stays */
+if (cur && cur.source === 'ios-iap' && before && cur.verifiedAt === before.verifiedAt) {
+tlWriteEnt(null);
+if (typeof toast === 'function') toast(res.j.message || 'Your App Store subscription has ended.');
+}
+return false;
+}
+return false;
+}).catch(function() { return false; });
 },
 isOwned: function() {
 if (!window.CdvPurchase) return false;
@@ -8359,6 +8504,7 @@ toast('Restoring purchases…');
 CdvPurchase.store.restorePurchases().then(function() {
 if (TLIAP.isOwned()) {
 window.TLTier.set('pro', 'ios-iap');
+TLIAP.validate();
 toast('Pro restored ✓');
 setTimeout(function(){ location.reload(); }, 600);
 } else {
@@ -8789,7 +8935,13 @@ async function tlVerifyLicense(payload) {
 /** Silent daily re-check. A definitive "no" downgrades; an outage does not. */
 async function tlRefreshEntitlement() {
   var e = tlReadEnt();
-  if (!e || e.source === 'ios-iap') return;
+  if (!e) return;
+  if (e.source === 'ios-iap') {
+    var stale = !e.verifiedAt || (Date.now() - e.verifiedAt) > TL_ENT_RECHECK_MS;
+    var expiring = e.expires && Date.now() > e.expires * 1000;
+    if ((stale || expiring || !e.iosToken) && window.TLIAP) { try { TLIAP.validate(); } catch (err) {} }
+    return;
+  }
   if (e.verifiedAt && (Date.now() - e.verifiedAt) < TL_ENT_RECHECK_MS) return;
   var payload = e.key ? { key: e.key } : (e.email ? { email: e.email } : null);
   if (!payload) return;
@@ -8864,9 +9016,12 @@ get: function() { return tlEffectiveTier(); },
    the old `tl_tier` string is not read any more. */
 set: function(t, source) {
 if (source !== 'ios-iap') { console.warn('TLTier.set ignored — use tlVerifyLicense()'); return; }
-tlWriteEnt({ tier: t, status: 'active', expires: null, lifetime: false,
-key: null, verifiedAt: Date.now(), source: 'ios-iap' });
+var prev = tlReadEnt() || {};
+var wasIOS = prev.source === 'ios-iap';
+tlWriteEnt({ tier: t, status: 'active', expires: wasIOS ? (prev.expires || null) : null, lifetime: false,
+key: null, iosToken: wasIOS ? (prev.iosToken || null) : null, verifiedAt: Date.now(), source: 'ios-iap' });
 },
+iosToken: function() { var e = tlReadEnt(); return (e && e.source === 'ios-iap' && e.iosToken) || null; },
 ent: function() { return tlReadEnt(); },
 licenseKey: function() { var e = tlReadEnt(); return (e && e.key) || null; },
 /** True when the user can run AI on their own key (BYOK tier or Pro). */
@@ -8966,7 +9121,8 @@ desc.style.color = '#8a95a3';
 desc.style.lineHeight = '1.6';
 desc.style.marginBottom = '24px';
 desc.textContent = isPro ? 'This feature requires TherapyLog Pro.' : 'This feature requires TherapyLog Standard or Pro.';
-if (window.Capacitor && window.Capacitor.getPlatform() === 'ios') {
+var _plat = (window.Capacitor && window.Capacitor.getPlatform) ? window.Capacitor.getPlatform() : 'web';
+if (_plat === 'ios') {
 var btn = document.createElement('button');
 btn.style.display = 'block';
 btn.style.width = '100%';
@@ -8983,8 +9139,28 @@ btn.style.fontFamily = 'inherit';
 btn.textContent = isPro ? 'Upgrade to Pro' : 'Get Full Access';
 btn.onclick = function() {
 document.getElementById('tl-upgrade-overlay').remove();
-if (isPro) { TLIAP.showPurchaseSheet(); }
-else { window.open('https://therapylog.app/download','_blank'); }
+/* the Pro subscription includes every Standard feature, so both gates sell through the App Store sheet */
+TLIAP.showPurchaseSheet();
+};
+} else if (_plat === 'android') {
+desc.textContent += ' If your TherapyLog plan is already active, enter your license key to unlock it on this device.';
+var btn = document.createElement('button');
+btn.style.display = 'block';
+btn.style.width = '100%';
+btn.style.background = '#4ade9a';
+btn.style.color = '#0a0c0f';
+btn.style.padding = '14px';
+btn.style.borderRadius = '12px';
+btn.style.fontWeight = '700';
+btn.style.fontSize = '15px';
+btn.style.border = 'none';
+btn.style.cursor = 'pointer';
+btn.style.marginBottom = '10px';
+btn.style.fontFamily = 'inherit';
+btn.textContent = 'Enter license key';
+btn.onclick = function() {
+document.getElementById('tl-upgrade-overlay').remove();
+window.TLTier.showActivation();
 };
 } else {
 var btn = document.createElement('a');
@@ -9563,7 +9739,15 @@ const active = [], missing = [];
 meds.forEach(m => (pkParamsFor(m).hl ? active : missing).push(m));
 
 const empty = document.getElementById('pk-empty'), chartCard = document.getElementById('pk-chart-card');
-if (!meds.length) { empty.style.display=''; chartCard.style.display='none'; wrap.innerHTML=''; return; }
+if (!meds.length) {
+empty.style.display=''; chartCard.style.display='none'; wrap.innerHTML='';
+let _mn = document.getElementById('pk-ml-note-empty');
+if (mlSkipped.length) {
+if (!_mn) { _mn = document.createElement('div'); _mn.id = 'pk-ml-note-empty'; _mn.style.cssText = 'font-size:10.5px;color:var(--text3);margin-top:8px'; empty.appendChild(_mn); }
+_mn.textContent = 'Not charted (doses logged in ml — log the mg/mcg amount to include): ' + mlSkipped.join(', ');
+} else if (_mn) { _mn.remove(); }
+return;
+}
 empty.style.display='none'; chartCard.style.display = active.length ? '' : 'none';
 
 const step = 2*H, times = [];
@@ -9939,4 +10123,89 @@ page.appendChild(mg);
 }
 })();
 
+</script> <script>
+/* ===== TLNative: OS-level dose reminders inside the Capacitor shell =====
+   Inert on the web: every entry point checks for a native platform with the
+   LocalNotifications plugin before touching anything. On native it replaces
+   the in-page reminder loop entirely - the phone delivers the next 30 days
+   of doses even with the app closed, and the schedule is rebuilt whenever
+   the protocol, times or day change (iOS keeps at most 64 pending local
+   notifications, so we cap at 60 and refresh on every launch/foreground). */
+var TLNative = {
+_sig: null,
+active: function() {
+try {
+return !!(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform() &&
+Capacitor.Plugins && Capacitor.Plugins.LocalNotifications);
+} catch (e) { return false; }
+},
+platform: function() {
+try { return (window.Capacitor && Capacitor.getPlatform) ? Capacitor.getPlatform() : 'web'; } catch (e) { return 'web'; }
+},
+_ln: function() { return Capacitor.Plugins.LocalNotifications; },
+permission: function() {
+if (!this.active()) return Promise.resolve('denied');
+return this._ln().checkPermissions().then(function(p) { return p.display; }).catch(function() { return 'denied'; });
+},
+request: function() {
+if (!this.active()) return Promise.resolve('denied');
+return this._ln().requestPermissions().then(function(p) { return p.display; }).catch(function() { return 'denied'; });
+},
+_cancelPending: function() {
+var LN = this._ln();
+return LN.getPending().then(function(res) {
+var ids = (res.notifications || []).map(function(n) { return { id: n.id }; });
+return ids.length ? LN.cancel({ notifications: ids }) : null;
+}).catch(function() {});
+},
+reschedule: function() {
+var self = this;
+if (!self.active()) return Promise.resolve(false);
+return self.permission().then(function(perm) {
+if (perm !== 'granted') return false;
+var d = gd();
+var proto = d.proto || {};
+var sig = JSON.stringify([proto.meds || '', proto.start || '', d.reminderTimes || {}, (typeof tlTodayStr === 'function') ? tlTodayStr() : new Date().toDateString()]);
+if (sig === self._sig) return true;
+if (!proto.meds) { self._sig = sig; return self._cancelPending().then(function() { return true; }); }
+var meds = parseMeds(proto.meds);
+var reminderTimes = d.reminderTimes || {};
+var now = new Date();
+var list = [];
+meds.forEach(function(med) {
+if (!med || !med.freq) return;
+var times = reminderTimes[med.name] || ((typeof getDefaultTimes === 'function') ? getDefaultTimes(med.freq) : ['08:00']);
+var offsets = getDoseDays(med, proto.start, 30);
+offsets.forEach(function(off) {
+times.forEach(function(t) {
+var hm = String(t).split(':');
+var at = new Date();
+at.setDate(at.getDate() + off);
+at.setHours(parseInt(hm[0], 10) || 8, parseInt(hm[1], 10) || 0, 0, 0);
+if (at <= now) return;
+var site = (typeof getSiteSuggestion === 'function') ? getSiteSuggestion(med.name) : null;
+list.push({ at: at, title: '\u{1F489} ' + med.name + ' Due',
+body: String(med.dose || '') + (site && site.suggest ? ' \u00b7 Suggested site: ' + site.suggest : '') });
+});
+});
+});
+list.sort(function(a, b) { return a.at - b.at; });
+list = list.slice(0, 60);
+var isAndroid = self.platform() === 'android';
+var notifs = list.map(function(n, i) {
+var o = { id: 100001 + i, title: n.title, body: n.body, schedule: { at: n.at, allowWhileIdle: true } };
+if (isAndroid) o.smallIcon = 'ic_stat_therapylog';
+return o;
+});
+return self._cancelPending().then(function() {
+return notifs.length ? self._ln().schedule({ notifications: notifs }) : null;
+}).then(function() { self._sig = sig; return true; });
+}).catch(function() { return false; });
+}
+};
+if (TLNative.active()) {
+/* logging a dose or editing the protocol changes what should fire - refresh on foreground and shortly after boot */
+document.addEventListener('visibilitychange', function() { if (!document.hidden) { try { TLNative.reschedule(); } catch (e) {} } });
+setTimeout(function() { try { TLNative.reschedule(); } catch (e) {} }, 2500);
+}
 </script> </body></html>
