@@ -18,9 +18,9 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
       # The committed pages ARE the build output — GitHub Pages has no build
       # step — so a stale page is a page that disagrees with the generator.
       # This fails if the two differ, including the sitemap and llms.txt.
