@@ -121,9 +121,12 @@ function run(log) {
     need(publicPrices.has(p), 'price ' + p + ' in BASE_SYSTEM also appears on the public site');
   }
   /* and every tier the site sells must be in the ladder the model sees */
-  for (const p of ['$9.99', '$99.99', '$8.99', '$89.99', '$34.99']) {
+  /* $34.99 is deliberately absent — the one-time tier was retired 24 Aug 2026
+     and the prompt must not quote a price nothing sells. */
+  for (const p of ['$9.99', '$99.99', '$8.99', '$89.99']) {
     need(sys.includes(p), 'BASE_SYSTEM lists the ' + p + ' tier');
   }
+  need(!sys.includes('$34.99'), 'BASE_SYSTEM does not quote the retired one-time price');
   need(/Never invent or round a price/.test(sys), 'BASE_SYSTEM forbids inventing prices');
 
   /* ── 3. wiring ──────────────────────────────────────────────────────────── */

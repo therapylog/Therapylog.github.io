@@ -78,7 +78,7 @@ const say = text => ({ json: { content: [{ type: 'text', text }], stop_reason: '
     const src = await page.evaluate(() => document.documentElement.innerHTML);
     has(sys, '100 markers', 'system prompt states the real marker count (100)');
     not(sys, '50+ markers', 'no stale "50+ markers" claim');
-    has(sys, '$34.99', 'lifetime BYOK tier is in the price ladder');
+    has(sys, 'retired', 'the one-time tier is marked retired, not priced');
     has(sys, '$9.99', 'Pro Managed price present');
     has(sys, '$8.99', 'BYOK subscription price present');
     has(sys, 'Never invent or round a price', 'model is told not to invent prices');

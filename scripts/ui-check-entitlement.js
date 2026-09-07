@@ -49,6 +49,12 @@ const VALID_KEY = "TL-4RT9-K2MX-8QN3";
 
 async function openApp(browser, port, { seed, verifyReply } = {}) {
   const page = await browser.newPage({ viewport: { width: 414, height: 900 } });
+
+  /* No off-origin requests. The Google Fonts stylesheet cannot resolve on an
+     offline or sandboxed machine, and waiting for it to time out is most of
+     the run. Per-file API stubs are registered separately and still win,
+     because routes registered earlier take precedence. */
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
   const state = { verifyCalls: [], aiCalls: [], errors: [] };
   page.on("pageerror", (e) => state.errors.push(e.message));
 
@@ -71,7 +77,7 @@ async function openApp(browser, port, { seed, verifyReply } = {}) {
   if (seed) await page.addInitScript(seed);
   await page.goto(`http://127.0.0.1:${port}/app.html`);
   await page.waitForTimeout(1100);
-  const understood = page.locator('button:has-text("I Understand")').first();
+  const understood = page.locator('button[onclick="acceptDisclaimer()"]').first();
   if (await understood.count() && await understood.isVisible().catch(() => false)) {
     await understood.click(); await page.waitForTimeout(200);
     await page.locator('button:has-text("Skip setup, explore first")').first().click();
@@ -89,7 +95,18 @@ async function tryScan(page) {
     buffer: Buffer.from("89504e470d0a1a0a", "hex") }).catch(() => {});
   await page.waitForTimeout(400);
   await page.evaluate(() => window.scanLabImage && window.scanLabImage());
-  await page.waitForTimeout(700);
+  await page.waitForTimeout(300);
+  /* The C-0 remediation put a consent step in front of the upload: the report
+     image carries whatever the lab printed on it, so scanLabImage asks once
+     before sending. This check predates that and was stopping at the modal,
+     reporting "the scan goes through with a license" as a failure when the
+     scan had simply never been agreed to. Accept it the way a user does. */
+  const consent = page.locator("#ai-consent-yes");
+  if (await consent.count() && await consent.isVisible().catch(() => false)) {
+    await consent.click();
+    await page.waitForTimeout(600);
+  }
+  await page.waitForTimeout(400);
 }
 
 (async () => {
@@ -244,7 +261,7 @@ async function tryScan(page) {
     });
     await page.goto(`http://127.0.0.1:${port}/app.html?tl_activated=pro&session_id=cs_test_123`);
     await page.waitForTimeout(1300);
-    const u = page.locator('button:has-text("I Understand")').first();
+    const u = page.locator('button[onclick="acceptDisclaimer()"]').first();
     if (await u.count() && await u.isVisible().catch(() => false)) { await u.click(); await page.waitForTimeout(600); }
     t("returning from checkout verifies by session id",
       calls.some((c) => c.session === "cs_test_123"), JSON.stringify(calls));

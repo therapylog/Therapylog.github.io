@@ -1,4 +1,0 @@
-# GitHub Pages config
-# Tells GitHub Pages not to process this as Jekyll
-include:
-  - CNAME

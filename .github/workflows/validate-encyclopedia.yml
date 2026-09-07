@@ -1,13 +1,17 @@
 name: Validate encyclopedia
 on:
   push:
-    paths: ['app.html', 'docs/compounds.json', 'docs/COMPOUNDS.md', 'index.html', 'marketing.html', 'scripts/**']
+    # Every file scripts/validate-encyclopedia.js reads. download.html and pro.html
+    # are scanned by rule 9 and were missing from this list.
+    paths: ['app.html', 'docs/compounds.json', 'docs/COMPOUNDS.md', 'index.html', 'marketing.html',
+            'download.html', 'pro.html', '404.html',
+            'about/**', 'tools/**', 'markers/**', 'compounds/**', 'scripts/**']
   pull_request:
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
       - run: node scripts/validate-encyclopedia.js

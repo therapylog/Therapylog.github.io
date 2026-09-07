@@ -73,6 +73,8 @@ const t = (name, ok, extra = "") => results.push([ok ? "PASS" : "FAIL", name, ok
     t("Android install instructions present", /Install app/i.test(html));
     t("compound count is current", !/148/.test(html), (html.match(/148[^<]{0,20}/) || [])[0] || "");
     t("marker count is current", !/50\+ (lab )?markers/i.test(html));
+    t("no retired one-time tier is offered", !/lifetime-btn|Buy lifetime access/.test(html),
+      "the $34.99 one-time tier was retired — nothing should sell it");
 
     /* checkout reaches the API with attribution */
     let sent = null;
@@ -80,11 +82,14 @@ const t = (name, ok, extra = "") => results.push([ok ? "PASS" : "FAIL", name, ok
       sent = JSON.parse(route.request().postData() || "{}");
       await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ url: `${base}/index.html` }) });
     });
-    await p.goto(`${base}/download.html?utm_source=reddit&utm_campaign=trt_launch`);
+    /* The one-time tier was retired on 24 Aug 2026, so this now exercises the
+       same attribution path through a subscription button, which is where all
+       checkouts start. download.html no longer initiates one at all. */
+    await p.goto(`${base}/pro.html?utm_source=reddit&utm_campaign=trt_launch`);
     await p.waitForTimeout(200);
-    await p.locator("#lifetime-btn").click();
+    await p.locator("#byok-btn").click();
     await p.waitForTimeout(600);
-    t("lifetime button starts a checkout", sent && sent.plan === "lifetime", JSON.stringify(sent));
+    t("a plan button starts a checkout", sent && sent.plan === "byok_monthly", JSON.stringify(sent));
     t("the campaign rides along to Stripe", sent && sent.ref === "trt_launch", JSON.stringify(sent));
     await p.close();
   }
