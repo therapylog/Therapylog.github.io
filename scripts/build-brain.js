@@ -112,7 +112,18 @@ function declarations(html, names) {
 const STOP = new Set(['high', 'low', 'the', 'and', 'for', 'with', 'signs', 'early',
   'rising', 'crashed', 'effects', 'reaction', 'reactions', 'site', 'recovery', 'a', 'of',
   'back', 'getting', 'around', 'management', 'to', 'training', 'protocols', 'sore',
-  'loading', 'strain', 'or']);
+  'loading', 'strain', 'or',
+  /* Second wave, from the nutrition titles. "Meal timing and fasting: what
+     matters" put the bare word "what" into the index, and "what" matches almost
+     any question — it answered "I'm 16 and I want to start my first cycle" with
+     a meal-timing entry, and pulled a PSA question away from its marker.
+     Three separate content additions have now each shipped this same bug, which
+     says the fault is the pattern rather than any one title: an authored entry
+     titled like a sentence leaks its connective words into the term list. The
+     explicit synonym lists are what these kinds should be reached by. */
+  'what', 'matters', 'actually', 'buys', 'helps', 'making', 'plan', 'much',
+  'works', 'short', 'list', 'limit', 'stick', 'rates', 'realistic', 'size',
+  'breaks', 'rate', 'eating', 'prep', 'meal']);
 
 function terms(...bits) {
   const out = new Set();
@@ -214,6 +225,54 @@ function rehabText(r) {
   return p.join('\n\n');
 }
 
+/* Nutrition entries carry the numbers people are actually hunting for — g/kg,
+   percent per week, kcal deficits — so the protocol list and the rule belong in
+   the searchable text. `avoid` matters as much here as in rehab: on this topic
+   the most useful sentence is often "this popular thing does nothing". */
+function nutritionText(n) {
+  const p = [`${n.t} — ${n.what || ''}`];
+  if (n.signs) p.push('Usually asked as: ' + n.signs);
+  if (lines(n.prot).length) p.push('What the trials found:\n' + n.prot.map((x) => `• ${x}`).join('\n'));
+  if (n.rule) p.push('The rule of thumb: ' + n.rule);
+  if (n.avoid) p.push('What not to do: ' + n.avoid);
+  if (n.ev) p.push('What the evidence says: ' + n.ev);
+  return p.join('\n\n');
+}
+
+/* Nutrition questions arrive in plain language and in numbers — "how much
+   protein", "how fast should I cut", "is creatine worth it", "16:8". The
+   synonym lists carry both, plus the branded shorthand people actually type. */
+const NUTRITION_SYNONYMS = {
+  'Protein: how much actually helps': ['protein', 'how much protein', 'protein intake',
+    'grams of protein', 'g/kg', 'protein per day', 'protein per meal', 'whey', 'casein',
+    'protein powder', 'protein shake', 'macros', 'macro split'],
+  'Cutting: rate, deficit and what breaks': ['cut', 'cutting', 'deficit', 'calorie deficit',
+    'fat loss', 'losing fat', 'lose fat', 'how fast should i cut', 'weight loss rate',
+    'losing muscle', 'muscle loss', 'red-s', 'reds', 'low energy availability', 'diet down',
+    'shredding', 'getting lean'],
+  'Bulking: surplus size and realistic gain rates': ['bulk', 'bulking', 'surplus',
+    'calorie surplus', 'gaining', 'mass gain', 'lean bulk', 'dirty bulk', 'how fast can i gain',
+    'muscle gain rate', 'gaining weight', 'offseason'],
+  'Eating on a GLP-1': ['glp1', 'glp-1', 'semaglutide', 'ozempic', 'wegovy', 'tirzepatide',
+    'mounjaro', 'zepbound', 'retatrutide', 'losing muscle on glp1', 'muscle loss glp1',
+    'nausea', 'what to eat on semaglutide', 'protein on glp1'],
+  'Meal timing and fasting: what matters': ['meal timing', 'anabolic window', 'timing',
+    'intermittent fasting', 'fasting', '16:8', 'time restricted', 'omad', 'breakfast',
+    'pre workout meal', 'post workout meal', 'carbs before training', 'meal frequency',
+    'how many meals'],
+  'What to limit, and what it actually buys': ['what to avoid', 'foods to avoid', 'avoid',
+    'sodium', 'salt', 'alcohol', 'drinking', 'saturated fat', 'fiber', 'fibre', 'processed food',
+    'ultra processed', 'dash diet', 'diet for cholesterol', 'diet for blood pressure',
+    'lower my cholesterol', 'lower my blood pressure'],
+  'Supplements: the short list that works': ['supplement', 'supplements', 'creatine', 'caffeine',
+    'beta alanine', 'citrulline', 'hmb', 'bcaa', 'bcaas', 'eaa', 'eaas', 'leucine', 'preworkout',
+    'pre workout', 'is creatine worth it', 'what supplements should i take', 'contamination',
+    'tainted supplement'],
+  'Meal prep and making a plan stick': ['meal prep', 'meal prepping', 'meal plan', 'meal planning',
+    'what should i eat', 'diet plan', 'food prep', 'adherence', 'falling off', 'cheat meal',
+    'refeed', 'diet break', 'energy density', 'satiety', 'staying full', 'hungry all the time']
+};
+
 /* Rehab questions arrive in gym language, not clinical language — "tennis
    elbow", "golfers elbow", "back exercises without biceps", "deload". Without
    this the three rehab entries are unreachable for exactly the people who need
@@ -296,7 +355,7 @@ const MARKER_PLAYBOOK = {
 function build() {
   const html = fs.readFileSync(APP, 'utf8');
   const d = declarations(html, [
-    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB',
+    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB', 'NUTRITION',
     'INTERACTIONS', 'NEW_INTERACTIONS', 'CLINIC_INTERACTIONS',
     'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES'
   ]);
@@ -341,10 +400,14 @@ function build() {
     const research = path.join(ROOT, 'assets', 'brain', 'research');
     const claims = JSON.parse(fs.readFileSync(path.join(research, 'claims.json'), 'utf8')).claims;
     const labels = JSON.parse(fs.readFileSync(path.join(research, 'labels.json'), 'utf8')).labels;
-    const pmids = new Set(claims.map((c) => String(c.pmid || '').trim()));
+    /* Nutrition arrived as its own research pass and lives in its own file. Both
+       are equally the checked set — a citation is publishable when it appears in
+       research that was actually retrieved and verified, whichever pass ran it. */
+    const nutrition = JSON.parse(fs.readFileSync(path.join(research, 'nutrition.json'), 'utf8')).claims;
+    const pmids = new Set([...claims, ...nutrition].map((c) => String(c.pmid || '').trim()));
     const setids = new Set(labels.map((l) => String(l.dailymedUrl || '').split('setid=')[1]).filter(Boolean));
     const bad = [];
-    for (const s of [...d.SIDEFX, ...d.REHAB]) {
+    for (const s of [...d.SIDEFX, ...d.REHAB, ...d.NUTRITION]) {
       for (const row of (s.src || [])) {
         if (!Array.isArray(row) || row.length !== 2 || !row[0] || !row[1]) {
           bad.push(`${s.t}: malformed src row ${JSON.stringify(row)} — expected [identifier, what it shows]`);
@@ -354,7 +417,7 @@ function build() {
         if (String(id).indexOf('label:') === 0) {
           if (!setids.has(String(id).slice(6))) bad.push(`${s.t}: DailyMed setid ${String(id).slice(6)} is not in labels.json`);
         } else if (!pmids.has(String(id))) {
-          bad.push(`${s.t}: PMID ${id} is not in claims.json — it was never retrieved or checked`);
+          bad.push(`${s.t}: PMID ${id} is in no research file — it was never retrieved or checked`);
         }
       }
       if (s.ev && !(s.src || []).length) bad.push(`${s.t}: has an evidence note but cites nothing`);
@@ -364,6 +427,10 @@ function build() {
     }
   }
 
+  const unmappedNutrition = d.NUTRITION.map((n) => n.t).filter((t) => !NUTRITION_SYNONYMS[t]);
+  if (unmappedNutrition.length) {
+    throw new Error(`nutrition entries with no synonyms — add them to NUTRITION_SYNONYMS: ${unmappedNutrition.join(', ')}`);
+  }
   const unmappedRehab = d.REHAB.map((r) => r.t).filter((t) => !REHAB_SYNONYMS[t]);
   if (unmappedRehab.length) {
     throw new Error(`rehab entries with no synonyms — add them to REHAB_SYNONYMS: ${unmappedRehab.join(', ')}`);
@@ -445,6 +512,19 @@ function build() {
       text: rehabText(r),
       src: r.src || [],
       route: { view: 'rehab', item: r.t }
+    });
+  }
+
+  for (const n of d.NUTRITION) {
+    entries.push({
+      id: `nutrition:${n.t}`,
+      kind: 'nutrition',
+      title: n.t,
+      subtitle: 'nutrition guidance',
+      terms: terms(n.t, (n.t || '').split(/\s+/), NUTRITION_SYNONYMS[n.t] || []),
+      text: nutritionText(n),
+      src: n.src || [],
+      route: { view: 'nutrition', item: n.t }
     });
   }
 

@@ -370,6 +370,7 @@ function loadAppData(source) {
   const TL_FORM = evalLit('const TL_FORM = {', '{', '}');
   const SIDEFX = evalLit('const SIDEFX = [', '[', ']');
   const REHAB = evalLit('const REHAB = [', '[', ']');
+  const NUTRITION = evalLit('const NUTRITION = [', '[', ']');
   const PK_COLORS = evalLit('const PK_COLORS', '[', ']');
 
   /* app.html pushes the other two arrays into INTERACTIONS at load; the lifted
@@ -411,7 +412,7 @@ function loadAppData(source) {
   };
 
   return {
-    src, DB, byId, TL_PK, SYR_SIZES, TL_STORAGE, TL_FORM, SIDEFX, REHAB, PK_COLORS,
+    src, DB, byId, TL_PK, SYR_SIZES, TL_STORAGE, TL_FORM, SIDEFX, REHAB, NUTRITION, PK_COLORS,
     INTERACTIONS, nameIndex, resolveDrugName, storageFor
   };
 }

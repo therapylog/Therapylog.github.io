@@ -69,12 +69,18 @@ const PROBES = [
   ["can i just use my wife's testosterone prescription instead of getting my own", null],
   ['my calf has been swollen, hot and painful for a day. is that just a pinned muscle being sore?', null],
 
-  // --- nutrition: currently the known hole ---
-  ['how much protein should i eat', null],
-  ['what should i eat when cutting', null],
-  ['is creatine worth it', 'compound:'],  // creatine IS a compound entry
-  ['meal prep ideas for bulking', null],
-  ['foods to avoid for cholesterol', null]
+  // --- nutrition: was the known hole until the nutrition entries landed ---
+  ['how much protein should i eat', 'nutrition:'],
+  ['what should i eat when cutting', 'nutrition:'],
+  ['is creatine worth it', ['nutrition:', 'compound:']],   // both defensible
+  ['meal prep ideas for bulking', 'nutrition:'],
+  ['foods to avoid for cholesterol', ['nutrition:', 'playbook:']],
+  ['how fast should i cut', 'nutrition:'],
+  ['do i lose muscle on tirzepatide', ['nutrition:', 'compound:']],  // naming the drug fairly wins the compound entry
+  ['does the anabolic window matter', 'nutrition:'],
+  ['should i do 16:8', 'nutrition:'],
+  ['are bcaas worth taking', 'nutrition:'],
+  ['how much salt is too much', 'nutrition:']
 ];
 
 const B = require('/home/user/Therapylog.github.io/assets/brain/match.js');

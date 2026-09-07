@@ -110,7 +110,7 @@
      entry, and "test cyp vs enanthate" answered with a protocol. An entry that
      merely mentions a compound must rank below the entry that IS that
      compound. */
-  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
+  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
 
   /* Join hyphen/slash-separated word parts, matching how terms() flattens the
      index side. Without this, "MK-677" tokenized to "mk-677" and the index
@@ -158,7 +158,15 @@
       }
       /* Every word of the term present, order-independent. */
       const tw = term.split(/\s+/).filter((w) => w.length > 1);
-      if (tw.length && tw.every((w) => qSet.has(w))) {
+      /* A term that survives this filter as a single bare number must not match.
+         '16:8' is indexed as the term "16 8"; the length filter drops the "8",
+         leaving ["16"], which then matched ANY question containing 16 — and the
+         one that found it was "I'm 16 and I want to start my first cycle", which
+         got answered with an intermittent-fasting entry. A bare number carries no
+         topic, and letting one satisfy a match is how a safety question ends up
+         reaching a nutrition card. */
+      const numericOnly = tw.length === 1 && /^\d+$/.test(tw[0]);
+      if (tw.length && !numericOnly && tw.every((w) => qSet.has(w))) {
         best = Math.max(best, 55 + 15 * tw.length);
       }
     }
@@ -234,7 +242,7 @@
     /* rehab sits with the playbooks: both are authored, fully cited answers to a
        question someone asked in their own words, and both are the reason this
        matcher exists — to answer without a round trip. */
-    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1 };
+    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1 };
     const answerable = picked.filter((r) => !r.related &&
       ANSWER_KINDS[r.entry.kind] &&
       r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
