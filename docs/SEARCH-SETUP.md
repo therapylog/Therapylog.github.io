@@ -20,7 +20,7 @@ this says how, with the account and record detail filled in.
 | Resend (transactional) | **Live** | `resend._domainkey` DKIM, `MX send → feedback-smtp.us-east-1.amazonses.com`, `TXT send` SPF — Resend's standard subdomain setup, correctly formed |
 | DMARC | **`v=DMARC1; p=none; rua=mailto:dmarc@therapylog.app`** ✅ | `dmarc@therapylog.app` exists as a Workspace alias (with `feedback@` → `hello@`); reports flowing. Still `p=none` — not enforcing yet, see gap 2 below |
 | Search Console | **Verified** ✅ | Domain property, TXT confirmed live; sitemap accepted at 144 URLs |
-| Bing | **Not yet verified** | no `msvalidate.01`, no `BingSiteAuth.xml` — Part 2 below still to do |
+| Bing | **Verified** ✅ | Imported from Google Search Console 6 Sep 2026. Deliberately leaves **no public artifact** — no `BingSiteAuth.xml`, no `msvalidate.01` — so this cannot be checked from outside; the proof is that the dashboard parsed the sitemap at 144 URLs, which Bing will not do for an unverified property. IndexNow shows all 144 URLs pending crawl |
 | Sitemap | **Live, 144 URLs** | grew from 44 → 144 as the site expanded; `https://therapylog.app/sitemap.xml` → 200 |
 | IndexNow | **Submitted** ✅ | Key `615f8693ff6f4e55a3985a0ae070b7a3` live at 200; all 144 sitemap URLs POSTed to the IndexNow API, `200` response |
 | Vercel site project | **Built, no domain** | `therapylog-github-io` connected to this repo; last deploy READY and rendering; no production target, no custom domain — the move itself is still not done |
@@ -110,6 +110,31 @@ with Yandex, Naver and Seznam. Google takes no part in IndexNow.
 5. `node scripts/indexnow-submit.js` (add `--dry-run` to inspect the payload). Run after
    any deploy that changes pages; it reads `sitemap.xml`, so new pages need no script edit.
 
+### How to read Bing's five counters — they disagree by design
+
+They measure five different things, and a healthy new site shows wildly different numbers
+across them. Reading these as one metric is the fastest way to conclude something is broken
+when it isn't:
+
+| Screen | Measures | Healthy value right after setup |
+|---|---|---|
+| **IndexNow** | URLs accepted by the IndexNow API | all of them, "pending crawl" |
+| **Sitemaps** | URLs Bing parsed out of `sitemap.xml` | your full count (144) |
+| Submitted URLs | the **manual** submit box's own counter — **does not count IndexNow** | 0–1, and that is fine |
+| URL Inspection | a log of URLs *you* looked up by hand | however many you clicked |
+| Site Explorer | URLs bingbot has actually **crawled and processed** | 0 for the first 1–3 weeks |
+
+**IndexNow "pending" and Site Explorer "0" are the same fact from both ends** — submitted,
+not yet crawled. Site Explorer matching IndexNow immediately would be the *inconsistent*
+reading.
+
+**Do not manually re-submit URLs IndexNow already carried.** Same queue, no added effect,
+and manual submission is rate-limited per day and per month (small for a new site — the
+dashboard shows the current allowance). Spend that allowance, if at all, on the handful of
+highest-value tool pages, the same ones worth a Google "Request indexing": `/tools/`, the
+peptide/tirzepatide/semaglutide reconstitution calculators, and the TRT dose calculator.
+The bottleneck is crawl budget on an unknown domain, not submission.
+
 ## Part 3 — the move to Vercel
 
 Independent of Parts 1 and 2 — a Domain property survives a host change, so do not wait on
@@ -186,7 +211,7 @@ today, but the Vercel tag is already deployed, so moving is the shorter path fro
 |---|---|---|
 | 1 | Search Console Domain property + TXT | ✅ done |
 | 2 | Submit sitemap, request indexing on the top tool URLs | ✅ sitemap submitted (144 URLs); request-indexing quota is manual and ongoing |
-| 3 | Bing import from Search Console, confirm IndexNow key | still to do |
+| 3 | Bing import from Search Console, confirm IndexNow key | ✅ done — verified via import; all 144 URLs pending crawl. See "How to read Bing's five counters" |
 | 4 | `node scripts/indexnow-submit.js` | ✅ done — 144 URLs, `200` |
 | 5 | Add the `www` record | ✅ done, including the cert re-provision (see gap 1) |
 | 6 | DMARC `rua=` reporting address | ✅ done — reports flowing at `p=none`; tighten to `p=quarantine` after a few weeks clean |
@@ -194,5 +219,10 @@ today, but the Vercel tag is already deployed, so moving is the shorter path fro
 | 8 | Vercel production deploy, domains, DNS swap, analytics | when ready |
 | 9 | Read the Performance report | in progress — expect real signal 4–8 weeks after the 144-URL sitemap, longer for competitive terms |
 
-What's left has no dependency on the Vercel move. Bing (step 3) is the one search-visibility
-item still outstanding.
+**Every search-visibility item on this list is now done.** What remains is the Vercel move
+(step 8, optional and independent of everything else) and waiting: both Google and Bing have
+the full 144-URL sitemap and are working through it. Expect 1–3 weeks before Bing's Site
+Explorer shows meaningful numbers and 4–8 weeks before Google's Performance report is worth
+reading — longer for competitive peptide terms. Neither is a setup problem, and there is no
+lever left to pull on the technical side; the remaining variable is domain authority, which
+is what the creator outreach in `therapylog-api/docs/outreach-targets.md` is for.
