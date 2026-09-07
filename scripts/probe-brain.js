@@ -83,8 +83,14 @@ const PROBES = [
   ['how much salt is too much', 'nutrition:']
 ];
 
-const B = require('/home/user/Therapylog.github.io/assets/brain/match.js');
-const idx = JSON.parse(require('fs').readFileSync('/home/user/Therapylog.github.io/assets/brain/index.json', 'utf8'));
+/* Resolved from this file's own location, like every other script here. The
+   first version of this hardcoded the absolute path of the machine it was
+   written on, which passed locally and failed on the first CI runner that ran
+   it — the exact failure mode a probe is supposed to catch, in the probe. */
+const path = require('path');
+const ROOT = path.join(__dirname, '..');
+const B = require(path.join(ROOT, 'assets', 'brain', 'match.js'));
+const idx = JSON.parse(require('fs').readFileSync(path.join(ROOT, 'assets', 'brain', 'index.json'), 'utf8'));
 
 let right = 0, wrongAnswer = 0, missedAnswer = 0, correctDefer = 0;
 const rows = [];
