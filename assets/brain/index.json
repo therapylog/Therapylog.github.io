@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "a807ac1ca35ac122",
+ "generated": "7ebda9bbcf8e978f",
  "counts": {
   "compound": 131,
   "marker": 100,
@@ -88,7 +88,7 @@
     "peptides",
     "bpc"
    ],
-   "text": "BPC-157 (Body Protection Compound 157) — Peptides\n\nSynthetic pentadecapeptide derived from human gastric juice. Demonstrates remarkable healing across tendons, ligaments, muscle, gut, and brain in animal studies. Mechanisms include GH receptor upregulation, angiogenesis, and dopaminergic modulation. Research through 2026 shows particular efficacy for gut healing and tendon repair. No serious adverse events in current literature.\n\nReported benefits:\n• Accelerates tendon and ligament healing\n• Reduces gut inflammation (IBD, leaky gut)\n• Systemic anti-inflammatory effects\n• Neuroprotective in animal models\n• Excellent safety profile to date\n• Accelerates wound healing and recovery\n\nRisks and trade-offs:\n• Limited human RCT data — primarily animal evidence\n• Long-term safety not yet established\n• Quality control varies by source\n• Not FDA approved\n• Mechanism not fully characterized in humans\n\nDosing discussed in the literature:\n• Starting: 200-250mcg/day — Once daily SubQ near injury or orally (4-6 weeks)\n• Therapeutic: 250-500mcg/day — Twice daily AM and PM (4-12 weeks)\n• Gut Protocol: 250mcg orally — Twice daily fasted (4-8 weeks)\n\nProgression: Start at 200mcg once daily. Assess at 2 weeks. Increase to 250-500mcg twice daily for active injury. Oral for gut; SubQ near injury site for musculoskeletal.\n\nCommon protocols:\n• Injury Recovery: BPC-157 500mcg/day SubQ, TB-500 2.5mg 2x/week, Testosterone TRT dose\n• Gut Health: BPC-157 250mcg orally 2x/day fasted\n\nMonitoring: No specific labs required. Monitor injection site. Liver enzymes if long-term.\n\nRegulatory status: Research compound — no FDA approval. Not for human use label.",
+   "text": "BPC-157 (Body Protection Compound 157) — Peptides\n\nSynthetic pentadecapeptide derived from human gastric juice. Demonstrates remarkable healing across tendons, ligaments, muscle, gut, and brain in animal studies. Mechanisms include GH receptor upregulation, angiogenesis, and dopaminergic modulation. Almost all of that evidence is preclinical. A 2025 review of the human literature found only three human pilot studies, so there is essentially no human evidence for BPC-157 in tendon or gut healing (PubMed 40789979). \"No serious adverse events reported\" should be read against that: with almost no human trials, an absence of reported harm is an absence of data, not a demonstrated safety record.\n\nReported benefits:\n• Accelerates tendon and ligament healing (animal models)\n• Reduces gut inflammation in animal models of IBD\n• Systemic anti-inflammatory effects (preclinical)\n• Neuroprotective in animal models\n• No serious adverse events reported — but from very few human subjects\n• Accelerates wound healing and recovery\n\nRisks and trade-offs:\n• Limited human RCT data — primarily animal evidence\n• Long-term safety not yet established\n• Quality control varies by source\n• Not FDA approved\n• Mechanism not fully characterized in humans\n\nDosing discussed in the literature:\n• Starting: 200-250mcg/day — Once daily SubQ near injury or orally (4-6 weeks)\n• Therapeutic: 250-500mcg/day — Twice daily AM and PM (4-12 weeks)\n• Gut Protocol: 250mcg orally — Twice daily fasted (4-8 weeks)\n\nProgression: Start at 200mcg once daily. Assess at 2 weeks. Increase to 250-500mcg twice daily for active injury. Oral for gut; SubQ near injury site for musculoskeletal.\n\nCommon protocols:\n• Injury Recovery: BPC-157 500mcg/day SubQ, TB-500 2.5mg 2x/week, Testosterone TRT dose\n• Gut Health: BPC-157 250mcg orally 2x/day fasted\n\nMonitoring: No specific labs required. Monitor injection site. Liver enzymes if long-term.\n\nRegulatory status: Research compound — no FDA approval. Not for human use label.",
    "route": {
     "view": "encyclopedia",
     "cls": "peptides",
@@ -5424,6 +5424,60 @@
     "trendick"
    ],
    "text": "High prolactin — what it is and what to do\n\nUsual causes: Most often from 19-nor compounds (nandrolone, trenbolone).\n\nSigns: Nipple sensitivity or discharge, killed libido, erectile trouble, flat mood.\n\nLabs: Serum prolactin. Confirm it is actually elevated before treating — these symptoms overlap with high and low E2.\n\nCommonly discussed responses:\n• Cabergoline is the commonly used dopamine agonist; literature dosing is typically 0.25 mg twice weekly, titrated on labs.\n• Reduce or drop the 19-nor — the response treats the number, not the cause.\n• P5P (active B6) is a mild adjunct discussed in the community; evidence is thin.\n\nEscalate / seek care: Two things belong with a doctor before a first cabergoline dose, not after: the US label requires an echocardiogram BEFORE treatment starts and repeats every 6 to 12 months, and the drug is contraindicated outright in uncontrolled hypertension, in any history of cardiac valve disorder or pericardial fibrosis, and in pleural, pulmonary or retroperitoneal fibrotic disease. A prolactin above 250 ng/mL makes a prolactinoma highly likely and warrants imaging rather than self-management.\n\nWhat the evidence says: Confirm the number before treating it. Four reversible causes should be excluded before anyone orders an MRI: pregnancy, drug-induced hyperprolactinaemia, primary hypothyroidism and renal failure. Two assay artefacts matter as much — macroprolactin is biologically inactive and accounts for 4-40% of raised results depending on population, and the hook effect can make a very large prolactinoma read falsely low, in published cases disproportionately in men. On dose, the figure that resolved idiopathic hyperprolactinaemia with a normal MRI was 0.25 mg ONCE weekly, lower than the twice-weekly figure that circulates. Uncertain: no trial of cabergoline exists in men using exogenous androgens or performance compounds, nothing shows a benefit to lowering an already-normal prolactin, and the valvulopathy literature contradicts itself — one study found a signal above 115 mg cumulative, two larger ones found nothing at 152 mg and 278 mg. The community pattern of continuous low-dose use for years with no baseline echo has never been studied at all.",
+   "src": [
+    [
+     "33566310",
+     "The maintenance dose that worked in men with raised prolactin and a normal pituitary MRI was 0.25 mg ONCE weekly"
+    ],
+    [
+     "30889571",
+     "Exclude pregnancy, drugs, primary hypothyroidism and renal failure before macroprolactin assay or MRI; above 250 ng/mL a prolactinoma is highly likely"
+    ],
+    [
+     "26642103",
+     "Macroprolactin accounts for between 4% and 40% of raised prolactin results depending on the population"
+    ],
+    [
+     "39542401",
+     "The hook effect can make a macroprolactinoma read falsely low, and 70% of published cases were male"
+    ],
+    [
+     "27601019",
+     "In eight hypogonadal men with prolactinomas and no prior psychiatric history, every one developed an impulse control disorder"
+    ],
+    [
+     "38345719",
+     "When systematically asked, over half of dopamine-agonist-treated pituitary patients reported at least one impulse control disorder"
+    ],
+    [
+     "32075620",
+     "The CATCH study associated cumulative cabergoline exposure above 115 mg with valvulopathy"
+    ],
+    [
+     "24187407",
+     "747 UK patients at a median cumulative dose of 152 mg contradicted that signal"
+    ],
+    [
+     "27709470",
+     "A prospective study with baseline and follow-up echocardiograms on the same equipment found no clinically relevant valve change at a median 277.8 mg"
+    ],
+    [
+     "36511080",
+     "A documented case developed aortic and mitral thickening with regurgitation on 0.5-1 mg weekly after 15 years — low dose is not automatically safe over long enough time"
+    ],
+    [
+     "40544385",
+     "Where raised prolactin really is the cause of low testosterone, correcting it restored normal testosterone in 69% without adding testosterone"
+    ],
+    [
+     "38292405",
+     "Prolactin does appear raised in men using AAS, but on two very small uncontrolled cross-sectional studies with mixed compounds"
+    ],
+    [
+     "label:e497366b-a124-4d7f-bd45-a883c392d4bb",
+     "Cabergoline US label: approved only for hyperprolactinaemic disorders, ceiling 1 mg twice weekly, echocardiogram required before treatment and every 6-12 months, contraindicated in valve disease and uncontrolled hypertension"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "High prolactin"
@@ -5454,6 +5508,36 @@
     "arimidex"
    ],
    "text": "High estradiol — what it is and what to do\n\nUsual causes: Aromatization of testosterone — scales with dose and body fat.\n\nSigns: Water retention, puffy or sensitive nipples, moodiness, elevated blood pressure.\n\nLabs: Sensitive (LC/MS) estradiol assay — the standard assay reads high on cycle and misleads.\n\nCommonly discussed responses:\n• Lowering the testosterone dose is the cleanest fix and often enough.\n• Anastrozole: commonly cited on-cycle use is 0.25–0.5 mg two to three times weekly — it accumulates (t½ ~46 h), so start low.\n• Exemestane 12.5 mg every other day is the commonly cited steroidal alternative; harder to crash E2 with and kinder to lipids.\n\nWhat the evidence says: Read this before reaching for an AI: no trial has ever tested an aromatase inhibitor on top of supraphysiologic testosterone, or in any performance population. The entire randomised evidence for adding an AI to exogenous testosterone in men is one 3-month study in 40 men with epilepsy on replacement-dose testosterone, and its primary sexual-function difference was not statistically significant. Everything else in men is AI monotherapy, which is a different question — it raises testosterone by disinhibiting the pituitary, which cannot happen when testosterone is already being supplied. There is also no established AI dose for men: regimens with any human data span letrozole 2.5 mg per WEEK to anastrozole 2 mg per DAY, a spread of roughly fortyfold. No estradiol target in men has ever been validated against a clinical outcome, and the widely quoted T:E2 ratio has no validated optimum at all.",
+   "src": [
+    [
+     "20096638",
+     "The only randomised trial ever to add an aromatase inhibitor to injected testosterone in men: 40 men, 3 months, sexual-function difference not statistically significant"
+    ],
+    [
+     "24024838",
+     "Blocking aromatization while holding testosterone fixed made men fatter and worsened sexual function — estrogen deficiency, not androgen deficiency, drove the fat gain"
+    ],
+    [
+     "15001605",
+     "The only head-to-head of two anastrozole regimens in men: 1 mg daily and 1 mg twice weekly both raised testosterone into the youthful normal range"
+    ],
+    [
+     "23949882",
+     "The only controlled letrozole dosing data in men started at 2.5 mg per WEEK — one-seventh of the daily breast-cancer dose"
+    ],
+    [
+     "14671195",
+     "Exemestane’s entire human evidence base in males is one 10-day crossover in 12 subjects; 25 mg and 50 mg suppressed estradiol comparably"
+    ],
+    [
+     "18616708",
+     "A year of anastrozole 1 mg daily normalised testosterone in older hypogonadal men but produced no improvement in body composition or strength"
+    ],
+    [
+     "39344113",
+     "A 2024 review found no validated optimum for the testosterone-to-estradiol ratio that circulates as a target"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "High estradiol"
@@ -5487,6 +5571,40 @@
     "crashedmyestrogen"
    ],
    "text": "Crashed estradiol — what it is and what to do\n\nUsual causes: Overshooting an AI — usually stacked anastrozole doses taken off symptoms.\n\nSigns: Dry, cracking joints, dead libido, fatigue, anxiety or doom feeling, poor sleep.\n\nLabs: Sensitive estradiol — single digits confirms it.\n\nCommonly discussed responses:\n• Stop the AI entirely. Do not taper — just stop.\n• E2 rebuilds as testosterone aromatizes; expect several days to two weeks to feel normal.\n• Resume the AI, if at all, at a fraction of the prior dose once labs justify it.\n\nEscalate / seek care: Crashed estradiol is miserable but not an emergency. What it does quietly is skeletal: bone resorption starts rising within weeks of aromatase inhibition, so a long run at a suppressed E2 is worth a DEXA conversation with a physician rather than a forum thread.\n\nWhat the evidence says: The bone cost is the best-established fact in this whole area, and it is the one least discussed. When aromatization was blocked, spinal BMD fell in EVERY testosterone dose group and the fall was independent of testosterone dose — taking more testosterone does not protect the spine if estradiol is suppressed. The often-quoted E2 above roughly 10 pg/mL comes from that same trial and is a FLOOR below which bone resorption rises, not a validated therapeutic target. Both the anastrozole and letrozole labels carry their own bone findings at licensed doses. Uncertain: no trial in men has measured whether BMD recovers after stopping an AI, no AI trial in men has ever used fracture as an endpoint, and the longest exposure ever studied is 12 months — against people who may take one for years.",
+   "src": [
+    [
+     "26901812",
+     "Spinal BMD fell in every testosterone dose group in which aromatization was blocked, independent of testosterone dose; the E2 >10 pg/mL figure is a floor, not a target"
+    ],
+    [
+     "19820017",
+     "A full year of anastrozole 1 mg daily in older men dropped estradiol only from 15 to 12 pg/mL, and spine BMD still fell significantly versus placebo"
+    ],
+    [
+     "11397902",
+     "Bone resorption began rising within weeks of aromatase inhibition even while testosterone was going up and estradiol fell only modestly"
+    ],
+    [
+     "26588809",
+     "Over 12 months transdermal testosterone improved lumbar spine BMD while anastrozole, at comparable testosterone levels, did not"
+    ],
+    [
+     "18518773",
+     "In 2,639 men with mass-spectrometry hormones, fracture risk rose sharply below an estradiol inflection of about 16 pg/mL"
+    ],
+    [
+     "19584177",
+     "MrOS: men in the lowest bioavailable estradiol group had 1.5-fold higher non-vertebral fracture risk"
+    ],
+    [
+     "27300575",
+     "Hot flashes in men track estradiol deficiency, not testosterone, and step up sharply below about 10 pg/mL"
+    ],
+    [
+     "19707181",
+     "Congenital aromatase deficiency: every reported man has osteopenia or osteoporosis and unfused epiphyses"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Crashed estradiol"
@@ -5518,6 +5636,72 @@
     "rbc"
    ],
    "text": "High hematocrit — what it is and what to do\n\nUsual causes: Testosterone drives red cell production; worse with higher doses and sleep apnea.\n\nSigns: Often silent. Flushed face, headaches, high BP at the extreme.\n\nLabs: CBC — hematocrit and hemoglobin. Hydrate normally before the draw; dehydration fakes a high reading. Track ferritin alongside.\n\nCommonly discussed responses:\n• Above roughly 52–54%, clinicians typically act: dose reduction, injection frequency increase (smaller, more frequent doses flatten peaks), or supervised therapeutic phlebotomy.\n• Regular cardio measurably helps plasma volume.\n• Screen for sleep apnea — it compounds erythrocytosis.\n\nWhat the evidence says: Two things here are weaker than they look. First, the thresholds: no hematocrit threshold has ever been tested prospectively in testosterone users. The only randomised evidence that lowering hematocrit reduces events targeted under 45%, and it was run in polycythemia vera — a clonal blood cancer, not drug-driven erythrocytosis. Second, the response: haematologists who specialise in erythrocytosis advise AGAINST routine phlebotomy for non-clonal cases, there is no evidence it is effective or safe here, and a plausible mechanism exists by which it could raise thrombotic risk. The published management hierarchy puts re-evaluating the indication, fixing modifiable risk factors and changing route ahead of removing blood. Route and frequency are measurable levers: at an identical 100 mg weekly, subcutaneous enanthate produced significantly lower hematocrit than intramuscular cypionate. In context, absolute event rates are low — 20% of one cohort crossed 50% while thromboembolic events occurred in 0.9%, mostly minor.",
+   "src": [
+    [
+     "35050717",
+     "No hematocrit threshold has ever been prospectively tested in testosterone users"
+    ],
+    [
+     "23216616",
+     "The only randomised hematocrit-target trial (<45% beat 45-50%) was run in polycythemia vera, a clonal disease"
+    ],
+    [
+     "36966432",
+     "Haematologists specialising in erythrocytosis advise against routine phlebotomy for non-clonal, drug-induced cases"
+    ],
+    [
+     "39212549",
+     "No evidence that therapeutic phlebotomy is effective or safe for testosterone-induced erythrocytosis, with a mechanism by which it may worsen risk"
+    ],
+    [
+     "40512678",
+     "2025 review management hierarchy: re-evaluate the indication, fix modifiable risk factors, switch route — before removing blood"
+    ],
+    [
+     "34694927",
+     "At an identical 100 mg weekly, subcutaneous enanthate produced significantly lower hematocrit than intramuscular cypionate"
+    ],
+    [
+     "33599731",
+     "1073 testosterone-treated trans men over 20 years: smoking OR 2.2 and long-acting undecanoate OR 2.9 for crossing hematocrit 0.50"
+    ],
+    [
+     "37748907",
+     "At a median 100 mg weekly cypionate over 20 months, cumulative incidence was 12.6% above 50.4% and 1.0% above 54%"
+    ],
+    [
+     "34592628",
+     "519 people on gender-affirming testosterone: 20% crossed hematocrit 50%, but thromboembolic events occurred in 0.9% and most were minor"
+    ],
+    [
+     "31927271",
+     "In 1.5 million blood donors, high haemoglobin tracked arterial events but not venous thrombosis"
+    ],
+    [
+     "18160461",
+     "Erythropoiesis is linearly dose-dependent on testosterone, and older men respond more strongly to the same dose"
+    ],
+    [
+     "24158761",
+     "Mechanism: testosterone raises erythropoietin and suppresses hepcidin, driving iron out of stores into red cells"
+    ],
+    [
+     "28150363",
+     "Blood donation does not substitute for management — men on testosterone presenting as donors were already well above threshold"
+    ],
+    [
+     "25668261",
+     "After a single 500 mL donation, 67% of people taking no iron had still not recovered their iron stores"
+    ],
+    [
+     "40819648",
+     "Randomised donor evidence: 60 mg elemental iron daily was the most effective repletion arm"
+    ],
+    [
+     "39644058",
+     "2024 American Society of Hematology review: thrombotic risk on gender-affirming testosterone appears low"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "High hematocrit"
@@ -5544,6 +5728,60 @@
     "headaches"
    ],
    "text": "Rising blood pressure — what it is and what to do\n\nUsual causes: Water retention from E2, hematocrit, stimulants, or the compounds themselves (especially orals and tren).\n\nSigns: Headaches, visual changes at the extreme — usually silent. Buy a cuff.\n\nLabs: Home BP log, morning and evening. CMP for kidney markers on long cycles.\n\nCommonly discussed responses:\n• Fix the drivers first: E2 control, hematocrit, sodium, bodyweight.\n• Telmisartan is the commonly discussed agent in the community for on-cycle BP (ARB with favorable metabolic profile) — prescription territory.\n• Cardio again. It is the cheapest BP drug there is.\n\nWhat the evidence says: Measure it properly before you treat it: cuff size is a first-order error in this population and an undersized cuff on a large arm can manufacture a hypertension diagnosis on its own. The rise itself is real but usually modest — about 7 mmHg systolic and 3 mmHg diastolic on cycle in the best prospective cohort — though 24-hour monitoring found systolic hypertension in 51% of current users. Two findings argue for taking it seriously beyond the number: aortic stiffness was about 21% worse in BOTH current and former users, so that change did not normalise after stopping, and 1,189 men followed about 11 years carried roughly 9-fold cardiomyopathy risk. Uncertain: no antihypertensive has ever been trialled in AAS users — not telmisartan, not any other. The ARB and ACE-inhibitor preference rests on not impairing exercise capacity and not being on the WADA list, not on outcome data in this group. The right on-cycle BP target is unknown, and whether lowering it changes any outcome here is unknown. The popular claim that telmisartan improves insulin sensitivity through PPAR-gamma failed when tested directly.",
+   "src": [
+    [
+     "36644692",
+     "No clinical trial has ever tested any blood-pressure-lowering drug in AAS users; the ARB/ACE preference rests on exercise capacity and WADA status. Cuff size can manufacture a diagnosis. HAARLEM: systolic +7, diastolic +3 on cycle"
+    ],
+    [
+     "28863033",
+     "24-hour monitoring: mean systolic 132 vs 124 mmHg, systolic hypertension in 51% of current users, and aortic stiffness about 21% worse in both current AND former users"
+    ],
+    [
+     "39945117",
+     "1,189 Danish men sanctioned for AAS use, followed about 11 years against 59,450 matched controls: roughly 9-fold cardiomyopathy risk"
+    ],
+    [
+     "38088425",
+     "The only randomised placebo-controlled trial with BP as a primary outcome under testosterone: 13.2 mmHg systolic divergence"
+    ],
+    [
+     "36304014",
+     "Left ventricular mass rose 28.3 g over a median 16-week cycle, correlated with weekly dose, and returned to baseline after a median 8 months off"
+    ],
+    [
+     "19997008",
+     "The BP rise comes with measurably increased sympathetic nerve traffic, correlating strongly with 24-hour mean BP"
+    ],
+    [
+     "28743567",
+     "AAS use blunts post-exercise hypotension: controls dropped up to 13.9 mmHg systolic, users at most 6.2"
+    ],
+    [
+     "20883237",
+     "The PPAR-gamma insulin-sensitivity claim for telmisartan failed in a randomised placebo-controlled trial"
+    ],
+    [
+     "38228033",
+     "Telmisartan has the longest half-life of any ARB, which is its real pharmacological case"
+    ],
+    [
+     "18378520",
+     "25,620 patients over 56 months: telmisartan 80 mg/day was equivalent to ramipril 10 mg/day on death, MI, stroke and heart failure"
+    ],
+    [
+     "19917783",
+     "A concrete reason to favour renin-angiotensin blockade here specifically: AAS-associated focal segmental glomerulosclerosis"
+    ],
+    [
+     "32382745",
+     "Oral testosterone undecanoate raised mean systolic BP 3 to 5 mmHg at replacement doses in its phase 3 registration trial"
+    ],
+    [
+     "20718736",
+     "Diuretics used for drying out are a distinct hazard, not a BP strategy"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Rising blood pressure"
@@ -5573,6 +5811,68 @@
     "heartrisk"
    ],
    "text": "Lipid strain — what it is and what to do\n\nUsual causes: Orals and DHT-derivatives crush HDL; injectables strain lipids less.\n\nSigns: None — labs only.\n\nLabs: Lipid panel (fasted): HDL, LDL, ApoB if available.\n\nCommonly discussed responses:\n• Time-box oral compounds; HDL typically recovers weeks after stopping.\n• Omega-3 (2–4 g EPA/DHA) and citrus bergamot are the commonly cited adjuncts.\n• Keep cardio in the program; diet quality matters more on cycle, not less.\n\nWhat the evidence says: The oral-versus-injectable split is the best-replicated finding in this whole area, and two popular mitigations do not survive it. Adding an aromatase inhibitor does NOT protect lipids on androgens — it pushed every HDL measure the wrong way. And there is no oral dose low enough to spare HDL: a 2-year randomised placebo-controlled trial of oxandrolone at roughly 4-5 mg/day in a 70 kg adult, a genuinely therapeutic dose, still cut HDL. By contrast, injectable testosterone did not move ApoB even at 600 mg/week, and pooled across 19 studies replacement-dose injectables moved HDL down only about 4 mg/dL. The mechanism is hepatic lipase induction — two weeks of an oral raised it 277%. This is not only a number: coronary plaque volume tracks cumulative AAS dose in weightlifters, replicated in 2025 at a median lifetime exposure of just 2.2 years, and training does not protect you. Uncertain: no trial of any lipid-lowering drug has ever been run in people using 17-alpha-alkylated androgens — nothing on statins, ezetimibe or PCSK9 inhibitors — so the adjuncts above are extrapolation, not evidence. No oral dose-response study exists either.",
+   "src": [
+    [
+     "8487666",
+     "Adding an aromatase inhibitor to injectable testosterone made every HDL measure worse — blocking aromatisation does not protect lipids"
+    ],
+    [
+     "27802097",
+     "2-year randomised placebo-controlled oxandrolone at about 4-5 mg/day for a 70 kg adult still cut HDL — no oral dose is low enough to spare it"
+    ],
+    [
+     "231951",
+     "Oxandrolone at just 4 mg/day for 28 days drove HDL-C below 40 mg/dL in 7 of 10 patients"
+    ],
+    [
+     "2294373",
+     "Head-to-head at a matched 280 mg/week: the oral crushed HDL while the injectable did not"
+    ],
+    [
+     "2915439",
+     "The same 11 men crossed over: an oral 17-alpha-alkylated compound and a supraphysiological injectable produced completely different lipid outcomes"
+    ],
+    [
+     "11788637",
+     "Injectable testosterone did not move ApoB, LDL-C or total cholesterol across 25 to 600 mg/week for 20 weeks"
+    ],
+    [
+     "11566455",
+     "Pooled across 19 studies and 272 hypogonadal men, replacement-dose injectable esters moved HDL-C down only 4 mg/dL"
+    ],
+    [
+     "9284885",
+     "Mechanism: two weeks of an oral raised hepatic lipase activity 277% with HDL-C down 49%"
+    ],
+    [
+     "15155420",
+     "Real-world stacks: ApoB rose 38% and HDL-C fell 60%, while a pure injectable arm in the same paper moved nothing"
+    ],
+    [
+     "30826541",
+     "The remaining HDL also works less well — cholesterol efflux capacity was significantly lower in users than matched controls"
+    ],
+    [
+     "28533317",
+     "140 weightlifters: AAS users had higher coronary plaque volume, and it tracked cumulative dose"
+    ],
+    [
+     "40880090",
+     "Replicated in 2025 in 164 Danish recreational athletes at a median cumulative lifetime use of only 2.2 years"
+    ],
+    [
+     "6737643",
+     "Training does not protect you: bodybuilders started with far better lipids than powerlifters purely from training, and still lost them"
+    ],
+    [
+     "8574271",
+     "Switching from the oral to an injectable reversed the HDL damage inside a single trial"
+    ],
+    [
+     "18691993",
+     "Danazol 600 mg/day with lovastatin 40 mg/day was associated with rhabdomyolysis — oral androgens and statins can interact dangerously"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Lipid strain"
@@ -5607,6 +5907,68 @@
     "nolvadex"
    ],
    "text": "Early gyno signs — what it is and what to do\n\nUsual causes: Estrogen or prolactin activity at breast tissue — puffy, itchy, or tender nipple, or a small firm lump under the areola.\n\nSigns: Itch and puffiness first, palpable lump second. Early action matters — established tissue rarely regresses without surgery.\n\nLabs: Sensitive E2 and prolactin, to identify which pathway is driving it.\n\nCommonly discussed responses:\n• Address the cause immediately (AI for E2-driven, cabergoline for prolactin-driven, or drop the offending compound).\n• Raloxifene 60 mg daily is the commonly cited SERM for reversal attempts at the tissue level; tamoxifen 20 mg daily is the older alternative.\n• Give a reversal attempt weeks, not days, and get real medical involvement.\n\nWhat the evidence says: If you are choosing between a SERM and an aromatase inhibitor for breast tissue specifically, the trial evidence is one-sided. In a double-blind placebo-controlled trial, tamoxifen 20 mg/day cut gynecomastia from 73% to 10% over 48 weeks while anastrozole 1 mg/day did not beat placebo, and a 2025 meta-analysis of nine randomised trials put tamoxifen at an 82% reduction in breast events with aromatase inhibition achieving nothing meaningful. The only dose-ranging trial found a clean dose-response with 20 mg/day the best of five doses, and 20 mg once weekly more than doubled gynecomastia versus 20 mg daily — so frequency is not the place to economise. Uncertain: every one of those trials was run in men on androgen-deprivation therapy for prostate cancer, not in AAS users or men on TRT, and no randomised trial of either SERM exists in this population. The claim that raloxifene beats tamoxifen for established tissue rests on a single small retrospective chart review in adolescents, and no dose-ranging study of raloxifene exists in men for any breast endpoint — 60 mg is the postmenopausal osteoporosis dose. Raloxifene is also not inert here: at 120 mg/day it raised LH, FSH and testosterone in men.",
+   "src": [
+    [
+     "15681525",
+     "Tamoxifen 20 mg/day cut gynecomastia from 73% to 10% over 48 weeks; anastrozole 1 mg/day did not beat placebo"
+    ],
+    [
+     "17270340",
+     "The only randomised dose-ranging study found a clean dose-response with 20 mg/day the best of five tamoxifen doses"
+    ],
+    [
+     "40244528",
+     "2025 meta-analysis of nine randomised trials: tamoxifen reduced breast events by 82%, aromatase inhibition by nothing meaningful"
+    ],
+    [
+     "19481335",
+     "Phase 3 trial: tamoxifen 20 mg once weekly more than doubled gynecomastia versus 20 mg daily"
+    ],
+    [
+     "26308532",
+     "GRADE-rated systematic review: usable tamoxifen range is 10-20 mg daily, outperforming radiotherapy for prevention and treatment"
+    ],
+    [
+     "15863377",
+     "Randomised evidence that tamoxifen acts on breast tissue that has already appeared, not only on prevention"
+    ],
+    [
+     "22502790",
+     "Treating established tissue rather than starting early leaves residual disease in about a quarter of men"
+    ],
+    [
+     "15238910",
+     "The whole basis for the raloxifene-is-better claim: one small retrospective chart review in adolescents, whose boys had carried gynecomastia a mean of 28 months"
+    ],
+    [
+     "15080785",
+     "Raloxifene 120 mg/day significantly raised LH, FSH and total and free testosterone in men"
+    ],
+    [
+     "16217274",
+     "The reversal window is described by tissue phase — early and glandular versus late and fibrotic — not by a number of months"
+    ],
+    [
+     "42258023",
+     "The 2026 SIAMS GRADE guideline draws the same line by tissue character rather than elapsed time"
+    ],
+    [
+     "30079473",
+     "A 10-year prospective cohort of ordinary adult men with gynecomastia used tamoxifen 10 mg/day"
+    ],
+    [
+     "24636400",
+     "A review that set out to meta-analyse SERM use for AAS-induced hypogonadism found no controlled evidence base to pool"
+    ],
+    [
+     "label:509f8ba3-214d-aec8-e063-6294a90af498",
+     "Tamoxifen US label: covers breast cancer in men but only breast cancer — every milligram figure used for gynecomastia is off-label"
+    ],
+    [
+     "label:3798c70b-a4b0-4811-9788-e4c9cff47ebe",
+     "Raloxifene US label: no approved use in men at all; the 60 mg dose was established in postmenopausal women"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Early gyno signs"
@@ -5646,6 +6008,72 @@
     "naturalproduction"
    ],
    "text": "HPTA suppression & recovery — what it is and what to do\n\nUsual causes: Any suppressive compound. The question is never if, only how deep and how long.\n\nSigns: Post-cycle: fatigue, low mood, no libido — the low-T package.\n\nLabs: LH, FSH, total and free testosterone. Recovery is confirmed on paper, not by feel.\n\nCommonly discussed responses:\n• On TRT for life: recovery protocols don’t apply — this section is for cycling without a TRT base.\n• Wait out the ester before starting a restart protocol (long esters keep you suppressed for weeks after the last pin).\n• SERM-based restarts (clomiphene, enclomiphene, or tamoxifen at commonly cited doses) are the standard framework; HCG during the cycle preserves testicular volume and shortens the road back.\n\nWhat the evidence says: Start from the honest headline: there is no randomised trial of any PCT protocol against simply stopping. Not one. A 2026 specialist review states that every drug used for this — SERMs, hCG, aromatase inhibitors, prescribed testosterone — is unlicensed for the purpose. What IS established: the testis stays hCG-responsive during androgen-induced suppression, and splitting hCG into small frequent doses beat a single large one at the same total dose, roughly doubling the testosterone response. Serum testosterone is a poor proxy for what is happening inside the testis — baseline serum was 1.2% of intratesticular — but serum 17-hydroxyprogesterone tracks it and can be ordered without a biopsy. On timelines, the best data give a median 3.4 months to a sperm concentration of 20 million/mL, 67% by 6 months and 90% by 12. That is the clean population. In actual long-term AAS users recovery is often incomplete: more than a quarter were still below the testosterone reference range a mean of 2.5 years after stopping, against zero controls. Note also that the most-cited male clomiphene dose is 25 mg every other day titrated to 50 mg every other day — not 50 mg daily — and that enclomiphene’s gains disappear when it is stopped.",
+   "src": [
+    [
+     "42517308",
+     "2026 specialist review: every drug used for PCT — SERMs, hCG, aromatase inhibitors, prescribed testosterone — is unlicensed for this purpose"
+    ],
+    [
+     "15713727",
+     "The testis remains hCG-responsive during androgen-induced gonadotropin suppression, and baseline serum testosterone was only 1.2% of intratesticular testosterone"
+    ],
+    [
+     "6693540",
+     "Splitting hCG into small frequent doses beat a single large one at the same total dose, roughly doubling the testosterone response"
+    ],
+    [
+     "17462643",
+     "Serum 17-hydroxyprogesterone tracks intratesticular testosterone and is orderable without a testicular aspiration"
+    ],
+    [
+     "23260550",
+     "hCG 500 IU every other day alongside testosterone prevented azoospermia entirely in a clinic cohort followed over a year"
+    ],
+    [
+     "25904023",
+     "The only published restart series in testosterone-induced azoospermia used hCG 3,000 IU subcutaneously every other day plus an adjunct"
+    ],
+    [
+     "16650651",
+     "Best recovery-timeline data: median 3.4 months to 20 million/mL, 67% recovered by 6 months, 90% by 12"
+    ],
+    [
+     "27532478",
+     "More than a quarter of former AAS users were still below the testosterone reference range a mean of 2.5 years after stopping, versus zero controls"
+    ],
+    [
+     "25598171",
+     "Men abstinent 3 to 26 months still had smaller testes and lower testosterone, some below 200 ng/dL"
+    ],
+    [
+     "33351319",
+     "What predicts a slow restart, measured directly in 44 AAS users doing a standardised PCT"
+    ],
+    [
+     "22044663",
+     "The most-cited male clomiphene dose is 25 mg every other day titrated to 50 mg every other day — not 50 mg daily"
+    ],
+    [
+     "36604313",
+     "Pooled SERM trial ranges actually used: clomiphene 12.5-50 mg daily, enclomiphene 12.5-25 mg daily, for 1.5-4 months"
+    ],
+    [
+     "32353397",
+     "Clomiphene raised testosterone in 73% of men by at least 200 ng/dL, mean rise 329 ng/dL"
+    ],
+    [
+     "23530575",
+     "Enclomiphene’s gains disappear when you stop it"
+    ],
+    [
+     "26496621",
+     "Two phase III trials: enclomiphene raises testosterone like a gel but, unlike the gel, drives LH and FSH up and holds sperm counts"
+    ],
+    [
+     "14556812",
+     "The best-quality tamoxifen dose in men outside oncology is 20 mg/day, from a 212-man randomised placebo-controlled trial"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "HPTA suppression & recovery"
@@ -5674,6 +6102,68 @@
     "malepattern"
    ],
    "text": "Hair shedding — what it is and what to do\n\nUsual causes: DHT and DHT-derived compounds in the androgen-sensitive.\n\nSigns: Increased shed at the crown and temples, visible in the drain.\n\nLabs: None useful — genetics decide this one.\n\nCommonly discussed responses:\n• Compound selection is the real lever: nandrolone and less androgenic choices shed less than masteron, winstrol, or high-dose test.\n• Topical ketoconazole and minoxidil are the low-risk adjuncts.\n• Finasteride/dutasteride block T→DHT conversion and can help on testosterone.\n\nWhat the evidence says: Established from the labels: finasteride 1 mg daily is the approved dose and needs at least three months before any benefit shows. Dutasteride blocks both isoforms and suppresses DHT deeper and faster — 90% at two weeks against finasteride’s 70% — and beat finasteride 1 mg on hair count at 24 weeks. But dutasteride has NO US label for hair loss at all, so there is no approved dose, duration or monitoring plan for that use, and no head-to-head trial longer than 24 weeks exists. Two practical notes for anyone tracking labs: dutasteride halves serum PSA within 3-6 months, so a normal-looking PSA on it is not reassuring without doubling, and finasteride’s DHT suppression plateaus well below 1 mg — 0.2 mg/day was already near-maximal in scalp skin. On minoxidil, oral 5 mg once daily did NOT beat topical 5% twice daily in the only head-to-head, and the OTC label states outright that more or more often does not improve results. Genuinely contested: persistent sexual dysfunction after stopping. No incidence figure exists, there is no validated diagnostic criterion or biomarker, a network meta-analysis of the randomised trials found no significant sexual-adverse-event difference from placebo, pharmacovigilance shows a disproportionality signal, and 83.3% of surveyed hair specialists had never seen a case. Those findings are reported here together because no honest summary can pick one.",
+   "src": [
+    [
+     "10495374",
+     "Finasteride’s DHT suppression plateaus below 1 mg: 0.2 mg/day already produced near-maximal scalp-skin suppression in a 42-day biopsy study"
+    ],
+    [
+     "24411083",
+     "Dutasteride 0.5 mg/day beat finasteride 1 mg/day on hair count and width at 24 weeks in 917 men, with similar adverse events"
+    ],
+    [
+     "34634163",
+     "Topical finasteride reached hair counts numerically similar to oral while cutting serum DHT only 34.5% versus 55.6%"
+    ],
+    [
+     "38598226",
+     "The only head-to-head: oral minoxidil 5 mg once daily did not beat topical minoxidil 5% twice daily over 24 weeks in men"
+    ],
+    [
+     "33639244",
+     "Largest low-dose oral minoxidil safety dataset (1404 patients): hypertrichosis in 15.1%"
+    ],
+    [
+     "41118052",
+     "Current expert-consensus starting doses for low-dose oral minoxidil: 2.5 mg/day for men, 1.25 mg/day for women"
+    ],
+    [
+     "17299062",
+     "Over a year, dutasteride suppressed DHT 94% and finasteride 5 mg suppressed it 73%; both cut total sperm count"
+    ],
+    [
+     "27225981",
+     "In women the evidence splits: topical minoxidil works for female pattern hair loss, and finasteride 1 mg did not beat placebo"
+    ],
+    [
+     "22789024",
+     "The documented side of the persistence debate: prospective follow-up of 54 men reporting sexual side effects lasting at least 3 months after stopping"
+    ],
+    [
+     "23768246",
+     "The contested side: a network meta-analysis found finasteride 1 mg, finasteride 5 mg and dutasteride 0.5 mg not significantly different from placebo on sexual adverse events"
+    ],
+    [
+     "33175100",
+     "WHO VigiBase: finasteride carried a significant disproportionality signal for suicidality and psychological adverse events"
+    ],
+    [
+     "41865985",
+     "A 2026 survey of 54 Spanish hair and nail dermatologists found 83.3% had never encountered a case of post-finasteride syndrome"
+    ],
+    [
+     "label:6f904709-65aa-44ce-b144-b4c8a0416e36",
+     "Finasteride 1 mg (PROPECIA) US label: approved dose for male pattern hair loss, at least three months before benefit"
+    ],
+    [
+     "label:acc5ad74-4558-4be9-aab4-94ad9ddad6b2",
+     "Minoxidil 5% topical OTC label: 1 mL twice daily, and more or more often does not improve results"
+    ],
+    [
+     "label:c78d18cf-05df-4154-b2f9-39cc374ca9e3",
+     "Dutasteride US label: approved for BPH only — no hair-loss indication; halves serum PSA within 3-6 months"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Hair shedding"
@@ -5727,6 +6217,72 @@
     "lfts"
    ],
    "text": "Liver strain — what it is and what to do\n\nUsual causes: 17-alpha-alkylated orals are the classic cause, but SARMs produce a congruent injury with no alkyl group at all. Hard training on its own also moves AST and ALT.\n\nSigns: Usually nothing until jaundice — yellow eyes or skin, dark urine, pale stools, itching. Pain is not typical and its absence means nothing.\n\nLabs: ALT, AST, GGT, ALP and TOTAL BILIRUBIN together, plus CK. Bilirubin is the number that actually moves in androgen liver injury; enzymes can stay near-normal while it climbs.\n\nCommonly discussed responses:\n• Read AST and ALT next to CK before assuming the liver. A lifting session raises both for a week, and a high CK with a normal GGT points at muscle.\n• A normal GGT does not clear you. In stanozolol and AAS cholestasis series, GGT stayed normal or barely above range while bilirubin rose sharply — the GGT rule sorts muscle from hepatitis, not safe from injured.\n• Stopping is the intervention. There is no supplement with controlled evidence of treating this, and injury commonly peaks AFTER cessation.\n• Trend against the same lab. Reported upper limits of normal differ about two-fold between institutions, so a number from one lab cannot be compared with another without both reference ranges.\n\nEscalate / seek care: Yellowing of the eyes or skin, dark urine, pale stools, or persistent itching is a same-week medical review, not a wait-and-see. Sudden severe abdominal pain with faintness after long-term oral androgen use is an emergency — peliosis hepatis and hepatic adenoma can bleed.\n\nWhat the evidence says: Established: the injury pattern is real and well documented — cholestatic jaundice with modest enzymes, typically starting around two months in and taking months to clear. Uncertain: almost no case series reports the doses people actually took, so no dose-response curve exists for any compound bodybuilders use. The only labelled numeric threshold on any 17-alpha-alkylated androgen is danazol at 400 mg/day, and it does not transfer to other compounds. The methyltestosterone label states cholestatic hepatitis occurs at a relatively low dose without naming one, so a moderate dose is not a documented safe dose.",
+   "src": [
+    [
+     "33214235",
+     "52 AAS cases: bilirubin peaked at 705 micromol/L with ALT only 125 U/L, GGT 52 U/L, and bilirubin peaked 28 days AFTER stopping"
+    ],
+    [
+     "40040852",
+     "18 prospective stanozolol cases: every patient had raised bilirubin while GGT stayed within or barely above normal"
+    ],
+    [
+     "38372012",
+     "Australian multicentre series: median 58 days from starting to injury, median 175 days to normalise, 17 of 23 hospitalised, one transplant, no deaths"
+    ],
+    [
+     "36479151",
+     "SARMs cause a cholestatic syndrome congruent with AAS injury despite carrying no 17-alpha-alkyl group"
+    ],
+    [
+     "17764474",
+     "One 60-minute weightlifting session raised AST and ALT in healthy men for at least seven days while GGT, ALP and bilirubin stayed normal"
+    ],
+    [
+     "10336050",
+     "The founding GGT study: bodybuilders had raised CK, AST and ALT with normal GGT; hepatitis patients had all three raised"
+    ],
+    [
+     "11476029",
+     "Given that exact pattern in writing, 63% of surveyed physicians still named liver disease as the primary diagnosis and 56% never mentioned muscle"
+    ],
+    [
+     "15660433",
+     "The AST/ALT ratio falls toward 1 within days of muscle injury because AST clears faster, so repeated damage mimics a hepatic pattern"
+    ],
+    [
+     "26549387",
+     "182 asymptomatic bodybuilders on AAS six months or longer: 38.5% had raised enzymes, 12.6% had diagnosed toxic liver injury, 12.1% had steatosis on ultrasound"
+    ],
+    [
+     "31220261",
+     "309 burn patients on prescribed oxandrolone: 41.4% crossed AST or ALT above 100 U/L at a median of 13 days"
+    ],
+    [
+     "17438485",
+     "Prescribed oxandrolone raised hepatic dysfunction to 25% at 5 mg and 67% at 10 mg — but 43% of untreated controls were also abnormal, and the difference was not significant"
+    ],
+    [
+     "12093239",
+     "Healthy upper limits in screened blood donors were 30 U/L for men and 19 U/L for women, against the conventional 40 and 30"
+    ],
+    [
+     "40227983",
+     "The upper limit of normal for ALT still varies roughly two-fold between institutions, from 30 to 60 U/L"
+    ],
+    [
+     "15248788",
+     "Controlled athlete studies did not find liver damage — the same review warns they used doses far below real-world use"
+    ],
+    [
+     "label:55ad6325-16f6-4f0c-a1dc-734847052d0b",
+     "Danazol US label: elevated enzymes and/or jaundice reported at 400 mg/day or more; boxed warning that peliosis and adenoma may be silent until life-threatening bleeding"
+    ],
+    [
+     "label:77bb4ef4-c10e-4acc-8225-651d003f4561",
+     "Methyltestosterone US label: cholestatic hepatitis and jaundice occur with 17-alpha-alkylandrogens at a relatively low dose"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Liver strain"
@@ -5759,6 +6315,7 @@
     "soreinjection"
    ],
    "text": "Injection-site reactions — what it is and what to do\n\nUsual causes: Technique, oil concentration and volume, unsanitary practice, or immune response to the carrier.\n\nSigns: Post-injection pain (PIP), lumps, redness. Normal PIP fades over days and stays local.\n\nLabs: None — but know the red flags below.\n\nCommonly discussed responses:\n• Rotate sites religiously (the app tracks this), warm the oil to body temperature, inject slowly, use a fresh needle to inject (not the draw needle).\n• High-concentration blends (e.g. anything 300+ mg/ml) hurt — diluting with a second compound or carrier is why people combine syringes.\n• Massage and warmth after help dispersal.",
+   "src": [],
    "route": {
     "view": "sidefx",
     "item": "Injection-site reactions"
@@ -5792,6 +6349,7 @@
     "appetite"
    ],
    "text": "GLP-1 side effects — what it is and what to do\n\nUsual causes: Semaglutide, tirzepatide, retatrutide — delayed gastric emptying does the work and causes the trouble.\n\nSigns: Nausea, reflux, constipation, early satiety. Worst in the days after a dose increase.\n\nLabs: None routinely; lipase if significant abdominal pain.\n\nCommonly discussed responses:\n• Titrate slower — the schedule printed on the pen is the fastest allowed, not the required pace.\n• Smaller meals, less fat per sitting, stop eating at first fullness, hydrate hard.\n• Time the weekly dose so the roughest 48 hours land on easy days.",
+   "src": [],
    "route": {
     "view": "sidefx",
     "item": "GLP-1 side effects"
@@ -5828,6 +6386,7 @@
     "igf"
    ],
    "text": "GH secretagogue effects — what it is and what to do\n\nUsual causes: MK-677, GHRP-2/6, ipamorelin, CJC — water retention and blood-sugar drift come with the territory.\n\nSigns: Tingling hands or carpal-tunnel feeling, puffiness, vivid dreams, raging hunger (GHRP-6 and MK-677 especially).\n\nLabs: Fasting glucose and HbA1c on anything run for months — GH antagonizes insulin.\n\nCommonly discussed responses:\n• Water symptoms usually settle in 2–3 weeks; if not, the dose is too high.\n• Take MK-677 at night to sleep through the hunger wave.\n• Ipamorelin is the selective choice — GHRP-6 and hexarelin also bump cortisol and prolactin at higher doses.",
+   "src": [],
    "route": {
     "view": "sidefx",
     "item": "GH secretagogue effects"
@@ -5872,6 +6431,68 @@
     "rehabtendon"
    ],
    "text": "Tendon loading protocols — How to load an irritated tendon — patellar, Achilles or lateral elbow — with the parameters actually used in the trials rather than a generic \"do eccentrics\".\n\nWhat it looks like: Load-related pain that warms up with activity and bites afterwards, localised to the tendon rather than spread across the joint.\n\nProtocols and parameters:\n• Heavy slow resistance, patellar, fully specified: 3 sessions per week, three bilateral movements (squat, leg press, Bulgarian split squat), load stepped from 12RM toward 6RM across the programme. At 12 weeks HSR matched eccentric decline squats and beat corticosteroid injection in the long run — the injection looked better early, then deteriorated.\n• Isometric stage, patellar: 5 repetitions of a 45-second single-leg hold at 70% of maximum voluntary contraction at 60 degrees of knee flexion.\n• Isotonic stage: progress from 4 sets of 15 reps restricted to 10-60 degrees, toward 4 sets of 6 reps at higher load through fuller range.\n• Lateral elbow: 12 weeks of home-based heavy slow resistance with elastic bands improved symptoms short and long term — and adding a corticosteroid injection did not improve on it.\n\nHow to judge progression: The pain rule, with its source: progression was gated on a standardised provocation test (a single-leg squat). Pain of 3/10 or less, settling by the next morning, means progress. The older Silbernagel model uses a higher ceiling — load is added while pain does not exceed 5/10. The two have never been compared head to head, and a review of 30 randomised trials found pain-based progression criteria dominate the literature without strong evidence behind them.\n\nWhat not to do: Resting it completely is not the safe default. A randomised trial let people keep running and jumping under the pain-monitoring model and they did no worse than those told to stop.\n\nEscalate / seek care: Sudden sharp pain with a pop, immediate loss of strength, or a palpable gap in the tendon is a rupture until proven otherwise — same-day assessment, not a loading programme.\n\nWhat the evidence says: Established: heavy slow resistance and staged pain-limited loading both work for patellar and lateral elbow tendinopathy, and both beat or match injection in the long run. Contested: isometric analgesia. The original result was dramatic — decline-squat pain from 7.0/10 to 0.17/10, held 45 minutes — but an independent pre-registered crossover found only 0.9 points, a trial from the original group found isometrics no better than isotonics, and a systematic review across 13 studies found no consistent evidence that isometric exercise reduces pain more than other loading. Treat isometrics as a tolerable way to load, not as a reliable painkiller. Genuinely unresolved: isometric intensity (70% MVC and 80% MVIC both appear), and whether any of these lower-limb pain thresholds transfer to the elbow at all — that transfer is assumed, not tested.",
+   "src": [
+    [
+     "39390552",
+     "Heavy slow resistance for patellar tendon, fully specified: 3 sessions/week, squat, leg press and Bulgarian split squat, load stepped 12RM toward 6RM"
+    ],
+    [
+     "19793213",
+     "The foundational HSR trial: 12 weeks matched eccentric decline squats and beat corticosteroid injection in the long run"
+    ],
+    [
+     "33219115",
+     "The staged protocol with its numbers — 5 x 45 s isometric holds at 70% MVC at 60 degrees, isotonic 4 x 15 restricted range progressing to 4 x 6 — beat the pain-provoking eccentric decline squat by 9 VISA-P points at 24 weeks"
+    ],
+    [
+     "28693535",
+     "The Silbernagel pain-monitoring model uses the higher ceiling: load is added while pain does not exceed 5/10"
+    ],
+    [
+     "17307888",
+     "Randomised evidence that you can keep running and jumping on a symptomatic tendon under the pain-monitoring model"
+    ],
+    [
+     "33444210",
+     "Systematic review of 30 randomised trials: pain-based progression criteria dominate the literature but are not backed by strong evidence"
+    ],
+    [
+     "25979840",
+     "Isometric analgesia, the original positive result: decline-squat pain 7.0/10 to 0.17/10, held for 45 minutes"
+    ],
+    [
+     "31735531",
+     "Replication failure: an independent pre-registered crossover found the reduction was 0.9 points on 0-10, not 6.8"
+    ],
+    [
+     "26707957",
+     "Replication failure from the original group: isometric and isotonic both reduced pain with no significant difference"
+    ],
+    [
+     "33601254",
+     "Systematic review across 13 studies and 346 participants: no consistent evidence isometric exercise reduces pain more than other loading"
+    ],
+    [
+     "27513733",
+     "The in-season isometric protocol: leg-extension holds at 60 degrees at 80% MVIC, 4 sessions per week for 4 weeks"
+    ],
+    [
+     "35867777",
+     "Lateral elbow: 12 weeks of home-based heavy slow resistance with elastic bands improved symptoms short and long term; adding a corticosteroid injection did not improve on it"
+    ],
+    [
+     "26889612",
+     "Elbow isometrics tested 20% BELOW versus 20% ABOVE each person’s own pain threshold"
+    ],
+    [
+     "31425384",
+     "Eight weeks of daily unsupervised progressive isometrics for lateral elbow tendinopathy beat wait-and-see on only one of three primary outcomes"
+    ],
+    [
+     "39806585",
+     "Tolerability warning: a 12-week 36-session heavy elbow programme had feasibility problems"
+    ]
+   ],
    "route": {
     "view": "rehab",
     "item": "Tendon loading protocols"
@@ -5929,6 +6550,72 @@
     "rows"
    ],
    "text": "Training around a sore elbow or shoulder — What actually changes the load on an irritated elbow flexor or shoulder — and which popular adjustments measurably do nothing.\n\nWhat it looks like: Pain at the front of the elbow on pulling and curling, or at the shoulder on pressing and overhead work.\n\nProtocols and parameters:\n• Back work with less elbow flexor involvement: the honest finding is that grip changes do far less than people assume. Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was SIMILAR — no grip spares the biceps.\n• In the lat pulldown, pronating the grip increased latissimus activity but had NO effect on biceps brachii, at either wide or narrow grip. So a pronated pulldown is a better lat exercise, not a lower-biceps one.\n• Where grip does matter is curling: biceps excitation was 19% higher with a supinated grip than pronated at 8RM. If you are trying to load elbow flexors less, that is the lever with evidence behind it.\n• Thick or fat grips move recruitment the WRONG way for an irritated distal biceps — they significantly increased forearm muscle activity.\n• Lifting straps changed nothing measurable in the lat pulldown: not 1RM, not reps to failure at 70% 1RM, not latissimus activity.\n\nHow to judge progression: Exercising into pain is not harmful. In shoulder pain it gave a small short-term advantage over strictly pain-free exercise, with the two equivalent by medium and long term.\n\nWhat not to do: Do not reach for surgery for subacromial shoulder pain on the assumption it is mechanical. Arthroscopic subacromial decompression was no better than PLACEBO surgery at 6 months, 24 months and 5 years, Cochrane rates that no-benefit finding high-certainty, and serious surgical complications run about 5-7 per 1000.\n\nEscalate / seek care: Weakness that is genuine rather than pain-limited, night pain that wakes you consistently, or numbness and tingling down the arm belongs with a clinician rather than a programme adjustment.\n\nWhat the evidence says: Read the grip findings with their limit attached: EMG amplitude is not tendon load. None of the grip, curl, pulldown or pull-up studies measured force or strain in the tendon itself, so \"less activation\" is a proxy, not a measurement of what the tendon feels. The bigger caveat is population — distal biceps tendinopathy is very rare with limited published evidence, and NO loading trial exists for it at all. Everything above is extrapolated from patellar, Achilles and lateral elbow tendons. For the shoulder, three separate results point the same way and are worth knowing before spending money: doubling the total dose of strengthening produced no additional benefit, progressive high-load was not superior to low-load, and a supervised programme of up to 6 sessions was no better at 12 months than a single best-practice advice session. There is also no consensus sets-and-reps prescription — across 46 programmes in 22 randomised trials, frequency ranged from 2 to 7 sessions per week.",
+   "src": [
+    [
+     "28011412",
+     "Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was similar"
+    ],
+    [
+     "20543740",
+     "In the lat pulldown, pronating the grip increased latissimus activity but had no effect on biceps brachii at either width"
+    ],
+    [
+     "36976950",
+     "Biceps brachii excitation was 19% higher with a supinated curl grip than pronated at 8RM"
+    ],
+    [
+     "30694963",
+     "Fat-grip attachments significantly increased forearm muscle activity — the wrong direction for an irritated distal biceps"
+    ],
+    [
+     "31198105",
+     "The only lifting-strap EMG trial: straps changed nothing in the lat pulldown, including latissimus activity and reps to failure"
+    ],
+    [
+     "27582910",
+     "The honest baseline: distal biceps tendinopathy is very rare and published evidence on it is limited"
+    ],
+    [
+     "28596288",
+     "Exercising into pain is not harmful and gives a small short-term advantage over strictly pain-free exercise"
+    ],
+    [
+     "29169668",
+     "Arthroscopic subacromial decompression was no better than placebo arthroscopy at 6 months"
+    ],
+    [
+     "30026230",
+     "Double-blind sham-surgery trial: no benefit over diagnostic arthroscopy at 24 months"
+    ],
+    [
+     "33020137",
+     "At 5 years, decompression was no better than placebo surgery and no better than exercise therapy"
+    ],
+    [
+     "30707445",
+     "Cochrane rates the no-benefit finding high-certainty and puts serious surgical complication risk at roughly 5-7 per 1000"
+    ],
+    [
+     "34048281",
+     "Doubling the total dose of shoulder strengthening on top of usual care produced no additional benefit"
+    ],
+    [
+     "28875153",
+     "Progressive high-load exercise was not superior to traditional low-load exercise for rotator cuff tendinopathy over 12 weeks"
+    ],
+    [
+     "34265255",
+     "A supervised programme of up to 6 sessions was no better over 12 months than a single best-practice advice session"
+    ],
+    [
+     "38832666",
+     "No consensus sets-and-reps prescription: across 46 programmes in 22 randomised trials, frequency ranged 2-7 sessions per week"
+    ],
+    [
+     "22349588",
+     "A specific eccentric rotator-cuff plus scapular-stabiliser programme, home-based once or twice daily for 12 weeks with 5-6 supervised sessions"
+    ]
+   ],
    "route": {
     "view": "rehab",
     "item": "Training around a sore elbow or shoulder"
@@ -5989,6 +6676,124 @@
     "painkillersgains"
    ],
    "text": "Load management and getting back to training — How to decide when to add load, when to back off, and what the popular load-management numbers are actually worth.\n\nWhat it looks like: Recurring niggles that track training spikes, or an injury you are trying to return from without repeating it.\n\nProtocols and parameters:\n• The most-cited numeric form of the pain-monitoring model: pain during activity must not exceed 5 on a 0-10 scale, AND symptoms must have subsided within 24 hours.\n• A criteria-based return-to-running protocol uses three separate gates instead of one number: under 2/10 pain in daily activity to be allowed to start, and 4/10 or less during the run itself.\n• For low back pain specifically, staying active beats bed rest, and posterior-chain resistance training (thoracic, lumbar and hip extensors) beat general exercise for pain, disability and strength.\n• A deadlift-based high-load programme and a low-load motor-control programme both improved recurrent low back pain over 12 sessions — the choice can follow preference and tolerance.\n\nHow to judge progression: The 24-hour rule is the useful half. The threshold number is not standardised: trials operationalise the same named model at 4/10 and at 5/10, and no study has ever compared thresholds head to head.\n\nWhat not to do: Do not treat the acute:chronic workload ratio as a rule. The only experimental test of ACWR-based load management — a 10-month cluster-randomised trial where coaches planned all training using published guidelines — found no benefit. A systematic review co-authored by the metric’s own originator concludes the methodology is too heterogeneous to support strong recommendations, with 14 different binning schemes in use.\n\nEscalate / seek care: Back pain with saddle numbness, new bladder or bowel change, or progressive leg weakness is a same-day emergency. Otherwise, note that serious spinal pathology is rare (0.9%) while 80% of people with acute back pain have at least one textbook red flag — the flags that actually shift the odds of fracture are prolonged corticosteroid use, visible contusion, and older age.\n\nWhat the evidence says: Two things worth knowing if you are training on hormones or compounds. First, no pain-monitoring-model research includes anyone using hormone therapy, peptides or performance compounds — the 24-hour symptom-response rule assumes pain is a reliable feedback signal, and nobody has tested whether that holds. Second, the androgen-tendon evidence is real but thin and pulls in two directions: in 142 experienced male bodybuilders, lifetime AAS users carried a hazard ratio of 9.0 for a first tendon rupture, and long-term AAS-using lifters had stiffer patellar tendons carrying 15% higher maximal stress. Against that, the best mechanistic human study with biopsies and imaging found the patellar tendon itself was NOT severely damaged, and prescription testosterone in a claims database showed only a modest association with Achilles injury. A systematic review of the entire androgen-tendon literature found just 18 studies, mostly in small animals and frequently contradictory. For SARMs the entire published human tendon evidence is a single case report. And on BPC-157, widely used for exactly these injuries: a 2025 review found only three human pilot studies — there is essentially no human evidence for it. One more, specific to lifters: ibuprofen at 1200 mg/day for 8 weeks measurably blunted muscle growth and strength gains from resistance training.",
+   "src": [
+    [
+     "34722783",
+     "The most-cited numeric form: pain must not exceed 5/10 during activity and symptoms must subside within 24 hours"
+    ],
+    [
+     "41770805",
+     "The threshold is not standardised — a separate Achilles protocol operationalises the same named model at 4/10"
+    ],
+    [
+     "34391384",
+     "A criteria-based return-to-running protocol uses three gates: under 2/10 in daily activity to start, 4/10 or less during running"
+    ],
+    [
+     "17307888",
+     "The pain-monitoring model’s clinical evidence base is a single 38-person randomised trial"
+    ],
+    [
+     "9413448",
+     "The original pain monitoring system comes from a 1997 patellofemoral trial whose author listed spontaneous recovery first among possible explanations"
+    ],
+    [
+     "29249084",
+     "There is no validated return-to-sport criterion set for Achilles tendinopathy"
+    ],
+    [
+     "33036995",
+     "The only experimental test of ACWR-based load management — a 10-month cluster-randomised trial — found no benefit"
+    ],
+    [
+     "32572824",
+     "A systematic review co-authored by ACWR’s originator concludes the methodology is too heterogeneous to support strong recommendations, with 14 binning schemes"
+    ],
+    [
+     "32502973",
+     "Manipulating ACWR to change injury risk assumes a causal effect no study has ever properly estimated"
+    ],
+    [
+     "26758673",
+     "ACWR was introduced as a best-practice predictor on the argument that load spikes rather than high load cause injury"
+    ],
+    [
+     "26701923",
+     "The concrete definition: acute is the current week, chronic the rolling 4-week average"
+    ],
+    [
+     "41029871",
+     "The familiar 0.8-1.3 sweet spot has a meta-analytic source that attaches an explicit caution and a very wide confidence interval"
+    ],
+    [
+     "20556780",
+     "For acute low back pain, advice to stay active beats advice to rest in bed"
+    ],
+    [
+     "33683497",
+     "Posterior-chain resistance training beat general exercise for pain, disability and strength in chronic low back pain"
+    ],
+    [
+     "25641309",
+     "A deadlift-based high-load programme and a low-load motor-control programme both improved recurrent low back pain over 12 sessions"
+    ],
+    [
+     "34580864",
+     "Exercise for chronic low back pain produces a clinically important 15-point pain reduction versus no treatment"
+    ],
+    [
+     "37146623",
+     "Cognitive functional therapy — graded re-exposure plus targeting unhelpful beliefs — in up to seven sessions over 12 weeks"
+    ],
+    [
+     "19790051",
+     "Serious spinal pathology in acute low back pain is rare at 0.9%, yet 80% have at least one textbook red flag"
+    ],
+    [
+     "24335669",
+     "The red flags that actually move fracture probability: prolonged corticosteroid use, visible contusion or abrasion, older age"
+    ],
+    [
+     "31278933",
+     "In emergency-department series, cord or cauda equina compression accounted for 0.1-1.9% of presentations"
+    ],
+    [
+     "29785405",
+     "Among subelite powerlifters, 70% were currently injured and 87% had been injured in the past year"
+    ],
+    [
+     "26362436",
+     "In 142 experienced male bodybuilders, lifetime AAS users had a hazard ratio of 9.0 for a first tendon rupture"
+    ],
+    [
+     "23620489",
+     "Long-term AAS-using lifters had stiffer patellar tendons carrying 15% higher maximal stress than equally trained non-users"
+    ],
+    [
+     "40407232",
+     "The best mechanistic human study, with biopsies and imaging, found the patellar tendon itself was NOT severely damaged"
+    ],
+    [
+     "37950322",
+     "Prescription testosterone in a claims database was associated with Achilles injury, but modestly (adjusted OR 1.24)"
+    ],
+    [
+     "30047601",
+     "A systematic review of the entire androgen-tendon literature found only 18 studies, mostly small animals and frequently contradictory"
+    ],
+    [
+     "33835995",
+     "For SARMs the entire published human tendon evidence is one case report of bilateral Achilles ruptures"
+    ],
+    [
+     "40789979",
+     "BPC-157: a 2025 review found only three human pilot studies — essentially no human evidence"
+    ],
+    [
+     "28834248",
+     "Ibuprofen at 1200 mg/day for 8 weeks measurably blunted muscle growth and strength gains from resistance training"
+    ]
+   ],
    "route": {
     "view": "rehab",
     "item": "Load management and getting back to training"

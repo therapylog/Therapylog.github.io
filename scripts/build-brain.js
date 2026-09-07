@@ -407,6 +407,10 @@ function build() {
       subtitle: 'side-effect playbook',
       terms: terms(s.t, (s.t || '').split(/\s+/), PLAYBOOK_SYNONYMS[s.t] || []),
       text: playbookText(s),
+      /* Carried into the index so the free in-app answer can show its sources.
+         Without this the app would state findings with nothing behind them,
+         which is the opposite of the point. */
+      src: s.src || [],
       route: { view: 'sidefx', item: s.t }
     });
   }
@@ -419,6 +423,7 @@ function build() {
       subtitle: 'rehab and load guidance',
       terms: terms(r.t, (r.t || '').split(/\s+/), REHAB_SYNONYMS[r.t] || []),
       text: rehabText(r),
+      src: r.src || [],
       route: { view: 'rehab', item: r.t }
     });
   }
@@ -484,8 +489,28 @@ function build() {
   return JSON.stringify(index, null, 1) + '\n';
 }
 
+/* app.html inlines the matcher so it works offline on the first question. Two
+   copies of anything drift; this makes drift a build failure rather than a
+   subtle behaviour difference between what the eval measures and what ships. */
+function checkMatcherInlined() {
+  const app = fs.readFileSync(APP, 'utf8');
+  const src = fs.readFileSync(path.join(ROOT, 'assets', 'brain', 'match.js'), 'utf8').trim();
+  const start = app.indexOf('/* @@TL_BRAIN_MATCHER@@ start');
+  const end = app.indexOf('/* @@TL_BRAIN_MATCHER@@ end */');
+  if (start === -1 || end === -1) {
+    throw new Error('app.html no longer inlines the brain matcher — the @@TL_BRAIN_MATCHER@@ markers are gone');
+  }
+  const inlined = app.slice(app.indexOf('*/', start) + 2, end).trim();
+  if (inlined !== src) {
+    throw new Error('app.html\'s inlined matcher has drifted from assets/brain/match.js.\n' +
+      'The eval harness requires assets/brain/match.js directly, so drift means the measured\n' +
+      'matcher is not the shipped one. Re-copy it between the @@TL_BRAIN_MATCHER@@ markers.');
+  }
+}
+
 function main() {
   const check = process.argv.includes('--check');
+  checkMatcherInlined();
   const out = build();
   if (check) {
     if (!fs.existsSync(OUT)) {
