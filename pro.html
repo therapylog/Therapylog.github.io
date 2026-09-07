@@ -18,10 +18,16 @@
 body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 0%,rgba(74,222,154,0.06) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 10% 90%,rgba(59,196,255,0.05) 0%,transparent 60%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:calc(var(--safe-top) + 40px) 20px calc(var(--safe-bottom) + 60px)}
-.brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:6px}
+.brand{display:flex;align-items:center;justify-content:center;gap:12px;font-size:16px;font-weight:400;margin:0 0 6px}
 .brand img{height:46px}
 .brand .suffix{font-size:28px;font-weight:700;letter-spacing:-0.01em}
-.tagline{text-align:center;color:var(--text2);font-size:14px;margin-bottom:8px}
+/* The wordmark is drawn by the logo SVG, so the <h1> would otherwise read
+   "Pro" to anything that reads text rather than alt attributes. This puts
+   the name in the heading as text and takes it out of flow, so the flex row
+   is unchanged; the logo link carries an aria-label and an empty alt so a
+   screen reader hears the name once, not twice. */
+.brand .wordmark{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tagline{text-align:center;color:var(--text2);font-size:14px;margin:0 0 8px}
 .referred{text-align:center;font-size:12px;color:var(--accent);background:rgba(74,222,154,0.08);border:1px solid rgba(74,222,154,0.2);border-radius:30px;padding:6px 16px;display:none;width:fit-content;margin:0 auto 8px}
 .referred.show{display:block}
 
@@ -37,7 +43,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 .plan.featured{border-color:rgba(74,222,154,0.4)}
 .plan-tag{position:absolute;top:-11px;left:22px;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 11px;border-radius:20px;background:var(--accent);color:#0a0c0f}
 .plan-tag.byok{background:var(--accent3)}
-.plan-name{font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--text2);margin-bottom:10px}
+.plan-name{font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--text2);margin:0 0 10px}
 .plan-price{font-family:"DM Serif Display",serif;font-size:38px;line-height:1;margin-bottom:2px}
 .plan-price .per{font-family:"DM Sans",sans-serif;font-size:14px;color:var(--text2);font-weight:400}
 .plan-sub{font-size:12px;color:var(--text2);margin-bottom:18px;min-height:18px}
@@ -65,8 +71,8 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 <script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
 <body>
 <div class="wrap">
-  <div class="brand"><img src="/icons/logo-dark.svg" alt="TherapyLog"><span class="suffix">Pro</span></div>
-  <div class="tagline">The AI research assistant, lab scanner, and clinical tools — unlocked.</div>
+  <h1 class="brand"><a href="/" aria-label="TherapyLog home"><img src="/icons/logo-dark.svg" alt=""></a><span class="wordmark">TherapyLog</span> <span class="suffix">Pro</span></h1>
+  <p class="tagline">The AI research assistant, lab scanner, and clinical tools — unlocked.</p>
   <div class="referred" id="referred"></div>
 
   <div class="err" id="err"></div>
@@ -74,14 +80,14 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
   <div class="toggles">
     <div class="seg" id="billing-seg">
       <button class="seg-btn active" data-billing="monthly" onclick="setBilling('monthly')">Monthly</button>
-      <button class="seg-btn" data-billing="annual" onclick="setBilling('annual')">Annual <span class="save">1 month free</span></button>
+      <button class="seg-btn" data-billing="annual" onclick="setBilling('annual')">Annual <span class="save">save 17%</span></button>
     </div>
   </div>
 
   <div class="plans">
     <div class="plan featured" id="plan-managed">
       <div class="plan-tag">Most popular</div>
-      <div class="plan-name">Pro — Managed AI</div>
+      <h2 class="plan-name">Pro — Managed AI</h2>
       <div class="plan-price" id="managed-price">$9.99<span class="per">/mo</span></div>
       <div class="plan-sub" id="managed-sub">Billed monthly · cancel anytime</div>
       <ul class="plan-feats">
@@ -97,7 +103,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 
     <div class="plan" id="plan-byok">
       <div class="plan-tag byok">Best value</div>
-      <div class="plan-name">BYOK — Bring Your Own Key</div>
+      <h2 class="plan-name">BYOK — Bring Your Own Key</h2>
       <div class="plan-price" id="byok-price">$8.99<span class="per">/mo</span></div>
       <div class="plan-sub" id="byok-sub">Billed monthly · cancel anytime</div>
       <ul class="plan-feats">
@@ -134,7 +140,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
   <div class="foot">
     <div style="font-size:11.5px;line-height:1.6;margin-bottom:10px">Monthly and annual plans <strong>renew automatically</strong> at the price shown, on the same date each period, until you cancel. Cancel any time from the Stripe billing portal linked in your receipt, or email <a href="mailto:hello@therapylog.app">hello@therapylog.app</a> and we&rsquo;ll do it &mdash; one message is enough. Cancelling stops the next charge; access runs to the end of the period you paid for.</div>
     Secure checkout powered by Stripe.<br>
-    <a href="https://therapylog.app/privacy">Privacy</a> · <a href="https://therapylog.app/terms">Terms</a> · <a href="https://therapylog.app/health-data-privacy">Consumer Health Data</a> · <a href="https://therapylog.app/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    <a href="/">Home</a> · <a href="/tools/">Tools</a> · <a href="https://therapylog.app/privacy">Privacy</a> · <a href="https://therapylog.app/terms">Terms</a> · <a href="https://therapylog.app/health-data-privacy">Consumer Health Data</a> · <a href="https://therapylog.app/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
   </div>
 </div>
 
@@ -206,7 +212,12 @@ function setBilling(b) {
 
 function render() {
   var m = PRICES.managed, k = PRICES.byok;
-  var annualLabel = REF ? 'Annual <span class="save">1 month free</span>' : 'Annual <span class="save">save 17%</span>';
+  /* Not "1 month free" for a ref any more. The affiliate coupon is applied by
+     create-pro-subscription.js only when the ref is an enrolled affiliate in
+     affiliates.json, and this page has no way to know that, so promising the
+     free month here would have been a claim checkout might not keep. Stripe
+     shows the coupon on the payment page when it does apply. */
+  var annualLabel = 'Annual <span class="save">save 17%</span>';
   var annualBtn = document.querySelector('#billing-seg [data-billing="annual"]');
   if (annualBtn) annualBtn.innerHTML = annualLabel;
   if (billing === "monthly") {
@@ -221,7 +232,9 @@ function render() {
     document.getElementById("managed-sub").textContent = "Just " + m.annualPerMo + "/mo, billed yearly";
     document.getElementById("byok-price").innerHTML = k.annual + '<span class="per">/yr</span>';
     document.getElementById("byok-sub").textContent = "Just " + k.annualPerMo + "/mo, billed yearly";
-    var couponMsg = REF ? "Your first month is free with this link" : "Have an affiliate code? Enter it at checkout";
+    var couponMsg = REF
+      ? "Referral applied \u2014 any discount is shown at checkout before you pay"
+      : "Have an affiliate code? Enter it at checkout";
     document.getElementById("managed-coupon").textContent = couponMsg;
     document.getElementById("byok-coupon").textContent = couponMsg;
   }

@@ -516,8 +516,10 @@ HTML are artifacts in git.
   names minus Tier C, and render the pairs statically below the widget, grouped by
   severity, each with an anchor titled "Can you take X with Y?". The lifted function reads
   one merged `INTERACTIONS` array (the app pushes the other two into it at `app.html:5022`
-  and `:5222`), so merge the three at build time and then drop the four pairs that name a
-  Tier C compound (Nandrolone Decanoate, Cardarine, RAD-140, Ligandrol): 46 pairs ship.
+  and `:5222`), so merge the three at build time and then drop every pair that names a
+  Tier C compound. **Corrected 3 Sep 2026 during implementation: 45 pairs ship, not 46.**
+  Four Tier C compounds appear (Nandrolone Decanoate, Cardarine, RAD-140, Ligandrol) but
+  Cardarine is in two pairs, so five pairs drop.
   Eight interaction names carry parentheticals that match no `DB` `name` or `aka` ("Liothyronine
   (T3)", "Cardarine (GW-501516)" and the like); resolve them with a hand map checked by
   `validate-public-pages.js`. Do not call it an

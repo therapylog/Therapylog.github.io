@@ -80,6 +80,12 @@ function sourceChecks() {
     console.log('\n' + label);
     const ctx = await browser.newContext({ viewport, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     const page = await ctx.newPage();
+
+  /* No off-origin requests. The Google Fonts stylesheet cannot resolve on an
+     offline or sandboxed machine, and waiting for it to time out is most of
+     the run. Per-file API stubs are registered separately and still win,
+     because routes registered earlier take precedence. */
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
     const errors = [];
     page.on('pageerror', e => errors.push(String(e.message)));
     await page.addInitScript(() => { try { sessionStorage.setItem('tl_mkt_pin_ok', '1'); } catch (e) {} });
@@ -149,6 +155,12 @@ function sourceChecks() {
   console.log('\ndesktop (1280x800)');
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   const page = await ctx.newPage();
+
+  /* No off-origin requests. The Google Fonts stylesheet cannot resolve on an
+     offline or sandboxed machine, and waiting for it to time out is most of
+     the run. Per-file API stubs are registered separately and still win,
+     because routes registered earlier take precedence. */
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
   const derr = [];
   page.on('pageerror', e => derr.push(String(e.message)));
   await page.addInitScript(() => { try { sessionStorage.setItem('tl_mkt_pin_ok', '1'); } catch (e) {} });

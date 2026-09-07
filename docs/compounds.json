@@ -1,1063 +1,1068 @@
 [
- {
-  "id": "androgens",
-  "name": "Androgens / TRT",
-  "icon": "💉",
-  "color": "#4ade9a",
-  "desc": "Testosterone-based hormone therapy",
-  "drugs": [
-   {
-    "id": "tc",
-    "name": "Testosterone Cypionate",
-    "aka": "Test C, TC"
-   },
-   {
-    "id": "te",
-    "name": "Testosterone Enanthate",
-    "aka": "Test E, TE"
-   },
-   {
-    "id": "progesterone",
-    "name": "Progesterone",
-    "aka": "Prometrium, Utrogestan"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "peptides",
-  "name": "Peptides",
-  "icon": "🔬",
-  "color": "#3bc4ff",
-  "desc": "Short-chain amino acids with targeted biological activity",
-  "drugs": [
-   {
-    "id": "bpc",
-    "name": "BPC-157",
-    "aka": "Body Protection Compound 157"
-   },
-   {
-    "id": "tb5",
-    "name": "TB-500",
-    "aka": "Thymosin Beta-4"
-   },
-   {
-    "id": "cjc",
-    "name": "CJC-1295",
-    "aka": "Mod GRF 1-29 (without DAC)"
-   },
-   {
-    "id": "ipa",
-    "name": "Ipamorelin",
-    "aka": "Ipa, Selective GHRP"
-   },
-   {
-    "id": "pda",
-    "name": "Pentadeca Arginate",
-    "aka": "PDA, PC-15"
-   },
-   {
-    "id": "ll37",
-    "name": "LL-37",
-    "aka": "Cathelicidin, CAMP peptide"
-   },
-   {
-    "id": "aod9604",
-    "name": "AOD-9604",
-    "aka": "Anti-Obesity Drug 9604, HGH Frag 177-191, HGH Fragment 176-191",
-    "alsoIn": [
-     "addlpeptides"
+  {
+    "id": "androgens",
+    "name": "Androgens / TRT",
+    "icon": "💉",
+    "color": "#4ade9a",
+    "desc": "Testosterone-based hormone therapy",
+    "drugs": [
+      {
+        "id": "tc",
+        "name": "Testosterone Cypionate",
+        "aka": "Test C, TC"
+      },
+      {
+        "id": "te",
+        "name": "Testosterone Enanthate",
+        "aka": "Test E, TE"
+      },
+      {
+        "id": "progesterone",
+        "name": "Progesterone",
+        "aka": "Prometrium, Utrogestan"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "peptides",
+    "name": "Peptides",
+    "icon": "🔬",
+    "color": "#3bc4ff",
+    "desc": "Short-chain amino acids with targeted biological activity",
+    "drugs": [
+      {
+        "id": "bpc",
+        "name": "BPC-157",
+        "aka": "Body Protection Compound 157"
+      },
+      {
+        "id": "tb5",
+        "name": "TB-500",
+        "aka": "Thymosin Beta-4"
+      },
+      {
+        "id": "cjc",
+        "name": "CJC-1295",
+        "aka": "Mod GRF 1-29 (without DAC)"
+      },
+      {
+        "id": "ipa",
+        "name": "Ipamorelin",
+        "aka": "Ipa, Selective GHRP"
+      },
+      {
+        "id": "pda",
+        "name": "Pentadeca Arginate",
+        "aka": "PDA, PC-15"
+      },
+      {
+        "id": "ll37",
+        "name": "LL-37",
+        "aka": "Cathelicidin, CAMP peptide"
+      },
+      {
+        "id": "aod9604",
+        "name": "AOD-9604",
+        "aka": "Anti-Obesity Drug 9604, HGH Frag 177-191, HGH Fragment 176-191",
+        "alsoIn": [
+          "addlpeptides"
+        ]
+      },
+      {
+        "id": "hghfrag",
+        "name": "HGH Fragment 176-191",
+        "aka": "HGH Frag, Fragment 176-191"
+      },
+      {
+        "id": "hexarelin",
+        "name": "Hexarelin",
+        "aka": "Examorelin, HEX"
+      },
+      {
+        "id": "ghrp2",
+        "name": "GHRP-2",
+        "aka": "Pralmorelin, KP-102"
+      },
+      {
+        "id": "ghrp6",
+        "name": "GHRP-6",
+        "aka": "Growth Hormone Releasing Peptide-6"
+      },
+      {
+        "id": "ss31",
+        "name": "SS-31",
+        "aka": "Elamipretide, MTP-131, Bendavia",
+        "alsoIn": [
+          "addlpeptides"
+        ]
+      },
+      {
+        "id": "humanin",
+        "name": "Humanin",
+        "aka": "HN, Mitochondrial-derived peptide"
+      },
+      {
+        "id": "pinealon",
+        "name": "Pinealon",
+        "aka": "EDR peptide, Glu-Asp-Arg"
+      },
+      {
+        "id": "thymalin",
+        "name": "Thymalin",
+        "aka": "Thymus peptide complex"
+      },
+      {
+        "id": "vilon",
+        "name": "Vilon",
+        "aka": "Lys-Glu, KE dipeptide"
+      },
+      {
+        "id": "cortagen",
+        "name": "Cortagen",
+        "aka": "Ala-Glu-Asp-Pro, AEDP tetrapeptide"
+      },
+      {
+        "id": "kissp",
+        "name": "Kisspeptin-10",
+        "aka": "Metastin, KP-10"
+      },
+      {
+        "id": "ara290",
+        "name": "ARA-290",
+        "aka": "Cibinetide, Helix B peptide"
+      },
+      {
+        "id": "larazotide",
+        "name": "Larazotide",
+        "aka": "AT-1001, INN-202"
+      }
+    ],
+    "xrefs": [
+      {
+        "id": "tesam",
+        "name": "Tesamorelin",
+        "home": "ghs"
+      },
+      {
+        "id": "epi",
+        "name": "Epithalon",
+        "home": "khavinson2"
+      },
+      {
+        "id": "kpv",
+        "name": "KPV",
+        "home": "antiinflam"
+      }
     ]
-   },
-   {
-    "id": "hghfrag",
-    "name": "HGH Fragment 176-191",
-    "aka": "HGH Frag, Fragment 176-191"
-   },
-   {
-    "id": "hexarelin",
-    "name": "Hexarelin",
-    "aka": "Examorelin, HEX"
-   },
-   {
-    "id": "ghrp2",
-    "name": "GHRP-2",
-    "aka": "Pralmorelin, KP-102"
-   },
-   {
-    "id": "ghrp6",
-    "name": "GHRP-6",
-    "aka": "Growth Hormone Releasing Peptide-6"
-   },
-   {
-    "id": "ss31",
-    "name": "SS-31",
-    "aka": "Elamipretide, MTP-131, Bendavia",
-    "alsoIn": [
-     "addlpeptides"
+  },
+  {
+    "id": "glp1",
+    "name": "GLP-1 / Metabolic",
+    "icon": "⚗️",
+    "color": "#f59e0b",
+    "desc": "Metabolic peptides for weight and insulin regulation",
+    "drugs": [
+      {
+        "id": "sema",
+        "name": "Semaglutide",
+        "aka": "Ozempic, Wegovy"
+      },
+      {
+        "id": "tirz",
+        "name": "Tirzepatide",
+        "aka": "Mounjaro, Zepbound"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "ghs",
+    "name": "GH Secretagogues",
+    "icon": "🧬",
+    "color": "#a78bfa",
+    "desc": "Compounds that stimulate natural growth hormone release",
+    "drugs": [
+      {
+        "id": "serm2",
+        "name": "Sermorelin",
+        "aka": "GHRH(1-29)"
+      },
+      {
+        "id": "tesam",
+        "name": "Tesamorelin",
+        "aka": "Egrifta, TH9507",
+        "alsoIn": [
+          "peptides"
+        ]
+      },
+      {
+        "id": "mk677",
+        "name": "MK-677 / Ibutamoren",
+        "aka": "Nutrobal"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "ancil",
+    "name": "Ancillaries — AIs and SERMs",
+    "icon": "🛡️",
+    "color": "#f472b6",
+    "desc": "Side effect management and hormonal balance compounds",
+    "drugs": [
+      {
+        "id": "ai1",
+        "name": "Anastrozole",
+        "aka": "Arimidex"
+      },
+      {
+        "id": "nolv",
+        "name": "Tamoxifen",
+        "aka": "Nolvadex, Tamox"
+      },
+      {
+        "id": "clom",
+        "name": "Clomiphene",
+        "aka": "Clomid, Enclomiphene"
+      },
+      {
+        "id": "hcg2",
+        "name": "HCG",
+        "aka": "Human Chorionic Gonadotropin"
+      },
+      {
+        "id": "enclo",
+        "name": "Enclomiphene",
+        "aka": "Androxal, Enclomifene, NF-1010",
+        "alsoIn": [
+          "addlancil"
+        ]
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "pct",
+    "name": "PCT Protocols",
+    "icon": "🔄",
+    "color": "#4ade9a",
+    "desc": "Post Cycle Therapy — restoring the natural hormonal axis",
+    "drugs": [
+      {
+        "id": "pct1",
+        "name": "Standard PCT — Testosterone Cycle",
+        "aka": "HPTA Restart Protocol"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "aas",
+    "name": "Anabolic / AAS",
+    "icon": "💪",
+    "color": "#f87171",
+    "desc": "Anabolic-androgenic steroids beyond testosterone",
+    "drugs": [
+      {
+        "id": "nandro",
+        "name": "Nandrolone Decanoate",
+        "aka": "Deca-Durabolin, Deca, NPP"
+      },
+      {
+        "id": "oxan",
+        "name": "Oxandrolone",
+        "aka": "Anavar, Var"
+      },
+      {
+        "id": "mast",
+        "name": "Drostanolone",
+        "aka": "Masteron, Mast E, Mast P"
+      },
+      {
+        "id": "primo",
+        "name": "Methenolone",
+        "aka": "Primobolan, Primo, Primo Depot"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "sarmsclass",
+    "name": "SARMs",
+    "icon": "🎯",
+    "color": "#34d399",
+    "desc": "Selective Androgen Receptor Modulators — tissue-selective androgens",
+    "drugs": [
+      {
+        "id": "osta",
+        "name": "Ostarine",
+        "aka": "MK-2866, Enobosarm, GTx-024"
+      },
+      {
+        "id": "lgd",
+        "name": "Ligandrol",
+        "aka": "LGD-4033, VK5211"
+      },
+      {
+        "id": "rad140",
+        "name": "RAD-140",
+        "aka": "Testolone, RAD140"
+      },
+      {
+        "id": "card",
+        "name": "Cardarine",
+        "aka": "GW-501516, GW1516"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "hghclass",
+    "name": "HGH and IGF-1",
+    "icon": "📈",
+    "color": "#a78bfa",
+    "desc": "Growth hormone and insulin-like growth factor compounds",
+    "drugs": [
+      {
+        "id": "rhgh",
+        "name": "Recombinant HGH",
+        "aka": "Somatropin, rHGH, Human Growth Hormone, Genotropin, Norditropin, Humatrope, Omnitrope, Somatropin (rhGH)",
+        "alsoIn": [
+          "bbcompounds"
+        ]
+      },
+      {
+        "id": "igf1lr3",
+        "name": "IGF-1 LR3",
+        "aka": "Long R3 IGF-1, Insulin-like Growth Factor 1"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "nootroplonge",
+    "name": "Nootropics and Longevity",
+    "icon": "🧠",
+    "color": "#818cf8",
+    "desc": "Cognitive enhancement and cellular longevity compounds",
+    "drugs": [
+      {
+        "id": "nad",
+        "name": "NMN / NR (NAD+ Precursors)",
+        "aka": "Nicotinamide Mononucleotide, Nicotinamide Riboside"
+      },
+      {
+        "id": "dihexa",
+        "name": "Dihexa",
+        "aka": "PNB-0408, HGF Modulator"
+      }
+    ],
+    "xrefs": [
+      {
+        "id": "selank",
+        "name": "Selank",
+        "home": "neuro2"
+      },
+      {
+        "id": "semax",
+        "name": "Semax",
+        "home": "neuro2"
+      }
     ]
-   },
-   {
-    "id": "humanin",
-    "name": "Humanin",
-    "aka": "HN, Mitochondrial-derived peptide"
-   },
-   {
-    "id": "pinealon",
-    "name": "Pinealon",
-    "aka": "EDR peptide, Glu-Asp-Arg"
-   },
-   {
-    "id": "thymalin",
-    "name": "Thymalin",
-    "aka": "Thymus peptide complex"
-   },
-   {
-    "id": "vilon",
-    "name": "Vilon",
-    "aka": "Lys-Glu, KE dipeptide"
-   },
-   {
-    "id": "cortagen",
-    "name": "Cortagen",
-    "aka": "Ala-Glu-Asp-Pro, AEDP tetrapeptide"
-   },
-   {
-    "id": "kissp",
-    "name": "Kisspeptin-10",
-    "aka": "Metastin, KP-10"
-   },
-   {
-    "id": "ara290",
-    "name": "ARA-290",
-    "aka": "Cibinetide, Helix B peptide"
-   },
-   {
-    "id": "larazotide",
-    "name": "Larazotide",
-    "aka": "AT-1001, INN-202"
-   }
-  ],
-  "xrefs": [
-   {
-    "id": "tesam",
-    "name": "Tesamorelin",
-    "home": "ghs"
-   },
-   {
-    "id": "epi",
-    "name": "Epithalon",
-    "home": "khavinson2"
-   },
-   {
-    "id": "kpv",
-    "name": "KPV",
-    "home": "antiinflam"
-   }
-  ]
- },
- {
-  "id": "glp1",
-  "name": "GLP-1 / Metabolic",
-  "icon": "⚗️",
-  "color": "#f59e0b",
-  "desc": "Metabolic peptides for weight and insulin regulation",
-  "drugs": [
-   {
-    "id": "sema",
-    "name": "Semaglutide",
-    "aka": "Ozempic, Wegovy"
-   },
-   {
-    "id": "tirz",
-    "name": "Tirzepatide",
-    "aka": "Mounjaro, Zepbound"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "ghs",
-  "name": "GH Secretagogues",
-  "icon": "🧬",
-  "color": "#a78bfa",
-  "desc": "Compounds that stimulate natural growth hormone release",
-  "drugs": [
-   {
-    "id": "serm2",
-    "name": "Sermorelin",
-    "aka": "GHRH(1-29)"
-   },
-   {
-    "id": "tesam",
-    "name": "Tesamorelin",
-    "aka": "Egrifta, TH9507",
-    "alsoIn": [
-     "peptides"
+  },
+  {
+    "id": "addlpeptides",
+    "name": "Additional Peptides",
+    "icon": "⚡",
+    "color": "#22d3ee",
+    "desc": "Specialized peptides for specific therapeutic targets",
+    "drugs": [
+      {
+        "id": "thymalpha",
+        "name": "Thymosin Alpha-1",
+        "aka": "Ta1, Zadaxin, Thymalfasin"
+      },
+      {
+        "id": "mots",
+        "name": "MOTS-c",
+        "aka": "Mitochondrial Open Reading Frame Peptide, Humanin analogue"
+      },
+      {
+        "id": "p21pep",
+        "name": "P21",
+        "aka": "P21 peptide, CNTF fragment"
+      }
+    ],
+    "xrefs": [
+      {
+        "id": "aod9604",
+        "name": "AOD-9604",
+        "home": "peptides"
+      },
+      {
+        "id": "ss31",
+        "name": "SS-31",
+        "home": "peptides"
+      },
+      {
+        "id": "ghkcu",
+        "name": "GHK-Cu",
+        "home": "collagen"
+      },
+      {
+        "id": "pt141",
+        "name": "PT-141",
+        "home": "sexhealth"
+      }
     ]
-   },
-   {
-    "id": "mk677",
-    "name": "MK-677 / Ibutamoren",
-    "aka": "Nutrobal"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "ancil",
-  "name": "Ancillaries — AIs and SERMs",
-  "icon": "🛡️",
-  "color": "#f472b6",
-  "desc": "Side effect management and hormonal balance compounds",
-  "drugs": [
-   {
-    "id": "ai1",
-    "name": "Anastrozole",
-    "aka": "Arimidex"
-   },
-   {
-    "id": "nolv",
-    "name": "Tamoxifen",
-    "aka": "Nolvadex, Tamox"
-   },
-   {
-    "id": "clom",
-    "name": "Clomiphene",
-    "aka": "Clomid, Enclomiphene"
-   },
-   {
-    "id": "hcg2",
-    "name": "HCG",
-    "aka": "Human Chorionic Gonadotropin"
-   },
-   {
-    "id": "enclo",
-    "name": "Enclomiphene",
-    "aka": "Androxal, Enclomifene, NF-1010",
-    "alsoIn": [
-     "addlancil"
+  },
+  {
+    "id": "addlancil",
+    "name": "Additional Ancillaries",
+    "icon": "⚙️",
+    "color": "#fb923c",
+    "desc": "Additional compounds for hormonal management and health optimization",
+    "drugs": [
+      {
+        "id": "exemest",
+        "name": "Exemestane",
+        "aka": "Aromasin"
+      },
+      {
+        "id": "caberg",
+        "name": "Cabergoline",
+        "aka": "Dostinex, Caber"
+      },
+      {
+        "id": "dutast",
+        "name": "Dutasteride / Finasteride",
+        "aka": "Avodart (Duta), Propecia (Fina), 5-ARIs"
+      }
+    ],
+    "xrefs": [
+      {
+        "id": "enclo",
+        "name": "Enclomiphene",
+        "home": "ancil"
+      }
     ]
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "pct",
-  "name": "PCT Protocols",
-  "icon": "🔄",
-  "color": "#4ade9a",
-  "desc": "Post Cycle Therapy — restoring the natural hormonal axis",
-  "drugs": [
-   {
-    "id": "pct1",
-    "name": "Standard PCT — Testosterone Cycle",
-    "aka": "HPTA Restart Protocol"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "aas",
-  "name": "Anabolic / AAS",
-  "icon": "💪",
-  "color": "#f87171",
-  "desc": "Anabolic-androgenic steroids beyond testosterone",
-  "drugs": [
-   {
-    "id": "nandro",
-    "name": "Nandrolone Decanoate",
-    "aka": "Deca-Durabolin, Deca, NPP"
-   },
-   {
-    "id": "oxan",
-    "name": "Oxandrolone",
-    "aka": "Anavar, Var"
-   },
-   {
-    "id": "mast",
-    "name": "Drostanolone",
-    "aka": "Masteron, Mast E, Mast P"
-   },
-   {
-    "id": "primo",
-    "name": "Methenolone",
-    "aka": "Primobolan, Primo, Primo Depot"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "sarmsclass",
-  "name": "SARMs",
-  "icon": "🎯",
-  "color": "#34d399",
-  "desc": "Selective Androgen Receptor Modulators — tissue-selective androgens",
-  "drugs": [
-   {
-    "id": "osta",
-    "name": "Ostarine",
-    "aka": "MK-2866, Enobosarm, GTx-024"
-   },
-   {
-    "id": "lgd",
-    "name": "Ligandrol",
-    "aka": "LGD-4033, VK5211"
-   },
-   {
-    "id": "rad140",
-    "name": "RAD-140",
-    "aka": "Testolone, RAD140"
-   },
-   {
-    "id": "card",
-    "name": "Cardarine",
-    "aka": "GW-501516, GW1516"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "hghclass",
-  "name": "HGH and IGF-1",
-  "icon": "📈",
-  "color": "#a78bfa",
-  "desc": "Growth hormone and insulin-like growth factor compounds",
-  "drugs": [
-   {
-    "id": "rhgh",
-    "name": "Recombinant HGH",
-    "aka": "Somatropin, rHGH, Human Growth Hormone, Genotropin, Norditropin, Humatrope, Omnitrope, Somatropin (rhGH)",
-    "alsoIn": [
-     "bbcompounds"
+  },
+  {
+    "id": "thyroid",
+    "name": "Thyroid Hormones",
+    "icon": "🦋",
+    "color": "#22d3ee",
+    "desc": "Thyroid hormone replacement and optimization",
+    "drugs": [
+      {
+        "id": "t3",
+        "name": "Liothyronine (T3)",
+        "aka": "Cytomel, T3, LT3"
+      },
+      {
+        "id": "t4",
+        "name": "Levothyroxine (T4)",
+        "aka": "Synthroid, Levoxyl, LT4"
+      },
+      {
+        "id": "ndt",
+        "name": "Natural Desiccated Thyroid",
+        "aka": "NDT, Armour Thyroid, NatureThroid, WP Thyroid"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "adrenal",
+    "name": "DHEA and Adrenal",
+    "icon": "⚡",
+    "color": "#fbbf24",
+    "desc": "Adrenal hormone precursors and optimization",
+    "drugs": [
+      {
+        "id": "dhea",
+        "name": "DHEA",
+        "aka": "Dehydroepiandrosterone, Prasterone"
+      },
+      {
+        "id": "pregnenolone",
+        "name": "Pregnenolone",
+        "aka": "Preg, Master Hormone, 3β-hydroxy-5-pregnen-20-one"
+      },
+      {
+        "id": "keto-dhea",
+        "name": "7-Keto DHEA",
+        "aka": "7-Keto, 3-acetyl-7-oxo-DHEA"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "metabolic",
+    "name": "Metabolic and Cardiovascular",
+    "icon": "❤️",
+    "color": "#f87171",
+    "desc": "Compounds for metabolic health, longevity, and cardioprotection",
+    "drugs": [
+      {
+        "id": "metformin",
+        "name": "Metformin",
+        "aka": "Glucophage, Metformin HCl, Fortamet"
+      },
+      {
+        "id": "berberine",
+        "name": "Berberine",
+        "aka": "Berberine HCl, BBR"
+      },
+      {
+        "id": "telmisartan",
+        "name": "Telmisartan",
+        "aka": "Micardis"
+      },
+      {
+        "id": "ldn",
+        "name": "Low-Dose Naltrexone",
+        "aka": "LDN"
+      },
+      {
+        "id": "vip",
+        "name": "VIP",
+        "aka": "Vasoactive Intestinal Peptide"
+      },
+      {
+        "id": "insulin",
+        "name": "Insulin",
+        "aka": "Humulin R, Novolin R, regular human insulin, insulin lispro, aspart, glargine"
+      }
+    ],
+    "xrefs": [
+      {
+        "id": "acarbose",
+        "name": "Acarbose",
+        "home": "longevity2"
+      }
     ]
-   },
-   {
-    "id": "igf1lr3",
-    "name": "IGF-1 LR3",
-    "aka": "Long R3 IGF-1, Insulin-like Growth Factor 1"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "nootroplonge",
-  "name": "Nootropics and Longevity",
-  "icon": "🧠",
-  "color": "#818cf8",
-  "desc": "Cognitive enhancement and cellular longevity compounds",
-  "drugs": [
-   {
-    "id": "nad",
-    "name": "NMN / NR (NAD+ Precursors)",
-    "aka": "Nicotinamide Mononucleotide, Nicotinamide Riboside"
-   },
-   {
-    "id": "dihexa",
-    "name": "Dihexa",
-    "aka": "PNB-0408, HGF Modulator"
-   }
-  ],
-  "xrefs": [
-   {
-    "id": "selank",
-    "name": "Selank",
-    "home": "neuro2"
-   },
-   {
-    "id": "semax",
-    "name": "Semax",
-    "home": "neuro2"
-   }
-  ]
- },
- {
-  "id": "addlpeptides",
-  "name": "Additional Peptides",
-  "icon": "⚡",
-  "color": "#22d3ee",
-  "desc": "Specialized peptides for specific therapeutic targets",
-  "drugs": [
-   {
-    "id": "thymalpha",
-    "name": "Thymosin Alpha-1",
-    "aka": "Ta1, Zadaxin, Thymalfasin"
-   },
-   {
-    "id": "mots",
-    "name": "MOTS-c",
-    "aka": "Mitochondrial Open Reading Frame Peptide, Humanin analogue"
-   },
-   {
-    "id": "p21pep",
-    "name": "P21",
-    "aka": "P21 peptide, CNTF fragment"
-   }
-  ],
-  "xrefs": [
-   {
-    "id": "aod9604",
-    "name": "AOD-9604",
-    "home": "peptides"
-   },
-   {
-    "id": "ss31",
-    "name": "SS-31",
-    "home": "peptides"
-   },
-   {
-    "id": "ghkcu",
-    "name": "GHK-Cu",
-    "home": "collagen"
-   },
-   {
-    "id": "pt141",
-    "name": "PT-141",
-    "home": "sexhealth"
-   }
-  ]
- },
- {
-  "id": "addlancil",
-  "name": "Additional Ancillaries",
-  "icon": "⚙️",
-  "color": "#fb923c",
-  "desc": "Additional compounds for hormonal management and health optimization",
-  "drugs": [
-   {
-    "id": "exemest",
-    "name": "Exemestane",
-    "aka": "Aromasin"
-   },
-   {
-    "id": "caberg",
-    "name": "Cabergoline",
-    "aka": "Dostinex, Caber"
-   },
-   {
-    "id": "dutast",
-    "name": "Dutasteride / Finasteride",
-    "aka": "Avodart (Duta), Propecia (Fina), 5-ARIs"
-   }
-  ],
-  "xrefs": [
-   {
-    "id": "enclo",
-    "name": "Enclomiphene",
-    "home": "ancil"
-   }
-  ]
- },
- {
-  "id": "thyroid",
-  "name": "Thyroid Hormones",
-  "icon": "🦋",
-  "color": "#22d3ee",
-  "desc": "Thyroid hormone replacement and optimization",
-  "drugs": [
-   {
-    "id": "t3",
-    "name": "Liothyronine (T3)",
-    "aka": "Cytomel, T3, LT3"
-   },
-   {
-    "id": "t4",
-    "name": "Levothyroxine (T4)",
-    "aka": "Synthroid, Levoxyl, LT4"
-   },
-   {
-    "id": "ndt",
-    "name": "Natural Desiccated Thyroid",
-    "aka": "NDT, Armour Thyroid, NatureThroid, WP Thyroid"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "adrenal",
-  "name": "DHEA and Adrenal",
-  "icon": "⚡",
-  "color": "#fbbf24",
-  "desc": "Adrenal hormone precursors and optimization",
-  "drugs": [
-   {
-    "id": "dhea",
-    "name": "DHEA",
-    "aka": "Dehydroepiandrosterone, Prasterone"
-   },
-   {
-    "id": "pregnenolone",
-    "name": "Pregnenolone",
-    "aka": "Preg, Master Hormone, 3β-hydroxy-5-pregnen-20-one"
-   },
-   {
-    "id": "keto-dhea",
-    "name": "7-Keto DHEA",
-    "aka": "7-Keto, 3-acetyl-7-oxo-DHEA"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "metabolic",
-  "name": "Metabolic and Cardiovascular",
-  "icon": "❤️",
-  "color": "#f87171",
-  "desc": "Compounds for metabolic health, longevity, and cardioprotection",
-  "drugs": [
-   {
-    "id": "metformin",
-    "name": "Metformin",
-    "aka": "Glucophage, Metformin HCl, Fortamet"
-   },
-   {
-    "id": "berberine",
-    "name": "Berberine",
-    "aka": "Berberine HCl, BBR"
-   },
-   {
-    "id": "telmisartan",
-    "name": "Telmisartan",
-    "aka": "Micardis"
-   },
-   {
-    "id": "ldn",
-    "name": "Low-Dose Naltrexone",
-    "aka": "LDN"
-   },
-   {
-    "id": "vip",
-    "name": "VIP",
-    "aka": "Vasoactive Intestinal Peptide"
-   }
-  ],
-  "xrefs": [
-   {
-    "id": "acarbose",
-    "name": "Acarbose",
-    "home": "longevity2"
-   }
-  ]
- },
- {
-  "id": "longevity2",
-  "name": "Longevity Compounds",
-  "icon": "🔬",
-  "color": "#818cf8",
-  "desc": "mTOR inhibitors, sirtuin activators, and evidence-based longevity agents",
-  "drugs": [
-   {
-    "id": "rapamycin",
-    "name": "Rapamycin",
-    "aka": "Sirolimus, Rapamune, mTOR inhibitor"
-   },
-   {
-    "id": "acarbose",
-    "name": "Acarbose",
-    "aka": "Precose, Glucobay, alpha-glucosidase inhibitor",
-    "alsoIn": [
-     "metabolic"
+  },
+  {
+    "id": "longevity2",
+    "name": "Longevity Compounds",
+    "icon": "🔬",
+    "color": "#818cf8",
+    "desc": "mTOR inhibitors, sirtuin activators, and evidence-based longevity agents",
+    "drugs": [
+      {
+        "id": "rapamycin",
+        "name": "Rapamycin",
+        "aka": "Sirolimus, Rapamune, mTOR inhibitor"
+      },
+      {
+        "id": "acarbose",
+        "name": "Acarbose",
+        "aka": "Precose, Glucobay, alpha-glucosidase inhibitor",
+        "alsoIn": [
+          "metabolic"
+        ]
+      },
+      {
+        "id": "resveratrol",
+        "name": "Resveratrol / Pterostilbene",
+        "aka": "Trans-resveratrol, RSV, pterostilbene"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "collagen",
+    "name": "Collagen and Skin Peptides",
+    "icon": "✨",
+    "color": "#f9a8d4",
+    "desc": "Peptides for skin, hair, collagen synthesis, and anti-aging aesthetics",
+    "drugs": [
+      {
+        "id": "argireline",
+        "name": "Argireline / Snap-8",
+        "aka": "Acetyl hexapeptide-3, Acetyl octapeptide-3"
+      },
+      {
+        "id": "collagen-pep",
+        "name": "Collagen Peptides",
+        "aka": "Hydrolyzed collagen, collagen hydrolysate, types I/II/III"
+      },
+      {
+        "id": "ghkcu",
+        "name": "GHK-Cu",
+        "aka": "Copper Peptide, Glycyl-L-Histidyl-L-Lysine, GHK-Copper, GHK-Cu (Copper Peptide)",
+        "alsoIn": [
+          "addlpeptides"
+        ]
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "neuro2",
+    "name": "Neurological and Cognitive",
+    "icon": "🧠",
+    "color": "#c084fc",
+    "desc": "Neuroprotective compounds and cognitive enhancement agents",
+    "drugs": [
+      {
+        "id": "cerebrolysin",
+        "name": "Cerebrolysin",
+        "aka": "FPF-1070, CERE"
+      },
+      {
+        "id": "nalt",
+        "name": "NAC / NALT",
+        "aka": "N-Acetyl Cysteine, N-Acetyl L-Tyrosine, NAC"
+      },
+      {
+        "id": "selank",
+        "name": "Selank",
+        "aka": "TP-7",
+        "alsoIn": [
+          "nootroplonge"
+        ]
+      },
+      {
+        "id": "semax",
+        "name": "Semax",
+        "aka": "ACTH(4-7)PGP, Heptapeptide",
+        "alsoIn": [
+          "nootroplonge"
+        ]
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "muscle",
+    "name": "Muscle and Myostatin",
+    "icon": "💪",
+    "color": "#f87171",
+    "desc": "Myostatin inhibitors and anabolic support compounds",
+    "drugs": [
+      {
+        "id": "follistatin",
+        "name": "Follistatin",
+        "aka": "FS-344, FST-344, myostatin inhibitor"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "khavinson2",
+    "name": "Khavinson Bioregulators",
+    "icon": "🔬",
+    "color": "#6ee7b7",
+    "desc": "Short regulatory peptides targeting specific organs and tissues",
+    "drugs": [
+      {
+        "id": "cardiogen",
+        "name": "Cardiogen",
+        "aka": "Lys-Glu-Asp-Trp, KEDW tetrapeptide"
+      },
+      {
+        "id": "ventfort",
+        "name": "Ventfort",
+        "aka": "Lys-Glu-Asp, KED tripeptide, vascular bioregulator"
+      },
+      {
+        "id": "sigumir",
+        "name": "Sigumir",
+        "aka": "Ala-Glu-Asp-Gly, AEDG tetrapeptide, cartilage bioregulator"
+      },
+      {
+        "id": "chonluten",
+        "name": "Chonluten",
+        "aka": "Lys-Glu-Asp, bronchial/lung bioregulator"
+      },
+      {
+        "id": "bonomarlot",
+        "name": "Bonomarlot",
+        "aka": "Lys-Glu-Asp-Pro, KEDP tetrapeptide, bone marrow bioregulator"
+      },
+      {
+        "id": "crystagen",
+        "name": "Crystagen",
+        "aka": "Lys-Glu-Asp-Gly, lymphocyte bioregulator"
+      },
+      {
+        "id": "epi",
+        "name": "Epithalon",
+        "aka": "Epithalamin, Epitalon, Epithalone",
+        "alsoIn": [
+          "peptides"
+        ]
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "metabolic2",
+    "name": "Metabolic Peptides",
+    "icon": "🔥",
+    "color": "#fb923c",
+    "desc": "Advanced metabolic, appetite regulation, and body composition peptides",
+    "drugs": [
+      {
+        "id": "retatrutide",
+        "name": "Retatrutide",
+        "aka": "LY3437943, triple G agonist"
+      },
+      {
+        "id": "cagrilintide",
+        "name": "Cagrilintide",
+        "aka": "AM833, amylin analogue"
+      },
+      {
+        "id": "mt2",
+        "name": "Melanotan II",
+        "aka": "MT-2, bremelanotide precursor"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "sexhealth",
+    "name": "Sexual Health Peptides",
+    "icon": "❤️",
+    "color": "#f472b6",
+    "desc": "Peptides for sexual function, libido, and reproductive health",
+    "drugs": [
+      {
+        "id": "kisspeptin54",
+        "name": "Kisspeptin-54",
+        "aka": "KP-54, metastin full length"
+      },
+      {
+        "id": "gonadorelin",
+        "name": "Gonadorelin",
+        "aka": "GnRH, LHRH, Factrel, Lutrepulse"
+      },
+      {
+        "id": "pt141",
+        "name": "PT-141",
+        "aka": "Bremelanotide, Vyleesi",
+        "alsoIn": [
+          "addlpeptides"
+        ]
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "antiinflam",
+    "name": "Anti-Inflammatory Peptides",
+    "icon": "🛡️",
+    "color": "#34d399",
+    "desc": "Specialized peptides for systemic inflammation, autoimmunity, and immune regulation",
+    "drugs": [
+      {
+        "id": "dac",
+        "name": "CJC-1295 with DAC",
+        "aka": "CJC-1295 DAC, Drug Affinity Complex"
+      },
+      {
+        "id": "bpc157sys",
+        "name": "BPC-157 Systemic Protocol",
+        "aka": "BPC-157 oral systemic, extended protocol"
+      },
+      {
+        "id": "tbnouveau",
+        "name": "TB-500 Systemic Protocol",
+        "aka": "Thymosin Beta-4 systemic, TB-500 extended"
+      },
+      {
+        "id": "kpv",
+        "name": "KPV",
+        "aka": "Lys-Pro-Val, Alpha-MSH C-terminal tripeptide, α-MSH(11-13)",
+        "alsoIn": [
+          "peptides"
+        ]
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "senolytics",
+    "name": "Senolytics and Autophagy",
+    "icon": "🔄",
+    "color": "#a78bfa",
+    "desc": "Senolytic compounds that clear zombie cells and autophagy inducers for cellular cleanup",
+    "drugs": [
+      {
+        "id": "fisetin",
+        "name": "Fisetin",
+        "aka": "7,3',4'-flavon-3-ol, senolytic flavonoid"
+      },
+      {
+        "id": "quercetin",
+        "name": "Quercetin",
+        "aka": "Quercetin dihydrate, senolytic flavonoid"
+      },
+      {
+        "id": "dasatinib",
+        "name": "Dasatinib",
+        "aka": "Sprycel, senolytic Rx, BCR-ABL inhibitor"
+      },
+      {
+        "id": "spermidine",
+        "name": "Spermidine",
+        "aka": "Spermidine trihydrochloride, polyamine, N-(3-Aminopropyl)putrescine"
+      }
+    ],
+    "xrefs": [
+      {
+        "id": "urolithin",
+        "name": "Urolithin A",
+        "home": "performance"
+      }
     ]
-   },
-   {
-    "id": "resveratrol",
-    "name": "Resveratrol / Pterostilbene",
-    "aka": "Trans-resveratrol, RSV, pterostilbene"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "collagen",
-  "name": "Collagen and Skin Peptides",
-  "icon": "✨",
-  "color": "#f9a8d4",
-  "desc": "Peptides for skin, hair, collagen synthesis, and anti-aging aesthetics",
-  "drugs": [
-   {
-    "id": "argireline",
-    "name": "Argireline / Snap-8",
-    "aka": "Acetyl hexapeptide-3, Acetyl octapeptide-3"
-   },
-   {
-    "id": "collagen-pep",
-    "name": "Collagen Peptides",
-    "aka": "Hydrolyzed collagen, collagen hydrolysate, types I/II/III"
-   },
-   {
-    "id": "ghkcu",
-    "name": "GHK-Cu",
-    "aka": "Copper Peptide, Glycyl-L-Histidyl-L-Lysine, GHK-Copper, GHK-Cu (Copper Peptide)",
-    "alsoIn": [
-     "addlpeptides"
+  },
+  {
+    "id": "supps",
+    "name": "Supplements and Nutraceuticals",
+    "icon": "💊",
+    "color": "#34d399",
+    "desc": "Evidence-based supplements for longevity, metabolic health, and performance",
+    "drugs": [
+      {
+        "id": "taurine",
+        "name": "Taurine",
+        "aka": "2-aminoethanesulfonic acid"
+      },
+      {
+        "id": "ala",
+        "name": "Alpha-Lipoic Acid (ALA)",
+        "aka": "ALA, R-ALA, thioctic acid"
+      },
+      {
+        "id": "oxytocin",
+        "name": "Oxytocin",
+        "aka": "OT, bonding hormone, Pitocin (Rx)"
+      },
+      {
+        "id": "nad-iv",
+        "name": "NAD+ IV Protocol",
+        "aka": "NAD+ infusion, intravenous NAD, NMN IV equivalent"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "sleep-neuro",
+    "name": "Sleep and Neurological",
+    "icon": "🌙",
+    "color": "#818cf8",
+    "desc": "Sleep optimization peptides and neurological compounds",
+    "drugs": [
+      {
+        "id": "dsip",
+        "name": "DSIP",
+        "aka": "Delta Sleep-Inducing Peptide, DSIP nonapeptide"
+      },
+      {
+        "id": "glycine-supp",
+        "name": "Glycine",
+        "aka": "Aminoacetic acid, glycine powder"
+      },
+      {
+        "id": "lithium-or",
+        "name": "Lithium Orotate",
+        "aka": "Micro-dose lithium, lithium orotate supplement"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "performance",
+    "name": "Performance and Recovery",
+    "icon": "⚡",
+    "color": "#f59e0b",
+    "desc": "Compounds for athletic performance, recovery, and body composition",
+    "drugs": [
+      {
+        "id": "creatine",
+        "name": "Creatine Monohydrate",
+        "aka": "Creatine, Cr, creatine monohydrate"
+      },
+      {
+        "id": "urolithin",
+        "name": "Urolithin A",
+        "aka": "UA, Mitopure, ellagitannin metabolite",
+        "alsoIn": [
+          "senolytics"
+        ]
+      },
+      {
+        "id": "akglutarate",
+        "name": "Alpha-Ketoglutarate (AKG)",
+        "aka": "alpha-ketoglutaric acid, calcium AKG, AAKG"
+      },
+      {
+        "id": "testpellets",
+        "name": "Testosterone Pellets",
+        "aka": "Testopel, subcutaneous pellet implant, BHRT pellets"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "longevity3",
+    "name": "Longevity Supplements",
+    "icon": "✨",
+    "color": "#34d399",
+    "desc": "Evidence-based longevity supplements for healthspan extension",
+    "drugs": [
+      {
+        "id": "akg2",
+        "name": "Glycine and NAC (GlyNAC)",
+        "aka": "GlyNAC, glycine plus NAC combination"
+      },
+      {
+        "id": "melatonin-ther",
+        "name": "Melatonin (Therapeutic)",
+        "aka": "High-dose melatonin, Pierpaoli protocol"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "newcompounds",
+    "name": "Additional Compounds",
+    "icon": "⚗️",
+    "color": "#a78bfa",
+    "desc": "Extended compound library — AAS, SARM variants, and specialized compounds",
+    "drugs": [
+      {
+        "id": "amino1mq",
+        "name": "5-Amino-1MQ",
+        "aka": "5-Amino-1-methylquinolinium, AMQ"
+      },
+      {
+        "id": "estriol",
+        "name": "Estriol",
+        "aka": "E3, Oestriol"
+      },
+      {
+        "id": "yk11",
+        "name": "YK-11",
+        "aka": "YK11, Myostatin inhibitor SARM"
+      },
+      {
+        "id": "andarine",
+        "name": "Andarine",
+        "aka": "S-4, GTx-007"
+      },
+      {
+        "id": "proviron",
+        "name": "Proviron",
+        "aka": "Mesterolone, 1-Methyl-DHT"
+      },
+      {
+        "id": "stanozolol",
+        "name": "Stanozolol",
+        "aka": "Winstrol, Winny, Stan"
+      },
+      {
+        "id": "npp",
+        "name": "Nandrolone Phenylpropionate",
+        "aka": "NPP, Durabolin, Short Deca"
+      },
+      {
+        "id": "tprop",
+        "name": "Testosterone Propionate",
+        "aka": "Test Prop, TP"
+      },
+      {
+        "id": "boldenone",
+        "name": "Boldenone Undecylenate",
+        "aka": "Equipoise, EQ, Bold"
+      }
+    ],
+    "xrefs": []
+  },
+  {
+    "id": "bbcompounds",
+    "name": "Bodybuilding & PED Compounds",
+    "icon": "🏋️",
+    "color": "#ef4444",
+    "desc": "Anabolic steroids, blends, HGH, and side-effect management for performance users",
+    "drugs": [
+      {
+        "id": "trenace",
+        "name": "Trenbolone Acetate",
+        "aka": "Tren A, Fina"
+      },
+      {
+        "id": "trenenan",
+        "name": "Trenbolone Enanthate",
+        "aka": "Tren E"
+      },
+      {
+        "id": "dianabol",
+        "name": "Methandrostenolone",
+        "aka": "Dianabol, Dbol, D-bol"
+      },
+      {
+        "id": "anadrol",
+        "name": "Oxymetholone",
+        "aka": "Anadrol, A-bombs, Drol"
+      },
+      {
+        "id": "turinabol",
+        "name": "Chlorodehydromethyltestosterone",
+        "aka": "Turinabol, Tbol, Oral Turinabol"
+      },
+      {
+        "id": "mastenan",
+        "name": "Drostanolone Enanthate",
+        "aka": "Masteron Enanthate, Mast E"
+      },
+      {
+        "id": "primooral",
+        "name": "Methenolone Acetate (Oral)",
+        "aka": "Primobolan Oral, Oral Primo"
+      },
+      {
+        "id": "testsusp",
+        "name": "Testosterone Suspension",
+        "aka": "Test Susp, Aqueous Testosterone"
+      },
+      {
+        "id": "sustanon",
+        "name": "Sustanon 250 (Testosterone Blend)",
+        "aka": "Sustanon, Sust, Test Blend"
+      },
+      {
+        "id": "slupp332",
+        "name": "SLU-PP-332",
+        "aka": "SLU-PP-332, Exercise Mimetic"
+      },
+      {
+        "id": "raloxifene",
+        "name": "Raloxifene",
+        "aka": "Evista"
+      },
+      {
+        "id": "isotretinoin",
+        "name": "Isotretinoin",
+        "aka": "Accutane, Roaccutane, Tretinoin (oral)"
+      },
+      {
+        "id": "caberbromo",
+        "name": "Bromocriptine",
+        "aka": "Parlodel, Bromo"
+      }
+    ],
+    "xrefs": [
+      {
+        "id": "rhgh",
+        "name": "Recombinant HGH",
+        "home": "hghclass"
+      }
     ]
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "neuro2",
-  "name": "Neurological and Cognitive",
-  "icon": "🧠",
-  "color": "#c084fc",
-  "desc": "Neuroprotective compounds and cognitive enhancement agents",
-  "drugs": [
-   {
-    "id": "cerebrolysin",
-    "name": "Cerebrolysin",
-    "aka": "FPF-1070, CERE"
-   },
-   {
-    "id": "nalt",
-    "name": "NAC / NALT",
-    "aka": "N-Acetyl Cysteine, N-Acetyl L-Tyrosine, NAC"
-   },
-   {
-    "id": "selank",
-    "name": "Selank",
-    "aka": "TP-7",
-    "alsoIn": [
-     "nootroplonge"
-    ]
-   },
-   {
-    "id": "semax",
-    "name": "Semax",
-    "aka": "ACTH(4-7)PGP, Heptapeptide",
-    "alsoIn": [
-     "nootroplonge"
-    ]
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "muscle",
-  "name": "Muscle and Myostatin",
-  "icon": "💪",
-  "color": "#f87171",
-  "desc": "Myostatin inhibitors and anabolic support compounds",
-  "drugs": [
-   {
-    "id": "follistatin",
-    "name": "Follistatin",
-    "aka": "FS-344, FST-344, myostatin inhibitor"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "khavinson2",
-  "name": "Khavinson Bioregulators",
-  "icon": "🔬",
-  "color": "#6ee7b7",
-  "desc": "Short regulatory peptides targeting specific organs and tissues",
-  "drugs": [
-   {
-    "id": "cardiogen",
-    "name": "Cardiogen",
-    "aka": "Lys-Glu-Asp-Trp, KEDW tetrapeptide"
-   },
-   {
-    "id": "ventfort",
-    "name": "Ventfort",
-    "aka": "Lys-Glu-Asp, KED tripeptide, vascular bioregulator"
-   },
-   {
-    "id": "sigumir",
-    "name": "Sigumir",
-    "aka": "Ala-Glu-Asp-Gly, AEDG tetrapeptide, cartilage bioregulator"
-   },
-   {
-    "id": "chonluten",
-    "name": "Chonluten",
-    "aka": "Lys-Glu-Asp, bronchial/lung bioregulator"
-   },
-   {
-    "id": "bonomarlot",
-    "name": "Bonomarlot",
-    "aka": "Lys-Glu-Asp-Pro, KEDP tetrapeptide, bone marrow bioregulator"
-   },
-   {
-    "id": "crystagen",
-    "name": "Crystagen",
-    "aka": "Lys-Glu-Asp-Gly, lymphocyte bioregulator"
-   },
-   {
-    "id": "epi",
-    "name": "Epithalon",
-    "aka": "Epithalamin, Epitalon, Epithalone",
-    "alsoIn": [
-     "peptides"
-    ]
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "metabolic2",
-  "name": "Metabolic Peptides",
-  "icon": "🔥",
-  "color": "#fb923c",
-  "desc": "Advanced metabolic, appetite regulation, and body composition peptides",
-  "drugs": [
-   {
-    "id": "retatrutide",
-    "name": "Retatrutide",
-    "aka": "LY3437943, triple G agonist"
-   },
-   {
-    "id": "cagrilintide",
-    "name": "Cagrilintide",
-    "aka": "AM833, amylin analogue"
-   },
-   {
-    "id": "mt2",
-    "name": "Melanotan II",
-    "aka": "MT-2, bremelanotide precursor"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "sexhealth",
-  "name": "Sexual Health Peptides",
-  "icon": "❤️",
-  "color": "#f472b6",
-  "desc": "Peptides for sexual function, libido, and reproductive health",
-  "drugs": [
-   {
-    "id": "kisspeptin54",
-    "name": "Kisspeptin-54",
-    "aka": "KP-54, metastin full length"
-   },
-   {
-    "id": "gonadorelin",
-    "name": "Gonadorelin",
-    "aka": "GnRH, LHRH, Factrel, Lutrepulse"
-   },
-   {
-    "id": "pt141",
-    "name": "PT-141",
-    "aka": "Bremelanotide, Vyleesi",
-    "alsoIn": [
-     "addlpeptides"
-    ]
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "antiinflam",
-  "name": "Anti-Inflammatory Peptides",
-  "icon": "🛡️",
-  "color": "#34d399",
-  "desc": "Specialized peptides for systemic inflammation, autoimmunity, and immune regulation",
-  "drugs": [
-   {
-    "id": "dac",
-    "name": "CJC-1295 with DAC",
-    "aka": "CJC-1295 DAC, Drug Affinity Complex"
-   },
-   {
-    "id": "bpc157sys",
-    "name": "BPC-157 Systemic Protocol",
-    "aka": "BPC-157 oral systemic, extended protocol"
-   },
-   {
-    "id": "tbnouveau",
-    "name": "TB-500 Systemic Protocol",
-    "aka": "Thymosin Beta-4 systemic, TB-500 extended"
-   },
-   {
-    "id": "kpv",
-    "name": "KPV",
-    "aka": "Lys-Pro-Val, Alpha-MSH C-terminal tripeptide, α-MSH(11-13)",
-    "alsoIn": [
-     "peptides"
-    ]
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "senolytics",
-  "name": "Senolytics and Autophagy",
-  "icon": "🔄",
-  "color": "#a78bfa",
-  "desc": "Senolytic compounds that clear zombie cells and autophagy inducers for cellular cleanup",
-  "drugs": [
-   {
-    "id": "fisetin",
-    "name": "Fisetin",
-    "aka": "7,3',4'-flavon-3-ol, senolytic flavonoid"
-   },
-   {
-    "id": "quercetin",
-    "name": "Quercetin",
-    "aka": "Quercetin dihydrate, senolytic flavonoid"
-   },
-   {
-    "id": "dasatinib",
-    "name": "Dasatinib",
-    "aka": "Sprycel, senolytic Rx, BCR-ABL inhibitor"
-   },
-   {
-    "id": "spermidine",
-    "name": "Spermidine",
-    "aka": "Spermidine trihydrochloride, polyamine, N-(3-Aminopropyl)putrescine"
-   }
-  ],
-  "xrefs": [
-   {
-    "id": "urolithin",
-    "name": "Urolithin A",
-    "home": "performance"
-   }
-  ]
- },
- {
-  "id": "supps",
-  "name": "Supplements and Nutraceuticals",
-  "icon": "💊",
-  "color": "#34d399",
-  "desc": "Evidence-based supplements for longevity, metabolic health, and performance",
-  "drugs": [
-   {
-    "id": "taurine",
-    "name": "Taurine",
-    "aka": "2-aminoethanesulfonic acid"
-   },
-   {
-    "id": "ala",
-    "name": "Alpha-Lipoic Acid (ALA)",
-    "aka": "ALA, R-ALA, thioctic acid"
-   },
-   {
-    "id": "oxytocin",
-    "name": "Oxytocin",
-    "aka": "OT, bonding hormone, Pitocin (Rx)"
-   },
-   {
-    "id": "nad-iv",
-    "name": "NAD+ IV Protocol",
-    "aka": "NAD+ infusion, intravenous NAD, NMN IV equivalent"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "sleep-neuro",
-  "name": "Sleep and Neurological",
-  "icon": "🌙",
-  "color": "#818cf8",
-  "desc": "Sleep optimization peptides and neurological compounds",
-  "drugs": [
-   {
-    "id": "dsip",
-    "name": "DSIP",
-    "aka": "Delta Sleep-Inducing Peptide, DSIP nonapeptide"
-   },
-   {
-    "id": "glycine-supp",
-    "name": "Glycine",
-    "aka": "Aminoacetic acid, glycine powder"
-   },
-   {
-    "id": "lithium-or",
-    "name": "Lithium Orotate",
-    "aka": "Micro-dose lithium, lithium orotate supplement"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "performance",
-  "name": "Performance and Recovery",
-  "icon": "⚡",
-  "color": "#f59e0b",
-  "desc": "Compounds for athletic performance, recovery, and body composition",
-  "drugs": [
-   {
-    "id": "creatine",
-    "name": "Creatine Monohydrate",
-    "aka": "Creatine, Cr, creatine monohydrate"
-   },
-   {
-    "id": "urolithin",
-    "name": "Urolithin A",
-    "aka": "UA, Mitopure, ellagitannin metabolite",
-    "alsoIn": [
-     "senolytics"
-    ]
-   },
-   {
-    "id": "akglutarate",
-    "name": "Alpha-Ketoglutarate (AKG)",
-    "aka": "alpha-ketoglutaric acid, calcium AKG, AAKG"
-   },
-   {
-    "id": "testpellets",
-    "name": "Testosterone Pellets",
-    "aka": "Testopel, subcutaneous pellet implant, BHRT pellets"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "longevity3",
-  "name": "Longevity Supplements",
-  "icon": "✨",
-  "color": "#34d399",
-  "desc": "Evidence-based longevity supplements for healthspan extension",
-  "drugs": [
-   {
-    "id": "akg2",
-    "name": "Glycine and NAC (GlyNAC)",
-    "aka": "GlyNAC, glycine plus NAC combination"
-   },
-   {
-    "id": "melatonin-ther",
-    "name": "Melatonin (Therapeutic)",
-    "aka": "High-dose melatonin, Pierpaoli protocol"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "newcompounds",
-  "name": "Additional Compounds",
-  "icon": "⚗️",
-  "color": "#a78bfa",
-  "desc": "Extended compound library — AAS, SARM variants, and specialized compounds",
-  "drugs": [
-   {
-    "id": "amino1mq",
-    "name": "5-Amino-1MQ",
-    "aka": "5-Amino-1-methylquinolinium, AMQ"
-   },
-   {
-    "id": "estriol",
-    "name": "Estriol",
-    "aka": "E3, Oestriol"
-   },
-   {
-    "id": "yk11",
-    "name": "YK-11",
-    "aka": "YK11, Myostatin inhibitor SARM"
-   },
-   {
-    "id": "andarine",
-    "name": "Andarine",
-    "aka": "S-4, GTx-007"
-   },
-   {
-    "id": "proviron",
-    "name": "Proviron",
-    "aka": "Mesterolone, 1-Methyl-DHT"
-   },
-   {
-    "id": "stanozolol",
-    "name": "Stanozolol",
-    "aka": "Winstrol, Winny, Stan"
-   },
-   {
-    "id": "npp",
-    "name": "Nandrolone Phenylpropionate",
-    "aka": "NPP, Durabolin, Short Deca"
-   },
-   {
-    "id": "tprop",
-    "name": "Testosterone Propionate",
-    "aka": "Test Prop, TP"
-   },
-   {
-    "id": "boldenone",
-    "name": "Boldenone Undecylenate",
-    "aka": "Equipoise, EQ, Bold"
-   }
-  ],
-  "xrefs": []
- },
- {
-  "id": "bbcompounds",
-  "name": "Bodybuilding & PED Compounds",
-  "icon": "🏋️",
-  "color": "#ef4444",
-  "desc": "Anabolic steroids, blends, HGH, and side-effect management for performance users",
-  "drugs": [
-   {
-    "id": "trenace",
-    "name": "Trenbolone Acetate",
-    "aka": "Tren A, Fina"
-   },
-   {
-    "id": "trenenan",
-    "name": "Trenbolone Enanthate",
-    "aka": "Tren E"
-   },
-   {
-    "id": "dianabol",
-    "name": "Methandrostenolone",
-    "aka": "Dianabol, Dbol, D-bol"
-   },
-   {
-    "id": "anadrol",
-    "name": "Oxymetholone",
-    "aka": "Anadrol, A-bombs, Drol"
-   },
-   {
-    "id": "turinabol",
-    "name": "Chlorodehydromethyltestosterone",
-    "aka": "Turinabol, Tbol, Oral Turinabol"
-   },
-   {
-    "id": "mastenan",
-    "name": "Drostanolone Enanthate",
-    "aka": "Masteron Enanthate, Mast E"
-   },
-   {
-    "id": "primooral",
-    "name": "Methenolone Acetate (Oral)",
-    "aka": "Primobolan Oral, Oral Primo"
-   },
-   {
-    "id": "testsusp",
-    "name": "Testosterone Suspension",
-    "aka": "Test Susp, Aqueous Testosterone"
-   },
-   {
-    "id": "sustanon",
-    "name": "Sustanon 250 (Testosterone Blend)",
-    "aka": "Sustanon, Sust, Test Blend"
-   },
-   {
-    "id": "slupp332",
-    "name": "SLU-PP-332",
-    "aka": "SLU-PP-332, Exercise Mimetic"
-   },
-   {
-    "id": "raloxifene",
-    "name": "Raloxifene",
-    "aka": "Evista"
-   },
-   {
-    "id": "isotretinoin",
-    "name": "Isotretinoin",
-    "aka": "Accutane, Roaccutane, Tretinoin (oral)"
-   },
-   {
-    "id": "caberbromo",
-    "name": "Bromocriptine",
-    "aka": "Parlodel, Bromo"
-   }
-  ],
-  "xrefs": [
-   {
-    "id": "rhgh",
-    "name": "Recombinant HGH",
-    "home": "hghclass"
-   }
-  ]
- }
+  }
 ]

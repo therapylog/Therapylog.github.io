@@ -1,5 +1,5 @@
 /* TherapyLog service worker — offline shell + notification display. */
-const CACHE = 'therapylog-v2';
+const CACHE = 'therapylog-v3';
 const PRECACHE = [
   '/app.html',
   '/manifest.webmanifest',
@@ -38,9 +38,16 @@ self.addEventListener('fetch', (event) => {
         return resp;
       })
       .catch(() =>
-        caches.match(event.request).then(
-          (hit) => hit || (event.request.mode === 'navigate' ? caches.match('/app.html') : undefined)
-        )
+        caches.match(event.request).then((hit) => {
+          if (hit) return hit;
+          /* Offline navigation falls back to the app shell only for app routes.
+             Public pages (/tools/..., /markers/..., /about/) are ordinary
+             documents; serving them the app shell offline rendered the tracker
+             under the wrong URL. Crawlers do not run service workers, so this
+             was never an indexing problem — it was a UX one. */
+          const isApp = new URL(event.request.url).pathname.startsWith('/app');
+          return event.request.mode === 'navigate' && isApp ? caches.match('/app.html') : undefined;
+        })
       )
   );
 });
