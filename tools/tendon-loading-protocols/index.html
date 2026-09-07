@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tendon loading protocols | TherapyLog</title>
+<meta name="description" content="Heavy slow resistance and staged loading for patellar, Achilles and lateral elbow tendinopathy, with the sets, reps and pain rules from the trials.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/tools/tendon-loading-protocols/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Tendon loading protocols | TherapyLog"><meta property="og:description" content="Heavy slow resistance and staged loading for patellar, Achilles and lateral elbow tendinopathy, with the sets, reps and pain rules from the trials."><meta property="og:url" content="https://therapylog.app/tools/tendon-loading-protocols/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Tendon loading protocols | TherapyLog"><meta name="twitter:description" content="Heavy slow resistance and staged loading for patellar, Achilles and lateral elbow tendinopathy, with the sets, reps and pain rules from the trials."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.risks{display:block;list-style:none;margin:6px 0 20px;padding:0}
+.risks li{padding:9px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.risks li:first-child{border-top:none}
+.note.reg{border-left-color:var(--warm)}
+[hidden]{display:none!important}
+/* /compounds/ hub: the filter box and the per-card tier chip. */
+.cx-find{margin:22px 0 6px}
+.cx-find label{display:block;font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
+.cx-find input{width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:12px 14px;color:var(--text);font-size:15px;font-family:inherit}
+.cx-find input:focus{outline:none;border-color:var(--accent)}
+.cx-status{font-size:12.5px;color:var(--text3);min-height:18px;margin-top:7px}
+.cx-group{margin-top:34px}
+.cx-group h2{margin-top:0}
+.tcard .tier{display:inline-block;margin-top:9px;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border-radius:20px;padding:2px 9px}
+.tcard .tier-a{color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.tcard .tier-b{color:var(--warm);border:1px solid rgba(245,166,91,0.35)}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/compounds/">Compounds</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Tendon loading protocols</div>
+
+    <h1>Tendon loading protocols</h1>
+    <p class="lede">Most tendon advice is &quot;do eccentrics&quot; with no numbers attached. The trials specify sets, reps, loads, angles and a rule for when to progress. Those parameters are below, each with the trial it came from.</p>
+
+    <div class="callout">
+      <strong>The short version.</strong> Heavy slow resistance and staged pain-limited loading both work and both beat or match corticosteroid injection in the long run. Isometric analgesia — the idea that an isometric hold reliably kills tendon pain — has failed replication three times.
+    </div>
+
+    <h2>What the evidence shows</h2>
+    <p>Findings are grouped by what kind of evidence each one is. That ordering is the point: a sentence from an FDA label and a sentence from a forum are not the same claim, and this page will not present them as though they were.</p>
+
+    <h3>Clinical trial evidence</h3>
+    <ul class="findings">
+      <li><p>Patellar tendinopathy isometric stage, fully specified: 5 repetitions of a 45-second single-leg isometric hold at 70% of maximum voluntary contraction, performed at 60 degrees of knee flexion on a leg press or leg extension, daily. This is the most completely reported isometric prescription in a positive randomised trial. <a href="#src-1" class="ref">[1]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> 5 reps x 45 s hold; 60 degrees knee flexion; 70% MVC; single-leg leg press or leg extension; daily</p><p class="pop"><strong>Studied in:</strong> 76 athletes aged 18-35 with ultrasound-confirmed patellar tendinopathy, VISA-P &lt;80, playing sport at least 3x/week; mean age 24, 76% male, median symptom duration 2 years. Predominantly young male jumping athletes — not a general adult population.</p></li>
+      <li><p>The isotonic stage of the same protocol progressed from 4 sets of 15 reps in a restricted mid-range (10-60 degrees knee flexion) to 4 sets of 6 reps at higher load through a fuller range (near-full extension to 90 degrees), performed every second day, alternating with the isometric day. <a href="#src-1" class="ref">[1]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> 4 sets x 15 reps at 10-60 degrees, progressing to 4 sets x 6 reps at near-full extension to 90 degrees; every second day</p><p class="pop"><strong>Studied in:</strong> Same 38 patients randomised to progressive tendon-loading exercise; young athletes with chronic patellar tendinopathy. Range-of-motion restriction early is a deliberate load-limiting device, not an arbitrary detail.</p></li>
+      <li><p>THE NUMERIC PAIN-MONITORING RULE, with its source: progression was gated on a single-leg squat used as a standardised pain provocation test. If that squat produced VAS 3 or less on 0-10, and the current stage had been performed for at least one week, the athlete advanced. This is the ≤3/10 rule that most modern tendon protocols cite. <a href="#src-1" class="ref">[1]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Provocation test = one single-leg squat; threshold = VAS ≤3/10; minimum 1 week per stage before advancing</p><p class="pop"><strong>Studied in:</strong> Patellar tendinopathy, 18-35, ultrasound-confirmed. The rule was applied to exercise progression AND to return to sport and general athletic activity in the same trial.</p></li>
+      <li><p>The staged, pain-limited protocol beat the traditional pain-provoking eccentric decline squat by 9 VISA-P points at 24 weeks. Notably, the comparator arm was deliberately instructed to work AT VAS 5 or above — so this is a direct test of loading into pain versus loading under a pain ceiling, and the ceiling won. <a href="#src-1" class="ref">[1]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Comparator: eccentric decline squat on 25-degree board, twice daily, 12 weeks, instructed to reach VAS ≥5/10 during exercise</p><p class="pop"><strong>Studied in:</strong> 76 athletes with mostly chronic patellar tendinopathy (median 2 years), 82% of whom had already failed prior treatment.</p></li>
+      <li><p>The second, older numeric rule (the Silbernagel pain-monitoring model) uses a HIGHER ceiling than the ≤3/10 rule: load is added when pain does not exceed 5/10, and tendon-loading sport is permitted provided pain stays at or below 50/100 mm AND subsides within 24 hours. The 24-hour resolution criterion is the part most often dropped when people quote this rule. <a href="#src-2" class="ref">[2]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Add load (5 kg increments) when pain ≤5 on 0-10 NRS; resume loading sport if pain ≤50 mm on 0-100 mm VAS and it subsides within 24 h</p><p class="pop"><strong>Studied in:</strong> Protocol description for recreational athletes aged 18-60 with chronic (≥3 months) unilateral midportion Achilles tendinopathy. The rule originates in Achilles work and is applied to patellar and elbow tendons by convention, not by trial.</p></li>
+      <li><p>The evidence that you can keep training on a symptomatic tendon: an RCT randomised patients to continue running and jumping under the pain-monitoring model versus stopping those activities for 6 weeks. Continuing was not worse. This is the trial behind 'you do not have to rest it'. <a href="#src-3" class="ref">[3]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Continued running/jumping under pain-monitoring model vs 6 weeks cessation; identical rehab programme in both arms</p><p class="pop"><strong>Studied in:</strong> 38 patients with Achilles tendinopathy (19 per arm). Achilles, not patellar or elbow — the transfer to elbow tendons is an assumption, not a finding.</p></li>
+      <li><p>HONEST CAVEAT ON THE PAIN RULE ITSELF: a systematic review of 30 RCTs found pain-based progression criteria dominate the literature but are not backed by strong evidence, and no trial has yet compared the same exercise programme run under different pain thresholds. The ≤3/10 and ≤5/10 numbers are conventions that happened to be used in trials that worked — they are not validated cut-points. <a href="#src-4" class="ref">[4]</a></p><p class="pop"><strong>Studied in:</strong> 30 RCTs of midportion Achilles, patellar or gluteal tendinopathy with progressive exercise as monotherapy. Lower limb only; elbow tendons were not reviewed.</p></li>
+      <li><p>Heavy slow resistance for the patellar tendon, fully specified: 3 sessions per week; three bilateral movements (squat, leg press, Bulgarian split squat); load stepped 12RM (weeks 1-2) to 10RM (3-4) to 8RM (5-6) to 6RM (7-8); tempo enforced by metronome at 3 s eccentric plus 3 s concentric, 6 s per repetition; 4 sets per movement with 2 minutes rest. <a href="#src-5" class="ref">[5]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> 3x/week; 12RM→10RM→8RM→6RM over 8 weeks; 3 s eccentric + 3 s concentric (6 s/rep); 4 sets; 2 min rest; &gt;70% 1RM, no more than 12 reps/set</p><p class="pop"><strong>Studied in:</strong> 51 college students aged 18-24 with chronic (&gt;3 months) patellar tendinopathy at a Chinese sports university, VISA-P &lt;80, ultrasound-confirmed. Almost entirely male (46/51). The 4 sets and 2 min rest are stated in the combined-therapy paragraph, which explicitly states that group followed the same regimen as the HSR group.</p></li>
+      <li><p>That same HSR trial used a slightly different numeric rule from Breda's: pain under VAS 3 during a session was acceptable provided it did not INCREASE session to session. The between-session trend, not the within-session number, was the stop signal. <a href="#src-5" class="ref">[5]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Continue if VAS &lt;3 and pain does not increase in subsequent sessions</p><p class="pop"><strong>Studied in:</strong> College-age athletes with chronic patellar tendinopathy under direct therapist supervision every session — a much more supervised setting than self-management.</p></li>
+      <li><p>The foundational HSR trial: 12 weeks of HSR matched eccentric decline squats and beat corticosteroid injection in the long run. Corticosteroid looked good short-term then deteriorated; HSR held its gains at 6 months and produced measurable tendon change (reduced swelling and vascularisation, elevated collagen turnover). <a href="#src-6" class="ref">[6]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> 12 weeks; HSR vs eccentric decline squat vs peritendinous corticosteroid injection</p><p class="pop"><strong>Studied in:</strong> 39 MALE patients with patellar tendinopathy. All male — no female data in this trial at all.</p></li>
+      <li><p>ISOMETRIC ANALGESIA, THE ORIGINAL POSITIVE RESULT: a single bout dropped decline-squat pain from 7.0/10 to 0.17/10 and held the reduction for 45 minutes, with a parallel drop in cortical inhibition. This near-total abolition of pain is the number that made isometrics famous — and it came from six volleyball players. <a href="#src-7" class="ref">[7]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Single bout of isometric quadriceps contractions vs isotonic; outcomes at 0 and 45 min</p><p class="pop"><strong>Studied in:</strong> SIX volleyball players with patellar tendinopathy, single-blinded crossover. n=6. This is the entire evidence base for the headline effect size.</p></li>
+      <li><p>The in-season isometric protocol with its parameters: leg-extension isometric holds at 60 degrees knee flexion at 80% MVIC, 4 sessions per week for 4 weeks, versus isotonic leg extension at 80% of 8RM with time-under-load matched. Isometrics produced greater immediate analgesia across the 4 weeks. Note the intensity here is 80% MVIC, not the 70% used by Breda. <a href="#src-8" class="ref">[8]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Isometric leg extension holds, 60 degrees knee flexion, 80% MVIC, 4x/week for 4 weeks (time under load and inter-set rest matched to isotonic comparator at 80% of 8RM)</p><p class="pop"><strong>Studied in:</strong> 20 in-season jumping athletes (18 men, mean 22.5 years) with clinically diagnosed patellar tendinopathy, training/competing 3x/week. Baseline median pain only 5/10 — a milder group than Rio 2015.</p></li>
+      <li><p>REPLICATION FAILURE 1: an independent, pre-registered crossover trial in 21 patients found the pain reduction after isometric exercise was 0.9 points on 0-10 — not 6.8 — was gone by 45 minutes, and was no different from dynamic exercise. The authors concluded contraction mode may not be what matters. <a href="#src-9" class="ref">[9]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Single session high-load isometric vs dynamic resistance exercise, 7-day washout; outcomes pre, immediately post, 45 min post</p><p class="pop"><strong>Studied in:</strong> 21 participants with patellar tendinopathy, Denmark. Pre-registered, participants blinded to hypothesis — methodologically stronger than the original.</p></li>
+      <li><p>REPLICATION FAILURE 2: from the same research group as the original, a 4-week in-season trial found isometric and isotonic programmes both reduced pain, with no significant difference between them. Both worked; the isometric advantage did not appear. <a href="#src-10" class="ref">[10]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> 4 isometric or isotonic sessions per week for 4 weeks</p><p class="pop"><strong>Studied in:</strong> 29 jumping athletes with patellar tendinopathy playing at least 3x/week, with no modification of training or competition load.</p></li>
+      <li><p>REPLICATION FAILURE 3, the systematic review: across 13 studies and 346 participants with local musculoskeletal pain, there was no consistent evidence that isometric exercise produces hypoalgesia, and no consistent superiority over comparison interventions. This contrasts with healthy people, where the effect IS consistent. Isometrics are well tolerated — that is the defensible claim, not that they reliably kill pain. <a href="#src-11" class="ref">[11]</a></p><p class="pop"><strong>Studied in:</strong> 346 participants across 13 randomised and crossover trials in people with localised musculoskeletal symptoms, upper and lower limb.</p></li>
+      <li><p>ELBOW, AND THE MOST ACTIONABLE FINDING HERE: isometric wrist extension at 10 x 15 s was tested at an intensity 20% BELOW versus 20% ABOVE each person's own pain threshold. Above threshold, pain was HIGHER immediately after and still higher 30 minutes later. Below threshold, it was no different from doing nothing. Pressure pain threshold and pain-free grip did not improve in either condition. At the elbow, pushing an isometric into pain makes it worse. <a href="#src-12" class="ref">[12]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> 10 x 15 s isometric wrist extension; load set 20% below or 20% above individual pain threshold</p><p class="pop"><strong>Studied in:</strong> 24 individuals with unilateral chronic lateral epicondylalgia, median 3-month duration, middle-aged. Randomised order, blinded examiner.</p></li>
+      <li><p>Eight weeks of daily unsupervised progressive isometric exercise for lateral elbow tendinopathy beat wait-and-see on only one of three primary outcomes. Pain-free grip strength and global rating of change were no better than doing nothing. The authors' own conclusion is that isometrics as a sole treatment are of doubtful efficacy at the elbow. <a href="#src-13" class="ref">[13]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Single supervised instruction session, then 8 weeks of daily unsupervised progressive isometric exercise</p><p class="pop"><strong>Studied in:</strong> 40 adults with unilateral lateral elbow tendinopathy of at least 6 weeks duration (21 exercise, 19 wait-and-see); 98% completed. General clinical population, not athletes.</p></li>
+      <li><p>For lateral elbow tendinopathy, 12 weeks of home-based heavy slow resistance with elastic bands improved symptoms short and long term, and adding either a corticosteroid injection or tendon needling added nothing. Corticosteroid actually made patient-reported outcomes WORSE at 52 weeks than loading alone. <a href="#src-14" class="ref">[14]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> 12 weeks home-based HSR with elastic band exercises; follow-up at 12, 26 and 52 weeks (primary endpoint 52 weeks)</p><p class="pop"><strong>Studied in:</strong> 60 patients with chronic unilateral lateral elbow tendinopathy, randomised double-blind placebo-controlled. Improvements were ~20 DASH points and ~2.5 NRS points across all arms.</p></li>
+      <li><p>TOLERABILITY WARNING FOR HEAVY ELBOW LOADING: in a feasibility RCT, a 12-week HSR programme (36 sessions; a wrist flexion/extension exercise plus a forearm pronation/supination exercise with a dumbbell) was completed by only 6 of 19 participants — 32% — mainly because it aggravated pain. The investigators concluded HSR was not suitable for this population. Heavy loading that the patellar tendon tolerates, the common extensor origin often does not. <a href="#src-15" class="ref">[15]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> 12-week home programme, 36 sessions, 2 exercises: wrist extension/flexion, and forearm pronation/supination with a dumbbell; plus extensor stretching 3x/day, 3 sets of 30 s</p><p class="pop"><strong>Studied in:</strong> Secondary-care tennis elbow patients at Oslo University Hospital (n=19 in the HSR arm of 60 randomised). Secondary care means a more refractory group than typical gym-goers.</p></li>
+      <li><p>THE HONEST BASELINE FOR DISTAL BICEPS: distal biceps tendinopathy is very rare and there is limited published evidence on it. Everything above about elbow-flexor loading is extrapolation — there is no loading protocol trial for this tendon. The review also flags that tendinopathy here can progress to rupture, which is why it should not be self-managed by simply training through it. <a href="#src-21" class="ref">[21]</a></p><p class="pop"><strong>Studied in:</strong> Narrative review of medial elbow, distal biceps and distal triceps tendinopathy. Explicitly a scarcity-of-evidence review, not a trial.</p></li>
+    </ul>
+
+    <h3>Animal or mechanistic only</h3>
+    <ul class="findings">
+      <li><p>DISTAL BICEPS — WHICH MOVEMENTS LOAD ELBOW FLEXORS MOST: in a direct EMG comparison of curl grips at 8RM, biceps brachii excitation was 19% higher with a supinated grip than pronated and 12% higher than neutral; brachioradialis was also highest supinated. So supinated curls load the elbow flexors most; pronated (reverse) and neutral (hammer) curls load biceps brachii least while shifting work to anterior deltoid. <a href="#src-16" class="ref">[16]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Bilateral biceps curl, non-exhaustive 6-rep sets at 8RM, supinated vs pronated vs neutral forearm</p><p class="pop"><strong>Studied in:</strong> TEN competitive bodybuilders, healthy, surface EMG. No tendinopathy patients; EMG amplitude is a proxy for muscle drive, NOT a measurement of distal biceps tendon force.</p></li>
+      <li><p>COUNTERINTUITIVE FINDING FOR PULL-UPS: across supinated (chin-up), pronated, neutral and rope grips, arm and forearm muscle activation over a complete repetition was SIMILAR — switching to a pronated grip does not meaningfully unload the biceps in a pull-up. What did differ was phase: biceps brachii and brachioradialis activation was significantly HIGHER in the concentric than the eccentric phase, so the lowering portion is where elbow-flexor drive is lowest. <a href="#src-17" class="ref">[17]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Bodyweight pull-ups, four grip variations, surface EMG of eight shoulder-arm-forearm muscles normalised to %MVIC</p><p class="pop"><strong>Studied in:</strong> 19 strength-trained males, mean age 24.9, healthy. Not tendinopathy patients. Again, EMG amplitude is not tendon load.</p></li>
+      <li><p>Same pattern in the lat pulldown: pronating the grip increased latissimus dorsi activity but had NO effect on biceps brachii, at either wide or narrow grip. Switching from an underhand to an overhand pulldown will not spare the elbow flexors. <a href="#src-18" class="ref">[18]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Anterior lat pulldown at 70% 1RM, 5 reps, 2 s concentric and 2 s eccentric cadence; wide (carrying width) and narrow (biacromial) grips, pronated and supinated</p><p class="pop"><strong>Studied in:</strong> 12 healthy men. Healthy, no elbow symptoms; single session EMG.</p></li>
+      <li><p>GRIP AIDS, PART 1 — THICK GRIPS DO CHANGE RECRUITMENT, AND IN THE DIRECTION THAT MATTERS FOR A DISTAL BICEPS: adding fat-grip attachments significantly INCREASED forearm muscle activation and significantly DECREASED upper-arm (biceps and triceps) activation during deadlift, bent-over row and pull-ups, while cutting 1RM in every exercise and reducing pull-up reps. Upright row and concentration curl showed no change. <a href="#src-19" class="ref">[19]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Fat Gripz attached to Olympic barbell vs bare bar; 1RM testing in deadlift, bent-over row, upright row, concentration curl; max pull-ups</p><p class="pop"><strong>Studied in:</strong> 15 resistance-trained men, mean age 22.4, healthy. Acute single-session EMG and 1RM; no tendinopathy patients and no tendon-load measurement.</p></li>
+      <li><p>GRIP AIDS, PART 2 — LIFTING STRAPS: in the only strap EMG trial retrieved, straps changed nothing in the lat pulldown — not 1RM, not reps to failure at 70% 1RM, not latissimus dorsi activation. IMPORTANT LIMITATION: this study measured latissimus dorsi only. It did NOT measure biceps brachii or forearm flexors, so it cannot answer whether straps offload the elbow flexors. That question is untested. <a href="#src-20" class="ref">[20]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Lat pulldown, 3 sets to concentric failure at 70% 1RM, 60 s rest, with vs without lifting straps; plus 1RM test</p><p class="pop"><strong>Studied in:</strong> 12 resistance-trained men, mean 6.6 years training experience, healthy. Crossover. Only latissimus dorsi EMG reported.</p></li>
+    </ul>
+
+    <h2>What the regulator approved</h2>
+    <p>Where a drug on this page has a US label, this is what it was approved for and at what dose. Anything else is off-label — which is not the same as unsafe, but does mean no regulator has reviewed it for that use.</p>
+        <div class="tbl">
+      <table>
+        <thead><tr><th>Drug</th><th>Approved for</th><th>Approved dose</th><th>On-label for this use?</th></tr></thead>
+        <tbody>
+          <tr><td>Methylprednisolone acetate (Depo-Medrol) — injected corticosteroid, the only prescription drug appearing in the tendinopathy loading trials retrieved here (used as comparator/adjunct in Kongsgaard 2009 and Couppé 2022)</td><td class="num">The Indications section retrieved from DailyMed covers Section A, intramuscular administration, and lists allergic states, dermatologic diseases, endocrine disorders, gastrointestinal diseases and haematologic disorders. Tendinopathy, epico</td><td class="num">Verbatim from label: 'The initial dosage of parenterally administered DEPO-MEDROL will vary from 4 to 120 mg, depending on the specific disease entity being treated.' No tendon-specific dose was retri</td><td class="num"><strong>No</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What nobody knows</h2>
+    <p>These are the questions the literature does not answer. They are listed because on this subject the gaps are load-bearing: most of what circulates as settled practice sits in one of them.</p>
+    <ul class="gaps">
+      <li>NO LOADING TRIAL EXISTS FOR DISTAL BICEPS TENDINOPATHY. Every parameter in this brief comes from patellar, Achilles or lateral elbow tendons. Donaldson 2014 (PMID 27582910) states the condition is 'very rare' with 'limited evidence published', and flags rupture as a sequela. Anyone applying a patellar HSR template to a distal biceps is improvising.</li>
+      <li>The effect of LIFTING STRAPS on elbow flexor and forearm recruitment is untested. Valério 2021 (PMID 31198105) is the only strap EMG trial retrieved and it measured latissimus dorsi only — not biceps brachii, not brachioradialis, not wrist flexors. The common claim that straps 'take the arms out of it' has no EMG support in the retrieved literature. Krings 2021 (PMID 30694963) tested THICK grips, which is the opposite manipulation.</li>
+      <li>EMG AMPLITUDE IS NOT TENDON LOAD. None of the grip, curl, pulldown or pull-up studies cited measured force or strain in the distal biceps tendon. A grip change that lowers biceps EMG may not lower tendon stress, particularly since forearm position also changes the tendon's moment arm and its wrap around the radial tuberosity. No study retrieved addressed this.</li>
+      <li>ISOMETRIC INTENSITY IS UNRESOLVED. Breda 2021 used 70% MVC at 60 degrees; Rio 2017 used 80% MVIC at 60 degrees; Rio 2015's exact protocol was not in its abstract and I did not retrieve its full text, so the widely repeated '5 x 45 s at 70% MVIC' figure is verified from Breda, not from Rio 2015. No trial has compared isometric intensities head to head.</li>
+      <li>NO TRIAL HAS COMPARED PAIN-PROGRESSION THRESHOLDS. Escriche-Escuder 2020 (PMID 33444210) explicitly identifies this as the gap. The ≤3/10 rule (Breda), the ≤5/10 rule (Silbernagel/Habets) and the 'VAS &lt;3 and not increasing between sessions' rule (Xiao) all coexist in successful trials. Which is right, or whether it matters, is unknown.</li>
+      <li>TRANSFER OF THE PAIN RULE TO THE ELBOW IS ASSUMED, NOT TESTED. Escriche-Escuder's review covered lower limb only. Coombes 2016 (PMID 26889612) is direct evidence that the elbow behaves differently — working above individual pain threshold made pain worse for at least 30 minutes — and Sveinall 2024 (PMID 39806585) found 68% could not complete heavy elbow loading because of pain aggravation.</li>
+      <li>ADHERENCE IN THE REAL WORLD IS POOR AND UNDER-REPORTED. Breda 2021 reported exercise adherence of only 40% (PTLE) and 49% (EET) at 24 weeks despite a supervised trial with paid gym membership. Protocol numbers describe what was prescribed, not what people did.</li>
+      <li>POPULATION SKEW: the patellar tendinopathy evidence is almost entirely young male jumping athletes. Kongsgaard 2009 enrolled 39 male patients only; Hjortshoej 2025 reports results 'in males with chronic PT'; Breda 2021 was 76% male, aged 18-35, playing sport 3x/week. There is essentially no data on middle-aged, female, sedentary or non-jumping populations for these exact protocols.</li>
+      <li>NO TENDON LOADING TRIAL HAS BEEN CONDUCTED IN PEOPLE USING EXOGENOUS ANDROGENS, GH SECRETAGOGUES, OR RESEARCH PEPTIDES (BPC-157, TB-500). None of the trials retrieved recruited or stratified for anabolic use, and none reported it as a covariate. Whether loading protocols behave the same on-cycle is entirely unstudied. This is the single largest gap for TherapyLog's actual users.</li>
+      <li>One RCT (Olesen 2021, PMID 34138667) tested local IGF-1 injection added to HSR in tendinopathic patellar tendons. Its title indicates no added benefit, but I did NOT retrieve its abstract and so am not asserting its result — flagged here so it can be checked, not cited.</li>
+      <li>The FDA label retrieval for methylprednisolone acetate was TRUNCATED before the intrasynovial/soft-tissue indication subsection. I could confirm the route ('intramuscular, intra-articular, soft tissue, or intralesional injection') and that tendinopathy does not appear in the intramuscular indication list, but I could not read what the soft-tissue subsection lists. Do not state that corticosteroid injection is or is not label-approved for epicondylitis on the basis of this brief — verify the full label directly.</li>
+      <li>Whether isometrics used as a PRE-LOAD (to enable heavier work afterwards) improve long-term outcome, as opposed to producing transient analgesia, has not been tested. Rio 2017 observed that week-one analgesic response correlated with 4-week VISA-P improvement (r=0.64), but that is a correlation in 20 people, not a causal test.</li>
+      <li>Nothing retrieved addresses medial elbow (golfer's elbow) loading parameters, or the effect of grip width, bar thickness, or hook grip on the MEDIAL common flexor origin — a plausible concern for anyone using thick grips or heavy carries.</li>
+      <li>Time-under-tension and contraction tempo for elbow loading are unspecified in every elbow trial retrieved. The 3 s + 3 s HSR tempo is a patellar/Achilles convention that Couppé 2022 and Sveinall 2024 did not report in the sections retrieved.</li>
+    </ul>
+
+    <h2>Sources</h2>
+    <p>Every identifier below was checked to resolve to a real record before publication. Citations retrieved from PubMed and DailyMed.</p>
+    <ol class="sources">
+      <li id="src-1">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/33219115/" rel="nofollow noopener" target="_blank">British Journal of Sports Medicine (2021) — PubMed 33219115</a>
+        <span class="src">stage 1 consisted of daily isometric exercises (single-leg leg-press or leg-extension, 5 repetitions of 45 s mid-range (60° knee flexion) quadriceps isometric hold at 70% of maximum voluntary contraction)</span>
+      </li>
+      <li id="src-2">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/28693535/" rel="nofollow noopener" target="_blank">BMC Musculoskeletal Disorders (2017) — PubMed 28693535</a>
+        <span class="src">Progression is made by changing from bipedal to unipedal exercises, by progressing from concentric-eccentric to purely eccentric loading, by adding weight in a backpack (in steps of 5 kg when pain did not exceed 5 on a 0–10 numerical rating scale), and finally</span>
+      </li>
+      <li id="src-3">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/17307888/" rel="nofollow noopener" target="_blank">The American Journal of Sports Medicine (2007) — PubMed 17307888</a>
+        <span class="src">The exercise training group (n = 19) was allowed, with the use of a pain-monitoring model, to continue Achilles tendon-loading activity, such as running and jumping, whereas the active rest group (n = 19) had to stop such activities during the first 6 weeks. .</span>
+      </li>
+      <li id="src-4">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/33444210/" rel="nofollow noopener" target="_blank">BMJ Open (2020) — PubMed 33444210</a>
+        <span class="src">There is a predominant use of pain-based criteria, but the utilisation of these criteria is not supported by strong evidence. This review evidences the need for studies that compare the same exercise programme using different progression criteria.</span>
+      </li>
+      <li id="src-5">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/39390552/" rel="nofollow noopener" target="_blank">BMC Sports Science, Medicine &amp; Rehabilitation (2024) — PubMed 39390552</a>
+        <span class="src">Subjects were asked to perform three weekly training sessions, each including three movements (squat, leg press, Bulgarian deep squat). ... Load intensity and repetitions were progressively adjusted throughout the program: starting with 12 repetitions maximum </span>
+      </li>
+      <li id="src-6">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/19793213/" rel="nofollow noopener" target="_blank">Scandinavian Journal of Medicine &amp; Science in Sports (2009) — PubMed 19793213</a>
+        <span class="src">Thirty-nine male patients were randomized to CORT, ECC or HSR for 12 weeks. ... VISA-p and VAS improvements were maintained at follow-up in ECC and HSR but deteriorated in CORT (P&lt;0.05). ... HSR has good short- and long-term clinical effects accompanied by pat</span>
+      </li>
+      <li id="src-7">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/25979840/" rel="nofollow noopener" target="_blank">British Journal of Sports Medicine (2015) — PubMed 25979840</a>
+        <span class="src">6 volleyball players with PT participated. Condition effects were detected with greater pain relief immediately from isometric contractions: isometric contractions reduced SLDS (mean±SD) from 7.0±2.04 to 0.17±0.41, and isotonic contractions reduced SLDS (mean±</span>
+      </li>
+      <li id="src-8">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/27513733/" rel="nofollow noopener" target="_blank">Clinical Journal of Sport Medicine (2017) — PubMed 27513733</a>
+        <span class="src">Two quadriceps resistance protocols were compared; (1) isometric leg extension holds at 60 degrees knee flexion (80% of their maximal voluntary isometric contraction) or (2) isotonic leg extension (at 80% of their 8 repetition maximum) 4 times per week for 4 w</span>
+      </li>
+      <li id="src-9">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/31735531/" rel="nofollow noopener" target="_blank">Journal of Science and Medicine in Sport (2020) — PubMed 31735531</a>
+        <span class="src">There was a significant decrease in pain NRS scores (mean reduction 0.9, NRS 95%CI 0.1-1.7; p = 0.028), and increase in PPTs at the tibialis anterior muscle (mean increase 34 kPa 95%CI 9.5-58.5; p = 0.009) immediately post-exercise. These were not sustained 45</span>
+      </li>
+      <li id="src-10">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/26707957/" rel="nofollow noopener" target="_blank">Journal of Science and Medicine in Sport (2020) — PubMed 26707957</a>
+        <span class="src">There was no significant difference in NRS pain score change (U=29.0, p=0.208, r=0.29) between the isometric group (median (IQR), 2.5 (1-4.5)) and isotonic group (median (IQR), 3.0 (2-6)).</span>
+      </li>
+      <li id="src-11">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/33601254/" rel="nofollow noopener" target="_blank">Physical Therapy in Sport (2021) — PubMed 33601254</a>
+        <span class="src">There was no consistent evidence for EIH following isometric exercise in people with musculoskeletal pain. These findings are different to those reported in asymptomatic populations (where EIH is consistently demonstrated) as well as conditions associated with</span>
+      </li>
+      <li id="src-12">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/26889612/" rel="nofollow noopener" target="_blank">The Clinical Journal of Pain (2016) — PubMed 26889612</a>
+        <span class="src">Participants performed 3 experimental tasks completed in a randomized order on separate days: control (no exercise) and isometric wrist extension (10×15 s) at load 20% below (infrathreshold), and 20% above (suprathreshold) an individual's pain threshold. ... I</span>
+      </li>
+      <li id="src-13">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/31425384/" rel="nofollow noopener" target="_blank">Medicine and Science in Sports and Exercise (2020) — PubMed 31425384</a>
+        <span class="src">No group differences were found for success on global rating of change (29% exercise vs 26% wait-and-see (risk difference, 2.3%; 95% CI, -24.5 to 29.1)), or pain-free grip strength (SMD, -0.33; 95% CI, -0.97 to 0.30). ... With only one of the three primary out</span>
+      </li>
+      <li id="src-14">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/35867777/" rel="nofollow noopener" target="_blank">The American Journal of Sports Medicine (2022) — PubMed 35867777</a>
+        <span class="src">These results suggest that 12 weeks of HSR improved symptoms in both the short and the long term and that a CSI or TN did not amplify this effect. In addition, a CSI seemed to impair patient-reported outcomes compared with HSR alone at long-term follow-up.</span>
+      </li>
+      <li id="src-15">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/39806585/" rel="nofollow noopener" target="_blank">BMJ Open (2024) — PubMed 39806585</a>
+        <span class="src">Only 6 of 19 (32%) did comply with heavy slow resistance training. ... Participants had low compliance with heavy slow resistance training mainly due to pain aggravation, which suggests that this intervention was not suitable for patients with tennis elbow.</span>
+      </li>
+      <li id="src-16">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/36976950/" rel="nofollow noopener" target="_blank">Sports (Basel) (2023) — PubMed 36976950</a>
+        <span class="src">During the ascending phase, (i) biceps brachii excitation was greater with the supinated compared to the pronated [+19(7)%, ES: 2.60] and neutral handgrip [+12(9)%, ES: 1.24], (ii) the brachioradialis showed greater excitation with the supinated compared to th</span>
+      </li>
+      <li id="src-17">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/28011412/" rel="nofollow noopener" target="_blank">Journal of Electromyography and Kinesiology (2017) — PubMed 28011412</a>
+        <span class="src">The concentric phases of each pull-up variation resulted in significantly greater EMGARV of the brachioradialis, biceps brachii, and pectoralis major in comparison to the eccentric phases (P=&lt;0.01). Results indicate that EMGPEAK and EMGARV of the shoulder-arm-</span>
+      </li>
+      <li id="src-18">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/20543740/" rel="nofollow noopener" target="_blank">Journal of Strength and Conditioning Research (2010) — PubMed 20543740</a>
+        <span class="src">Repeated-measures analysis of variance for each muscle revealed that a pronated grip elicited greater LD activity than a supinated grip (p &lt; 0.05), but had no influence of grip type on the MT and BB muscles.</span>
+      </li>
+      <li id="src-19">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/30694963/" rel="nofollow noopener" target="_blank">Journal of Strength and Conditioning Research (2021) — PubMed 30694963</a>
+        <span class="src">When using the FG, 1RM strength was significantly decreased for each exercise, and the maximal number of pull-ups completed was significantly lower. Electromyography muscle activity was significantly increased in the forearm and shoulder muscles, but significa</span>
+      </li>
+      <li id="src-20">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/31198105/" rel="nofollow noopener" target="_blank">Sports Biomechanics (2021) — PubMed 31198105</a>
+        <span class="src">There were no differences between the WS and WOS conditions in the number of repetitions per set, total repetitions and latissimus dorsi muscle activation. In conclusion, the findings of this study demonstrate that the use of lifting straps in the lat pull-dow</span>
+      </li>
+      <li id="src-21">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/27582910/" rel="nofollow noopener" target="_blank">Shoulder &amp; Elbow (2014) — PubMed 27582910</a>
+        <span class="src">Distal biceps and triceps tendinopathies are very rare and there is limited evidence published. Sequelae of tendinopathy include tendon rupture and so it is vital to manage these tendinopathies appropriately in order to minimise this significant complication.</span>
+      </li>
+      <li id="src-22">
+        <a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=823b0010-2b57-4e76-b5ac-4a8c2963438f" rel="nofollow noopener" target="_blank">Methylprednisolone acetate (Depo-Medrol) — injected corticosteroid, the only prescription drug appearing in the tendinopathy loading trials retrieved here (used as comparator/adjunct in Kongsgaard 2009 and Couppé 2022) — US Prescribing Information (DailyMed)</a>
+        <span class="src">Approved indication: The Indications section retrieved from DailyMed covers Section A, intramuscular administration, and lists allergic states, dermatologic diseases, endocrine disorders, gastrointestinal diseases and hae</span>
+      </li>
+    </ol>
+
+    <p class="note">/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();</p>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 7 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "article",
+      "@id": "https://therapylog.app/tools/tendon-loading-protocols/#page",
+      "url": "https://therapylog.app/tools/tendon-loading-protocols/",
+      "name": "Tendon loading protocols | TherapyLog",
+      "description": "Heavy slow resistance and staged loading for patellar, Achilles and lateral elbow tendinopathy, with the sets, reps and pain rules from the trials.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-07",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://therapylog.app/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Tendon loading protocols",
+            "item": "https://therapylog.app/tools/tendon-loading-protocols/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

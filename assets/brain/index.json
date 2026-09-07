@@ -1,10 +1,12 @@
 {
  "version": 1,
- "generated": "c315003a4aee4057",
+ "generated": "f1425636b445d415",
  "counts": {
   "compound": 131,
   "marker": 100,
-  "playbook": 12,
+  "playbook": 13,
+  "rehab": 3,
+  "nutrition": 10,
   "interaction": 53,
   "template": 17
  },
@@ -87,7 +89,7 @@
     "peptides",
     "bpc"
    ],
-   "text": "BPC-157 (Body Protection Compound 157) — Peptides\n\nSynthetic pentadecapeptide derived from human gastric juice. Demonstrates remarkable healing across tendons, ligaments, muscle, gut, and brain in animal studies. Mechanisms include GH receptor upregulation, angiogenesis, and dopaminergic modulation. Research through 2026 shows particular efficacy for gut healing and tendon repair. No serious adverse events in current literature.\n\nReported benefits:\n• Accelerates tendon and ligament healing\n• Reduces gut inflammation (IBD, leaky gut)\n• Systemic anti-inflammatory effects\n• Neuroprotective in animal models\n• Excellent safety profile to date\n• Accelerates wound healing and recovery\n\nRisks and trade-offs:\n• Limited human RCT data — primarily animal evidence\n• Long-term safety not yet established\n• Quality control varies by source\n• Not FDA approved\n• Mechanism not fully characterized in humans\n\nDosing discussed in the literature:\n• Starting: 200-250mcg/day — Once daily SubQ near injury or orally (4-6 weeks)\n• Therapeutic: 250-500mcg/day — Twice daily AM and PM (4-12 weeks)\n• Gut Protocol: 250mcg orally — Twice daily fasted (4-8 weeks)\n\nProgression: Start at 200mcg once daily. Assess at 2 weeks. Increase to 250-500mcg twice daily for active injury. Oral for gut; SubQ near injury site for musculoskeletal.\n\nCommon protocols:\n• Injury Recovery: BPC-157 500mcg/day SubQ, TB-500 2.5mg 2x/week, Testosterone TRT dose\n• Gut Health: BPC-157 250mcg orally 2x/day fasted\n\nMonitoring: No specific labs required. Monitor injection site. Liver enzymes if long-term.\n\nRegulatory status: Research compound — no FDA approval. Not for human use label.",
+   "text": "BPC-157 (Body Protection Compound 157) — Peptides\n\nSynthetic pentadecapeptide derived from human gastric juice. Demonstrates remarkable healing across tendons, ligaments, muscle, gut, and brain in animal studies. Mechanisms include GH receptor upregulation, angiogenesis, and dopaminergic modulation. Almost all of that evidence is preclinical. A 2025 review of the human literature found only three human pilot studies, so there is essentially no human evidence for BPC-157 in tendon or gut healing (PubMed 40789979). \"No serious adverse events reported\" should be read against that: with almost no human trials, an absence of reported harm is an absence of data, not a demonstrated safety record.\n\nReported benefits:\n• Accelerates tendon and ligament healing (animal models)\n• Reduces gut inflammation in animal models of IBD\n• Systemic anti-inflammatory effects (preclinical)\n• Neuroprotective in animal models\n• No serious adverse events reported — but from very few human subjects\n• Accelerates wound healing and recovery\n\nRisks and trade-offs:\n• Limited human RCT data — primarily animal evidence\n• Long-term safety not yet established\n• Quality control varies by source\n• Not FDA approved\n• Mechanism not fully characterized in humans\n\nDosing discussed in the literature:\n• Starting: 200-250mcg/day — Once daily SubQ near injury or orally (4-6 weeks)\n• Therapeutic: 250-500mcg/day — Twice daily AM and PM (4-12 weeks)\n• Gut Protocol: 250mcg orally — Twice daily fasted (4-8 weeks)\n\nProgression: Start at 200mcg once daily. Assess at 2 weeks. Increase to 250-500mcg twice daily for active injury. Oral for gut; SubQ near injury site for musculoskeletal.\n\nCommon protocols:\n• Injury Recovery: BPC-157 500mcg/day SubQ, TB-500 2.5mg 2x/week, Testosterone TRT dose\n• Gut Health: BPC-157 250mcg orally 2x/day fasted\n\nMonitoring: No specific labs required. Monitor injection site. Liver enzymes if long-term.\n\nRegulatory status: Research compound — no FDA approval. Not for human use label.",
    "route": {
     "view": "encyclopedia",
     "cls": "peptides",
@@ -5420,9 +5422,72 @@
     "deca dick",
     "decadick",
     "tren dick",
-    "trendick"
+    "trendick",
+    "sex drive",
+    "sexdrive",
+    "no sex drive",
+    "nosexdrive",
+    "low sex drive",
+    "lowsexdrive",
+    "cant get hard",
+    "cantgethard",
+    "erectile"
    ],
-   "text": "High prolactin — what it is and what to do\n\nUsual causes: Most often from 19-nor compounds (nandrolone, trenbolone).\n\nSigns: Nipple sensitivity or discharge, killed libido, erectile trouble, flat mood.\n\nLabs: Serum prolactin. Confirm it is actually elevated before treating — these symptoms overlap with high and low E2.\n\nCommonly discussed responses:\n• Cabergoline is the commonly used dopamine agonist; literature dosing is typically 0.25 mg twice weekly, titrated on labs.\n• Reduce or drop the 19-nor — the response treats the number, not the cause.\n• P5P (active B6) is a mild adjunct discussed in the community; evidence is thin.",
+   "text": "High prolactin — what it is and what to do\n\nUsual causes: Most often from 19-nor compounds (nandrolone, trenbolone).\n\nSigns: Nipple sensitivity or discharge, killed libido, erectile trouble, flat mood.\n\nLabs: Serum prolactin. Confirm it is actually elevated before treating — these symptoms overlap with high and low E2.\n\nCommonly discussed responses:\n• Cabergoline is the commonly used dopamine agonist; literature dosing is typically 0.25 mg twice weekly, titrated on labs.\n• Reduce or drop the 19-nor — the response treats the number, not the cause.\n• P5P (active B6) is a mild adjunct discussed in the community; evidence is thin.\n\nEscalate / seek care: Two things belong with a doctor before a first cabergoline dose, not after: the US label requires an echocardiogram BEFORE treatment starts and repeats every 6 to 12 months, and the drug is contraindicated outright in uncontrolled hypertension, in any history of cardiac valve disorder or pericardial fibrosis, and in pleural, pulmonary or retroperitoneal fibrotic disease. A prolactin above 250 ng/mL makes a prolactinoma highly likely and warrants imaging rather than self-management.\n\nWhat the evidence says: Confirm the number before treating it. Four reversible causes should be excluded before anyone orders an MRI: pregnancy, drug-induced hyperprolactinaemia, primary hypothyroidism and renal failure. Two assay artefacts matter as much — macroprolactin is biologically inactive and accounts for 4-40% of raised results depending on population, and the hook effect can make a very large prolactinoma read falsely low, in published cases disproportionately in men. On dose, the figure that resolved idiopathic hyperprolactinaemia with a normal MRI was 0.25 mg ONCE weekly, lower than the twice-weekly figure that circulates. Uncertain: no trial of cabergoline exists in men using exogenous androgens or performance compounds, nothing shows a benefit to lowering an already-normal prolactin, and the valvulopathy literature contradicts itself — one study found a signal above 115 mg cumulative, two larger ones found nothing at 152 mg and 278 mg. The community pattern of continuous low-dose use for years with no baseline echo has never been studied at all.",
+   "src": [
+    [
+     "33566310",
+     "The maintenance dose that worked in men with raised prolactin and a normal pituitary MRI was 0.25 mg ONCE weekly"
+    ],
+    [
+     "30889571",
+     "Exclude pregnancy, drugs, primary hypothyroidism and renal failure before macroprolactin assay or MRI; above 250 ng/mL a prolactinoma is highly likely"
+    ],
+    [
+     "26642103",
+     "Macroprolactin accounts for between 4% and 40% of raised prolactin results depending on the population"
+    ],
+    [
+     "39542401",
+     "The hook effect can make a macroprolactinoma read falsely low, and 70% of published cases were male"
+    ],
+    [
+     "27601019",
+     "In eight hypogonadal men with prolactinomas and no prior psychiatric history, every one developed an impulse control disorder"
+    ],
+    [
+     "38345719",
+     "When systematically asked, over half of dopamine-agonist-treated pituitary patients reported at least one impulse control disorder"
+    ],
+    [
+     "32075620",
+     "The CATCH study associated cumulative cabergoline exposure above 115 mg with valvulopathy"
+    ],
+    [
+     "24187407",
+     "747 UK patients at a median cumulative dose of 152 mg contradicted that signal"
+    ],
+    [
+     "27709470",
+     "A prospective study with baseline and follow-up echocardiograms on the same equipment found no clinically relevant valve change at a median 277.8 mg"
+    ],
+    [
+     "36511080",
+     "A documented case developed aortic and mitral thickening with regurgitation on 0.5-1 mg weekly after 15 years — low dose is not automatically safe over long enough time"
+    ],
+    [
+     "40544385",
+     "Where raised prolactin really is the cause of low testosterone, correcting it restored normal testosterone in 69% without adding testosterone"
+    ],
+    [
+     "38292405",
+     "Prolactin does appear raised in men using AAS, but on two very small uncontrolled cross-sectional studies with mixed compounds"
+    ],
+    [
+     "label:e497366b-a124-4d7f-bd45-a883c392d4bb",
+     "Cabergoline US label: approved only for hyperprolactinaemic disorders, ceiling 1 mg twice weekly, echocardiogram required before treatment and every 6-12 months, contraindicated in valve disease and uncontrolled hypertension"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "High prolactin"
@@ -5452,7 +5517,37 @@
     "anastrozole",
     "arimidex"
    ],
-   "text": "High estradiol — what it is and what to do\n\nUsual causes: Aromatization of testosterone — scales with dose and body fat.\n\nSigns: Water retention, puffy or sensitive nipples, moodiness, elevated blood pressure.\n\nLabs: Sensitive (LC/MS) estradiol assay — the standard assay reads high on cycle and misleads.\n\nCommonly discussed responses:\n• Lowering the testosterone dose is the cleanest fix and often enough.\n• Anastrozole: commonly cited on-cycle use is 0.25–0.5 mg two to three times weekly — it accumulates (t½ ~46 h), so start low.\n• Exemestane 12.5 mg every other day is the commonly cited steroidal alternative; harder to crash E2 with and kinder to lipids.",
+   "text": "High estradiol — what it is and what to do\n\nUsual causes: Aromatization of testosterone — scales with dose and body fat.\n\nSigns: Water retention, puffy or sensitive nipples, moodiness, elevated blood pressure.\n\nLabs: Sensitive (LC/MS) estradiol assay — the standard assay reads high on cycle and misleads.\n\nCommonly discussed responses:\n• Lowering the testosterone dose is the cleanest fix and often enough.\n• Anastrozole: commonly cited on-cycle use is 0.25–0.5 mg two to three times weekly — it accumulates (t½ ~46 h), so start low.\n• Exemestane 12.5 mg every other day is the commonly cited steroidal alternative; harder to crash E2 with and kinder to lipids.\n\nWhat the evidence says: Read this before reaching for an AI: no trial has ever tested an aromatase inhibitor on top of supraphysiologic testosterone, or in any performance population. The entire randomised evidence for adding an AI to exogenous testosterone in men is one 3-month study in 40 men with epilepsy on replacement-dose testosterone, and its primary sexual-function difference was not statistically significant. Everything else in men is AI monotherapy, which is a different question — it raises testosterone by disinhibiting the pituitary, which cannot happen when testosterone is already being supplied. There is also no established AI dose for men: regimens with any human data span letrozole 2.5 mg per WEEK to anastrozole 2 mg per DAY, a spread of roughly fortyfold. No estradiol target in men has ever been validated against a clinical outcome, and the widely quoted T:E2 ratio has no validated optimum at all.",
+   "src": [
+    [
+     "20096638",
+     "The only randomised trial ever to add an aromatase inhibitor to injected testosterone in men: 40 men, 3 months, sexual-function difference not statistically significant"
+    ],
+    [
+     "24024838",
+     "Blocking aromatization while holding testosterone fixed made men fatter and worsened sexual function — estrogen deficiency, not androgen deficiency, drove the fat gain"
+    ],
+    [
+     "15001605",
+     "The only head-to-head of two anastrozole regimens in men: 1 mg daily and 1 mg twice weekly both raised testosterone into the youthful normal range"
+    ],
+    [
+     "23949882",
+     "The only controlled letrozole dosing data in men started at 2.5 mg per WEEK — one-seventh of the daily breast-cancer dose"
+    ],
+    [
+     "14671195",
+     "Exemestane’s entire human evidence base in males is one 10-day crossover in 12 subjects; 25 mg and 50 mg suppressed estradiol comparably"
+    ],
+    [
+     "18616708",
+     "A year of anastrozole 1 mg daily normalised testosterone in older hypogonadal men but produced no improvement in body composition or strength"
+    ],
+    [
+     "39344113",
+     "A 2024 review found no validated optimum for the testosterone-to-estradiol ratio that circulates as a target"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "High estradiol"
@@ -5485,7 +5580,41 @@
     "crashed my estrogen",
     "crashedmyestrogen"
    ],
-   "text": "Crashed estradiol — what it is and what to do\n\nUsual causes: Overshooting an AI — usually stacked anastrozole doses taken off symptoms.\n\nSigns: Dry, cracking joints, dead libido, fatigue, anxiety or doom feeling, poor sleep.\n\nLabs: Sensitive estradiol — single digits confirms it.\n\nCommonly discussed responses:\n• Stop the AI entirely. Do not taper — just stop.\n• E2 rebuilds as testosterone aromatizes; expect several days to two weeks to feel normal.\n• Resume the AI, if at all, at a fraction of the prior dose once labs justify it.",
+   "text": "Crashed estradiol — what it is and what to do\n\nUsual causes: Overshooting an AI — usually stacked anastrozole doses taken off symptoms.\n\nSigns: Dry, cracking joints, dead libido, fatigue, anxiety or doom feeling, poor sleep.\n\nLabs: Sensitive estradiol — single digits confirms it.\n\nCommonly discussed responses:\n• Stop the AI entirely. Do not taper — just stop.\n• E2 rebuilds as testosterone aromatizes; expect several days to two weeks to feel normal.\n• Resume the AI, if at all, at a fraction of the prior dose once labs justify it.\n\nEscalate / seek care: Crashed estradiol is miserable but not an emergency. What it does quietly is skeletal: bone resorption starts rising within weeks of aromatase inhibition, so a long run at a suppressed E2 is worth a DEXA conversation with a physician rather than a forum thread.\n\nWhat the evidence says: The bone cost is the best-established fact in this whole area, and it is the one least discussed. When aromatization was blocked, spinal BMD fell in EVERY testosterone dose group and the fall was independent of testosterone dose — taking more testosterone does not protect the spine if estradiol is suppressed. The often-quoted E2 above roughly 10 pg/mL comes from that same trial and is a FLOOR below which bone resorption rises, not a validated therapeutic target. Both the anastrozole and letrozole labels carry their own bone findings at licensed doses. Uncertain: no trial in men has measured whether BMD recovers after stopping an AI, no AI trial in men has ever used fracture as an endpoint, and the longest exposure ever studied is 12 months — against people who may take one for years.",
+   "src": [
+    [
+     "26901812",
+     "Spinal BMD fell in every testosterone dose group in which aromatization was blocked, independent of testosterone dose; the E2 >10 pg/mL figure is a floor, not a target"
+    ],
+    [
+     "19820017",
+     "A full year of anastrozole 1 mg daily in older men dropped estradiol only from 15 to 12 pg/mL, and spine BMD still fell significantly versus placebo"
+    ],
+    [
+     "11397902",
+     "Bone resorption began rising within weeks of aromatase inhibition even while testosterone was going up and estradiol fell only modestly"
+    ],
+    [
+     "26588809",
+     "Over 12 months transdermal testosterone improved lumbar spine BMD while anastrozole, at comparable testosterone levels, did not"
+    ],
+    [
+     "18518773",
+     "In 2,639 men with mass-spectrometry hormones, fracture risk rose sharply below an estradiol inflection of about 16 pg/mL"
+    ],
+    [
+     "19584177",
+     "MrOS: men in the lowest bioavailable estradiol group had 1.5-fold higher non-vertebral fracture risk"
+    ],
+    [
+     "27300575",
+     "Hot flashes in men track estradiol deficiency, not testosterone, and step up sharply below about 10 pg/mL"
+    ],
+    [
+     "19707181",
+     "Congenital aromatase deficiency: every reported man has osteopenia or osteoporosis and unfused epiphyses"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Crashed estradiol"
@@ -5514,9 +5643,83 @@
     "phlebotomy",
     "blood donation",
     "blooddonation",
-    "rbc"
+    "rbc",
+    "flushed",
+    "flushed face",
+    "flushedface",
+    "red face",
+    "redface",
+    "face is red",
+    "faceisred",
+    "ruddy"
    ],
-   "text": "High hematocrit — what it is and what to do\n\nUsual causes: Testosterone drives red cell production; worse with higher doses and sleep apnea.\n\nSigns: Often silent. Flushed face, headaches, high BP at the extreme.\n\nLabs: CBC — hematocrit and hemoglobin. Hydrate normally before the draw; dehydration fakes a high reading. Track ferritin alongside.\n\nCommonly discussed responses:\n• Above roughly 52–54%, clinicians typically act: dose reduction, injection frequency increase (smaller, more frequent doses flatten peaks), or supervised therapeutic phlebotomy.\n• Regular cardio measurably helps plasma volume.\n• Screen for sleep apnea — it compounds erythrocytosis.",
+   "text": "High hematocrit — what it is and what to do\n\nUsual causes: Testosterone drives red cell production; worse with higher doses and sleep apnea.\n\nSigns: Often silent. Flushed face, headaches, high BP at the extreme.\n\nLabs: CBC — hematocrit and hemoglobin. Hydrate normally before the draw; dehydration fakes a high reading. Track ferritin alongside.\n\nCommonly discussed responses:\n• Above roughly 52–54%, clinicians typically act: dose reduction, injection frequency increase (smaller, more frequent doses flatten peaks), or supervised therapeutic phlebotomy.\n• Regular cardio measurably helps plasma volume.\n• Screen for sleep apnea — it compounds erythrocytosis.\n\nWhat the evidence says: Two things here are weaker than they look. First, the thresholds: no hematocrit threshold has ever been tested prospectively in testosterone users. The only randomised evidence that lowering hematocrit reduces events targeted under 45%, and it was run in polycythemia vera — a clonal blood cancer, not drug-driven erythrocytosis. Second, the response: haematologists who specialise in erythrocytosis advise AGAINST routine phlebotomy for non-clonal cases, there is no evidence it is effective or safe here, and a plausible mechanism exists by which it could raise thrombotic risk. The published management hierarchy puts re-evaluating the indication, fixing modifiable risk factors and changing route ahead of removing blood. Route and frequency are measurable levers: at an identical 100 mg weekly, subcutaneous enanthate produced significantly lower hematocrit than intramuscular cypionate. In context, absolute event rates are low — 20% of one cohort crossed 50% while thromboembolic events occurred in 0.9%, mostly minor.",
+   "src": [
+    [
+     "35050717",
+     "No hematocrit threshold has ever been prospectively tested in testosterone users"
+    ],
+    [
+     "23216616",
+     "The only randomised hematocrit-target trial (<45% beat 45-50%) was run in polycythemia vera, a clonal disease"
+    ],
+    [
+     "36966432",
+     "Haematologists specialising in erythrocytosis advise against routine phlebotomy for non-clonal, drug-induced cases"
+    ],
+    [
+     "39212549",
+     "No evidence that therapeutic phlebotomy is effective or safe for testosterone-induced erythrocytosis, with a mechanism by which it may worsen risk"
+    ],
+    [
+     "40512678",
+     "2025 review management hierarchy: re-evaluate the indication, fix modifiable risk factors, switch route — before removing blood"
+    ],
+    [
+     "34694927",
+     "At an identical 100 mg weekly, subcutaneous enanthate produced significantly lower hematocrit than intramuscular cypionate"
+    ],
+    [
+     "33599731",
+     "1073 testosterone-treated trans men over 20 years: smoking OR 2.2 and long-acting undecanoate OR 2.9 for crossing hematocrit 0.50"
+    ],
+    [
+     "37748907",
+     "At a median 100 mg weekly cypionate over 20 months, cumulative incidence was 12.6% above 50.4% and 1.0% above 54%"
+    ],
+    [
+     "34592628",
+     "519 people on gender-affirming testosterone: 20% crossed hematocrit 50%, but thromboembolic events occurred in 0.9% and most were minor"
+    ],
+    [
+     "31927271",
+     "In 1.5 million blood donors, high haemoglobin tracked arterial events but not venous thrombosis"
+    ],
+    [
+     "18160461",
+     "Erythropoiesis is linearly dose-dependent on testosterone, and older men respond more strongly to the same dose"
+    ],
+    [
+     "24158761",
+     "Mechanism: testosterone raises erythropoietin and suppresses hepcidin, driving iron out of stores into red cells"
+    ],
+    [
+     "28150363",
+     "Blood donation does not substitute for management — men on testosterone presenting as donors were already well above threshold"
+    ],
+    [
+     "25668261",
+     "After a single 500 mL donation, 67% of people taking no iron had still not recovered their iron stores"
+    ],
+    [
+     "40819648",
+     "Randomised donor evidence: 60 mg elemental iron daily was the most effective repletion arm"
+    ],
+    [
+     "39644058",
+     "2024 American Society of Hematology review: thrombotic risk on gender-affirming testosterone appears low"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "High hematocrit"
@@ -5542,7 +5745,61 @@
     "diastolic",
     "headaches"
    ],
-   "text": "Rising blood pressure — what it is and what to do\n\nUsual causes: Water retention from E2, hematocrit, stimulants, or the compounds themselves (especially orals and tren).\n\nSigns: Headaches, visual changes at the extreme — usually silent. Buy a cuff.\n\nLabs: Home BP log, morning and evening. CMP for kidney markers on long cycles.\n\nCommonly discussed responses:\n• Fix the drivers first: E2 control, hematocrit, sodium, bodyweight.\n• Telmisartan is the commonly discussed agent in the community for on-cycle BP (ARB with favorable metabolic profile) — prescription territory.\n• Cardio again. It is the cheapest BP drug there is.",
+   "text": "Rising blood pressure — what it is and what to do\n\nUsual causes: Water retention from E2, hematocrit, stimulants, or the compounds themselves (especially orals and tren).\n\nSigns: Headaches, visual changes at the extreme — usually silent. Buy a cuff.\n\nLabs: Home BP log, morning and evening. CMP for kidney markers on long cycles.\n\nCommonly discussed responses:\n• Fix the drivers first: E2 control, hematocrit, sodium, bodyweight.\n• Telmisartan is the commonly discussed agent in the community for on-cycle BP (ARB with favorable metabolic profile) — prescription territory.\n• Cardio again. It is the cheapest BP drug there is.\n\nWhat the evidence says: Measure it properly before you treat it: cuff size is a first-order error in this population and an undersized cuff on a large arm can manufacture a hypertension diagnosis on its own. The rise itself is real but usually modest — about 7 mmHg systolic and 3 mmHg diastolic on cycle in the best prospective cohort — though 24-hour monitoring found systolic hypertension in 51% of current users. Two findings argue for taking it seriously beyond the number: aortic stiffness was about 21% worse in BOTH current and former users, so that change did not normalise after stopping, and 1,189 men followed about 11 years carried roughly 9-fold cardiomyopathy risk. Uncertain: no antihypertensive has ever been trialled in AAS users — not telmisartan, not any other. The ARB and ACE-inhibitor preference rests on not impairing exercise capacity and not being on the WADA list, not on outcome data in this group. The right on-cycle BP target is unknown, and whether lowering it changes any outcome here is unknown. The popular claim that telmisartan improves insulin sensitivity through PPAR-gamma failed when tested directly.",
+   "src": [
+    [
+     "36644692",
+     "No clinical trial has ever tested any blood-pressure-lowering drug in AAS users; the ARB/ACE preference rests on exercise capacity and WADA status. Cuff size can manufacture a diagnosis. HAARLEM: systolic +7, diastolic +3 on cycle"
+    ],
+    [
+     "28863033",
+     "24-hour monitoring: mean systolic 132 vs 124 mmHg, systolic hypertension in 51% of current users, and aortic stiffness about 21% worse in both current AND former users"
+    ],
+    [
+     "39945117",
+     "1,189 Danish men sanctioned for AAS use, followed about 11 years against 59,450 matched controls: roughly 9-fold cardiomyopathy risk"
+    ],
+    [
+     "38088425",
+     "The only randomised placebo-controlled trial with BP as a primary outcome under testosterone: 13.2 mmHg systolic divergence"
+    ],
+    [
+     "36304014",
+     "Left ventricular mass rose 28.3 g over a median 16-week cycle, correlated with weekly dose, and returned to baseline after a median 8 months off"
+    ],
+    [
+     "19997008",
+     "The BP rise comes with measurably increased sympathetic nerve traffic, correlating strongly with 24-hour mean BP"
+    ],
+    [
+     "28743567",
+     "AAS use blunts post-exercise hypotension: controls dropped up to 13.9 mmHg systolic, users at most 6.2"
+    ],
+    [
+     "20883237",
+     "The PPAR-gamma insulin-sensitivity claim for telmisartan failed in a randomised placebo-controlled trial"
+    ],
+    [
+     "38228033",
+     "Telmisartan has the longest half-life of any ARB, which is its real pharmacological case"
+    ],
+    [
+     "18378520",
+     "25,620 patients over 56 months: telmisartan 80 mg/day was equivalent to ramipril 10 mg/day on death, MI, stroke and heart failure"
+    ],
+    [
+     "19917783",
+     "A concrete reason to favour renin-angiotensin blockade here specifically: AAS-associated focal segmental glomerulosclerosis"
+    ],
+    [
+     "32382745",
+     "Oral testosterone undecanoate raised mean systolic BP 3 to 5 mmHg at replacement doses in its phase 3 registration trial"
+    ],
+    [
+     "20718736",
+     "Diuretics used for drying out are a distinct hazard, not a BP strategy"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Rising blood pressure"
@@ -5557,7 +5814,6 @@
     "lipid strain",
     "lipidstrain",
     "lipid",
-    "strain",
     "cholesterol",
     "ldl",
     "hdl",
@@ -5571,7 +5827,69 @@
     "heart risk",
     "heartrisk"
    ],
-   "text": "Lipid strain — what it is and what to do\n\nUsual causes: Orals and DHT-derivatives crush HDL; injectables strain lipids less.\n\nSigns: None — labs only.\n\nLabs: Lipid panel (fasted): HDL, LDL, ApoB if available.\n\nCommonly discussed responses:\n• Time-box oral compounds; HDL typically recovers weeks after stopping.\n• Omega-3 (2–4 g EPA/DHA) and citrus bergamot are the commonly cited adjuncts.\n• Keep cardio in the program; diet quality matters more on cycle, not less.",
+   "text": "Lipid strain — what it is and what to do\n\nUsual causes: Orals and DHT-derivatives crush HDL; injectables strain lipids less.\n\nSigns: None — labs only.\n\nLabs: Lipid panel (fasted): HDL, LDL, ApoB if available.\n\nCommonly discussed responses:\n• Time-box oral compounds; HDL typically recovers weeks after stopping.\n• Omega-3 (2–4 g EPA/DHA) and citrus bergamot are the commonly cited adjuncts.\n• Keep cardio in the program; diet quality matters more on cycle, not less.\n\nWhat the evidence says: The oral-versus-injectable split is the best-replicated finding in this whole area, and two popular mitigations do not survive it. Adding an aromatase inhibitor does NOT protect lipids on androgens — it pushed every HDL measure the wrong way. And there is no oral dose low enough to spare HDL: a 2-year randomised placebo-controlled trial of oxandrolone at roughly 4-5 mg/day in a 70 kg adult, a genuinely therapeutic dose, still cut HDL. By contrast, injectable testosterone did not move ApoB even at 600 mg/week, and pooled across 19 studies replacement-dose injectables moved HDL down only about 4 mg/dL. The mechanism is hepatic lipase induction — two weeks of an oral raised it 277%. This is not only a number: coronary plaque volume tracks cumulative AAS dose in weightlifters, replicated in 2025 at a median lifetime exposure of just 2.2 years, and training does not protect you. Uncertain: no trial of any lipid-lowering drug has ever been run in people using 17-alpha-alkylated androgens — nothing on statins, ezetimibe or PCSK9 inhibitors — so the adjuncts above are extrapolation, not evidence. No oral dose-response study exists either.",
+   "src": [
+    [
+     "8487666",
+     "Adding an aromatase inhibitor to injectable testosterone made every HDL measure worse — blocking aromatisation does not protect lipids"
+    ],
+    [
+     "27802097",
+     "2-year randomised placebo-controlled oxandrolone at about 4-5 mg/day for a 70 kg adult still cut HDL — no oral dose is low enough to spare it"
+    ],
+    [
+     "231951",
+     "Oxandrolone at just 4 mg/day for 28 days drove HDL-C below 40 mg/dL in 7 of 10 patients"
+    ],
+    [
+     "2294373",
+     "Head-to-head at a matched 280 mg/week: the oral crushed HDL while the injectable did not"
+    ],
+    [
+     "2915439",
+     "The same 11 men crossed over: an oral 17-alpha-alkylated compound and a supraphysiological injectable produced completely different lipid outcomes"
+    ],
+    [
+     "11788637",
+     "Injectable testosterone did not move ApoB, LDL-C or total cholesterol across 25 to 600 mg/week for 20 weeks"
+    ],
+    [
+     "11566455",
+     "Pooled across 19 studies and 272 hypogonadal men, replacement-dose injectable esters moved HDL-C down only 4 mg/dL"
+    ],
+    [
+     "9284885",
+     "Mechanism: two weeks of an oral raised hepatic lipase activity 277% with HDL-C down 49%"
+    ],
+    [
+     "15155420",
+     "Real-world stacks: ApoB rose 38% and HDL-C fell 60%, while a pure injectable arm in the same paper moved nothing"
+    ],
+    [
+     "30826541",
+     "The remaining HDL also works less well — cholesterol efflux capacity was significantly lower in users than matched controls"
+    ],
+    [
+     "28533317",
+     "140 weightlifters: AAS users had higher coronary plaque volume, and it tracked cumulative dose"
+    ],
+    [
+     "40880090",
+     "Replicated in 2025 in 164 Danish recreational athletes at a median cumulative lifetime use of only 2.2 years"
+    ],
+    [
+     "6737643",
+     "Training does not protect you: bodybuilders started with far better lipids than powerlifters purely from training, and still lost them"
+    ],
+    [
+     "8574271",
+     "Switching from the oral to an injectable reversed the HDL damage inside a single trial"
+    ],
+    [
+     "18691993",
+     "Danazol 600 mg/day with lovastatin 40 mg/day was associated with rhabdomyolysis — oral androgens and statins can interact dangerously"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Lipid strain"
@@ -5605,7 +5923,69 @@
     "tamoxifen",
     "nolvadex"
    ],
-   "text": "Early gyno signs — what it is and what to do\n\nUsual causes: Estrogen or prolactin activity at breast tissue — puffy, itchy, or tender nipple, or a small firm lump under the areola.\n\nSigns: Itch and puffiness first, palpable lump second. Early action matters — established tissue rarely regresses without surgery.\n\nLabs: Sensitive E2 and prolactin, to identify which pathway is driving it.\n\nCommonly discussed responses:\n• Address the cause immediately (AI for E2-driven, cabergoline for prolactin-driven, or drop the offending compound).\n• Raloxifene 60 mg daily is the commonly cited SERM for reversal attempts at the tissue level; tamoxifen 20 mg daily is the older alternative.\n• Give a reversal attempt weeks, not days, and get real medical involvement.",
+   "text": "Early gyno signs — what it is and what to do\n\nUsual causes: Estrogen or prolactin activity at breast tissue — puffy, itchy, or tender nipple, or a small firm lump under the areola.\n\nSigns: Itch and puffiness first, palpable lump second. Early action matters — established tissue rarely regresses without surgery.\n\nLabs: Sensitive E2 and prolactin, to identify which pathway is driving it.\n\nCommonly discussed responses:\n• Address the cause immediately (AI for E2-driven, cabergoline for prolactin-driven, or drop the offending compound).\n• Raloxifene 60 mg daily is the commonly cited SERM for reversal attempts at the tissue level; tamoxifen 20 mg daily is the older alternative.\n• Give a reversal attempt weeks, not days, and get real medical involvement.\n\nWhat the evidence says: If you are choosing between a SERM and an aromatase inhibitor for breast tissue specifically, the trial evidence is one-sided. In a double-blind placebo-controlled trial, tamoxifen 20 mg/day cut gynecomastia from 73% to 10% over 48 weeks while anastrozole 1 mg/day did not beat placebo, and a 2025 meta-analysis of nine randomised trials put tamoxifen at an 82% reduction in breast events with aromatase inhibition achieving nothing meaningful. The only dose-ranging trial found a clean dose-response with 20 mg/day the best of five doses, and 20 mg once weekly more than doubled gynecomastia versus 20 mg daily — so frequency is not the place to economise. Uncertain: every one of those trials was run in men on androgen-deprivation therapy for prostate cancer, not in AAS users or men on TRT, and no randomised trial of either SERM exists in this population. The claim that raloxifene beats tamoxifen for established tissue rests on a single small retrospective chart review in adolescents, and no dose-ranging study of raloxifene exists in men for any breast endpoint — 60 mg is the postmenopausal osteoporosis dose. Raloxifene is also not inert here: at 120 mg/day it raised LH, FSH and testosterone in men.",
+   "src": [
+    [
+     "15681525",
+     "Tamoxifen 20 mg/day cut gynecomastia from 73% to 10% over 48 weeks; anastrozole 1 mg/day did not beat placebo"
+    ],
+    [
+     "17270340",
+     "The only randomised dose-ranging study found a clean dose-response with 20 mg/day the best of five tamoxifen doses"
+    ],
+    [
+     "40244528",
+     "2025 meta-analysis of nine randomised trials: tamoxifen reduced breast events by 82%, aromatase inhibition by nothing meaningful"
+    ],
+    [
+     "19481335",
+     "Phase 3 trial: tamoxifen 20 mg once weekly more than doubled gynecomastia versus 20 mg daily"
+    ],
+    [
+     "26308532",
+     "GRADE-rated systematic review: usable tamoxifen range is 10-20 mg daily, outperforming radiotherapy for prevention and treatment"
+    ],
+    [
+     "15863377",
+     "Randomised evidence that tamoxifen acts on breast tissue that has already appeared, not only on prevention"
+    ],
+    [
+     "22502790",
+     "Treating established tissue rather than starting early leaves residual disease in about a quarter of men"
+    ],
+    [
+     "15238910",
+     "The whole basis for the raloxifene-is-better claim: one small retrospective chart review in adolescents, whose boys had carried gynecomastia a mean of 28 months"
+    ],
+    [
+     "15080785",
+     "Raloxifene 120 mg/day significantly raised LH, FSH and total and free testosterone in men"
+    ],
+    [
+     "16217274",
+     "The reversal window is described by tissue phase — early and glandular versus late and fibrotic — not by a number of months"
+    ],
+    [
+     "42258023",
+     "The 2026 SIAMS GRADE guideline draws the same line by tissue character rather than elapsed time"
+    ],
+    [
+     "30079473",
+     "A 10-year prospective cohort of ordinary adult men with gynecomastia used tamoxifen 10 mg/day"
+    ],
+    [
+     "24636400",
+     "A review that set out to meta-analyse SERM use for AAS-induced hypogonadism found no controlled evidence base to pool"
+    ],
+    [
+     "label:509f8ba3-214d-aec8-e063-6294a90af498",
+     "Tamoxifen US label: covers breast cancer in men but only breast cancer — every milligram figure used for gynecomastia is off-label"
+    ],
+    [
+     "label:3798c70b-a4b0-4811-9788-e4c9cff47ebe",
+     "Raloxifene US label: no approved use in men at all; the 60 mg dose was established in postmenopausal women"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Early gyno signs"
@@ -5642,9 +6022,82 @@
     "fsh",
     "hcg",
     "natural production",
-    "naturalproduction"
+    "naturalproduction",
+    "balls",
+    "nuts",
+    "testicles",
+    "testicle",
+    "smaller",
+    "shrinking",
+    "shrunk"
    ],
-   "text": "HPTA suppression & recovery — what it is and what to do\n\nUsual causes: Any suppressive compound. The question is never if, only how deep and how long.\n\nSigns: Post-cycle: fatigue, low mood, no libido — the low-T package.\n\nLabs: LH, FSH, total and free testosterone. Recovery is confirmed on paper, not by feel.\n\nCommonly discussed responses:\n• On TRT for life: recovery protocols don’t apply — this section is for cycling without a TRT base.\n• Wait out the ester before starting a restart protocol (long esters keep you suppressed for weeks after the last pin).\n• SERM-based restarts (clomiphene, enclomiphene, or tamoxifen at commonly cited doses) are the standard framework; HCG during the cycle preserves testicular volume and shortens the road back.",
+   "text": "HPTA suppression & recovery — what it is and what to do\n\nUsual causes: Any suppressive compound. The question is never if, only how deep and how long.\n\nSigns: Post-cycle: fatigue, low mood, no libido — the low-T package.\n\nLabs: LH, FSH, total and free testosterone. Recovery is confirmed on paper, not by feel.\n\nCommonly discussed responses:\n• On TRT for life: recovery protocols don’t apply — this section is for cycling without a TRT base.\n• Wait out the ester before starting a restart protocol (long esters keep you suppressed for weeks after the last pin).\n• SERM-based restarts (clomiphene, enclomiphene, or tamoxifen at commonly cited doses) are the standard framework; HCG during the cycle preserves testicular volume and shortens the road back.\n\nWhat the evidence says: Start from the honest headline: there is no randomised trial of any PCT protocol against simply stopping. Not one. A 2026 specialist review states that every drug used for this — SERMs, hCG, aromatase inhibitors, prescribed testosterone — is unlicensed for the purpose. What IS established: the testis stays hCG-responsive during androgen-induced suppression, and splitting hCG into small frequent doses beat a single large one at the same total dose, roughly doubling the testosterone response. Serum testosterone is a poor proxy for what is happening inside the testis — baseline serum was 1.2% of intratesticular — but serum 17-hydroxyprogesterone tracks it and can be ordered without a biopsy. On timelines, the best data give a median 3.4 months to a sperm concentration of 20 million/mL, 67% by 6 months and 90% by 12. That is the clean population. In actual long-term AAS users recovery is often incomplete: more than a quarter were still below the testosterone reference range a mean of 2.5 years after stopping, against zero controls. Note also that the most-cited male clomiphene dose is 25 mg every other day titrated to 50 mg every other day — not 50 mg daily — and that enclomiphene’s gains disappear when it is stopped.",
+   "src": [
+    [
+     "42517308",
+     "2026 specialist review: every drug used for PCT — SERMs, hCG, aromatase inhibitors, prescribed testosterone — is unlicensed for this purpose"
+    ],
+    [
+     "15713727",
+     "The testis remains hCG-responsive during androgen-induced gonadotropin suppression, and baseline serum testosterone was only 1.2% of intratesticular testosterone"
+    ],
+    [
+     "6693540",
+     "Splitting hCG into small frequent doses beat a single large one at the same total dose, roughly doubling the testosterone response"
+    ],
+    [
+     "17462643",
+     "Serum 17-hydroxyprogesterone tracks intratesticular testosterone and is orderable without a testicular aspiration"
+    ],
+    [
+     "23260550",
+     "hCG 500 IU every other day alongside testosterone prevented azoospermia entirely in a clinic cohort followed over a year"
+    ],
+    [
+     "25904023",
+     "The only published restart series in testosterone-induced azoospermia used hCG 3,000 IU subcutaneously every other day plus an adjunct"
+    ],
+    [
+     "16650651",
+     "Best recovery-timeline data: median 3.4 months to 20 million/mL, 67% recovered by 6 months, 90% by 12"
+    ],
+    [
+     "27532478",
+     "More than a quarter of former AAS users were still below the testosterone reference range a mean of 2.5 years after stopping, versus zero controls"
+    ],
+    [
+     "25598171",
+     "Men abstinent 3 to 26 months still had smaller testes and lower testosterone, some below 200 ng/dL"
+    ],
+    [
+     "33351319",
+     "What predicts a slow restart, measured directly in 44 AAS users doing a standardised PCT"
+    ],
+    [
+     "22044663",
+     "The most-cited male clomiphene dose is 25 mg every other day titrated to 50 mg every other day — not 50 mg daily"
+    ],
+    [
+     "36604313",
+     "Pooled SERM trial ranges actually used: clomiphene 12.5-50 mg daily, enclomiphene 12.5-25 mg daily, for 1.5-4 months"
+    ],
+    [
+     "32353397",
+     "Clomiphene raised testosterone in 73% of men by at least 200 ng/dL, mean rise 329 ng/dL"
+    ],
+    [
+     "23530575",
+     "Enclomiphene’s gains disappear when you stop it"
+    ],
+    [
+     "26496621",
+     "Two phase III trials: enclomiphene raises testosterone like a gel but, unlike the gel, drives LH and FSH up and holds sperm counts"
+    ],
+    [
+     "14556812",
+     "The best-quality tamoxifen dose in men outside oncology is 20 mg/day, from a 212-man randomised placebo-controlled trial"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "HPTA suppression & recovery"
@@ -5672,10 +6125,190 @@
     "male pattern",
     "malepattern"
    ],
-   "text": "Hair shedding — what it is and what to do\n\nUsual causes: DHT and DHT-derived compounds in the androgen-sensitive.\n\nSigns: Increased shed at the crown and temples, visible in the drain.\n\nLabs: None useful — genetics decide this one.\n\nCommonly discussed responses:\n• Compound selection is the real lever: nandrolone and less androgenic choices shed less than masteron, winstrol, or high-dose test.\n• Topical ketoconazole and minoxidil are the low-risk adjuncts.\n• Finasteride/dutasteride block T→DHT conversion and can help on testosterone.",
+   "text": "Hair shedding — what it is and what to do\n\nUsual causes: DHT and DHT-derived compounds in the androgen-sensitive.\n\nSigns: Increased shed at the crown and temples, visible in the drain.\n\nLabs: None useful — genetics decide this one.\n\nCommonly discussed responses:\n• Compound selection is the real lever: nandrolone and less androgenic choices shed less than masteron, winstrol, or high-dose test.\n• Topical ketoconazole and minoxidil are the low-risk adjuncts.\n• Finasteride/dutasteride block T→DHT conversion and can help on testosterone.\n\nWhat the evidence says: Established from the labels: finasteride 1 mg daily is the approved dose and needs at least three months before any benefit shows. Dutasteride blocks both isoforms and suppresses DHT deeper and faster — 90% at two weeks against finasteride’s 70% — and beat finasteride 1 mg on hair count at 24 weeks. But dutasteride has NO US label for hair loss at all, so there is no approved dose, duration or monitoring plan for that use, and no head-to-head trial longer than 24 weeks exists. Two practical notes for anyone tracking labs: dutasteride halves serum PSA within 3-6 months, so a normal-looking PSA on it is not reassuring without doubling, and finasteride’s DHT suppression plateaus well below 1 mg — 0.2 mg/day was already near-maximal in scalp skin. On minoxidil, oral 5 mg once daily did NOT beat topical 5% twice daily in the only head-to-head, and the OTC label states outright that more or more often does not improve results. Genuinely contested: persistent sexual dysfunction after stopping. No incidence figure exists, there is no validated diagnostic criterion or biomarker, a network meta-analysis of the randomised trials found no significant sexual-adverse-event difference from placebo, pharmacovigilance shows a disproportionality signal, and 83.3% of surveyed hair specialists had never seen a case. Those findings are reported here together because no honest summary can pick one.",
+   "src": [
+    [
+     "10495374",
+     "Finasteride’s DHT suppression plateaus below 1 mg: 0.2 mg/day already produced near-maximal scalp-skin suppression in a 42-day biopsy study"
+    ],
+    [
+     "24411083",
+     "Dutasteride 0.5 mg/day beat finasteride 1 mg/day on hair count and width at 24 weeks in 917 men, with similar adverse events"
+    ],
+    [
+     "34634163",
+     "Topical finasteride reached hair counts numerically similar to oral while cutting serum DHT only 34.5% versus 55.6%"
+    ],
+    [
+     "38598226",
+     "The only head-to-head: oral minoxidil 5 mg once daily did not beat topical minoxidil 5% twice daily over 24 weeks in men"
+    ],
+    [
+     "33639244",
+     "Largest low-dose oral minoxidil safety dataset (1404 patients): hypertrichosis in 15.1%"
+    ],
+    [
+     "41118052",
+     "Current expert-consensus starting doses for low-dose oral minoxidil: 2.5 mg/day for men, 1.25 mg/day for women"
+    ],
+    [
+     "17299062",
+     "Over a year, dutasteride suppressed DHT 94% and finasteride 5 mg suppressed it 73%; both cut total sperm count"
+    ],
+    [
+     "27225981",
+     "In women the evidence splits: topical minoxidil works for female pattern hair loss, and finasteride 1 mg did not beat placebo"
+    ],
+    [
+     "22789024",
+     "The documented side of the persistence debate: prospective follow-up of 54 men reporting sexual side effects lasting at least 3 months after stopping"
+    ],
+    [
+     "23768246",
+     "The contested side: a network meta-analysis found finasteride 1 mg, finasteride 5 mg and dutasteride 0.5 mg not significantly different from placebo on sexual adverse events"
+    ],
+    [
+     "33175100",
+     "WHO VigiBase: finasteride carried a significant disproportionality signal for suicidality and psychological adverse events"
+    ],
+    [
+     "41865985",
+     "A 2026 survey of 54 Spanish hair and nail dermatologists found 83.3% had never encountered a case of post-finasteride syndrome"
+    ],
+    [
+     "label:6f904709-65aa-44ce-b144-b4c8a0416e36",
+     "Finasteride 1 mg (PROPECIA) US label: approved dose for male pattern hair loss, at least three months before benefit"
+    ],
+    [
+     "label:acc5ad74-4558-4be9-aab4-94ad9ddad6b2",
+     "Minoxidil 5% topical OTC label: 1 mL twice daily, and more or more often does not improve results"
+    ],
+    [
+     "label:c78d18cf-05df-4154-b2f9-39cc374ca9e3",
+     "Dutasteride US label: approved for BPH only — no hair-loss indication; halves serum PSA within 3-6 months"
+    ]
+   ],
    "route": {
     "view": "sidefx",
     "item": "Hair shedding"
+   }
+  },
+  {
+   "id": "playbook:Liver strain",
+   "kind": "playbook",
+   "title": "Liver strain",
+   "subtitle": "side-effect playbook",
+   "terms": [
+    "liver strain",
+    "liverstrain",
+    "liver",
+    "liver damage",
+    "liverdamage",
+    "liver values",
+    "livervalues",
+    "liver enzymes",
+    "liverenzymes",
+    "alt",
+    "ast",
+    "alt high",
+    "althigh",
+    "ast high",
+    "asthigh",
+    "ggt",
+    "bilirubin",
+    "jaundice",
+    "yellow eyes",
+    "yelloweyes",
+    "hepatotoxic",
+    "hepatotoxicity",
+    "liver toxic",
+    "livertoxic",
+    "liver support",
+    "liversupport",
+    "tudca",
+    "nac",
+    "17aa",
+    "17-aa",
+    "17 aa",
+    "methylated",
+    "oral steroid liver",
+    "oralsteroidliver",
+    "cholestasis",
+    "liver panel",
+    "liverpanel",
+    "lft",
+    "lfts"
+   ],
+   "text": "Liver strain — what it is and what to do\n\nUsual causes: 17-alpha-alkylated orals are the classic cause, but SARMs produce a congruent injury with no alkyl group at all. Hard training on its own also moves AST and ALT.\n\nSigns: Usually nothing until jaundice — yellow eyes or skin, dark urine, pale stools, itching. Pain is not typical and its absence means nothing.\n\nLabs: ALT, AST, GGT, ALP and TOTAL BILIRUBIN together, plus CK. Bilirubin is the number that actually moves in androgen liver injury; enzymes can stay near-normal while it climbs.\n\nCommonly discussed responses:\n• Read AST and ALT next to CK before assuming the liver. A lifting session raises both for a week, and a high CK with a normal GGT points at muscle.\n• A normal GGT does not clear you. In stanozolol and AAS cholestasis series, GGT stayed normal or barely above range while bilirubin rose sharply — the GGT rule sorts muscle from hepatitis, not safe from injured.\n• Stopping is the intervention. There is no supplement with controlled evidence of treating this, and injury commonly peaks AFTER cessation.\n• Trend against the same lab. Reported upper limits of normal differ about two-fold between institutions, so a number from one lab cannot be compared with another without both reference ranges.\n\nEscalate / seek care: Yellowing of the eyes or skin, dark urine, pale stools, or persistent itching is a same-week medical review, not a wait-and-see. Sudden severe abdominal pain with faintness after long-term oral androgen use is an emergency — peliosis hepatis and hepatic adenoma can bleed.\n\nWhat the evidence says: Established: the injury pattern is real and well documented — cholestatic jaundice with modest enzymes, typically starting around two months in and taking months to clear. Uncertain: almost no case series reports the doses people actually took, so no dose-response curve exists for any compound bodybuilders use. The only labelled numeric threshold on any 17-alpha-alkylated androgen is danazol at 400 mg/day, and it does not transfer to other compounds. The methyltestosterone label states cholestatic hepatitis occurs at a relatively low dose without naming one, so a moderate dose is not a documented safe dose.",
+   "src": [
+    [
+     "33214235",
+     "52 AAS cases: bilirubin peaked at 705 micromol/L with ALT only 125 U/L, GGT 52 U/L, and bilirubin peaked 28 days AFTER stopping"
+    ],
+    [
+     "40040852",
+     "18 prospective stanozolol cases: every patient had raised bilirubin while GGT stayed within or barely above normal"
+    ],
+    [
+     "38372012",
+     "Australian multicentre series: median 58 days from starting to injury, median 175 days to normalise, 17 of 23 hospitalised, one transplant, no deaths"
+    ],
+    [
+     "36479151",
+     "SARMs cause a cholestatic syndrome congruent with AAS injury despite carrying no 17-alpha-alkyl group"
+    ],
+    [
+     "17764474",
+     "One 60-minute weightlifting session raised AST and ALT in healthy men for at least seven days while GGT, ALP and bilirubin stayed normal"
+    ],
+    [
+     "10336050",
+     "The founding GGT study: bodybuilders had raised CK, AST and ALT with normal GGT; hepatitis patients had all three raised"
+    ],
+    [
+     "11476029",
+     "Given that exact pattern in writing, 63% of surveyed physicians still named liver disease as the primary diagnosis and 56% never mentioned muscle"
+    ],
+    [
+     "15660433",
+     "The AST/ALT ratio falls toward 1 within days of muscle injury because AST clears faster, so repeated damage mimics a hepatic pattern"
+    ],
+    [
+     "26549387",
+     "182 asymptomatic bodybuilders on AAS six months or longer: 38.5% had raised enzymes, 12.6% had diagnosed toxic liver injury, 12.1% had steatosis on ultrasound"
+    ],
+    [
+     "31220261",
+     "309 burn patients on prescribed oxandrolone: 41.4% crossed AST or ALT above 100 U/L at a median of 13 days"
+    ],
+    [
+     "17438485",
+     "Prescribed oxandrolone raised hepatic dysfunction to 25% at 5 mg and 67% at 10 mg — but 43% of untreated controls were also abnormal, and the difference was not significant"
+    ],
+    [
+     "12093239",
+     "Healthy upper limits in screened blood donors were 30 U/L for men and 19 U/L for women, against the conventional 40 and 30"
+    ],
+    [
+     "40227983",
+     "The upper limit of normal for ALT still varies roughly two-fold between institutions, from 30 to 60 U/L"
+    ],
+    [
+     "15248788",
+     "Controlled athlete studies did not find liver damage — the same review warns they used doses far below real-world use"
+    ],
+    [
+     "label:55ad6325-16f6-4f0c-a1dc-734847052d0b",
+     "Danazol US label: elevated enzymes and/or jaundice reported at 400 mg/day or more; boxed warning that peliosis and adenoma may be silent until life-threatening bleeding"
+    ],
+    [
+     "label:77bb4ef4-c10e-4acc-8225-651d003f4561",
+     "Methyltestosterone US label: cholestatic hepatitis and jaundice occur with 17-alpha-alkylandrogens at a relatively low dose"
+    ]
+   ],
+   "route": {
+    "view": "sidefx",
+    "item": "Liver strain"
    }
   },
   {
@@ -5705,6 +6338,7 @@
     "soreinjection"
    ],
    "text": "Injection-site reactions — what it is and what to do\n\nUsual causes: Technique, oil concentration and volume, unsanitary practice, or immune response to the carrier.\n\nSigns: Post-injection pain (PIP), lumps, redness. Normal PIP fades over days and stays local.\n\nLabs: None — but know the red flags below.\n\nCommonly discussed responses:\n• Rotate sites religiously (the app tracks this), warm the oil to body temperature, inject slowly, use a fresh needle to inject (not the draw needle).\n• High-concentration blends (e.g. anything 300+ mg/ml) hurt — diluting with a second compound or carrier is why people combine syringes.\n• Massage and warmth after help dispersal.",
+   "src": [],
    "route": {
     "view": "sidefx",
     "item": "Injection-site reactions"
@@ -5738,6 +6372,7 @@
     "appetite"
    ],
    "text": "GLP-1 side effects — what it is and what to do\n\nUsual causes: Semaglutide, tirzepatide, retatrutide — delayed gastric emptying does the work and causes the trouble.\n\nSigns: Nausea, reflux, constipation, early satiety. Worst in the days after a dose increase.\n\nLabs: None routinely; lipase if significant abdominal pain.\n\nCommonly discussed responses:\n• Titrate slower — the schedule printed on the pen is the fastest allowed, not the required pace.\n• Smaller meals, less fat per sitting, stop eating at first fullness, hydrate hard.\n• Time the weekly dose so the roughest 48 hours land on easy days.",
+   "src": [],
    "route": {
     "view": "sidefx",
     "item": "GLP-1 side effects"
@@ -5774,9 +6409,1560 @@
     "igf"
    ],
    "text": "GH secretagogue effects — what it is and what to do\n\nUsual causes: MK-677, GHRP-2/6, ipamorelin, CJC — water retention and blood-sugar drift come with the territory.\n\nSigns: Tingling hands or carpal-tunnel feeling, puffiness, vivid dreams, raging hunger (GHRP-6 and MK-677 especially).\n\nLabs: Fasting glucose and HbA1c on anything run for months — GH antagonizes insulin.\n\nCommonly discussed responses:\n• Water symptoms usually settle in 2–3 weeks; if not, the dose is too high.\n• Take MK-677 at night to sleep through the hunger wave.\n• Ipamorelin is the selective choice — GHRP-6 and hexarelin also bump cortisol and prolactin at higher doses.",
+   "src": [],
    "route": {
     "view": "sidefx",
     "item": "GH secretagogue effects"
+   }
+  },
+  {
+   "id": "rehab:Tendon loading protocols",
+   "kind": "rehab",
+   "title": "Tendon loading protocols",
+   "subtitle": "rehab and load guidance",
+   "terms": [
+    "tendon loading protocols",
+    "tendonloadingprotocols",
+    "tendon",
+    "tendinitis",
+    "tendonitis",
+    "tendinopathy",
+    "patellar",
+    "jumpers knee",
+    "jumpersknee",
+    "achilles",
+    "tennis elbow",
+    "tenniselbow",
+    "golfers elbow",
+    "golferselbow",
+    "lateral epicondylitis",
+    "lateralepicondylitis",
+    "eccentric",
+    "eccentrics",
+    "heavy slow resistance",
+    "heavyslowresistance",
+    "hsr",
+    "isometric",
+    "isometrics",
+    "knee pain squat",
+    "kneepainsquat",
+    "tendon pain",
+    "tendonpain",
+    "rehab tendon",
+    "rehabtendon"
+   ],
+   "text": "Tendon loading protocols — How to load an irritated tendon — patellar, Achilles or lateral elbow — with the parameters actually used in the trials rather than a generic \"do eccentrics\".\n\nWhat it looks like: Load-related pain that warms up with activity and bites afterwards, localised to the tendon rather than spread across the joint.\n\nProtocols and parameters:\n• Heavy slow resistance, patellar, fully specified: 3 sessions per week, three bilateral movements (squat, leg press, Bulgarian split squat), load stepped from 12RM toward 6RM across the programme. At 12 weeks HSR matched eccentric decline squats and beat corticosteroid injection in the long run — the injection looked better early, then deteriorated.\n• Isometric stage, patellar: 5 repetitions of a 45-second single-leg hold at 70% of maximum voluntary contraction at 60 degrees of knee flexion.\n• Isotonic stage: progress from 4 sets of 15 reps restricted to 10-60 degrees, toward 4 sets of 6 reps at higher load through fuller range.\n• Lateral elbow: 12 weeks of home-based heavy slow resistance with elastic bands improved symptoms short and long term — and adding a corticosteroid injection did not improve on it.\n\nHow to judge progression: The pain rule, with its source: progression was gated on a standardised provocation test (a single-leg squat). Pain of 3/10 or less, settling by the next morning, means progress. The older Silbernagel model uses a higher ceiling — load is added while pain does not exceed 5/10. The two have never been compared head to head, and a review of 30 randomised trials found pain-based progression criteria dominate the literature without strong evidence behind them.\n\nWhat not to do: Resting it completely is not the safe default. A randomised trial let people keep running and jumping under the pain-monitoring model and they did no worse than those told to stop.\n\nEscalate / seek care: Sudden sharp pain with a pop, immediate loss of strength, or a palpable gap in the tendon is a rupture until proven otherwise — same-day assessment, not a loading programme.\n\nWhat the evidence says: Established: heavy slow resistance and staged pain-limited loading both work for patellar and lateral elbow tendinopathy, and both beat or match injection in the long run. Contested: isometric analgesia. The original result was dramatic — decline-squat pain from 7.0/10 to 0.17/10, held 45 minutes — but an independent pre-registered crossover found only 0.9 points, a trial from the original group found isometrics no better than isotonics, and a systematic review across 13 studies found no consistent evidence that isometric exercise reduces pain more than other loading. Treat isometrics as a tolerable way to load, not as a reliable painkiller. Genuinely unresolved: isometric intensity (70% MVC and 80% MVIC both appear), and whether any of these lower-limb pain thresholds transfer to the elbow at all — that transfer is assumed, not tested.",
+   "src": [
+    [
+     "39390552",
+     "Heavy slow resistance for patellar tendon, fully specified: 3 sessions/week, squat, leg press and Bulgarian split squat, load stepped 12RM toward 6RM"
+    ],
+    [
+     "19793213",
+     "The foundational HSR trial: 12 weeks matched eccentric decline squats and beat corticosteroid injection in the long run"
+    ],
+    [
+     "33219115",
+     "The staged protocol with its numbers — 5 x 45 s isometric holds at 70% MVC at 60 degrees, isotonic 4 x 15 restricted range progressing to 4 x 6 — beat the pain-provoking eccentric decline squat by 9 VISA-P points at 24 weeks"
+    ],
+    [
+     "28693535",
+     "The Silbernagel pain-monitoring model uses the higher ceiling: load is added while pain does not exceed 5/10"
+    ],
+    [
+     "17307888",
+     "Randomised evidence that you can keep running and jumping on a symptomatic tendon under the pain-monitoring model"
+    ],
+    [
+     "33444210",
+     "Systematic review of 30 randomised trials: pain-based progression criteria dominate the literature but are not backed by strong evidence"
+    ],
+    [
+     "25979840",
+     "Isometric analgesia, the original positive result: decline-squat pain 7.0/10 to 0.17/10, held for 45 minutes"
+    ],
+    [
+     "31735531",
+     "Replication failure: an independent pre-registered crossover found the reduction was 0.9 points on 0-10, not 6.8"
+    ],
+    [
+     "26707957",
+     "Replication failure from the original group: isometric and isotonic both reduced pain with no significant difference"
+    ],
+    [
+     "33601254",
+     "Systematic review across 13 studies and 346 participants: no consistent evidence isometric exercise reduces pain more than other loading"
+    ],
+    [
+     "27513733",
+     "The in-season isometric protocol: leg-extension holds at 60 degrees at 80% MVIC, 4 sessions per week for 4 weeks"
+    ],
+    [
+     "35867777",
+     "Lateral elbow: 12 weeks of home-based heavy slow resistance with elastic bands improved symptoms short and long term; adding a corticosteroid injection did not improve on it"
+    ],
+    [
+     "26889612",
+     "Elbow isometrics tested 20% BELOW versus 20% ABOVE each person’s own pain threshold"
+    ],
+    [
+     "31425384",
+     "Eight weeks of daily unsupervised progressive isometrics for lateral elbow tendinopathy beat wait-and-see on only one of three primary outcomes"
+    ],
+    [
+     "39806585",
+     "Tolerability warning: a 12-week 36-session heavy elbow programme had feasibility problems"
+    ]
+   ],
+   "route": {
+    "view": "rehab",
+    "item": "Tendon loading protocols"
+   }
+  },
+  {
+   "id": "rehab:Training around a sore elbow or shoulder",
+   "kind": "rehab",
+   "title": "Training around a sore elbow or shoulder",
+   "subtitle": "rehab and load guidance",
+   "terms": [
+    "training around a sore elbow or shoulder",
+    "trainingaroundasoreelboworshoulder",
+    "elbow",
+    "shoulder",
+    "bicep",
+    "biceps",
+    "distal bicep",
+    "distalbicep",
+    "bicep tendinitis",
+    "biceptendinitis",
+    "elbow pain",
+    "elbowpain",
+    "shoulder pain",
+    "shoulderpain",
+    "shoulder impingement",
+    "shoulderimpingement",
+    "impingement",
+    "rotator cuff",
+    "rotatorcuff",
+    "back exercises",
+    "backexercises",
+    "back without biceps",
+    "backwithoutbiceps",
+    "pull ups grip",
+    "pullupsgrip",
+    "lat pulldown",
+    "latpulldown",
+    "straps",
+    "lifting straps",
+    "liftingstraps",
+    "fat grips",
+    "fatgrips",
+    "subacromial",
+    "decompression",
+    "curl grip",
+    "curlgrip",
+    "pulling exercises",
+    "pullingexercises",
+    "row",
+    "rows"
+   ],
+   "text": "Training around a sore elbow or shoulder — What actually changes the load on an irritated elbow flexor or shoulder — and which popular adjustments measurably do nothing.\n\nWhat it looks like: Pain at the front of the elbow on pulling and curling, or at the shoulder on pressing and overhead work.\n\nProtocols and parameters:\n• Back work with less elbow flexor involvement: the honest finding is that grip changes do far less than people assume. Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was SIMILAR — no grip spares the biceps.\n• In the lat pulldown, pronating the grip increased latissimus activity but had NO effect on biceps brachii, at either wide or narrow grip. So a pronated pulldown is a better lat exercise, not a lower-biceps one.\n• Where grip does matter is curling: biceps excitation was 19% higher with a supinated grip than pronated at 8RM. If you are trying to load elbow flexors less, that is the lever with evidence behind it.\n• Thick or fat grips move recruitment the WRONG way for an irritated distal biceps — they significantly increased forearm muscle activity.\n• Lifting straps changed nothing measurable in the lat pulldown: not 1RM, not reps to failure at 70% 1RM, not latissimus activity.\n\nHow to judge progression: Exercising into pain is not harmful. In shoulder pain it gave a small short-term advantage over strictly pain-free exercise, with the two equivalent by medium and long term.\n\nWhat not to do: Do not reach for surgery for subacromial shoulder pain on the assumption it is mechanical. Arthroscopic subacromial decompression was no better than PLACEBO surgery at 6 months, 24 months and 5 years, Cochrane rates that no-benefit finding high-certainty, and serious surgical complications run about 5-7 per 1000.\n\nEscalate / seek care: Weakness that is genuine rather than pain-limited, night pain that wakes you consistently, or numbness and tingling down the arm belongs with a clinician rather than a programme adjustment.\n\nWhat the evidence says: Read the grip findings with their limit attached: EMG amplitude is not tendon load. None of the grip, curl, pulldown or pull-up studies measured force or strain in the tendon itself, so \"less activation\" is a proxy, not a measurement of what the tendon feels. The bigger caveat is population — distal biceps tendinopathy is very rare with limited published evidence, and NO loading trial exists for it at all. Everything above is extrapolated from patellar, Achilles and lateral elbow tendons. For the shoulder, three separate results point the same way and are worth knowing before spending money: doubling the total dose of strengthening produced no additional benefit, progressive high-load was not superior to low-load, and a supervised programme of up to 6 sessions was no better at 12 months than a single best-practice advice session. There is also no consensus sets-and-reps prescription — across 46 programmes in 22 randomised trials, frequency ranged from 2 to 7 sessions per week.",
+   "src": [
+    [
+     "28011412",
+     "Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was similar"
+    ],
+    [
+     "20543740",
+     "In the lat pulldown, pronating the grip increased latissimus activity but had no effect on biceps brachii at either width"
+    ],
+    [
+     "36976950",
+     "Biceps brachii excitation was 19% higher with a supinated curl grip than pronated at 8RM"
+    ],
+    [
+     "30694963",
+     "Fat-grip attachments significantly increased forearm muscle activity — the wrong direction for an irritated distal biceps"
+    ],
+    [
+     "31198105",
+     "The only lifting-strap EMG trial: straps changed nothing in the lat pulldown, including latissimus activity and reps to failure"
+    ],
+    [
+     "27582910",
+     "The honest baseline: distal biceps tendinopathy is very rare and published evidence on it is limited"
+    ],
+    [
+     "28596288",
+     "Exercising into pain is not harmful and gives a small short-term advantage over strictly pain-free exercise"
+    ],
+    [
+     "29169668",
+     "Arthroscopic subacromial decompression was no better than placebo arthroscopy at 6 months"
+    ],
+    [
+     "30026230",
+     "Double-blind sham-surgery trial: no benefit over diagnostic arthroscopy at 24 months"
+    ],
+    [
+     "33020137",
+     "At 5 years, decompression was no better than placebo surgery and no better than exercise therapy"
+    ],
+    [
+     "30707445",
+     "Cochrane rates the no-benefit finding high-certainty and puts serious surgical complication risk at roughly 5-7 per 1000"
+    ],
+    [
+     "34048281",
+     "Doubling the total dose of shoulder strengthening on top of usual care produced no additional benefit"
+    ],
+    [
+     "28875153",
+     "Progressive high-load exercise was not superior to traditional low-load exercise for rotator cuff tendinopathy over 12 weeks"
+    ],
+    [
+     "34265255",
+     "A supervised programme of up to 6 sessions was no better over 12 months than a single best-practice advice session"
+    ],
+    [
+     "38832666",
+     "No consensus sets-and-reps prescription: across 46 programmes in 22 randomised trials, frequency ranged 2-7 sessions per week"
+    ],
+    [
+     "22349588",
+     "A specific eccentric rotator-cuff plus scapular-stabiliser programme, home-based once or twice daily for 12 weeks with 5-6 supervised sessions"
+    ]
+   ],
+   "route": {
+    "view": "rehab",
+    "item": "Training around a sore elbow or shoulder"
+   }
+  },
+  {
+   "id": "rehab:Load management and getting back to training",
+   "kind": "rehab",
+   "title": "Load management and getting back to training",
+   "subtitle": "rehab and load guidance",
+   "terms": [
+    "load management and getting back to training",
+    "loadmanagementandgettingbacktotraining",
+    "load",
+    "deload",
+    "load management",
+    "loadmanagement",
+    "acwr",
+    "acute chronic workload",
+    "acutechronicworkload",
+    "return to training",
+    "returntotraining",
+    "return to sport",
+    "returntosport",
+    "return to running",
+    "returntorunning",
+    "back pain",
+    "backpain",
+    "low back pain",
+    "lowbackpain",
+    "lower back",
+    "lowerback",
+    "lumbar",
+    "overtraining",
+    "training through pain",
+    "trainingthroughpain",
+    "how much pain is ok",
+    "howmuchpainisok",
+    "niggle",
+    "niggles",
+    "tendon rupture",
+    "tendonrupture",
+    "rupture risk",
+    "rupturerisk",
+    "bpc",
+    "bpc-157",
+    "bpc157",
+    "bpc 157",
+    "ibuprofen",
+    "nsaid",
+    "nsaids",
+    "painkillers gains",
+    "painkillersgains"
+   ],
+   "text": "Load management and getting back to training — How to decide when to add load, when to back off, and what the popular load-management numbers are actually worth.\n\nWhat it looks like: Recurring niggles that track training spikes, or an injury you are trying to return from without repeating it.\n\nProtocols and parameters:\n• The most-cited numeric form of the pain-monitoring model: pain during activity must not exceed 5 on a 0-10 scale, AND symptoms must have subsided within 24 hours.\n• A criteria-based return-to-running protocol uses three separate gates instead of one number: under 2/10 pain in daily activity to be allowed to start, and 4/10 or less during the run itself.\n• For low back pain specifically, staying active beats bed rest, and posterior-chain resistance training (thoracic, lumbar and hip extensors) beat general exercise for pain, disability and strength.\n• A deadlift-based high-load programme and a low-load motor-control programme both improved recurrent low back pain over 12 sessions — the choice can follow preference and tolerance.\n\nHow to judge progression: The 24-hour rule is the useful half. The threshold number is not standardised: trials operationalise the same named model at 4/10 and at 5/10, and no study has ever compared thresholds head to head.\n\nWhat not to do: Do not treat the acute:chronic workload ratio as a rule. The only experimental test of ACWR-based load management — a 10-month cluster-randomised trial where coaches planned all training using published guidelines — found no benefit. A systematic review co-authored by the metric’s own originator concludes the methodology is too heterogeneous to support strong recommendations, with 14 different binning schemes in use.\n\nEscalate / seek care: Back pain with saddle numbness, new bladder or bowel change, or progressive leg weakness is a same-day emergency. Otherwise, note that serious spinal pathology is rare (0.9%) while 80% of people with acute back pain have at least one textbook red flag — the flags that actually shift the odds of fracture are prolonged corticosteroid use, visible contusion, and older age.\n\nWhat the evidence says: Two things worth knowing if you are training on hormones or compounds. First, no pain-monitoring-model research includes anyone using hormone therapy, peptides or performance compounds — the 24-hour symptom-response rule assumes pain is a reliable feedback signal, and nobody has tested whether that holds. Second, the androgen-tendon evidence is real but thin and pulls in two directions: in 142 experienced male bodybuilders, lifetime AAS users carried a hazard ratio of 9.0 for a first tendon rupture, and long-term AAS-using lifters had stiffer patellar tendons carrying 15% higher maximal stress. Against that, the best mechanistic human study with biopsies and imaging found the patellar tendon itself was NOT severely damaged, and prescription testosterone in a claims database showed only a modest association with Achilles injury. A systematic review of the entire androgen-tendon literature found just 18 studies, mostly in small animals and frequently contradictory. For SARMs the entire published human tendon evidence is a single case report. And on BPC-157, widely used for exactly these injuries: a 2025 review found only three human pilot studies — there is essentially no human evidence for it. One more, specific to lifters: ibuprofen at 1200 mg/day for 8 weeks measurably blunted muscle growth and strength gains from resistance training.",
+   "src": [
+    [
+     "34722783",
+     "The most-cited numeric form: pain must not exceed 5/10 during activity and symptoms must subside within 24 hours"
+    ],
+    [
+     "41770805",
+     "The threshold is not standardised — a separate Achilles protocol operationalises the same named model at 4/10"
+    ],
+    [
+     "34391384",
+     "A criteria-based return-to-running protocol uses three gates: under 2/10 in daily activity to start, 4/10 or less during running"
+    ],
+    [
+     "17307888",
+     "The pain-monitoring model’s clinical evidence base is a single 38-person randomised trial"
+    ],
+    [
+     "9413448",
+     "The original pain monitoring system comes from a 1997 patellofemoral trial whose author listed spontaneous recovery first among possible explanations"
+    ],
+    [
+     "29249084",
+     "There is no validated return-to-sport criterion set for Achilles tendinopathy"
+    ],
+    [
+     "33036995",
+     "The only experimental test of ACWR-based load management — a 10-month cluster-randomised trial — found no benefit"
+    ],
+    [
+     "32572824",
+     "A systematic review co-authored by ACWR’s originator concludes the methodology is too heterogeneous to support strong recommendations, with 14 binning schemes"
+    ],
+    [
+     "32502973",
+     "Manipulating ACWR to change injury risk assumes a causal effect no study has ever properly estimated"
+    ],
+    [
+     "26758673",
+     "ACWR was introduced as a best-practice predictor on the argument that load spikes rather than high load cause injury"
+    ],
+    [
+     "26701923",
+     "The concrete definition: acute is the current week, chronic the rolling 4-week average"
+    ],
+    [
+     "41029871",
+     "The familiar 0.8-1.3 sweet spot has a meta-analytic source that attaches an explicit caution and a very wide confidence interval"
+    ],
+    [
+     "20556780",
+     "For acute low back pain, advice to stay active beats advice to rest in bed"
+    ],
+    [
+     "33683497",
+     "Posterior-chain resistance training beat general exercise for pain, disability and strength in chronic low back pain"
+    ],
+    [
+     "25641309",
+     "A deadlift-based high-load programme and a low-load motor-control programme both improved recurrent low back pain over 12 sessions"
+    ],
+    [
+     "34580864",
+     "Exercise for chronic low back pain produces a clinically important 15-point pain reduction versus no treatment"
+    ],
+    [
+     "37146623",
+     "Cognitive functional therapy — graded re-exposure plus targeting unhelpful beliefs — in up to seven sessions over 12 weeks"
+    ],
+    [
+     "19790051",
+     "Serious spinal pathology in acute low back pain is rare at 0.9%, yet 80% have at least one textbook red flag"
+    ],
+    [
+     "24335669",
+     "The red flags that actually move fracture probability: prolonged corticosteroid use, visible contusion or abrasion, older age"
+    ],
+    [
+     "31278933",
+     "In emergency-department series, cord or cauda equina compression accounted for 0.1-1.9% of presentations"
+    ],
+    [
+     "29785405",
+     "Among subelite powerlifters, 70% were currently injured and 87% had been injured in the past year"
+    ],
+    [
+     "26362436",
+     "In 142 experienced male bodybuilders, lifetime AAS users had a hazard ratio of 9.0 for a first tendon rupture"
+    ],
+    [
+     "23620489",
+     "Long-term AAS-using lifters had stiffer patellar tendons carrying 15% higher maximal stress than equally trained non-users"
+    ],
+    [
+     "40407232",
+     "The best mechanistic human study, with biopsies and imaging, found the patellar tendon itself was NOT severely damaged"
+    ],
+    [
+     "37950322",
+     "Prescription testosterone in a claims database was associated with Achilles injury, but modestly (adjusted OR 1.24)"
+    ],
+    [
+     "30047601",
+     "A systematic review of the entire androgen-tendon literature found only 18 studies, mostly small animals and frequently contradictory"
+    ],
+    [
+     "33835995",
+     "For SARMs the entire published human tendon evidence is one case report of bilateral Achilles ruptures"
+    ],
+    [
+     "40789979",
+     "BPC-157: a 2025 review found only three human pilot studies — essentially no human evidence"
+    ],
+    [
+     "28834248",
+     "Ibuprofen at 1200 mg/day for 8 weeks measurably blunted muscle growth and strength gains from resistance training"
+    ]
+   ],
+   "route": {
+    "view": "rehab",
+    "item": "Load management and getting back to training"
+   }
+  },
+  {
+   "id": "nutrition:Protein: how much actually helps",
+   "kind": "nutrition",
+   "title": "Protein: how much actually helps",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "protein: how much actually helps",
+    "proteinhowmuchactuallyhelps",
+    "protein how much actually helps",
+    "protein:",
+    "protein",
+    "how",
+    "how much protein",
+    "howmuchprotein",
+    "protein intake",
+    "proteinintake",
+    "grams of protein",
+    "gramsofprotein",
+    "g/kg",
+    "gkg",
+    "g kg",
+    "protein per day",
+    "proteinperday",
+    "protein per meal",
+    "proteinpermeal",
+    "whey",
+    "casein",
+    "protein powder",
+    "proteinpowder",
+    "protein shake",
+    "proteinshake",
+    "macros",
+    "macro split",
+    "macrosplit"
+   ],
+   "text": "Protein: how much actually helps — What the trials support for protein intake when building or holding muscle, and where the extra grams stop doing anything.\n\nUsually asked as: Asked as \"how much protein do I need\", usually with a number someone heard.\n\nWhat the trials found:\n• In energy balance the ceiling is about 1.6 g/kg bodyweight per day — past that, no further gain in fat-free mass was detectable across the pooled trials, and returns are already shrinking about threefold above 1.3 g/kg.\n• In a deficit the useful range is higher: 2.3-3.1 g/kg of FAT-FREE mass. At a 40% deficit, 2.4 g/kg gained 1.2 kg of lean mass against 0.1 kg at 1.2 g/kg, and 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg.\n• Extra protein only pays under a stressor. Pooled: +0.36 kg while dieting, +0.77 kg while training, +0.08 kg with neither.\n• Very high intakes buy fat loss, not muscle: 3.4 vs 2.3 g/kg gave identical fat-free-mass gain despite greater fat loss, with no adverse kidney-filtration change in healthy adults.\n\nThe rule of thumb: Total daily protein is what matters. Per-meal distribution has a real same-day synthesis advantage of 25-31%, but the 16-week body-composition trial under a deficit found no difference between spreading it evenly and back-loading it, and there is no per-meal anabolic ceiling even at 100 g.\n\nWhat not to do: Do not treat 1.6 g/kg as a target to exceed for its own sake in maintenance, and do not treat the \"20-25 g per sitting\" rule as real — it does not survive the trial that tested a 100 g bolus.\n\nWhat the evidence says: Established: the dose-response in energy balance and the higher requirement in a deficit are both from pooled randomised evidence. NOT established, and this is the part that matters here: there are zero trials of any protein dose in people using exogenous testosterone, anabolic compounds, or GLP-1 agonists. The 1.6 g/kg ceiling and the 2.3-3.1 g/kg-FFM deficit range are wholly untested in that population, and GLP-1 appetite suppression makes hitting those numbers a practical problem no study has examined.",
+   "src": [
+    [
+     "28698222",
+     "Across 49 randomised trials of resistance training lasting six weeks or more, adding protein kept improving fat-free mass only up to a total intake of about 1.6 g per kg of bodyweight per…"
+    ],
+    [
+     "35187864",
+     "A meta-analysis of 74 randomised trials found that eating more protein gives only small extra lean-mass gains, and in adults under 65 doing resistance exercise the benefit appeared only at…"
+    ],
+    [
+     "33300582",
+     "Pooling 105 trials, each additional 0.1 g/kg/day of protein was worth about 0.39 kg of lean mass while total intake was below 1.3 g/kg/day, but only about 0.12 kg once above it - returns…"
+    ],
+    [
+     "28179492",
+     "Isotope-tracer measurement in trained male bodybuilders on a rest day put the average protein requirement at 1.7 g/kg/day with an upper recommended intake of 2.2 g/kg/day - roughly 2.6…"
+    ],
+    [
+     "31618421",
+     "In resistance-trained men already habitually eating a lot of protein, whole-body protein balance on a training day stopped improving at about 2.0 g/kg/day - higher than tracer-derived…"
+    ],
+    [
+     "26817506",
+     "Young men in a severe 40% calorie deficit who ate 2.4 g/kg/day gained 1.2 kg of lean mass over four weeks while those at 1.2 g/kg/day gained essentially none, and the higher-protein group…"
+    ],
+    [
+     "19927027",
+     "Resistance-trained athletes cutting to 60% of their usual calories for two weeks lost 1.6 kg of lean mass on 1.0 g/kg/day but only 0.3 kg on 2.3 g/kg/day, with no difference in fat loss or…"
+    ],
+    [
+     "23739654",
+     "In a controlled 21-day 40% calorie deficit, both 1.6 and 2.4 g/kg/day protected fat-free mass better than the 0.8 g/kg/day RDA - but 2.4 was no better than 1.6, suggesting the protective…"
+    ],
+    [
+     "31794597",
+     "A meta-analysis of 22 comparisons found protein above the RDA helps lean mass only when the body is stressed: it preserved 0.36 kg during calorie restriction and added 0.77 kg with…"
+    ],
+    [
+     "24257722",
+     "In roughly 80 kg resistance-trained young men, 20 g of whey after leg exercise raised muscle protein synthesis about as much as 40 g did; the extra 20 g mainly increased amino acid burning…"
+    ],
+    [
+     "27511985",
+     "When the training session works the whole body rather than one leg, 40 g of whey stimulated more muscle protein synthesis than 20 g - and how much lean mass a person carried did not change…"
+    ],
+    [
+     "38118410",
+     "A quadruple-tracer study found no upper limit to the anabolic response to a single meal: 100 g of protein after exercise produced a larger and longer-lasting response (beyond 12 hours)…"
+    ],
+    [
+     "23459753",
+     "Splitting 80 g of whey into four 20 g servings every three hours stimulated 31-48% more muscle protein synthesis across 12 hours of post-exercise recovery than either eight 10 g servings…"
+    ],
+    [
+     "24477298",
+     "Spreading the same daily protein evenly across three meals of about 30 g each produced 25% higher 24-hour muscle protein synthesis than loading most of it into dinner, and the advantage…"
+    ],
+    [
+     "28903957",
+     "Over 16 weeks of dieting plus resistance training, splitting protein evenly across three meals versus skewing it to dinner made no difference to lean mass, fat loss or thigh muscle area."
+    ],
+    [
+     "26500462",
+     "Trained men and women who pushed protein to 3.4 g/kg/day alongside a periodised heavy lifting programme lost more fat than a 2.3 g/kg/day group despite eating more total calories - but…"
+    ],
+    [
+     "30383278",
+     "Pooling 28 trials in 1358 adults without kidney disease, high-protein diets did not worsen the change in kidney filtration rate compared with lower-protein diets, though filtration rate…"
+    ],
+    [
+     "24092765",
+     "A systematic review of six studies in lean, energy-restricted resistance-trained athletes concluded protein needs are likely 2.3-3.1 g per kg of fat-free mass per day, rising with how lean…"
+    ],
+    [
+     "29497353",
+     "Reviewing both acute and long-term data, two sports-nutrition researchers concluded there is no hard per-meal ceiling and recommended aiming for 0.4 g per kg of bodyweight per meal across…"
+    ],
+    [
+     "27761114",
+     "In rats held at a 40% calorie restriction for 16 weeks, muscle protein content fell 38% and anabolic mTORC1 signalling was suppressed regardless of whether the diet supplied 10% or 32%…"
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Protein: how much actually helps"
+   }
+  },
+  {
+   "id": "nutrition:Cutting: rate, deficit and what breaks",
+   "kind": "nutrition",
+   "title": "Cutting: rate, deficit and what breaks",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "cutting: rate, deficit and what breaks",
+    "cuttingratedeficitandwhatbreaks",
+    "cutting rate deficit and what breaks",
+    "cutting:",
+    "cutting",
+    "rate,",
+    "rate",
+    "deficit",
+    "cut",
+    "calorie deficit",
+    "caloriedeficit",
+    "fat loss",
+    "fatloss",
+    "losing fat",
+    "losingfat",
+    "lose fat",
+    "losefat",
+    "how fast should i cut",
+    "howfastshouldicut",
+    "weight loss rate",
+    "weightlossrate",
+    "losing muscle",
+    "losingmuscle",
+    "muscle loss",
+    "muscleloss",
+    "red-s",
+    "reds",
+    "red s",
+    "low energy availability",
+    "lowenergyavailability",
+    "diet down",
+    "dietdown",
+    "shredding",
+    "getting lean",
+    "gettinglean"
+   ],
+   "text": "Cutting: rate, deficit and what breaks — How fast to lose, how big a deficit to run, and the point at which a cut starts costing you hormones and bone rather than fat.\n\nUsually asked as: Asked as \"how fast should I cut\" or \"am I losing muscle\".\n\nWhat the trials found:\n• Rate is the lever with the cleanest trial behind it: 0.7% of bodyweight per week let elite athletes GAIN lean mass and 1RM strength, while 1.4% per week held lean mass flat for the same total fat loss.\n• Deficit size has a break point around 500 kcal/day. Beyond it, resistance training no longer adds lean mass — though strength gains were not significantly impaired.\n• Protein at 2.3-3.1 g/kg fat-free mass offsets much of the lean-mass cost of a deficit.\n• At a 1000 kcal/day deficit, power output fell 21% with testosterone and IGF-1 down alongside it.\n\nThe rule of thumb: Below roughly 30 kcal per kg of fat-free mass per day is where things break rather than merely slow: LH pulsatility collapses, bone turnover shifts to resorption within five days, and high protein does NOT rescue the bone response. Athletes with suppressed reproductive hormones carried about 4.5 times the bone injuries.\n\nWhat not to do: Do not read the 0.7%-per-week result as permanent: at 12-month follow-up the difference between the fast and slow groups had washed out. It buys a better cut, not a better year.\n\nWhat the evidence says: The rate and deficit numbers are from randomised trials in athletes, which is closer to this audience than most nutrition evidence gets. What is NOT established: none of it was studied in enhanced populations. No rate, deficit or protein trial included people on anabolic compounds; the one testosterone-plus-diet trial was in obese 53-year-olds with low testosterone and no resistance training, and testosterone did not prevent lean-mass loss during the diet phase itself. No GLP-1 trial has manipulated deficit size, rate or training at all. The 30 kcal/kg threshold itself comes from five-day studies in sedentary women — there is no validated male, trained or long-duration equivalent.",
+   "src": [
+    [
+     "21558571",
+     "In elite athletes doing four resistance sessions a week, losing 0.7% of bodyweight per week let them ADD lean body mass while cutting, whereas losing 1.4% per week left lean mass flat -…"
+    ],
+    [
+     "21896944",
+     "The lean-mass and strength advantage of the slower cut was real at the end of the diet but had disappeared by 12 months, suggesting rate of loss matters for how you finish a cut rather…"
+    ],
+    [
+     "34623696",
+     "Pooling resistance-training trials, a deficit of roughly 500 kcal/day was the point at which lean-mass gains stopped; strength gains, by contrast, were not significantly impaired by dieting."
+    ],
+    [
+     "26817506",
+     "Even at a very aggressive ~40% deficit, young men training hard six days a week gained lean mass when protein was 2.4 g/kg/day, while a matched group on 1.2 g/kg/day only held steady - and…"
+    ],
+    [
+     "19927027",
+     "In trained athletes on a two-week crash diet at 60% of habitual intake, raising protein from ~1.0 to ~2.3 g/kg cut lean mass loss by about 80% (-0.3 kg vs -1.6 kg) with no difference in…"
+    ],
+    [
+     "24092765",
+     "Protein requirements during a cut scale with how lean you already are and how hard you are restricting: the review concluded 2.3-3.1 g per kg of fat-free mass per day for lean,…"
+    ],
+    [
+     "24864135",
+     "The standard evidence-based recommendation for drug-free physique competitors is to set calories so bodyweight falls by roughly 0.5-1% per week, on the reasoning that this maximises muscle…"
+    ],
+    [
+     "12519869",
+     "Reproductive hormone signalling in women is not a smooth dose-response to dieting: LH pulsatility was untouched at an energy availability of 30 kcal per kg lean mass per day and only broke…"
+    ],
+    [
+     "26852783",
+     "In exercising men, four days at 15 kcal per kg fat-free mass per day halved leptin and cut insulin by about a third, and it made no difference whether the shortfall came from eating less…"
+    ],
+    [
+     "28847532",
+     "Just five days at 15 kcal per kg lean mass per day flipped bone turnover toward breakdown in women (less formation, more resorption) but not in men, though the study could not demonstrate…"
+    ],
+    [
+     "33671093",
+     "In men, five days of low energy availability shifted bone turnover toward resorption, and doubling protein to 1.7 g/kg did not rescue it - protein protects muscle during a cut but does not…"
+    ],
+    [
+     "37752011",
+     "The IOC's 2023 consensus frames the downside of over-dieting as a syndrome - Relative Energy Deficiency in Sport (REDs) - affecting both women and men, driven by low energy availability,…"
+    ],
+    [
+     "28119632",
+     "A four-month contest diet that stripped 35-50% of fat mass from normal-weight women lowered leptin, T3, testosterone and estradiol and increased menstrual irregularity; most hormones…"
+    ],
+    [
+     "36645885",
+     "Across a 23-week contest prep in drug-free physique athletes, resting energy expenditure fell even after adjusting for the lean and fat mass lost - true adaptive thermogenesis - and men…"
+    ],
+    [
+     "17762372",
+     "At the extreme end - an average 1000 kcal/day deficit sustained for 8 weeks alongside heavy military training - soldiers lost 13% of bodyweight including 6% of fat-free mass, and explosive…"
+    ],
+    [
+     "29252050",
+     "In elite distance athletes, those with suppressed reproductive hormones (amenorrhea in women, low testosterone in men) had lower T3 and about 4.5-fold more bone injuries - the clearest…"
+    ],
+    [
+     "23412685",
+     "In a drug-free male bodybuilder tracked for a year, dieting from 14.8% to 4.5% body fat drove testosterone from 9.22 to 2.27 ng/mL; testosterone rebounded fully after the show, but…"
+    ],
+    [
+     "42175739",
+     "A well-run ~21-week natural physique prep can be about 77% fat: -7.1 kg bodyweight of which -5.8 kg was fat and only -1.7 kg fat-free mass, with strength broadly maintained but free T3…"
+    ],
+    [
+     "39719170",
+     "Weight lost on GLP-1 and GLP-1/GIP drugs is roughly 25% lean mass, and the most potent agents (tirzepatide 15 mg, semaglutide 2.4 mg) were the best for fat loss but among the worst for…"
+    ],
+    [
+     "27716209",
+     "Adding testosterone to a very-low-energy diet did not stop lean-mass loss during the acute diet itself (-3.9 kg vs -4.8 kg, not significantly different) - the benefit only appeared…"
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Cutting: rate, deficit and what breaks"
+   }
+  },
+  {
+   "id": "nutrition:Bulking: surplus size and realistic gain rates",
+   "kind": "nutrition",
+   "title": "Bulking: surplus size and realistic gain rates",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "bulking: surplus size and realistic gain rates",
+    "bulkingsurplussizeandrealisticgainrates",
+    "bulking surplus size and realistic gain rates",
+    "bulking:",
+    "bulking",
+    "surplus",
+    "gain",
+    "bulk",
+    "calorie surplus",
+    "caloriesurplus",
+    "gaining",
+    "mass gain",
+    "massgain",
+    "lean bulk",
+    "leanbulk",
+    "dirty bulk",
+    "dirtybulk",
+    "how fast can i gain",
+    "howfastcanigain",
+    "muscle gain rate",
+    "musclegainrate",
+    "gaining weight",
+    "gainingweight",
+    "offseason"
+   ],
+   "text": "Bulking: surplus size and realistic gain rates — How big a surplus to run, how fast lean mass can actually be added, and why a bigger surplus mostly buys fat.\n\nUsually asked as: Asked as \"how much should I eat to bulk\" or \"is this too fast\".\n\nWhat the trials found:\n• A bigger surplus buys fat, not muscle. At +620 kcal/day against a smaller surplus, elite athletes gained 2.6 times the bodyweight and 5 times the fat mass with NO difference in lean body mass gained.\n• In trained lifters comparing a 15%, 5% and maintenance intake, faster body-mass gain predicted skinfold change far better than it predicted muscle thickness.\n• The usable rate anchor is about 0.5% of bodyweight per week, and it is weak evidence — a single-arm regression in 21 overfed men whose own authors said outcomes could generally not be predicted with precision.\n• Realistic lean gain is small and falls with training age: about 1.5 kg per intervention pooled across 111 trials, but only 0.5-0.8 kg over 8 weeks in men with roughly seven years of lifting.\n\nThe rule of thumb: Judge a bulk by the ratio of what you gained, not the speed of the scale. The trials that ran a larger surplus did not gain more muscle — they gained more fat and then had to lose it.\n\nWhat not to do: The 0.45 kg/week figure repeated in textbooks is explicitly flagged in the literature as possibly unachievable. Do not treat it as a target to hit.\n\nWhat the evidence says: For scale, and stated because the contrast is the honest context: 600 mg/week of testosterone with training produced 6.1 kg of fat-free mass in 10 weeks, against the 0.5-0.8 kg over 8 weeks that trained men manage from food and training alone. NOT established: not one energy-surplus or rate-of-gain study was done in people using anabolic compounds, and none in anyone on replacement or gender-affirming hormone therapy. The surplus-by-anabolic-agent interaction is entirely unstudied, nothing runs longer than 12 weeks, and no validated way exists to individualise a surplus in advance.",
+   "src": [
+    [
+     "37914977",
+     "In trained lifters, a large energy surplus (15% above maintenance) added more fat than maintenance eating without adding more muscle thickness or squat strength; across the whole sample,…"
+    ],
+    [
+     "33919267",
+     "In resistance-trained men deliberately overfed for six weeks, an average body-mass gain of about 0.55% of bodyweight per week corresponded to essentially all of the gained weight being…"
+    ],
+    [
+     "23679146",
+     "In elite athletes adding four strength sessions a week, eating an extra ~620 kcal/day versus eating ad libitum produced about 2.6 times more bodyweight gain, but all of the extra weight…"
+    ],
+    [
+     "21851204",
+     "A planned surplus of about 500 kcal/day plus four strength sessions a week added roughly 2.8% lean body mass over 8-12 weeks in young elite athletes, whereas athletes left to eat ad…"
+    ],
+    [
+     "42442697",
+     "In a 12-week bulking trial prescribing 300-500 kcal/day above requirements, the group that actually ate the full surplus gained more than twice as much fat as the group that under-ate it,…"
+    ],
+    [
+     "40241374",
+     "A modest single-digit surplus is enough to support substantial lean gains in already well-trained lifters: 10% above maintenance with 2.2 g/kg/day protein produced 1.8-2.7 kg of fat-free…"
+    ],
+    [
+     "31915482",
+     "In competitive male bodybuilders, a much higher energy intake produced about 2.5 times more muscle gain but roughly 9 times more body-fat gain over four weeks, illustrating how sharply the…"
+    ],
+    [
+     "12094125",
+     "A counter-example to the small-surplus rule: adding roughly 2000 kcal/day on top of a normal diet during 8 weeks of resistance training increased body mass by ~3.1 kg and fat-free mass by…"
+    ],
+    [
+     "26957922",
+     "Bolting a large daily calorie surplus onto the diet of men who were already resistance-trained increased body mass and fat mass but produced no statistically significant increase in lean…"
+    ],
+    [
+     "24834017",
+     "Surplus calories eaten as protein alone behave differently from surplus calories generally: resistance-trained people eating 4.4 g/kg/day of protein for 8 weeks gained no bodyweight, no…"
+    ],
+    [
+     "34623696",
+     "Meta-regression of resistance-training trials identifies roughly a 500 kcal/day deficit as the point at which lean-mass gains are abolished entirely, which sets the lower bound on the…"
+    ],
+    [
+     "10865771",
+     "How much of a weight gain arrives as lean tissue depends heavily on how lean you already are: across overfeeding experiments of at least three weeks, lean tissue made up 60-70% of the…"
+    ],
+    [
+     "9880251",
+     "The same surplus deposits wildly different amounts of fat in different people, mostly because spontaneous non-exercise activity ramps up: with a fixed 1000 kcal/day surplus for 8 weeks,…"
+    ],
+    [
+     "2336074",
+     "A precisely controlled surplus does not produce a predictable amount of weight gain: an identical 84,000 kcal cumulative excess produced gains ranging from 4.3 to 13.3 kg across…"
+    ],
+    [
+     "32079265",
+     "Pooling 111 resistance-training trials in healthy adult men, the average whole-body muscle mass gained over an entire intervention was about 1.5 kg — and neither age, bodyweight, height…"
+    ],
+    [
+     "29489727",
+     "Lean-mass gain slows dramatically with training age: men with about seven years of lifting experience added only 0.5-0.8 kg of total-body lean mass across 8 weeks of hard training (roughly…"
+    ],
+    [
+     "8637535",
+     "For scale on what changes when androgens are added: 600 mg/week of testosterone enanthate plus supervised strength training produced 6.1 kg of fat-free mass in 10 weeks, and testosterone…"
+    ],
+    [
+     "35233712",
+     "The textbook sports-nutrition prescription for gaining mass (an extra 300-500 kcal/day aiming at about 0.45 kg per week, mostly lean) is not well supported by trial evidence, and that…"
+    ],
+    [
+     "31247944",
+     "The most widely cited practice guidance for drug-free bodybuilders sets the off-season surplus at 10-20% above maintenance targeting 0.25-0.5% of bodyweight gained per week, and explicitly…"
+    ],
+    [
+     "31482093",
+     "No study has ever validated an optimal surplus size for maximising muscle relative to fat; the commonly quoted kcal figures come from theoretical calculations of the energy stored in new…"
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Bulking: surplus size and realistic gain rates"
+   }
+  },
+  {
+   "id": "nutrition:Eating on a GLP-1",
+   "kind": "nutrition",
+   "title": "Eating on a GLP-1",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "eating on a glp-1",
+    "eatingonaglp1",
+    "eating on a glp 1",
+    "on",
+    "glp-1",
+    "glp1",
+    "glp 1",
+    "semaglutide",
+    "ozempic",
+    "wegovy",
+    "tirzepatide",
+    "mounjaro",
+    "zepbound",
+    "retatrutide",
+    "losing muscle on glp1",
+    "losingmuscleonglp1",
+    "muscle loss glp1",
+    "musclelossglp1",
+    "nausea",
+    "what to eat on semaglutide",
+    "whattoeatonsemaglutide",
+    "protein on glp1",
+    "proteinonglp1"
+   ],
+   "text": "Eating on a GLP-1 — What happens to muscle on semaglutide or tirzepatide, whether protein and lifting change it, and what actually helps the gut side effects.\n\nUsually asked as: Asked as \"am I losing muscle on this\" or \"what should I eat on tirzepatide\".\n\nWhat the trials found:\n• About 25-28% of the weight lost is lean mass. That sounds alarming until it is compared: it is statistically indistinguishable from dieting alone at 26.2%.\n• Resistance training is the lever that moves it. Lifestyle intervention PLUS resistance training cut the lean fraction to 17.5%.\n• The published protein target of 1.2-1.6 g/kg/day, 0.3-0.4 g/kg per meal, is borrowed from the general sarcopenia literature — not measured on a GLP-1.\n• Both the Wegovy and Zepbound labels specify only a reduced-calorie diet and increased physical activity. Neither gives any macronutrient or protein target.\n\nThe rule of thumb: The deficit drives the lean loss, not the drug. That reframes the question from \"how do I stop this drug eating my muscle\" to \"how do I run this deficit like any other deficit\" — which means lifting and adequate protein.\n\nWhat not to do: Zepbound’s own label makes SLOW DOSE TITRATION, not diet, its stated tool for limiting gastrointestinal reactions. Diet advice for nausea — smaller frequent meals, hydration, less fat and sugar per sitting — is expert opinion, and 16 trials found gut symptoms happened anyway despite dietary counselling.\n\nWhat the evidence says: NOT established, and the gap is total: no completed randomised trial tests protein intake or resistance training on a GLP-1. The trial that would settle it has published a protocol only. The best direct human evidence linking protein to lean-mass retention on these drugs is a correlation of 0.41 in 28 people. Searches pairing GLP-1 agonists with resistance-trained or athlete populations returned nothing — all body-composition data comes from sedentary or unselected adults at BMI 28-42. Pairing them with testosterone or other anabolic compounds returned nothing at all, so that combination cannot be inferred from anything published.",
+   "src": [
+    [
+     "41996180",
+     "Across 35 randomized trials of incretin drugs, roughly 28% of the weight lost was muscle-related tissue, and about two thirds of the trials exceeded the ~25% benchmark expected from weight…"
+    ],
+    [
+     "41877354",
+     "In a meta-analysis of 20 RCTs, lean mass made up a quarter to a third of weight lost depending on the drug, with semaglutide highest and tirzepatide lowest; the proportion was…"
+    ],
+    [
+     "39996356",
+     "In the DXA substudy of the pivotal tirzepatide obesity trial, about 25% of the weight lost was lean mass - the identical split seen in the placebo group, and consistent across sex, age and…"
+    ],
+    [
+     "39719170",
+     "Pooling 22 trials, GLP-1 drugs cut lean mass by just under a kilogram on average (about a quarter of total weight lost), but lean mass as a percentage of body weight did not fall - the…"
+    ],
+    [
+     "40318682",
+     "Measured by MRI rather than DXA, thigh muscle volume fell on tirzepatide by about the amount expected for that much weight loss in the general population - and fat infiltrating the muscle…"
+    ],
+    [
+     "39295512",
+     "Framed against ageing, the muscle loss in the pivotal obesity trials is large: participants lost 10% or more of their muscle mass in under 18 months, roughly what two decades of ageing…"
+    ],
+    [
+     "38687506",
+     "Incretin drugs strip roughly 6 kg of lean mass, while supervised resistance training programs longer than 10 weeks independently add about 3 kg of lean mass and 25% strength - the…"
+    ],
+    [
+     "42020128",
+     "The first randomized trial designed to test whether protein and lifting actually preserve muscle on semaglutide or tirzepatide is still running - only its protocol has been published, so…"
+    ],
+    [
+     "42440974",
+     "In a real-world cohort given no nutrition support, people who ate more total protein retained more muscle - the closest thing to direct human evidence that protein intake matters on these…"
+    ],
+    [
+     "42631799",
+     "Protein holds its share of the diet on GLP-1 therapy (about 14-17.5% of calories), but because total calories collapse, absolute grams of protein can fall below the threshold needed to…"
+    ],
+    [
+     "33269530",
+     "Semaglutide 2.4 mg cuts intake at a free-choice meal by about a third - the mechanism that makes protein targets hard to hit. Notably this trial found no delayed gastric emptying at 20…"
+    ],
+    [
+     "39175746",
+     "Across studies that measured it, GLP-1 and dual agonists cut total daily calorie intake by 16-39% - but hardly any study recorded what the remaining diet was actually made of."
+    ],
+    [
+     "42037117",
+     "A systematic review of 16 randomized trials found GI symptoms occurred despite background dietary counselling, lean mass was broadly preserved in proportion to weight loss, and no trial…"
+    ],
+    [
+     "33951361",
+     "Adding a supervised exercise program to liraglutide roughly doubled the fall in body-fat percentage versus either alone - the strongest randomized evidence that training changes the…"
+    ],
+    [
+     "41579235",
+     "In that same trial, strength relative to body weight improved on exercise, liraglutide or both while falling ~8% on placebo - because absolute strength was preserved even as weight came…"
+    ],
+    [
+     "38544798",
+     "A year after all treatment stopped, people who had exercised held their weight loss while those who had only taken liraglutide regained 6 kg more - training buys durability that the drug…"
+    ],
+    [
+     "41577337",
+     "Grip strength is generally preserved short-term despite lean-tissue loss, and in young men tirzepatide added to resistance and aerobic training gave no strength benefit beyond training…"
+    ],
+    [
+     "42036071",
+     "The most explicit published protein prescription for GLP-1 users is at least 1.2 g/kg/day, up to 1.6 g/kg in people without kidney disease, split into per-meal doses of 0.3-0.4 g/kg…"
+    ],
+    [
+     "41324524",
+     "40-70% of patients get gastrointestinal side effects, and the recommended first response is dietary rather than pharmacological: smaller and more frequent meals, adequate hydration, and…"
+    ],
+    [
+     "42106160",
+     "Dietary fiber is proposed to ease GLP-1-related constipation and stabilise the gut microbiome, but raising intake too quickly causes bloating and gas, and no trial has yet tested fiber…"
+    ],
+    [
+     "40445127",
+     "Four US professional societies jointly name GI side-effect management, protein adequacy, micronutrient sufficiency and resistance training as the core nutritional priorities during GLP-1…"
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Eating on a GLP-1"
+   }
+  },
+  {
+   "id": "nutrition:Meal timing and fasting: what matters",
+   "kind": "nutrition",
+   "title": "Meal timing and fasting: what matters",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "meal timing and fasting: what matters",
+    "mealtimingandfastingwhatmatters",
+    "meal timing and fasting what matters",
+    "timing",
+    "fasting:",
+    "fasting",
+    "meal timing",
+    "mealtiming",
+    "anabolic window",
+    "anabolicwindow",
+    "intermittent fasting",
+    "intermittentfasting",
+    "16:8",
+    "168",
+    "16 8",
+    "time restricted",
+    "timerestricted",
+    "omad",
+    "breakfast",
+    "pre workout meal",
+    "preworkoutmeal",
+    "post workout meal",
+    "postworkoutmeal",
+    "carbs before training",
+    "carbsbeforetraining",
+    "carb timing",
+    "carbtiming",
+    "carbs around training",
+    "carbsaroundtraining",
+    "carbs after training",
+    "carbsaftertraining",
+    "when to eat carbs",
+    "whentoeatcarbs",
+    "meal frequency",
+    "mealfrequency",
+    "how many meals",
+    "howmanymeals"
+   ],
+   "text": "Meal timing and fasting: what matters — Whether when you eat changes anything once calories and protein are matched. Mostly it does not, and this entry exists to say which parts do.\n\nUsually asked as: Asked as \"does the anabolic window matter\", \"should I do 16:8\", \"do I need carbs before lifting\".\n\nWhat the trials found:\n• The anabolic window does not survive controlling for total protein. A meta-regression found no timing effect on strength or hypertrophy, and a 10-week trial giving 25 g before versus after training produced identical results.\n• Time-restricted eating is not a body-composition lever once calories and protein are matched — several trials null, and the meta-analysis of fasting plus resistance training found no fat-free-mass difference.\n• Carbohydrate before lifting earns its keep only for sessions longer than about 45 minutes, or after a fast of 8 hours or more.\n• Early eating windows improve insulin sensitivity independent of weight; morning-loaded calories reduce hunger but change neither energy expenditure nor weight lost.\n\nThe rule of thumb: Total intake first, protein total second, distribution a distant third, clock time last. Protein spreading has a real 25-31% same-day synthesis advantage that has never been shown to produce more lean mass over months.\n\nWhat not to do: Worth knowing before adopting 16:8 on hormone therapy: calorie-matched trials in trained men found significantly LOWER testosterone and IGF-1 at 8 weeks and at 12 months, and one randomised trial found MORE appendicular lean mass lost on a 16:8 schedule.\n\nWhat the evidence says: NOT established: no meal-timing study of any kind has been run in people on exogenous hormone therapy, and the testosterone and IGF-1 suppression seen with 8-hour eating windows in trained men has never been followed through to a muscle or strength endpoint. So the hormonal signal above is real but its consequences are unmeasured — which is a reason to weigh it, not to panic about it.",
+   "src": [
+    [
+     "24299050",
+     "When you account for how much total protein people ate, eating protein close to the workout produced no measurable extra strength or muscle growth. Total daily protein intake, not timing,…"
+    ],
+    [
+     "28070459",
+     "In trained men given the identical protein dose immediately before versus immediately after lifting for 10 weeks, every outcome measured came out the same. The authors concluded the usable…"
+    ],
+    [
+     "38118410",
+     "The widely repeated claim that the body can only 'use' 20-25 g of protein per sitting is wrong at the level of measured protein metabolism: a 100 g bolus after exercise drove a bigger and…"
+    ],
+    [
+     "28919842",
+     "The sports-nutrition consensus position is that hitting your total daily protein target matters most, with roughly even spacing as a secondary refinement; the same document states that in…"
+    ],
+    [
+     "23459753",
+     "With total protein held identical over 12 hours after a workout, four 20 g feedings spaced 3 hours apart raised muscle protein synthesis 31-48% more than eight small 10 g feedings or two…"
+    ],
+    [
+     "24477298",
+     "Spreading the same amount of protein evenly across three meals raised 24-hour muscle protein synthesis by 25% versus loading most of it at dinner. Again, this is a synthesis-rate…"
+    ],
+    [
+     "26024494",
+     "The apparent body-composition benefit of eating more frequent meals evaporated on sensitivity analysis: the entire positive pooled effect across 15 studies was driven by one single trial."
+    ],
+    [
+     "27737674",
+     "In resistance-trained men fed the same calories and macros, compressing eating into an 8-hour window for 8 weeks reduced fat mass while preserving lean mass and strength, but also…"
+    ],
+    [
+     "34649266",
+     "Extending the same 8-hour-window protocol to 12 months, testosterone and IGF-1 remained lower than in the normal-eating group, and the fasting group spontaneously ate fewer calories -…"
+    ],
+    [
+     "31268131",
+     "Resistance-trained women eating within a 7.5-hour window gained the same fat-free mass, muscle size and strength over 8 weeks as women eating across 13 hours, once energy and protein were…"
+    ],
+    [
+     "32316561",
+     "When both groups ran the same 25% calorie deficit and the same 1.8 g/kg/day protein, adding an 8-hour eating window produced no extra fat loss and no extra lean-mass preservation over 4…"
+    ],
+    [
+     "33984329",
+     "Pooling 8 trials of intermittent fasting alongside resistance training, fasting groups lost about 1.4 kg more fat than non-fasting controls but showed no difference in fat-free mass - the…"
+    ],
+    [
+     "32986097",
+     "In the largest randomised trial of 16:8 eating, 12 weeks of time-restricted eating produced no more weight loss than three structured meals a day - and the time-restricted group lost…"
+    ],
+    [
+     "29754952",
+     "Meal timing does have a real metabolic effect that is separate from calories: under supervised weight-maintaining feeding, an early 6-hour eating window improved insulin sensitivity,…"
+    ],
+    [
+     "36087576",
+     "Front-loading calories into a big breakfast did not raise energy expenditure or produce more weight loss than back-loading the same calories into dinner. The only real difference was that…"
+    ],
+    [
+     "30700403",
+     "Across 13 randomised trials, adding breakfast did not help weight control - people assigned to eat breakfast weighed about 0.44 kg more and ate about 260 kcal/day more in total than people…"
+    ],
+    [
+     "37742826",
+     "Skipping breakfast did not hurt afternoon lifting performance - reps, bar velocity and power were unchanged whether the same food was eaten as breakfast plus lunch or as lunch only, and…"
+    ],
+    [
+     "25429252",
+     "Doing cardio fasted did not accelerate fat loss. With exercise volume matched and both groups in a calorie deficit, fasted and fed training produced identical changes in weight and fat…"
+    ],
+    [
+     "35809162",
+     "Carbohydrate before or during lifting does help, but only in specific conditions: sessions longer than 45 minutes, or when you have already fasted 8 hours or more. The size of the…"
+    ],
+    [
+     "32811763",
+     "Pre-sleep casein reliably raises overnight protein synthesis in young men, and may add to muscle and strength gains over 10-12 weeks - but the reviewers flag that the trials showing…"
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Meal timing and fasting: what matters"
+   }
+  },
+  {
+   "id": "nutrition:What to limit, and what it actually buys",
+   "kind": "nutrition",
+   "title": "What to limit, and what it actually buys",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "what to limit, and what it actually buys",
+    "whattolimitandwhatitactuallybuys",
+    "what to limit and what it actually buys",
+    "limit,",
+    "limit",
+    "it",
+    "what to avoid",
+    "whattoavoid",
+    "foods to avoid",
+    "foodstoavoid",
+    "avoid",
+    "sodium",
+    "salt",
+    "alcohol",
+    "drinking",
+    "saturated fat",
+    "saturatedfat",
+    "fiber",
+    "fibre",
+    "processed food",
+    "processedfood",
+    "ultra processed",
+    "ultraprocessed",
+    "dash diet",
+    "dashdiet",
+    "diet for cholesterol",
+    "dietforcholesterol",
+    "diet for blood pressure",
+    "dietforbloodpressure",
+    "lower my cholesterol",
+    "lowermycholesterol",
+    "lower my blood pressure",
+    "lowermybloodpressure"
+   ],
+   "text": "What to limit, and what it actually buys — The dietary changes with measurable effects on the numbers this app already tracks — blood pressure, lipids and liver — with the effect sizes attached.\n\nUsually asked as: Asked as \"what should I avoid\", \"will cutting salt help my cholesterol\", \"how bad is alcohol\".\n\nWhat the trials found:\n• Sodium is the largest single lever on blood pressure and it works even on medication: 100 mmol/day less sodium gave 6.81 mmHg lower systolic in people already being treated.\n• Sodium does nothing for lipids. Total cholesterol moved +0.05 mmol/L and LDL +0.05 — both null. Cutting salt to fix a lipid panel is aiming at the wrong number.\n• The LDL benefit attributed to \"swapping in unsaturated fat\" comes from removing the saturated fat, not adding the unsaturated. When saturated fat was held equal, the LDL difference fell to 3.45 mg/dL and was not significant.\n• Alcohol has a threshold rather than a gradient for blood pressure: no significant benefit from cutting below about two drinks a day, but 5.50 mmHg lower systolic when heavy drinkers halved intake.\n\nThe rule of thumb: Match the intervention to the marker. Sodium and alcohol for blood pressure; saturated fat for LDL. The common mistake is expecting one change to move everything.\n\nWhat not to do: Alcohol and the liver do not follow the blood-pressure pattern — the risk is supra-linear, with cirrhosis relative risk around 1.81 at 25 g/day rising to 8.15 at 100 g/day. On an oral 17-alpha-alkylated compound that curve is the one to think about.\n\nWhat the evidence says: NOT established, and it is the caveat that matters most here: nothing in this literature tests whether any dietary change offsets lipid or blood-pressure shifts driven by a COMPOUND rather than by diet. Every effect size above comes from diet- or disease-driven markers. Testosterone therapy itself raises blood pressure and lowers HDL, but the two bodies of evidence have never been combined, and the mechanism of compound-driven HDL suppression differs enough that these numbers cannot simply be transferred.",
+   "src": [
+    [
+     "39236753",
+     "In people already on blood-pressure medication, cutting dietary sodium still lowers blood pressure substantially, and the size of the drop is proportional to how much sodium comes out of…"
+    ],
+    [
+     "23558162",
+     "A realistic, sustainable salt cut of roughly one teaspoon a day lowers blood pressure in four weeks or more, with about twice the effect in people whose blood pressure is already high as…"
+    ],
+    [
+     "32500831",
+     "Potassium (the mineral behind salt substitutes and the DASH pattern's fruit and vegetables) helps blood pressure only up to a point - past a moderate dose the benefit disappears and, in…"
+    ],
+    [
+     "38804177",
+     "Combining the DASH eating pattern with sodium restriction lowers blood pressure, but only when the food is actually supplied - trials that just taught people the pattern produced no…"
+    ],
+    [
+     "25430608",
+     "The DASH pattern is one of the few single dietary changes that moves blood pressure and cholesterol at the same time, and it works harder in people who start with worse numbers."
+    ],
+    [
+     "29253389",
+     "Cutting alcohol lowers blood pressure only in people who currently drink more than two drinks a day; below that threshold, drinking less produced no measurable blood-pressure benefit."
+    ],
+    [
+     "37684424",
+     "Alcohol's effect on the liver accelerates faster than linearly: doubling the daily amount roughly doubles-again the risk of cirrhosis, so the drink-count reduction matters far more at the…"
+    ],
+    [
+     "40885400",
+     "Swapping saturated fat for polyunsaturated fat at the same total fat and calories lowers LDL by about 10 mg/dL - but the drop comes from removing the saturated fat, not from adding the…"
+    ],
+    [
+     "32428300",
+     "Reducing saturated fat for two years or more cuts cardiovascular events by about a fifth, and the trials that cut it most cut events most - but the lipid changes it produces are small, and…"
+    ],
+    [
+     "23053553",
+     "Industrial trans fat is the one fat that damages both sides of the lipid panel at once - it raises LDL and lowers HDL in controlled trials, unlike saturated fat which mainly raises LDL."
+    ],
+    [
+     "31105044",
+     "Ultra-processed food drives overeating on its own, independent of calories, sugar, salt, fat and fibre on the label - when everything else was matched, people ate ~500 kcal/day more and…"
+    ],
+    [
+     "37573217",
+     "In long-term population data, higher ultra-processed food intake tracks with more cardio-cerebrovascular disease and specifically more hypertension, with risk climbing steeply from the…"
+    ],
+    [
+     "37242149",
+     "Ultra-processed food intake is associated with fatty liver disease in a dose-dependent way, with the jump concentrated at the highest intakes rather than spread evenly."
+    ],
+    [
+     "38665062",
+     "Processed red meat specifically - bacon, sausage, deli meat - shows a clean linear dose-response with fatty liver disease, so each daily portion counts rather than only heavy intakes…"
+    ],
+    [
+     "35889803",
+     "Sugar hurts the liver mainly when it is added on top of maintenance calories and mainly when it arrives as a drink - swapping sugar for other calories at the same energy intake did not…"
+    ],
+    [
+     "38035997",
+     "A Mediterranean-style diet high in fibre and unsaturated fat cut liver fat by about a third in 12 weeks and improved GGT - roughly three times the liver-fat reduction of habitual diet,…"
+    ],
+    [
+     "34977959",
+     "Adding oats or oat beta-glucan is one of the best-quantified single food swaps for cholesterol, cutting LDL by roughly 11 mg/dL regardless of what the rest of the diet looks like."
+    ],
+    [
+     "40806090",
+     "Fermentable (prebiotic) fibre lowered blood pressure in people who already had hypertension, but the pooled effect vanished once people with normal blood pressure were included - the…"
+    ],
+    [
+     "34481638",
+     "Long-term androgen therapy itself raises blood pressure and lowers HDL - the same two markers diet is being used to manage - and the evidence for this is observational and based on blood…"
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "What to limit, and what it actually buys"
+   }
+  },
+  {
+   "id": "nutrition:Supplements: the short list that works",
+   "kind": "nutrition",
+   "title": "Supplements: the short list that works",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "supplements: the short list that works",
+    "supplementstheshortlistthatworks",
+    "supplements the short list that works",
+    "supplements:",
+    "supplements",
+    "that",
+    "supplement",
+    "creatine",
+    "caffeine",
+    "beta alanine",
+    "betaalanine",
+    "citrulline",
+    "hmb",
+    "bcaa",
+    "bcaas",
+    "eaa",
+    "eaas",
+    "leucine",
+    "preworkout",
+    "pre workout",
+    "is creatine worth it",
+    "iscreatineworthit",
+    "what supplements should i take",
+    "whatsupplementsshoulditake",
+    "contamination",
+    "tainted supplement",
+    "taintedsupplement"
+   ],
+   "text": "Supplements: the short list that works — Which sports supplements have real randomised evidence, which do not, and the contamination problem that matters specifically for anyone tracking bloodwork.\n\nUsually asked as: Asked as \"is creatine worth it\", \"should I take BCAAs\", \"does HMB do anything\".\n\nWhat the trials found:\n• The IOC consensus names four with good evidence for performance: caffeine, creatine, buffering agents and nitrate. That is the list.\n• Creatine adds roughly 1.14 kg of lean mass in adults under 50 at 7 g/day or 0.3 g/kg. Caffeine works at 3-6 mg/kg about 60 minutes before training.\n• Protein powder helps only until total intake is adequate — the benefit plateaus completely at 1.62 g/kg/day of total protein, powder included.\n• BCAAs have no supporting human data: no human study has measured muscle protein synthesis after oral BCAAs, and the two intravenous studies showed a DECREASE. Isolated leucine at 3 g/day for 8 weeks produced no strength or size benefit.\n\nThe rule of thumb: Judge a supplement by whether a randomised trial in trained people found an effect on the outcome you care about, not by mechanism. Several popular compounds have a plausible mechanism and a measured effect size of zero.\n\nWhat not to do: HMB effect size was exactly 0.00 for bench press in trained athletes, and citrulline malate does not improve strength. Beta-alanine works for efforts of one to four minutes but added nothing to strength or muscle thickness over 8 weeks in trained men.\n\nWhat the evidence says: One finding here matters more than the efficacy results for this audience: 38% of high-risk sports supplements bought from ordinary web shops contained undeclared doping substances including anabolic steroids. That is a direct confounder for anyone interpreting their own bloodwork. NOT established: nothing in this literature was studied alongside anabolic compounds — searches for trials combining creatine with testosterone therapy or AAS returned zero results. Also worth flagging: the HMB evidence splits along authorship lines, with two independent meta-analyses finding no effect while the position stand recommending it was co-authored by employees of a manufacturer, without independent replication.",
+   "src": [
+    [
+     "29138605",
+     "Creatine taken alongside resistance training adds roughly 1.4 kg of lean tissue over and above training alone in older adults, with smaller but real gains in chest press and leg press…"
+    ],
+    [
+     "39074168",
+     "In adults under 50, creatine added to resistance training increases lean body mass by about 1.1 kg and modestly reduces fat mass compared with the same training without creatine; taking it…"
+    ],
+    [
+     "28615996",
+     "The ISSN position stand concludes creatine is safe long term at doses far above what most people take, and that a low habitual intake may itself be worthwhile across the lifespan."
+    ],
+    [
+     "36007881",
+     "DOES NOT WORK: creatyl-L-leucine, a marketed 'advanced' creatine derivative, failed to raise muscle creatine content at all, while plain creatine monohydrate at the same dose did. The…"
+    ],
+    [
+     "30926628",
+     "Across 21 published meta-analyses, caffeine improved strength, muscle endurance, power and aerobic endurance, but the evidence was graded only moderate quality and some analyses could not…"
+    ],
+    [
+     "33388079",
+     "The effective caffeine dose is 3-6 mg per kg bodyweight taken about an hour before training; going up to 9 mg/kg adds side effects without adding performance."
+    ],
+    [
+     "26175657",
+     "Beta-alanine works for efforts lasting roughly one to four minutes by buffering muscle acidity, and needs several weeks of daily loading to work at all. The ISSN itself states the strength…"
+    ],
+    [
+     "27797728",
+     "Pooled across 40 trials the overall beta-alanine effect is small (effect size 0.18) and depends heavily on exercise duration; total amount of beta-alanine ingested did not moderate the…"
+    ],
+    [
+     "36636181",
+     "DOES NOT WORK FOR HYPERTROPHY: in resistance-trained men, eight weeks of full-dose beta-alanine added nothing to strength or muscle thickness gains. The training worked; the supplement…"
+    ],
+    [
+     "34176406",
+     "DOES NOT WORK: citrulline malate does not increase muscle strength in resistance-trained adults. The pooled effect was small, non-significant, and its confidence interval crossed zero for…"
+    ],
+    [
+     "34010809",
+     "Citrulline malate's one demonstrable benefit is small: about 3 extra reps to failure across a whole session, and even that was not statistically significant for upper-body exercises…"
+    ],
+    [
+     "29249685",
+     "DOES NOT WORK: in trained and competitive athletes, HMB produced a trivial, non-significant effect on every outcome measured, including a bench press effect size of exactly zero. Subgroup…"
+    ],
+    [
+     "32456217",
+     "DOES NOT WORK: an independent meta-analysis in young adults found HMB nudged total body mass slightly but produced no gain in fat-free mass, no strength gain, and no fat loss. The authors…"
+    ],
+    [
+     "39699070",
+     "The 2024 ISSN position stand recommends HMB at 38 mg/kg/day and reports body composition benefits, directly contradicting the independent meta-analyses above. Note the conflict of…"
+    ],
+    [
+     "28852372",
+     "DOES NOT WORK: there is not one human study measuring muscle protein synthesis after swallowing BCAAs alone. The only two studies that infused BCAAs intravenously found they DECREASED…"
+    ],
+    [
+     "28444456",
+     "DOES NOT WORK: adding isolated leucine (the BCAA thought to be the active one) to training produced no extra strength and no extra muscle cross-sectional area versus placebo, provided…"
+    ],
+    [
+     "28698222",
+     "Protein supplementation does add real strength and size gains on top of resistance training, but the benefit stops entirely once total daily protein passes about 1.6 g per kg of…"
+    ],
+    [
+     "28642676",
+     "The ISSN sets the practical daily protein target at 1.4-2.0 g/kg/day, with 20-40 g per serving, and is explicit that whole food can meet this - powder is a convenience, not a requirement."
+    ],
+    [
+     "29540367",
+     "The IOC's consensus position is that of the entire performance-supplement market, only four ingredients have good evidence: caffeine, creatine, buffering agents such as beta-alanine and…"
+    ],
+    [
+     "34211326",
+     "CONTAMINATION IS REAL AND COMMON: 38% of high-risk sports supplements bought from ordinary web shops contained undeclared doping substances, including anabolic steroids and stimulants that…"
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Supplements: the short list that works"
+   }
+  },
+  {
+   "id": "nutrition:How to count macros",
+   "kind": "nutrition",
+   "title": "How to count macros",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "how to count macros",
+    "howtocountmacros",
+    "how",
+    "count",
+    "macros",
+    "count macros",
+    "countmacros",
+    "counting macros",
+    "countingmacros",
+    "macro targets",
+    "macrotargets",
+    "how many calories",
+    "howmanycalories",
+    "calorie target",
+    "calorietarget",
+    "tdee",
+    "maintenance calories",
+    "maintenancecalories",
+    "set my macros",
+    "setmymacros",
+    "tracking food",
+    "trackingfood",
+    "track my food",
+    "trackmyfood",
+    "food scale",
+    "foodscale",
+    "weighing food",
+    "weighingfood",
+    "raw or cooked",
+    "raworcooked",
+    "how many grams of protein should i eat",
+    "howmanygramsofproteinshouldieat",
+    "calorie deficit calculator",
+    "caloriedeficitcalculator"
+   ],
+   "text": "How to count macros — Setting your own calorie and macro targets from your bodyweight, and how to track them without the tracking becoming the hobby.\n\nUsually asked as: Asked as \"how do I count macros\", \"what should my macros be\", \"how many calories should I eat\".\n\nHow to actually do it:\n• Protein first, because it is the one with a real number behind it. Maintenance or gaining: about 1.6 g per kg of bodyweight — 1.6 x 82 kg is roughly 130 g a day. Cutting: work from lean mass instead, 2.3-3.1 g per kg of FAT-FREE mass, which for an 82 kg person around 15% body fat is about 70 kg lean, so 160-215 g. Those two numbers come from the trials cited below, not from convention.\n• Calories second. A practical starting estimate is 31-33 kcal per kg to maintain, then apply the goal: for a cut subtract about 500 (the point past which the trials stopped showing lean-mass gain), for a gain add 200-300. These multipliers are a convention to START from, not a measurement — the scale over two to three weeks is what actually calibrates them.\n• Fat third. A floor of about 0.6-0.8 g per kg keeps hormone production and fat-soluble vitamin absorption comfortable. Below roughly 0.5 g/kg is where people tend to feel it.\n• Carbohydrate is whatever calories are left: subtract protein and fat calories (protein and carbs are 4 kcal per gram, fat is 9) and divide the remainder by 4.\n• Weigh food raw where you can, and be consistent. Rice and pasta roughly triple in weight when cooked, so 75 g dry is about 225 g cooked — logging the cooked figure against a raw entry is the single most common way a \"tracked\" day is 300 kcal out.\n• Accuracy has a ceiling worth knowing: labels are permitted a margin, restaurant figures are estimates, and your expenditure moves day to day. Chasing the last 5% is wasted effort. Consistent method beats precise method.\n\nThe rule of thumb: Set protein from bodyweight, calories from the goal, fat to a floor, carbs from the remainder — then change ONE variable at a time and give it two weeks. The number you adjust is calories; protein stays put.\n\nWhat not to do: Do not re-set your targets every time the scale moves. Daily bodyweight swings of 1-2 kg are water, gut contents and sodium, and a weekly average is the only number worth reacting to.\n\nWhat the evidence says: The protein figures above are the ones with randomised evidence behind them: about 1.6 g/kg is where fat-free-mass gains stopped improving in the pooled analysis, and 2.3-3.1 g/kg of fat-free mass is the range that protected lean mass in a deficit. The 500 kcal deficit figure is the meta-regression break point. NOT evidence: the calorie-per-kg multipliers, the fat floor and the two-week adjustment window are standard practice, useful as a starting point, and no trial validated them as such. They are labelled here rather than dressed up.",
+   "src": [
+    [
+     "28698222",
+     "No further fat-free-mass gain was detectable past about 1.62 g/kg bodyweight per day in the pooled trials."
+    ],
+    [
+     "26817506",
+     "At a 40% energy deficit, 2.4 g/kg protein gained 1.2 kg of lean mass against 0.1 kg at 1.2 g/kg."
+    ],
+    [
+     "19927027",
+     "Protein at 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg over a two-week deficit in athletes."
+    ],
+    [
+     "34623696",
+     "Meta-regression put the break point around a 500 kcal/day deficit, beyond which resistance training no longer added lean mass."
+    ],
+    [
+     "33300582",
+     "Returns on additional protein shrink roughly threefold above 1.3 g/kg per day."
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "How to count macros"
+   }
+  },
+  {
+   "id": "nutrition:Building a meal plan, and what to eat for a cut or a bulk",
+   "kind": "nutrition",
+   "title": "Building a meal plan, and what to eat for a cut or a bulk",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "building a meal plan, and what to eat for a cut or a bulk",
+    "buildingamealplanandwhattoeatforacutorabulk",
+    "building a meal plan and what to eat for a cut or a bulk",
+    "building",
+    "plan,",
+    "plan",
+    "eat",
+    "cut",
+    "bulk",
+    "meal plan",
+    "mealplan",
+    "build a meal plan",
+    "buildamealplan",
+    "what should i eat",
+    "whatshouldieat",
+    "what to eat",
+    "whattoeat",
+    "food choices",
+    "foodchoices",
+    "cutting foods",
+    "cuttingfoods",
+    "bulking foods",
+    "bulkingfoods",
+    "foods for cutting",
+    "foodsforcutting",
+    "foods for bulking",
+    "foodsforbulking",
+    "high volume foods",
+    "highvolumefoods",
+    "volume eating",
+    "volumeeating",
+    "calorie dense",
+    "caloriedense",
+    "what do i eat on a cut",
+    "whatdoieatonacut",
+    "what do i eat to bulk",
+    "whatdoieattobulk",
+    "portion size",
+    "portionsize",
+    "how much chicken",
+    "howmuchchicken",
+    "how much rice",
+    "howmuchrice",
+    "chicken",
+    "chicken breast",
+    "chickenbreast",
+    "rice",
+    "oats",
+    "grocery list",
+    "grocerylist",
+    "shopping list",
+    "shoppinglist",
+    "per meal",
+    "permeal",
+    "protein portion",
+    "proteinportion"
+   ],
+   "text": "Building a meal plan, and what to eat for a cut or a bulk — How to lay out a week of food you will actually repeat, and which foods do the work in a deficit versus a surplus — with portions scaled to bodyweight.\n\nUsually asked as: Asked as \"what should I eat\", \"meal prep ideas\", \"what foods for cutting\", \"how do I build a meal plan\".\n\nHow to actually do it:\n• Build each meal in the same order: protein anchor, then volume, then fat, then starch to fill the calories. Doing it in that order means the two things that matter most — hitting protein, and feeling full — are settled before the flexible calories get spent.\n• Portion the protein anchor by bodyweight. Divide your daily protein target across the meals you actually eat: at 130 g a day over four meals that is roughly 33 g each, which is about 120 g raw chicken breast, 150 g white fish, 5 whole eggs, 200 g of 5% Greek yoghurt, or 150 g firm tofu. Over three meals it is about 43 g each and the portions scale up accordingly.\n• CUTTING — lean on foods with a lot of weight per calorie, because the trials that cut energy density had people eating MORE total food while losing more weight. Potatoes, rice and oats by cooked weight; any lean protein; vegetables essentially without limit; whole fruit; broth-based soups; 0% dairy. A useful anchor is 400-600 g of vegetables and fruit a day at around 80 kg, scaling roughly with bodyweight.\n• BULKING — invert it. You want calories that do not fill you: olive oil, nut butters, whole milk, dried fruit, granola, fattier cuts, and liquid calories, which bypass the fullness problem that stops most people eating enough. A shake of milk, oats, peanut butter and a banana is 700-900 kcal and takes two minutes to drink.\n• Prep in components, not in finished meals. Cook a protein, a starch and a vegetable in bulk and combine them differently through the week — it survives boredom far better than five identical boxes, which is the usual reason a prep habit dies by Wednesday.\n• Keep one repeatable default meal for the day that goes wrong. Not having one is when people eat out and lose the week.\n• Weigh and log the components ONCE, save them, and reuse. The tracking effort is nearly all in the first week; after that it is picking from a list you already built.\n\nThe rule of thumb: Pick the structure you will repeat over the structure that is theoretically optimal. Across four popular diets, weight loss tracked how well people stuck to the plan and did not track which plan it was.\n\nWhat not to do: Do not build a cutting plan out of calorie-dense foods and willpower, and do not build a bulking plan out of chicken and broccoli — in both cases the food volume is fighting the goal, and volume is the thing people fail on.\n\nWhat the evidence says: Two findings here are evidence rather than craft, and they are the two the plan is built around: the largest reducers of dietary energy density lost 5.9 kg against 2.4 kg while eating about 300 g MORE food per day, and adherence predicted the result at 0.60 while diet choice predicted it at 0.07. NOT evidence, and said plainly because it is the part people most want to be science: no trial has ever tested meal prepping itself — batch cooking, pre-portioning, component prep. The planning literature is cross-sectional and confounded. Everything above about HOW to prep is craft that works in practice, offered as such.",
+   "src": [
+    [
+     "17490955",
+     "The biggest reducers of dietary energy density lost 5.9 kg against 2.4 kg while eating about 300 g more food per day."
+    ],
+    [
+     "15632335",
+     "Across four popular diets, weight loss correlated with adherence at 0.60 and with diet assignment at 0.07."
+    ],
+    [
+     "32234531",
+     "Portioning a problem food beat avoiding it entirely over one year."
+    ],
+    [
+     "25686165",
+     "A single fibre-focused goal lost 2.1 kg against 2.7 kg for a full multi-component diet at 12 months."
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Building a meal plan, and what to eat for a cut or a bulk"
+   }
+  },
+  {
+   "id": "nutrition:Meal prep and making a plan stick",
+   "kind": "nutrition",
+   "title": "Meal prep and making a plan stick",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "meal prep and making a plan stick",
+    "mealprepandmakingaplanstick",
+    "meal prep",
+    "mealprep",
+    "meal prepping",
+    "mealprepping",
+    "meal plan",
+    "mealplan",
+    "meal planning",
+    "mealplanning",
+    "what should i eat",
+    "whatshouldieat",
+    "diet plan",
+    "dietplan",
+    "food prep",
+    "foodprep",
+    "adherence",
+    "falling off",
+    "fallingoff",
+    "cheat meal",
+    "cheatmeal",
+    "refeed",
+    "diet break",
+    "dietbreak",
+    "energy density",
+    "energydensity",
+    "satiety",
+    "staying full",
+    "stayingfull",
+    "hungry all the time",
+    "hungryallthetime"
+   ],
+   "text": "Meal prep and making a plan stick — What the evidence supports about building meals and adhering to a plan — the part of nutrition that decides outcomes more than diet choice does.\n\nUsually asked as: Asked as \"meal prep ideas\", \"what diet should I follow\", \"how do I stop falling off\".\n\nWhat the trials found:\n• Adherence predicts the result; the diet does not. Across four popular diets, weight loss correlated with self-reported adherence at 0.60 and with diet assignment at 0.07.\n• Simpler plans hold up surprisingly well: a single fibre-focused goal lost 2.1 kg against 2.7 kg for a full multi-component diet at 12 months.\n• Energy density is the strongest lever for a meal that satisfies. The biggest reducers of energy density lost 5.9 kg against 2.4 kg while eating about 300 g MORE food per day.\n• Portioning a problem food beat avoiding it entirely over a year.\n\nThe rule of thumb: Build meals around high-volume, lower-energy-density foods and a protein anchor, then pick the structure you will actually repeat. The structure you keep beats the optimal one you abandon.\n\nWhat not to do: Diet breaks split by population and are worth selling honestly: two-week blocks doubled fat loss in men with obesity, but the same structure gave NO body-composition advantage in resistance-trained adults — only lower hunger and greater satisfaction. That makes them an adherence tool, not a metabolic one.\n\nWhat the evidence says: The honest limit on this whole topic: NO trial has ever tested meal prepping itself — batch-cooking, pre-portioning — as an intervention. The meal-planning and home-cooking evidence is cross-sectional and confounded, so what can be said is what planners’ diets look like, not that planning caused it. The adherence literature is also almost entirely from clinical weight-management samples rather than trained or physique populations. Protein-quality and leucine claims rest on acute synthesis surrogates, and the one medium-term trial that matched total protein at 1.6 g/kg/day found the source irrelevant.",
+   "src": [
+    [
+     "32635174",
+     "Behavioural weight-loss programmes that use smartphone or other mobile self-monitoring of diet and activity produce moderately greater weight loss AND higher adherence than the same…"
+    ],
+    [
+     "15632335",
+     "Across four popular diets with very different structures, how much weight someone lost tracked how well they adhered, not which diet they were assigned to; overall adherence was low in…"
+    ],
+    [
+     "11348556",
+     "When people record their own intake they systematically under-report it against objectively measured energy expenditure, and the size of the error varies with body size, dietary restraint…"
+    ],
+    [
+     "33599941",
+     "When total protein is held at 1.6 g per kg per day, protein source stops mattering for training outcomes: over 12 weeks of supervised resistance training an exclusively plant-based diet…"
+    ],
+    [
+     "15159224",
+     "Energy density and portion size raise intake independently and additively, and the two stack: the biggest portion of the more energy-dense entree drove 56% more energy intake than the…"
+    ],
+    [
+     "17490955",
+     "In a real behavioural trial, the third of participants who cut their diet's energy density the most lost 5.9 kg versus 2.4 kg in the third who cut it least - and they did it while eating…"
+    ],
+    [
+     "32234531",
+     "For the tempting foods people find hardest to control, portioning beats banning: over a year, women who more often ate a limited portion of a problem food lost weight faster, while the…"
+    ],
+    [
+     "31105044",
+     "How food is processed changes how much of it people eat even when the numbers on the plan are identical: with meals matched for presented calories, energy density, macronutrients, sugar,…"
+    ],
+    [
+     "30621363",
+     "Soluble fibres are not interchangeable for appetite control: pooled effects on post-meal energy intake were largest for guar gum and smallest for pectin, with the doses that worked being…"
+    ],
+    [
+     "23885994",
+     "Adding fibre is a much less reliable fullness lever than it is usually sold as: across 107 acute treatments only 39% significantly reduced subjective appetite and only 22% reduced food or…"
+    ],
+    [
+     "25686165",
+     "A deliberately simplified plan can be nearly as effective as a complex one: being told only to eat more fibre produced 2.1 kg of weight loss at 12 months versus 2.7 kg for the full…"
+    ],
+    [
+     "28925405",
+     "Splitting a diet into two-week blocks of restriction alternating with two-week blocks of eating at maintenance produced substantially more weight and fat loss than the same restriction run…"
+    ],
+    [
+     "33587549",
+     "In resistance-trained adults, that same intermittent structure did NOT improve fat loss or fat-free-mass retention over 12 weeks of restriction - fat mass, fat-free mass, strength,…"
+    ],
+    [
+     "25056502",
+     "The per-meal protein dose that maximally stimulates muscle protein synthesis scales with body size rather than being a fixed number of grams: roughly 0.24 g per kg of body mass in young…"
+    ],
+    [
+     "24284442",
+     "Leucine content, not just total grams of protein, drives the acute muscle-building signal: a small 6.25 g whey dose fortified to 5.0 g total leucine stimulated muscle protein synthesis…"
+    ],
+    [
+     "34515966",
+     "Plant proteins generally trigger a smaller acute muscle protein synthesis response than animal proteins, mainly because of lower digestibility, greater splanchnic extraction and a lower…"
+    ],
+    [
+     "33630880",
+     "A single one-week diet break at estimated maintenance calories, taken after 12 weeks of dieting, lowered hunger, desire to eat and irritability and raised fullness, satisfaction and…"
+    ],
+    [
+     "28153017",
+     "Planning meals ahead is associated with a more varied, more guideline-adherent diet and lower odds of obesity - 57% of a very large French cohort planned at least occasionally - but the…"
+    ],
+    [
+     "33467235",
+     "A two-consecutive-day weekly higher-carbohydrate refeed inside a roughly 25% deficit produced the same body-weight and fat loss as continuous restriction over 7 weeks; the trial's authors…"
+    ],
+    [
+     "33467300",
+     "That refeed result should be treated as unresolved: an independent reanalysis published as a formal comment concluded that only dry fat-free mass actually differed between the refeed and…"
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Meal prep and making a plan stick"
    }
   },
   {

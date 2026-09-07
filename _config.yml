@@ -17,6 +17,11 @@ include:
   - CNAME
 
 exclude:
+  # Setting `exclude` at all REPLACES Jekyll's built-in list, which covers
+  # node_modules by default. CI and the ui-check scripts npm-install into it,
+  # so it is named here as well as in .gitignore: committed by accident it
+  # would otherwise publish, the same way the docs above once did.
+  - node_modules
   - docs
   - scripts
   - "*.md"

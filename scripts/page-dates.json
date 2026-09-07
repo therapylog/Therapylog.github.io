@@ -399,6 +399,10 @@
     "hash": "4580ce8cbd8d1734b0e90336e212177d28d2b9f0e6c8c81a56baf6723d667c29",
     "lastmod": "2026-09-04"
   },
+  "/tools/aromatase-inhibitors-in-men/": {
+    "hash": "e2e2005d24920f8e96e832cde49b2320d39fcbb989ab991f2ad643e9113eb832",
+    "lastmod": "2026-09-07"
+  },
   "/tools/bpc-157-reconstitution-calculator/": {
     "hash": "8ff5f164588366b35e9890fa3a213f35a45eb6f61d03b4c3b11b4274598ab99a",
     "lastmod": "2026-09-05"
@@ -491,6 +495,10 @@
     "hash": "2b02c89edb31976381f88d10a8c0e68dc07608741bd67d4035a101ff8d8068b5",
     "lastmod": "2026-09-05"
   },
+  "/tools/post-cycle-drugs-evidence/": {
+    "hash": "f358b351114ce8d1d30ce9610aacfce59c89eb7814fb082506eedb734fa3ac9d",
+    "lastmod": "2026-09-07"
+  },
   "/tools/retatrutide-reconstitution-calculator/": {
     "hash": "fc2dcb670a8c573823c86812c94d5cc8b4b4219296f70cc239abce5ada404cf0",
     "lastmod": "2026-09-05"
@@ -498,6 +506,14 @@
   "/tools/semaglutide-reconstitution-calculator/": {
     "hash": "eda9399d296d23968f55e2e9a202914e62369c1655574ad8c20be9f705adbda0",
     "lastmod": "2026-09-05"
+  },
+  "/tools/serms-and-gynecomastia/": {
+    "hash": "5328ddf635bf5644c7e5058a8d7c6895e86f6417510d5896743d0103b3714f24",
+    "lastmod": "2026-09-07"
+  },
+  "/tools/shoulder-and-back-pain-in-lifters/": {
+    "hash": "6a299d3776f026b799e018fdf57a0f78a0f2eb01e26c51a63700eb0d8f3c929a",
+    "lastmod": "2026-09-07"
   },
   "/tools/stack-checker/": {
     "hash": "b7796f44140a579f74f34ba4657e81cf210d2c6c031885fd56df7a296a08b1a3",
@@ -511,9 +527,17 @@
     "hash": "42268f500c266495316dc849249a819106923868fd8ff2d854b14a49ffe86661",
     "lastmod": "2026-09-05"
   },
+  "/tools/tendon-loading-protocols/": {
+    "hash": "bfd465aa0ca89f3d358c7c6e39b53b274c5d44b8d6e47d7e1ab380f7b6f74240",
+    "lastmod": "2026-09-07"
+  },
   "/tools/tirzepatide-reconstitution-calculator/": {
     "hash": "ec2109938440fe90837d6bd94b1d534f1f7dc632915f6fb42960bf6cfe39d4d9",
     "lastmod": "2026-09-05"
+  },
+  "/tools/training-load-management/": {
+    "hash": "74645535a0005b9925e6f270aa6b5ec7a6934fa546bf4c5c42de287509dc89cd",
+    "lastmod": "2026-09-07"
   },
   "/tools/trt-dose-calculator/": {
     "hash": "a0b515ad9f8488ba971a3dc354378ad556ece8a123b3cbc93868480eb52d2a6e",
