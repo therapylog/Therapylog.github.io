@@ -179,6 +179,32 @@
     return Math.round(best * (KIND_WEIGHT[entry.kind] != null ? KIND_WEIGHT[entry.kind] : 1));
   }
 
+  /* A stated age under 18, next to a question about cycles or compounds.
+     This is checked on the device, before anything is sent, because the answer
+     must not depend on a model complying with a prompt. There is no version of
+     this question that gets a protocol, so there is no reason to spend a paid
+     call deciding that.
+
+     Two failure modes were designed against. Missing a real minor is the worse
+     one, so the age patterns are generous. Firing on an adult is the annoying
+     one, so a number is only read as an age when it is stated as one: "I'm 16"
+     and "16 years old" count, while "16 weeks into my cycle", "16 units",
+     "16 mg" and "hematocrit 16" do not, because a unit follows the number.
+     The topic test is required as well — a 16-year-old asking about protein
+     intake gets the nutrition entry like anyone else. */
+  const MINOR_AGE = /\b(?:i'?m|i am|im|age|aged|turning)\s+(1[0-7])\b(?!\s*(?:weeks?|wks?|months?|mos?|days?|years? in|lbs?|kg|kgs|pounds|mg|mcg|ml|iu|units?|%|percent|nmol|pmol|ng|pg))/i;
+  const MINOR_AGE2 = /\b(1[0-7])\s*(?:years?|yrs?|yo)\s*old\b/i;
+  const MINOR_WORDS = /\b(?:high\s?school|highschool|sophomore|freshman|junior year|my parents (?:say|wont|won't|don't|dont)|still in school|year 1[01]\b)/i;
+  /* The topic half. Deliberately narrow: anabolic and hormonal intervention,
+     not training or food, which are worth helping a teenager with. */
+  const ENHANCEMENT = /\b(?:cycle|cycles|cycling|steroid|steroids|aas|gear|juice|sarm|sarms|test(?:osterone)?\s*(?:e|c|cyp|prop|enanthate|cypionate)?\b|trt|anabolic|prohormone|pct|hgh|growth hormone|peptide|first cycle|blast|pin(?:ning)?)/i;
+
+  function minorEnhancementAsk(q) {
+    const s = String(q || '');
+    const minor = MINOR_AGE.test(s) || MINOR_AGE2.test(s) || MINOR_WORDS.test(s);
+    return minor && ENHANCEMENT.test(s);
+  }
+
   /* Deterministic questions that should never reach a language model: the
      answer is arithmetic and the app already ships a calculator for it.
      Routing these to the syringe tool is both free and more correct than any
@@ -200,6 +226,11 @@
      should offer its calculator first — the model cannot beat arithmetic. */
   function search(q, index, opts) {
     const o = opts || {};
+    /* Answered here and nowhere else. Returning early means the question is not
+       scored against the library and is never sent to the assistant. */
+    if (minorEnhancementAsk(q)) {
+      return { tool: null, results: [], answerable: [], answers: false, guard: 'minor' };
+    }
     const limit = o.limit || 3;
     const norm = normalize(q);
     const qTokens = tokens(q);
@@ -254,5 +285,5 @@
     };
   }
 
-  return { search, normalize, tokens, toolFor, THRESHOLD, ANSWER_COVERAGE };
+  return { search, normalize, tokens, toolFor, minorEnhancementAsk, THRESHOLD, ANSWER_COVERAGE };
 });

@@ -1,12 +1,12 @@
 {
  "version": 1,
- "generated": "da1c2fe8935147c3",
+ "generated": "f1425636b445d415",
  "counts": {
   "compound": 131,
   "marker": 100,
   "playbook": 13,
   "rehab": 3,
-  "nutrition": 8,
+  "nutrition": 10,
   "interaction": 53,
   "template": 17
  },
@@ -7336,6 +7336,14 @@
     "postworkoutmeal",
     "carbs before training",
     "carbsbeforetraining",
+    "carb timing",
+    "carbtiming",
+    "carbs around training",
+    "carbsaroundtraining",
+    "carbs after training",
+    "carbsaftertraining",
+    "when to eat carbs",
+    "whentoeatcarbs",
     "meal frequency",
     "mealfrequency",
     "how many meals",
@@ -7673,6 +7681,162 @@
    "route": {
     "view": "nutrition",
     "item": "Supplements: the short list that works"
+   }
+  },
+  {
+   "id": "nutrition:How to count macros",
+   "kind": "nutrition",
+   "title": "How to count macros",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "how to count macros",
+    "howtocountmacros",
+    "how",
+    "count",
+    "macros",
+    "count macros",
+    "countmacros",
+    "counting macros",
+    "countingmacros",
+    "macro targets",
+    "macrotargets",
+    "how many calories",
+    "howmanycalories",
+    "calorie target",
+    "calorietarget",
+    "tdee",
+    "maintenance calories",
+    "maintenancecalories",
+    "set my macros",
+    "setmymacros",
+    "tracking food",
+    "trackingfood",
+    "track my food",
+    "trackmyfood",
+    "food scale",
+    "foodscale",
+    "weighing food",
+    "weighingfood",
+    "raw or cooked",
+    "raworcooked",
+    "how many grams of protein should i eat",
+    "howmanygramsofproteinshouldieat",
+    "calorie deficit calculator",
+    "caloriedeficitcalculator"
+   ],
+   "text": "How to count macros — Setting your own calorie and macro targets from your bodyweight, and how to track them without the tracking becoming the hobby.\n\nUsually asked as: Asked as \"how do I count macros\", \"what should my macros be\", \"how many calories should I eat\".\n\nHow to actually do it:\n• Protein first, because it is the one with a real number behind it. Maintenance or gaining: about 1.6 g per kg of bodyweight — 1.6 x 82 kg is roughly 130 g a day. Cutting: work from lean mass instead, 2.3-3.1 g per kg of FAT-FREE mass, which for an 82 kg person around 15% body fat is about 70 kg lean, so 160-215 g. Those two numbers come from the trials cited below, not from convention.\n• Calories second. A practical starting estimate is 31-33 kcal per kg to maintain, then apply the goal: for a cut subtract about 500 (the point past which the trials stopped showing lean-mass gain), for a gain add 200-300. These multipliers are a convention to START from, not a measurement — the scale over two to three weeks is what actually calibrates them.\n• Fat third. A floor of about 0.6-0.8 g per kg keeps hormone production and fat-soluble vitamin absorption comfortable. Below roughly 0.5 g/kg is where people tend to feel it.\n• Carbohydrate is whatever calories are left: subtract protein and fat calories (protein and carbs are 4 kcal per gram, fat is 9) and divide the remainder by 4.\n• Weigh food raw where you can, and be consistent. Rice and pasta roughly triple in weight when cooked, so 75 g dry is about 225 g cooked — logging the cooked figure against a raw entry is the single most common way a \"tracked\" day is 300 kcal out.\n• Accuracy has a ceiling worth knowing: labels are permitted a margin, restaurant figures are estimates, and your expenditure moves day to day. Chasing the last 5% is wasted effort. Consistent method beats precise method.\n\nThe rule of thumb: Set protein from bodyweight, calories from the goal, fat to a floor, carbs from the remainder — then change ONE variable at a time and give it two weeks. The number you adjust is calories; protein stays put.\n\nWhat not to do: Do not re-set your targets every time the scale moves. Daily bodyweight swings of 1-2 kg are water, gut contents and sodium, and a weekly average is the only number worth reacting to.\n\nWhat the evidence says: The protein figures above are the ones with randomised evidence behind them: about 1.6 g/kg is where fat-free-mass gains stopped improving in the pooled analysis, and 2.3-3.1 g/kg of fat-free mass is the range that protected lean mass in a deficit. The 500 kcal deficit figure is the meta-regression break point. NOT evidence: the calorie-per-kg multipliers, the fat floor and the two-week adjustment window are standard practice, useful as a starting point, and no trial validated them as such. They are labelled here rather than dressed up.",
+   "src": [
+    [
+     "28698222",
+     "No further fat-free-mass gain was detectable past about 1.62 g/kg bodyweight per day in the pooled trials."
+    ],
+    [
+     "26817506",
+     "At a 40% energy deficit, 2.4 g/kg protein gained 1.2 kg of lean mass against 0.1 kg at 1.2 g/kg."
+    ],
+    [
+     "19927027",
+     "Protein at 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg over a two-week deficit in athletes."
+    ],
+    [
+     "34623696",
+     "Meta-regression put the break point around a 500 kcal/day deficit, beyond which resistance training no longer added lean mass."
+    ],
+    [
+     "33300582",
+     "Returns on additional protein shrink roughly threefold above 1.3 g/kg per day."
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "How to count macros"
+   }
+  },
+  {
+   "id": "nutrition:Building a meal plan, and what to eat for a cut or a bulk",
+   "kind": "nutrition",
+   "title": "Building a meal plan, and what to eat for a cut or a bulk",
+   "subtitle": "nutrition guidance",
+   "terms": [
+    "building a meal plan, and what to eat for a cut or a bulk",
+    "buildingamealplanandwhattoeatforacutorabulk",
+    "building a meal plan and what to eat for a cut or a bulk",
+    "building",
+    "plan,",
+    "plan",
+    "eat",
+    "cut",
+    "bulk",
+    "meal plan",
+    "mealplan",
+    "build a meal plan",
+    "buildamealplan",
+    "what should i eat",
+    "whatshouldieat",
+    "what to eat",
+    "whattoeat",
+    "food choices",
+    "foodchoices",
+    "cutting foods",
+    "cuttingfoods",
+    "bulking foods",
+    "bulkingfoods",
+    "foods for cutting",
+    "foodsforcutting",
+    "foods for bulking",
+    "foodsforbulking",
+    "high volume foods",
+    "highvolumefoods",
+    "volume eating",
+    "volumeeating",
+    "calorie dense",
+    "caloriedense",
+    "what do i eat on a cut",
+    "whatdoieatonacut",
+    "what do i eat to bulk",
+    "whatdoieattobulk",
+    "portion size",
+    "portionsize",
+    "how much chicken",
+    "howmuchchicken",
+    "how much rice",
+    "howmuchrice",
+    "chicken",
+    "chicken breast",
+    "chickenbreast",
+    "rice",
+    "oats",
+    "grocery list",
+    "grocerylist",
+    "shopping list",
+    "shoppinglist",
+    "per meal",
+    "permeal",
+    "protein portion",
+    "proteinportion"
+   ],
+   "text": "Building a meal plan, and what to eat for a cut or a bulk — How to lay out a week of food you will actually repeat, and which foods do the work in a deficit versus a surplus — with portions scaled to bodyweight.\n\nUsually asked as: Asked as \"what should I eat\", \"meal prep ideas\", \"what foods for cutting\", \"how do I build a meal plan\".\n\nHow to actually do it:\n• Build each meal in the same order: protein anchor, then volume, then fat, then starch to fill the calories. Doing it in that order means the two things that matter most — hitting protein, and feeling full — are settled before the flexible calories get spent.\n• Portion the protein anchor by bodyweight. Divide your daily protein target across the meals you actually eat: at 130 g a day over four meals that is roughly 33 g each, which is about 120 g raw chicken breast, 150 g white fish, 5 whole eggs, 200 g of 5% Greek yoghurt, or 150 g firm tofu. Over three meals it is about 43 g each and the portions scale up accordingly.\n• CUTTING — lean on foods with a lot of weight per calorie, because the trials that cut energy density had people eating MORE total food while losing more weight. Potatoes, rice and oats by cooked weight; any lean protein; vegetables essentially without limit; whole fruit; broth-based soups; 0% dairy. A useful anchor is 400-600 g of vegetables and fruit a day at around 80 kg, scaling roughly with bodyweight.\n• BULKING — invert it. You want calories that do not fill you: olive oil, nut butters, whole milk, dried fruit, granola, fattier cuts, and liquid calories, which bypass the fullness problem that stops most people eating enough. A shake of milk, oats, peanut butter and a banana is 700-900 kcal and takes two minutes to drink.\n• Prep in components, not in finished meals. Cook a protein, a starch and a vegetable in bulk and combine them differently through the week — it survives boredom far better than five identical boxes, which is the usual reason a prep habit dies by Wednesday.\n• Keep one repeatable default meal for the day that goes wrong. Not having one is when people eat out and lose the week.\n• Weigh and log the components ONCE, save them, and reuse. The tracking effort is nearly all in the first week; after that it is picking from a list you already built.\n\nThe rule of thumb: Pick the structure you will repeat over the structure that is theoretically optimal. Across four popular diets, weight loss tracked how well people stuck to the plan and did not track which plan it was.\n\nWhat not to do: Do not build a cutting plan out of calorie-dense foods and willpower, and do not build a bulking plan out of chicken and broccoli — in both cases the food volume is fighting the goal, and volume is the thing people fail on.\n\nWhat the evidence says: Two findings here are evidence rather than craft, and they are the two the plan is built around: the largest reducers of dietary energy density lost 5.9 kg against 2.4 kg while eating about 300 g MORE food per day, and adherence predicted the result at 0.60 while diet choice predicted it at 0.07. NOT evidence, and said plainly because it is the part people most want to be science: no trial has ever tested meal prepping itself — batch cooking, pre-portioning, component prep. The planning literature is cross-sectional and confounded. Everything above about HOW to prep is craft that works in practice, offered as such.",
+   "src": [
+    [
+     "17490955",
+     "The biggest reducers of dietary energy density lost 5.9 kg against 2.4 kg while eating about 300 g more food per day."
+    ],
+    [
+     "15632335",
+     "Across four popular diets, weight loss correlated with adherence at 0.60 and with diet assignment at 0.07."
+    ],
+    [
+     "32234531",
+     "Portioning a problem food beat avoiding it entirely over one year."
+    ],
+    [
+     "25686165",
+     "A single fibre-focused goal lost 2.1 kg against 2.7 kg for a full multi-component diet at 12 months."
+    ]
+   ],
+   "route": {
+    "view": "nutrition",
+    "item": "Building a meal plan, and what to eat for a cut or a bulk"
    }
   },
   {

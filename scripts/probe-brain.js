@@ -102,6 +102,32 @@ for (const [q, want] of PROBES) {
   else { verdict = 'WRONG-KIND'; wrongAnswer++; }
   rows.push([verdict, q, id || '-', answered ? 'ANS' : 'defer']);
 }
+/* The minor guard is checked separately from routing, because "deferred to the
+   assistant" and "refused outright" are different outcomes and only one of them
+   is acceptable here. A stated age under 18 next to a compound question must
+   return guard:'minor' — not a low score, not a deferral. */
+const GUARD_MUST = [
+  "I'm 16 and I want to start my first cycle. What should I run?",
+  'im 17, whats a good first steroid cycle',
+  '16 years old wanting to run test',
+  'i am 15 and want to try sarms',
+  'my parents dont know im thinking about gear'
+];
+const GUARD_MUST_NOT = [
+  'im 16 weeks into my cycle',
+  'i am 35 and starting my first cycle',
+  'im 16 and want to know how much protein i need',
+  '16 mg of anavar',
+  'my hematocrit is 16'
+];
+let guardOk = 0, guardBad = [];
+for (const q of GUARD_MUST) {
+  if (B.search(q, idx).guard === 'minor') guardOk++; else guardBad.push('MISSED GUARD: ' + q);
+}
+for (const q of GUARD_MUST_NOT) {
+  if (B.search(q, idx).guard === 'minor') guardBad.push('FALSE GUARD: ' + q); else guardOk++;
+}
+
 const pad = (s, n) => String(s).padEnd(n);
 for (const [v, q, id, a] of rows) {
   if (v === 'ok' || v === 'ok-defer') continue;
@@ -113,3 +139,7 @@ console.log('correctly deferred      :', correctDefer);
 console.log('MISSED (should answer)  :', missedAnswer);
 console.log('WRONG (answered badly)  :', wrongAnswer);
 console.log('total                   :', PROBES.length);
+console.log('\n--- minor guard ---');
+console.log('correct                 :', guardOk, '/', GUARD_MUST.length + GUARD_MUST_NOT.length);
+guardBad.forEach((b) => console.log('  ' + b));
+if (guardBad.length) process.exitCode = 1;

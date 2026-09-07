@@ -2661,6 +2661,32 @@ return ctx;
     return Math.round(best * (KIND_WEIGHT[entry.kind] != null ? KIND_WEIGHT[entry.kind] : 1));
   }
 
+  /* A stated age under 18, next to a question about cycles or compounds.
+     This is checked on the device, before anything is sent, because the answer
+     must not depend on a model complying with a prompt. There is no version of
+     this question that gets a protocol, so there is no reason to spend a paid
+     call deciding that.
+
+     Two failure modes were designed against. Missing a real minor is the worse
+     one, so the age patterns are generous. Firing on an adult is the annoying
+     one, so a number is only read as an age when it is stated as one: "I'm 16"
+     and "16 years old" count, while "16 weeks into my cycle", "16 units",
+     "16 mg" and "hematocrit 16" do not, because a unit follows the number.
+     The topic test is required as well — a 16-year-old asking about protein
+     intake gets the nutrition entry like anyone else. */
+  const MINOR_AGE = /\b(?:i'?m|i am|im|age|aged|turning)\s+(1[0-7])\b(?!\s*(?:weeks?|wks?|months?|mos?|days?|years? in|lbs?|kg|kgs|pounds|mg|mcg|ml|iu|units?|%|percent|nmol|pmol|ng|pg))/i;
+  const MINOR_AGE2 = /\b(1[0-7])\s*(?:years?|yrs?|yo)\s*old\b/i;
+  const MINOR_WORDS = /\b(?:high\s?school|highschool|sophomore|freshman|junior year|my parents (?:say|wont|won't|don't|dont)|still in school|year 1[01]\b)/i;
+  /* The topic half. Deliberately narrow: anabolic and hormonal intervention,
+     not training or food, which are worth helping a teenager with. */
+  const ENHANCEMENT = /\b(?:cycle|cycles|cycling|steroid|steroids|aas|gear|juice|sarm|sarms|test(?:osterone)?\s*(?:e|c|cyp|prop|enanthate|cypionate)?\b|trt|anabolic|prohormone|pct|hgh|growth hormone|peptide|first cycle|blast|pin(?:ning)?)/i;
+
+  function minorEnhancementAsk(q) {
+    const s = String(q || '');
+    const minor = MINOR_AGE.test(s) || MINOR_AGE2.test(s) || MINOR_WORDS.test(s);
+    return minor && ENHANCEMENT.test(s);
+  }
+
   /* Deterministic questions that should never reach a language model: the
      answer is arithmetic and the app already ships a calculator for it.
      Routing these to the syringe tool is both free and more correct than any
@@ -2682,6 +2708,11 @@ return ctx;
      should offer its calculator first — the model cannot beat arithmetic. */
   function search(q, index, opts) {
     const o = opts || {};
+    /* Answered here and nowhere else. Returning early means the question is not
+       scored against the library and is never sent to the assistant. */
+    if (minorEnhancementAsk(q)) {
+      return { tool: null, results: [], answerable: [], answers: false, guard: 'minor' };
+    }
     const limit = o.limit || 3;
     const norm = normalize(q);
     const qTokens = tokens(q);
@@ -2736,7 +2767,7 @@ return ctx;
     };
   }
 
-  return { search, normalize, tokens, toolFor, THRESHOLD, ANSWER_COVERAGE };
+  return { search, normalize, tokens, toolFor, minorEnhancementAsk, THRESHOLD, ANSWER_COVERAGE };
 });
 /* @@TL_BRAIN_MATCHER@@ end */
 
@@ -2786,6 +2817,26 @@ function tlBrainSourcesHtml(entry) {
         : `<a href="https://pubmed.ncbi.nlm.nih.gov/${id}/" target="_blank" rel="noopener" style="color:var(--accent)">PubMed ${id}</a>`}</li>`).join('')}</ol></details>`;
 }
 
+/* The one question the app answers by refusing. A stated age under 18 next to a
+   question about cycles or compounds gets this and nothing else — no compound
+   names, no "safer" option, no first-cycle framework, and no trip to the paid
+   assistant, because there is no answer there worth buying either. Rendered
+   from a constant rather than generated, so it cannot drift into helpfulness. */
+function addMinorGuardMsg() {
+  const box = document.getElementById('chat-log'); if (!box) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ai';
+  wrap.innerHTML = `<div style="font-size:13px;font-weight:600;color:var(--danger);margin-bottom:7px">Don’t. Not at your age.</div>
+    <div style="font-size:12.5px;line-height:1.7;color:var(--text2)">
+      <p style="margin:0 0 9px">This is the one thing TherapyLog won’t help with. Anabolic compounds, SARMs and hormone protocols act on two things that are still finishing in a teenager: the growth plates in your bones, and the hormonal axis that will run your own testosterone production for the rest of your life. Interrupting either one can leave permanent changes that the same compounds would not cause in an adult — shorter final height, and a system that may not restart properly on its own.</p>
+      <p style="margin:0 0 9px">There is no dose, compound or cycle length that makes that a good trade at 16, so there is no version of this the app will lay out — not as harm reduction, and not as “here’s what people do”.</p>
+      <p style="margin:0 0 9px"><strong style="color:var(--text)">What actually works at your age</strong> is the part nobody finds exciting: you are already in the window where training and eating properly produce the fastest gains you will ever make, with none of this attached. Ask me about training, protein, or how to build a meal plan and I will help with all of it, in as much detail as you want.</p>
+      <p style="margin:0">If you are dealing with something specific — you think something is genuinely wrong hormonally, or the pressure to do this is coming from somewhere — that is worth a real doctor, not a forum and not an app.</p>
+    </div>`;
+  box.appendChild(wrap);
+  box.scrollTop = box.scrollHeight;
+}
+
 /* Renders the free answer, and always offers the assistant as the next step —
    the brain is a shortcut, not a wall. */
 function addBrainMsg(hit, original) {
@@ -2812,6 +2863,14 @@ if(!msg) return;
    can answer is free, instant, and never transmitted. Only a miss — or the user
    pressing "ask the assistant" on the answer, which sets skipBrain — goes on to
    the paid path below. */
+/* Checked before everything, including the "ask the assistant" escape hatch —
+   skipBrain deliberately does NOT bypass this one. */
+if (window.TLBrain && TLBrain.minorEnhancementAsk && TLBrain.minorEnhancementAsk(msg)) {
+  if (!forced) input.value = "";
+  addMsg("user", msg);
+  addMinorGuardMsg();
+  return;
+}
 if (!skipBrain) {
   let hit = null;
   try { hit = await tlBrainAnswer(msg); } catch (e) {}
@@ -10774,6 +10833,42 @@ src:[ ['29138605','Creatine taken alongside resistance training adds roughly 1.4
 ['28642676','The ISSN sets the practical daily protein target at 1.4-2.0 g/kg/day, with 20-40 g per serving, and is explicit that whole food can meet this - powder is a convenience, not a requirement.'],
 ['29540367','The IOC\'s consensus position is that of the entire performance-supplement market, only four ingredients have good evidence: caffeine, creatine, buffering agents such as beta-alanine and…'],
 ['34211326','CONTAMINATION IS REAL AND COMMON: 38% of high-risk sports supplements bought from ordinary web shops contained undeclared doping substances, including anabolic steroids and stimulants that…'] ] },
+
+{ t:'How to count macros', i:'🔢',
+what:'Setting your own calorie and macro targets from your bodyweight, and how to track them without the tracking becoming the hobby.',
+signs:'Asked as "how do I count macros", "what should my macros be", "how many calories should I eat".',
+howto:[ 'Protein first, because it is the one with a real number behind it. Maintenance or gaining: about 1.6 g per kg of bodyweight — 1.6 x 82 kg is roughly 130 g a day. Cutting: work from lean mass instead, 2.3-3.1 g per kg of FAT-FREE mass, which for an 82 kg person around 15% body fat is about 70 kg lean, so 160-215 g. Those two numbers come from the trials cited below, not from convention.',
+'Calories second. A practical starting estimate is 31-33 kcal per kg to maintain, then apply the goal: for a cut subtract about 500 (the point past which the trials stopped showing lean-mass gain), for a gain add 200-300. These multipliers are a convention to START from, not a measurement — the scale over two to three weeks is what actually calibrates them.',
+'Fat third. A floor of about 0.6-0.8 g per kg keeps hormone production and fat-soluble vitamin absorption comfortable. Below roughly 0.5 g/kg is where people tend to feel it.',
+'Carbohydrate is whatever calories are left: subtract protein and fat calories (protein and carbs are 4 kcal per gram, fat is 9) and divide the remainder by 4.',
+'Weigh food raw where you can, and be consistent. Rice and pasta roughly triple in weight when cooked, so 75 g dry is about 225 g cooked — logging the cooked figure against a raw entry is the single most common way a "tracked" day is 300 kcal out.',
+'Accuracy has a ceiling worth knowing: labels are permitted a margin, restaurant figures are estimates, and your expenditure moves day to day. Chasing the last 5% is wasted effort. Consistent method beats precise method.' ],
+rule:'Set protein from bodyweight, calories from the goal, fat to a floor, carbs from the remainder — then change ONE variable at a time and give it two weeks. The number you adjust is calories; protein stays put.',
+avoid:'Do not re-set your targets every time the scale moves. Daily bodyweight swings of 1-2 kg are water, gut contents and sodium, and a weekly average is the only number worth reacting to.',
+ev:'The protein figures above are the ones with randomised evidence behind them: about 1.6 g/kg is where fat-free-mass gains stopped improving in the pooled analysis, and 2.3-3.1 g/kg of fat-free mass is the range that protected lean mass in a deficit. The 500 kcal deficit figure is the meta-regression break point. NOT evidence: the calorie-per-kg multipliers, the fat floor and the two-week adjustment window are standard practice, useful as a starting point, and no trial validated them as such. They are labelled here rather than dressed up.',
+src:[ ['28698222','No further fat-free-mass gain was detectable past about 1.62 g/kg bodyweight per day in the pooled trials.'],
+['26817506','At a 40% energy deficit, 2.4 g/kg protein gained 1.2 kg of lean mass against 0.1 kg at 1.2 g/kg.'],
+['19927027','Protein at 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg over a two-week deficit in athletes.'],
+['34623696','Meta-regression put the break point around a 500 kcal/day deficit, beyond which resistance training no longer added lean mass.'],
+['33300582','Returns on additional protein shrink roughly threefold above 1.3 g/kg per day.'] ] },
+
+{ t:'Building a meal plan, and what to eat for a cut or a bulk', i:'🍽️',
+what:'How to lay out a week of food you will actually repeat, and which foods do the work in a deficit versus a surplus — with portions scaled to bodyweight.',
+signs:'Asked as "what should I eat", "meal prep ideas", "what foods for cutting", "how do I build a meal plan".',
+howto:[ 'Build each meal in the same order: protein anchor, then volume, then fat, then starch to fill the calories. Doing it in that order means the two things that matter most — hitting protein, and feeling full — are settled before the flexible calories get spent.',
+'Portion the protein anchor by bodyweight. Divide your daily protein target across the meals you actually eat: at 130 g a day over four meals that is roughly 33 g each, which is about 120 g raw chicken breast, 150 g white fish, 5 whole eggs, 200 g of 5% Greek yoghurt, or 150 g firm tofu. Over three meals it is about 43 g each and the portions scale up accordingly.',
+'CUTTING — lean on foods with a lot of weight per calorie, because the trials that cut energy density had people eating MORE total food while losing more weight. Potatoes, rice and oats by cooked weight; any lean protein; vegetables essentially without limit; whole fruit; broth-based soups; 0% dairy. A useful anchor is 400-600 g of vegetables and fruit a day at around 80 kg, scaling roughly with bodyweight.',
+'BULKING — invert it. You want calories that do not fill you: olive oil, nut butters, whole milk, dried fruit, granola, fattier cuts, and liquid calories, which bypass the fullness problem that stops most people eating enough. A shake of milk, oats, peanut butter and a banana is 700-900 kcal and takes two minutes to drink.',
+'Prep in components, not in finished meals. Cook a protein, a starch and a vegetable in bulk and combine them differently through the week — it survives boredom far better than five identical boxes, which is the usual reason a prep habit dies by Wednesday.',
+'Keep one repeatable default meal for the day that goes wrong. Not having one is when people eat out and lose the week.',
+'Weigh and log the components ONCE, save them, and reuse. The tracking effort is nearly all in the first week; after that it is picking from a list you already built.' ],
+rule:'Pick the structure you will repeat over the structure that is theoretically optimal. Across four popular diets, weight loss tracked how well people stuck to the plan and did not track which plan it was.',
+avoid:'Do not build a cutting plan out of calorie-dense foods and willpower, and do not build a bulking plan out of chicken and broccoli — in both cases the food volume is fighting the goal, and volume is the thing people fail on.',
+ev:'Two findings here are evidence rather than craft, and they are the two the plan is built around: the largest reducers of dietary energy density lost 5.9 kg against 2.4 kg while eating about 300 g MORE food per day, and adherence predicted the result at 0.60 while diet choice predicted it at 0.07. NOT evidence, and said plainly because it is the part people most want to be science: no trial has ever tested meal prepping itself — batch cooking, pre-portioning, component prep. The planning literature is cross-sectional and confounded. Everything above about HOW to prep is craft that works in practice, offered as such.',
+src:[ ['17490955','The biggest reducers of dietary energy density lost 5.9 kg against 2.4 kg while eating about 300 g more food per day.'],
+['15632335','Across four popular diets, weight loss correlated with adherence at 0.60 and with diet assignment at 0.07.'],
+['32234531','Portioning a problem food beat avoiding it entirely over one year.'],
+['25686165','A single fibre-focused goal lost 2.1 kg against 2.7 kg for a full multi-component diet at 12 months.'] ] },
 
 { t:'Meal prep and making a plan stick', i:'🍱',
 what:'What the evidence supports about building meals and adhering to a plan — the part of nutrition that decides outcomes more than diet choice does.',

@@ -233,6 +233,7 @@ function nutritionText(n) {
   const p = [`${n.t} — ${n.what || ''}`];
   if (n.signs) p.push('Usually asked as: ' + n.signs);
   if (lines(n.prot).length) p.push('What the trials found:\n' + n.prot.map((x) => `• ${x}`).join('\n'));
+  if (lines(n.howto).length) p.push('How to actually do it:\n' + n.howto.map((x) => `• ${x}`).join('\n'));
   if (n.rule) p.push('The rule of thumb: ' + n.rule);
   if (n.avoid) p.push('What not to do: ' + n.avoid);
   if (n.ev) p.push('What the evidence says: ' + n.ev);
@@ -258,7 +259,8 @@ const NUTRITION_SYNONYMS = {
     'nausea', 'what to eat on semaglutide', 'protein on glp1'],
   'Meal timing and fasting: what matters': ['meal timing', 'anabolic window', 'timing',
     'intermittent fasting', 'fasting', '16:8', 'time restricted', 'omad', 'breakfast',
-    'pre workout meal', 'post workout meal', 'carbs before training', 'meal frequency',
+    'pre workout meal', 'post workout meal', 'carbs before training', 'carb timing',
+    'carbs around training', 'carbs after training', 'when to eat carbs', 'meal frequency',
     'how many meals'],
   'What to limit, and what it actually buys': ['what to avoid', 'foods to avoid', 'avoid',
     'sodium', 'salt', 'alcohol', 'drinking', 'saturated fat', 'fiber', 'fibre', 'processed food',
@@ -268,6 +270,16 @@ const NUTRITION_SYNONYMS = {
     'beta alanine', 'citrulline', 'hmb', 'bcaa', 'bcaas', 'eaa', 'eaas', 'leucine', 'preworkout',
     'pre workout', 'is creatine worth it', 'what supplements should i take', 'contamination',
     'tainted supplement'],
+  'How to count macros': ['count macros', 'counting macros', 'macros', 'macro targets',
+    'how many calories', 'calorie target', 'tdee', 'maintenance calories', 'set my macros',
+    'tracking food', 'track my food', 'food scale', 'weighing food', 'raw or cooked',
+    'how many grams of protein should i eat', 'calorie deficit calculator'],
+  'Building a meal plan, and what to eat for a cut or a bulk': ['meal plan', 'build a meal plan',
+    'what should i eat', 'what to eat', 'food choices', 'cutting foods', 'bulking foods',
+    'foods for cutting', 'foods for bulking', 'high volume foods', 'volume eating',
+    'calorie dense', 'what do i eat on a cut', 'what do i eat to bulk', 'portion size',
+    'how much chicken', 'how much rice', 'chicken', 'chicken breast', 'rice', 'oats',
+    'grocery list', 'shopping list', 'per meal', 'protein portion'],
   'Meal prep and making a plan stick': ['meal prep', 'meal prepping', 'meal plan', 'meal planning',
     'what should i eat', 'diet plan', 'food prep', 'adherence', 'falling off', 'cheat meal',
     'refeed', 'diet break', 'energy density', 'satiety', 'staying full', 'hungry all the time']
@@ -420,6 +432,11 @@ function build() {
           bad.push(`${s.t}: PMID ${id} is in no research file — it was never retrieved or checked`);
         }
       }
+      /* An evidence note makes a claim about what the literature shows, so it
+         must cite. A `howto` is craft — how to weigh food, how to lay out a
+         plan — and there is no paper to cite for it, nor should there be.
+         Kept as separate fields precisely so the distinction is visible to the
+         reader rather than blurred into one voice. */
       if (s.ev && !(s.src || []).length) bad.push(`${s.t}: has an evidence note but cites nothing`);
     }
     if (bad.length) {
