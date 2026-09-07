@@ -252,8 +252,19 @@ function main() {
   const pendingCount = loadPending().length;
   console.log(`wrote assets/sources/registry.json and sources/index.html — ${registry.count} works (${withTopic} topic-tagged)`);
   if (pendingCount) {
-    console.log(`${pendingCount} further citations are researched but unverified — assets/sources/pending.json. ` +
-                'They are deliberately absent from the registry and the page.');
+    /* "Unverified" was true when everything in pending.json was simply unchecked.
+       It is not true any more: most entries there are society pages, regulator
+       PDFs, textbook chapters and conference abstracts that PubMed does not
+       index — a property of the document, not a failed check. Reporting those as
+       unverified understates the registry and overstates the doubt. */
+    const pending = JSON.parse(fs.readFileSync(PENDING, 'utf8'));
+    const rows = pending.sources || [];
+    const notIndexed = rows.filter((s) => s.status === 'not-a-pubmed-article').length;
+    const unresolved = rows.length - notIndexed;
+    console.log(`${pendingCount} citations stay out of the registry — assets/sources/pending.json: ` +
+                `${notIndexed} are not PubMed-indexed documents (society pages, regulator PDFs, ` +
+                `textbook chapters), ${unresolved} could not be matched to a record. ` +
+                'Neither kind is cited anywhere in the product.');
   }
 }
 
