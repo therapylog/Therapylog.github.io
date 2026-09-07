@@ -1,0 +1,674 @@
+{
+ "note": "Places the research explicitly reports no solid human evidence.",
+ "count": 167,
+ "gaps": [
+  {
+   "topic": "ai-protocols",
+   "gap": "No trial has ever tested an aromatase inhibitor added to SUPRAPHYSIOLOGIC testosterone, or in any performance or bodybuilding population. The entire randomised evidence for AI-on-top-of-exogenous-testosterone is Herzog 2010 (PMID 20096638): 40 men with epilepsy, replacement-dose depot testosterone, 3 months, no bone endpoint, and the primary sexual-function difference was not statistically significant. Everything else in men is AI monotherapy."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "AI monotherapy and AI-plus-testosterone are mechanistically different questions and almost all the evidence is the wrong one. Monotherapy raises testosterone by disinhibiting LH (Leder 2004 showed LH rising from ~5 to ~8 U/L), which requires an intact HPG axis. In a man whose axis is suppressed by exogenous testosterone, that pathway is unavailable \u2014 the AI can only lower estradiol, with no compensating testosterone rise. Trials showing 'AI raises testosterone and is well tolerated' do not describe what happens to a man on TRT or a cycle."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "No estradiol target in men has ever been prospectively validated against a clinical outcome. The E2 >10 pg/mL figure (Finkelstein 2016) is a floor below which bone resorption rises inside a 16-week GnRH-agonist clamp in men aged 20-50. It was not derived as a target, not tested as a target, and not derived in men at steady state on exogenous testosterone. Nobody knows the optimal estradiol for a man on testosterone."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "Assay comparability is unresolved and matters enormously at these levels. The thresholds that exist (10 pg/mL, bioE2 11.4 pg/mL, 16 pg/mL) come from mass-spectrometry and research assays \u2014 MrOS Sweden used gas chromatography-mass spectrometry, MrOS US used mass spectrometry. Whether a routine clinical estradiol result in a man is numerically comparable to those figures has not been established, so a lab value cannot be assumed to sit on the same scale as the trial thresholds."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "There is no established dose of any AI for men. Regimens with any human data in men span letrozole 2.5 mg/WEEK (Loves 2013) to anastrozole 2 mg/DAY (Taxel 2001) \u2014 a spread of well over an order of magnitude in aromatase blockade \u2014 with no titration study against any clinical outcome. The sub-milligram, twice-weekly and 'as-needed' anastrozole regimens common in the community have no trial behind them at all; the closest anchor is anastrozole 1 mg twice weekly for 12 weeks in 11 elderly men."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "The longest AI exposure ever studied in men is 12 months (Burnett-Bowie 2009; Dias 2016), in cohorts of 43-88 men. Men self-managing hormones may take an AI for years. There is no bone, cardiovascular, cognitive or fracture data in men beyond one year, at any dose."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "Fracture has never been an endpoint in any AI trial in men. Every skeletal finding in men is BMD or a bone turnover marker \u2014 both surrogates. The only human fracture data linking low estradiol to fractures in men is observational (MrOS Sweden, MrOS US) and describes men with naturally low estradiol, not pharmacologically suppressed estradiol."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "Whether AI-induced bone loss in men reverses after stopping is unknown. No trial in men measured BMD recovery after discontinuation, so the question of whether a year of AI use leaves a permanent deficit has no answer."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "Exemestane in men rests on a single 10-day crossover in 12 healthy young males (PMID 14671195). No efficacy trial, no safety trial, no bone data, no data at any clinically relevant duration. Notably that study found 50 mg suppressed estradiol no more than 25 mg \u2014 dose-response in men is essentially uncharacterised."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "The cardiovascular direction is genuinely unresolved, not merely unstudied. Low estradiol tracks with worse bone and fracture outcomes in men, but higher endogenous estradiol independently predicted faster carotid intima-media thickness progression in middle-aged men (Tivesten 2006, PMID 16940451). Whether pharmacologically lowering estradiol in a man on testosterone helps or harms cardiovascular risk has never been tested. Anastrozole trials in older men found no improvement in lipids, CRP or insulin sensitivity (Dias 2017, PMID 27792869)."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "Gynecomastia \u2014 the reason most men in this population reach for an AI \u2014 has never been the primary endpoint of a controlled AI trial in men on testosterone. Prevention of gynecomastia and treatment of established gynecomastia are different questions, and neither has been answered for this population. No dose, no duration, no expected response rate can be sourced."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "The aromatase inhibitor musculoskeletal syndrome \u2014 arthralgia, myalgia and bone pain affecting 20-47% of treated patients and often causing discontinuation \u2014 is characterised only in postmenopausal women on breast-cancer doses (PMID 33530456). Its incidence in men, at any dose, has never been measured. Men attributing joint pain to training rather than to their AI have no dataset to check against."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "Nothing is known about AIs used alongside non-testosterone anabolic compounds. Nandrolone, trenbolone and 17-alpha-alkylated orals aromatize poorly or not at all, so adding an AI to them suppresses estradiol with no aromatizable substrate to offset it \u2014 plausibly the fastest route to a crashed E2, and a scenario with zero human data. AI use with research peptides is likewise entirely uncharacterised."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "Interaction between AI use and the two things most monitored on testosterone \u2014 hematocrit/erythrocytosis and lipids \u2014 is unstudied in this population. Leder 2004 found hematocrit unchanged on AI monotherapy in 37 elderly men over 12 weeks; that is the extent of the data, and it says nothing about a man on injected testosterone."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "Mood and cognition on a suppressed estradiol in men are unmeasured. Loves 2013 assessed psychological endpoints and found no effect at low-dose letrozole in obese hypogonadal men, but no trial has examined depression, anxiety or cognition in men whose estradiol was driven below 10 pg/mL while on exogenous testosterone."
+  },
+  {
+   "topic": "ai-protocols",
+   "gap": "No clinical practice guideline endorses this use. The Endocrine Society's testosterone therapy guideline (Bhasin 2018, PMID 29562364) specifies a monitoring plan of symptoms, adverse effects, compliance, serum testosterone, hematocrit and prostate cancer risk \u2014 routine estradiol measurement and aromatase inhibitor co-prescription are not part of the recommended standard of care. AI use in men has been, in the words of a 2021 review, 'off-label and empirical for decades' (PMID 34871401)."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "There is no randomised trial of tamoxifen or raloxifene for gynecomastia in AAS users or in men on TRT. A ClinicalTrials.gov search for gynecomastia returned only two registered tamoxifen trials, both in prostate cancer patients on bicalutamide and both sponsored by the bicalutamide manufacturer (NCT00233610, NCT00637871), and zero registered raloxifene trials for gynecomastia of any cause. Every dose and duration in this dossier is transferred from a different population."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "The studied population differs from the app's reader in a way that could cut either direction. Bicalutamide patients are older men whose androgen receptors are blocked while testosterone and estradiol both rise - the breast is unopposed because the receptor is jammed. An AAS user has supraphysiologic androgen with heavy aromatisation to estradiol, functioning receptors, and often a suppressed HPG axis. Whether a SERM performs the same way against these two mechanisms has never been tested."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "No trial defines a numeric reversal window. The 6-month and 12-month cutoffs circulating online were not found in any retrieved abstract as a measured threshold. What the sourced evidence actually supports is qualitative: Dobs (PMID 16217274) and the 2026 SIAMS guideline (PMID 42258023) both frame it as early/proliferative and responsive versus long-standing/fibrotic and surgical. The two data points that bracket it point in opposite directions - Perdona treated at a median 180 days from onset and still saw benefit, while Lawrence treated adolescents carrying tissue for a mean of 28 months and still saw regression."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "Raloxifene versus tamoxifen for established tissue in adult men has never been tested head-to-head. The entire basis for 'raloxifene is better' is one retrospective, non-randomised chart review of 38 adolescents (PMID 15238910) whose authors explicitly wrote that further study is required to determine whether this is truly a treatment effect. That study also does not report the milligram dose of either drug, so the raloxifene doses circulating in community sources have no source in the paper they are attributed to."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "No dose-ranging study of raloxifene exists in men for any breast endpoint. The 60 mg figure is the postmenopausal-osteoporosis dose. The only two controlled dosing studies in men used 60 mg (Doran, PMID 11697809, which found no significant change in bone turnover markers, sex steroids or lipids) and 120 mg (Duschek, PMID 15080785, which did move the HPG axis) - both for bone endpoints, neither measuring breast tissue. Whether 60 mg does anything at all to male breast tissue is genuinely unknown."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "The optimal tamoxifen dose for reversing existing tissue is unsettled. Kunath's systematic review (PMID 22925442) states outright that the optimal dose needs to be clarified. Fradet's dose-response trial tested prevention only; no comparable dose-ranging trial exists for treating tissue already present. Positive results exist at both 10 mg (Perdona, Mannu, Hanavadi) and 20 mg (Boccardo, Serretta, Ting), and Serretta's design deliberately used 10 mg to prevent and 20 mg to treat without ever testing whether that split is the right one."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "Durability after stopping is poorly characterised and the signal that exists is discouraging. Fradet found breast events returned across all arms including 20 mg once tamoxifen stopped and the driver continued; Ting saw recurrence in 5 of 23 tamoxifen-treated men. No study has followed AAS users after SERM discontinuation, so how much of any gain is held once the drug is stopped is unknown."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "Whether gynecomastia present when a cycle ends regresses on its own is unquantified. Christou (PMID 28258581) shows gonadotropins recover over 13-24 weeks while testosterone remains suppressed past 16 weeks, but no study tracks breast tissue across that recovery. This matters because it means the natural-history comparator for any self-administered SERM course is unknown - improvement may be partly or wholly spontaneous."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "Tamoxifen raises testosterone, LH, FSH, estradiol and SHBG in men (Saltzstein PMID 15685254; and raloxifene does the same per Duschek). How that HPG stimulation interacts with concurrent exogenous androgens, hCG, or an aromatase inhibitor has not been studied in any trial. Stacking assumptions here are unsupported."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "Long-term safety in men is not quantified. Tamoxifen's boxed warning - uterine malignancy, stroke, pulmonary embolism - was generated entirely in women in the DCIS and risk-reduction setting and does not transfer numerically to men. Wibowo (PMID 27152880) states directly that long-term studies rigorously documenting tamoxifen's side-effect profile in men are lacking. Raloxifene's boxed warning for VTE and death from stroke likewise comes from postmenopausal women, including a trial in women with coronary heart disease; there is no male safety dataset at gynecomastia-relevant durations. VTE risk in a young male AAS user, who may already have elevated haematocrit, is entirely unmodelled."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "Aromatase inhibitors failed repeatedly in the only controlled setting where they were tested (Boccardo PMID 15681525; Spagnolo PMID 40244528 found no significant benefit for anastrozole, alongside nearly double the adverse-event rate in Boccardo). Despite this they remain common in community practice for established tissue. No retrieved trial supports that use."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "Objective measurement is inconsistent across the evidence base. Serretta used a self-reported visual analogue scale with explicitly no ultrasonography or calipers; Bedognetti used ultrasound; Fagerlund's broader systematic review (PMID 26051284) graded the non-prostate-cancer gynecomastia literature as high risk of bias and very low quality of evidence under GRADE. Reported response rates are therefore not directly comparable between studies."
+  },
+  {
+   "topic": "serms-gyno",
+   "gap": "Nothing in this evidence base addresses distinguishing glandular gynecomastia from pseudogynecomastia or from male breast cancer before starting a drug, which is the step every guideline places ahead of pharmacotherapy. Self-treatment without that assessment risks delaying diagnosis of a malignancy that the SERM would partially mask."
+  },
+  {
+   "topic": "pct",
+   "gap": "THERE IS NO RANDOMIZED TRIAL OF ANY PCT PROTOCOL VERSUS SIMPLY STOPPING. Not one. The Wenker series (hCG 3,000 IU EOD + adjunct, 95.9% recovery at 4.6 months) had no control arm, and its own authors write that studies are needed to 'document the presumed improved tolerability and speed of recovery compared with unaided withdrawal of exogenous testosterone.' The 79.5%-at-3-months PCT figure from Lykhonosov likewise has no comparison group. Nobody knows whether PCT speeds recovery, or whether the men who recover would have recovered anyway."
+  },
+  {
+   "topic": "pct",
+   "gap": "THE hCG DOSE FOR RESTART IS UNKNOWN AND THE PUBLISHED NUMBERS DIFFER SIX-FOLD. Coviello established 125-500 IU EOD MAINTAINS intratesticular testosterone during 3 weeks of suppression in men with normal testes; Hsieh used 500 IU EOD for fertility preservation on TRT; Wenker used 3,000 IU EOD to RESTART after azoospermia. No study compares these for restart. Maintaining a functioning testis and restarting a shut-down one are different problems and the maintenance dose data should not be quoted as a restart dose."
+  },
+  {
+   "topic": "pct",
+   "gap": "HOW LONG THE hCG-RESPONSIVENESS FINDING HOLDS IS UNTESTED. Coviello's men were suppressed for 3 weeks. There is no equivalent intratesticular-testosterone experiment in men suppressed for months or years, in men using 19-nortestosterone compounds (nandrolone, trenbolone), or in men who have already developed testicular atrophy. The correct statement is 'the testis remained hCG-responsive under 3 weeks of suppression in healthy men' \u2014 extending that to a 5-year blast-and-cruise user is an extrapolation, not a finding."
+  },
+  {
+   "topic": "pct",
+   "gap": "OPTIMAL DURATION OF ANY PCT COURSE IS UNDEFINED. No trial establishes how many weeks of clomiphene, enclomiphene or hCG a restart requires, when to stop, or whether tapering matters. The clomiphene duration data (Katz: mean 19 months; Huijben meta-analysis: 1.5-52 months) come from ongoing hypogonadism treatment, where the drug is the therapy \u2014 not from time-limited restart protocols."
+  },
+  {
+   "topic": "pct",
+   "gap": "WHETHER hCG SHOULD BE RUN DURING A CYCLE, AFTER IT, OR NOT AT ALL IS UNRESOLVED. Hsieh supports concurrent low-dose hCG preventing azoospermia in prescribed TRT; nothing tests whether that translates to supraphysiologic multi-compound cycles, and nothing compares concurrent hCG against a post-cycle-only approach for either speed or completeness of recovery."
+  },
+  {
+   "topic": "pct",
+   "gap": "THE TWO BEST PREDICTOR STUDIES FOR CLOMIPHENE RESPONSE DISAGREE. Keihani (n=332, fertility clinic, mean age 36) found baseline LH and FSH did not predict testosterone response. Kim (n=292, oncology-weighted cohort, median age 60) found higher baseline LH was a significant negative predictor. Both are retrospective and the populations are very different. Do not present baseline LH as a settled go/no-go criterion."
+  },
+  {
+   "topic": "pct",
+   "gap": "ENCLOMIPHENE IS NOT AN APPROVED DRUG ANYWHERE IN THE US AND HAS NO LABEL. Despite two completed phase III trials, no FDA prescribing information exists (verified 2026-09-07 for 'enclomiphene', 'enclomiphene citrate' and 'Androxal'). That means no FDA-reviewed dose, no approved indication, no adverse-reaction table, and \u2014 most practically \u2014 no FDA-enforced identity or content standard on product sold under that name. Compounded and grey-market enclomiphene content is unverified."
+  },
+  {
+   "topic": "pct",
+   "gap": "hCG PRODUCT AND ROUTE: the FDA label product is urine-derived and 'Intramuscular Use Only.' The subcutaneous route used almost universally in this community, and hCG obtained outside a pharmacy, sit entirely outside the labelled product. There is no published bioequivalence or contamination data for grey-market hCG, and counterfeit or underdosed product would be invisible to a user without a 17-OHP or testosterone response check."
+  },
+  {
+   "topic": "pct",
+   "gap": "THE LIU RECOVERY CURVES DO NOT DESCRIBE AAS USERS. The 3.4-month median and 100%-by-24-months figures come from 1,549 healthy eugonadal men in supervised contraceptive trials using pharmaceutical testosterone (\u00b1 a progestagen) for defined periods. Kanayama and Rasmussen show real-world AAS users faring materially worse \u2014 testosterone below the reference range in over a quarter of former users at a mean 2.5 years. There is no equivalent large multivariate recovery-timeline dataset for AAS users, and presenting the contraceptive curves as an AAS prognosis would overpromise."
+  },
+  {
+   "topic": "pct",
+   "gap": "NO DATA ON COMPOUND-SPECIFIC RECOVERY. Nothing published quantifies how recovery differs after nandrolone, trenbolone, oxandrolone, SARMs (enobosarm, RAD-140, LGD-4033), or their combinations. Lykhonosov found 'type of AAS' correlated strongly with recovery (r = -0.698) but the abstract does not say which compounds were worse. Anyone claiming a specific compound-by-compound recovery timeline is inventing it."
+  },
+  {
+   "topic": "pct",
+   "gap": "NO EVIDENCE THAT PCT PREVENTS THE PSYCHIATRIC MORBIDITY OF WITHDRAWAL. Kanayama found major depressive episodes in 7 of 24 former users during withdrawal, and for four this was the only depressive episode of their lives; Hyams flags mood disorders, anxiety and suicidality. No study tests whether any PCT regimen reduces this risk, and Hyams notes symptoms can persist for months to years despite normalised biochemistry. Restart protocols should not be presented as mood insurance."
+  },
+  {
+   "topic": "pct",
+   "gap": "LONG-TERM SAFETY OF REPEATED SERM COURSES IN MEN IS UNCHARACTERISED. The clomiphene label's visual-toxicity warning is explicitly dose- and duration-dependent and notes disturbances 'may be irreversible' \u2014 but that warning derives from women on 5-day cycles, not men on months of daily dosing. Tamoxifen's thromboembolic and endometrial warnings are female-derived; Wibowo's review states plainly that long-term side-effect data in men are lacking. Bone density, lipid and VTE outcomes for men cycling SERMs repeatedly over years are unmeasured."
+  },
+  {
+   "topic": "pct",
+   "gap": "SERUM TESTOSTERONE RECOVERY DOES NOT EQUAL FERTILITY RECOVERY. Coviello showed serum testosterone can be normal or high while intratesticular testosterone sits at 6% of baseline. A restart judged by a testosterone panel alone can look successful while spermatogenesis is still absent. Semen analysis, and possibly inhibin B (Lykhonosov) or 17-OHP (Amory), carry information a testosterone number does not \u2014 but no validated monitoring algorithm for this population exists."
+  },
+  {
+   "topic": "pct",
+   "gap": "NO HEAD-TO-HEAD RANDOMIZED COMPARISON OF CLOMIPHENE VERSUS ENCLOMIPHENE VERSUS TAMOXIFEN VERSUS hCG FOR RESTART. Wenker found no significant difference in recovery by supplemental therapy, but that was retrospective, non-randomized, with physician-chosen adjuncts and no power to detect a difference. Any claim that one agent is superior for PCT is currently unsupported."
+  },
+  {
+   "topic": "pct",
+   "gap": "NOTHING IS KNOWN ABOUT SPERM DNA FRAGMENTATION OR OFFSPRING OUTCOMES after AAS exposure and PCT-assisted recovery. Recovery of sperm concentration is the endpoint every study reports; sperm quality and downstream outcomes are unmeasured."
+  },
+  {
+   "topic": "pct",
+   "gap": "TAPERING VERSUS ABRUPT CESSATION HAS NEVER BEEN COMPARED. Community protocols assume a taper helps; there is no published trial of taper versus stop for either speed of axis recovery or severity of withdrawal symptoms."
+  },
+  {
+   "topic": "bp",
+   "gap": "No antihypertensive has ever been trialled in AAS users. Not telmisartan, not any other. Bond 2022 states this explicitly, and a ClinicalTrials.gov search for AAS + blood pressure/hypertension returns no relevant interventional trial. Every dose, agent choice and target in circulation is borrowed from general hypertension populations decades older and metabolically unlike this one."
+  },
+  {
+   "topic": "bp",
+   "gap": "There is zero literature specific to telmisartan in AAS users or bodybuilders \u2014 a PubMed search for telmisartan combined with anabolic steroid or bodybuilder returns nothing. Telmisartan's status as the community default is custom. Its long half-life and end-of-dosing-interval performance are genuine and documented; its supposed metabolic/PPAR-gamma advantage failed in the one RCT that tested it in the relevant population."
+  },
+  {
+   "topic": "bp",
+   "gap": "The right BP target during a cycle is unknown. Whether a user should be treated to <130/80, to <140/90, or only if BP fails to normalise after the cycle has never been studied. Treating a transient, cycle-limited rise with a drug carries its own risk (symptomatic hypotension off cycle) that has not been quantified."
+  },
+  {
+   "topic": "bp",
+   "gap": "Whether lowering BP in AAS users changes any outcome is unknown. The BP rise on cycle is reversible and mostly modest; the cardiomyopathy, atherosclerosis and arterial stiffening are driven by multiple mechanisms of which BP is only one. Aortic stiffness in the Danish cohort was equally abnormal in FORMER users, which suggests some damage is not BP-mediated and would not be prevented by an ARB."
+  },
+  {
+   "topic": "bp",
+   "gap": "No dose-response data exist linking AAS type, dose or ester to BP magnitude in humans. The claim that 19-nor compounds (nandrolone, trenbolone) raise BP more than testosterone through mineralocorticoid-like sodium retention is widely repeated in the community and I could not retrieve a human study supporting it. Treat compound-specific BP rankings as unsourced."
+  },
+  {
+   "topic": "bp",
+   "gap": "Almost all the human BP data comes from men. Sex-specific effects in women using androgens are essentially unstudied, and the doses, baseline vascular physiology and haematocrit responses differ."
+  },
+  {
+   "topic": "bp",
+   "gap": "Interactions between antihypertensives and the rest of a typical stack are unmapped: AAS users commonly co-use stimulants, clenbuterol, thyroid hormone, growth hormone, aromatase inhibitors and NSAIDs. NSAIDs blunt ACEi/ARB effect and stress the kidney; AIs alter lipids and possibly vascular tone. None of these combinations has been studied for BP effect."
+  },
+  {
+   "topic": "bp",
+   "gap": "The relationship between haematocrit management and BP is suggestive but unproven as a causal lever. Olesen 2024 links haematocrit rise to BP rise under testosterone, but Bond 2024 documents that evidence for therapeutic phlebotomy actually lowering risk is lacking and that phlebotomy depletes iron and may itself raise thrombotic risk. 'Donate blood to fix your BP' is not an evidence-backed instruction."
+  },
+  {
+   "topic": "bp",
+   "gap": "Home BP measurement in this population is systematically unreliable without cuff-size control. An 8.2 mmHg error from cuff size alone exceeds the entire average BP rise attributable to a cycle (7 mmHg systolic). Any BP a TherapyLog user logs is close to uninterpretable unless arm circumference and cuff size are logged alongside it \u2014 and there is no published validation of home BP devices specifically in men with very large arm circumference."
+  },
+  {
+   "topic": "bp",
+   "gap": "The 'ACEi/ARBs do not affect exercise capacity' rationale is stated by review authors citing prior work; I did not retrieve a primary trial comparing exercise capacity across antihypertensive classes in strength athletes. Beta-blockers are conventionally avoided on exercise-capacity grounds, but I found no direct evidence in this population either \u2014 nebivolol's own FDA label notes there are no controlled trials demonstrating cardiovascular risk reduction with it at all."
+  },
+  {
+   "topic": "bp",
+   "gap": "Whether persistent hypertension after cessation predicts anything, and how long to wait before diagnosing hypertension in someone who has just finished a cycle, is unstudied. HAARLEM showed normalisation by three months and Grace 2003 by 6-8 weeks; neither establishes a defensible waiting period for a diagnostic decision."
+  },
+  {
+   "topic": "bp",
+   "gap": "Everything in this set describes people obtaining drugs and monitoring outside a prescriber relationship. Every antihypertensive named here is prescription-only in the US; the label doses recorded above are the doses a prescriber would use for diagnosed hypertension, and none of them constitute a protocol for self-initiated on-cycle use. Blood pressure that is genuinely elevated on repeated correct-cuff measurement is a reason to see a clinician, not to self-titrate an ARB."
+  },
+  {
+   "topic": "lipids",
+   "gap": "NO FDA LABEL EXISTS for the oral compounds people actually use. Oxandrolone (searched as oxandrolone, 'oxandrolone tablets' and Oxandrin), oxymetholone (and Anadrol-50), stanozolol and fluoxymesterone all returned no current US prescribing information from openFDA/DailyMed. Only methyltestosterone and danazol among the orals have a retrievable label. Consequence: for oxandrolone, stanozolol and oxymetholone there is no label-anchored dose at all \u2014 every oral dose quoted in this brief comes from a trial protocol (stanozolol 6 mg/d, methyltestosterone 40 mg/d, oxandrolone 4 mg/d or 0.06 mg/kg/d), and those were chosen by investigators for a different purpose than physique use."
+  },
+  {
+   "topic": "lipids",
+   "gap": "NO TRIAL of any lipid-lowering drug in people using 17-alpha-alkylated androgens was found. Nothing on statins, ezetimibe, bempedoic acid, PCSK9 inhibitors, niacin, or omega-3 in this population. 'A statin fixes it' is a plausible extrapolation from general ASCVD evidence, not a finding anyone has tested here. The only statin-adjacent evidence retrieved is a single rhabdomyolysis case report with danazol plus high-dose lovastatin. Whether a statin can lower ApoB against an active oral 17-aa compound, and whether it does anything for the HDL/apoA-I crash (it would not be expected to), is untested."
+  },
+  {
+   "topic": "lipids",
+   "gap": "NO CONTROLLED TRIAL measured ApoB on a pure oral 17-alpha-alkylated compound at physique-use doses. The +38% ApoB figure (Hartgens study 1) came from self-administered multi-compound stacks of unstated composition. The single-agent oral ApoB data that does exist (oxandrolone 4 mg/d in dyslipidaemic patients; danazol in HAE patients) is at therapeutic doses in patient populations. The magnitude of ApoB rise from, say, 40 mg/d oxandrolone in a healthy trained adult has not been measured."
+  },
+  {
+   "topic": "lipids",
+   "gap": "WHETHER THE Lp(a) DROP MATTERS is unknown. Androgens reliably and sharply lower Lp(a) (189 to 32 U/L on stacks; 66% on stanozolol; selectively on nandrolone monotherapy). No study has tested whether that translates into fewer events, and Hartgens states it explicitly: 'The effect of this on atherogenesis remains to be established.' Users citing Lp(a) reduction as offsetting the ApoB/HDL damage are citing a surrogate against a surrogate, with no outcome data on either side."
+  },
+  {
+   "topic": "lipids",
+   "gap": "NO ORAL DOSE-RESPONSE STUDY exists. No retrieved trial varied the dose of an oral 17-aa compound to test whether a lower dose spares HDL. The nearest evidence points the wrong way for harm reduction: oxandrolone at 0.06 mg/kg/d \u2014 a microdose \u2014 still lowered HDL at P<0.001 over 2 years, but that was in children, so it cannot be read as 'low-dose oxandrolone in an adult is equally damaging'. It only means there is no evidence a low oral dose is safe."
+  },
+  {
+   "topic": "lipids",
+   "gap": "TIME TO NORMALISATION AFTER STOPPING is genuinely contested and nobody has followed users long enough. Friedl found HDL-C and hepatic lipase back to baseline within 2 weeks of stopping methyltestosterone monotherapy; Hartgens found HDL-C, apoA-I, ApoB and Lp(a) still abnormal at 6 weeks after stacks, with recovery slower after longer use. No retrieved study drew serial lipids beyond 6 weeks post-cessation. So the practical question \u2014 'when is my off-cycle panel actually clean?' \u2014 has no reliable answer, and 4-6 weeks is demonstrably too early after a long or multi-drug run."
+  },
+  {
+   "topic": "lipids",
+   "gap": "AROMATASE INHIBITORS AT REAL-WORLD DOSES are untested for lipid effect alongside androgens. The only direct evidence is testolactone \u2014 a weak, obsolete AI \u2014 in 14-18 men, where blocking aromatisation consistently worsened HDL, HDL2 and apoA-I and increased hepatic lipase further, but the between-arm differences did not reach significance. Nothing was retrieved on anastrozole or exemestane at the doses used alongside testosterone. The direction of the available evidence argues against AI use as lipid-protective, but it does not establish the magnitude of harm."
+  },
+  {
+   "topic": "lipids",
+   "gap": "NANDROLONE'S NULL RESULT IS THIN. The 'injectables are lipid-neutral' claim rests substantially on one 8-week, n=16 randomised arm at 200 mg/week that was not powered for ApoB. It does not establish neutrality at higher doses, longer durations, or for other injectable compounds (trenbolone, boldenone, masteron, primobolan) \u2014 for none of which was any human lipid trial retrieved."
+  },
+  {
+   "topic": "lipids",
+   "gap": "FEMALE, TRANSMASCULINE AND OLDER-ADULT DATA IS ALMOST ABSENT. Every controlled oral-versus-injectable lipid comparison retrieved was in men, most in young trained men, and most lasted 2-12 weeks. The only retrieved cardiovascular-imaging study including women (Buhl 2025) had 19 female active users and did not report sex-stratified lipid magnitudes. Whether the oral penalty is larger, smaller or the same in women or in people on gender-affirming testosterone is not answerable from these sources."
+  },
+  {
+   "topic": "lipids",
+   "gap": "NO EVIDENCE THAT FIXING THE NUMBER FIXES THE RISK. Cholesterol efflux capacity is reduced in chronic users, and reduced efflux tracked duration of use \u2014 so HDL function, not just HDL-C, is impaired. No study has shown that restoring HDL-C (by stopping, switching route, or any drug) restores efflux capacity, and no study has linked any lipid intervention in this population to plaque progression or events. The imaging cohorts (Baggish, Buhl, Souza) establish that plaque accumulates with cumulative exposure; none of them tested a mitigation."
+  },
+  {
+   "topic": "lipids",
+   "gap": "NO HUMAN LIPID DATA ON SARMs was found despite searching enobosarm, ostarine and RAD140 \u2014 only a rat study surfaced. Given that SARMs are marketed within the same communities partly on a claim of a better lipid profile, the absence of retrievable human ApoB or HDL trial data is itself the finding."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "No hematocrit threshold has ever been prospectively tested in testosterone users. The Ory abstract states it outright: 'An unsafe hematocrit threshold for men receiving testosterone therapy (TT) has never been tested.' The widely quoted 52% and 54% action points are consensus numbers from guideline panels, not trial-derived. Neither FDA label reviewed here (testosterone cypionate, testosterone gel 1%) contains any hematocrit number at all \u2014 the gel label says only to monitor hemoglobin and hematocrit 'periodically', without defining periodically or naming a threshold."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "The only randomized evidence that lowering hematocrit reduces events (CYTO-PV, target <45%) comes from JAK2-positive polycythemia vera \u2014 a clonal myeloproliferative neoplasm with abnormal platelet and leukocyte biology. Whether that result transfers to drug-induced secondary erythrocytosis is assumed, not shown, and specialist hematologists (Gangat 2023) explicitly say it should not be assumed."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "No trial has ever compared the four available responses to testosterone-induced erythrocytosis \u2014 therapeutic phlebotomy, dose reduction, formulation/route switch, and watchful waiting \u2014 against each other for any hard outcome. Every management recommendation in this space, including the ones cited above, is expert opinion built on association data."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "Whether phlebotomy helps or harms is genuinely open. Bond 2024 lays out a mechanism by which it could increase thrombotic risk (lowered tissue pO2 plus iron depletion), Tramontana/Quinton 2025 recommend against venesection outside clonal disease, and Gangat 2023 advises against indiscriminate phlebotomy \u2014 yet phlebotomy remains the reflex intervention in much of clinical practice. Nobody has measured event rates either way."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "All iron-depletion data come from volunteer blood donors, not from people bled for testosterone erythrocytosis. Those groups differ in ways that matter: TRT-associated donors donate far more often than ordinary donors (Hazegh 2020 reported up to 29 donations in 2 years versus up to 12 in controls), and testosterone independently suppresses hepcidin and lowers ferritin before any blood is removed (Bachman 2014). Nobody has published ferritin trajectories in people phlebotomized for testosterone erythrocytosis. The ASH review (King 2024) names this as unstudied."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "There is no established ferritin floor at which phlebotomy should stop, no validated iron-repletion protocol for someone being deliberately kept below a hematocrit target, and no data on the obvious conflict: giving iron back refuels the erythropoiesis you were bleeding to control. The donor trials (Kiss 2015, FORTE 2025) give iron doses that restore stores; none was run in anyone whose hematocrit was the problem."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "Hematocrit is a concentration, not a red cell mass. Testosterone and SGLT2 inhibitors both affect plasma volume, so part of a measured hematocrit rise may be hemoconcentration rather than true erythrocytosis. No study in testosterone users has separated red cell mass from plasma volume with isotope dilution \u2014 meaning some people are being phlebotomized on the basis of a number that partly reflects fluid status."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "There is no validated risk score for who will cross a severe threshold. Smoking, BMI, baseline hematocrit, age at initiation, sleep apnea, injectable route and long-acting esters are each associated with erythrocytosis, but no derived-and-validated model predicts individual risk, and no study identifies which people with a high hematocrit are actually the ones who clot."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "Essentially all incidence data come from prescribed replacement doses. Prospective data at the supraphysiologic doses and multi-compound stacks used for performance and physique are limited to a single 100-man cohort (HAARLEM), which found a mean rise of only 0.03 L/L \u2014 a figure hard to square with clinical case reports of severe polycythemia in this group, and likely sensitive to when in the cycle blood was drawn. Anyone extrapolating replacement-dose incidence to gram-per-week use is guessing."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "The direction of the hematocrit-thrombosis link may differ by clot type. The largest dataset available (Hultcrantz 2020, 1.5 million donors) found high hemoglobin associated with arterial events but venous thrombosis most common at LOW hemoglobin \u2014 and the arterial association weakened when each person served as his own control, which is what you would expect if high hemoglobin were partly a marker of smoking, obesity and sleep apnea rather than a cause. Meanwhile TRAVERSE found more pulmonary embolism on testosterone despite gel dosing that rarely causes erythrocytosis, hinting the venous signal may not run through hematocrit at all."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "Threshold definitions are sex-referenced and unsettled for transmasculine users. The same 50/52/54% cutoffs are applied to people whose pre-treatment reference range was female, and no study establishes whether those are the right numbers or whether risk begins at a different point in this group."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "Aspirin is 'often advised' for non-clonal erythrocytosis (Gangat 2023) but has never been tested in testosterone-induced erythrocytosis for either benefit or bleeding harm."
+  },
+  {
+   "topic": "hematocrit",
+   "gap": "No data exist on how often to check hematocrit. Madsen 2021 shows risk continuing to accrue for a decade (38% by 10 years) while Porat 2023 argues frequent first-year screening may be unnecessary given how rare severe erythrocytosis is. Both positions are defensible from the same literature; the optimal monitoring interval has never been studied as a question in its own right."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "No study anywhere in this evidence base tests whether ANY monitoring schedule \u2014 any interval, any panel \u2014 reduces harm in people self-administering oral 17-alpha-alkylated androgens. Every incidence figure retrieved comes either from hospitalised patients on prescribed drugs (oxandrolone in burns) or from people who had already developed jaundice. The value of routine bloodwork in an asymptomatic user is assumed, not demonstrated."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "There is no dose-response curve for hepatotoxicity for any compound actually used recreationally \u2014 methyldrostanolone/superdrol, oxymetholone, stanozolol, methandienone. The only labelled numeric threshold found in this search is danazol at 400 mg/day or more, and danazol is a different molecule used for different indications. Anyone quoting a 'safe' mg/day or a 'safe' 6-week window for an oral is quoting something with no retrievable source."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "GGT's negative predictive value is unquantified. Dickerman 1999 and Pertusi 2001 treat a normal GGT as evidence against liver injury, but Nunes 2025 (stanozolol, n=18) and Abeles 2020 (n=52) both report near-normal GGT alongside severe hyperbilirubinaemia, and El Sherrif 2013 (Liver Int, PMID 23750872, doi 10.1111/liv.12216) reported that 'Despite substantial hyperbilirubinaemia peak gamma-glutamyl transferase (GGT) remained normal.' No study reports GGT sensitivity or specificity for AAS liver injury. Normal GGT argues against a hepatocellular cause for a raised ALT; it does NOT exclude the bland cholestasis that 17-alpha-alkylated androgens actually cause."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "No CK threshold exists that would license 'explaining away' a given ALT. Nathwani 2005 gives a direction (AST/ALT above 3 acutely, decaying toward 1 within days) from 16 patients with frank muscle necrosis. It has never been validated as a decision rule, has no reported sensitivity or specificity, and was not derived in lifters on androgens. Schwingel 2015 is the closest real-world anchor: in asymptomatic users with raised enzymes, CK was normal in only 27.1% \u2014 but that still leaves a quarter with no muscle signal at all."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "There is no established baseline reference range for ALT, AST, GGT or CK in trained men who lift regularly. Prati's healthy limits (30 U/L men, 19 U/L women) come from blood donors, and Pettersson showed one unaccustomed weightlifting session raises ALT and AST for at least seven days. Nobody has published what a resting, trained, drug-free lifter's normal actually looks like, which means the denominator for interpreting any logged value is missing."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "Bilirubin looks like the most informative single marker in every case series retrieved, but its performance as an early SCREENING test in asymptomatic users is unstudied \u2014 in all these series bilirubin was measured after jaundice or pruritus had already appeared. Whether a rising bilirubin is detectable weeks before symptoms, and whether catching it changes the course, is unknown."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "Individual susceptibility is unexplained. El Sherrif 2013 found an ABCB11 (bile salt export pump) polymorphism in one of two cases and hypothesised that AAS may unmask genetic cholestatic syndromes, but no genotype has been validated as a risk predictor. Nothing available lets a person know in advance whether they are the one in a cohort who will become jaundiced."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "Stopping the drug does not mean the injury stops. Abeles 2020 found bilirubin peaked a median 28 days AFTER cessation, and Nash 2024 found a median 175 days (IQR 70-292) to biochemical normalisation. Nothing predicts who lands at the long end of that range, and no treatment has been shown to shorten it \u2014 corticosteroids and ursodeoxycholic acid were used in these series without controlled comparison."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "Whether the two failure modes share risk factors is unknown. Bland cholestasis (early, symptomatic, reversible) and the vascular/neoplastic lesions (peliosis hepatis, adenoma, hepatocellular carcinoma) may be entirely independent processes. Escaping one over years says nothing about the other, and the danazol label states peliosis and adenoma 'may be silent until complicated by acute, potentially life-threatening intraabdominal hemorrhage.'"
+  },
+  {
+   "topic": "hepatic",
+   "gap": "There is no evidence on imaging intervals. Schwingel 2015 found one hepatocellular adenoma and one focal nodular hyperplasia by ultrasound among 182 asymptomatic users, but that study was cross-sectional with no follow-up, and no study tests whether periodic ultrasound or MRI in asymptomatic users changes any outcome."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "Attribution to any single compound is weak throughout. Nunes 2025 reported concurrent use of other substances in 10 of 18 cases; Nash 2024 identified 40 drugs across 23 patients. Every compound-specific risk estimate in this literature is contaminated by poly-substance use, and by product mislabelling in the unregulated supply."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "Nothing retrieved covers women or transmasculine people taking oral androgens. Every AAS liver-injury series here was 95-100% male (Nash: 22/23; Nunes: 18/18). The one sex-specific number available \u2014 Prati's 19 U/L healthy ALT limit for women versus 30 for men \u2014 comes from a blood-donor study with no androgen exposure."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "Absence of a hepatotoxicity warning on the oral testosterone undecanoate (JATENZO) label is not the same as demonstrated long-term hepatic safety. Its Warnings and Precautions list polycythemia, VTE, BPH and prostate cancer risk, blood pressure increases, abuse, effects on spermatogenesis, edema and sleep apnea \u2014 with no liver warning \u2014 but the label reflects trial-duration data in hypogonadal men at 158-396 mg twice daily, not years of supraphysiologic use."
+  },
+  {
+   "topic": "hepatic",
+   "gap": "No evidence was retrieved, in either direction, on whether any 'liver support' supplement (TUDCA, N-acetylcysteine, milk thistle/silymarin) changes biochemistry or outcomes in people using 17-alpha-alkylated androgens. Treat every claim in that space as unsourced until a specific trial is produced."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "There is no trial of cabergoline in men using exogenous androgens, peptides or performance compounds. Every efficacy and safety figure above comes from prolactinoma or hyperprolactinaemia cohorts \u2014 median ages 40-51, mostly with pituitary tumours, frequently majority-female. The population this app serves has not been studied at all."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "No study shows that lowering prolactin benefits a man whose prolactin is already normal. The sexual-function results are either in men with documented hyperprolactinaemia (where benefit tracked prolactin normalisation: 60.6% vs 7.7% NPT recovery) or in unselected ED populations. Whether a normoprolactinaemic man gains anything from cabergoline is untested."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "The valvulopathy cumulative-dose threshold is genuinely unresolved and the literature contradicts itself. CATCH found a ~9-fold signal above 115 mg cumulative; three larger or longer studies at median cumulative doses of 56 mg, 152 mg and 277.8 mg found no association; a single case documents valvulopathy on 0.5-1 mg/week after 18 years (649 mg). Nobody should present a specific 'safe' cumulative number as settled."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "The community pattern \u2014 continuous low-dose use over many years, with no baseline echocardiogram and no surveillance \u2014 has never been studied. Every echo study started from a known baseline or compared against controls. Without a pre-treatment echo, a valve finding years later cannot be attributed to the drug or excluded as pre-existing, which is precisely what the label's baseline-echo requirement exists to prevent."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "Long-term echocardiographic safety in men under 40 on continuous cabergoline is essentially absent. The reassuring cohorts are middle-aged and mostly under 10 years of exposure; the population most likely to accumulate 20-30 years of exposure is the one with the least data."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "Whether 19-nortestosterone compounds (nandrolone, trenbolone) raise prolactin in humans is not established by anything retrieved here. The two AAS-user studies were tiny (n=16 and n=60), used mixed compounds, and did not attribute prolactin elevation to any specific drug. No human trial isolates a single 19-nor compound's effect on prolactin. The widely-repeated 'progestogenic activity causes prolactin gyno' mechanism is a community assertion, not a demonstrated human finding."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "There is no consensus on when a lab should test for macroprolactin. Some institutions run PEG precipitation on every raised prolactin; others only when the clinical picture is inconsistent. This means a reader usually cannot tell from their own report whether macroprolactin was excluded \u2014 and no standard assay corrects for it. Anyone acting on a raised prolactin should ask the lab directly whether PEG precipitation was performed."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "Prolactin units and assay platforms are a live source of misreading: results are reported as ng/mL (\u00b5g/L) in some countries and mIU/L in others (roughly 1 ng/mL \u2248 21 mIU/L), and diagnostic thresholds in the literature above (100 ng/mL, 250 ng/mL) are assay- and lab-dependent. No retrieved source establishes a reference range or action threshold for men on exogenous androgens."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "Impulse control disorder risk estimates span from 'no increase' in a 12-week prospective study at 0.40 mg/week to 52% prevalence in a 200-patient questionnaire study. No validated ICD screening instrument exists for hyperprolactinaemic patients, and the harms (financial loss, relationship breakdown, illicit activity) are the kind people do not volunteer. Rate is unknown; the harm when it occurs is severe."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "The label's pleural, pulmonary and retroperitoneal fibrosis warnings have almost no quantitative data behind them at prolactinoma-range doses. There is no established incidence, no known cumulative-dose threshold and no validated monitoring interval \u2014 the label says only to consider clinical and diagnostic monitoring 'as necessary'."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "There is no evidence base for how long to continue, or how to stop, cabergoline outside prolactinoma. All withdrawal and remission data comes from tumour patients, where outcome is driven by tumour size and treatment duration. Whether prolactin rebounds after stopping in a non-tumoral user, and over what timeframe, is unstudied."
+  },
+  {
+   "topic": "prolactin",
+   "gap": "No study has examined cabergoline alongside other compounds that independently affect blood pressure, valve or pulmonary vascular risk. Uncontrolled hypertension is a hard label contraindication, and it is common in men using androgens or stimulants \u2014 but the interaction has not been characterised."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "INCIDENCE OF PERSISTENT SEXUAL DYSFUNCTION IS UNKNOWN \u2014 no number exists. Every study showing persistence (Irwig, PMID 22789024) recruited men who already had persistent symptoms, so it has no denominator. Every study with a denominator (the RCTs pooled in PMID 23768246) stopped measuring at discontinuation and was never designed to detect post-discontinuation persistence. Anyone quoting a percentage risk of PFS is quoting something that has not been measured."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "NO VALIDATED DIAGNOSTIC CRITERIA OR BIOMARKER FOR PFS. The two camps \u2014 Traish (PMID 32033719) arguing it is real, and 98.1% of Spanish hair specialists (PMID 41865985) calling it psychiatric \u2014 are reading the same literature and reaching opposite conclusions. That disagreement is about interpretation, not about data anyone else has that you don't."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "NO HEAD-TO-HEAD DUTASTERIDE-VERSUS-FINASTERIDE TRIAL LONGER THAN 24 WEEKS for hair loss. Both pivotal comparisons (PMID 24411083, PMID 17110217) ended at 24 weeks and both list that as their stated limitation. Whether dutasteride's 24-week advantage grows, holds, or disappears over the years people actually take it has not been tested."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "DUTASTERIDE HAS NO US LABEL FOR HAIR LOSS AT ALL \u2014 so there is no FDA-approved dose, no approved duration, no approved monitoring schedule, and no approved patient population for this use. The 0.5 mg/day figure everyone uses is the BPH dose borrowed wholesale."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "ORAL MINOXIDIL FOR HAIR LOSS HAS NO FDA LABEL AT ANY DOSE. I could not retrieve the oral minoxidil (antihypertensive tablet) USPI through the label tool in this session, so its approved hypertension indication, dose range and boxed-warning text are NOT verified here. Treat any claim about the oral tablet's label \u2014 including the pericardial effusion boxed warning frequently cited in forums \u2014 as unverified until someone reads the actual label."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "LDOM TITRATION PROTOCOLS FAILED TO REACH EXPERT CONSENSUS. The international Delphi panel (PMID 39565602) reached consensus on 76 items but explicitly could not agree on how to titrate, or on dosing for children under 12. It also named the long-term safety of LDOM, oral-versus-topical comparative efficacy, and compounded/sublingual minoxidil formulations as open questions. People titrating LDOM are doing so without expert agreement on how."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "THE LARGEST LDOM SAFETY DATASET DOES NOT REPORT ITS DOSES. PMID 33639244 covers 1404 patients but the abstract states only that doses were titrated in 1065 of them \u2014 the mg figures behind the 15.1% hypertrichosis and 0.9% tachycardia rates are not recoverable from the abstract, and there is no control group to compare against."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "FINASTERIDE BELOW 1 MG HAS NO HAIR-OUTCOME DATA. Drake 1999 (PMID 10495374) showed 0.2 mg/day suppresses scalp and serum DHT nearly as much as 1 mg \u2014 but it measured DHT after 42 days, not hair counts. 'Equal DHT suppression' is not 'equal hair regrowth', and no retrieved trial tested sub-1 mg doses on hair."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "TOPICAL FINASTERIDE'S ACTUAL DOSE IS NOT IN THE PHASE III ABSTRACT. PMID 34634163 reports the 34.5% serum DHT reduction but the retrieved abstract does not state the concentration or applied volume, so compounded topical products at other strengths cannot be assumed to produce that same systemic exposure."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "NO SCALP-DHT DATA FOR THE OFF-LABEL REGIMENS PEOPLE ACTUALLY USE. Nothing retrieved measures scalp DHT under intermittent (2-3x/week) dutasteride, oral minoxidil, or topical minoxidil. Serum DHT is a poor proxy for follicular DHT and the two dissociate \u2014 Drake 1999 measured both and they differ."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "FERTILITY DATA IS FOR THE WRONG DOSE. Amory 2007 (PMID 17299062) used finasteride 5 mg, not the 1 mg hair-loss dose. Whether 1 mg affects semen parameters at all was not established by anything retrieved here. Separately, Gupta 2025 (PMID 39880789) states dutasteride can reduce sperm count and motility and that men whose partners are pregnant should avoid it."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "NO DATA FOUND ON THESE DRUGS IN TRANSGENDER OR GENDER-DIVERSE PEOPLE ON EXOGENOUS HORMONES. The entire trial base is cisgender men aged roughly 18-50, plus a separate female-pattern-hair-loss literature. Nothing retrieved addresses 5-ARIs or minoxidil alongside estradiol, anti-androgens, or testosterone."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "NO DATA FOUND ON 5-ARI INTERACTION WITH EXOGENOUS TESTOSTERONE OR ANABOLIC COMPOUNDS. This is a plausible and common combination in this app's population and nothing retrieved speaks to it \u2014 not the DHT suppression achieved, not the sexual or mood adverse-event profile, not prostate effects."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "DUTASTERIDE'S HAIR-GROWTH ONSET TIMELINE IS NOT KNOWN from the sources here. The label's '1 to 2 weeks' figure is time to maximal DHT suppression, which is a pharmacodynamic endpoint, not a hair-regrowth endpoint. The finasteride label's 'three months or more' is the only label-grade time-to-effect statement for hair."
+  },
+  {
+   "topic": "hair-5ar",
+   "gap": "TOPICAL MINOXIDIL'S DURABILITY BEYOND 48 WEEKS IS UNESTABLISHED \u2014 the OTC label itself says so. Long-term maintenance data for minoxidil by either route is thin relative to how indefinitely people use it."
+  },
+  {
+   "topic": "tendon",
+   "gap": "NO LOADING TRIAL EXISTS FOR DISTAL BICEPS TENDINOPATHY. Every parameter in this brief comes from patellar, Achilles or lateral elbow tendons. Donaldson 2014 (PMID 27582910) states the condition is 'very rare' with 'limited evidence published', and flags rupture as a sequela. Anyone applying a patellar HSR template to a distal biceps is improvising."
+  },
+  {
+   "topic": "tendon",
+   "gap": "The effect of LIFTING STRAPS on elbow flexor and forearm recruitment is untested. Val\u00e9rio 2021 (PMID 31198105) is the only strap EMG trial retrieved and it measured latissimus dorsi only \u2014 not biceps brachii, not brachioradialis, not wrist flexors. The common claim that straps 'take the arms out of it' has no EMG support in the retrieved literature. Krings 2021 (PMID 30694963) tested THICK grips, which is the opposite manipulation."
+  },
+  {
+   "topic": "tendon",
+   "gap": "EMG AMPLITUDE IS NOT TENDON LOAD. None of the grip, curl, pulldown or pull-up studies cited measured force or strain in the distal biceps tendon. A grip change that lowers biceps EMG may not lower tendon stress, particularly since forearm position also changes the tendon's moment arm and its wrap around the radial tuberosity. No study retrieved addressed this."
+  },
+  {
+   "topic": "tendon",
+   "gap": "ISOMETRIC INTENSITY IS UNRESOLVED. Breda 2021 used 70% MVC at 60 degrees; Rio 2017 used 80% MVIC at 60 degrees; Rio 2015's exact protocol was not in its abstract and I did not retrieve its full text, so the widely repeated '5 x 45 s at 70% MVIC' figure is verified from Breda, not from Rio 2015. No trial has compared isometric intensities head to head."
+  },
+  {
+   "topic": "tendon",
+   "gap": "NO TRIAL HAS COMPARED PAIN-PROGRESSION THRESHOLDS. Escriche-Escuder 2020 (PMID 33444210) explicitly identifies this as the gap. The \u22643/10 rule (Breda), the \u22645/10 rule (Silbernagel/Habets) and the 'VAS <3 and not increasing between sessions' rule (Xiao) all coexist in successful trials. Which is right, or whether it matters, is unknown."
+  },
+  {
+   "topic": "tendon",
+   "gap": "TRANSFER OF THE PAIN RULE TO THE ELBOW IS ASSUMED, NOT TESTED. Escriche-Escuder's review covered lower limb only. Coombes 2016 (PMID 26889612) is direct evidence that the elbow behaves differently \u2014 working above individual pain threshold made pain worse for at least 30 minutes \u2014 and Sveinall 2024 (PMID 39806585) found 68% could not complete heavy elbow loading because of pain aggravation."
+  },
+  {
+   "topic": "tendon",
+   "gap": "ADHERENCE IN THE REAL WORLD IS POOR AND UNDER-REPORTED. Breda 2021 reported exercise adherence of only 40% (PTLE) and 49% (EET) at 24 weeks despite a supervised trial with paid gym membership. Protocol numbers describe what was prescribed, not what people did."
+  },
+  {
+   "topic": "tendon",
+   "gap": "POPULATION SKEW: the patellar tendinopathy evidence is almost entirely young male jumping athletes. Kongsgaard 2009 enrolled 39 male patients only; Hjortshoej 2025 reports results 'in males with chronic PT'; Breda 2021 was 76% male, aged 18-35, playing sport 3x/week. There is essentially no data on middle-aged, female, sedentary or non-jumping populations for these exact protocols."
+  },
+  {
+   "topic": "tendon",
+   "gap": "NO TENDON LOADING TRIAL HAS BEEN CONDUCTED IN PEOPLE USING EXOGENOUS ANDROGENS, GH SECRETAGOGUES, OR RESEARCH PEPTIDES (BPC-157, TB-500). None of the trials retrieved recruited or stratified for anabolic use, and none reported it as a covariate. Whether loading protocols behave the same on-cycle is entirely unstudied. This is the single largest gap for TherapyLog's actual users."
+  },
+  {
+   "topic": "tendon",
+   "gap": "One RCT (Olesen 2021, PMID 34138667) tested local IGF-1 injection added to HSR in tendinopathic patellar tendons. Its title indicates no added benefit, but I did NOT retrieve its abstract and so am not asserting its result \u2014 flagged here so it can be checked, not cited."
+  },
+  {
+   "topic": "tendon",
+   "gap": "The FDA label retrieval for methylprednisolone acetate was TRUNCATED before the intrasynovial/soft-tissue indication subsection. I could confirm the route ('intramuscular, intra-articular, soft tissue, or intralesional injection') and that tendinopathy does not appear in the intramuscular indication list, but I could not read what the soft-tissue subsection lists. Do not state that corticosteroid injection is or is not label-approved for epicondylitis on the basis of this brief \u2014 verify the full label directly."
+  },
+  {
+   "topic": "tendon",
+   "gap": "Whether isometrics used as a PRE-LOAD (to enable heavier work afterwards) improve long-term outcome, as opposed to producing transient analgesia, has not been tested. Rio 2017 observed that week-one analgesic response correlated with 4-week VISA-P improvement (r=0.64), but that is a correlation in 20 people, not a causal test."
+  },
+  {
+   "topic": "tendon",
+   "gap": "Nothing retrieved addresses medial elbow (golfer's elbow) loading parameters, or the effect of grip width, bar thickness, or hook grip on the MEDIAL common flexor origin \u2014 a plausible concern for anyone using thick grips or heavy carries."
+  },
+  {
+   "topic": "tendon",
+   "gap": "Time-under-tension and contraction tempo for elbow loading are unspecified in every elbow trial retrieved. The 3 s + 3 s HSR tempo is a patellar/Achilles convention that Coupp\u00e9 2022 and Sveinall 2024 did not report in the sections retrieved."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "POPULATION MISMATCH IS THE BIGGEST GAP. Not one trial retrieved here enrolled resistance-trained lifters. Cochrane's chronic low back pain population had a mean age of 43.7 years and was 59% female; FIMPACT enrolled ages 35-65; CSAW required patients to have already failed exercise plus a steroid injection; the posterior-chain meta-analysis explicitly described 'recreationally active and sedentary' participants. Everything below about sets, reps and surgery-versus-exercise is being extrapolated to someone squatting or benching near their 1RM. That extrapolation is assumed, never tested."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "NO TRIAL HAS TESTED DELOAD VERSUS FULL REST VERSUS TRAINING THROUGH IT IN LIFTERS. Stromback shows 70% of subelite powerlifters are currently injured and only 16% of those stop training entirely - but that is a cross-sectional questionnaire and cannot say whether continuing helped or harmed them. The 'graded reloading beats rest' evidence is from advice-to-stay-active trials in acute low back pain and general-population exercise trials, not from a trial that manipulated barbell load after an injury."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "THERE IS NO VALIDATED SETS/REPS PRESCRIPTION FOR SHOULDER PAIN. The JOSPT scoping review of 46 programmes found 2-7 sessions/week, 1-3 sets, 4-30 reps, 4-16 weeks, and concluded there was 'no one-size-fits-all approach'. Any specific number this app prints is one trial's arbitrary choice presented as a dose. Holmgren's once-or-twice-daily-for-12-weeks is the best-evidenced single protocol only because it has a hard endpoint (surgery avoided), not because that dose was compared against alternatives."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "MORE AND HEAVIER BOTH FAILED. Doubling strengthening volume (SExSI) and using progressive high load instead of low load (RoCTEx) each failed to beat their comparator, and about half of SExSI patients still had unacceptable symptoms at 4 months. So the mechanism by which shoulder exercise works, and who responds, is not established - which means there is no rational basis for tuning the dose upward when someone is not improving."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "RED FLAG ACCURACY HAS NOT BEEN STUDIED IN YOUNG ATHLETIC POPULATIONS. The Henschke (0.9% serious pathology) and Downie post-test probabilities come from primary care, and Galliker from emergency departments. In a healthy 30-year-old lifter the base rate is lower still, and two flags behave oddly: 'severe trauma' will fire on any failed heavy lift (raising false positives), while 'prolonged corticosteroid use' - the single strongest fracture flag at 33% post-test probability - is directly applicable to anyone who has run oral or injected glucocorticoids and is routinely not asked about."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "SELF-TRIAGE RULES ARE UNVALIDATED. Every red flag dataset here describes CLINICIAN-administered questions with a clinical reference standard. No study has validated a lay-user or app-delivered version. Cauda equina and cord compression (0.1-1.9% of ED low back pain presentations) is the clearest reason to have an absolute stop rule, but the accuracy of any self-administered version of that rule is unknown."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "INFECTION RISK IN AN INJECTING POPULATION IS UNQUANTIFIED FOR THIS GROUP. Galliker lists intravenous drug use, indwelling vascular catheters and other infection sites as features raising the likelihood of epidural abscess. Nobody has measured spinal or soft-tissue infection rates in people self-injecting hormones or peptides, so the size of this risk for this app's readers is unknown - only its direction is."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "AAS AND TENDON: MECHANISM ONLY, NO OUTCOMES. Seynnes found 26% higher patellar tendon stiffness and 15% higher maximal tendon stress in long-term AAS users versus trained non-users and raised injury risk as a hypothesis. There is no prospective injury-rate study, no compound or dose was quantified, and no study has asked whether AAS or TRT use changes how someone responds to shoulder or back rehabilitation."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "PEPTIDES HAVE NO EVIDENCE BASE HERE AT ALL. A PubMed search for BPC-157 human tendon-healing trials returned zero results; the 2025 review found only three human pilot studies in any indication and no musculoskeletal efficacy trial. Community BPC-157 and TB-500 dosing protocols have no clinical source, no safety trial, and no verification of purity or identity from unregulated supply. Anything this app says about a peptide dose for a rotator cuff or a disc is unsourced by construction."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "NSAID DOSE-RESPONSE FOR ADAPTATION IS UNKNOWN. Lilja showed 1200 mg/day ibuprofen for 8 weeks blunts hypertrophy and strength - but in a knee-extensor model, in young adults, at the maximum OTC dose taken daily. Whether an occasional 400 mg dose, a 5-day course for acute bursitis, or naproxen at labelled doses meaningfully affects training adaptation or tendon healing has not been tested. Do not present the Lilja result as a blanket 'NSAIDs block gains'."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "NO POST-INJECTION LOADING PROTOCOL EXISTS. GRASP found subacromial corticosteroid injection gave no long-term benefit, but no trial reports what happens to people who return to heavy overhead or pressing work soon after an injection. There is no trial-derived guidance on when to reload after a steroid shot, and the methylprednisolone label text retrieved did not contain a subacromial-specific dose or any return-to-activity instruction."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "FULL-THICKNESS TEARS ARE OUTSIDE ALL OF THIS. CSAW required intact rotator cuff tendons and the Cochrane review excluded full-thickness tears. None of the surgery-versus-exercise conclusions above apply to someone with a full-thickness tear, and this app has no way to distinguish that from tendinopathy without imaging - which Chou's meta-analysis says should not be ordered routinely in the absence of red flags anyway."
+  },
+  {
+   "topic": "shoulder-back",
+   "gap": "DURABILITY BEYOND A YEAR IS THIN FOR LOW BACK EXERCISE. Cochrane's clinically important pain effect (MD -15.2) was at 'earliest follow-up'; effects against other conservative treatments were smaller and not clinically important. Long-term maintenance - the actual question for someone who intends to lift for decades - is not well characterised."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "The pain threshold in the pain-monitoring model is not standardised and has never been tested head-to-head. Retrieved trials operationalise the same named model at 5/10 (Habets 2021), 4/10 (Moreno 2026, Griffin 2021 for progression), and <2/10 as the gate to start running (Griffin 2021). No study has compared 3 vs 5 vs 7 to find an optimal cut-point. Presenting '5/10' as THE number is a false precision."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "The Silbernagel 2007 trial validated 'you may keep training' \u2014 not the number 5. It was powered to compare continued activity vs rest (n=38), not to detect harm from a specific threshold, and it found no difference between arms on the primary outcome. A non-significant difference in 38 people is not evidence of safety."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "The 24-hour symptom-response rule assumes pain is a reliable feedback signal. Nobody has studied whether that holds in people on exogenous androgens, who may have altered pain perception, higher drive/aggression, and stronger motivation to override symptoms. Kanayama 2015 found only 26% of AAS-user tendon ruptures had any prodromal pain and most did not occur during weightlifting \u2014 i.e. in this exact population, the warning signal the model relies on was usually absent."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "Zero pain-monitoring-model research includes people using hormone therapy, peptides, or performance compounds. The populations studied are patellofemoral pain in young women (1997), Achilles tendinopathy in recreational runners and non-elite athletes, mostly male, mostly with diabetes and rheumatoid arthritis excluded."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "There is no validated return-to-sport criterion set for Achilles tendinopathy. Habets 2018 found only 19 of 35 intervention studies stated any RTS criteria at all, and those that did left them un-operationalised. No validated test battery, timeline, or strength-symmetry threshold exists."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "ACWR: no study has ever attempted to estimate a causal effect properly (Impellizzeri 2020). Every threshold in circulation, including 0.8-1.3, comes from observational binning of group data \u2014 and 20 studies used 14 different binning schemes, so the thresholds are not comparable between the studies that generated them."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "The one randomised test of ACWR-based load management (482 elite youth footballers, 10 months) found no reduction in health problems (RR 1.01). No RCT has shown that manipulating any workload metric prevents injury."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "ACWR was derived entirely in elite male team-sport athletes (Andrade 2020: 1234 athletes, all male, mean age 24). It has not been validated in recreational lifters, in resistance training rather than running/field sport, in women, or in anyone on hormone therapy. Its unit of measure (session-RPE, GPS distance) does not translate cleanly to a lifting program."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "Human androgen-tendon evidence consists of: one recall-based cross-sectional cohort (n=142), one small mechanistic cross-sectional study (n=48), one small cross-sectional mechanical study, and insurance-claims associations. There is no RCT, no prospective cohort, and no dose-response relationship of any kind."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "Every human AAS study relies on self-reported use. None reports compound, ester, mg/week, cycle length, or stacking. It is therefore not known whether tendon risk differs between testosterone, nandrolone, trenbolone, oral 17-alpha-alkylated compounds, or SARMs \u2014 despite widespread community claims that it does (e.g. that nandrolone is 'tendon-friendly' and trenbolone is not). No retrieved evidence supports or refutes any of those compound-specific claims."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "The mechanism is unresolved and the best human data argue against the popular one. Damgaard 2025 found the patellar tendon's cross-sectional area, cell density and most gene expression unchanged in current AAS users, while upper-body tendon injuries were far more common (79.4% vs 28.6%). That pattern is at least as consistent with strength gains outrunning tendon adaptation, and with bench-press-type loading, as with direct tendon toxicity. Nobody has tested which it is."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "Reversibility is unknown. Damgaard 2025 found FORMER AAS users had higher tendon deformation and strain than non-users \u2014 a hint that something does not normalise quickly \u2014 but n=12 and the finding is unexplained and unreplicated. There is no evidence on whether stopping androgens before or after a tendon injury changes healing in humans."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "The TRT claims-database studies (Achilles aOR 1.24; distal biceps OR 4.10; rotator cuff OR 3.57) cannot separate a drug effect from confounding by indication, surveillance bias (men on TRT have more clinical contact and more coded diagnoses), or the training behaviour that accompanies starting testosterone. The very large ORs in the shoulder/elbow papers alongside a small Achilles OR is itself a pattern that suggests detection effects, not a clean dose-response."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "No FDA testosterone label lists tendon rupture. The Depo-Testosterone Adverse Reactions section names endocrine, urogenital, skin, cardiovascular, fluid/electrolyte, GI, hematologic, nervous-system, allergic, vascular and ocular effects, and injection-site pain \u2014 tendon injury does not appear. Absence from a label is not evidence of absence of an effect; it reflects what was captured in the approval and postmarketing dataset for hypogonadism replacement dosing."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "Nandrolone decanoate returned no FDA label via openFDA in this search, so no approved indication or approved dose can be quoted for it, and its use here is unapproved on that basis as well as by indication."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "For SARMs, the entire human tendon literature retrieved is a single case report (n=1). There is no human trial evidence on SARMs and tendon."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "No retrieved evidence at all on peptides marketed for tendon healing (BPC-157, TB-500/thymosin beta-4) in humans. This search did not surface human trial data for them; that absence should be stated as an absence, not filled in from community reports."
+  },
+  {
+   "topic": "load-mgmt",
+   "gap": "Nobody has studied whether a symptom-based return-to-training rule performs differently in people whose pain perception is modified by NSAIDs, opioids, exogenous hormones, or by the mood/drive changes that accompany androgen use \u2014 which is precisely the population this app serves."
+  }
+ ]
+}

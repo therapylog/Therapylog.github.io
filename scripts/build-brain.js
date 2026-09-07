@@ -94,8 +94,36 @@ function declarations(html, names) {
 /* Words too common to identify anything. Splitting "High prolactin" into its
    words is what lets "prolactin" find the playbook, but it also produced a
    bare "high" term that matched a third of the index. */
+/* Words that must never become a term on their own.
+ *
+ * terms() explodes an entry's title into single words so that "prolactin"
+ * reaches "High prolactin". That works while titles are noun phrases, and
+ * breaks the moment a title reads like a sentence — the rehab entries added
+ * titles such as "Load management and getting back to training", which put the
+ * bare word "back" into the index. "bloods came back bad" then matched a low
+ * back pain entry, scoring 130 and answering confidently, because "back" is a
+ * real word in both sentences and a lexical matcher cannot tell the senses
+ * apart.
+ *
+ * The multi-word title stays a term, which is specific and safe. Only the
+ * generic single words are dropped. A word belongs here when it carries no
+ * topic by itself — note that "back" is still reachable through the explicit
+ * multi-word synonyms 'back pain', 'low back pain' and 'lower back'. */
 const STOP = new Set(['high', 'low', 'the', 'and', 'for', 'with', 'signs', 'early',
-  'rising', 'crashed', 'effects', 'reaction', 'reactions', 'site', 'recovery', 'a', 'of']);
+  'rising', 'crashed', 'effects', 'reaction', 'reactions', 'site', 'recovery', 'a', 'of',
+  'back', 'getting', 'around', 'management', 'to', 'training', 'protocols', 'sore',
+  'loading', 'strain', 'or',
+  /* Second wave, from the nutrition titles. "Meal timing and fasting: what
+     matters" put the bare word "what" into the index, and "what" matches almost
+     any question — it answered "I'm 16 and I want to start my first cycle" with
+     a meal-timing entry, and pulled a PSA question away from its marker.
+     Three separate content additions have now each shipped this same bug, which
+     says the fault is the pattern rather than any one title: an authored entry
+     titled like a sentence leaks its connective words into the term list. The
+     explicit synonym lists are what these kinds should be reached by. */
+  'what', 'matters', 'actually', 'buys', 'helps', 'making', 'plan', 'much',
+  'works', 'short', 'list', 'limit', 'stick', 'rates', 'realistic', 'size',
+  'breaks', 'rate', 'eating', 'prep', 'meal']);
 
 function terms(...bits) {
   const out = new Set();
@@ -172,8 +200,111 @@ function playbookText(s) {
   if (s.labs) p.push('Labs: ' + s.labs);
   if (lines(s.resp).length) p.push('Commonly discussed responses:\n' + s.resp.map((x) => `• ${x}`).join('\n'));
   if (s.esc) p.push('Escalate / seek care: ' + s.esc);
+  /* The evidence note carries the uncertainty language — "no trial has ever",
+     "unlicensed for this purpose". Those are exactly the phrases someone types
+     when they are trying to find out whether a practice is actually supported,
+     so it belongs in the searchable text and not only on screen. */
+  if (s.ev) p.push('What the evidence says: ' + s.ev);
   return p.join('\n\n');
 }
+
+/* Rehab entries carry their protocol numbers and their pain rule, and both are
+   what someone is actually searching for ("how many sets", "how much pain is
+   too much"). The `avoid` field earns its place in the indexed text too: on
+   these three topics the most useful sentence is often what NOT to do, and it
+   is where the strongest evidence sits — placebo-controlled surgery trials and
+   the one experimental test of ACWR. */
+function rehabText(r) {
+  const p = [`${r.t} — ${r.what || ''}`];
+  if (r.signs) p.push('What it looks like: ' + r.signs);
+  if (lines(r.prot).length) p.push('Protocols and parameters:\n' + r.prot.map((x) => `• ${x}`).join('\n'));
+  if (r.rule) p.push('How to judge progression: ' + r.rule);
+  if (r.avoid) p.push('What not to do: ' + r.avoid);
+  if (r.esc) p.push('Escalate / seek care: ' + r.esc);
+  if (r.ev) p.push('What the evidence says: ' + r.ev);
+  return p.join('\n\n');
+}
+
+/* Nutrition entries carry the numbers people are actually hunting for — g/kg,
+   percent per week, kcal deficits — so the protocol list and the rule belong in
+   the searchable text. `avoid` matters as much here as in rehab: on this topic
+   the most useful sentence is often "this popular thing does nothing". */
+function nutritionText(n) {
+  const p = [`${n.t} — ${n.what || ''}`];
+  if (n.signs) p.push('Usually asked as: ' + n.signs);
+  if (lines(n.prot).length) p.push('What the trials found:\n' + n.prot.map((x) => `• ${x}`).join('\n'));
+  if (lines(n.howto).length) p.push('How to actually do it:\n' + n.howto.map((x) => `• ${x}`).join('\n'));
+  if (n.rule) p.push('The rule of thumb: ' + n.rule);
+  if (n.avoid) p.push('What not to do: ' + n.avoid);
+  if (n.ev) p.push('What the evidence says: ' + n.ev);
+  return p.join('\n\n');
+}
+
+/* Nutrition questions arrive in plain language and in numbers — "how much
+   protein", "how fast should I cut", "is creatine worth it", "16:8". The
+   synonym lists carry both, plus the branded shorthand people actually type. */
+const NUTRITION_SYNONYMS = {
+  'Protein: how much actually helps': ['protein', 'how much protein', 'protein intake',
+    'grams of protein', 'g/kg', 'protein per day', 'protein per meal', 'whey', 'casein',
+    'protein powder', 'protein shake', 'macros', 'macro split'],
+  'Cutting: rate, deficit and what breaks': ['cut', 'cutting', 'deficit', 'calorie deficit',
+    'fat loss', 'losing fat', 'lose fat', 'how fast should i cut', 'weight loss rate',
+    'losing muscle', 'muscle loss', 'red-s', 'reds', 'low energy availability', 'diet down',
+    'shredding', 'getting lean'],
+  'Bulking: surplus size and realistic gain rates': ['bulk', 'bulking', 'surplus',
+    'calorie surplus', 'gaining', 'mass gain', 'lean bulk', 'dirty bulk', 'how fast can i gain',
+    'muscle gain rate', 'gaining weight', 'offseason'],
+  'Eating on a GLP-1': ['glp1', 'glp-1', 'semaglutide', 'ozempic', 'wegovy', 'tirzepatide',
+    'mounjaro', 'zepbound', 'retatrutide', 'losing muscle on glp1', 'muscle loss glp1',
+    'nausea', 'what to eat on semaglutide', 'protein on glp1'],
+  'Meal timing and fasting: what matters': ['meal timing', 'anabolic window', 'timing',
+    'intermittent fasting', 'fasting', '16:8', 'time restricted', 'omad', 'breakfast',
+    'pre workout meal', 'post workout meal', 'carbs before training', 'carb timing',
+    'carbs around training', 'carbs after training', 'when to eat carbs', 'meal frequency',
+    'how many meals'],
+  'What to limit, and what it actually buys': ['what to avoid', 'foods to avoid', 'avoid',
+    'sodium', 'salt', 'alcohol', 'drinking', 'saturated fat', 'fiber', 'fibre', 'processed food',
+    'ultra processed', 'dash diet', 'diet for cholesterol', 'diet for blood pressure',
+    'lower my cholesterol', 'lower my blood pressure'],
+  'Supplements: the short list that works': ['supplement', 'supplements', 'creatine', 'caffeine',
+    'beta alanine', 'citrulline', 'hmb', 'bcaa', 'bcaas', 'eaa', 'eaas', 'leucine', 'preworkout',
+    'pre workout', 'is creatine worth it', 'what supplements should i take', 'contamination',
+    'tainted supplement'],
+  'How to count macros': ['count macros', 'counting macros', 'macros', 'macro targets',
+    'how many calories', 'calorie target', 'tdee', 'maintenance calories', 'set my macros',
+    'tracking food', 'track my food', 'food scale', 'weighing food', 'raw or cooked',
+    'how many grams of protein should i eat', 'calorie deficit calculator'],
+  'Building a meal plan, and what to eat for a cut or a bulk': ['meal plan', 'build a meal plan',
+    'what should i eat', 'what to eat', 'food choices', 'cutting foods', 'bulking foods',
+    'foods for cutting', 'foods for bulking', 'high volume foods', 'volume eating',
+    'calorie dense', 'what do i eat on a cut', 'what do i eat to bulk', 'portion size',
+    'how much chicken', 'how much rice', 'chicken', 'chicken breast', 'rice', 'oats',
+    'grocery list', 'shopping list', 'per meal', 'protein portion'],
+  'Meal prep and making a plan stick': ['meal prep', 'meal prepping', 'meal plan', 'meal planning',
+    'what should i eat', 'diet plan', 'food prep', 'adherence', 'falling off', 'cheat meal',
+    'refeed', 'diet break', 'energy density', 'satiety', 'staying full', 'hungry all the time']
+};
+
+/* Rehab questions arrive in gym language, not clinical language — "tennis
+   elbow", "golfers elbow", "back exercises without biceps", "deload". Without
+   this the three rehab entries are unreachable for exactly the people who need
+   them. */
+const REHAB_SYNONYMS = {
+  'Tendon loading protocols': ['tendon', 'tendinitis', 'tendonitis', 'tendinopathy',
+    'patellar', 'jumpers knee', 'achilles', 'tennis elbow', 'golfers elbow',
+    'lateral epicondylitis', 'eccentric', 'eccentrics', 'heavy slow resistance', 'hsr',
+    'isometric', 'isometrics', 'knee pain squat', 'tendon pain', 'rehab tendon'],
+  'Training around a sore elbow or shoulder': ['elbow', 'shoulder', 'bicep', 'biceps',
+    'distal bicep', 'bicep tendinitis', 'elbow pain', 'shoulder pain', 'shoulder impingement',
+    'impingement', 'rotator cuff', 'back exercises', 'back without biceps', 'pull ups grip',
+    'lat pulldown', 'straps', 'lifting straps', 'fat grips', 'subacromial', 'decompression',
+    'curl grip', 'pulling exercises', 'row', 'rows'],
+  'Load management and getting back to training': ['deload', 'load management', 'acwr',
+    'acute chronic workload', 'return to training', 'return to sport', 'return to running',
+    'back pain', 'low back pain', 'lower back', 'lumbar', 'overtraining', 'training through pain',
+    'how much pain is ok', 'niggle', 'niggles', 'tendon rupture', 'rupture risk', 'bpc',
+    'bpc-157', 'bpc157', 'ibuprofen', 'nsaid', 'nsaids', 'painkillers gains']
+};
 
 /* How people actually phrase these. The playbook titles are clinical ("High
    prolactin", "HPTA suppression & recovery") and nobody types those — they
@@ -184,14 +315,20 @@ function playbookText(s) {
    sends a prolactin question to the estradiol protocol is worse than no
    match at all. */
 const PLAYBOOK_SYNONYMS = {
+  'Liver strain': ['liver', 'liver damage', 'liver values', 'liver enzymes', 'alt', 'ast',
+    'alt high', 'ast high', 'ggt', 'bilirubin', 'jaundice', 'yellow eyes', 'hepatotoxic',
+    'hepatotoxicity', 'liver toxic', 'liver support', 'tudca', 'nac', '17aa', '17-aa',
+    'methylated', 'oral steroid liver', 'cholestasis', 'liver panel', 'lft', 'lfts'],
   'High prolactin': ['prolactin', 'prolactinoma', 'cabergoline', 'caber', 'lactation',
-    'nipple discharge', 'dead libido', 'no libido', '19-nor', 'deca dick', 'tren dick'],
+    'nipple discharge', 'dead libido', 'no libido', '19-nor', 'deca dick', 'tren dick',
+    'sex drive', 'no sex drive', 'low sex drive', 'cant get hard', 'erectile'],
   'High estradiol': ['estradiol', 'e2', 'estrogen', 'high e2', 'estrogen high',
     'water retention', 'bloating', 'emotional', 'puffy', 'aromatase', 'anastrozole', 'arimidex'],
   'Crashed estradiol': ['crashed e2', 'crashed estrogen', 'low e2', 'e2 too low',
     'joint pain', 'dry joints', 'no libido low e2', 'anhedonia', 'crashed my estrogen'],
   'High hematocrit': ['hematocrit', 'hct', 'hemoglobin', 'hgb', 'thick blood', 'blood thick',
-    'polycythemia', 'erythrocytosis', 'donate blood', 'phlebotomy', 'blood donation', 'rbc'],
+    'polycythemia', 'erythrocytosis', 'donate blood', 'phlebotomy', 'blood donation', 'rbc',
+    'flushed', 'flushed face', 'red face', 'face is red', 'ruddy'],
   'Rising blood pressure': ['blood pressure', 'bp', 'hypertension', 'high blood pressure',
     'systolic', 'diastolic', 'headaches'],
   'Lipid strain': ['cholesterol', 'ldl', 'hdl', 'triglycerides', 'trigs', 'apob', 'lipids',
@@ -201,7 +338,8 @@ const PLAYBOOK_SYNONYMS = {
     'raloxifene', 'tamoxifen', 'nolvadex'],
   'HPTA suppression & recovery': ['hpta', 'suppression', 'suppressed', 'shut down', 'shutdown',
     'testicular atrophy', 'balls shrunk', 'ball shrinkage', 'restart', 'recovery', 'pct',
-    'post cycle', 'fertility', 'sperm', 'lh', 'fsh', 'hcg', 'natural production'],
+    'post cycle', 'fertility', 'sperm', 'lh', 'fsh', 'hcg', 'natural production',
+    'balls', 'nuts', 'testicles', 'testicle', 'smaller', 'shrinking', 'shrunk'],
   'Hair shedding': ['hair', 'hair loss', 'shedding', 'balding', 'bald', 'receding',
     'finasteride', 'dutasteride', 'minoxidil', 'dht', 'male pattern'],
   'Injection-site reactions': ['injection site', 'pip', 'post injection pain', 'lump',
@@ -229,7 +367,7 @@ const MARKER_PLAYBOOK = {
 function build() {
   const html = fs.readFileSync(APP, 'utf8');
   const d = declarations(html, [
-    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX',
+    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB', 'NUTRITION',
     'INTERACTIONS', 'NEW_INTERACTIONS', 'CLINIC_INTERACTIONS',
     'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES'
   ]);
@@ -259,6 +397,60 @@ function build() {
   const orphaned = Object.keys(PLAYBOOK_SYNONYMS).filter((t) => !playbookByTitle[t]);
   if (orphaned.length) {
     throw new Error(`PLAYBOOK_SYNONYMS names playbooks app.html no longer has: ${orphaned.join(', ')}`);
+  }
+  /* Every citation on a playbook must resolve to a record that was actually
+     retrieved and checked. The research files are the checked set: every PMID
+     in claims.json was confirmed against PubMed with get_article_metadata, and
+     every setid in labels.json came back from the DailyMed retrieval.
+
+     This exists because a plausible-looking identifier is the easiest thing in
+     the world to write and the hardest to notice — one was typed into this very
+     file during authoring and only a check like this caught it. A citation that
+     does not resolve is worse than no citation: it borrows authority it has not
+     earned. */
+  {
+    const research = path.join(ROOT, 'assets', 'brain', 'research');
+    const claims = JSON.parse(fs.readFileSync(path.join(research, 'claims.json'), 'utf8')).claims;
+    const labels = JSON.parse(fs.readFileSync(path.join(research, 'labels.json'), 'utf8')).labels;
+    /* Nutrition arrived as its own research pass and lives in its own file. Both
+       are equally the checked set — a citation is publishable when it appears in
+       research that was actually retrieved and verified, whichever pass ran it. */
+    const nutrition = JSON.parse(fs.readFileSync(path.join(research, 'nutrition.json'), 'utf8')).claims;
+    const pmids = new Set([...claims, ...nutrition].map((c) => String(c.pmid || '').trim()));
+    const setids = new Set(labels.map((l) => String(l.dailymedUrl || '').split('setid=')[1]).filter(Boolean));
+    const bad = [];
+    for (const s of [...d.SIDEFX, ...d.REHAB, ...d.NUTRITION]) {
+      for (const row of (s.src || [])) {
+        if (!Array.isArray(row) || row.length !== 2 || !row[0] || !row[1]) {
+          bad.push(`${s.t}: malformed src row ${JSON.stringify(row)} — expected [identifier, what it shows]`);
+          continue;
+        }
+        const [id] = row;
+        if (String(id).indexOf('label:') === 0) {
+          if (!setids.has(String(id).slice(6))) bad.push(`${s.t}: DailyMed setid ${String(id).slice(6)} is not in labels.json`);
+        } else if (!pmids.has(String(id))) {
+          bad.push(`${s.t}: PMID ${id} is in no research file — it was never retrieved or checked`);
+        }
+      }
+      /* An evidence note makes a claim about what the literature shows, so it
+         must cite. A `howto` is craft — how to weigh food, how to lay out a
+         plan — and there is no paper to cite for it, nor should there be.
+         Kept as separate fields precisely so the distinction is visible to the
+         reader rather than blurred into one voice. */
+      if (s.ev && !(s.src || []).length) bad.push(`${s.t}: has an evidence note but cites nothing`);
+    }
+    if (bad.length) {
+      throw new Error('playbook citations do not resolve to retrieved research:\n  ' + bad.join('\n  '));
+    }
+  }
+
+  const unmappedNutrition = d.NUTRITION.map((n) => n.t).filter((t) => !NUTRITION_SYNONYMS[t]);
+  if (unmappedNutrition.length) {
+    throw new Error(`nutrition entries with no synonyms — add them to NUTRITION_SYNONYMS: ${unmappedNutrition.join(', ')}`);
+  }
+  const unmappedRehab = d.REHAB.map((r) => r.t).filter((t) => !REHAB_SYNONYMS[t]);
+  if (unmappedRehab.length) {
+    throw new Error(`rehab entries with no synonyms — add them to REHAB_SYNONYMS: ${unmappedRehab.join(', ')}`);
   }
   const unmapped = d.SIDEFX.map((s) => s.t).filter((t) => !PLAYBOOK_SYNONYMS[t]);
   if (unmapped.length) {
@@ -319,7 +511,37 @@ function build() {
       subtitle: 'side-effect playbook',
       terms: terms(s.t, (s.t || '').split(/\s+/), PLAYBOOK_SYNONYMS[s.t] || []),
       text: playbookText(s),
+      /* Carried into the index so the free in-app answer can show its sources.
+         Without this the app would state findings with nothing behind them,
+         which is the opposite of the point. */
+      src: s.src || [],
       route: { view: 'sidefx', item: s.t }
+    });
+  }
+
+  for (const r of d.REHAB) {
+    entries.push({
+      id: `rehab:${r.t}`,
+      kind: 'rehab',
+      title: r.t,
+      subtitle: 'rehab and load guidance',
+      terms: terms(r.t, (r.t || '').split(/\s+/), REHAB_SYNONYMS[r.t] || []),
+      text: rehabText(r),
+      src: r.src || [],
+      route: { view: 'rehab', item: r.t }
+    });
+  }
+
+  for (const n of d.NUTRITION) {
+    entries.push({
+      id: `nutrition:${n.t}`,
+      kind: 'nutrition',
+      title: n.t,
+      subtitle: 'nutrition guidance',
+      terms: terms(n.t, (n.t || '').split(/\s+/), NUTRITION_SYNONYMS[n.t] || []),
+      text: nutritionText(n),
+      src: n.src || [],
+      route: { view: 'nutrition', item: n.t }
     });
   }
 
@@ -384,8 +606,52 @@ function build() {
   return JSON.stringify(index, null, 1) + '\n';
 }
 
+/* app.html inlines the matcher so it works offline on the first question. Two
+   copies of anything drift; this makes drift a build failure rather than a
+   subtle behaviour difference between what the eval measures and what ships. */
+/* Re-inline the matcher into app.html. The generator owns this copy the same
+   way it owns the index: hand-copying it is how the two drifted in the first
+   place, and a check that only reports drift without a way to fix it invites
+   someone to edit the wrong copy. */
+function syncMatcherInlined() {
+  const app = fs.readFileSync(APP, 'utf8');
+  const src = fs.readFileSync(path.join(ROOT, 'assets', 'brain', 'match.js'), 'utf8').trim();
+  const startMark = '/* @@TL_BRAIN_MATCHER@@ start';
+  const endMark = '/* @@TL_BRAIN_MATCHER@@ end */';
+  const start = app.indexOf(startMark);
+  const end = app.indexOf(endMark);
+  if (start === -1 || end === -1) {
+    throw new Error('app.html no longer inlines the brain matcher — the @@TL_BRAIN_MATCHER@@ markers are gone');
+  }
+  const headerEnd = app.indexOf('*/', start) + 2;
+  const next = app.slice(0, headerEnd) + '\n' + src + '\n' + app.slice(end);
+  if (next !== app) {
+    fs.writeFileSync(APP, next);
+    return true;
+  }
+  return false;
+}
+
+function checkMatcherInlined() {
+  const app = fs.readFileSync(APP, 'utf8');
+  const src = fs.readFileSync(path.join(ROOT, 'assets', 'brain', 'match.js'), 'utf8').trim();
+  const start = app.indexOf('/* @@TL_BRAIN_MATCHER@@ start');
+  const end = app.indexOf('/* @@TL_BRAIN_MATCHER@@ end */');
+  if (start === -1 || end === -1) {
+    throw new Error('app.html no longer inlines the brain matcher — the @@TL_BRAIN_MATCHER@@ markers are gone');
+  }
+  const inlined = app.slice(app.indexOf('*/', start) + 2, end).trim();
+  if (inlined !== src) {
+    throw new Error('app.html\'s inlined matcher has drifted from assets/brain/match.js.\n' +
+      'The eval harness requires assets/brain/match.js directly, so drift means the measured\n' +
+      'matcher is not the shipped one. Re-copy it between the @@TL_BRAIN_MATCHER@@ markers.');
+  }
+}
+
 function main() {
   const check = process.argv.includes('--check');
+  if (check) checkMatcherInlined();
+  else if (syncMatcherInlined()) console.log('re-inlined assets/brain/match.js into app.html');
   const out = build();
   if (check) {
     if (!fs.existsSync(OUT)) {
