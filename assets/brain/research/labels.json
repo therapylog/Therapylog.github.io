@@ -1,0 +1,302 @@
+{
+ "note": "FDA/DailyMed label findings. Approved indication and dose per drug, and whether this app's use is within it. Retrieved from openFDA via DailyMed. 34 of 37 findings are off-label for the use this app discusses — that gap is the point of collecting them. Enclomiphene has no US prescribing information at all. Three setids (anastrozole, cabergoline, dutasteride) were re-resolved live and matched exactly; the rest are recorded as the retrieval tool returned them.",
+ "count": 37,
+ "labels": [
+  {
+   "drug": "Anastrozole",
+   "approvedIndication": "Breast cancer in postmenopausal women only: adjuvant treatment of hormone receptor-positive early breast cancer; first-line treatment of HR-positive or HR-unknown locally advanced/metastatic breast cancer; second-line treatment of advanced breast cancer after tamoxifen progression. There is no approved indication in men of any kind — not hypogonadism, not gynecomastia, not estradiol control on testosterone.",
+   "approvedDose": "One 1 mg tablet once daily, with or without food. In the ATAC adjuvant trial it was given for five years. No dose adjustment for renal impairment, elderly patients, or mild-to-moderate hepatic impairment; not studied in severe hepatic impairment. The label contains no dose for men, no low-dose or intermittent regimen, and no titration schedule against an estradiol target.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1d1d5818-1594-4f54-90a9-ae9a9afcdc67",
+   "topic": "ai-protocols"
+  },
+  {
+   "drug": "Exemestane",
+   "approvedIndication": "Breast cancer in postmenopausal women only: adjuvant treatment of ER-positive early breast cancer after 2-3 years of tamoxifen, to complete five years of adjuvant hormonal therapy; and advanced breast cancer progressing after tamoxifen. No indication in men.",
+   "approvedDose": "One 25 mg tablet once daily after a meal. Increased to 50 mg once daily after a meal only when co-administered with a strong CYP3A4 inducer such as rifampicin or phenytoin. No male dose exists on the label.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=69abd0ff-b200-4d1a-b14a-80e980a8e781",
+   "topic": "ai-protocols"
+  },
+  {
+   "drug": "Letrozole",
+   "approvedIndication": "Breast cancer in postmenopausal women only: adjuvant treatment of HR-positive early breast cancer; extended adjuvant treatment after 5 years of tamoxifen; first- and second-line treatment of HR-positive or unknown advanced breast cancer. Contraindicated in pregnancy. No indication in men.",
+   "approvedDose": "One 2.5 mg tablet once daily, without regard to meals. Reduced to 2.5 mg every other day in cirrhosis or severe hepatic impairment. Median treatment duration in the adjuvant trials was 5 years. No male dose exists on the label.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3cc750a5-cc88-4b42-b4ab-a87e760f291d",
+   "topic": "ai-protocols"
+  },
+  {
+   "drug": "Tamoxifen citrate (oral tablets)",
+   "approvedIndication": "Breast cancer only: metastatic breast cancer in women and men; adjuvant treatment of node-positive and node-negative breast cancer in women; ductal carcinoma in situ; and reduction of breast cancer incidence in high-risk women. Gynecomastia is not an approved indication and appears nowhere in the Indications and Usage section.",
+   "approvedDose": "20 to 40 mg daily for breast cancer, with doses above 20 mg/day given in divided doses (morning and evening); 20 mg daily for 5 years for DCIS and for risk reduction in high-risk women. No gynecomastia dose exists on the label.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=509f8ba3-214d-aec8-e063-6294a90af498",
+   "topic": "serms-gyno"
+  },
+  {
+   "drug": "Raloxifene hydrochloride (oral tablets)",
+   "approvedIndication": "Treatment and prevention of osteoporosis in postmenopausal women; reduction in risk of invasive breast cancer in postmenopausal women with osteoporosis or at high risk. Every approved indication is restricted to postmenopausal women. There is no indication in men of any kind, and Use in Specific Populations does not establish safety or effectiveness in males. Gynecomastia does not appear on the label.",
+   "approvedDose": "One 60 mg tablet orally once daily, with or without food. This is a postmenopausal-female dose; no male dose has ever been established by FDA.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3798c70b-a4b0-4811-9788-e4c9cff47ebe",
+   "topic": "serms-gyno"
+  },
+  {
+   "drug": "Chorionic Gonadotropin for Injection (urine-derived hCG, 10,000 USP units/vial)",
+   "approvedIndication": "Three indications only: (1) prepubertal cryptorchidism not due to anatomical obstruction; (2) \"Selected cases of hypogonadotropic hypogonadism (hypogonadism secondary to a pituitary deficiency) in males\"; (3) induction of ovulation/pregnancy in anovulatory infertile women pretreated with menotropins. There is NO approved indication for restarting the HPG axis after exogenous androgen use, for fertility restoration in men who used AAS/TRT, or for use alongside testosterone.",
+   "approvedDose": "Intramuscular Use Only. For hypogonadotropic hypogonadism in males, two label regimens: (1) 500 to 1,000 USP units three times a week for three weeks, followed by the same dose twice a week for three weeks; or (2) 4,000 USP units three times weekly for six to nine months, then reduced to 2,000 USP units three times weekly for an additional three months. Note the label specifies IM only — the subcutaneous route almost universally used in this community is not a labelled route. Contraindicated in prostatic carcinoma or other androgen-dependent neoplasm and in precocious puberty; listed adverse reactions include gynecomastia, headache, irritability, depression, fatigue and edema.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f93b2baa-03ac-4650-b35a-20b818d712d6",
+   "topic": "pct"
+  },
+  {
+   "drug": "Clomiphene citrate tablets, USP 50 mg",
+   "approvedIndication": "\"Clomiphene citrate is indicated for the treatment of ovulatory dysfunction in women desiring pregnancy.\" The label contains no male indication of any kind. Every use in men — hypogonadism, fertility, PCT — is entirely off-label.",
+   "approvedDose": "50 mg daily (1 tablet) for 5 days, started on or about the 5th day of the cycle; long-term cyclic therapy not recommended beyond about six cycles. This is a female ovulation-induction schedule and does not translate to male dosing. Label WARNINGS flag visual symptoms (blurring, scotomata, flashes) that \"increase in incidence with increasing total dose or therapy duration\" and \"may be irreversible, especially with increased dosage or duration of therapy\" — directly relevant to men who run high-dose or long PCT courses. Clinical-trial adverse events (in women, n=8029) include vasomotor flushes 10.4% and visual symptoms 1.5%.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=54f608de-6f14-4120-819e-aeb9350c3070",
+   "topic": "pct"
+  },
+  {
+   "drug": "Tamoxifen citrate tablets",
+   "approvedIndication": "Metastatic breast cancer in women and men; adjuvant treatment of node-positive and node-negative breast cancer; DCIS; and reduction of breast cancer incidence in high-risk women. There is no approved indication for gynecomastia, male infertility, hypogonadism or PCT. (Note: metastatic breast cancer in men is the only male indication, and it is an oncology indication.)",
+   "approvedDose": "20 to 40 mg daily for breast cancer; doses greater than 20 mg/day must be given in divided doses (morning and evening); 20 mg daily for 5 years for DCIS and for risk reduction. The label states \"There was no indication that doses greater than 20 mg per day were more effective.\" Contraindicated in risk-reduction/DCIS use in people needing coumarin anticoagulation or with a history of DVT or pulmonary embolus; WARNINGS include endometrial cancer and uterine sarcoma (female-specific) and thromboembolic events.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=509f8ba3-214d-aec8-e063-6294a90af498",
+   "topic": "pct"
+  },
+  {
+   "drug": "Enclomiphene citrate",
+   "approvedIndication": "NONE. There is no FDA-approved enclomiphene product. openFDA/DailyMed lookups for \"enclomiphene\", \"enclomiphene citrate\" and the developmental brand name \"Androxal\" all returned no US prescribing information (checked 2026-09-07). Enclomiphene reached phase III (trials ZA-304/ZA-305) but no approved label exists, so there is no FDA-reviewed dose, no approved indication, and no FDA-enforced manufacturing or content standard. Product sold as \"enclomiphene\" reaches users via compounding pharmacies or grey-market suppliers, and its identity and content are not verified by any label authority.",
+   "approvedDose": "None — no approved product, therefore no FDA-reviewed dose exists. Doses in circulation derive from trials (see claims), not from a label.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "none — no DailyMed SPL exists for enclomiphene; the drug has no US prescribing information",
+   "topic": "pct"
+  },
+  {
+   "drug": "Telmisartan (generic; Micardis)",
+   "approvedIndication": "Treatment of hypertension, to lower blood pressure; and cardiovascular risk reduction in patients aged 55+ at high risk of major CV events who are unable to take ACE inhibitors. The label indication is hypertension — a diagnosed, measured condition. There is no indication for prophylactic use in a normotensive person, for 'cycle support', for kidney protection in bodybuilders, or for metabolic/PPAR-gamma benefit.",
+   "approvedDose": "Hypertension: 40 mg orally once daily starting; range 40–80 mg once daily. Label states BP response is dose-related across 20–80 mg. Maximal effect generally at ~4 weeks. CV risk reduction indication: 80 mg once daily. May be given with or without food, and with other antihypertensives.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=57da6ef2-2e86-4e4d-90df-73a2a8cf97f6",
+   "topic": "bp"
+  },
+  {
+   "drug": "Amlodipine besylate",
+   "approvedIndication": "Treatment of hypertension, to lower blood pressure; also chronic stable angina, vasospastic angina, and angiographically documented CAD. Again the indication is measured hypertension, not androgen-cycle prophylaxis.",
+   "approvedDose": "Adults: 5 mg once daily initial, maximum 10 mg once daily. 2.5 mg once daily for small, fragile or elderly patients, hepatic insufficiency, or when adding to existing antihypertensive therapy. Label advises generally waiting 7 to 14 days between titration steps.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6efc0ef6-0424-44fc-a9ea-eb30c3b83239",
+   "topic": "bp"
+  },
+  {
+   "drug": "Lisinopril",
+   "approvedIndication": "Treatment of hypertension in adults and children 6+; adjunct therapy for heart failure; treatment of acute myocardial infarction. Not indicated for prophylactic on-cycle use.",
+   "approvedDose": "Hypertension: 10 mg once daily initial; usual range 20–40 mg per day as a single daily dose. Doses up to 80 mg have been used but do not appear to give greater effect. Start at 5 mg once daily in patients already on a diuretic. Dose reduction required in renal impairment (halve initial dose if CrCl 10–30 mL/min; 2.5 mg if CrCl <10 or on dialysis).",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=34bb4602-ccff-4939-91b9-26a63bfd40f7",
+   "topic": "bp"
+  },
+  {
+   "drug": "Losartan potassium",
+   "approvedIndication": "Treatment of hypertension in adults and children over 6; reduction of stroke risk in hypertension with left ventricular hypertrophy (label notes this benefit does not apply to Black patients); diabetic nephropathy in type 2 diabetes with a history of hypertension.",
+   "approvedDose": "Hypertension: 50 mg once daily usual starting dose; maximum 100 mg once daily. 25 mg starting dose if possible intravascular depletion (e.g. on diuretic therapy). LVH indication: 50 mg once daily, then add HCTZ 12.5 mg and/or increase to 100 mg.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e136356b-e4d2-4e00-a409-35825c5637c9",
+   "topic": "bp"
+  },
+  {
+   "drug": "Nebivolol",
+   "approvedIndication": "Treatment of hypertension, to lower blood pressure. The label explicitly states there are no controlled trials demonstrating risk reduction with nebivolol. Contraindicated in severe bradycardia, heart block greater than first degree, cardiogenic shock, decompensated heart failure, sick sinus syndrome without pacemaker, and severe hepatic impairment.",
+   "approvedDose": "Hypertension: 5 mg once daily for most patients, with or without food; dose can be increased at 2-week intervals up to 40 mg. 2.5 mg once daily initial in severe renal impairment (CrCl <30 mL/min) or moderate hepatic impairment.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3e9e1048-b5ea-4d6a-9363-3ee0d059e088",
+   "topic": "bp"
+  },
+  {
+   "drug": "Testosterone undecanoate, oral (JATENZO)",
+   "approvedIndication": "Testosterone replacement therapy in adult males for primary hypogonadism or hypogonadotropic hypogonadism. Label explicitly limits use: safety and efficacy in 'age-related hypogonadism' have not been established, and not established under age 18. Supraphysiologic use for muscle gain is outside the indication entirely — the label carries a separate Abuse warning naming exactly that practice. Warning 5.4 states the drug can raise BP and is not recommended in men with uncontrolled hypertension.",
+   "approvedDose": "Confirm hypogonadism with two separate morning testosterone measurements below the normal range before starting. 237 mg orally twice daily with food; adjust to a minimum of 158 mg twice daily and a maximum of 396 mg twice daily based on serum testosterone drawn 6 hours after the morning dose, at least 7 days after starting or after a dose change.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ed7b5d41-7475-4c10-99b9-b62b3434ae60",
+   "topic": "bp"
+  },
+  {
+   "drug": "Testosterone undecanoate, oral (KYZATREX)",
+   "approvedIndication": "Testosterone replacement therapy in adult males for primary or hypogonadotropic hypogonadism. Same limitations of use as JATENZO. Warning 5.4 is 'Blood Pressure Increases'; warning 5.5 addresses abuse at doses higher than recommended and in combination with other anabolic androgenic steroids. Explicitly not substitutable with other oral testosterone undecanoate products.",
+   "approvedDose": "200 mg orally twice daily (morning and evening) with food; adjust to a minimum of 100 mg once in the morning and a maximum of 400 mg twice daily, based on serum testosterone drawn 3 to 5 hours after the morning dose at least 7 days after starting or after a dose adjustment.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7f7167a7-2a25-47e2-acf5-33f499fce971",
+   "topic": "bp"
+  },
+  {
+   "drug": "Methyltestosterone (METHITEST, oral 17-alpha-alkylated)",
+   "approvedIndication": "Replacement therapy in males for primary hypogonadism (congenital or acquired) or hypogonadotropic hypogonadism; stimulation of puberty in carefully selected males with delayed puberty. Label states safety and efficacy in men with 'age-related hypogonadism' have NOT been established. Label explicitly warns: 'Cholestatic hepatitis and jaundice occur with 17-alpha-alkylandrogens (such as methyltestosterone) at a relatively low dose' and lists 'Metabolic: Increased serum cholesterol' as an adverse reaction.",
+   "approvedDose": "Androgen-deficient male: usual initial dosage 10 mg to 50 mg daily, orally. Diagnosis must first be confirmed with morning serum testosterone below the normal range on at least two separate days.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=77bb4ef4-c10e-4acc-8225-651d003f4561",
+   "topic": "lipids"
+  },
+  {
+   "drug": "Esterified estrogens + methyltestosterone (oral 17-alpha-alkylated, combination)",
+   "approvedIndication": "Treatment of moderate to severe vasomotor symptoms associated with the menopause in those patients not improved by estrogens alone. Carries a boxed warning for endometrial cancer and cardiovascular risk.",
+   "approvedDose": "1.25 mg esterified estrogens + 2.5 mg methyltestosterone, or half strength 0.625 mg + 1.25 mg; given cyclically (e.g. three weeks on, one week off) for short-term use only, lowest effective dose.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2157d248-f6f5-4cb4-806d-d2e8eec6a8db",
+   "topic": "lipids"
+  },
+  {
+   "drug": "Danazol (oral attenuated androgen, ethisterone-derived)",
+   "approvedIndication": "Endometriosis amenable to hormonal management; prevention of attacks of angioedema of all types (cutaneous, abdominal, laryngeal) in males and females (hereditary angioedema). Boxed warning covers thromboembolism, peliosis hepatis and hepatic adenoma with long-term use.",
+   "approvedDose": "Endometriosis: 800 mg/day in two divided doses (moderate to severe); 200-400 mg/day in two divided doses (mild). Hereditary angioedema: start 200 mg two or three times a day, then individualized by clinical response.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=55ad6325-16f6-4f0c-a1dc-734847052d0b",
+   "topic": "lipids"
+  },
+  {
+   "drug": "Testosterone cypionate (DEPO-TESTOSTERONE, injectable, not 17-alpha-alkylated)",
+   "approvedIndication": "Replacement therapy in the male in conditions associated with symptoms of deficiency or absence of endogenous testosterone: primary hypogonadism or hypogonadotropic hypogonadism. Label states safety and efficacy in 'age-related hypogonadism' have not been established. Notably the WARNINGS section attributes the hepatic risk specifically to the oral class: 'Prolonged use of high doses of androgens (principally the 17-alpha alkyl-androgens) has been associated with development of hepatic adenomas, hepatocellular carcinoma, and peliosis hepatis.'",
+   "approvedDose": "For replacement in the hypogonadal male, 50-400 mg intramuscularly every two to four weeks. Deep gluteal IM only, never IV. Diagnosis must be confirmed by morning serum testosterone below normal range on at least two separate days.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cfbb53d4-b868-4a28-8436-f9112eb01c39",
+   "topic": "lipids"
+  },
+  {
+   "drug": "Testosterone undecanoate, oral (JATENZO) — an oral androgen that is NOT 17-alpha-alkylated",
+   "approvedIndication": "Testosterone replacement therapy in adult males for primary hypogonadism or hypogonadotropic hypogonadism. Safety and efficacy in 'age-related hypogonadism' not established. Most common adverse reactions listed are polycythemia, GI effects, peripheral edema, increased hematocrit, prostatomegaly and hypertension — the label's listed common adverse reactions do not include the cholestatic hepatitis flagged on the 17-alpha-alkylated methyltestosterone label.",
+   "approvedDose": "237 mg orally twice daily (morning and evening) with food to start; titrate between 158 mg and 396 mg twice daily against a serum testosterone drawn 6 hours after the morning dose.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ed7b5d41-7475-4c10-99b9-b62b3434ae60",
+   "topic": "lipids"
+  },
+  {
+   "drug": "Testosterone cypionate (Depo-Testosterone), IM injection",
+   "approvedIndication": "Replacement therapy in the male in conditions associated with symptoms of deficiency or absence of endogenous testosterone: (1) primary hypogonadism (congenital or acquired) and (2) hypogonadotropic hypogonadism (congenital or acquired). The label states verbatim: 'Safety and efficacy of DEPO-Testosterone (testosterone cypionate) in men with \"age-related hypogonadism\" (also referred to as \"late-onset hypogonadism\") have not been established.' Polycythemia is listed under Adverse Reactions (Hematologic), and venous thromboembolism appears in both Warnings and Adverse Reactions. The label sets NO hematocrit number, no monitoring interval, and no action threshold.",
+   "approvedDose": "For replacement in the hypogonadal male, 50-400 mg IM every two to four weeks. Deep gluteal intramuscular only; not for intravenous use. Diagnosis must first be confirmed by morning serum testosterone below the normal range on at least two separate days.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cfbb53d4-b868-4a28-8436-f9112eb01c39",
+   "topic": "hematocrit"
+  },
+  {
+   "drug": "Testosterone gel 1%, transdermal",
+   "approvedIndication": "Replacement therapy in adult males for primary hypogonadism (congenital or acquired) or hypogonadotropic hypogonadism (congenital or acquired). Limitations of use state: 'Safety and efficacy of testosterone gel, 1% in men with \"age-related hypogonadism\" (also referred to as \"late-onset hypogonadism\") have not been established.' Warnings direct: 'Monitor serum testosterone, prostate specific antigen (PSA), hemoglobin, hematocrit, liver function tests, and lipid concentrations periodically' — again with no numeric hematocrit threshold and no defined interval for 'periodically'.",
+   "approvedDose": "Starting dose 50 mg testosterone (4 pump actuations, two 25 mg packets, or one 50 mg packet) applied once daily in the morning to clean, dry, intact skin of shoulders and upper arms and/or abdomen. Dosage differs from testosterone gel 1.62% — the two are not interchangeable by volume.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=353de205-d642-4f26-875b-b9ea4707a755",
+   "topic": "hematocrit"
+  },
+  {
+   "drug": "Methyltestosterone (METHITEST, 10 mg tablets)",
+   "approvedIndication": "Replacement therapy in males for conditions associated with a deficiency or absence of endogenous testosterone (primary hypogonadism; hypogonadotropic hypogonadism); delayed puberty in carefully selected males. Label states explicitly that safety and efficacy in 'age-related' / 'late-onset hypogonadism' have NOT been established.",
+   "approvedDose": "Males: 'the usual initial dosage of 10 mg to 50 mg daily.' Dosage must be strictly individualized; diagnosis must first be confirmed with morning serum testosterone below the normal range on at least two separate days.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=77bb4ef4-c10e-4acc-8225-651d003f4561",
+   "topic": "hepatic"
+  },
+  {
+   "drug": "Danazol (17-alpha-ethinyl testosterone derivative)",
+   "approvedIndication": "Endometriosis amenable to hormonal management; prevention of attacks of hereditary angioedema of all types in males and females. Contraindicated in 'markedly impaired hepatic, renal, or cardiac function.'",
+   "approvedDose": "Endometriosis: 800 mg/day in two divided doses (moderate-severe) or 200-400 mg/day in two divided doses (mild). Hereditary angioedema: start 200 mg two or three times a day, then individualize.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=55ad6325-16f6-4f0c-a1dc-734847052d0b",
+   "topic": "hepatic"
+  },
+  {
+   "drug": "Testosterone undecanoate, oral (JATENZO) — NOT 17-alpha-alkylated; included as the contrast case",
+   "approvedIndication": "Testosterone replacement therapy in adult males for primary or hypogonadotropic hypogonadism. Limitation of use: safety and efficacy in 'age-related hypogonadism' have not been established; not established under 18 years.",
+   "approvedDose": "237 mg orally twice daily with food to start; adjust between 158 mg and 396 mg twice daily based on serum testosterone drawn 6 hours after the morning dose, at least 7 days after starting or adjusting.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ed7b5d41-7475-4c10-99b9-b62b3434ae60",
+   "topic": "hepatic"
+  },
+  {
+   "drug": "Esterified Estrogens and Methyltestosterone tablets",
+   "approvedIndication": "Moderate to severe vasomotor symptoms of menopause in patients not improved by estrogens alone. Contraindicated in 'Liver dysfunction or disease' and, for the methyltestosterone component, in 'The presence of severe liver damage.'",
+   "approvedDose": "1.25 mg esterified estrogens / 2.5 mg methyltestosterone (or half-strength 0.625 mg / 1.25 mg), given cyclically for short-term use only (e.g. three weeks on and one week off), lowest effective dose.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2157d248-f6f5-4cb4-806d-d2e8eec6a8db",
+   "topic": "hepatic"
+  },
+  {
+   "drug": "Cabergoline (oral tablets, 0.5 mg)",
+   "approvedIndication": "Treatment of hyperprolactinemic disorders, either idiopathic or due to pituitary adenomas, in adults. Limitation of use: avoid for inhibition/suppression of postpartum physiologic lactation. There is no approved indication for lowering prolactin in a man with a normal prolactin, for sexual side effects, for shortening the refractory period, or for prolactin 'management' alongside androgens or peptides.",
+   "approvedDose": "Start 0.25 mg orally twice weekly (0.5 mg/week). Titrate by 0.25 mg twice weekly at intervals of no less than 4 weeks, to normalise serum prolactin. Maximum recommended dose 1 mg orally twice weekly (2 mg/week). Take with or without food.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e497366b-a124-4d7f-bd45-a883c392d4bb",
+   "topic": "prolactin"
+  },
+  {
+   "drug": "Finasteride 1 mg (PROPECIA)",
+   "approvedIndication": "Treatment of male pattern hair loss (androgenetic alopecia) in MEN ONLY. Label states it is not indicated for use in women, and that efficacy in bitemporal recession (hairline) has not been established. Contraindicated in pregnancy and in women who are or may become pregnant.",
+   "approvedDose": "One tablet (1 mg) taken once daily, with or without meals. Label states three months or more of daily use is generally needed before benefit is observed, and that withdrawal reverses the effect within 12 months.",
+   "onLabelForThisUse": true,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6f904709-65aa-44ce-b144-b4c8a0416e36",
+   "topic": "hair-5ar"
+  },
+  {
+   "drug": "Finasteride 5 mg (generic, BPH strength)",
+   "approvedIndication": "Symptomatic benign prostatic hyperplasia in men with an enlarged prostate — to improve symptoms, reduce risk of acute urinary retention, and reduce risk of BPH surgery. Also in combination with doxazosin. Explicitly NOT approved for prevention of prostate cancer. Hair loss is not an approved indication at this strength.",
+   "approvedDose": "One tablet (5 mg) once daily.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5efc695c-d9fd-4892-a63f-a35cceb8d3c7",
+   "topic": "hair-5ar"
+  },
+  {
+   "drug": "Dutasteride 0.5 mg",
+   "approvedIndication": "Symptomatic benign prostatic hyperplasia in men with an enlarged prostate, alone or with tamsulosin. Not approved for prostate cancer prevention. There is NO US indication for hair loss of any kind — all use for androgenetic alopecia in the US is off-label. (Per PMID 38321615, dutasteride 0.5 mg was approved in Korea in 2009 for AGA in men; that non-US approval was not independently verified against a label here.)",
+   "approvedDose": "One capsule (0.5 mg) once daily, swallowed whole, with or without food.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c78d18cf-05df-4154-b2f9-39cc374ca9e3",
+   "topic": "hair-5ar"
+  },
+  {
+   "drug": "Minoxidil topical solution 5% (OTC monograph, men's)",
+   "approvedIndication": "To regrow hair on the top of the scalp (vertex only). Label restricts to men, states 'not intended for frontal baldness or receding hairline', excludes anyone under 18, and directs users to ask a doctor before use if they have heart disease. Frontal/hairline application, use by women at this strength, and use under 18 all fall outside the label.",
+   "approvedDose": "Apply 1 mL with the dropper twice a day directly onto the scalp in the hair loss area. Label states using more, or more often, will not improve results.",
+   "onLabelForThisUse": true,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=acc5ad74-4558-4be9-aab4-94ad9ddad6b2",
+   "topic": "hair-5ar"
+  },
+  {
+   "drug": "Methylprednisolone acetate (Depo-Medrol) — injected corticosteroid, the only prescription drug appearing in the tendinopathy loading trials retrieved here (used as comparator/adjunct in Kongsgaard 2009 and Couppé 2022)",
+   "approvedIndication": "The Indications section retrieved from DailyMed covers Section A, intramuscular administration, and lists allergic states, dermatologic diseases, endocrine disorders, gastrointestinal diseases and haematologic disorders. Tendinopathy, epicondylitis and tendinitis do not appear anywhere in the text that was returned. The retrieval tool truncated the section before the intrasynovial/soft-tissue subsection, so I could NOT verify what that subsection says and am not asserting it. What is verbatim confirmed is only the route: 'DEPO-MEDROL is an anti-inflammatory glucocorticoid for intramuscular, intra-articular, soft tissue, or intralesional injection.' Nothing in the retrieved label supports self-administered peritendinous injection, and no drug of any kind is approved for the use this domain actually covers — loading rehabilitation.",
+   "approvedDose": "Verbatim from label: 'The initial dosage of parenterally administered DEPO-MEDROL will vary from 4 to 120 mg, depending on the specific disease entity being treated.' No tendon-specific dose was retrievable. Any peritendinous injection is prescriber-led and clinician-administered.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=823b0010-2b57-4e76-b5ac-4a8c2963438f",
+   "topic": "tendon"
+  },
+  {
+   "drug": "Naproxen sodium (oral tablets)",
+   "approvedIndication": "The FDA label lists relief of the signs and symptoms of tendonitis, bursitis and acute gout, plus rheumatoid arthritis, osteoarthritis, ankylosing spondylitis and polyarticular juvenile idiopathic arthritis, and the management of pain and primary dysmenorrhea. A short course for acute subacromial bursitis/rotator-cuff tendonitis pain therefore sits INSIDE the approved indication - unusual for this app's content. Note the label restricts this to acute use and instructs 'Use the lowest effective dosage for shortest duration'; taking it continuously for months to keep training through pain is not what the indication describes.",
+   "approvedDose": "Management of Pain, Primary Dysmenorrhea, and Acute Tendonitis and Bursitis: 550 mg naproxen sodium to start, then 550 mg every 12 hours or 275 mg every 6 to 8 hours as required. Initial total daily dose not to exceed 1375 mg; thereafter total daily dose not to exceed 1100 mg. For RA/OA/ankylosing spondylitis: 275 mg or 550 mg twice daily.",
+   "onLabelForThisUse": true,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=f6f4a670-235e-4235-84a8-a74dc8ca5586",
+   "topic": "shoulder-back"
+  },
+  {
+   "drug": "Ibuprofen (OTC capsules)",
+   "approvedIndication": "Retrieved OTC label Uses section: 'temporarily relieves minor aches and pains due to: headache muscular aches minor pain of arthritis toothache backache the common cold muscular cramps' and 'temporarily reduces fever'. Backache and muscular aches are listed, so an occasional dose for a sore back is within the labelled use. The pattern this app's readers actually describe - daily dosing around training to keep loading a painful shoulder or back - is NOT what 'temporarily relieves' covers, and the label explicitly says 'do not take more than directed'. Marked off-label on that basis.",
+   "approvedDose": "'adults and children 12 years and over: take 1 capsule every 4 to 6 hours while symptoms persist; if pain or fever does not respond to 1 capsule, 2 capsules may be used; do not exceed 6 capsules in 24 hours, unless directed by a doctor'. The retrieved OTC sections do not state the per-capsule strength, so do not convert the 6-capsule ceiling to milligrams from this label alone.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=04e1b176-b74a-413e-a8e1-dd3764b9aa8b",
+   "topic": "shoulder-back"
+  },
+  {
+   "drug": "Methylprednisolone acetate injectable suspension (subacromial corticosteroid injection)",
+   "approvedIndication": "IMPORTANT RETRIEVAL LIMIT: the Indications and Usage text returned by the label lookup covered intramuscular use for allergic states, dermatologic diseases, endocrine disorders and gastrointestinal diseases, and was truncated before any rheumatic-disorder or intra-articular / soft-tissue (bursitis, tenosynovitis, epicondylitis) section. Subacromial bursa injection for subacromial pain syndrome therefore could NOT be confirmed as an approved indication from the text actually retrieved, and is recorded here as unverified rather than asserted either way. The Contraindications section retrieved does reference intra-articular injection for localized joint conditions, and the Warnings section states that epidural administration is not approved and has been associated with spinal cord infarction, paraplegia, quadriplegia, cortical blindness and stroke - relevant to anyone considering an epidural steroid injection for back pain.",
+   "approvedDose": "'The initial dosage of parenterally administered methylprednisolone acetate injectable suspension will vary from 4 to 120 mg, depending on the specific disease entity being treated' and 'Dosage Requirements Are Variable and Must Be Individualized on the Basis of the Disease Under Treatment and the Response of the Patient.' No subacromial-bursa-specific dose was present in the retrieved sections. Prescriber-led.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a0cbcdb5-f657-49f7-8f86-cc5959d69db0",
+   "topic": "shoulder-back"
+  },
+  {
+   "drug": "Testosterone cypionate (Depo-Testosterone)",
+   "approvedIndication": "Replacement therapy in the male in conditions associated with symptoms of deficiency or absence of endogenous testosterone: (1) primary hypogonadism (congenital or acquired), (2) hypogonadotropic hypogonadism (congenital or acquired). The label states explicitly that safety and efficacy in men with 'age-related' / 'late-onset hypogonadism' have NOT been established. There is no approved indication for training performance, body composition, tendon health, injury recovery, or return-to-sport.",
+   "approvedDose": "For replacement in the hypogonadal male, 50-400 mg IM every two to four weeks; deep gluteal intramuscular injection only, never IV. Diagnosis must first be confirmed by morning serum testosterone below the normal range on at least two separate days.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cfbb53d4-b868-4a28-8436-f9112eb01c39",
+   "topic": "load-mgmt"
+  }
+ ]
+}
