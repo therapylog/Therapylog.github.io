@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Training load management | TherapyLog</title>
+<meta name="description" content="The pain-monitoring model, return-to-running criteria, and why the acute:chronic workload ratio does not support the weight placed on it.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/tools/training-load-management/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="Training load management | TherapyLog"><meta property="og:description" content="The pain-monitoring model, return-to-running criteria, and why the acute:chronic workload ratio does not support the weight placed on it."><meta property="og:url" content="https://therapylog.app/tools/training-load-management/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Training load management | TherapyLog"><meta name="twitter:description" content="The pain-monitoring model, return-to-running criteria, and why the acute:chronic workload ratio does not support the weight placed on it."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.risks{display:block;list-style:none;margin:6px 0 20px;padding:0}
+.risks li{padding:9px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.risks li:first-child{border-top:none}
+.note.reg{border-left-color:var(--warm)}
+[hidden]{display:none!important}
+/* /compounds/ hub: the filter box and the per-card tier chip. */
+.cx-find{margin:22px 0 6px}
+.cx-find label{display:block;font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
+.cx-find input{width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:12px 14px;color:var(--text);font-size:15px;font-family:inherit}
+.cx-find input:focus{outline:none;border-color:var(--accent)}
+.cx-status{font-size:12.5px;color:var(--text3);min-height:18px;margin-top:7px}
+.cx-group{margin-top:34px}
+.cx-group h2{margin-top:0}
+.tcard .tier{display:inline-block;margin-top:9px;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border-radius:20px;padding:2px 9px}
+.tcard .tier-a{color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.tcard .tier-b{color:var(--warm);border:1px solid rgba(245,166,91,0.35)}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/compounds/">Compounds</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/tools/">Tools</a> &rsaquo; Training load management</div>
+
+    <h1>Training load management</h1>
+    <p class="lede">Two numbers dominate load management: a pain threshold and a workload ratio. Both are quoted far more confidently than their evidence supports.</p>
+
+    <div class="callout">
+      <strong>The short version.</strong> The only experimental test of acute:chronic-workload-ratio-based load management found no benefit, and a systematic review co-authored by the metric’s own originator concludes the methodology is too heterogeneous to support strong recommendations.
+    </div>
+
+    <h2>What the evidence shows</h2>
+    <p>Findings are grouped by what kind of evidence each one is. That ordering is the point: a sentence from an FDA label and a sentence from a forum are not the same claim, and this page will not present them as though they were.</p>
+
+    <h3>Clinical trial evidence</h3>
+    <ul class="findings">
+      <li><p>The pain-monitoring model's clinical evidence base is a single 38-person randomised trial: continuing running and jumping under the model produced no worse outcomes than 6 weeks of stopping those activities. Note what this does and does not show — it licenses training through tendon pain, but it did not test the specific numeric cut-point, and it was not powered to detect harm. <a href="#src-1" class="ref">[1]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Trial parameter: first 6 weeks, exercise-training arm continued Achilles tendon-loading activity (running, jumping) guided by the pain-monitoring model; active-rest arm stopped those activities. Both arms performed an identical rehabilitation program. Follow-up to 12 months.</p><p class="pop"><strong>Studied in:</strong> 38 adults with midportion Achilles tendinopathy in Sweden (19 per arm), recruited as patients rather than as a training population. No anabolic-compound users identified; hormone status not reported.</p></li>
+      <li><p>The numeric form of the model most often cited: pain during activity must not exceed 5 on a 0-10 numerical rating scale, AND symptoms must have subsided within 24 hours. This exact wording appears in the Interventions section of a randomised trial's Methods (not in its abstract) — an auditor should look at the full text, not the abstract, for this sentence. <a href="#src-2" class="ref">[2]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Pain during activity &lt;=5/10 NRS; symptoms resolved within 24 h of the activity. Applied only after an initial 3 weeks of avoiding tendon-loading sport (running, jumping).</p><p class="pop"><strong>Studied in:</strong> 40 recreational athletes aged 18-65 with chronic (&gt;=3 months) unilateral midportion Achilles tendinopathy, Netherlands. Diabetes and rheumatoid arthritis were exclusion criteria; hormone or anabolic use was not assessed.</p></li>
+      <li><p>The threshold is NOT standardised. A separate Achilles tendinopathy trial protocol operationalises the same named model at 4/10 rather than 5/10, and applies it to both during-activity and next-day pain. Anyone presenting '5/10' as the pain-monitoring number is over-stating a convention that varies between research groups. <a href="#src-3" class="ref">[3]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Avoid running distances/intensities that raise pain above 4/10 during the run or on the day after; running restricted entirely for the first 3 weeks.</p><p class="pop"><strong>Studied in:</strong> Planned: 60 recreational male runners aged 18-60 with midportion Achilles tendinopathy, Brazil. This is a registered protocol — results are not yet published, so this sources the threshold, not an outcome.</p></li>
+      <li><p>A criteria-based return-to-running protocol gives three separate numeric gates rather than one: &lt;2/10 daily-activity pain to be allowed to start running; &lt;=4/10 during and in the 24 h after a session to keep progressing load; &gt;5/10 the morning after a session triggers an extra recovery day and a load reduction. This is the closest thing in the retrieved literature to an operational daily decision rule. <a href="#src-4" class="ref">[4]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Start running when daily-activity pain &lt;2/10. Progress loading while pain &lt;=4/10 during and for 24 h after a session. Insert an extra recovery day and reduce load if next-morning pain &gt;5/10. Advance to plyometric level on 10 single-leg hops at &lt;4/10.</p><p class="pop"><strong>Studied in:</strong> Planned: 60 adults aged 18-45 in running-based sport with MRI-confirmed chronic midportion Achilles tendinopathy (symptoms 3 months to 3 years), Dublin. Protocol — the numbers are the prespecified rule, not a validated outcome.</p></li>
+      <li><p>The original 'pain monitoring system' comes from a 1997 patellofemoral pain trial, and the author explicitly listed spontaneous recovery first among the possible explanations for improvement. The model was never isolated as the active ingredient — it was one component of a package that also included education, graded training and activity adjustment. <a href="#src-5" class="ref">[5]</a></p><p class="pop"><strong>Studied in:</strong> 40 women aged 15-28 (mean 20.2) with patellofemoral pain syndrome, Sweden — not tendinopathy, not men, not a lifting population. 12 weeks of treatment, followed to 12 months.</p></li>
+      <li><p>There is no validated return-to-sport criterion set for Achilles tendinopathy. A systematic review of 35 intervention studies found most did not even state their criteria, and those that did left them un-operationalised — so any app presenting a definitive RTS checklist is inventing precision the literature does not have. <a href="#src-6" class="ref">[6]</a></p><p class="pop"><strong>Studied in:</strong> 35 published physiotherapy intervention studies in midportion Achilles tendinopathy (study-level, not patient-level).</p></li>
+      <li><p>The acute:chronic workload ratio was introduced as a 'best practice predictor' of training-related injury, on the argument that spikes in load rather than high load per se cause soft-tissue injury. This is the origin claim that everything downstream rests on — and it was a narrative model paper, not an experiment. <a href="#src-7" class="ref">[7]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Requires measuring training load 'up to twice daily' and over weeks-to-months to compute the ratio.</p><p class="pop"><strong>Studied in:</strong> No study population — this is a thesis/model paper in team-sport athletes, synthesising the author's prior observational work.</p></li>
+      <li><p>The concrete definition and the headline statistic: acute = the current week's load, chronic = the rolling average of the past 4 weeks, and the authors reported R-squared = 0.53 for a polynomial relationship with injury likelihood, then recommended using it in return-to-play decisions. Note this R-squared is a curve fit to binned group data, not an individual-level predictive accuracy. <a href="#src-8" class="ref">[8]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Acute load = 1 week; chronic load = rolling 4-week average; ratio = acute / chronic.</p><p class="pop"><strong>Studied in:</strong> Elite male team-sport athletes (cricket, rugby league, Australian rules football) in the authors' prior studies. No women, no recreational lifters, no clinical or hormone-using population.</p></li>
+      <li><p>The familiar 0.8-1.3 'sweet spot' number does have a meta-analytic source, but the same meta-analysis attaches an explicit caution and a very wide confidence interval (56%, 95% CI 0.14 to 0.94 — effectively uninformative). Quote the number if you must, but not without the interval. <a href="#src-9" class="ref">[9]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> ACWR maintained between 0.8 and 1.3.</p><p class="pop"><strong>Studied in:</strong> 22 single-arm cohort studies reporting injury incidence by ACWR category; predominantly male team-sport athletes (soccer heavily represented). 16 rated high quality, 6 moderate on Newcastle-Ottawa.</p></li>
+      <li><p>The central methodological criticism: manipulating ACWR to change injury risk assumes a causal effect that no study has ever attempted to estimate properly. The metric is also mathematically defective — it fails to normalise the numerator by the denominator even in its 'uncoupled' form, and adds noise and statistical artifacts. This is the paper to cite when refusing to present ACWR as settled. <a href="#src-10" class="ref">[10]</a></p><p class="pop"><strong>Studied in:</strong> Methodological critique of the ACWR literature (team-sport athletes); no primary participants.</p></li>
+      <li><p>The same group's clinical commentary states the honest bottom line: the field's apparent agreement with training principles may itself be confirmation bias, and the only defensible recommendation is a common-sense one that is NOT confirmed by studies. If TherapyLog gives load-progression advice, this is the correct epistemic framing to give with it. <a href="#src-11" class="ref">[11]</a></p><p class="pop"><strong>Studied in:</strong> Critique of the training-load and injury research field; no primary participants.</p></li>
+      <li><p>The only experimental test of ACWR-based load management found no benefit. A 10-month cluster-randomised trial in which coaches planned all training using published ACWR principles produced no reduction in health problems versus normal planning. This is the single most important fact about ACWR for a harm-reduction app: the intervention has been tried and it did not work. <a href="#src-12" class="ref">[12]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Intervention arm planned all training for a full 10-month season using published ACWR load-management principles via a commercial athlete-management system.</p><p class="pop"><strong>Studied in:</strong> 482 elite youth footballers of both sexes (16 female, 18 male teams; 34 teams cluster-randomised), Norway. Youth elite athletes — not adults self-managing training, and not people using hormones or anabolic compounds.</p></li>
+      <li><p>Even a systematic review co-authored by ACWR's originator concludes the methodology is too heterogeneous to support strong recommendations — 14 different binning schemes across 20 studies, with almost no two studies using the same categories. The 'thresholds' therefore are not comparable between the studies they come from. <a href="#src-13" class="ref">[13]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> Across included studies: coupled calculation in 95%, 1:4 weekly blocks in 95%, subsequent-week injury lag in 80%.</p><p class="pop"><strong>Studied in:</strong> 20 longitudinal studies: 2375 injuries in 1234 adult elite team-sport athletes, ALL MALE, mean age 24. No data in women, in recreational trainees, or in anyone on hormone therapy.</p></li>
+      <li><p>Prescription testosterone in an insurance-claims database was associated with Achilles tendon injury, but the effect is modest (adjusted OR 1.24) and the absolute difference is small — roughly 378 vs 246 injuries per 100,000 person-years. That is a real signal worth naming, not a reason to expect rupture; and claims data cannot separate the drug from who gets prescribed it or from what they then do in the gym. <a href="#src-17" class="ref">[17]</a></p><p class="dose"><strong>Dose or parameter studied:</strong> At least 3 consecutive months of filled prescription TRT. The database records prescription fills only — no mg/week, ester, route, or serum testosterone level, so no dose-response is available.</p><p class="pop"><strong>Studied in:</strong> 423,278 patients aged 35-75 prescribed &gt;=3 consecutive months of TRT (PearlDiver claims database, USA), 1:1 matched to controls. Retrospective; prescribed TRT, not supraphysiologic self-administered doses.</p></li>
+    </ul>
+
+    <h3>Off-label use of an approved drug</h3>
+    <ul class="findings">
+      <li><p>The best mechanistic human study to date — with tendon biopsies and imaging, and the first to include women — found the patellar tendon itself was NOT severely damaged by AAS, even though the same users reported far more upper-body tendon injuries. This substantially undercuts the 'steroids weaken tendon tissue' story and points toward a load/behaviour mechanism instead. Former users did show higher tendon deformation and strain, which has not been explained. <a href="#src-14" class="ref">[14]</a></p><p class="pop"><strong>Studied in:</strong> 48 recreational athletes in Denmark: 22 current AAS users (4 women), 12 former users (5 women), 14 non-users (5 women). Cross-sectional, Level 3 evidence — small, and the only human dataset that includes female AAS users.</p></li>
+      <li><p>In long-term AAS-using lifters, the patellar tendon was stiffer and carried higher maximal stress than in equally trained non-users, while being smaller relative to strength — i.e. muscle force outgrew tendon cross-section. The authors themselves flagged higher stress as a plausible injury pathway, but this is a cross-sectional association in a small sample, not a demonstrated cause of rupture. <a href="#src-15" class="ref">[15]</a></p><p class="pop"><strong>Studied in:</strong> Young adult men in three groups: long-term resistance-trained AAS users, resistance-trained non-users, and untrained controls (Lithuania/Norway). Cross-sectional, small, male only.</p></li>
+      <li><p>For SARMs specifically, the entire published human tendon evidence retrieved here is one case report: bilateral Achilles ruptures in a powerlifter using two SARMs. n=1, no comparison group, no causal inference possible. Anyone extrapolating AAS tendon data to SARMs is doing so on a single anecdote. <a href="#src-18" class="ref">[18]</a></p><p class="pop"><strong>Studied in:</strong> One 36-year-old male competitive powerlifter. Single case report — the weakest study design that still counts as evidence.</p></li>
+    </ul>
+
+    <h3>Animal or mechanistic only</h3>
+    <ul class="findings">
+      <li><p>How weak is the evidence overall? A systematic review of the entire androgen-tendon literature found only 18 studies, mostly in small animals, frequently contradicting each other — and concluded it does not provide strong evidence either for or against a harmful effect. This is the honest headline: the deleterious effect of androgens on tendon is a plausible, popular, and unproven claim. <a href="#src-16" class="ref">[16]</a></p><p class="pop"><strong>Studied in:</strong> 18 heterogeneous studies of AAS effects on tendon; the vast majority were small-animal (rat/rabbit) studies rather than human.</p></li>
+    </ul>
+
+    <h2>What the regulator approved</h2>
+    <p>Where a drug on this page has a US label, this is what it was approved for and at what dose. Anything else is off-label — which is not the same as unsafe, but does mean no regulator has reviewed it for that use.</p>
+        <div class="tbl">
+      <table>
+        <thead><tr><th>Drug</th><th>Approved for</th><th>Approved dose</th><th>On-label for this use?</th></tr></thead>
+        <tbody>
+          <tr><td>Testosterone cypionate (Depo-Testosterone)</td><td class="num">Replacement therapy in the male in conditions associated with symptoms of deficiency or absence of endogenous testosterone: (1) primary hypogonadism (congenital or acquired), (2) hypogonadotropic hypogonadism (congenital or acquired). The l</td><td class="num">For replacement in the hypogonadal male, 50-400 mg IM every two to four weeks; deep gluteal intramuscular injection only, never IV. Diagnosis must first be confirmed by morning serum testosterone belo</td><td class="num"><strong>No</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What nobody knows</h2>
+    <p>These are the questions the literature does not answer. They are listed because on this subject the gaps are load-bearing: most of what circulates as settled practice sits in one of them.</p>
+    <ul class="gaps">
+      <li>The pain threshold in the pain-monitoring model is not standardised and has never been tested head-to-head. Retrieved trials operationalise the same named model at 5/10 (Habets 2021), 4/10 (Moreno 2026, Griffin 2021 for progression), and &lt;2/10 as the gate to start running (Griffin 2021). No study has compared 3 vs 5 vs 7 to find an optimal cut-point. Presenting '5/10' as THE number is a false precision.</li>
+      <li>The Silbernagel 2007 trial validated 'you may keep training' — not the number 5. It was powered to compare continued activity vs rest (n=38), not to detect harm from a specific threshold, and it found no difference between arms on the primary outcome. A non-significant difference in 38 people is not evidence of safety.</li>
+      <li>The 24-hour symptom-response rule assumes pain is a reliable feedback signal. Nobody has studied whether that holds in people on exogenous androgens, who may have altered pain perception, higher drive/aggression, and stronger motivation to override symptoms. Kanayama 2015 found only 26% of AAS-user tendon ruptures had any prodromal pain and most did not occur during weightlifting — i.e. in this exact population, the warning signal the model relies on was usually absent.</li>
+      <li>Zero pain-monitoring-model research includes people using hormone therapy, peptides, or performance compounds. The populations studied are patellofemoral pain in young women (1997), Achilles tendinopathy in recreational runners and non-elite athletes, mostly male, mostly with diabetes and rheumatoid arthritis excluded.</li>
+      <li>There is no validated return-to-sport criterion set for Achilles tendinopathy. Habets 2018 found only 19 of 35 intervention studies stated any RTS criteria at all, and those that did left them un-operationalised. No validated test battery, timeline, or strength-symmetry threshold exists.</li>
+      <li>ACWR: no study has ever attempted to estimate a causal effect properly (Impellizzeri 2020). Every threshold in circulation, including 0.8-1.3, comes from observational binning of group data — and 20 studies used 14 different binning schemes, so the thresholds are not comparable between the studies that generated them.</li>
+      <li>The one randomised test of ACWR-based load management (482 elite youth footballers, 10 months) found no reduction in health problems (RR 1.01). No RCT has shown that manipulating any workload metric prevents injury.</li>
+      <li>ACWR was derived entirely in elite male team-sport athletes (Andrade 2020: 1234 athletes, all male, mean age 24). It has not been validated in recreational lifters, in resistance training rather than running/field sport, in women, or in anyone on hormone therapy. Its unit of measure (session-RPE, GPS distance) does not translate cleanly to a lifting program.</li>
+      <li>Human androgen-tendon evidence consists of: one recall-based cross-sectional cohort (n=142), one small mechanistic cross-sectional study (n=48), one small cross-sectional mechanical study, and insurance-claims associations. There is no RCT, no prospective cohort, and no dose-response relationship of any kind.</li>
+      <li>Every human AAS study relies on self-reported use. None reports compound, ester, mg/week, cycle length, or stacking. It is therefore not known whether tendon risk differs between testosterone, nandrolone, trenbolone, oral 17-alpha-alkylated compounds, or SARMs — despite widespread community claims that it does (e.g. that nandrolone is 'tendon-friendly' and trenbolone is not). No retrieved evidence supports or refutes any of those compound-specific claims.</li>
+      <li>The mechanism is unresolved and the best human data argue against the popular one. Damgaard 2025 found the patellar tendon's cross-sectional area, cell density and most gene expression unchanged in current AAS users, while upper-body tendon injuries were far more common (79.4% vs 28.6%). That pattern is at least as consistent with strength gains outrunning tendon adaptation, and with bench-press-type loading, as with direct tendon toxicity. Nobody has tested which it is.</li>
+      <li>Reversibility is unknown. Damgaard 2025 found FORMER AAS users had higher tendon deformation and strain than non-users — a hint that something does not normalise quickly — but n=12 and the finding is unexplained and unreplicated. There is no evidence on whether stopping androgens before or after a tendon injury changes healing in humans.</li>
+      <li>The TRT claims-database studies (Achilles aOR 1.24; distal biceps OR 4.10; rotator cuff OR 3.57) cannot separate a drug effect from confounding by indication, surveillance bias (men on TRT have more clinical contact and more coded diagnoses), or the training behaviour that accompanies starting testosterone. The very large ORs in the shoulder/elbow papers alongside a small Achilles OR is itself a pattern that suggests detection effects, not a clean dose-response.</li>
+      <li>No FDA testosterone label lists tendon rupture. The Depo-Testosterone Adverse Reactions section names endocrine, urogenital, skin, cardiovascular, fluid/electrolyte, GI, hematologic, nervous-system, allergic, vascular and ocular effects, and injection-site pain — tendon injury does not appear. Absence from a label is not evidence of absence of an effect; it reflects what was captured in the approval and postmarketing dataset for hypogonadism replacement dosing.</li>
+      <li>For SARMs, the entire human tendon literature retrieved is a single case report (n=1). There is no human trial evidence on SARMs and tendon.</li>
+      <li>No retrieved evidence at all on peptides marketed for tendon healing (BPC-157, TB-500/thymosin beta-4) in humans. This search did not surface human trial data for them; that absence should be stated as an absence, not filled in from community reports.</li>
+      <li>Nobody has studied whether a symptom-based return-to-training rule performs differently in people whose pain perception is modified by NSAIDs, opioids, exogenous hormones, or by the mood/drive changes that accompany androgen use — which is precisely the population this app serves.</li>
+    </ul>
+
+    <h2>Sources</h2>
+    <p>Every identifier below was checked to resolve to a real record before publication. Citations retrieved from PubMed and DailyMed.</p>
+    <ol class="sources">
+      <li id="src-1">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/17307888/" rel="nofollow noopener" target="_blank">The American Journal of Sports Medicine (2007) — PubMed 17307888</a>
+        <span class="src">No negative effects could be demonstrated from continuing Achilles tendon-loading activity, such as running and jumping, with the use of a pain-monitoring model, during treatment. Our treatment protocol for patients with Achilles tendinopathy, which gradually </span>
+      </li>
+      <li id="src-2">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/34722783/" rel="nofollow noopener" target="_blank">Orthopaedic Journal of Sports Medicine (2021) — PubMed 34722783</a>
+        <span class="src">After the first 3 weeks, they could resume their sports activities with a pain-monitoring model; that is, pain during activities should not exceed 5 on a 0 to 10 numerical rating scale, and symptoms should have subsided within 24 hours after the respective act</span>
+      </li>
+      <li id="src-3">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41770805/" rel="nofollow noopener" target="_blank">PLoS ONE (2026) — PubMed 41770805</a>
+        <span class="src">After this period, they will be allowed to resume their running routine using the pain monitoring model as a guide, i.e., avoid running distances/intensities that cause their pain to increase to more than 4/10 during or in the day after the run</span>
+      </li>
+      <li id="src-4">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/34391384/" rel="nofollow noopener" target="_blank">BMC Musculoskeletal Disorders (2021) — PubMed 34391384</a>
+        <span class="src">Participants will be advised to take an extra recovery day between exercise sessions if pain was above 5/10 on the day after a session and to adjust their loads for the subsequent session.</span>
+      </li>
+      <li id="src-5">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/9413448/" rel="nofollow noopener" target="_blank">Physical Therapy (1997) — PubMed 9413448</a>
+        <span class="src">The results indicate that the improvements shown in this study may be due to spontaneous recovery over time, the education given to the subjects, the pain monitoring system, the gradually progressing training program, and the adjusted physical activity.</span>
+      </li>
+      <li id="src-6">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/29249084/" rel="nofollow noopener" target="_blank">Sports Medicine (2018) — PubMed 29249084</a>
+        <span class="src">Thirty-two studies reported a definition of RTS, but only 19 studies described the criteria for RTS.</span>
+      </li>
+      <li id="src-7">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/26758673/" rel="nofollow noopener" target="_blank">British Journal of Sports Medicine (2016) — PubMed 26758673</a>
+        <span class="src">I describe the critical variable-acute:chronic workload ratio-as a best practice predictor of training-related injuries. This provides the foundation for interventions to reduce players risk, and thus, time-loss injuries.</span>
+      </li>
+      <li id="src-8">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/26701923/" rel="nofollow noopener" target="_blank">British Journal of Sports Medicine (2016) — PubMed 26701923</a>
+        <span class="src">Our findings demonstrate a strong predictive (R(2)=0.53) polynomial relationship between acute:chronic workload ratio and injury likelihood. In the elite team setting, it is possible to quantify the loads we are expecting athletes to endure when returning to s</span>
+      </li>
+      <li id="src-9">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41029871/" rel="nofollow noopener" target="_blank">BMC Sports Science, Medicine &amp; Rehabilitation (2025) — PubMed 41029871</a>
+        <span class="src">whereas the injury incidence was minimized when the interval was kept at 0.8-1.3, with an injury incidence of 56% (95% CI [0.14; 0.94]). Although ACWR is associated with sports injury risk and may be useful in injury prevention strategies, it is necessary to u</span>
+      </li>
+      <li id="src-10">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/32502973/" rel="nofollow noopener" target="_blank">International Journal of Sports Physiology and Performance (2020) — PubMed 32502973</a>
+        <span class="src">Because no studies have even tried to estimate causal effects properly, manipulating ACWR in practical settings in order to change injury rates remains a conjecture and an overinterpretation of the available data. ... There is no evidence supporting the use of</span>
+      </li>
+      <li id="src-11">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/32741323/" rel="nofollow noopener" target="_blank">Journal of Orthopaedic &amp; Sports Physical Therapy (2020) — PubMed 32741323</a>
+        <span class="src">The strongest recommendation we can make for the clinician is grounded in common sense: &quot;Do not train too much, too soon&quot;-not because it has been confirmed by studies, but because it reflects accepted generic training principles.</span>
+      </li>
+      <li id="src-12">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/33036995/" rel="nofollow noopener" target="_blank">British Journal of Sports Medicine (2021) — PubMed 33036995</a>
+        <span class="src">The between-group difference in health problem prevalence (primary outcome) was 1.8%-points (-4.1 to 7.7 %-points; p=0.55) with no reduction in the likelihood of reporting a health problem in the intervention group (relative risk 1.01 (95% CI 0.91 to 1.12); p=</span>
+      </li>
+      <li id="src-13">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/32572824/" rel="nofollow noopener" target="_blank">Sports Medicine (2020) — PubMed 32572824</a>
+        <span class="src">There were 14 different binning methods with almost none of the studies using the same binning categories. ... The heterogenous methodological approaches not only reflect the wide range of sports studied and the differing demands of these activities, but also </span>
+      </li>
+      <li id="src-14">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/40407232/" rel="nofollow noopener" target="_blank">The American Journal of Sports Medicine (2025) — PubMed 40407232</a>
+        <span class="src">The combined AAS group (both current and former abusers) reported a higher proportion of upper body tendon injuries compared with nonusers (79.4% vs 28.6%, respectively;= .002). There was no difference in PT cross-sectional area (= .918) or cell density (fasci</span>
+      </li>
+      <li id="src-15">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/23620489/" rel="nofollow noopener" target="_blank">Journal of Applied Physiology (2013) — PubMed 23620489</a>
+        <span class="src">However, stiffness and modulus were higher in the RTS group (26%, P &lt; 0.05 and 30%, P &lt; 0.01, respectively) than in the RT group. Conversely, tendon CSA was 15% (P &lt; 0.05) larger in the RT group than in RTS, although differences disappeared when this variable </span>
+      </li>
+      <li id="src-16">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/30047601/" rel="nofollow noopener" target="_blank">Journal of Orthopaedic Research (2018) — PubMed 30047601</a>
+        <span class="src">In total, 18 highly heterogeneous studies were identified. Small animal studies made up the vast majority of published research, and contradictory results were reported frequently. ... Rather than providing strong evidence for or against the use of AAS, this r</span>
+      </li>
+      <li id="src-17">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/37950322/" rel="nofollow noopener" target="_blank">Journal of Foot and Ankle Research (2023) — PubMed 37950322</a>
+        <span class="src">The 2-year incidence of Achilles tendon injury was 377.8 (95% CI, 364.8-391.0) per 100,000 person-years in the TRT cohort, compared to 245.8 (95% CI, 235.4-256.6) in the control (p &lt; 0.001). The adjusted analysis demonstrated TRT to be associated with a signif</span>
+      </li>
+      <li id="src-18">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/33835995/" rel="nofollow noopener" target="_blank">JBJS Case Connector (2021) — PubMed 33835995</a>
+        <span class="src">A 36-year-old male competitive powerlifter sustained asynchronous bilateral Achilles tendon ruptures after using 2 types of selective androgen receptor modulators (SARMs). ... This case suggests that SARM compounds may also predispose users to Achilles tendon </span>
+      </li>
+      <li id="src-19">
+        <a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cfbb53d4-b868-4a28-8436-f9112eb01c39" rel="nofollow noopener" target="_blank">Testosterone cypionate (Depo-Testosterone) — US Prescribing Information (DailyMed)</a>
+        <span class="src">Approved indication: Replacement therapy in the male in conditions associated with symptoms of deficiency or absence of endogenous testosterone: (1) primary hypogonadism (congenital or acquired), (2) hypogonadotropic hypo</span>
+      </li>
+    </ol>
+
+    <p class="note">/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();</p>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 7 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="callout">
+      <p>This calculator does the arithmetic you typed and nothing else. It does not know what is actually in your vial, whether the label is accurate, or anything about you. Confirm the vial strength and the diluent volume on your own label before you draw, and take dosing decisions to a qualified provider.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "article",
+      "@id": "https://therapylog.app/tools/training-load-management/#page",
+      "url": "https://therapylog.app/tools/training-load-management/",
+      "name": "Training load management | TherapyLog",
+      "description": "The pain-monitoring model, return-to-running criteria, and why the acute:chronic workload ratio does not support the weight placed on it.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-07",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://therapylog.app/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Training load management",
+            "item": "https://therapylog.app/tools/training-load-management/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

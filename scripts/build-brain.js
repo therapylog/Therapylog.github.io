@@ -172,8 +172,51 @@ function playbookText(s) {
   if (s.labs) p.push('Labs: ' + s.labs);
   if (lines(s.resp).length) p.push('Commonly discussed responses:\n' + s.resp.map((x) => `• ${x}`).join('\n'));
   if (s.esc) p.push('Escalate / seek care: ' + s.esc);
+  /* The evidence note carries the uncertainty language — "no trial has ever",
+     "unlicensed for this purpose". Those are exactly the phrases someone types
+     when they are trying to find out whether a practice is actually supported,
+     so it belongs in the searchable text and not only on screen. */
+  if (s.ev) p.push('What the evidence says: ' + s.ev);
   return p.join('\n\n');
 }
+
+/* Rehab entries carry their protocol numbers and their pain rule, and both are
+   what someone is actually searching for ("how many sets", "how much pain is
+   too much"). The `avoid` field earns its place in the indexed text too: on
+   these three topics the most useful sentence is often what NOT to do, and it
+   is where the strongest evidence sits — placebo-controlled surgery trials and
+   the one experimental test of ACWR. */
+function rehabText(r) {
+  const p = [`${r.t} — ${r.what || ''}`];
+  if (r.signs) p.push('What it looks like: ' + r.signs);
+  if (lines(r.prot).length) p.push('Protocols and parameters:\n' + r.prot.map((x) => `• ${x}`).join('\n'));
+  if (r.rule) p.push('How to judge progression: ' + r.rule);
+  if (r.avoid) p.push('What not to do: ' + r.avoid);
+  if (r.esc) p.push('Escalate / seek care: ' + r.esc);
+  if (r.ev) p.push('What the evidence says: ' + r.ev);
+  return p.join('\n\n');
+}
+
+/* Rehab questions arrive in gym language, not clinical language — "tennis
+   elbow", "golfers elbow", "back exercises without biceps", "deload". Without
+   this the three rehab entries are unreachable for exactly the people who need
+   them. */
+const REHAB_SYNONYMS = {
+  'Tendon loading protocols': ['tendon', 'tendinitis', 'tendonitis', 'tendinopathy',
+    'patellar', 'jumpers knee', 'achilles', 'tennis elbow', 'golfers elbow',
+    'lateral epicondylitis', 'eccentric', 'eccentrics', 'heavy slow resistance', 'hsr',
+    'isometric', 'isometrics', 'knee pain squat', 'tendon pain', 'rehab tendon'],
+  'Training around a sore elbow or shoulder': ['elbow', 'shoulder', 'bicep', 'biceps',
+    'distal bicep', 'bicep tendinitis', 'elbow pain', 'shoulder pain', 'shoulder impingement',
+    'impingement', 'rotator cuff', 'back exercises', 'back without biceps', 'pull ups grip',
+    'lat pulldown', 'straps', 'lifting straps', 'fat grips', 'subacromial', 'decompression',
+    'curl grip', 'pulling exercises', 'row', 'rows'],
+  'Load management and getting back to training': ['deload', 'load management', 'acwr',
+    'acute chronic workload', 'return to training', 'return to sport', 'return to running',
+    'back pain', 'low back pain', 'lower back', 'lumbar', 'overtraining', 'training through pain',
+    'how much pain is ok', 'niggle', 'niggles', 'tendon rupture', 'rupture risk', 'bpc',
+    'bpc-157', 'bpc157', 'ibuprofen', 'nsaid', 'nsaids', 'painkillers gains']
+};
 
 /* How people actually phrase these. The playbook titles are clinical ("High
    prolactin", "HPTA suppression & recovery") and nobody types those — they
@@ -184,6 +227,10 @@ function playbookText(s) {
    sends a prolactin question to the estradiol protocol is worse than no
    match at all. */
 const PLAYBOOK_SYNONYMS = {
+  'Liver strain': ['liver', 'liver damage', 'liver values', 'liver enzymes', 'alt', 'ast',
+    'alt high', 'ast high', 'ggt', 'bilirubin', 'jaundice', 'yellow eyes', 'hepatotoxic',
+    'hepatotoxicity', 'liver toxic', 'liver support', 'tudca', 'nac', '17aa', '17-aa',
+    'methylated', 'oral steroid liver', 'cholestasis', 'liver panel', 'lft', 'lfts'],
   'High prolactin': ['prolactin', 'prolactinoma', 'cabergoline', 'caber', 'lactation',
     'nipple discharge', 'dead libido', 'no libido', '19-nor', 'deca dick', 'tren dick'],
   'High estradiol': ['estradiol', 'e2', 'estrogen', 'high e2', 'estrogen high',
@@ -229,7 +276,7 @@ const MARKER_PLAYBOOK = {
 function build() {
   const html = fs.readFileSync(APP, 'utf8');
   const d = declarations(html, [
-    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX',
+    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB',
     'INTERACTIONS', 'NEW_INTERACTIONS', 'CLINIC_INTERACTIONS',
     'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES'
   ]);
@@ -259,6 +306,47 @@ function build() {
   const orphaned = Object.keys(PLAYBOOK_SYNONYMS).filter((t) => !playbookByTitle[t]);
   if (orphaned.length) {
     throw new Error(`PLAYBOOK_SYNONYMS names playbooks app.html no longer has: ${orphaned.join(', ')}`);
+  }
+  /* Every citation on a playbook must resolve to a record that was actually
+     retrieved and checked. The research files are the checked set: every PMID
+     in claims.json was confirmed against PubMed with get_article_metadata, and
+     every setid in labels.json came back from the DailyMed retrieval.
+
+     This exists because a plausible-looking identifier is the easiest thing in
+     the world to write and the hardest to notice — one was typed into this very
+     file during authoring and only a check like this caught it. A citation that
+     does not resolve is worse than no citation: it borrows authority it has not
+     earned. */
+  {
+    const research = path.join(ROOT, 'assets', 'brain', 'research');
+    const claims = JSON.parse(fs.readFileSync(path.join(research, 'claims.json'), 'utf8')).claims;
+    const labels = JSON.parse(fs.readFileSync(path.join(research, 'labels.json'), 'utf8')).labels;
+    const pmids = new Set(claims.map((c) => String(c.pmid || '').trim()));
+    const setids = new Set(labels.map((l) => String(l.dailymedUrl || '').split('setid=')[1]).filter(Boolean));
+    const bad = [];
+    for (const s of [...d.SIDEFX, ...d.REHAB]) {
+      for (const row of (s.src || [])) {
+        if (!Array.isArray(row) || row.length !== 2 || !row[0] || !row[1]) {
+          bad.push(`${s.t}: malformed src row ${JSON.stringify(row)} — expected [identifier, what it shows]`);
+          continue;
+        }
+        const [id] = row;
+        if (String(id).indexOf('label:') === 0) {
+          if (!setids.has(String(id).slice(6))) bad.push(`${s.t}: DailyMed setid ${String(id).slice(6)} is not in labels.json`);
+        } else if (!pmids.has(String(id))) {
+          bad.push(`${s.t}: PMID ${id} is not in claims.json — it was never retrieved or checked`);
+        }
+      }
+      if (s.ev && !(s.src || []).length) bad.push(`${s.t}: has an evidence note but cites nothing`);
+    }
+    if (bad.length) {
+      throw new Error('playbook citations do not resolve to retrieved research:\n  ' + bad.join('\n  '));
+    }
+  }
+
+  const unmappedRehab = d.REHAB.map((r) => r.t).filter((t) => !REHAB_SYNONYMS[t]);
+  if (unmappedRehab.length) {
+    throw new Error(`rehab entries with no synonyms — add them to REHAB_SYNONYMS: ${unmappedRehab.join(', ')}`);
   }
   const unmapped = d.SIDEFX.map((s) => s.t).filter((t) => !PLAYBOOK_SYNONYMS[t]);
   if (unmapped.length) {
@@ -319,7 +407,24 @@ function build() {
       subtitle: 'side-effect playbook',
       terms: terms(s.t, (s.t || '').split(/\s+/), PLAYBOOK_SYNONYMS[s.t] || []),
       text: playbookText(s),
+      /* Carried into the index so the free in-app answer can show its sources.
+         Without this the app would state findings with nothing behind them,
+         which is the opposite of the point. */
+      src: s.src || [],
       route: { view: 'sidefx', item: s.t }
+    });
+  }
+
+  for (const r of d.REHAB) {
+    entries.push({
+      id: `rehab:${r.t}`,
+      kind: 'rehab',
+      title: r.t,
+      subtitle: 'rehab and load guidance',
+      terms: terms(r.t, (r.t || '').split(/\s+/), REHAB_SYNONYMS[r.t] || []),
+      text: rehabText(r),
+      src: r.src || [],
+      route: { view: 'rehab', item: r.t }
     });
   }
 
@@ -384,8 +489,28 @@ function build() {
   return JSON.stringify(index, null, 1) + '\n';
 }
 
+/* app.html inlines the matcher so it works offline on the first question. Two
+   copies of anything drift; this makes drift a build failure rather than a
+   subtle behaviour difference between what the eval measures and what ships. */
+function checkMatcherInlined() {
+  const app = fs.readFileSync(APP, 'utf8');
+  const src = fs.readFileSync(path.join(ROOT, 'assets', 'brain', 'match.js'), 'utf8').trim();
+  const start = app.indexOf('/* @@TL_BRAIN_MATCHER@@ start');
+  const end = app.indexOf('/* @@TL_BRAIN_MATCHER@@ end */');
+  if (start === -1 || end === -1) {
+    throw new Error('app.html no longer inlines the brain matcher — the @@TL_BRAIN_MATCHER@@ markers are gone');
+  }
+  const inlined = app.slice(app.indexOf('*/', start) + 2, end).trim();
+  if (inlined !== src) {
+    throw new Error('app.html\'s inlined matcher has drifted from assets/brain/match.js.\n' +
+      'The eval harness requires assets/brain/match.js directly, so drift means the measured\n' +
+      'matcher is not the shipped one. Re-copy it between the @@TL_BRAIN_MATCHER@@ markers.');
+  }
+}
+
 function main() {
   const check = process.argv.includes('--check');
+  checkMatcherInlined();
   const out = build();
   if (check) {
     if (!fs.existsSync(OUT)) {

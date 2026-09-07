@@ -238,7 +238,8 @@ function buildAll(ctx) {
     require('./pages-markers-checklist.js'),
     require('./pages-markers-hub.js'),
     require('./pages-compounds.js'),
-    require('./pages-compounds-hub.js')
+    require('./pages-compounds-hub.js'),
+    require('./pages-guidance.js')
   ];
   const api = {
     esc, factBox, EV, table, formula, publishableDoses, regStatus, monPanel, displayClass,
