@@ -259,13 +259,15 @@ const NUTRITION_SYNONYMS = {
     'nausea', 'what to eat on semaglutide', 'protein on glp1'],
   'Meal timing and fasting: what matters': ['meal timing', 'anabolic window', 'timing',
     'intermittent fasting', 'fasting', '16:8', 'time restricted', 'omad', 'breakfast',
-    'pre workout meal', 'post workout meal', 'carbs before training', 'carb timing',
+    'pre workout meal', 'post workout meal', 'fasted cardio', 'fasted training',
+    'training fasted', 'cardio fasted', 'carbs before training', 'carb timing',
     'carbs around training', 'carbs after training', 'when to eat carbs', 'meal frequency',
     'how many meals'],
   'What to limit, and what it actually buys': ['what to avoid', 'foods to avoid', 'avoid',
     'sodium', 'salt', 'alcohol', 'drinking', 'saturated fat', 'fiber', 'fibre', 'processed food',
     'ultra processed', 'dash diet', 'diet for cholesterol', 'diet for blood pressure',
-    'lower my cholesterol', 'lower my blood pressure'],
+    'lower my cholesterol', 'lower my blood pressure', 'eating on trt', 'diet on trt',
+    'change how i eat', 'change my diet', 'diet on cycle', 'eat differently'],
   'Supplements: the short list that works': ['supplement', 'supplements', 'creatine', 'caffeine',
     'beta alanine', 'citrulline', 'hmb', 'bcaa', 'bcaas', 'eaa', 'eaas', 'leucine', 'preworkout',
     'pre workout', 'is creatine worth it', 'what supplements should i take', 'contamination',
@@ -302,7 +304,8 @@ const REHAB_SYNONYMS = {
   'Load management and getting back to training': ['deload', 'load management', 'acwr',
     'acute chronic workload', 'return to training', 'return to sport', 'return to running',
     'back pain', 'low back pain', 'lower back', 'lumbar', 'overtraining', 'training through pain',
-    'how much pain is ok', 'niggle', 'niggles', 'tendon rupture', 'rupture risk', 'bpc',
+    'how much pain is ok', 'train through', 'train through it', 'should i stop training',
+    'push through', 'rest or train', 'niggle', 'niggles', 'tendon rupture', 'rupture risk', 'bpc',
     'bpc-157', 'bpc157', 'ibuprofen', 'nsaid', 'nsaids', 'painkillers gains']
 };
 

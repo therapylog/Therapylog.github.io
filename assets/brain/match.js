@@ -84,16 +84,22 @@
 
      A caveat found later, by probing shorter phrasings (scripts/probe-brain.js):
      coverage is a FRACTION of the question's tokens, so it rises as the question
-     gets terser. The long form of the tirzepatide-and-a-deficit question scores
-     0.07 and defers as intended; the five-token form, "im on tirzepatide and
-     lifting, how do i keep muscle", scores 0.20 and is answered with the
-     compound entry. Same question, opposite routing, purely because of length.
+     gets terser. The same question can therefore route differently depending on
+     how much of it the user typed.
+
+     The tirzepatide-and-a-deficit question used to be the example here, as a
+     case that ought to defer. It is no longer: the GLP-1 nutrition entry now
+     answers it directly — the deficit drives the lean loss rather than the drug,
+     and resistance training is the lever — so answering is correct and the entry
+     is the right one. That was the fix predicted when this comment first said
+     the answer was content rather than threshold tuning.
 
      Left at 0.10 deliberately. The constant is calibrated against the eval set
-     that decides the model tier, and re-tuning it on a 41-question probe would
-     trade a measured number for a less-measured one. The real fix for the
-     compositional case is content — an entry that actually answers "how do I
-     keep muscle in a deficit" — not a threshold that hides the gap.
+     that decides the model tier, and re-tuning it on a smaller probe would trade
+     a measured number for a less-measured one. Where the library genuinely must
+     not answer, the two shapes that matter are handled explicitly above:
+     requests to build something bespoke, and dose questions about compounds the
+     index does not know.
 
      The margin is thin, so it is worth being clear about which way a
      misclassification fails. Too low and the app shows a related card the
@@ -179,6 +185,28 @@
     return Math.round(best * (KIND_WEIGHT[entry.kind] != null ? KIND_WEIGHT[entry.kind] : 1));
   }
 
+  /* Two shapes of question the library must not answer even when something in
+     it scores well. Both were found by the eval, and both fail in the same
+     direction: the app shows a confident card for a question it has not
+     actually answered.
+
+     1. A request to BUILD something bespoke. "Build me a meal prep plan, 3,000
+        calories, 220 g protein" matched the meal-prep entry at 0.25 coverage
+        and would have been answered with general advice about component
+        prepping. The user asked for a plan with their numbers in it; a card
+        that does not contain those numbers is not a worse answer, it is a
+        different one. This belongs to the assistant, which has their data.
+
+     2. A dose question about something the index does not know. "What's the
+        standard dose of Tesamorelin-B for lean mass gain?" names a compound
+        that does not exist, and matched the BULKING entry at 0.50 coverage on
+        the words "lean mass gain" alone. Answering it with a nutrition card
+        implies the compound is real, which is the one thing a reference must
+        never do about a name it has never heard. A dose question is only
+        answerable by a compound entry. */
+  const BESPOKE = /\b(?:build|make|write|design|create|put together|lay out|structure|plan out)\s+(?:me\s+)?(?:a|an|my|the)?\s*(?:\w+\s+){0,3}(?:plan|program|programme|routine|split|schedule|protocol|template|week|day)\b|\bhow should i (?:structure|organi[sz]e|split|lay out|set up)\b/i;
+  const DOSE_ASK = /\b(?:standard |typical |normal |usual |correct |right )?dose (?:of|for)\b|\bhow (?:much|many) (?:mg|mcg|iu|units)\b|\bdosing (?:of|for)\b/i;
+
   /* A stated age under 18, next to a question about cycles or compounds.
      This is checked on the device, before anything is sent, because the answer
      must not depend on a model complying with a prompt. There is no version of
@@ -244,6 +272,13 @@
     }
     const picked = out.slice(0, limit);
 
+    /* Applied after scoring rather than before, so the entries still appear as
+       related reading — the question is only whether one is offered AS the
+       answer. */
+    const bespoke = BESPOKE.test(String(q || ''));
+    const doseAskOffTopic = DOSE_ASK.test(String(q || '')) &&
+      picked.length && picked[0].entry.kind !== 'compound';
+
     /* Markers carry the range, playbooks carry what to do about it. "My
        hematocrit is 53" matches the marker on the word alone, but the useful
        half of the answer is the playbook the marker points at — so a hit drags
@@ -280,8 +315,8 @@
     return {
       tool: toolFor(q),
       results: picked,
-      answerable,
-      answers: !!(toolFor(q) || answerable.length)
+      answerable: (bespoke || doseAskOffTopic) ? [] : answerable,
+      answers: !!(toolFor(q) || ((bespoke || doseAskOffTopic) ? false : answerable.length))
     };
   }
 
