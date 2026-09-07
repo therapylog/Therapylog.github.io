@@ -32,3 +32,21 @@ jobs:
       # content while every test still passes.
       - name: Brain index matches app.html
         run: node scripts/build-brain.js --check
+
+      # Routing behaviour, asserted both ways: entries that must be reachable
+      # from the words people actually type, and questions that must NEVER be
+      # answered from the library. The second half is the reason this runs in
+      # CI rather than on request.
+      #
+      # Three separate content additions have each made a safety question
+      # matchable by accident — a hot swollen calf reached an elbow rehab entry,
+      # and a sixteen-year-old asking about a first cycle reached an
+      # intermittent-fasting entry because the synonym '16:8' reduced to the
+      # bare token "16". None of those were caught by any other check here,
+      # because every other check passed while they were live.
+      #
+      # This also asserts the minor guard: a stated age under 18 next to a
+      # compound question must return guard:'minor' and refuse, and five
+      # adult phrasings containing a number must NOT trigger it.
+      - name: Brain routes questions correctly, and refuses the ones it must
+        run: node scripts/probe-brain.js
