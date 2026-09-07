@@ -180,6 +180,44 @@ function playbookText(s) {
   return p.join('\n\n');
 }
 
+/* Rehab entries carry their protocol numbers and their pain rule, and both are
+   what someone is actually searching for ("how many sets", "how much pain is
+   too much"). The `avoid` field earns its place in the indexed text too: on
+   these three topics the most useful sentence is often what NOT to do, and it
+   is where the strongest evidence sits — placebo-controlled surgery trials and
+   the one experimental test of ACWR. */
+function rehabText(r) {
+  const p = [`${r.t} — ${r.what || ''}`];
+  if (r.signs) p.push('What it looks like: ' + r.signs);
+  if (lines(r.prot).length) p.push('Protocols and parameters:\n' + r.prot.map((x) => `• ${x}`).join('\n'));
+  if (r.rule) p.push('How to judge progression: ' + r.rule);
+  if (r.avoid) p.push('What not to do: ' + r.avoid);
+  if (r.esc) p.push('Escalate / seek care: ' + r.esc);
+  if (r.ev) p.push('What the evidence says: ' + r.ev);
+  return p.join('\n\n');
+}
+
+/* Rehab questions arrive in gym language, not clinical language — "tennis
+   elbow", "golfers elbow", "back exercises without biceps", "deload". Without
+   this the three rehab entries are unreachable for exactly the people who need
+   them. */
+const REHAB_SYNONYMS = {
+  'Tendon loading protocols': ['tendon', 'tendinitis', 'tendonitis', 'tendinopathy',
+    'patellar', 'jumpers knee', 'achilles', 'tennis elbow', 'golfers elbow',
+    'lateral epicondylitis', 'eccentric', 'eccentrics', 'heavy slow resistance', 'hsr',
+    'isometric', 'isometrics', 'knee pain squat', 'tendon pain', 'rehab tendon'],
+  'Training around a sore elbow or shoulder': ['elbow', 'shoulder', 'bicep', 'biceps',
+    'distal bicep', 'bicep tendinitis', 'elbow pain', 'shoulder pain', 'shoulder impingement',
+    'impingement', 'rotator cuff', 'back exercises', 'back without biceps', 'pull ups grip',
+    'lat pulldown', 'straps', 'lifting straps', 'fat grips', 'subacromial', 'decompression',
+    'curl grip', 'pulling exercises', 'row', 'rows'],
+  'Load management and getting back to training': ['deload', 'load management', 'acwr',
+    'acute chronic workload', 'return to training', 'return to sport', 'return to running',
+    'back pain', 'low back pain', 'lower back', 'lumbar', 'overtraining', 'training through pain',
+    'how much pain is ok', 'niggle', 'niggles', 'tendon rupture', 'rupture risk', 'bpc',
+    'bpc-157', 'bpc157', 'ibuprofen', 'nsaid', 'nsaids', 'painkillers gains']
+};
+
 /* How people actually phrase these. The playbook titles are clinical ("High
    prolactin", "HPTA suppression & recovery") and nobody types those — they
    type "gyno", "crashed my e2", "balls shrunk". Without this layer the twelve
@@ -238,7 +276,7 @@ const MARKER_PLAYBOOK = {
 function build() {
   const html = fs.readFileSync(APP, 'utf8');
   const d = declarations(html, [
-    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX',
+    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB',
     'INTERACTIONS', 'NEW_INTERACTIONS', 'CLINIC_INTERACTIONS',
     'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES'
   ]);
@@ -286,7 +324,7 @@ function build() {
     const pmids = new Set(claims.map((c) => String(c.pmid || '').trim()));
     const setids = new Set(labels.map((l) => String(l.dailymedUrl || '').split('setid=')[1]).filter(Boolean));
     const bad = [];
-    for (const s of d.SIDEFX) {
+    for (const s of [...d.SIDEFX, ...d.REHAB]) {
       for (const row of (s.src || [])) {
         if (!Array.isArray(row) || row.length !== 2 || !row[0] || !row[1]) {
           bad.push(`${s.t}: malformed src row ${JSON.stringify(row)} — expected [identifier, what it shows]`);
@@ -306,6 +344,10 @@ function build() {
     }
   }
 
+  const unmappedRehab = d.REHAB.map((r) => r.t).filter((t) => !REHAB_SYNONYMS[t]);
+  if (unmappedRehab.length) {
+    throw new Error(`rehab entries with no synonyms — add them to REHAB_SYNONYMS: ${unmappedRehab.join(', ')}`);
+  }
   const unmapped = d.SIDEFX.map((s) => s.t).filter((t) => !PLAYBOOK_SYNONYMS[t]);
   if (unmapped.length) {
     throw new Error(`playbooks with no synonyms — add them to PLAYBOOK_SYNONYMS: ${unmapped.join(', ')}`);
@@ -366,6 +408,18 @@ function build() {
       terms: terms(s.t, (s.t || '').split(/\s+/), PLAYBOOK_SYNONYMS[s.t] || []),
       text: playbookText(s),
       route: { view: 'sidefx', item: s.t }
+    });
+  }
+
+  for (const r of d.REHAB) {
+    entries.push({
+      id: `rehab:${r.t}`,
+      kind: 'rehab',
+      title: r.t,
+      subtitle: 'rehab and load guidance',
+      terms: terms(r.t, (r.t || '').split(/\s+/), REHAB_SYNONYMS[r.t] || []),
+      text: rehabText(r),
+      route: { view: 'rehab', item: r.t }
     });
   }
 
