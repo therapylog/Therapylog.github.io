@@ -39,7 +39,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
   <div class="brand"><img src="/icons/logo-dark.svg" alt="TherapyLog"></div>
   <h1>Privacy Policy</h1>
-  <div class="updated">Last updated: June 8, 2026</div>
+  <div class="updated">Last updated: September 1, 2026</div>
 
   <p>TherapyLog is a health-tracking app for adults managing hormone therapy, peptides, and related protocols. We built it local-first, which means the large majority of your data never leaves your device. This policy explains exactly what stays local, what is sent off your device and when, and the choices you have.</p>
 
@@ -48,13 +48,14 @@ a:hover{text-decoration:underline}
   </div>
 
   <h2>Your health data stays on your device</h2>
-  <p>Everything you log in TherapyLog — wellness metrics, injections, body measurements, bloodwork, symptoms, progress photos, protocols, and your profile — is stored locally on your device using your browser or device storage (IndexedDB and local storage). We do not have a copy of it, we cannot see it, and it is not backed up to our servers.</p>
+  <p>Everything you log in TherapyLog — wellness metrics, injections, body measurements, bloodwork, symptoms, progress photos, protocols, your profile, <strong>cycle-tracking entries (period, ovulation and fertility data)</strong>, and <strong>anything you bulk-import from Apple Health (blood pressure, heart rate, HRV, steps and sleep)</strong> — is stored locally on your device using your browser or device storage (IndexedDB and local storage). We do not have a copy of it, we cannot see it, and it is not backed up to our servers.</p>
   <p>Because it is local, you are responsible for backing it up. The app provides an export feature so you can save your own backup file. If you delete the app or clear your device storage without a backup, that data is gone and we cannot recover it.</p>
 
   <h2>The AI research assistant</h2>
   <p>When you ask the AI assistant a question, your question and — if you are in Personalized mode — relevant context from your logged data (such as your current protocol and recent lab values) are sent to our processing partner, Anthropic, to generate a response. This is the only time your health data leaves your device, and it happens only when you actively send a message.</p>
   <ul>
-    <li><strong>General mode:</strong> If you switch the assistant to General mode, none of your personal data is sent — only your typed question.</li>
+    <li><strong>Personalized mode (the default):</strong> your current protocol, recent lab values and recent logged symptoms are sent alongside your question so the answer can reference them. The first time this happens the app asks you, names Anthropic as the recipient, and lets you choose General instead.</li>
+      <li><strong>General mode:</strong> switch the assistant to General mode in <em>AI → Settings → What is sent with your question</em> and none of your logged data is sent — only your typed question. You can switch back and forth at any time.</li>
     <li><strong>Web search:</strong> To ground answers in current research, the assistant may run web searches related to your question. Your identity and personal data are not part of those searches.</li>
     <li><strong>Bring Your Own Key (BYOK):</strong> If you use your own Anthropic API key, your requests go to Anthropic under your own account and are governed by your agreement with them. Your key is stored only on your device.</li>
     <li><strong>Lab scanner:</strong> If you photograph a lab report to auto-fill values, that image is sent for processing to extract the values, then the extracted values are stored locally on your device.</li>
@@ -70,7 +71,7 @@ a:hover{text-decoration:underline}
 
   <p><strong>If you buy a plan.</strong> Payment is handled by <strong>Stripe</strong>; we never see your card details. Stripe holds your email, your purchase history, and a licence key we generate for you — that key is how the app knows which plan you have. The app sends the key to us when it checks your plan, and that check returns only your tier and renewal date. We do not keep a copy of your health data alongside it, because we never receive your health data at all.</p>
 
-  <p><strong>Analytics.</strong> We use <strong>Vercel Web Analytics</strong> to count page views and a handful of product events (a signup submitted, a checkout started, a licence activated, a backup taken). It is aggregate and cookie-free, and it never includes anything you log — no doses, no lab values, no notes. If you arrive from an ad or an affiliate link, the campaign name is stored in your browser so the sale can be credited; that is a marketing label, not a profile of you.</p>
+  <p><strong>Analytics.</strong> We use <strong>Vercel Web Analytics</strong> to count page views and a handful of product events (a signup submitted, a checkout started, a licence activated, a backup taken). It is aggregate and cookie-free, and it never includes anything you log — no doses, no lab values, no notes. If you arrive from an ad or an affiliate link, the link&#39;s tracking parameters — the campaign fields, an affiliate code, and the click id the ad platform appended (<code>fbclid</code>, <code>gclid</code>, <code>rdt_cid</code>) — are stored in your browser so the sale can be credited. Only the affiliate code is ever sent to us, at checkout; the click ids stay on your device and are cleared when you reset the app. None of it is joined to anything you log.</p>
   <ul>
     <li>We only email you about TherapyLog. We do not sell or rent your email to anyone.</li>
     <li>Every email includes an unsubscribe link, and you can opt out at any time.</li>
@@ -82,8 +83,15 @@ a:hover{text-decoration:underline}
     <li>We do not sell your personal data.</li>
     <li>We do not use your health data for advertising.</li>
     <li>We do not store your health logs, labs, or photos on our servers.</li>
-    <li>We do not share your information with third parties except the processors named here (Anthropic for AI, Stripe for payments, Resend for email, Vercel for hosting and aggregate analytics) strictly to provide the service.</li>
+    <li>We do not share your information with third parties except the processors named here (Anthropic for the AI assistant, Stripe for payments, Resend for email, Vercel for hosting and cookie-free aggregate analytics, and Upstash for API rate limiting) strictly to provide the service.</li>
   </ul>
+
+  <h2>Cycle tracking and reproductive data</h2>
+  <p>TherapyLog includes cycle tracking — period, ovulation and fertile window, cervical mucus, and related symptoms. This is among the most sensitive data anyone can record, and it is treated exactly like the rest of your health data: <strong>stored only on your device.</strong> We never receive it, we cannot produce it in response to a subpoena because we do not have it, and it is never used for advertising. It is not included in what the AI assistant sends in Personalized mode.</p>
+
+  <h2>What we hold, and what we&#39;d have to tell you about</h2>
+  <p>The only personal data on our servers is your email address, your subscription record, and your licence key. Because we hold so little, there is very little to lose — but if unsecured identifiable health information we hold were ever acquired or disclosed without authorization, we would notify affected people, and the FTC (and where required, the media), as the FTC Health Breach Notification Rule requires. Notification would go to the email address on your account.</p>
+  <p>Technical data touches our infrastructure in the ordinary course: your <strong>IP address</strong> is used transiently by Upstash to rate-limit the licence and AI endpoints so one person cannot exhaust the service for everyone, and by Vercel to serve the site. It is not stored alongside anything you log and is not used to build a profile.</p>
 
   <h2>Your choices and rights</h2>
   <ul>
@@ -103,7 +111,7 @@ a:hover{text-decoration:underline}
   <p>Questions about this policy or your data? Email <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>.</p>
 
   <div class="foot">
-    <a href="https://therapylog.app">TherapyLog</a> · <a href="https://therapylog.app/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    <a href="https://therapylog.app">TherapyLog</a> · <a href="https://therapylog.app/terms">Terms</a> · <a href="https://therapylog.app/health-data-privacy">Consumer Health Data</a> · <a href="https://therapylog.app/support">Support</a> · <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
   </div>
 </div>
 </body>

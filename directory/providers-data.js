@@ -50,65 +50,20 @@ const PARTNERS = [
 
   // ⬇⬇⬇  ADD YOUR APPROVED PARTNERS BELOW THIS LINE  ⬇⬇⬇
 
-  // ---- EXAMPLE ENTRIES (delete once you add real partners) ----
-  {
-    id: "example-clinic-peptides",
-    name: "Example Men's Health & Peptides",
-    types: ["clinic", "retailer"],
-    typeLabel: "Men's Clinic + Peptide Supplier",
-    tier: "featured",
-    location: "Austin, TX · Telehealth nationwide",
-    description: "Full-service men's health clinic offering physician-supervised TRT plus an in-house peptide pharmacy with third-party COAs.",
-    services: ["TRT", "HRT", "Peptides", "Bloodwork", "Telehealth"],
-    products: "Testosterone, BPC-157, TB-500, Semaglutide, CJC-1295",
-    website: "https://example.com",
-    storeUrl: "https://example.com/shop",
-    email: "hello@example.com",
-    phone: "+1 (555) 123-4567",
-    icon: "🏥",
-    verifiedItems: ["License Verified", "DEA Registered", "COA Verified", "Product Tested"],
-    refCode: "examplemensclinic",
-    joined: "2026-06"
-  },
-  {
-    id: "example-peptide-co",
-    name: "Example Peptide Co.",
-    types: ["retailer"],
-    typeLabel: "Peptide Supplier",
-    tier: "verified",
-    location: "Nationwide / Online",
-    description: "Research-grade peptides with third-party COAs on every batch. Fast, reliable U.S. shipping.",
-    services: ["Peptides", "GLP-1", "Research Compounds"],
-    products: "BPC-157, TB-500, CJC-1295, Ipamorelin, Semaglutide, Tirzepatide",
-    website: "https://example.com",
-    storeUrl: "https://example.com/shop",
-    email: "hello@example.com",
-    phone: "",
-    icon: "⚗️",
-    verifiedItems: ["COA Verified", "Product Tested", "Reliable Shipping"],
-    refCode: "examplepeptide",
-    joined: "2026-06"
-  },
-  {
-    id: "example-coach",
-    name: "Example Performance Coaching",
-    types: ["coach", "retailer"],
-    typeLabel: "ISSA Coach + Peptide Supplier",
-    tier: "verified",
-    location: "Online / Worldwide",
-    description: "IFBB Pro coach specializing in contest prep and body recomposition, with a vetted peptide supply line for clients.",
-    services: ["Coaching", "Contest Prep", "Nutrition", "Peptides"],
-    products: "",
-    website: "https://example-coach.com",
-    storeUrl: "https://example-coach.com/coaching",
-    email: "coach@example-coach.com",
-    phone: "",
-    icon: "💪",
-    verifiedItems: ["Certified (ISSA)", "IFBB Pro", "Client Results Verified", "COA Verified"],
-    refCode: "examplecoach",
-    joined: "2026-06"
-  },
-  // ---- END EXAMPLE ENTRIES ----
+  // ---- No live partners yet. ----
+  // The three worked examples that used to sit here rendered on the public
+  // /directory page as real listings, carrying verification and DEA markers on
+  // an example peptide supplier. Clearly-labelled placeholder data in the source
+  // is still a published endorsement once directory/index.html reads
+  // window.PARTNERS.
+  // The template block above the ADD-PARTNERS line shows the shape; keep new
+  // examples commented out.
+  //
+  // Before adding a real partner, read docs/COMPLIANCE-AUDIT.md C-1. In short:
+  // the verification standard has to be published and actually performed, paid
+  // placement has to be disclosed as paid, and no listing fee or commission may
+  // vary with referral volume (EKRA, 18 U.S.C. 220, reaches cash-pay lab
+  // referrals).
 
   // ⬆⬆⬆  ADD YOUR APPROVED PARTNERS ABOVE THIS LINE  ⬆⬆⬆
 

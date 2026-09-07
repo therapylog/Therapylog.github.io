@@ -1,3 +1,13 @@
+> [!WARNING]
+> **Superseded — do not follow the steps below.** Written before Google Workspace was set
+> up, it points at `domains.google.com` (retired; the domain is now registered through
+> Squarespace with DNS on Google's nameservers) and walks through ImprovMX email forwarding
+> whose MX records would **break Google Workspace mail** if added today. Mail is already
+> live on Workspace: MX `smtp.google.com`, SPF, DKIM.
+>
+> Current DNS, hosting and search setup: [`docs/SEARCH-SETUP.md`](docs/SEARCH-SETUP.md).
+> Kept only as a record of the original GitHub Pages setup.
+
 # TherapyLog DNS Setup Guide
 
 # Setting up therapylog.app with GitHub Pages

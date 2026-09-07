@@ -14,7 +14,7 @@
     nav { padding:20px 24px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.06); position:sticky; top:0; background:rgba(10,12,15,0.95); backdrop-filter:blur(20px); z-index:100; }
     .logo { display:flex; align-items:center; }
     .logo img { height:34px; display:block; }
-    .nav-links { display:flex; gap:20px; }
+    .nav-links { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
     .nav-links a { color:#8a95a3; text-decoration:none; font-size:14px; font-weight:500; }
     .nav-cta { background:#4ade9a; color:#0a0c0f; padding:8px 18px; border-radius:8px; font-weight:700; text-decoration:none; font-size:14px; }
 
@@ -96,13 +96,134 @@
     .nl-error { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); color:#f87171; border-radius:10px; padding:12px 16px; font-size:13px; margin-top:10px; display:none; }
     .nl-legal { font-size:11px; color:#4a5568; margin-top:10px; }
   </style>
-<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script><!-- Structured data. The bare word "TherapyLog" in search belongs to an unrelated
+     product, so the entity is qualified with alternateName everywhere. No
+     aggregateRating: there are no collected reviews to base one on. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "logo": "https://therapylog.app/icons/icon-512.png",
+      "email": "hello@therapylog.app",
+      "founder": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Floresville",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@therapylog.app",
+        "contactType": "customer support",
+        "availableLanguage": "English"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://therapylog.app/#webapp",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/app",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Web",
+      "browserRequirements": "Requires a modern browser with JavaScript enabled. Installs to the home screen on iOS and Android; no app store download.",
+      "description": "Hormone therapy and peptide tracking: log doses, chart estimated serum levels from published half-lives, plan multi-compound draws, and track bloodwork against your own lab's reference ranges. Data stays on your device.",
+      "inLanguage": "en-US",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free",
+          "price": "0",
+          "priceCurrency": "USD",
+          "url": "https://therapylog.app/app",
+          "availability": "https://schema.org/InStock",
+          "description": "Dose logging, serum-level curves, the reconstitution and syringe calculators, the compound reference and the interaction checker. No account required."
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro, monthly",
+          "price": "9.99",
+          "priceCurrency": "USD",
+          "url": "https://therapylog.app/pro",
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "9.99",
+            "priceCurrency": "USD",
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": 1,
+              "unitCode": "MON"
+            }
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro, annual",
+          "price": "99.99",
+          "priceCurrency": "USD",
+          "url": "https://therapylog.app/pro",
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "99.99",
+            "priceCurrency": "USD",
+            "referenceQuantity": {
+              "@type": "QuantitativeValue",
+              "value": 1,
+              "unitCode": "ANN"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
 <body style="background:#0a0c0f;background-color:#0a0c0f;color:#e8edf5;">
 
   <nav>
     <div class="logo"><img src="/icons/logo-dark.svg" alt="TherapyLog"></div>
     <div class="nav-links">
       <a href="/app" target="_blank">Try Free</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/compounds/">Compounds</a>
       <a href="/directory">Providers</a>
       <a href="/support">Support</a>
     </div>
@@ -121,7 +242,7 @@
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="stat-num">130</div><div class="stat-label">Compounds</div></div>
+    <div class="stat"><div class="stat-num">131</div><div class="stat-label">Compounds</div></div>
     <div class="stat"><div class="stat-num">30</div><div class="stat-label">Classifications</div></div>
     <div class="stat"><div class="stat-num">60+</div><div class="stat-label">PK-Modeled Compounds</div></div>
     <div class="stat"><div class="stat-num">100</div><div class="stat-label">Lab Markers</div></div>
@@ -146,7 +267,7 @@
       </figure>
       <figure class="shot">
         <div class="phone"><img src="/assets/screens/encyclopedia.png" alt="Compound encyclopedia entry with dosing table and regulatory status" loading="lazy"></div>
-        <figcaption>130 compound reference with live regulatory status</figcaption>
+        <figcaption>131 compound reference with live regulatory status</figcaption>
       </figure>
       <figure class="shot">
         <div class="phone"><img src="/assets/screens/bloodwork.png" alt="Bloodwork tracking with reference ranges" loading="lazy"></div>
@@ -167,7 +288,7 @@
 
       <div class="feature-card accent">
         <div class="feature-icon">🧪</div>
-        <h3>Combined Syringe Builder</h3>
+        <h3><a href="/tools/syringe-builder/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(74,222,154,0.45)">Combined Syringe Builder</a></h3>
         <p>Plan multi-compound draws: pick compounds, doses, and vial concentrations, and see the exact fill level on your syringe — color-coded per compound. Built-in compatibility rules warn you when compounds shouldn't share a syringe: oil and water never mix, suspensions draw alone, and fragile proteins like HGH degrade in a blend. One tap logs the whole injection.</p>
       </div>
 
@@ -180,7 +301,7 @@
       <div class="feature-card accent">
         <div class="feature-icon">🤖</div>
         <h3>AI Research Assistant</h3>
-        <p>Ask anything about your protocol, a compound, your labs, training, nutrition, or injury rehab. Gets full context from your logged data. Every answer is grounded in real research — PubMed citations, clinical references, and practitioner knowledge, clearly tiered by evidence quality. 50 questions a month included with Pro (up to 12 in a day), or bring your own key for unlimited.</p>
+        <p>Ask anything about your protocol, a compound, your labs, training, nutrition, or injury rehab. Gets full context from your logged data. Every answer is grounded in real research — PubMed citations, clinical references, and practitioner knowledge, clearly tiered by evidence quality. 50 questions a month included with Pro (up to 20 in a day), or bring your own key for unlimited.</p>
       </div>
 
       <div class="feature-card accent">
@@ -191,8 +312,8 @@
 
       <div class="feature-card accent2">
         <div class="feature-icon">📚</div>
-        <h3>130 Compound Encyclopedia</h3>
-        <p>Research-backed reference for TRT, peptides, GLP-1s, AAS, SARMs, senolytics, thyroid, and longevity compounds — 130 entries across 30 classifications. This is the deepest per-entry reference in any tracker: mechanism, documented dosing ranges, pros and cons, interactions, required monitoring, and live regulatory status — including the FDA's 2026 compounding votes on BPC-157, TB-500, and more.</p>
+        <h3>131 Compound Encyclopedia</h3>
+        <p>Research-backed reference for TRT, peptides, GLP-1s, AAS, SARMs, senolytics, thyroid, and longevity compounds — 131 entries across 30 classifications. This is the deepest per-entry reference in any tracker: mechanism, documented dosing ranges, pros and cons, interactions, required monitoring, and live regulatory status — including the FDA's 2026 compounding votes on BPC-157, TB-500, and more.</p>
       </div>
 
       <div class="feature-card">
@@ -209,7 +330,7 @@
 
       <div class="feature-card">
         <div class="feature-icon">💉</div>
-        <h3>Reconstitution Calculator</h3>
+        <h3><a href="/tools/peptide-reconstitution-calculator/" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(74,222,154,0.45)">Reconstitution Calculator</a></h3>
         <p>Works in both directions. Know your water? Enter vial size, BAC water, and target dose to get the exact draw in units and mL, with a visual syringe diagram. Don’t know your water? That’s the question everyone actually asks — tell it the dose you want and how many units you want to draw, and it solves backwards to the amount of water to add, shows you every practical fill volume with the concentration and doses per vial for each, and warns you when a target would need more than the vial holds. Tap a row and it fills the calculator in. Plus vial planner, cost-per-injection math, and a supply tracker.</p>
       </div>
 
@@ -308,7 +429,7 @@
         <div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#fff;margin-bottom:4px">$0</div>
         <div style="font-size:13px;color:#8a95a3;margin-bottom:20px">No account needed</div>
         <ul style="list-style:none;margin-bottom:24px;">
-          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>130 compound encyclopedia</li>
+          <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>131 compound encyclopedia</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Injection &amp; dose logging</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Body &amp; weight tracking</li>
           <li style="font-size:13px;color:#c8d0db;padding:6px 0;border-bottom:1px solid #1a2030;display:flex;align-items:center;gap:8px;"><span style="color:#4ade9a;font-weight:700">✓</span>Dose calculator + syringe diagram</li>
@@ -357,9 +478,15 @@
   <footer>
     <div class="logo"><img src="/icons/logo-dark.svg" alt="TherapyLog"></div>
     <div class="footer-links">
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab Markers</a>
+      <a href="/compounds/">Compounds</a>
       <a href="/guide">User Guide</a>
+      <a href="/about/">About</a>
       <a href="/support">Support</a>
       <a href="/privacy">Privacy Policy</a>
+      <a href="/health-data-privacy">Consumer Health Data</a>
+      <a href="/terms">Terms of Use</a>
       <a href="mailto:hello@therapylog.app">Contact</a>
     </div>
   </footer>
