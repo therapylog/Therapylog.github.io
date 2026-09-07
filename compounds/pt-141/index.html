@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PT-141 (bremelanotide): how it differs | TherapyLog</title>
+<meta name="description" content="Bremelanotide acts centrally on melanocortin receptors, not on blood vessels. What that changes, and why nausea is the dose-limiting effect.">
+<meta name="author" content="Joel Gonzales">
+<link rel="canonical" href="https://therapylog.app/compounds/pt-141/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="PT-141 (bremelanotide): how it differs | TherapyLog"><meta property="og:description" content="Bremelanotide acts centrally on melanocortin receptors, not on blood vessels. What that changes, and why nausea is the dose-limiting effect."><meta property="og:url" content="https://therapylog.app/compounds/pt-141/"><meta property="og:image" content="https://therapylog.app/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="PT-141 (bremelanotide): how it differs | TherapyLog"><meta name="twitter:description" content="Bremelanotide acts centrally on melanocortin receptors, not on blood vessels. What that changes, and why nausea is the dose-limiting effect."><meta name="twitter:image" content="https://therapylog.app/icons/og-image.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
+   here. Restyle the app and regenerate. */
+:root{--bg:#0a0c0f;--surface:#111418;--surface2:#181c22;--surface3:#1e242d;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.10);--accent:#4ade9a;--accent2:#3bc4ff;--accent3:#f59e0b;--accent4:#f472b6;--accent5:#a78bfa;--text:#e8edf5;--text2:#8a95a3;--text3:#78859b;--danger:#f87171;--r:16px;--r2:12px;--safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,34px);color-scheme:dark}
+html{background:#0a0c0f;color-scheme:dark}
+html:has(body.light-mode){background:#f0f4f8;color-scheme:light}
+body{background:var(--bg) !important;color:var(--text) !important}
+body.light-mode{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(74,222,154,0.05) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 80%,rgba(59,196,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.card-title{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:3px;margin-bottom:12px;gap:2px;overflow-x:auto}
+.seg::-webkit-scrollbar{display:none}
+.seg-btn{flex:0 0 auto;padding:7px 11px;border:none;border-radius:7px;background:none;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.seg-btn.active{background:var(--surface3);color:var(--text)}
+.ig{margin-bottom:11px}
+.il{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);margin-bottom:5px;display:block}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:16px;outline:none;transition:border-color 0.15s;-webkit-appearance:none;appearance:none}
+input,textarea,select{font-size:16px !important}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:68px;resize:vertical;line-height:1.5}
+select option{background:var(--surface2)}
+.btn{width:100%;padding:13px;border-radius:12px;border:none;font-family:"DM Sans",sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn:active{transform:scale(0.98)}
+.btn-p{background:var(--accent);color:#0a0c0f}
+.btn-s{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+body.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#e2e8f0;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.12);--text:#0f172a;--text2:#475569;--text3:#64748b;--accent:#0d9668;--accent2:#0369a1;--accent5:#7c3aed;--danger:#dc2626}
+body.light-mode::before{display:none}
+body.light-mode input[type=text],body.light-mode input[type=number],body.light-mode input[type=date],body.light-mode textarea,body.light-mode select{background:#fff;border-color:rgba(0,0,0,0.15);color:#0f172a}
+body.light-mode .card{background:#fff;border-color:rgba(0,0,0,0.08)}
+body.light-mode .seg{background:#e2e8f0}
+body.light-mode .seg-btn.active{background:#fff;color:#0f172a}
+.preset-btn{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+.preset-btn:active{background:rgba(74,222,154,0.15);border-color:rgba(74,222,154,0.4);color:var(--accent)}
+.syringe-wrap{display:flex;align-items:center;gap:10px}
+.syringe-body{flex:1;height:32px;background:rgba(255,255,255,0.06);border-radius:4px;border:1px solid var(--border2);position:relative;overflow:hidden}
+.syringe-fill{height:100%;background:linear-gradient(90deg,rgba(59,196,255,0.3),rgba(59,196,255,0.15));border-radius:4px 0 0 4px;transition:width 0.4s ease;position:relative}
+.syringe-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--accent2)}
+.syringe-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.1)}
+.syringe-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);white-space:nowrap}
+.card{transition:box-shadow 0.15s ease}
+.uc-step{padding:14px 0;border-bottom:1px solid var(--border)}
+.uc-step:last-of-type{border-bottom:none}
+.uc-step-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;font-weight:700;color:#fff}
+.uc-num{width:24px;height:24px;border-radius:50%;background:rgba(74,222,154,0.12);border:1.5px solid rgba(74,222,154,0.35);color:var(--accent);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.uc-flow-arrow{text-align:center;font-size:20px;color:var(--border);line-height:1;padding:4px 0}
+/* Page layout (scripts/page-templates/shell.js). */
+body{font-size:15px;line-height:1.7}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:40px 22px 60px}
+.brand{margin-bottom:18px}
+.brand img{height:38px;display:block}
+.topnav{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;font-weight:500;margin-bottom:34px;padding-bottom:16px;border-bottom:1px solid var(--border2)}
+.topnav a{color:var(--text3);text-decoration:none}
+.topnav a:hover{color:var(--text2)}
+.topnav a.cta{color:var(--accent)}
+h1{font-family:"DM Serif Display",serif;font-size:33px;font-weight:400;letter-spacing:-0.01em;line-height:1.2;margin:0 0 10px;color:var(--text)}
+.lede{font-size:17px;color:var(--text2);margin-bottom:22px}
+.updated{font-size:13px;color:var(--text3);margin-bottom:28px}
+h2{font-family:"DM Serif Display",serif;font-size:22px;font-weight:400;margin:38px 0 12px;color:var(--text)}
+h3{font-size:16px;font-weight:600;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:14px;color:var(--text2)}
+ul,ol{margin:0 0 16px 0;padding-left:22px}
+li{margin-bottom:9px;color:var(--text2)}
+strong{color:var(--text);font-weight:600}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+.widget{margin:26px 0 8px}
+.widget .card{margin-bottom:0}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.callout p:last-child{margin-bottom:0}
+.note{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent3);border-radius:0 12px 12px 0;padding:16px 18px;margin:20px 0}
+.note p:last-child{margin-bottom:0}
+/* Marker pages: evidence tiers, citations, the non-diagnostic flag, the
+   side-effect blocks and the converter's result panel. */
+.nondx{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(245,166,91,0.4);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+.cite{font-size:10px;font-weight:700;margin-left:1px}
+.cite a{color:var(--accent2);text-decoration:none;padding:0 2px}
+ol.sources{margin:0 0 18px 0;padding-left:22px}
+ol.sources li{font-size:13.5px;color:var(--text2);margin-bottom:11px}
+ol.sources .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.mon-list{list-style:none;margin:4px 0 18px;padding:0}
+.mon-list li{padding:10px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.mon-list li:first-child{border-top:none}
+.mon-list .src{display:block;color:var(--text3);font-size:12.5px;margin-top:3px}
+.sfx{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warm);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0}
+.sfx h3{margin:0 0 8px;font-size:15px}
+.sfx p{font-size:13.5px;margin-bottom:8px}
+.sfx p:last-child{margin-bottom:0}
+.sfx .caution{color:var(--text2)}
+.sfx .clin{color:var(--text3);font-size:12.5px;border-top:1px solid var(--border);padding-top:9px;margin-top:10px}
+.mk-result{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;margin-top:10px}
+.mk-result strong{display:block;color:var(--accent);font-size:19px;font-variant-numeric:tabular-nums}
+.mk-result.bad strong{color:var(--warm);font-size:15px}
+.mk-result .src{display:block;color:var(--text3);font-size:12.5px;margin-top:5px;line-height:1.55}
+/* Blend pages: the per-draw split, and the sourcing list under the ratio table. */
+.split{list-style:none;margin:4px 0 12px;padding:0}
+.split li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid var(--border);font-size:14px}
+.split li:first-child{border-top:none}
+.split li span{color:var(--text2)}
+.split li strong{color:var(--accent);font-variant-numeric:tabular-nums;font-size:15px}
+.hint{font-size:12.5px;color:var(--text3);line-height:1.6;margin:8px 0 4px}
+.srcs{margin:0 0 16px 0;padding-left:20px}
+.srcs li{font-size:13.5px;color:var(--text2);margin-bottom:7px}
+.srcs .src{color:var(--text3)}
+.facts{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:4px 18px;margin:22px 0}
+.facts dl{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:0}
+.facts dt{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);padding:11px 14px 11px 0;border-top:1px solid var(--border)}
+.facts dd{font-size:14px;color:var(--text2);padding:11px 0;border-top:1px solid var(--border)}
+.facts dt:first-of-type,.facts dd:first-of-type{border-top:none}
+.tbl{width:100%;overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:340px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3)}
+td.num{font-family:'DM Mono',monospace;color:var(--text)}
+.formula{background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:14px 16px;margin:16px 0;font-family:'DM Mono',monospace;font-size:13px;color:var(--text);line-height:1.9;overflow-x:auto}
+.cta-box{margin:26px 0;padding:18px;background:rgba(74,222,154,0.06);border:1px solid rgba(74,222,154,0.22);border-radius:14px}
+.cta-box p{margin-bottom:12px;color:var(--text2);font-size:14px}
+.cta-box a{display:inline-block;background:var(--accent);color:#0a0c0f;padding:11px 20px;border-radius:11px;font-weight:700;font-size:14px;text-decoration:none}
+.pairs{margin:22px 0}
+.pair{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--border2)}
+.pair.danger{border-left-color:var(--danger)}
+.pair.warn{border-left-color:var(--accent3)}
+.pair.info{border-left-color:var(--accent)}
+.pair h3{margin:0 0 4px;font-size:14.5px}
+.pair .sev{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.pair p{font-size:13.5px;margin-bottom:8px}
+.pair p:last-child{margin-bottom:0}
+.pair .mon{font-size:12.5px;color:var(--text3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 26px}
+.risks{display:block;list-style:none;margin:6px 0 20px;padding:0}
+.risks li{padding:9px 0;border-top:1px solid var(--border);font-size:14px;color:var(--text2)}
+.risks li:first-child{border-top:none}
+.note.reg{border-left-color:var(--warm)}
+[hidden]{display:none!important}
+/* /compounds/ hub: the filter box and the per-card tier chip. */
+.cx-find{margin:22px 0 6px}
+.cx-find label{display:block;font-size:10.5px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
+.cx-find input{width:100%;box-sizing:border-box;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:12px 14px;color:var(--text);font-size:15px;font-family:inherit}
+.cx-find input:focus{outline:none;border-color:var(--accent)}
+.cx-status{font-size:12.5px;color:var(--text3);min-height:18px;margin-top:7px}
+.cx-group{margin-top:34px}
+.cx-group h2{margin-top:0}
+.tcard .tier{display:inline-block;margin-top:9px;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border-radius:20px;padding:2px 9px}
+.tcard .tier-a{color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.tcard .tier-b{color:var(--warm);border:1px solid rgba(245,166,91,0.35)}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.tcard h3{margin:0 0 6px;font-size:15px}
+.tcard h3 a{color:var(--text)}
+.tcard p{font-size:13.5px;margin:0;color:var(--text3);line-height:1.6}
+.tcard .soon{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);border:1px solid var(--border2);border-radius:20px;padding:2px 9px;margin-top:10px}
+.curve{margin:20px 0}
+.curve svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.curve figcaption{font-size:12px;color:var(--text3);margin-top:8px;line-height:1.55}
+.ev{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:20px;padding:2px 8px;margin-right:6px;vertical-align:1px}
+.ev-est{background:rgba(74,222,154,0.12);color:var(--accent);border:1px solid rgba(74,222,154,0.3)}
+.ev-off{background:rgba(245,158,11,0.12);color:var(--accent3);border:1px solid rgba(245,158,11,0.32)}
+.ev-theo{background:rgba(255,255,255,0.05);color:var(--text3);border:1px solid var(--border2)}
+.byline{margin-top:40px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13.5px;color:var(--text3)}
+.byline p{margin:0;color:var(--text3)}
+.byline strong{color:var(--text2)}
+.disclaimer{margin-top:22px;font-size:12.5px;color:var(--text3);line-height:1.65}
+.foot{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.foot a{color:var(--text2)}
+.crumbs{font-size:12.5px;color:var(--text3);margin-bottom:14px}
+.crumbs a{color:var(--text3)}
+/* ?og=1 renders the page as a 1200x630 share card instead. Built from the
+   page's own h1, lede and byline, so the card cannot say something the page
+   does not. scripts/capture-og-shots.js screenshots it. */
+body.og-card{overflow:hidden}
+body.og-card .wrap{display:none}
+.og{position:fixed;inset:0;width:1200px;height:630px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;
+  background-image:radial-gradient(ellipse 70% 60% at 88% -10%,rgba(74,222,154,0.13) 0%,transparent 62%),
+    radial-gradient(ellipse 60% 50% at 4% 108%,rgba(245,166,91,0.10) 0%,transparent 60%)}
+.og-top{display:flex;align-items:center;gap:14px}
+.og-top img{height:44px}
+.og-kicker{font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent)}
+.og h2{font-family:"DM Serif Display",serif;font-weight:400;font-size:62px;line-height:1.08;
+  letter-spacing:-0.015em;color:var(--text);margin:0 0 20px;max-width:19ch}
+.og p{font-size:24px;line-height:1.45;color:var(--text2);margin:0;max-width:44ch}
+.og-foot{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  border-top:1px solid var(--border2);padding-top:22px;font-size:18px;color:var(--text3)}
+.og-foot strong{color:var(--text2);font-weight:600}
+@media(max-width:520px){
+  h1{font-size:27px}
+  .facts dl{grid-template-columns:1fr}
+  .facts dt{padding-bottom:0;border-top:1px solid var(--border)}
+  .facts dd{padding-top:4px;border-top:none}
+}
+</style>
+<script defer src="/_vercel/insights/script.js"></script><script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script></head>
+<body>
+  <div class="wrap">
+    <div class="brand"><a href="/"><img src="/icons/logo-dark.svg" alt="TherapyLog"></a></div>
+    <nav class="topnav">
+      <a href="/">Home</a>
+      <a href="/tools/">Tools</a>
+      <a href="/markers/">Lab markers</a>
+      <a href="/compounds/">Compounds</a>
+      <a href="/guide">Guide</a>
+      <a class="cta" href="/app">Open the app</a>
+    </nav>
+    <div class="crumbs"><a href="/">Home</a> &rsaquo; <a href="/compounds/">Compounds</a> &rsaquo; PT-141</div>
+    <h1>PT-141: a melanocortin agonist that works on desire rather than plumbing</h1>
+
+    <p class="lede">Every other drug in this category works on blood flow. This one works in the brain, which is why it does something different and why its side effects are different too.</p>
+
+    <div class="updated">Last reviewed: 4 September 2026</div>
+
+    <div class="facts">
+      <dl>
+        <dt>Also known as</dt><dd>Bremelanotide, Vyleesi</dd>
+        <dt>Class</dt><dd>Sexual health peptide</dd>
+        <dt>Regulatory status</dt><dd>FDA APPROVED for female HSDD (Vyleesi). Off-label for male sexual dysfunction.</dd>
+        <dt>Modelled half-life</dt><dd>2.7 h</dd>
+        <dt>Time to peak</dt><dd>1 h</dd>
+        <dt>Formulation</dt><dd>Aqueous (reconstituted powder)</dd>
+        <dt>Before mixing</dt><dd>Sealed powder tolerates room temperature in transit, but keep it refrigerated at 2–8 °C (36–46 °F) for anything beyond a few weeks, or frozen for months. Keep it dark — the carton it shipped in is doing a job.</dd>
+        <dt>After mixing</dt><dd>Once reconstituted with bacteriostatic water: refrigerate at 2–8 °C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window — plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only. Kits are usually ten vials: only the one you mixed is on that 28-day clock — the sealed ones keep their own, much longer shelf life, so store them as powder, not as solution.</dd>
+        <dt>What ruins it</dt><dd>Do not freeze a reconstituted vial. Repeated freeze–thaw is one of the more reliable ways to degrade a peptide.</dd>
+        <dt>Handling caveat</dt><dd><em>General handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.</em></dd>
+      </dl>
+    </div>
+
+    <h2>A completely different target</h2>
+    <p><span class="ev ev-est">Established clinical use</span> PDE5 inhibitors act peripherally: they prevent the breakdown of cyclic GMP in vascular smooth muscle, so an erection that has been initiated is sustained. They do nothing about whether the signal to initiate one arrives. Bremelanotide is a melanocortin receptor agonist acting in the central nervous system, principally at MC4R in the hypothalamus, on the circuitry that generates sexual desire and arousal in the first place. It is a fragment of the alpha-MSH family rather than anything related to testosterone.</p>
+    <p>That is why the two are not substitutes and why bremelanotide has been studied in people for whom PDE5 inhibitors did not work: they address different steps. It is also why it is taken before an occasion rather than daily &mdash; the app models a half-life under three hours, and the effect is an episode rather than a background state.</p>
+    <p>The approval is real but narrow: it is approved for hypoactive sexual desire disorder in premenopausal women. <span class="ev ev-off">Off-label or community practice</span> Use in men is off-label, and it has been studied reasonably extensively in that population without an approval following. That is a meaningful distinction to hold on to when reading confident claims about it.</p>
+
+    <h2>Nausea is the effect that decides the dose</h2>
+    <p>Nausea is the most common adverse effect and it is dose-related, sometimes severe, and it is the reason the dosing rows the app records start low. Melanocortin receptors are expressed in brainstem regions involved in emesis, so this is mechanism rather than an idiosyncrasy. Flushing and a transient rise in blood pressure with a small fall in heart rate are the other consistent findings, which is why the approved labelling excludes people with uncontrolled hypertension or established cardiovascular disease.</p>
+    <p><span class="ev ev-off">Off-label or community practice</span> Hyperpigmentation is the effect that turns up with repeated use rather than with a single dose, and it comes from MC1R activity &mdash; the same receptor that drives tanning. Darkening of the face, gums and existing naevi has been reported. A moleprogression that would be worth a dermatologist&rsquo;s attention is exactly the thing this drug can also cause benignly, which is an argument for a baseline skin check rather than a reason for alarm.</p>
+
+    <h2>What it is not</h2>
+    <p>It is not a testosterone substitute and it does not treat low testosterone. Someone whose libido has fallen because their testosterone has fallen is being offered a drug that bypasses the question rather than answering it, and the useful order of operations is to measure first. The <a href="/markers/free-vs-total-testosterone/">free versus total testosterone page</a> covers what to measure and why the two can move differently.</p>
+    <p>It is also not a treatment for the many non-hormonal causes of low desire &mdash; relationship context, depression, medication side effects, sleep debt, alcohol. A drug that acts on the desire circuit will produce an effect regardless of why desire was low, and that is not the same as it being the right intervention.</p>
+    <p>Nitrates are the one hard contraindication worth stating on a page: the blood-pressure effect makes that combination dangerous. Everything else here &mdash; whether it applies, at what amount, alongside what else &mdash; is a prescribing decision, and any effect from the list below belongs with the clinician who prescribed it.</p>
+
+    <h2>How long one dose lasts</h2>
+
+    <figure class="curve">
+<svg viewBox="0 0 720 300" role="img" aria-label="Modelled serum level after a single dose of PT-141: rising to a peak at 1 h and falling to half the peak roughly one half-life (2.7 h) after that, shown as a percentage of the peak." xmlns="http://www.w3.org/2000/svg">
+<title>Modelled serum level after a single dose of PT-141: rising to a peak at 1 h and falling to half the peak roughly one half-life (2.7 h) after that, shown as a percentage of the peak.</title>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="256" fill="#78859b" font-size="11" text-anchor="end">0%</text><line x1="52" y1="197.83" x2="702" y2="197.83" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="201.83" fill="#78859b" font-size="11" text-anchor="end">25%</text><line x1="52" y1="143.67" x2="702" y2="143.67" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="147.67" fill="#78859b" font-size="11" text-anchor="end">50%</text><line x1="52" y1="89.5" x2="702" y2="89.5" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="93.5" fill="#78859b" font-size="11" text-anchor="end">75%</text><line x1="52" y1="35.33" x2="702" y2="35.33" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="44" y="39.33" fill="#78859b" font-size="11" text-anchor="end">100%</text><line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="52" y="274" fill="#78859b" font-size="11" text-anchor="middle">0 min</text><line x1="214.74" y1="18" x2="214.74" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="214.74" y="274" fill="#78859b" font-size="11" text-anchor="middle">3.4 h</text><line x1="377" y1="18" x2="377" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="377" y="274" fill="#78859b" font-size="11" text-anchor="middle">6.8 h</text><line x1="539.74" y1="18" x2="539.74" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="539.74" y="274" fill="#78859b" font-size="11" text-anchor="middle">10.1 h</text><line x1="702" y1="18" x2="702" y2="252" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="702" y="274" fill="#78859b" font-size="11" text-anchor="middle">13.5 h</text>
+<line x1="52" y1="252" x2="702" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<line x1="52" y1="18" x2="52" y2="252" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+<path d="M52 252 L54.7 214.8 L57.44 183.1 L60.14 156.17 L62.83 133.38 L65.53 114.11 L68.27 97.95 L70.97 84.45 L73.67 73.25 L76.36 64.02 L79.11 56.5 L81.8 50.46 L84.5 45.69 L87.2 42.01 L89.89 39.28 L92.64 37.35 L95.33 36.11 L98.03 35.49 L100.73 35.36 L103.47 35.66 L106.17 36.33 L108.86 37.31 L111.56 38.56 L114.3 40.06 L117 41.73 L119.7 43.57 L122.44 45.52 L125.14 47.6 L127.83 49.76 L130.53 52 L133.27 54.27 L135.97 56.61 L138.67 58.97 L141.36 61.38 L144.06 63.78 L146.8 66.21 L149.5 68.61 L152.2 71.04 L154.89 73.44 L157.64 75.85 L160.33 78.23 L163.03 80.62 L165.73 82.96 L168.47 85.3 L171.17 87.62 L173.86 89.91 L176.61 92.17 L179.3 94.42 L182 96.63 L184.7 98.82 L187.44 100.98 L190.14 103.11 L192.83 105.23 L195.53 107.31 L198.27 109.37 L200.97 111.41 L203.67 113.4 L206.36 115.37 L209.11 117.32 L211.8 119.25 L214.5 121.13 L217.2 123 L219.94 124.86 L222.64 126.66 L225.33 128.46 L228.03 130.23 L230.77 131.97 L233.47 133.7 L236.17 135.39 L238.86 137.06 L241.61 138.7 L244.3 140.33 L247 141.91 L249.7 143.49 L252.44 145.05 L255.14 146.59 L257.83 148.09 L260.53 149.58 L263.27 151.06 L265.97 152.51 L268.67 153.92 L271.36 155.32 L274.06 156.71 L276.8 158.07 L279.5 159.42 L282.2 160.76 L284.94 162.06 L287.64 163.36 L290.33 164.62 L293.03 165.88 L295.77 167.11 L298.47 168.32 L301.17 169.54 L303.86 170.71 L306.56 171.88 L309.3 173.03 L312 174.15 L314.7 175.28 L317.44 176.36 L320.14 177.47 L322.83 178.53 L325.53 179.57 L328.23 180.61 L330.97 181.65 L333.67 182.65 L336.36 183.64 L339.06 184.62 L341.8 185.59 L344.5 186.55 L347.2 187.48 L349.94 188.41 L352.64 189.32 L355.33 190.21 L358.03 191.09 L360.73 191.98 L363.47 192.83 L366.17 193.67 L368.86 194.52 L371.56 195.34 L374.3 196.17 L377 196.94 L379.7 197.75 L382.39 198.53 L385.14 199.29 L387.83 200.04 L390.53 200.78 L393.27 201.52 L395.97 202.25 L398.67 202.97 L401.36 203.66 L404.06 204.36 L406.8 205.05 L409.5 205.72 L412.2 206.37 L414.94 207.04 L417.64 207.67 L420.33 208.32 L423.03 208.95 L425.73 209.56 L428.47 210.16 L431.17 210.77 L433.86 211.35 L436.56 211.94 L439.3 212.5 L442 213.09 L444.7 213.63 L447.39 214.19 L450.14 214.73 L452.83 215.25 L455.53 215.8 L458.27 216.31 L460.97 216.81 L463.67 217.33 L466.36 217.83 L469.11 218.31 L471.8 218.78 L474.5 219.26 L477.2 219.74 L479.89 220.19 L482.64 220.65 L485.33 221.1 L488.03 221.56 L490.77 221.99 L493.47 222.43 L496.17 222.84 L498.86 223.27 L501.61 223.68 L504.3 224.07 L507 224.48 L509.7 224.87 L512.44 225.26 L515.14 225.65 L517.83 226.02 L520.53 226.39 L523.23 226.76 L525.97 227.13 L528.67 227.47 L531.36 227.84 L534.11 228.19 L536.8 228.51 L539.5 228.86 L542.2 229.19 L544.89 229.51 L547.64 229.84 L550.33 230.16 L553.03 230.46 L555.77 230.79 L558.47 231.09 L561.17 231.37 L563.86 231.68 L566.61 231.96 L569.3 232.26 L572 232.54 L574.7 232.82 L577.39 233.09 L580.14 233.37 L582.83 233.63 L585.53 233.89 L588.23 234.15 L590.97 234.41 L593.67 234.67 L596.36 234.91 L599.11 235.16 L601.8 235.4 L604.5 235.64 L607.2 235.88 L609.89 236.1 L612.64 236.34 L615.33 236.55 L618.03 236.77 L620.77 236.99 L623.47 237.2 L626.17 237.42 L628.86 237.63 L631.61 237.83 L634.3 238.05 L637 238.24 L639.7 238.44 L642.39 238.63 L645.14 238.83 L647.83 239.02 L650.53 239.19 L653.27 239.39 L655.97 239.56 L658.67 239.74 L661.36 239.91 L664.11 240.08 L666.8 240.26 L669.5 240.43 L672.2 240.6 L674.94 240.75 L677.64 240.93 L680.33 241.08 L683.03 241.23 L685.73 241.38 L688.47 241.53 L691.17 241.69 L693.86 241.84 L696.61 241.99 L699.3 242.12 L702 242.27 L702 252 L52 252 Z" fill="rgba(59,196,255,0.10)" stroke="none"/><path d="M52 252 L54.7 214.8 L57.44 183.1 L60.14 156.17 L62.83 133.38 L65.53 114.11 L68.27 97.95 L70.97 84.45 L73.67 73.25 L76.36 64.02 L79.11 56.5 L81.8 50.46 L84.5 45.69 L87.2 42.01 L89.89 39.28 L92.64 37.35 L95.33 36.11 L98.03 35.49 L100.73 35.36 L103.47 35.66 L106.17 36.33 L108.86 37.31 L111.56 38.56 L114.3 40.06 L117 41.73 L119.7 43.57 L122.44 45.52 L125.14 47.6 L127.83 49.76 L130.53 52 L133.27 54.27 L135.97 56.61 L138.67 58.97 L141.36 61.38 L144.06 63.78 L146.8 66.21 L149.5 68.61 L152.2 71.04 L154.89 73.44 L157.64 75.85 L160.33 78.23 L163.03 80.62 L165.73 82.96 L168.47 85.3 L171.17 87.62 L173.86 89.91 L176.61 92.17 L179.3 94.42 L182 96.63 L184.7 98.82 L187.44 100.98 L190.14 103.11 L192.83 105.23 L195.53 107.31 L198.27 109.37 L200.97 111.41 L203.67 113.4 L206.36 115.37 L209.11 117.32 L211.8 119.25 L214.5 121.13 L217.2 123 L219.94 124.86 L222.64 126.66 L225.33 128.46 L228.03 130.23 L230.77 131.97 L233.47 133.7 L236.17 135.39 L238.86 137.06 L241.61 138.7 L244.3 140.33 L247 141.91 L249.7 143.49 L252.44 145.05 L255.14 146.59 L257.83 148.09 L260.53 149.58 L263.27 151.06 L265.97 152.51 L268.67 153.92 L271.36 155.32 L274.06 156.71 L276.8 158.07 L279.5 159.42 L282.2 160.76 L284.94 162.06 L287.64 163.36 L290.33 164.62 L293.03 165.88 L295.77 167.11 L298.47 168.32 L301.17 169.54 L303.86 170.71 L306.56 171.88 L309.3 173.03 L312 174.15 L314.7 175.28 L317.44 176.36 L320.14 177.47 L322.83 178.53 L325.53 179.57 L328.23 180.61 L330.97 181.65 L333.67 182.65 L336.36 183.64 L339.06 184.62 L341.8 185.59 L344.5 186.55 L347.2 187.48 L349.94 188.41 L352.64 189.32 L355.33 190.21 L358.03 191.09 L360.73 191.98 L363.47 192.83 L366.17 193.67 L368.86 194.52 L371.56 195.34 L374.3 196.17 L377 196.94 L379.7 197.75 L382.39 198.53 L385.14 199.29 L387.83 200.04 L390.53 200.78 L393.27 201.52 L395.97 202.25 L398.67 202.97 L401.36 203.66 L404.06 204.36 L406.8 205.05 L409.5 205.72 L412.2 206.37 L414.94 207.04 L417.64 207.67 L420.33 208.32 L423.03 208.95 L425.73 209.56 L428.47 210.16 L431.17 210.77 L433.86 211.35 L436.56 211.94 L439.3 212.5 L442 213.09 L444.7 213.63 L447.39 214.19 L450.14 214.73 L452.83 215.25 L455.53 215.8 L458.27 216.31 L460.97 216.81 L463.67 217.33 L466.36 217.83 L469.11 218.31 L471.8 218.78 L474.5 219.26 L477.2 219.74 L479.89 220.19 L482.64 220.65 L485.33 221.1 L488.03 221.56 L490.77 221.99 L493.47 222.43 L496.17 222.84 L498.86 223.27 L501.61 223.68 L504.3 224.07 L507 224.48 L509.7 224.87 L512.44 225.26 L515.14 225.65 L517.83 226.02 L520.53 226.39 L523.23 226.76 L525.97 227.13 L528.67 227.47 L531.36 227.84 L534.11 228.19 L536.8 228.51 L539.5 228.86 L542.2 229.19 L544.89 229.51 L547.64 229.84 L550.33 230.16 L553.03 230.46 L555.77 230.79 L558.47 231.09 L561.17 231.37 L563.86 231.68 L566.61 231.96 L569.3 232.26 L572 232.54 L574.7 232.82 L577.39 233.09 L580.14 233.37 L582.83 233.63 L585.53 233.89 L588.23 234.15 L590.97 234.41 L593.67 234.67 L596.36 234.91 L599.11 235.16 L601.8 235.4 L604.5 235.64 L607.2 235.88 L609.89 236.1 L612.64 236.34 L615.33 236.55 L618.03 236.77 L620.77 236.99 L623.47 237.2 L626.17 237.42 L628.86 237.63 L631.61 237.83 L634.3 238.05 L637 238.24 L639.7 238.44 L642.39 238.63 L645.14 238.83 L647.83 239.02 L650.53 239.19 L653.27 239.39 L655.97 239.56 L658.67 239.74 L661.36 239.91 L664.11 240.08 L666.8 240.26 L669.5 240.43 L672.2 240.6 L674.94 240.75 L677.64 240.93 L680.33 241.08 L683.03 241.23 L685.73 241.38 L688.47 241.53 L691.17 241.69 L693.86 241.84 L696.61 241.99 L699.3 242.12 L702 242.27" fill="none" stroke="#3bc4ff" stroke-width="2" stroke-linejoin="round"/><line x1="100.15" y1="18" x2="100.15" y2="252" stroke="#4ade9a" stroke-width="1" stroke-dasharray="3 3"/><text x="105.15" y="30" fill="#4ade9a" font-size="10.5">peak</text><line x1="182" y1="18" x2="182" y2="252" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 3"/><text x="187" y="30" fill="#f59e0b" font-size="10.5">one half-life</text>
+<text x="377" y="292" fill="#78859b" font-size="11" text-anchor="middle">Time after one dose</text>
+
+</svg>
+      <figcaption>Modelled level after a single dose as a percentage of that dose&rsquo;s own
+      peak, rising to the peak at 1 h and falling by half every
+      2.7 h. Drawn with the app&rsquo;s own <code>pkCurve</code> function.
+      The vertical axis is relative: the shape carries across people, the absolute
+      concentration does not.</figcaption>
+      </figure>
+
+    <p>Try other intervals on the <a href="/tools/half-life-calculator/">half-life and
+      steady-state calculator</a>, which runs the same function against whatever cadence you
+      type.</p>
+
+    <h2>The dosing rows the app records</h2>
+
+    <p><span class="ev ev-est">Established clinical use</span> Reproduced from the app&rsquo;s reference so you can
+      see what it holds, not as a recommendation. Which row applies to a particular person, if
+      any, is a clinical decision this page does not make &mdash; and rows describing
+      supraphysiological or post-cycle use are filtered out before this table is built, so what
+      you see here is a subset.</p>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Label</th><th>Amount</th><th>Route and frequency</th><th>Duration recorded</th></tr></thead>
+        <tbody>
+          <tr><td>Male Sexual Dysfunction</td><td class="num">1-2mg</td><td class="num">SubQ 30-60 min before activity</td><td class="num">As needed — not daily use</td></tr>
+          <tr><td>Female (FDA approved)</td><td class="num">1.75mg</td><td class="num">SubQ 45 min before activity</td><td class="num">As needed</td></tr>
+          <tr><td>Starting Dose</td><td class="num">0.5mg</td><td class="num">SubQ injection 45 min before</td><td class="num">As needed</td></tr>
+          <tr><td>Standard</td><td class="num">1.75mg</td><td class="num">SubQ injection 45 min before</td><td class="num">Max 1x per 24 hours</td></tr>
+          <tr><td>High Response</td><td class="num">1mg</td><td class="num">SubQ injection 45 min before</td><td class="num">Titrate based on response</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>What the app monitors alongside it</h2>
+
+    <p>The panel below is the app&rsquo;s own monitoring note for PT-141,
+      verbatim. None of the analytes it names has a page here yet.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Monitoring panel</dt><dd>Blood pressure before and after first dose, nausea severity tracking, skin hyperpigmentation assessment with long-term use.</dd>
+      </dl>
+    </div>
+
+    <h2>Drawbacks and risks the app records</h2>
+
+    <p>From the app&rsquo;s own entry. The nausea item is not a footnote — it is the effect that most often ends use, and it is predictable from the mechanism.</p>
+
+    <ul class="cards risks">
+      <li>Nausea is the primary side effect — can be significant</li>
+      <li>Transient blood pressure increase</li>
+      <li>Flushing and facial warmth</li>
+      <li>Not FDA approved for men (though extensively studied)</li>
+      <li>Cost — not typically covered by insurance for men</li>
+      <li>Injection only (SubQ)</li>
+      <li>Nausea is common especially first use</li>
+      <li>Cannot use with nitrates</li>
+      <li>Expensive</li>
+      <li>Facial flushing and hyperpigmentation with repeated use</li>
+    </ul>
+
+    <div class="shared">
+      <p>That list is the app&rsquo;s, not a complete adverse-effect profile, and none of it is a
+      diagnosis. Anything on it that you are actually experiencing belongs in front of the
+      clinician who prescribes or supervises for you &mdash; they are the only person who can
+      weigh it against your history, your other medications and your bloodwork.</p>
+    </div>
+
+    <h2>Interaction rules that name PT-141</h2>
+
+    <p>From the app&rsquo;s interaction data, filtered so no rule naming a compound this
+      site does not publish appears. Not exhaustive, and not a safety clearance: a combination
+      that is not listed is one nobody has documented here, which is not the same as one that
+      is fine. The <a href="/tools/stack-checker/">combination checker</a> has the rest.</p>
+
+    <div class="pairs">
+      <div class="pair warn">
+        <div class="sev">Caution</div>
+        <h3>MT-2 and PT-141 — Overlap in Mechanism</h3>
+        <p>MT-2 and PT-141 (bremelanotide) both activate MC4R for sexual function enhancement. They overlap significantly in mechanism. Using both simultaneously provides little additional benefit and increases side effect risk (nausea, flushing, blood pressure elevation). Use one at a time.</p>
+        <p class="mon"><strong>What to watch:</strong> Blood pressure (both cause transient elevation), nausea assessment.</p>
+      </div>
+    </div>
+
+    <h2>Questions people actually ask</h2>
+
+    <h3>Can it be combined with a PDE5 inhibitor?</h3>
+    <p>They act at different steps and the combination is described in practice. Both affect blood
+         pressure, which is the reason that decision belongs with a prescriber who knows your
+         cardiovascular history rather than with a page.</p>
+    <h3>Why does it cause tanning?</h3>
+    <p>Because MC1R — the melanocortin receptor that controls melanin production — is one of the
+         receptors it activates. That is the same mechanism the tanning peptides use, and it is why
+         hyperpigmentation shows up with repeated dosing.</p>
+    <h3>Is the female approval evidence for the male use?</h3>
+    <p>Partly, and only partly. It establishes the mechanism works in people and gives a real
+         safety database. The male trials were run and did not result in an approval, which is
+         information in itself. Off-label means off-label.</p>
+    <h3>How long does it last?</h3>
+    <p>The app models a half-life under three hours, and the dosing rows describe taking it
+         forty-five minutes or so beforehand. The subjective effect is reported as outlasting the
+         peptide, which is what you would expect from something acting on a signalling circuit
+         rather than on a muscle.</p>
+
+    <h2>Where the load-bearing numbers come from</h2>
+
+    <p>Named rather than linked. Publisher URLs move, and a citation that resolves to a
+      404 two years from now is worse than one you can search for by name &mdash; every entry
+      below is findable from the title and year alone.</p>
+
+    <div class="facts">
+      <dl>
+        <dt>Central melanocortin mechanism versus peripheral PDE5 inhibition</dt><dd>The bremelanotide pharmacology literature and the approved labelling for the female indication</dd>
+        <dt>Nausea, blood pressure and hyperpigmentation</dt><dd>The phase III programme for hypoactive sexual desire disorder, reported 2019</dd>
+        <dt>Approved indication</dt><dd>The approval string in the fact box is app.html’s own field, reproduced verbatim</dd>
+        <dt>Modelled half-life and time to peak</dt><dd>app.html’s TL_PK entry</dd>
+      </dl>
+    </div>
+
+    <div class="cta-box">
+      <p>An as-needed compound is the easiest one to lose track of. TherapyLog records what you
+      took and when, so a pattern is visible rather than remembered.</p>
+      <a href="/app?utm_source=tools&amp;utm_medium=web&amp;utm_campaign=compound-pt-141"
+         id="tl-cta" data-campaign="compound-pt-141">Save this dose to your log</a>
+    </div>
+    <div class="byline">
+      <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
+      Last reviewed 4 September 2026. The calculator on this page runs the same code as the app;
+      how these pages are written, sourced and corrected is set out in the
+      <a href="/about/">editorial policy</a>.</p>
+    </div>
+    <div class="disclaimer">
+      TherapyLog is an informational tracking tool and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before starting, changing, or stopping any medical protocol.
+    </div>
+    <div class="foot">
+      TherapyLog LLC &middot; Floresville, Texas &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/health-data-privacy">Consumer Health Data</a> &middot;
+      <a href="/terms">Terms of Use</a> &middot;
+      <a href="/about/">About</a> &middot;
+      <a href="mailto:hello@therapylog.app">hello@therapylog.app</a>
+    </div>
+  </div>
+  <script>
+/* ---------------------------------------------------------------------------
+   Everything between here and the end of this script is either lifted verbatim
+   from app.html at build time (scripts/build-pages.js) or a small shim that
+   lets the lifted code run outside the app. Do not edit this file: edit the
+   app, or the generator, and regenerate. scripts/validate-public-pages.js
+   fails the build if any lifted function stops matching app.html.
+   --------------------------------------------------------------------------- */
+/* First touch: store whatever brought them here before anything overwrites it. */
+(function () {
+  try {
+    if (localStorage.getItem('tl_attr')) return;
+    var p = new URLSearchParams(location.search);
+    var fields = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','ref','rdt_cid','fbclid','gclid'];
+    var found = {};
+    fields.forEach(function (f) { var v = p.get(f); if (v) found[f] = String(v).slice(0, 80); });
+    if (Object.keys(found).length) {
+      found.landedAt = new Date().toISOString();
+      found.landingPage = location.pathname;
+      localStorage.setItem('tl_attr', JSON.stringify(found));
+    }
+  } catch (e) {}
+})();
+
+/* Shim: the app's toast(). Same job, no dependency on the app's chrome. */
+function toast(msg) {
+  var n = document.getElementById('tl-toast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'tl-toast';
+    n.setAttribute('role', 'status');
+    n.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+      'background:var(--surface3);color:var(--text);border:1px solid var(--border2);' +
+      'border-radius:11px;padding:10px 16px;font-size:13px;z-index:99;opacity:0;' +
+      'transition:opacity .2s ease;pointer-events:none;max-width:88vw;text-align:center';
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { n.style.opacity = '0'; }, 2600);
+}
+
+/* An affiliate can link to a tool page, so forward ?ref= to the app and to /pro
+   where the "Referred by" banner reads it. Never synthesises a ref. */
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (!ref) return;
+    ref = ref.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 64);
+    if (!ref) return;
+    try { localStorage.setItem('tl_ref', ref); } catch (e) {}
+    document.querySelectorAll('a[href^="/app"], a[href^="/pro"]').forEach(function (a) {
+      a.href += (a.href.indexOf('?') < 0 ? '?' : '&') + 'ref=' + encodeURIComponent(ref);
+    });
+  } catch (e) {}
+})();
+/* ?og=1 swaps the page for a 1200x630 share card built from its own content.
+   scripts/capture-og-shots.js is the only thing that asks for it. */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('og') !== '1') return;
+    var h1 = document.querySelector('h1');
+    var lede = document.querySelector('.lede');
+    var card = document.createElement('div');
+    card.className = 'og';
+    card.innerHTML =
+      '<div class="og-top">' +
+        '<img src="/icons/logo-dark.svg" alt="TherapyLog">' +
+        '<span class="og-kicker">Free tool</span>' +
+      '</div>' +
+      '<div><h2></h2><p></p></div>' +
+      '<div class="og-foot"><span><strong>therapylog.app</strong> &middot; TRT and peptide tracker</span>' +
+      '<span>No account &middot; same math as the app</span></div>';
+    card.querySelector('h2').textContent = h1 ? h1.textContent.trim() : 'TherapyLog';
+    card.querySelector('p').textContent = lede
+      ? lede.textContent.replace(/\s+/g, ' ').trim()
+      : 'Hormone therapy and peptide tracking.';
+    document.body.appendChild(card);
+    document.body.classList.add('og-card');
+  } catch (e) {}
+})();
+  </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://therapylog.app/about/#joel",
+      "name": "Joel Gonzales",
+      "jobTitle": "Founder",
+      "url": "https://therapylog.app/about/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://therapylog.app/#organization",
+      "name": "TherapyLog",
+      "legalName": "TherapyLog LLC",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "url": "https://therapylog.app/",
+      "email": "hello@therapylog.app"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://therapylog.app/#website",
+      "url": "https://therapylog.app/",
+      "name": "TherapyLog",
+      "alternateName": "TherapyLog TRT and peptide tracker",
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://therapylog.app/compounds/pt-141/#page",
+      "url": "https://therapylog.app/compounds/pt-141/",
+      "name": "PT-141 (bremelanotide): how it differs | TherapyLog",
+      "description": "Bremelanotide acts centrally on melanocortin receptors, not on blood vessels. What that changes, and why nausea is the dose-limiting effect.",
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://therapylog.app/#website"
+      },
+      "author": {
+        "@id": "https://therapylog.app/about/#joel"
+      },
+      "publisher": {
+        "@id": "https://therapylog.app/#organization"
+      },
+      "dateModified": "2026-09-04",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://therapylog.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Compounds",
+            "item": "https://therapylog.app/compounds/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "PT-141",
+            "item": "https://therapylog.app/compounds/pt-141/"
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

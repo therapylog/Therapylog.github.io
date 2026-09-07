@@ -1,0 +1,53 @@
+{
+  "_comment": [
+    "Injection sites as fractions of the figure box, for assets/figures/*.png.",
+    "",
+    "The zone overlay is an SVG with viewBox='0 0 100 100' and",
+    "preserveAspectRatio='none', so x/rx are fractions of the figure WIDTH and",
+    "y/ry fractions of its HEIGHT. They are not interchangeable: the figures are",
+    "roughly 1:2.17, so rx 0.04 and ry 0.04 are very different distances.",
+    "",
+    "One table serves both figures. The male and female art was drawn to the same",
+    "canvas proportions (478x1038 and 477x1036), and every zone was checked",
+    "against both; nothing needed a per-sex offset.",
+    "",
+    "Coordinates were read off a printed coordinate grid and checked against the",
+    "silhouette's own alpha extents, not estimated. Regenerate the audit overlay",
+    "before changing any of them."
+  ],
+  "figure": { "male": [478, 1038], "female": [477, 1036] },
+  "sites": [
+    { "id": "delt-r", "name": "Right deltoid", "short": "Delt R", "view": "front", "route": "im", "restDays": 7, "x": 0.275, "y": 0.225, "rx": 0.040, "ry": 0.028 },
+    { "id": "delt-l", "name": "Left deltoid", "short": "Delt L", "view": "front", "route": "im", "restDays": 7, "x": 0.725, "y": 0.225, "rx": 0.040, "ry": 0.028 },
+    { "id": "bic-r", "name": "Right biceps", "short": "Bi R", "view": "front", "route": "im", "restDays": 10, "x": 0.238, "y": 0.318, "rx": 0.034, "ry": 0.028 },
+    { "id": "bic-l", "name": "Left biceps", "short": "Bi L", "view": "front", "route": "im", "restDays": 10, "x": 0.762, "y": 0.318, "rx": 0.034, "ry": 0.028 },
+    { "id": "abd-r", "name": "Right abdomen", "short": "Abd R", "view": "front", "route": "sq", "restDays": 3, "x": 0.445, "y": 0.415, "rx": 0.038, "ry": 0.026 },
+    { "id": "abd-l", "name": "Left abdomen", "short": "Abd L", "view": "front", "route": "sq", "restDays": 3, "x": 0.555, "y": 0.415, "rx": 0.038, "ry": 0.026 },
+    { "id": "flank-r", "name": "Right flank", "short": "Flank R", "view": "front", "route": "sq", "restDays": 3, "x": 0.368, "y": 0.445, "rx": 0.032, "ry": 0.026 },
+    { "id": "flank-l", "name": "Left flank", "short": "Flank L", "view": "front", "route": "sq", "restDays": 3, "x": 0.632, "y": 0.445, "rx": 0.032, "ry": 0.026 },
+    { "id": "othigh-r", "name": "Right outer thigh", "short": "Thigh R", "view": "front", "route": "sq", "restDays": 3, "x": 0.360, "y": 0.522, "rx": 0.036, "ry": 0.024 },
+    { "id": "othigh-l", "name": "Left outer thigh", "short": "Thigh L", "view": "front", "route": "sq", "restDays": 3, "x": 0.640, "y": 0.522, "rx": 0.036, "ry": 0.024 },
+    { "id": "quad-r", "name": "Right vastus lateralis", "short": "Quad R", "view": "front", "route": "im", "restDays": 7, "x": 0.348, "y": 0.590, "rx": 0.042, "ry": 0.038 },
+    { "id": "quad-l", "name": "Left vastus lateralis", "short": "Quad L", "view": "front", "route": "im", "restDays": 7, "x": 0.652, "y": 0.590, "rx": 0.042, "ry": 0.038 },
+    { "id": "trap-r", "name": "Right trapezius", "short": "Trap R", "view": "back", "route": "im", "restDays": 10, "x": 0.365, "y": 0.207, "rx": 0.040, "ry": 0.022 },
+    { "id": "trap-l", "name": "Left trapezius", "short": "Trap L", "view": "back", "route": "im", "restDays": 10, "x": 0.635, "y": 0.207, "rx": 0.040, "ry": 0.022 },
+    { "id": "tri-r", "name": "Right triceps", "short": "Tri R", "view": "back", "route": "im", "restDays": 10, "x": 0.235, "y": 0.298, "rx": 0.034, "ry": 0.028 },
+    { "id": "tri-l", "name": "Left triceps", "short": "Tri L", "view": "back", "route": "im", "restDays": 10, "x": 0.765, "y": 0.298, "rx": 0.034, "ry": 0.028 },
+    { "id": "lat-r", "name": "Right lat", "short": "Lat R", "view": "back", "route": "im", "restDays": 10, "x": 0.392, "y": 0.372, "rx": 0.038, "ry": 0.034 },
+    { "id": "lat-l", "name": "Left lat", "short": "Lat L", "view": "back", "route": "im", "restDays": 10, "x": 0.608, "y": 0.372, "rx": 0.038, "ry": 0.034 },
+    { "id": "vg-r", "name": "Right ventrogluteal", "short": "VG R", "view": "back", "route": "im", "restDays": 7, "x": 0.358, "y": 0.434, "rx": 0.028, "ry": 0.020 },
+    { "id": "vg-l", "name": "Left ventrogluteal", "short": "VG L", "view": "back", "route": "im", "restDays": 7, "x": 0.642, "y": 0.434, "rx": 0.028, "ry": 0.020 },
+    { "id": "dg-r", "name": "Right dorsogluteal", "short": "DG R", "view": "back", "route": "im", "restDays": 7, "x": 0.352, "y": 0.482, "rx": 0.034, "ry": 0.024 },
+    { "id": "dg-l", "name": "Left dorsogluteal", "short": "DG L", "view": "back", "route": "im", "restDays": 7, "x": 0.648, "y": 0.482, "rx": 0.034, "ry": 0.024 },
+    { "id": "calf-r", "name": "Right calf", "short": "Calf R", "view": "back", "route": "im", "restDays": 14, "x": 0.392, "y": 0.775, "rx": 0.036, "ry": 0.036 },
+    { "id": "calf-l", "name": "Left calf", "short": "Calf L", "view": "back", "route": "im", "restDays": 14, "x": 0.608, "y": 0.775, "rx": 0.036, "ry": 0.036 }
+  ],
+  "placement": {
+    "quad": "Middle third of the thigh, lateral aspect. The clinical landmark is the span from the greater trochanter (y 0.475 on this art) to the lateral femoral condyle (y 0.705); its middle third is y 0.552-0.628, which is what ry 0.038 about y 0.590 covers exactly. The zone sits on the lateral half of the thigh's width, not over the rectus femoris on the front of the leg.",
+    "othigh": "Upper outer thigh, above the vastus lateralis zone and further onto the front of the leg. Kept clear of the quad zone in y so a subcutaneous pinch site and an intramuscular site are never the same target.",
+    "vg": "Gluteus medius over the hip, at the iliac crest, above and lateral to gluteus maximus. On a posterior figure this is the highest and most lateral of the two gluteal zones.",
+    "dg": "Upper outer quadrant of the buttock, below the ventrogluteal zone. The two are adjacent in life and adjacent here, but their ellipses do not intersect.",
+    "abd": "Either side of the navel (midline x 0.498, navel y 0.405), clear of it. The flank zones sit further lateral and lower, on the oblique.",
+    "calf": "Medial head of gastrocnemius, the fuller and lower of the two bellies."
+  }
+}

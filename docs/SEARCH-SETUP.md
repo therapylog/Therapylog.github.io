@@ -1,0 +1,228 @@
+# Search Console, Bing and the DNS behind them
+
+Every fact here was read off live DNS, the running site, the Vercel API and RDAP on
+**3 September 2026**. Nothing is assumed. Re-check anything that has moved since.
+
+Companion to `SEO-PLAN.md` §6 ("Search Console and Bing"), which specifies what to do;
+this says how, with the account and record detail filled in.
+
+## What is actually true right now
+
+| | Finding | Evidence |
+|---|---|---|
+| Website host | **GitHub Pages** | apex → `185.199.108–111.153`; response header `server: GitHub.com`; repo `CNAME` = `therapylog.app` |
+| Registrar | **Squarespace Domains II LLC** | RDAP: registered 2026-06-01, expires 2027-06-01, transfer-locked |
+| DNS zone | **Google nameservers** | `ns-cloud-c1`–`c4.googledomains.com`; Squarespace's DNS panel writes through to this same zone (confirmed by making live edits) |
+| `www` | **Live — resolves and redirects** ✅ | `CNAME www → therapylog.github.io.`; `https://www.therapylog.app/` → `301` → `https://therapylog.app/`, `server: GitHub.com`. Cert covers both names as of 6 Sep 2026 |
+| HTTPS enforcement | **On** ✅ | `http://therapylog.app/` → `301` → `https://`; this is what fixed Search Console's "Redirect error" (was previously off, causing a protocol-downgrade redirect via `therapylog.github.io`) |
+| `api.therapylog.app` | **Vercel** | `216.198.79.65` / `64.29.17.65` via `vercel-dns-017.com` |
+| Email | **Google Workspace** | MX `smtp.google.com`; SPF `v=spf1 include:_spf.google.com ~all`; DKIM live at `google._domainkey` |
+| Resend (transactional) | **Live** | `resend._domainkey` DKIM, `MX send → feedback-smtp.us-east-1.amazonses.com`, `TXT send` SPF — Resend's standard subdomain setup, correctly formed |
+| DMARC | **`v=DMARC1; p=none; rua=mailto:dmarc@therapylog.app`** ✅ | `dmarc@therapylog.app` exists as a Workspace alias (with `feedback@` → `hello@`); reports flowing. Still `p=none` — not enforcing yet, see gap 2 below |
+| Search Console | **Verified** ✅ | Domain property, TXT confirmed live; sitemap accepted at 144 URLs |
+| Bing | **Verified** ✅ | Imported from Google Search Console 6 Sep 2026. Deliberately leaves **no public artifact** — no `BingSiteAuth.xml`, no `msvalidate.01` — so this cannot be checked from outside; the proof is that the dashboard parsed the sitemap at 144 URLs, which Bing will not do for an unverified property. IndexNow shows all 144 URLs pending crawl |
+| Sitemap | **Live, 144 URLs** | grew from 44 → 144 as the site expanded; `https://therapylog.app/sitemap.xml` → 200 |
+| IndexNow | **Submitted** ✅ | Key `615f8693ff6f4e55a3985a0ae070b7a3` live at 200; all 144 sitemap URLs POSTed to the IndexNow API, `200` response |
+| Vercel site project | **Built, no domain** | `therapylog-github-io` connected to this repo; last deploy READY and rendering; no production target, no custom domain — the move itself is still not done |
+| Analytics script | **On all published pages** | count has grown with the site; `LAUNCH-CHECKLIST.md` §4's "13 pages" is stale |
+| Mailchimp Entri preset | **Removed** ✅ | see gap 4 below |
+
+The registration sits at Squarespace while the DNS zone sits on Google's nameservers.
+That split is the signature of a domain bought during Google Workspace signup — Workspace
+registers through Squarespace, Enom or DomainDiscount24 and keeps DNS on Google's
+nameservers. Both "I got it from Google" and "the registrar is Squarespace" are true.
+
+## Where to change DNS
+
+```
+admin.google.com → Account → Domains → Manage domains
+→ View details next to therapylog.app → Advanced DNS settings
+```
+
+That page hands over the sign-in for the DNS console holding the records. If it comes up
+empty, check `account.squarespace.com` → Domains; if `therapylog.app` is listed there with
+nameservers still `ns-cloud-*`, Squarespace holds only the registration and the records
+live in Google Cloud DNS (`console.cloud.google.com` → Network Services → Cloud DNS).
+
+**Do not change the nameservers.** Everything below edits a record *inside* the existing
+zone. Repointing nameservers away from `ns-cloud-*` takes the MX, SPF and DKIM records with
+it and Google Workspace mail stops delivering the same hour.
+
+## Part 1 — Google Search Console
+
+Goes first: Bing's fast path imports from it.
+
+1. **Use a Domain property, not a URL prefix.** It is verified by DNS, so it survives the
+   move to Vercel, and it covers `therapylog.app`, `www` and `api` in one property. A
+   URL-prefix property verified by an HTML file covers one exact prefix.
+2. `search.google.com/search-console` → property dropdown → Add property → **Domain** →
+   `therapylog.app` (bare domain, no scheme, no `www`).
+3. Copy the `google-site-verification=…` TXT value.
+4. Add it: type `TXT`, host `@` (or blank), TTL 3600, value = the full string.
+   **Add, never replace** — the `@` host already holds the SPF TXT record, and a hostname
+   can carry many TXT records. Deleting SPF to make room breaks mail deliverability.
+5. Wait 5–15 minutes, then Verify. Re-clickable if it fails the first time.
+6. Sitemaps → paste the **full URL** `https://therapylog.app/sitemap.xml` → Submit.
+   A Domain property spans www, non-www and every subdomain, so the field shows **no
+   prefix** and a bare `sitemap.xml` will not resolve. (The URL-prefix property is the one
+   that prefills `https://therapylog.app/`.) Sitemaps also only accepts a submission on a
+   *verified* property — confirm the green verified state first. The file is live and
+   correct: 200, `application/xml`, and `robots.txt` points at it. Nothing on the site links
+   to it, and nothing needs to. Expect Success and 44 URLs within a day.
+7. URL Inspection → Request Indexing (~10/day) on:
+   - `/tools/`
+   - `/tools/peptide-reconstitution-calculator/`
+   - `/tools/tirzepatide-reconstitution-calculator/`
+   - `/tools/semaglutide-reconstitution-calculator/`
+   - `/tools/trt-dose-calculator/`
+   - `/tools/free-testosterone-calculator/`
+
+Coverage data lands in 2–3 days. The Performance report needs impressions first, and the
+domain is three months old with days-old tool pages — realistically **3–8 weeks** before it
+is worth reading. Quiet week-one numbers are not a setup error.
+
+## Part 2 — Bing Webmaster Tools
+
+Bing is the index behind Copilot and ChatGPT search, and an IndexNow ping to Bing is shared
+with Yandex, Naver and Seznam. Google takes no part in IndexNow.
+
+1. `bing.com/webmasters` — sign in with the Google account, no Microsoft account needed.
+2. **Import from Google Search Console** → authorize → pick `therapylog.app`. Carries the
+   verification and the sitemap across. This is why Part 1 goes first.
+   - Manual fallback: verify by XML file. Download `BingSiteAuth.xml` from Bing, drop it at
+     the repo root, commit, and wait for the Pages build. **No `_config.yml` change is
+     needed** — an earlier version of this doc claimed you had to add it under `include:`,
+     which was wrong. Jekyll's `include:` is only for files it would otherwise skip
+     (dotfiles and `_`-prefixed files); `sitemap.xml`, `llms.txt` and `manifest.webmanifest`
+     are all live and none of them are listed there. A third option, if you would rather not
+     deploy a file at all, is Bing's CNAME method — one DNS record in the Squarespace panel.
+3. Sitemaps → confirm `https://therapylog.app/sitemap.xml` is listed.
+4. Settings → IndexNow. The key is `615f8693ff6f4e55a3985a0ae070b7a3` — the one Bing
+   generated for you, now the one this repo hosts.
+
+   IndexNow keys are **not credentials**: the whole scheme works by publishing the key at a
+   public URL, so it is fine in a repo, in a dashboard screenshot, or in chat. Any key you
+   control is valid — Bing's generated key has no special status, it is just a convenience.
+   What matters is that `https://therapylog.app/<key>.txt` exists and contains exactly that
+   key. Rotation is "add the new file, delete the old one"; `scripts/indexnow-submit.js`
+   finds whichever 32-hex `.txt` sits at the repo root and refuses to run if there is more
+   than one.
+5. `node scripts/indexnow-submit.js` (add `--dry-run` to inspect the payload). Run after
+   any deploy that changes pages; it reads `sitemap.xml`, so new pages need no script edit.
+
+### How to read Bing's five counters — they disagree by design
+
+They measure five different things, and a healthy new site shows wildly different numbers
+across them. Reading these as one metric is the fastest way to conclude something is broken
+when it isn't:
+
+| Screen | Measures | Healthy value right after setup |
+|---|---|---|
+| **IndexNow** | URLs accepted by the IndexNow API | all of them, "pending crawl" |
+| **Sitemaps** | URLs Bing parsed out of `sitemap.xml` | your full count (144) |
+| Submitted URLs | the **manual** submit box's own counter — **does not count IndexNow** | 0–1, and that is fine |
+| URL Inspection | a log of URLs *you* looked up by hand | however many you clicked |
+| Site Explorer | URLs bingbot has actually **crawled and processed** | 0 for the first 1–3 weeks |
+
+**IndexNow "pending" and Site Explorer "0" are the same fact from both ends** — submitted,
+not yet crawled. Site Explorer matching IndexNow immediately would be the *inconsistent*
+reading.
+
+**Do not manually re-submit URLs IndexNow already carried.** Same queue, no added effect,
+and manual submission is rate-limited per day and per month (small for a new site — the
+dashboard shows the current allowance). Spend that allowance, if at all, on the handful of
+highest-value tool pages, the same ones worth a Google "Request indexing": `/tools/`, the
+peptide/tirzepatide/semaglutide reconstitution calculators, and the TRT dose calculator.
+The bottleneck is crawl budget on an unknown domain, not submission.
+
+## Part 3 — the move to Vercel
+
+Independent of Parts 1 and 2 — a Domain property survives a host change, so do not wait on
+this.
+
+1. Settings → Git → Production Branch = `main`; redeploy latest to Production. The current
+   newest deployment has no production target.
+2. Settings → Domains → add `therapylog.app`, then `www.therapylog.app`. **Use the record
+   values Vercel prints**, not values from docs or blog posts: Vercel's own docs still show
+   `76.76.21.21` while `api.therapylog.app` is already on `216.198.79.65`.
+3. In the zone: delete the four `185.199.10x.153` A records, add Vercel's A record at `@`,
+   add the `www` CNAME Vercel gives. **Leave MX, SPF, DKIM, DMARC and the Search Console
+   TXT untouched.**
+4. `curl -I https://therapylog.app` → `server: Vercel`. Records carry a 3600s TTL, so allow
+   an hour.
+5. Analytics → enable Web Analytics (and Speed Insights if wanted). All 46 pages already
+   carry the script.
+6. Leave the `CNAME` file in the repo — harmless, and it keeps Pages as a fallback during
+   propagation.
+
+Two cautions. The Vercel team is on **Hobby**, which is licensed for non-commercial use,
+and TherapyLog sells Pro subscriptions and lifetime licences through Stripe; `therapylog-api`
+is already there, and adding the marketing site makes that more visible. Hobby Web Analytics
+also has a monthly event cap and short retention — check the figures before relying on it.
+Cloudflare Web Analytics is a free alternative that needs no DNS change and works on Pages
+today, but the Vercel tag is already deployed, so moving is the shorter path from here.
+
+## Three gaps found while checking — all closed as of 6 Sep 2026
+
+1. **`www.therapylog.app` did not resolve — fixed.** A `CNAME www → therapylog.github.io.`
+   record was added and `www.therapylog.app` added as a second custom domain in the GitHub
+   Pages settings. Live behavior: `https://www.therapylog.app/` → `301` →
+   `https://therapylog.app/`, served with `server: GitHub.com` — GitHub canonicalizes it
+   server-side, so there's no separate duplicate-content URL to worry about, just one clean
+   redirect to the apex.
+
+   **One sequencing trap hit along the way, worth recording.** The CNAME went in, GitHub's
+   DNS check passed, and the site briefly served `www` — then the DNS check silently reverted
+   to unresolved and stayed that way. Re-entering the custom domain (remove it in Pages
+   settings, save, re-add `therapylog.app`, save) made the DNS check pass again immediately.
+   **If DNS looks correct in `dig`/Cloudflare-DoH/etc. but the Pages "DNS check" won't clear,
+   don't just wait it out — remove and re-add the custom domain to force GitHub to
+   re-verify.** This also re-provisions the TLS certificate, which is why it doubles as the
+   fix below.
+
+   A certificate warning appeared on the first visit to `https://www.therapylog.app/`
+   immediately after adding the CNAME. Expected, not a misconfiguration: GitHub had already
+   issued a certificate for `therapylog.app` before `www` existed as a custom domain, so
+   that cert had no SAN entry for `www`. The same remove/re-add above reprovisioned the
+   certificate to cover both names; the warning was gone on the next visit.
+
+2. **DMARC was `p=none` with no reporting address — fixed.** `dmarc@therapylog.app` exists
+   as a Workspace alias (with `feedback@` also aliased to `hello@`), and the record is:
+   `v=DMARC1; p=none; rua=mailto:dmarc@therapylog.app`. **Watch out for a leading space in
+   the TXT value** if you paste rather than type it — some DNS panels insert one after the
+   opening quote, and a DMARC record must start with `v=DMARC1` per RFC 7489 with no leading
+   whitespace. Confirmed clean on live re-check. Still open: read a few weeks of reports,
+   then tighten to `p=quarantine`.
+3. **`DNS SETUP.md` is wrong — banner added.** It points at `domains.google.com` (gone) and
+   at ImprovMX MX records that would break Google Workspace mail if followed. This file
+   supersedes it.
+4. **An abandoned Mailchimp preset was also found and removed while auditing DMARC.** Two
+   `_domainkey` CNAMEs (`k2`/`k3` → `dkim2/3.mcsv.net`) and the original un-reported-on
+   `_dmarc` stub were all provisioned by **Entri** — white-label domain-connect plumbing
+   embedded in Mailchimp's "connect your domain" flow, not a service you sign up for
+   directly, which is why there was no account to log into. TherapyLog stopped using
+   Mailchimp for `/support` signups (see `LEDGER.md`), so the preset was dead weight;
+   Squarespace's "remove the preset and reconnect the domain" option cleared all three
+   records with no effect on SPF, MX, Search Console verification, or Google DKIM.
+
+## Order of operations
+
+| # | Step | Status |
+|---|---|---|
+| 1 | Search Console Domain property + TXT | ✅ done |
+| 2 | Submit sitemap, request indexing on the top tool URLs | ✅ sitemap submitted (144 URLs); request-indexing quota is manual and ongoing |
+| 3 | Bing import from Search Console, confirm IndexNow key | ✅ done — verified via import; all 144 URLs pending crawl. See "How to read Bing's five counters" |
+| 4 | `node scripts/indexnow-submit.js` | ✅ done — 144 URLs, `200` |
+| 5 | Add the `www` record | ✅ done, including the cert re-provision (see gap 1) |
+| 6 | DMARC `rua=` reporting address | ✅ done — reports flowing at `p=none`; tighten to `p=quarantine` after a few weeks clean |
+| 7 | Fix HTTPS enforcement (found via Search Console's Coverage report, not originally on this list) | ✅ done — closed the "Redirect error" row |
+| 8 | Vercel production deploy, domains, DNS swap, analytics | when ready |
+| 9 | Read the Performance report | in progress — expect real signal 4–8 weeks after the 144-URL sitemap, longer for competitive terms |
+
+**Every search-visibility item on this list is now done.** What remains is the Vercel move
+(step 8, optional and independent of everything else) and waiting: both Google and Bing have
+the full 144-URL sitemap and are working through it. Expect 1–3 weeks before Bing's Site
+Explorer shows meaningful numbers and 4–8 weeks before Google's Performance report is worth
+reading — longer for competitive peptide terms. Neither is a setup problem, and there is no
+lever left to pull on the technical side; the remaining variable is domain authority, which
+is what the creator outreach in `therapylog-api/docs/outreach-targets.md` is for.

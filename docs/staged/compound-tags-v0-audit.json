@@ -1,0 +1,1149 @@
+{
+ "changeLog": [
+  {
+   "id": "tc",
+   "field": "tags",
+   "add": [
+    "hypoglycemic"
+   ],
+   "remove": [],
+   "before": [
+    "aas",
+    "aromatizing",
+    "hpta-suppressive",
+    "hematocrit-raising",
+    "lipid-suppressing",
+    "bp-raising",
+    "cardiotoxic",
+    "neuropsychiatric",
+    "virilizing",
+    "teratogenic",
+    "cyp3a4-substrate",
+    "warfarin-potentiating"
+   ],
+   "after": [
+    "aas",
+    "aromatizing",
+    "hpta-suppressive",
+    "hematocrit-raising",
+    "lipid-suppressing",
+    "bp-raising",
+    "cardiotoxic",
+    "neuropsychiatric",
+    "virilizing",
+    "teratogenic",
+    "cyp3a4-substrate",
+    "warfarin-potentiating",
+    "hypoglycemic"
+   ],
+   "reason": "MISSING SAFETY TAG: hypoglycemic. The testosterone cypionate label (Depo-Testosterone, Pfizer) carries an explicit Drug Interactions entry: 'Changes in insulin sensitivity or glycemic control may occur in patients treated with androgens. In diabetic patients, the metabolic effects of androgens may decrease blood glucose and, therefore, insulin requirements.' The vocabulary defines hypoglycemic as 'can cause or potentiate hypoglycaemia' \u2014 potentiation of insulin/sulfonylureas is squarely in scope, and this is a genuine drug-drug rule (a user logging testosterone alongside insulin or a sulfonylurea should get a glucose-monitoring caution). The effect is amplified, not attenuated, at the 300-500mg/week the app documents, since androgen-driven improvement in insulin sensitivity scales with dose. The prior agent's risk-tag survey covered hepatic, cardiovascular, haematological, endocrine and CNS domains but never considered the glycaemic domain at all, and the same gap is replicated verbatim on the enanthate record. Separately, for the notes (no vocabulary tag fits, flag for v2): the same label section documents that androgens lower thyroxine-binding globulin, producing falsely low total T4 with normal free T4. That is not immunoassay interference so assay-interfering does not strictly apply, but the app lists a monitoring panel and a user could be started on levothyroxine on the basis of a distorted total T4. Everything else on this record is sound \u2014 the dht-derived, hepatotoxic, qt-prolonging (androgens shorten QTc) and nephrotoxic rejections all hold, dea=3 and aa=[100,100] are correct, and store=reframe is right: the FDA's 28 Feb 2025 class-wide labeling change confirms both the bp-raising tag and that this is an approved drug with a mainstream indication, so exclude would be wrong.",
+   "severity": "safety"
+  },
+  {
+   "id": "te",
+   "field": "tags",
+   "add": [
+    "hypoglycemic"
+   ],
+   "remove": [],
+   "before": [
+    "aas",
+    "aromatizing",
+    "hpta-suppressive",
+    "hematocrit-raising",
+    "lipid-suppressing",
+    "bp-raising",
+    "cardiotoxic",
+    "neuropsychiatric",
+    "virilizing",
+    "teratogenic",
+    "cyp3a4-substrate",
+    "warfarin-potentiating"
+   ],
+   "after": [
+    "aas",
+    "aromatizing",
+    "hpta-suppressive",
+    "hematocrit-raising",
+    "lipid-suppressing",
+    "bp-raising",
+    "cardiotoxic",
+    "neuropsychiatric",
+    "virilizing",
+    "teratogenic",
+    "cyp3a4-substrate",
+    "warfarin-potentiating",
+    "hypoglycemic"
+   ],
+   "reason": "MISSING SAFETY TAG: hypoglycemic \u2014 identical to the cypionate record and for identical reasons. Androgen potentiation of insulin and oral antidiabetic agents is class labeling that applies to testosterone enanthate exactly as it does to cypionate; the ester is cleaved by serum esterases before the hormone reaches the receptor, so no pharmacological distinction exists. The prior agent's own stated principle \u2014 that these two records must stay tag-identical or interaction rules will fire inconsistently depending on which ester the user logged \u2014 is correct and is precisely why this omission must be fixed on both records together rather than on one. Everything else on this record is sound; dea=3, aa=[100,100] and store=reframe are all correct. Minor notes-level inaccuracy with no tag consequence: the notes state enanthate has a ~7 day half-life, but the record's own halfLifeHours field says 108 (4.5 days), which is the more commonly cited figure for testosterone enanthate; the 7-vs-8-day framing overstates how close the two esters are, though it does not change any tag.",
+   "severity": "safety"
+  },
+  {
+   "id": "progesterone",
+   "field": "store",
+   "from": "ok",
+   "to": "reframe",
+   "reason": "STORE MIS-SCOPED: ok should be reframe. The vocabulary defines ok as 'ships in a store build as written' and says FDA-approved drugs are fine when 'used for their approved indication'. Only one of this entry's three dose rows is an approved indication. Prometrium/Utrogestan are approved for secondary amenorrhoea and for endometrial protection in postmenopausal women on estrogen; 'Sleep Optimization: 100-200mg' and 'Men (adjunct): 10-20mg' are not, and the summary states the indication as 'BHRT, sleep optimization, and as a DHT modulator in men'. The 'Sleep Optimization' row is the same optimization-framing pattern the prior agent correctly said must be stripped from the testosterone records, and the pros list carries an efficacy claim ('Reduces DHT conversion in men (modest)') that the human data do not support \u2014 I checked, and while progesterone is a competitive 5a-reductase inhibitor in vitro (24-62% inhibition of DHT synthesis in human fibroblasts), the in-vivo effect on serum 5a-reduced androgens in humans is minimal. This is a scoping and claims issue, not a safety one: progesterone is an approved, non-scheduled substance, so neither the Play unapproved-substance rule nor Apple 1.4.3 is triggered, and exclude would be clearly wrong. But reframe is the correct bucket, since reframe exists precisely for entries needing the indication restated as the approved one. The tag set itself is correct and I am not changing it: hpta-suppressive is well applied and is in fact the key safety fact behind the men's row (progesterone is anti-gonadotropic, so an app in the TRT space recommending it to men is recommending something that suppresses the axis it is trying to support); neuropsychiatric, cyp3a4-substrate and absorption-sensitive are all solid; 5ar-inhibitor is weak but correctly applied under the asymmetry rule with the uncertainty on record; and withholding teratogenic is right, since micronized progesterone is given deliberately in pregnancy for luteal support. dea=null and aa=null are correct.",
+   "severity": "accuracy"
+  },
+  {
+   "id": "ara290",
+   "field": "tags",
+   "add": [
+    "hypoglycemic"
+   ],
+   "remove": [],
+   "before": [
+    "peptide"
+   ],
+   "after": [
+    "peptide",
+    "hypoglycemic"
+   ],
+   "reason": "Missing hypoglycemic. The agent's important negative on hematocrit-raising is correct and verified (hemoglobin, hematocrit and reticulocytes unchanged in trials), but it stopped at the EPO-lineage question and missed a documented human glycaemic signal at the exact dose this app records. Brines et al., Phase 2 double-blind placebo-controlled trial in type 2 diabetes: 4 mg/day subcutaneous for 28 days -- matching the entry's 'Neuropathy and Pain: 4mg' row -- produced a significant HbA1c improvement (p=0.002) alongside improved cholesterol/HDL ratio and triglycerides. The mechanism work in Goto-Kakizaki rats found HbA1c reduced ~20% with increased glucose-stimulated insulin secretion from isolated islets, i.e. an insulin-secretion mechanism rather than a sensitivity shift alone. The users of ARA-290 are diabetic and small-fibre neuropathy patients, who are overwhelmingly already on insulin, a sulfonylurea or a GLP-1, so the additive-hypoglycaemia rule is exactly the warning that should fire and currently does not. This is also internally inconsistent with the same batch: hypoglycemic was applied to Humanin on rodent/primate evidence with no human dosing data, while withheld from ARA-290 where a human RCT at the documented dose exists -- under the vocabulary's stated uncertainty-asymmetry rule ARA-290 is the stronger of the two. I deliberately do NOT recommend insulin-secretagogue-or-analogue: the secretion mechanism rests on rodent islet data, and that structural tag would group an 11-amino-acid innate-repair-receptor agonist with insulin and sulfonylureas and likely drive dose-adjustment rules that are not warranted. hypoglycemic alone carries the safety meaning. Secondary, outside the tag schema: the monitoring row ('Pain scales, nerve conduction studies, CRP, CBC') should gain fasting glucose and HbA1c. Tags otherwise correct; store reframe, dea null and aa null all stand.",
+   "severity": "safety"
+  },
+  {
+   "id": "pct1",
+   "field": "tags",
+   "add": [
+    "peptide",
+    "aromatizing",
+    "hpta-suppressive",
+    "hematocrit-raising",
+    "assay-interfering"
+   ],
+   "remove": [],
+   "before": [
+    "serm",
+    "cyp3a4-substrate",
+    "warfarin-potentiating",
+    "qt-prolonging",
+    "teratogenic",
+    "neuropsychiatric"
+   ],
+   "after": [
+    "serm",
+    "cyp3a4-substrate",
+    "warfarin-potentiating",
+    "qt-prolonging",
+    "teratogenic",
+    "neuropsychiatric",
+    "peptide",
+    "aromatizing",
+    "hpta-suppressive",
+    "hematocrit-raising",
+    "assay-interfering"
+   ],
+   "reason": "Deliberate, self-documented omission that defeats the record's own tagging strategy. The agent tagged pct1 by union of constituents (SERM tags from tamoxifen + clomiphene) but then knowingly withheld the hCG tags, even though dose row 3 reads 'TRT discontinuation: HCG 500IU 3x/wk x 3 wks then Nolva + Clomid standard'. Its stated reason (avoid attributing hCG properties to the two SERM-only variants) is exactly the false-positive-vs-false-negative trade the vocabulary resolves in the opposite direction ('When genuinely uncertain, apply the tag... A false negative produces a missing one'). If the rules engine reads protocol-level tags \u2014 which the agent itself concedes is the fallback path \u2014 a user on the TRT-discontinuation variant gets NO estradiol/aromatization warning, NO HPTA-suppression warning (hCG suppresses endogenous LH/FSH by negative feedback while the user believes they are restarting), NO haematocrit warning, and critically NO assay-interference warning: administered hCG makes serum and urine hCG assays read positive and confounds germ-cell/trophoblastic tumour-marker interpretation for days after the last dose. That last one is the single highest-value missing warning in the batch because it produces a spurious pregnancy or cancer-marker result with no obvious cause. Adding the five hCG tags costs at most a redundant caution on the two Test-only variants; withholding them silences four real ones. store=exclude, dea=null and aa=null are all correct and unchanged.",
+   "severity": "safety"
+  },
+  {
+   "id": "tirz",
+   "field": "tags",
+   "add": [
+    "nephrotoxic"
+   ],
+   "remove": [],
+   "before": [
+    "peptide",
+    "glp1",
+    "gastric-emptying-delaying",
+    "hypoglycemic",
+    "insulin-secretagogue-or-analogue",
+    "teratogenic"
+   ],
+   "after": [
+    "peptide",
+    "glp1",
+    "gastric-emptying-delaying",
+    "hypoglycemic",
+    "insulin-secretagogue-or-analogue",
+    "teratogenic",
+    "nephrotoxic"
+   ],
+   "reason": "Missing renal tag. The Mounjaro and Zepbound labels carry a Warnings and Precautions section for Acute Kidney Injury: postmarketing reports of AKI and worsening chronic renal failure, in some cases requiring haemodialysis, the majority in patients whose GI adverse reactions (nausea, vomiting, diarrhoea) caused volume depletion, with an explicit instruction to monitor renal function during dose initiation and escalation. Nothing in the current tag set fires any renal warning, and the record's own monitoring line (HbA1c, fasting glucose, lipids, weight) omits creatinine/eGFR entirely. This is the tag that should drive the highest-yield co-administration rule for this compound \u2014 tirzepatide plus an NSAID, ACE inhibitor/ARB, or diuretic during a vomiting episode is the classic triple-whammy AKI setup, and dose escalation is when it happens. `gastric-emptying-delaying` and `hypoglycemic` do not cover it. Everything else on tirz is sound: the refusal to use `thyroid-hormone` for the C-cell boxed warning is correct (wrong tag), the reading of `absorption-sensitive` as own-absorption-only is correct for a SC peptide (the outbound oral-contraceptive interaction is genuinely carried by `gastric-emptying-delaying`), and store=ok is right for an approved drug documented at label doses.",
+   "severity": "safety"
+  },
+  {
+   "id": "hcg2",
+   "field": "store",
+   "from": "exclude",
+   "to": "reframe",
+   "reason": "Over-cautious exclude on an approved prescription drug, and internally inconsistent with the same agent's own calls elsewhere in the batch. hCG is FDA-approved (chorionic gonadotropin for injection; Pregnyl, Novarel) with approved indications in hypogonadotropic hypogonadism, prepubertal cryptorchidism, and ovulation induction. Vocabulary section D states the default plainly: 'Approved prescription drugs -> ok or reframe', and defines reframe as being for 'compounds with a legitimate supervised medical use whose current entry is written for performance use' \u2014 which describes this record exactly. The Google Play rule the agent leans on prohibits hCG promoted IN CONJUNCTION WITH anabolic steroids or weight loss; reframe is the mechanism that removes precisely that conjunction (delete the 'Pre-PCT primer: 500IU 3x/week' and 'Blast restart: 1000-1500IU 3x/week' rows, drop the on-cycle/pre-PCT framing and the 'Maintains fertility potential during cycle' pro, and state the approved indications). The agent's justification \u2014 'a genuinely reframed hCG entry would be a different record' \u2014 is equally true of tamoxifen and clomiphene, whose entries are 100% PCT-framed and which it nonetheless scoped as reframe with instructions to strip the cycle scheduling. Applying a stricter standard to hCG removes a genuinely important male-fertility and hypogonadism reference from a harm-reduction app. All five tags (peptide, aromatizing, hpta-suppressive, hematocrit-raising, assay-interfering) are correct and unchanged, as are dea=null and aa=null.",
+   "severity": "accuracy"
+  },
+  {
+   "id": "mast",
+   "field": "tags",
+   "add": [
+    "warfarin-potentiating"
+   ],
+   "remove": [],
+   "before": [
+    "aas",
+    "dht-derived",
+    "hpta-suppressive",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "bp-raising",
+    "cardiotoxic",
+    "virilizing",
+    "teratogenic",
+    "neuropsychiatric",
+    "aromatase-inhibitor"
+   ],
+   "after": [
+    "aas",
+    "dht-derived",
+    "hpta-suppressive",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "bp-raising",
+    "cardiotoxic",
+    "virilizing",
+    "teratogenic",
+    "neuropsychiatric",
+    "aromatase-inhibitor",
+    "warfarin-potentiating"
+   ],
+   "reason": "MISSING INTERACTION TAG: warfarin-potentiating. Androgen class labelling carries this explicitly \u2014 Depo-Testosterone (testosterone cypionate, an INJECTABLE, NON-alkylated AAS), oxandrolone and Anadrol all state 'Androgens may increase sensitivity to oral anticoagulants. Dosage of the anticoagulant may require reduction.' The oxandrolone multidose study in 15 warfarin-treated subjects found S-warfarin half-life 26h -> 48h and AUC 4.55 -> 12.08 ng*hr/mL, with microscopic haematuria in 9/15 and gingival bleeding in 1/15; onset within 2-3 days of starting OR stopping. Critically, the mechanism is NOT 17alpha-alkylation-dependent, so the tagger's (correct) reasoning that drostanolone is a non-alkylated oil ester does not exempt it. At the documented 300-500mg/week, a user on warfarin or presenting for anticoagulation review gets no bleeding-risk warning at all without this tag. Everything else in this row verifies clean: dea=3 correct (all AAS are Schedule III), aa [62,25] is the conventionally cited rodent figure, store=exclude correct, and withholding 17aa-oral, hepatotoxic and aromatizing is right for a non-alkylated non-aromatising injectable. aromatase-inhibitor is thinly evidenced in vivo but I am NOT recommending removal \u2014 it is the conservative direction for an AI-co-administration/E2-crash rule.",
+   "severity": "safety"
+  },
+  {
+   "id": "primo",
+   "field": "tags",
+   "add": [
+    "warfarin-potentiating"
+   ],
+   "remove": [],
+   "before": [
+    "aas",
+    "dht-derived",
+    "hpta-suppressive",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "bp-raising",
+    "cardiotoxic",
+    "virilizing",
+    "teratogenic",
+    "neuropsychiatric",
+    "hepatotoxic"
+   ],
+   "after": [
+    "aas",
+    "dht-derived",
+    "hpta-suppressive",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "bp-raising",
+    "cardiotoxic",
+    "virilizing",
+    "teratogenic",
+    "neuropsychiatric",
+    "hepatotoxic",
+    "warfarin-potentiating"
+   ],
+   "reason": "TWO OMISSIONS. (1) warfarin-potentiating \u2014 same androgen-class oral-anticoagulant labelling as drostanolone (verified on the injectable testosterone cypionate label, so it is not alkylation-dependent); methenolone is an AAS and at 400-600mg/week injectable this is a live bleeding-risk interaction with no warning currently attached. (2) neuropsychiatric \u2014 mood, aggression, sleep and anxiety disturbance is a supraphysiologic-AAS class effect, and the SAME batch applied this tag to drostanolone. There is no pharmacological basis for treating methenolone at 400-600mg/wk differently, so the omission is an internal inconsistency that silently drops the CNS warning for this compound only. VERIFIED CORRECT, no change needed: methenolone acetate is 1-methyl (1-methyl-5alpha-androst-1-ene) with a 17-BETA acetate ester and is NOT 17alpha-alkylated (confirmed) \u2014 withholding 17aa-oral is right; dea=3 correct; aa [88,44] is the conventionally cited figure; store=exclude correct; the entry's 'FDA-approved for immune deficiency conditions' claim is indeed unsupportable and should be struck. I am deliberately NOT recommending removal of hepatotoxic even though the pharmacology argues against it (published sources state oral primobolan does not carry the hepatotoxic burden of alkylated orals, because the 1-methyl route trades bioavailability for hepatic safety) \u2014 stripping a caution the entry's own monitoring row already implies is the wrong direction of error in a harm-reduction app. Keep it, but grade it as the lowest severity band if the engine supports grading.",
+   "severity": "safety"
+  },
+  {
+   "id": "lgd",
+   "field": "tags",
+   "add": [
+    "neuropsychiatric",
+    "cardiotoxic"
+   ],
+   "remove": [],
+   "before": [
+    "sarm",
+    "hpta-suppressive",
+    "hepatotoxic",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "virilizing",
+    "teratogenic"
+   ],
+   "after": [
+    "sarm",
+    "hpta-suppressive",
+    "hepatotoxic",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "virilizing",
+    "teratogenic",
+    "neuropsychiatric",
+    "cardiotoxic"
+   ],
+   "reason": "TWO OMISSIONS. (1) neuropsychiatric \u2014 the published LGD-4033 clinical literature lists psychiatric symptoms as a recognised adverse-effect category alongside hepatotoxicity, cardiovascular and endocrine effects, with reports of hallucinations and psychotic-like behaviour and commonly reported sleep disturbance. Independently, LGD is the most suppressive common SARM and the app documents 15-20mg/day (15-20x the 1mg dose that already suppresses), so hypogonadal mood disturbance during and after use is expected. RAD-140 received this tag in the same batch on weaker evidence than exists here, so the omission is also an internal inconsistency. (2) cardiotoxic \u2014 the same SARM adverse-effect literature documents cardiovascular complications including myocardial infarction, and LGD produces the most pronounced HDL suppression of the SARMs in this batch. The vocabulary's uncertainty-favours-tagging rule applies squarely. Verified correct and unchanged: dea=null (the SARMs Control Act has been introduced repeatedly since 2018 and has still not passed \u2014 SARMs remain federally unscheduled), aa=null, hepatotoxic (8 of 15 published SARM DILI cases are LGD; a 2024 Cureus case of pruritic jaundice after 3 months of high-dose use), hpta-suppressive, lipid-suppressing, virilizing, teratogenic, store=exclude. The duplicated/conflicting dose rows the tagger flagged are real and present in the source record.",
+   "severity": "safety"
+  },
+  {
+   "id": "rad140",
+   "field": "tags",
+   "add": [
+    "cardiotoxic"
+   ],
+   "remove": [],
+   "before": [
+    "sarm",
+    "hpta-suppressive",
+    "hepatotoxic",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "virilizing",
+    "teratogenic",
+    "neuropsychiatric"
+   ],
+   "after": [
+    "sarm",
+    "hpta-suppressive",
+    "hepatotoxic",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "virilizing",
+    "teratogenic",
+    "neuropsychiatric",
+    "cardiotoxic"
+   ],
+   "reason": "MISSING cardiotoxic, and unlike most class-based cardiac tags this one is CONFIRMED by compound-specific published human cases, not extrapolated: acute myocarditis in a 16-year-old who presented to the ED with chest pain after his FIRST dose of RAD-140 (Cureus, 2022), and myopericarditis following RAD-140 use (JACC: Case Reports, 2024). That is direct cardiac risk beyond blood pressure \u2014 exactly the tag's definition \u2014 and it is the most severe rapid-onset harm documented for any compound in this batch, occurring after minimal exposure rather than requiring chronic supraphysiologic use. Its absence means a RAD-140 user with chest pain or dyspnoea gets no cardiac flag from the rules engine while the same batch tags drostanolone cardiotoxic on purely class grounds. Verified correct and unchanged: dea=null (SARMs are not federally scheduled), aa=null is the RIGHT call \u2014 the '90:1' in the entry summary is a tissue-selectivity ratio and encoding it on the Hershberger testosterone=100:100 scale would propagate a category error into any comparison table; hepatotoxic is confirmed (6 published RAD-140 DILI cases including biopsy-proven canalicular cholestasis); neuropsychiatric correctly applied; store=exclude correct.",
+   "severity": "safety"
+  },
+  {
+   "id": "rhgh",
+   "field": "tags",
+   "add": [
+    "cyp3a4-inducer"
+   ],
+   "remove": [],
+   "before": [
+    "peptide",
+    "gh-axis",
+    "bp-raising",
+    "cardiotoxic",
+    "electrolyte-disturbing"
+   ],
+   "after": [
+    "peptide",
+    "gh-axis",
+    "bp-raising",
+    "cardiotoxic",
+    "electrolyte-disturbing",
+    "cyp3a4-inducer"
+   ],
+   "reason": "MISSING INTERACTION-MECHANISM TAG: cyp3a4-inducer. This is a labelled interaction on every somatropin product (Norditropin, Genotropin, Omnitrope, Serostim): GH increases CYP450-mediated clearance (antipyrine data), and 'the clearance of compounds such as sex steroids, corticosteroids, anticonvulsants and cyclosporine may be especially increased, resulting in lower plasma levels of these compounds'; hGH-receptor-agonist labelling identifies CYP450 3A4 and/or 1A2 as the isoenzymes where the effect is most significant. The downstream harms are all under-treatment, which is why a missing tag here is dangerous rather than merely incomplete: loss of seizure control on an anticonvulsant, transplant rejection or graft loss on cyclosporine, hormonal-contraceptive failure, and inadequate glucocorticoid cover (GH separately enhances hydrocortisone-to-cortisone conversion and inhibits 11beta-HSD-1, so replacement doses may need increasing). Of every compound in this batch, somatropin is by far the most likely to be co-administered with genuine prescription therapy \u2014 it is the only FDA-approved drug in the set \u2014 so this is the highest-value missing interaction tag in the batch. Verified correct and unchanged: store=reframe is right and an exclude here would be over-scoped (somatropin has real approved indications: adult GHD, HIV wasting, short bowel, Turner); dea=null is correct federally, with the tagger's 21 USC 333(e) and state-level notes worth keeping; withholding hypoglycemic is CORRECT \u2014 GH raises glucose and drives insulin resistance, so applying it would invert the warning, and the absent hyperglycemic/glucose-raising tag is a genuine v1 vocabulary gap rather than a tagging error.",
+   "severity": "safety"
+  },
+  {
+   "id": "exemest",
+   "field": "tags",
+   "add": [
+    "assay-interfering",
+    "absorption-sensitive"
+   ],
+   "remove": [],
+   "before": [
+    "aromatase-inhibitor",
+    "lipid-suppressing",
+    "virilizing",
+    "neuropsychiatric",
+    "teratogenic",
+    "cyp3a4-substrate"
+   ],
+   "after": [
+    "aromatase-inhibitor",
+    "lipid-suppressing",
+    "virilizing",
+    "neuropsychiatric",
+    "teratogenic",
+    "cyp3a4-substrate",
+    "assay-interfering",
+    "absorption-sensitive"
+   ],
+   "reason": "TWO OMISSIONS, one of them the most consequential miss in the batch.\n\n(1) MISSING 'assay-interfering'. Exemestane and its metabolites cross-react in sex-steroid immunoassays. Mandic et al. (Ann Clin Biochem 2017, 'Falsely elevated serum oestradiol due to exemestane therapy') found falsely elevated oestradiol in most E2 immunoassays, with one platform giving false elevations in ~20% of patients on therapy; a 2025 study (PMC12187492 / PMID 40114653) found markedly falsely elevated androstenedione in ALL FOUR immunoassays tested at the standard 25mg dose, with the magnitude correlating to serum exemestane concentration. This is literal immunoassay cross-reactivity \u2014 precisely what the tag definition describes ('interferes with lab immunoassays, e.g. biotin') \u2014 not a borderline call. The safety consequence is direct and closed-loop: this entry's monitoring row is 'E2 sensitive assay, Total T, Free T', and the entry's whole purpose is titrating an AI against an E2 number. A user on exemestane reads a falsely HIGH E2, concludes the AI is underdosed, escalates from 12.5mg E3D toward 25mg EOD, and crashes their true E2 \u2014 producing exactly the joint pain, lipid deterioration, mood collapse and bone loss the entry lists as cons. Without the tag no rule tells anyone the number is unreliable or that LC-MS/MS is required. Note the internal inconsistency: the same batch applied 'assay-interfering' to dutasteride on the weaker analyte-shift rationale (PSA halving is a true biological effect, not assay artefact) while missing it here where the mechanism is textbook cross-reactivity.\n\n(2) MISSING 'absorption-sensitive'. The Aromasin label directs 25mg once daily AFTER A MEAL because a high-fat breakfast raises exemestane AUC by 59% and Cmax by 39% versus fasted. That is a ~60% exposure swing driven purely by administration timing, on a compound this entry documents at 12.5-25mg being titrated to an E2 target \u2014 the same over-suppression failure mode as above. Meets the tag definition ('its own absorption is meaningfully altered by co-administered drugs/minerals/food') more strongly than several compounds in this batch that did receive it.\n\nCONFIRMED CORRECT, no change: 'lipid-suppressing' is right and the entry's 'more favorable cholesterol profile' pro is wrong in absolute terms \u2014 meta-analysis of RCTs gives HDL-C WMD -6.03 mg/dL (95% CI -7.77 to -4.29, p<0.001) and the manufacturer's own clinical pharmacology reports HDL down 6-9%. Withholding 'aas' is correct (exemestane is a 6-methylene androstadienedione and its 17-hydro metabolite is an AR agonist, but it is not scheduled, not classified as an anabolic steroid, and tagging it would misfire the Schedule III default and the AAS store filter); 'virilizing' is the right vehicle for the androgenic signal. cyp3a4-substrate, teratogenic, neuropsychiatric, dea=null and store='reframe' all confirmed.",
+   "severity": "safety"
+  },
+  {
+   "id": "ndt",
+   "field": "store",
+   "from": "ok",
+   "to": "reframe",
+   "reason": "ONE MISSING TAG AND A WRONG STORE CALL, both flowing from the same fact \u2014 this entry documents a protocol that deliberately drives the user hyperthyroid.\n\n(1) MISSING 'bp-raising'. The omission is internally inconsistent with the batch's own reasoning. 'cardiotoxic' and 'neuropsychiatric' were applied to NDT on the over-replacement scenario, and the entry's monitoring row states outright: 'TSH typically suppresses \u2014 guide dose by Free T3 target'. That instruction, followed literally, targets a suppressed-TSH state on a product that contains real T3 (~9mcg T3 per grain; 1-2 grains documented) \u2014 i.e. iatrogenic subclinical thyrotoxicosis. The tachycardia, widened pulse pressure and systolic rise of thyroid excess follow from exactly the same premise as the arrhythmia risk that WAS tagged; you cannot accept the premise for one and reject it for the other. The T3 record correctly received 'bp-raising' on this reasoning. Aggravating factor: NDT's monitoring row tracks heart rate but NOT blood pressure, unlike the T3 record which tracks both \u2014 so with no tag and no monitoring line, nothing in the app prompts a BP check on the one thyroid product whose stated dosing target is TSH suppression. (I accept the batch's distinction for the T4 record, which stays clean: its documented 25-150mcg range is ordinary replacement and its entry does not instruct dosing to suppression. NDT's entry does.)\n\n(2) STORE 'ok' -> 'reframe'. The regulatory premise behind the 'ok' call is out of date and the batch's own note flagged it as the thing that could flip the decision. On 6 August 2025 the FDA formally determined that animal-derived thyroid products \u2014 naming Armour Thyroid, NP Thyroid and Nature-Throid, all three listed in this record's 'aka' \u2014 have no approved biologics license application and therefore cannot legally be marketed, and directed the ~1.5 million users to transition to an approved product. A follow-up FDA letter of 11 March 2026 removed the hard removal deadline in favour of risk-based enforcement while manufacturers pursue a BLA, with draft guidance promised; DTE therefore remains prescribable and dispensable today (Sept 2026) but is now, unambiguously and by explicit federal determination, an FDA-UNAPPROVED drug. Google Play prohibits apps that promote unapproved substances 'irrespective of any claims of legality' \u2014 continued legal availability under enforcement discretion is exactly the claim of legality that rule declines to accept. And this entry is written promotionally, not neutrally: its pros include 'Some patients report superior symptom relief vs T4 alone', 'Often preferred by functional medicine practitioners', and 'Standardized by USP for iodine content' \u2014 that last one actively misrepresents the regulatory status by implying a standards-based approval the product does not have (USP potency conformance is not FDA approval, and batch potency variability is the well-known objection to DTE). Reframe required: state the unapproved/BLA status explicitly, delete the promotional pros, and replace 'TSH typically suppresses \u2014 guide dose by Free T3 target' with guideline dosing, since that instruction is the mechanism by which the entry produces the AF and bone-loss risk it does not warn about. Also worth correcting in text: the ~4:1 T4:T3 ratio is far more T3-weighted than the human thyroid's own ~14:1 output, which is the actual pharmacological objection to NDT and appears nowhere in the entry. Remaining tags, dea=null and aa=null are correct.",
+   "severity": "safety"
+  },
+  {
+   "id": "ndt",
+   "field": "tags",
+   "add": [
+    "bp-raising"
+   ],
+   "remove": [],
+   "before": [
+    "thyroid-hormone",
+    "absorption-sensitive",
+    "warfarin-potentiating",
+    "cardiotoxic",
+    "neuropsychiatric"
+   ],
+   "after": [
+    "thyroid-hormone",
+    "absorption-sensitive",
+    "warfarin-potentiating",
+    "cardiotoxic",
+    "neuropsychiatric",
+    "bp-raising"
+   ],
+   "reason": "ONE MISSING TAG AND A WRONG STORE CALL, both flowing from the same fact \u2014 this entry documents a protocol that deliberately drives the user hyperthyroid.\n\n(1) MISSING 'bp-raising'. The omission is internally inconsistent with the batch's own reasoning. 'cardiotoxic' and 'neuropsychiatric' were applied to NDT on the over-replacement scenario, and the entry's monitoring row states outright: 'TSH typically suppresses \u2014 guide dose by Free T3 target'. That instruction, followed literally, targets a suppressed-TSH state on a product that contains real T3 (~9mcg T3 per grain; 1-2 grains documented) \u2014 i.e. iatrogenic subclinical thyrotoxicosis. The tachycardia, widened pulse pressure and systolic rise of thyroid excess follow from exactly the same premise as the arrhythmia risk that WAS tagged; you cannot accept the premise for one and reject it for the other. The T3 record correctly received 'bp-raising' on this reasoning. Aggravating factor: NDT's monitoring row tracks heart rate but NOT blood pressure, unlike the T3 record which tracks both \u2014 so with no tag and no monitoring line, nothing in the app prompts a BP check on the one thyroid product whose stated dosing target is TSH suppression. (I accept the batch's distinction for the T4 record, which stays clean: its documented 25-150mcg range is ordinary replacement and its entry does not instruct dosing to suppression. NDT's entry does.)\n\n(2) STORE 'ok' -> 'reframe'. The regulatory premise behind the 'ok' call is out of date and the batch's own note flagged it as the thing that could flip the decision. On 6 August 2025 the FDA formally determined that animal-derived thyroid products \u2014 naming Armour Thyroid, NP Thyroid and Nature-Throid, all three listed in this record's 'aka' \u2014 have no approved biologics license application and therefore cannot legally be marketed, and directed the ~1.5 million users to transition to an approved product. A follow-up FDA letter of 11 March 2026 removed the hard removal deadline in favour of risk-based enforcement while manufacturers pursue a BLA, with draft guidance promised; DTE therefore remains prescribable and dispensable today (Sept 2026) but is now, unambiguously and by explicit federal determination, an FDA-UNAPPROVED drug. Google Play prohibits apps that promote unapproved substances 'irrespective of any claims of legality' \u2014 continued legal availability under enforcement discretion is exactly the claim of legality that rule declines to accept. And this entry is written promotionally, not neutrally: its pros include 'Some patients report superior symptom relief vs T4 alone', 'Often preferred by functional medicine practitioners', and 'Standardized by USP for iodine content' \u2014 that last one actively misrepresents the regulatory status by implying a standards-based approval the product does not have (USP potency conformance is not FDA approval, and batch potency variability is the well-known objection to DTE). Reframe required: state the unapproved/BLA status explicitly, delete the promotional pros, and replace 'TSH typically suppresses \u2014 guide dose by Free T3 target' with guideline dosing, since that instruction is the mechanism by which the entry produces the AF and bone-loss risk it does not warn about. Also worth correcting in text: the ~4:1 T4:T3 ratio is far more T3-weighted than the human thyroid's own ~14:1 output, which is the actual pharmacological objection to NDT and appears nowhere in the entry. Remaining tags, dea=null and aa=null are correct.",
+   "severity": "safety"
+  },
+  {
+   "id": "p21pep",
+   "field": "store",
+   "from": "reframe",
+   "to": "exclude",
+   "reason": "STORE 'reframe' -> 'exclude'. The batch flagged this as its closest call and invited a second opinion; on the verified facts it fails the vocabulary's own reframe test on both prongs.\n\nThe vocabulary permits 'reframe' for a peptide with no approval anywhere ONLY where there is 'a large legitimate clinical-research literature and no performance framing'. P021 (Ac-DGGL-Amide adamantane, a CNTF/peptide-6 derivative from Khalid Iqbal's lab at the NYS Institute for Basic Research) has NEVER entered human trials \u2014 no published Phase I/II/III, no human pharmacokinetics, no human dose-response, no human safety data, with the literature concentrated in the originating research program and sparse independent replication. A single-lab preclinical rodent literature is not 'a large legitimate clinical-research literature'; it is the opposite of the case the reframe path was written for. And the framing is not neutral reference: the entry supplies an explicit human dosing protocol ('Research dose: 100-200mcg') for a compound with zero human exposure data, then adds stack language ('Some researchers combine it with Dihexa for a comprehensive neuroplasticity approach') and cognitive-enhancement positioning aimed at healthy users.\n\nThe risk is not hypothetical bureaucratic risk. The entry's own con list contains 'Theoretical cancer risk from uncontrolled neurogenesis' \u2014 the single most important warning on the record \u2014 and v1 has no proliferative/oncogenic tag to carry it, so nothing fires. Shipping a numeric human dose for a never-in-human compound whose stated principal hazard cannot be tagged is precisely what Google Play's prohibition on promoting unapproved substances 'irrespective of any claims of legality' and Apple 1.4.3's prohibition on encouraging consumption are aimed at. Reframing cannot fix it, because after removing the dose row, the stack language and the enhancement framing there is no supervised clinical indication left to restate \u2014 unlike exemestane, cabergoline or T3, which have real approved indications to fall back to. That is the structural difference between 'reframe' and 'exclude' here.\n\nTags ('peptide', 'neuropsychiatric'), dea=null and aa=null are all correct and need no change; the neuropsychiatric call on target-organ grounds is sound, and correctly withholding 'gh-axis' is right. A v2 'proliferative/oncogenic-risk' tag should be raised for this record.",
+   "severity": "safety"
+  },
+  {
+   "id": "pregnenolone",
+   "field": "tags",
+   "add": [],
+   "remove": [
+    "aromatizing"
+   ],
+   "before": [
+    "neuropsychiatric",
+    "aromatizing"
+   ],
+   "after": [
+    "neuropsychiatric"
+   ],
+   "reason": "FALSE POSITIVE, contradicted by direct human data rather than merely unproven. The batch applied 'aromatizing' on the uncertainty asymmetry plus the entry's own text, and explicitly recorded it as a soft call \u2014 but the asymmetry rule covers genuine uncertainty, and here there is positive human evidence of absence at doses far above anything this app documents.\n\nIn the Marx et al. proof-of-concept trial, oral pregnenolone escalated to 500mg/day for four weeks (2.5x to 50x this entry's 10-200mg/day rows) produced ~4x serum pregnenolone, ~3x pregnenolone sulfate, ~5x allopregnanolone, >4x progesterone and ~16% DHEAS \u2014 with NO increase in oestradiol, testosterone, free testosterone, DHEA, androstenedione or cortisol. Downstream conversion past progesterone is enzyme- and tissue-limited and does not occur systemically at supplement doses. The tag was therefore applied on the strength of the entry's speculative claim 'Can convert to any steroid \u2014 unpredictable conversion pathway', which is the thing that is factually wrong and should be corrected in the entry text rather than propagated into a structured tag that an interaction rule will consume. Left in place it can push a user toward unnecessary aromatase-inhibitor co-use \u2014 a real, if second-order, harm on a harm-reduction app, and 'a tag is a property of the compound, not an opinion about it'.\n\nRemoving it also resolves the inconsistency the batch acknowledged (tagging aromatizing but not virilizing): on the evidence neither applies, so the record is now consistent. Do NOT add 'virilizing' \u2014 the same trial rules out androgen conversion at 500mg/day. Note the same evidence also disposes of the entry's 'Can increase cortisol' con (cortisol was unchanged).\n\nKEEP 'neuropsychiatric' \u2014 it is the genuinely well-supported tag here, and the >4x progesterone and ~5x allopregnanolone rises are the real pharmacology: GABA-A positive allosteric modulation by allopregnanolone versus GABA-A negative / NMDA positive modulation by pregnenolone sulfate, which explains the entry's contradictory 'anxiolytic' and 'may worsen anxiety' cons and the additive sedation risk with alcohol and benzodiazepines. Store 'ok', dea=null and aa=null are correct. Separately, the duplicated pros/cons arrays and the conflicting dose rows ('Neurological Support: 10-30mg/day' beside 'Cognitive / Mood: 50-100mg/day' for the same indication) need cleaning regardless of tagging.",
+   "severity": "accuracy"
+  },
+  {
+   "id": "resveratrol",
+   "field": "tags",
+   "add": [
+    "lipid-suppressing"
+   ],
+   "remove": [],
+   "before": [
+    "cyp3a4-inhibitor",
+    "warfarin-potentiating",
+    "absorption-sensitive"
+   ],
+   "after": [
+    "cyp3a4-inhibitor",
+    "warfarin-potentiating",
+    "absorption-sensitive",
+    "lipid-suppressing"
+   ],
+   "reason": "MISSING LIPID TAG \u2014 highest-value omission in the batch. The record concludes resveratrol/pterostilbene is metabolically inert and applies only interaction tags. But this is a combined record and the entry documents pterostilbene at 50-150mg/day, explicitly calling it 'preferred'. Riche et al. 2014 (Evid Based Complement Alternat Med, NCT01267227), 80 subjects, randomised double-blind placebo-controlled, 6-8 weeks: pterostilbene monotherapy RAISED LDL-C by 17.1 mg/dL (P=0.001) and the paper states this was independent of dose \u2014 i.e. the effect was present in the 50mg-twice-daily (100mg/day) arm, squarely inside the range this entry documents. The rise was attenuated in subjects already on a lipid-lowering drug and was abolished when pterostilbene was co-administered with grape extract (P=0.47). The v1 definition of lipid-suppressing is 'meaningfully suppresses HDL and/or raises LDL', so a +17 mg/dL LDL rise in a human RCT qualifies directly and is not a marginal asymmetry-rule call. This matters concretely for this app: the user base is already carrying AAS-driven HDL suppression and LDL elevation, and this entry currently presents a 'longevity supplement' that adds ~17 mg/dL of LDL on top with no lipid caution anywhere \u2014 the entry's own cons list does not mention it either, and its monitoring line says 'No specific labs required'. A lipid panel recommendation should follow the tag. Two things to put in notes so nothing is inferred wrongly: (1) the same trial found pterostilbene LOWERS blood pressure (-7.8 systolic / -7.3 diastolic mmHg at 250mg/day), so bp-raising must NOT be applied and any rule must not infer it from the LDL effect; (2) the LDL signal is pterostilbene's, not resveratrol's, so the split-record problem flagged for NAC/NALT applies here too and should go to the data owner. Everything else in this record verified and stands: the Chow 2010 (Cancer Prev Res, 42 volunteers, 1g/day) finding of CYP3A4/2D6/2C9 phenotypic inhibition with CYP1A2 induction is real, so cyp3a4-inhibitor and warfarin-potentiating (CYP2C9 via the losartan probe, plus antiplatelet activity) are correctly applied, and the deliberate omissions of serm and aromatase-inhibitor at 250-500mg/day are correct calls.",
+   "severity": "safety"
+  },
+  {
+   "id": "rapamycin",
+   "field": "tags",
+   "add": [
+    "hpta-suppressive",
+    "neuropsychiatric",
+    "electrolyte-disturbing"
+   ],
+   "remove": [],
+   "before": [
+    "immunosuppressive",
+    "lipid-suppressing",
+    "cyp3a4-substrate",
+    "absorption-sensitive",
+    "nephrotoxic",
+    "teratogenic",
+    "bp-raising"
+   ],
+   "after": [
+    "immunosuppressive",
+    "lipid-suppressing",
+    "cyp3a4-substrate",
+    "absorption-sensitive",
+    "nephrotoxic",
+    "teratogenic",
+    "bp-raising",
+    "hpta-suppressive",
+    "neuropsychiatric",
+    "electrolyte-disturbing"
+   ],
+   "reason": "THREE MISSING RISK TAGS. Scope note first: this entry documents 'Medical (transplant): Daily dosing' alongside the weekly longevity rows, so the transplant-dose adverse-effect profile is in scope by exactly the reasoning the record already used to justify nephrotoxic, bp-raising and immunosuppressive. (1) hpta-suppressive \u2014 the most audience-relevant miss in the whole batch. Sirolimus impairs gonadal function in men: Kaczmarek 2004 (Am J Transplant, heart transplant) found testosterone 3.86 vs 4.55 ng/mL with LH 12.8 vs 6.2 and FSH 13.3 vs 7.3 mIU/mL versus controls; a renal transplant case-control found testosterone 11.2 vs 15.5 nmol/L with raised LH and FSH; the effect correlates with treatment duration and sirolimus trough level, and impaired spermatogenesis with reduced fertility is documented in male recipients. This app's population is predominantly men on TRT or AAS taking rapamycin off-label for longevity, and nothing in the current record warns that it lowers testosterone or impairs fertility. IMPORTANT for rule text: the lesion is TESTICULAR \u2014 LH and FSH RISE, so this is primary testicular insufficiency, not central shutdown; a rule must not imply hCG/SERM restart logic or an AAS-style 'suppression, needs PCT' framing. If the store owner judges that hpta-suppressive is too tightly bound to the central-shutdown meaning, the alternative is a v2 'gonadotoxic' tag \u2014 but leaving it untagged entirely is the wrong outcome. (2) neuropsychiatric \u2014 insomnia is reported at 7.1% to 25% across sirolimus transplant trials, anxiety 5.1% vs 1.8% in controls, depression ~5.6%, plus tremor and agitation; and a dedicated human study (Transl Psychiatry 2020) reports increased incidence of neuropsychiatric illness in kidney transplant patients on rapamycin, attributed to neural stem cell suppression. Insomnia is also the most commonly self-reported effect at longevity pulse doses, so this is not confined to transplant exposure. (3) electrolyte-disturbing \u2014 hypokalaemia is a labelled, dose-related sirolimus adverse reaction (higher incidence at 5mg/day than 2mg/day, and higher again after cyclosporine withdrawal). Practically important inside this reference: rapamycin is routinely stacked with metformin/acarbose, and insulin \u2014 which drives potassium intracellularly \u2014 is in this same batch. The record's other calls are sound: lipid-suppressing is correct in its 'raises LDL/TG' sense, cyp3a4-substrate is the highest-value interaction tag here and the flagged resveratrol pairing is a real hazard, and the refusal to tag hypoglycemic is correct because mTOR inhibition causes hyperglycaemia. Add to notes alongside the existing wound-healing/mouth-ulcer/myelosuppression items: interstitial pneumonitis, which also has no v1 tag.",
+   "severity": "safety"
+  },
+  {
+   "id": "vip",
+   "field": "tags",
+   "add": [
+    "gastric-emptying-delaying"
+   ],
+   "remove": [],
+   "before": [
+    "peptide",
+    "immunosuppressive",
+    "electrolyte-disturbing"
+   ],
+   "after": [
+    "peptide",
+    "immunosuppressive",
+    "electrolyte-disturbing",
+    "gastric-emptying-delaying"
+   ],
+   "reason": "MISSING TAG, AND A DIRECT INVERSION OF THE VOCABULARY'S OWN TIE-BREAKER. The record explicitly states 'UNCERTAINTY RECORDED: I did not tag gastric-emptying-delaying despite the asymmetry rule' \u2014 but the asymmetry rule is not optional and it resolves exactly this case: 'When genuinely uncertain, apply the tag. A false positive produces an unnecessary caution. A false negative produces a missing one.' Beyond rule compliance, the delaying direction is the better-supported one on the merits. VIP is the principal inhibitory NANC neurotransmitter of the gut and is the transmitter responsible for neurally induced gastric relaxation; VIP-receptor-mediated fundic relaxation is demonstrated with competitive VIP antagonists, and VIP-induced gastric relaxation is ~90% blocked by indomethacin, confirming a defined prostaglandin-dependent pathway. The opposing consideration the record raised \u2014 secretory diarrhoea and accelerated transit \u2014 is a small-bowel/colonic secretory phenomenon and does not cancel proximal gastric accommodation, so the two effects are not actually symmetric. Concrete consequence of leaving it off: no additive-delay or additive-GI-burden caution fires when VIP is combined with a GLP-1 agonist, and GLP-1 co-use is highly likely in this app's population. Keep the recorded uncertainty in notes so the rule text can be hedged ('fundic relaxation / accommodation; net emptying effect in humans not established'), but the tag should be present. Everything else in this record stands: peptide is structural, immunosuppressive is correct on mechanism and is the right posture given rapamycin is in the same batch, and electrolyte-disturbing via the VIPoma/WDHA potassium-wasting mechanism is well founded. store=reframe is also the correct call under the vocabulary's stated default for a research peptide with a real clinical-research literature and no performance framing.",
+   "severity": "safety"
+  },
+  {
+   "id": "nalt",
+   "field": "tags",
+   "add": [
+    "assay-interfering"
+   ],
+   "remove": [],
+   "before": [
+    "nitrate-contraindicated",
+    "warfarin-potentiating"
+   ],
+   "after": [
+    "nitrate-contraindicated",
+    "warfarin-potentiating",
+    "assay-interfering"
+   ],
+   "reason": "MISSING TAG \u2014 the record identified this hazard accurately and then filed it in notes on the grounds that v1 defines assay-interfering as immunoassay interference. That is the wrong resolution for a harm-reduction app, because the property is real at exactly the oral doses this entry documents and it corrupts the single most-used renal safety marker in the app. Hoffmann et al. (J Am Soc Nephrol 2004) gave 50 healthy volunteers oral NAC 600mg every 12 hours for four doses, with no contrast exposure, and found a significant fall in serum creatinine (P<0.05) and a significant rise in estimated GFR (P<0.02) with no significant change in cystatin C. The 2021 Kidney Int Rep systematic review reached the same conclusion \u2014 NAC lowers measured serum creatinine but not cystatin C, consistent with analytic interference rather than a true GFR change, with a larger effect using non-Jaffe (enzymatic) methods \u2014 while noting at least one negative study. This is oral 1200mg/day, inside the entry's documented 600-1800mg/day, not a high-dose-IV paracetamol-overdose artefact. Why it is a safety and not an accuracy item: this app's users track creatinine and eGFR precisely because they are on nephrotoxic androgens, stimulants and NSAIDs, and NAC is marketed to them as organ-protective cycle support. A falsely reassuring eGFR is the exact failure mode where a missing flag lets real renal injury go unnoticed. assay-interfering is the only lab-reporting tag v1 has, so it is the correct carrier; put the stretch in the rule text explicitly ('interferes with the creatinine measurement, not with an immunoassay \u2014 check cystatin C if renal function is the question') and keep the v2 request to widen the tag definition to lab-result interference generally. The rest of the record is sound and several of its calls are good ones: the refusal to tag sympathomimetic for NALT is correct (a precursor amino acid at 300-500mg against 1.5-3g/day dietary tyrosine is not a stimulant), the refusal to tag hepatotoxic for NAC is correct and important since NAC is the paracetamol antidote, nitrate-contraindicated and warfarin-potentiating are defensible conservative applications with the wording caveats already noted, and store=reframe is right \u2014 the compounds are unremarkable OTC supplements but the entry text ('especially valuable on oral AAS', 'hormone optimization protocols') is cycle-support framing that a store reviewer reads as facilitating controlled-substance use, and stripping those references costs the entry no real information.",
+   "severity": "safety"
+  },
+  {
+   "id": "retatrutide",
+   "field": "tags",
+   "add": [
+    "teratogenic",
+    "electrolyte-disturbing"
+   ],
+   "remove": [],
+   "before": [
+    "peptide",
+    "glp1",
+    "insulin-secretagogue-or-analogue",
+    "hypoglycemic",
+    "gastric-emptying-delaying",
+    "nephrotoxic",
+    "cardiotoxic",
+    "neuropsychiatric"
+   ],
+   "after": [
+    "peptide",
+    "glp1",
+    "insulin-secretagogue-or-analogue",
+    "hypoglycemic",
+    "gastric-emptying-delaying",
+    "nephrotoxic",
+    "cardiotoxic",
+    "neuropsychiatric",
+    "teratogenic",
+    "electrolyte-disturbing"
+   ],
+   "reason": "TWO OMISSIONS, both of which mean no warning fires today.\n\n(1) `teratogenic` MISSING. This is the clearest false negative in the batch. Retatrutide's reproductive toxicology shows embryo-fetal lethality, structural abnormalities and reduced fetal weight at exposures near the human therapeutic range, and it is treated as an absolute contraindication in pregnancy with an ~2-month washout advised before conception; the trials enrolled only non-pregnant women on reliable contraception. The class precedent is established, not theoretical: semaglutide caused growth restriction and skeletal/visceral malformations in rats and early pregnancy loss plus congenital malformation in cynomolgus monkeys above MRHD, and tirzepatide - the closest structural comparator, also GIP-containing - produced external, visceral and skeletal malformations in rats at 0.5x MRHD and maternal mortality/miscarriage in rabbits at 0.01x MRHD. That clears 'established fetal risk' comfortably. The omission is compounded by a mechanism the tagger already tagged: `gastric-emptying-delaying` reduces oral hormonal contraceptive exposure (~20% after a single tirzepatide 5mg dose, up to ~60% by some measures), which is why the tirzepatide label instructs switching to non-oral or adding barrier contraception for 4 weeks after initiation and after each escalation. So this compound simultaneously raises the chance of unintended pregnancy and carries fetal risk if one occurs, and nothing in the current tag set surfaces either. For a grey-market drug bought without a prescriber, this warning has to come from the app.\n\n(2) `electrolyte-disturbing` MISSING, and it is not redundant with `nephrotoxic`. The phase 2 obesity trial's one severe cardiac adverse event was prolonged QT in a participant with severe vomiting treated with ondansetron who developed hypokalaemia, dehydration and hypotension. That is the exact failure mode this app's population walks into: self-managed nausea on a 12mg/week grey-market triple agonist, an OTC/grey-market antiemetic that is itself QT-prolonging, and co-use of clenbuterol, T3 and diuretics that already deplete potassium. The tagger accepted volume depletion from GI losses as sufficient basis for `nephrotoxic`; the same losses take potassium and sodium with them, and consistency demands the electrolyte tag too. Do NOT add `qt-prolonging` - retatrutide does not prolong QT directly, the event was ondansetron plus hypokalaemia, and tagging it would misattribute the mechanism and could suppress the correct advice (fix the electrolytes, avoid stacking QT-prolonging antiemetics).\n\nEverything else in this entry is sound: `glp1` correct under the triple-incretin clause, `cardiotoxic` defensible as a heart-rate/arrhythmia proxy with the overload flagged, `absorption-sensitive` correctly withheld (tag is scoped to the compound's own absorption), `bp-raising` and `lipid-suppressing` correctly withheld since retatrutide improves both. dea null and aa null correct. STORE 'reframe' confirmed correct: retatrutide had still received no FDA approval for any indication as of mid-2026, TRIUMPH phase 3 was completing, so the approved-drug exemption does not apply and the dose rows plus the 'muscle loss without testosterone' con must come out.",
+   "severity": "safety"
+  },
+  {
+   "id": "cagrilintide",
+   "field": "tags",
+   "add": [
+    "teratogenic",
+    "electrolyte-disturbing"
+   ],
+   "remove": [],
+   "before": [
+    "peptide",
+    "hypoglycemic",
+    "gastric-emptying-delaying",
+    "nephrotoxic",
+    "neuropsychiatric"
+   ],
+   "after": [
+    "peptide",
+    "hypoglycemic",
+    "gastric-emptying-delaying",
+    "nephrotoxic",
+    "neuropsychiatric",
+    "teratogenic",
+    "electrolyte-disturbing"
+   ],
+   "reason": "SAME TWO OMISSIONS as retatrutide, applied here for mechanism consistency with the tagger's own reasoning.\n\n(1) `teratogenic` MISSING. Cagrilintide has no human reproductive or developmental toxicology data at all; pregnancy and breastfeeding are flagged as populations of particular concern, and the development programme excludes pregnancy and requires effective contraception. It is also developed and used as CagriSema alongside semaglutide, which has documented rat and cynomolgus-monkey embryofetal toxicity. Amylin analogues slow gastric emptying as a core action - the tagger tagged this correctly - so the oral hormonal contraceptive absorption problem applies here as well, raising unintended pregnancy risk on an agent with no reprotox data. Absent data plus a weight-loss agent plus a documented contraceptive-failure mechanism is exactly the 'genuinely uncertain, apply the tag' case the vocabulary's asymmetry rule was written for. Evidence is weaker than retatrutide's and should be recorded as such in notes, but a false positive costs a redundant pregnancy caution while a false negative costs a pregnancy.\n\n(2) `electrolyte-disturbing` MISSING for the same reason as retatrutide. The tagger explicitly applied `nephrotoxic` here 'for consistency with retatrutide since the mechanism is identical' - volume depletion from nausea and vomiting. That identical mechanism also depletes potassium and sodium, and GI adverse events ran at 79.6% in the CagriSema phase 3 arm versus 39.9% on placebo. The tag should follow the same consistency argument.\n\nThe rest of this entry is the strongest work in the batch and should stand as written. Withholding `glp1` is CORRECT and I want it recorded as verified, not second-guessed: cagrilintide is a long-acting amylin/calcitonin receptor agonist, a different receptor family, and tagging it glp1 would both be false and would misfire a duplicate-incretin rule against a combination (CagriSema) whose whole point is that the mechanisms are complementary and therefore stack. Withholding `insulin-secretagogue-or-analogue` is also correct - amylin is co-secreted with insulin but suppresses postprandial glucagon rather than driving insulin secretion. `hypoglycemic` on the pramlintide boxed-warning precedent is well justified. Withholding `cardiotoxic` is correct and I verified it: heart rate rose only ~0.94 bpm in the combination arm, roughly 1-3 bpm across cagrilintide regimens, nowhere near retatrutide's dose-dependent chronotropic signal. dea and aa null correct. STORE 'reframe' confirmed, and the note's date is right: Novo Nordisk submitted the CagriSema NDA on 18 December 2025 with an FDA decision expected late 2026, and standalone cagrilintide is approved nowhere - so remove the 0.5-2.4mg/week rows and the 'muscle preservation still requires testosterone support' con.",
+   "severity": "safety"
+  },
+  {
+   "id": "pt141",
+   "field": "store",
+   "from": "ok",
+   "to": "reframe",
+   "reason": "MISSING TAG - teratogenic. Verified against the Vyleesi PI: based on findings in animal studies bremelanotide may cause fetal harm; daily SubQ dosing in pregnant dogs at ~16x the MRHD produced fetal harm; the label states use during pregnancy is not recommended, directs females of reproductive potential to use effective contraception, and to discontinue if pregnancy is suspected. The approved population IS premenopausal women, i.e. exactly women of childbearing potential, and the app additionally documents 1-2mg off-label male dosing sourced as a research peptide. A missing teratogenic tag means no pregnancy warning fires at all on the one record in this batch whose approved indication is confined to fertile women. This is the largest omission in the batch. STORE ok -> reframe: the entry ships a pros row reading 'No cardiovascular contraindications of PDE5 inhibitors', which is directly contrary to the label's only two contraindications (uncontrolled hypertension and known cardiovascular disease) and inverts the very hazard the already-applied bp-raising tag exists to warn about. Combined with unlabelled off-label male dose rows and mutually contradictory dose rows ('Standard: 1.75mg' vs 'High Response: 1mg'), the text must be rewritten before it ships, which is the definition of reframe in vocabulary section D - approved status makes exclude wrong, but it does not make the current text shippable. dea null and aa null are correct (prescription-only is not scheduling). Agree with retaining nitrate-contraindicated despite the reviewer's own doubt: the Vyleesi PI does not contraindicate nitrates, but dropping a caution is the dangerous direction and the asymmetry rule covers it.",
+   "severity": "safety"
+  },
+  {
+   "id": "pt141",
+   "field": "tags",
+   "add": [
+    "teratogenic"
+   ],
+   "remove": [],
+   "before": [
+    "peptide",
+    "bp-raising",
+    "gastric-emptying-delaying",
+    "photosensitizing",
+    "nitrate-contraindicated"
+   ],
+   "after": [
+    "peptide",
+    "bp-raising",
+    "gastric-emptying-delaying",
+    "photosensitizing",
+    "nitrate-contraindicated",
+    "teratogenic"
+   ],
+   "reason": "MISSING TAG - teratogenic. Verified against the Vyleesi PI: based on findings in animal studies bremelanotide may cause fetal harm; daily SubQ dosing in pregnant dogs at ~16x the MRHD produced fetal harm; the label states use during pregnancy is not recommended, directs females of reproductive potential to use effective contraception, and to discontinue if pregnancy is suspected. The approved population IS premenopausal women, i.e. exactly women of childbearing potential, and the app additionally documents 1-2mg off-label male dosing sourced as a research peptide. A missing teratogenic tag means no pregnancy warning fires at all on the one record in this batch whose approved indication is confined to fertile women. This is the largest omission in the batch. STORE ok -> reframe: the entry ships a pros row reading 'No cardiovascular contraindications of PDE5 inhibitors', which is directly contrary to the label's only two contraindications (uncontrolled hypertension and known cardiovascular disease) and inverts the very hazard the already-applied bp-raising tag exists to warn about. Combined with unlabelled off-label male dose rows and mutually contradictory dose rows ('Standard: 1.75mg' vs 'High Response: 1mg'), the text must be rewritten before it ships, which is the definition of reframe in vocabulary section D - approved status makes exclude wrong, but it does not make the current text shippable. dea null and aa null are correct (prescription-only is not scheduling). Agree with retaining nitrate-contraindicated despite the reviewer's own doubt: the Vyleesi PI does not contraindicate nitrates, but dropping a caution is the dangerous direction and the asymmetry rule covers it.",
+   "severity": "safety"
+  },
+  {
+   "id": "mt2",
+   "field": "tags",
+   "add": [
+    "nephrotoxic",
+    "teratogenic"
+   ],
+   "remove": [],
+   "before": [
+    "peptide",
+    "photosensitizing",
+    "bp-raising",
+    "gastric-emptying-delaying",
+    "neuropsychiatric",
+    "nitrate-contraindicated"
+   ],
+   "after": [
+    "peptide",
+    "photosensitizing",
+    "bp-raising",
+    "gastric-emptying-delaying",
+    "neuropsychiatric",
+    "nitrate-contraindicated",
+    "nephrotoxic",
+    "teratogenic"
+   ],
+   "reason": "TWO MISSING TAGS. (1) nephrotoxic - peer-reviewed case literature attributes renal infarction to Melanotan II in a man who used 27mg over 6 months, i.e. roughly 1mg per administration, squarely inside the 0.25-1mg range this app documents, with CT showing ~50% of the kidney infarcted (CEN Case Reports); and rhabdomyolysis with CK peaking at 17,773 IU/L, tachycardia 146bpm and acute kidney injury after a single 6mg injection (Clin Toxicol). Proposed mechanism is thrombotic plus possible direct renal parenchymal toxicity. This is not a theoretical risk at a supratherapeutic dose only - the infarction case sits at the documented dose - so the app's monitoring line currently has no structured field behind a renal caution, and no warning fires for flank pain or dark urine. (2) teratogenic - applied by read-across from bremelanotide, whose label reports fetal harm in pregnant dogs at ~16x MRHD and requires effective contraception with use in pregnancy not recommended. MT-2 is the parent non-selective melanocortin agonist of that molecule, is self-administered without supervision by women of childbearing age for cosmetic tanning and fat loss, and the original assignment already applied bremelanotide read-across for gastric-emptying-delaying - the far more consequential pregnancy finding must carry across on the same logic. A false positive here costs a woman nothing; a false negative means no pregnancy warning on an unapproved injectable marketed to women. Also recorded, no v1 tag available: ischaemic priapism requiring surgical decompression with permanent erectile dysfunction (multiple case reports), cutaneous and oral mucosal melanoma, eruptive dysplastic naevi, and reports of exogenous hypercortisolism. Store left at reframe, but note exclude is arguable given the case-report burden combined with a purely cosmetic/physique framing; flag for human decision rather than changing it here.",
+   "severity": "safety"
+  },
+  {
+   "id": "dasatinib",
+   "field": "tags",
+   "add": [
+    "electrolyte-disturbing"
+   ],
+   "remove": [],
+   "before": [
+    "cyp3a4-substrate",
+    "cyp3a4-inhibitor",
+    "qt-prolonging",
+    "cardiotoxic",
+    "hepatotoxic",
+    "immunosuppressive",
+    "teratogenic",
+    "warfarin-potentiating",
+    "absorption-sensitive"
+   ],
+   "after": [
+    "cyp3a4-substrate",
+    "cyp3a4-inhibitor",
+    "qt-prolonging",
+    "cardiotoxic",
+    "hepatotoxic",
+    "immunosuppressive",
+    "teratogenic",
+    "warfarin-potentiating",
+    "absorption-sensitive",
+    "electrolyte-disturbing"
+   ],
+   "reason": "MISSING TAG - electrolyte-disturbing. The reviewer considered and rejected it as 'secondary and modest'; the label does not support that. Sprycel's PI reports Grade 3/4 hypocalcemia, hypokalemia and hypophosphatemia across all CML phases (Grade 3/4 hypocalcemia 4% on dasatinib vs 0% on imatinib in one randomised Phase 2), and notes that Grade 3/4 hypocalcemia often required oral calcium repletion to recover. Separately, the QT Prolongation section of the same label directs that hypokalemia and hypomagnesemia be corrected prior to AND during dasatinib administration. That makes the omission compounding rather than isolated: qt-prolonging is already applied on this record, and electrolyte depletion is the principal modifiable amplifier of that risk. Without the tag, no rule fires when dasatinib is combined with a potassium-wasting diuretic, a PPI, another QT-prolonging drug, or in a user with poor intake during a fasting/longevity protocol - which is exactly the population this entry addresses. Every other tag on this record is label-correct and store reframe, dea null, aa null are all right. Agree with NOT applying nephrotoxic: dasatinib-associated nephrotic syndrome and proteinuria are real but are chronic-exposure phenomena and do not reach 'meaningful renal burden' at 100mg for 2-3 days. Fluid retention / pleural effusion (severe in 9%, pleural effusion 5%) and PAH-driven third-spacing remain genuinely inexpressible in v1 and the reviewer's gap note on that stands.",
+   "severity": "safety"
+  },
+  {
+   "id": "oxytocin",
+   "field": "tags",
+   "add": [
+    "bp-raising"
+   ],
+   "remove": [],
+   "before": [
+    "peptide",
+    "neuropsychiatric",
+    "qt-prolonging",
+    "cardiotoxic",
+    "electrolyte-disturbing",
+    "teratogenic"
+   ],
+   "after": [
+    "peptide",
+    "neuropsychiatric",
+    "qt-prolonging",
+    "cardiotoxic",
+    "electrolyte-disturbing",
+    "teratogenic",
+    "bp-raising"
+   ],
+   "reason": "Missing bp-raising. The Pitocin label states: 'Severe hypertension has been reported when oxytocin was given three to four hours following prophylactic administration of a vasoconstrictor... Some patients have experienced a stroke.' StatPearls lists 'severe blood pressure elevations' among the serious adverse effects requiring monitoring. This is the same evidentiary tier (label/postmarketing, obstetric IV context) on which the agent already retained qt-prolonging and cardiotoxic precautionarily, so omitting bp-raising is internally inconsistent. It matters more than the QT tag here: this app's users co-administer sympathomimetics (clenbuterol, ephedrine, stimulants) and AAS that already raise BP, and bp-raising is the only v1 slot that will fire the oxytocin-plus-vasoconstrictor rule. Rule text should scope it to co-administration with vasoconstrictors/sympathomimetics rather than claiming oxytocin raises BP in isolation (low-dose oxytocin alone is mildly vasodilatory/hypotensive). No other change: peptide, neuropsychiatric, qt-prolonging, cardiotoxic, electrolyte-disturbing and teratogenic are all sound, the prolactin-raising and hpta-suppressive rejections check out, store=reframe is correct for an approved drug documented in an off-label self-administered performance frame, and dea=null is correct.",
+   "severity": "safety"
+  },
+  {
+   "id": "taurine",
+   "field": "tags",
+   "add": [
+    "hypoglycemic"
+   ],
+   "remove": [],
+   "before": [
+    "neuropsychiatric"
+   ],
+   "after": [
+    "neuropsychiatric",
+    "hypoglycemic"
+   ],
+   "reason": "Missing hypoglycemic. The tag reads 'can cause or POTENTIATE hypoglycaemia' \u2014 potentiation is the operative word and taurine meets it at the documented dose. Human RCTs and a systematic review/meta-analysis in type 2 diabetics (many on glucose-lowering medication) show significant reductions in fasting blood glucose, HbA1c and HOMA-IR at roughly 1.5-3 g/day, i.e. below the entry's own 3-6 g/day longevity row. The entry itself directs 'Fasting glucose (insulin sensitivity improvement)' monitoring, so the tag only makes the app say what the record already says. The agent judged this 'below the threshold' while applying the same tag to ALA in this batch on weaker grounds (a cons-list sentence), which is inconsistent. This is not academic for this population: insulin use is common among AAS users, and an untagged additive glucose-lowering agent at 6 g/day is exactly the missed warning the asymmetry rule exists to prevent. Everything else on this record stands: neuropsychiatric is correct, absorption-sensitive is correctly withheld (the lithium interaction is taurine altering lithium clearance, not taurine's own absorption), store=ok and dea=null are right, and the bp-lowering / lithium-clearance v2 gaps are correctly recorded in notes.",
+   "severity": "safety"
+  },
+  {
+   "id": "akg2",
+   "field": "tags",
+   "add": [
+    "hypoglycemic"
+   ],
+   "remove": [],
+   "before": [
+    "neuropsychiatric",
+    "nitrate-contraindicated"
+   ],
+   "after": [
+    "neuropsychiatric",
+    "nitrate-contraindicated",
+    "hypoglycemic"
+   ],
+   "reason": "Missing hypoglycemic (this is the GlyNAC record, mis-ided as 'akg2' \u2014 the id collision with 'akglutarate' is correctly flagged in the agent's notes and must be fixed before ship). The agent rejected the tag on the grounds that 'neither component causes hypoglycaemia', but the tag covers potentiation, and the direct human evidence is on the combination rather than either component: the Baylor pilot in patients with type 2 diabetes found GlyNAC lowered insulin resistance and improved insulin sensitivity such that less insulin was required for glucose disposal, and the flagship 24-week trial reported corrected insulin resistance. The entry's own monitoring row asks for 'fasting glucose and insulin (insulin sensitivity improvement)'. At the practical 5-10 g glycine + 1200-1800 mg NAC dose \u2014 let alone the 1.33 g/kg Baylor protocol \u2014 a user on insulin or a sulfonylurea needs that warning. Note the tag is justified by the combination's T2DM data, not by glycine alone, so it does not propagate to the standalone glycine-supp record, which has no documented glycemic effect in its entry and only 'possible' HbA1c data. No other change: nitrate-contraindicated is well supported (NAC roughly doubles nitroglycerin headache incidence and caused symptomatic hypotension in 7 vs 0 patients in the NTG/NAC arm), neuropsychiatric is correct and consistent with glycine-supp, and store=ok survives the contested NAC supplement status.",
+   "severity": "safety"
+  },
+  {
+   "id": "proviron",
+   "field": "tags",
+   "add": [
+    "cardiotoxic"
+   ],
+   "remove": [],
+   "before": [
+    "aas",
+    "dht-derived",
+    "aromatase-inhibitor",
+    "hpta-suppressive",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "virilizing",
+    "teratogenic",
+    "assay-interfering",
+    "warfarin-potentiating"
+   ],
+   "after": [
+    "aas",
+    "dht-derived",
+    "aromatase-inhibitor",
+    "hpta-suppressive",
+    "lipid-suppressing",
+    "hematocrit-raising",
+    "virilizing",
+    "teratogenic",
+    "assay-interfering",
+    "warfarin-potentiating",
+    "cardiotoxic"
+   ],
+   "reason": "Missing cardiotoxic. This is the one real omission in an otherwise strong entry. The agent applied cardiotoxic to stanozolol and boldenone on exactly the HDL-suppression/remodelling logic it declined to apply here, and mesterolone has compound-SPECIFIC evidence, not just class inference: Fontana et al. (2008, 'Adverse effect of the anabolic-androgenic steroid mesterolone on cardiac remodelling and lipoprotein profile...') found mesterolone induced a pro-atherogenic lipoprotein profile AND pathogenic (not physiological) cardiac hypertrophy with raised plasma troponin T, in both sedentary and exercised animals. That is 'hypertrophy' plus 'ischaemic risk' \u2014 the vocabulary's own definition of cardiotoxic. The entry's own con list concedes 'Reduces HDL cholesterol' and it documents 50-75mg/day, well above a TRT-adjunct trickle. The agent's structural work on this entry was excellent (correctly withholding 17aa-oral because the methyl is at C1 not C17, correctly reading the [125,35] ratio as nominal-anabolic/real-androgenic because mesterolone is reduced to inactive diols in muscle) \u2014 but 'weakly anabolic' does not mean 'cardiovascularly benign', and a non-aromatizing DHT-class oral is disproportionately bad for lipids precisely because there is no estrogenic HDL offset. Without this tag no cardiac caution fires for a compound the app frames as a benign, low-hepatotoxicity everyday TRT adjunct \u2014 which is the exact user who will run it for months rather than in a short cycle. Not adding bp-raising or neuropsychiatric: BP was not a signal in that work and mesterolone is not associated with the aggression/mood pattern of high-dose 17aa androgens, so those would be manufactured.",
+   "severity": "safety"
+  },
+  {
+   "id": "andarine",
+   "field": "tags",
+   "add": [
+    "photosensitizing"
+   ],
+   "remove": [],
+   "before": [
+    "sarm",
+    "hpta-suppressive",
+    "lipid-suppressing",
+    "hepatotoxic",
+    "hematocrit-raising",
+    "virilizing",
+    "teratogenic"
+   ],
+   "after": [
+    "sarm",
+    "hpta-suppressive",
+    "lipid-suppressing",
+    "hepatotoxic",
+    "hematocrit-raising",
+    "virilizing",
+    "teratogenic",
+    "photosensitizing"
+   ],
+   "reason": "Missing photosensitizing. The agent deliberately withheld it, arguing andarine's yellow tint is retinal rather than cutaneous and that firing the tag would produce a sunburn warning \u2014 the wrong warning. I am overruling that, for three reasons. (1) The property is present on the literal definition: v1 says 'Increases photosensitivity OR drives pigmentary/skin change', and the documented effect is not only xanthopsia but impaired dark adaptation, reduced night vision and difficulty transitioning between bright and dark environments \u2014 the user genuinely becomes light-sensitive. (2) It fires at the documented dose. Vision effects are reported to appear in most users at 50mg/day, which is this entry's own 'Intermediate' row, so this is not a theoretical edge case. (3) The vocabulary settles the tie explicitly: 'A tag is a property of the compound, not an opinion about it' and 'When genuinely uncertain, apply the tag.' The agent's objection is about the wording of downstream rule copy, which is a rule-text problem to fix in copy, not a reason to leave the compound's only light-related property unencoded. As written, the single most distinctive and most functionally hazardous effect of this compound \u2014 impaired dark adaptation in someone who may then drive at night \u2014 produces no fired warning at all; the entry's 'Vision changes' monitoring line is prose a rule cannot consume. Keep the agent's v2 note requesting a dedicated ocular/retinal tag; that is the right long-term fix and the reason this tag should carry a caveat in copy rather than a generic sunscreen string. Everything else on this entry is correct, including dea null and the refusal to enter a 3:1 tissue-selectivity ratio in the aa field (that is a different axis from the rodent A:A ratio and would have been misleading).",
+   "severity": "safety"
+  },
+  {
+   "id": "estriol",
+   "field": "store",
+   "from": "ok",
+   "to": "reframe",
+   "reason": "store 'ok' is mis-scoped; should be 'reframe'. The agent justified 'ok' on the grounds that estriol is an approved medicine in the EU/UK and that the entry already discloses US non-approval in its con list. Both are true but neither satisfies the vocabulary's actual carve-out, which is narrow: 'Dietary supplements, OTC products, and FDA-approved drugs used for their approved indication are fine.' Estriol is none of these in the US \u2014 FDA states plainly that there are no FDA-approved drugs containing estriol and that it has no evidence estriol-containing drugs are safe and effective or are 'safer forms of estrogen'; every US estriol product is compounded and unapproved, and FDA has taken enforcement action over exactly these claims. The entry's own con list even says 'Not FDA approved as standalone oral', which understates it (it is not approved in any form). Against that, the entry carries two self-administration dose rows ('Topical BHRT: 0.5-2mg/day', 'Vaginal Atrophy: 0.5mg 3x/week') and repeats the 'considered relatively breast-safe' framing \u2014 the precise claim FDA singles out. Google Play prohibits promoting unapproved substances 'irrespective of any claims of legality', so EU/UK approval does not carry the entry, and a con-list line is disclosure, not the reference posture the policy asks for. This is a small fix, not an exclusion: state the indication as clinically supervised, drop or relabel the self-dosing rows, and move the US-unapproved/compounded status out of the cons and into the framing \u2014 which is the definition of reframe. Marked accuracy rather than safety because store drives the build filter, not a user-facing warning. The tag set itself is good and I am changing none of it: assay-interfering is the highest-value call in the batch (estriol cross-reacts in E2 immunoassays while the entry asks users to track E2 and E3 side by side \u2014 a predictable false 'high E2'), declining serm was right (it would fire tamoxifen/clomiphene-class rules), and declining cardiotoxic for VTE was right on the v1 definition and at 0.5-2mg topical exposure.",
+   "severity": "accuracy"
+  },
+  {
+   "id": "dianabol",
+   "field": "tags",
+   "add": [
+    "electrolyte-disturbing"
+   ],
+   "remove": [],
+   "before": [
+    "aas",
+    "17aa-oral",
+    "hepatotoxic",
+    "aromatizing",
+    "hematocrit-raising",
+    "lipid-suppressing",
+    "bp-raising",
+    "cardiotoxic",
+    "hpta-suppressive",
+    "neuropsychiatric",
+    "virilizing",
+    "teratogenic",
+    "warfarin-potentiating"
+   ],
+   "after": [
+    "aas",
+    "17aa-oral",
+    "hepatotoxic",
+    "aromatizing",
+    "hematocrit-raising",
+    "lipid-suppressing",
+    "bp-raising",
+    "cardiotoxic",
+    "hpta-suppressive",
+    "neuropsychiatric",
+    "virilizing",
+    "teratogenic",
+    "warfarin-potentiating",
+    "electrolyte-disturbing"
+   ],
+   "reason": "MISSING TAG: electrolyte-disturbing. The reviewer considered it and deliberately left it off, reasoning that 'the intent of that tag reads as K/Mg disturbance'. The vocabulary text says the opposite: 'Disturbs potassium/sodium/magnesium meaningfully' \u2014 sodium is named explicitly. FDA androgen labelling documents retention of sodium, chloride, water, potassium, calcium and phosphates as a class effect, and this entry's own headline con is 'Heavy aromatization \u2014 water retention, gyno' with BP monitoring flagged as 'often elevated'. This is not theoretical at 40-50mg/day; methandrostenolone is the archetypal wet oral. The warning this tag fires matters most in exactly the population this app serves: users who answer AAS water retention with diuretics (furosemide, spironolactone) or who are on ACE inhibitors / K-sparing agents. bp-raising does not cover that interaction. Boundary I am drawing deliberately: I am NOT extending this tag to testsusp or sustanon \u2014 for testosterone at 250-700mg/week edema is a labelled adverse reaction rather than a labelled warning and is uncommon in healthy users, whereas here and in oxymetholone it is a primary documented effect. Two secondary points, neither requiring a tag change: (1) the notes omit the caveat the vocabulary requires whenever an aa figure is supplied \u2014 [210,60] should be recorded as the top of the conventionally cited 90-210:40-60 rodent-assay range, not a measured human ratio; (2) v2 vocabulary gap worth recording \u2014 every AAS label carries a Drug/Laboratory Test Interference for decreased thyroxine-binding globulin, which distorts total T4/T3 and T3 resin uptake. That is a genuine analyte change rather than immunoassay interference, so assay-interfering as currently defined does not fit, but in an app that also carries T3/T4 entries it will produce misread thyroid panels. All other tags, dea 3, and store=exclude confirmed correct; correctly not dht-derived (17alpha-methyl-delta1-testosterone).",
+   "severity": "safety"
+  },
+  {
+   "id": "anadrol",
+   "field": "tags",
+   "add": [
+    "electrolyte-disturbing"
+   ],
+   "remove": [],
+   "before": [
+    "aas",
+    "17aa-oral",
+    "dht-derived",
+    "hepatotoxic",
+    "hematocrit-raising",
+    "lipid-suppressing",
+    "bp-raising",
+    "cardiotoxic",
+    "nephrotoxic",
+    "hpta-suppressive",
+    "neuropsychiatric",
+    "virilizing",
+    "teratogenic",
+    "warfarin-potentiating"
+   ],
+   "after": [
+    "aas",
+    "17aa-oral",
+    "dht-derived",
+    "hepatotoxic",
+    "hematocrit-raising",
+    "lipid-suppressing",
+    "bp-raising",
+    "cardiotoxic",
+    "nephrotoxic",
+    "hpta-suppressive",
+    "neuropsychiatric",
+    "virilizing",
+    "teratogenic",
+    "warfarin-potentiating",
+    "electrolyte-disturbing"
+   ],
+   "reason": "MISSING TAG: electrolyte-disturbing \u2014 the strongest case in the batch, and unlike dianabol this one was not considered at all in the notes. The Anadrol-50 label carries an explicit WARNING (not merely an adverse-reaction listing) that 'edema with or without congestive heart failure may be a serious complication in patients with pre-existing cardiac, renal or hepatic disease', and lists retention of sodium, chloride, potassium, calcium and phosphates plus hypercalcemia via stimulated osteolysis. The entry itself lists 'Significant water retention' and 'Blood pressure spikes' as cons and monitors kidney function. At the documented 50-100mg/day this is a primary effect, and the edema/CHF warning is the one place in this batch where a fluid-and-electrolyte warning could prevent a hospitalisation rather than an inconvenience. It also compounds with the nephrotoxic tag already applied. Confirmed correct and NOT flagged: withholding aromatizing is right \u2014 oxymetholone is not an aromatase substrate, its oestrogenic effects come from direct ER agonism by the parent molecule, and tagging it would drive an aromatase-inhibitor recommendation that does not control oxymetholone gyno or bloat. The reviewer's reasoning here is sound and should be preserved. Do NOT add hypoglycemic: the labelled metabolic effect is DECREASED glucose tolerance, i.e. wrong-signed; there is no hyperglycemic tag in v1, record as a v2 gap. Minor: the notes omit the vocabulary-required caveat that aa [320,45] is the conventionally cited rodent-assay figure. dea 3, store=exclude, hepatotoxic, dht-derived and nephrotoxic all confirmed correct.",
+   "severity": "safety"
+  }
+ ],
+ "critic": {
+  "unexpressibleRules": [
+   {
+    "rule": "QT/electrolyte risk from clenbuterol + T3",
+    "missingTag": "sympathomimetic (present in vocab, applied to ZERO of 131 compounds) \u2014 plus a `tachycardic`/`hr-raising` tag and a `catecholamine-sensitizing` tag",
+    "note": "This rule cannot fire on any axis. (1) There is no clenbuterol record \u2014 I grepped all 11 batches for clenbut/ephedr/yohimb/albuterol/DNP: zero hits. The catalogue contains no stimulant of any kind, so `sympathomimetic` is a dead tag with no members. (2) T3 is deliberately NOT tagged `qt-prolonging` (correctly \u2014 thyrotoxicosis SHORTENS QTc) and NOT `electrolyte-disturbing` (thyrotoxic hypokalaemic periodic paralysis judged too rare). So neither participant carries either tag. The t3 note itself concedes the real mechanism is untaggable: 'the additive-adrenergic risk with clenbuterol/stimulants is real and should be captured in the interaction text instead.' Interaction text is not consumable by a rules engine. Note the qt-prolonging holders are nolv, berberine, insulin, dasatinib, oxytocin \u2014 a set that has nothing to do with this rule."
+   },
+   {
+    "rule": "AAS + stimulant cardiac load",
+    "missingTag": "sympathomimetic (zero members) \u2014 the compound records themselves are missing, not the tag",
+    "note": "Same root cause. The AAS side is fully tagged (`aas` + `cardiotoxic` + `bp-raising` on ~20 records) but there is no counterparty in the dataset. A rule written as `aas AND sympathomimetic` returns the empty set forever. This is a corpus gap, not a vocabulary gap: clenbuterol, ephedrine, yohimbine, DNP, albuterol, caffeine and ADHD stimulants are all absent, and they are the compounds this population actually stacks with AAS."
+   },
+   {
+    "rule": "GLP-1 altering oral drug absorption",
+    "missingTag": "delays-absorption-of-others / absorption-perpetrator (outbound)",
+    "note": "`absorption-sensitive` is defined in the vocabulary as 'ITS OWN absorption is meaningfully altered' \u2014 strictly inbound. There is no outbound tag, so `gastric-emptying-delaying` marks the perpetrator but nothing connects it to a victim. Three separate notes independently hit this wall (larazotide: 'v2 would benefit from an alters-absorption-of-others tag'; tirz: 'the outbound absorption interaction has no tag'; retatrutide: 'confirm the rule engine reads it that way'). Worse, the named victims \u2014 oral contraceptives, oral naltrexone (pt141's label interaction), levothyroxine \u2014 either aren't in the catalogue or are only tagged on the inbound side. A workaround rule `gastric-emptying-delaying AND absorption-sensitive` misfires: it would pair semaglutide with resveratrol/fisetin/ala, whose absorption is altered by fat and minerals, not by gastric emptying."
+   },
+   {
+    "rule": "T4 absorption interference",
+    "missingTag": "delays-absorption-of-others / chelating-agent, plus mineral records (calcium, iron, magnesium, zinc) and a PPI record",
+    "note": "t4 correctly carries `absorption-sensitive`, but every interferer its own cons name \u2014 'Absorption affected by food, coffee, calcium, iron' \u2014 is absent from the 131 records. The one in-catalogue perpetrator is ala, whose cons say 'Should be separated from thyroid medication by 4 hours', and ala is tagged only `absorption-sensitive` (inbound, describing ALA's own food dependence). The ala note explicitly records the inversion: 'the direction of the levothyroxine interaction in the cons is the reverse... v1 has no tag for impairs absorption of other drugs'. So the single expressible instance of this rule inside the catalogue is unexpressible."
+   },
+   {
+    "rule": "Biotin assay interference",
+    "missingTag": "the biotin/B-vitamin record itself; plus splitting `assay-interfering` into immunoassay-crossreacting vs analyte-shifting, plus an affected-analyte field",
+    "note": "There is no biotin record \u2014 zero hits across all batches \u2014 so the canonical instance of the rule the tag was named for cannot fire. Separately, `assay-interfering` is overloaded across three incompatible mechanisms and a single rule consuming it will emit wrong advice: true cross-reactivity (npp, boldenone, proviron, trenace/trenenan, estriol \u2192 'repeat on LC-MS/MS' is right); genuine analyte shift (dutast halves PSA, creatine raises real creatinine \u2192 LC-MS/MS is useless, the correct action is 'reinterpret/double the value'); and administered-analyte (hcg2 causes true-positive pregnancy tests). Both the dutast and creatine notes flag this and ask for the split. There is also no field naming WHICH lab is affected, so no rule can tell the user what to re-check."
+   },
+   {
+    "rule": "AI + oral AAS compounded HDL suppression",
+    "missingTag": "an `oral` route tag; plus a potency split on `aromatase-inhibitor` (therapeutic-AI vs weak-intrinsic-AI)",
+    "note": "Two independent failures. (1) 'Oral' is not expressible in the tag layer at all. `17aa-oral` is the only proxy and it deliberately excludes the orals that matter here: primooral and primo (1-methyl), proviron (1\u03b1-methyl), yk11 (methoxyethylidene, not 17-alkyl), and every oral SARM (osta/lgd/rad140/andarine). Route lives in the source `medium` field, which is null on 12 records and is not part of the tagging. (2) `aromatase-inhibitor` conflates real AIs (ai1, exemest) with steroids carrying weak intrinsic anti-aromatase activity (mast, mastenan, proviron). Since those three are ALSO `aas` and `lipid-suppressing`, the rule self-fires on a single logged compound, and the genuinely important warning the mast/proviron notes describe \u2014 that stacking Masteron or Proviron on top of anastrozole crashes E2 \u2014 is indistinguishable from the HDL rule."
+   },
+   {
+    "rule": "Testosterone/AAS potentiating warfarin",
+    "missingTag": "none \u2014 the tag is correct and applied to every AAS; the warfarin record is missing",
+    "note": "`warfarin-potentiating` is applied consistently across all 20+ androgens and to nolv, t3, t4, ndt, berberine, resveratrol, fisetin, quercetin, dasatinib, melatonin-ther, nalt. But there is no warfarin, DOAC, aspirin or any anticoagulant record in the catalogue, so the rule has nothing to pair against and can only fire against a free-text external med list that this dataset does not model. The identical dead-end applies to `nitrate-contraindicated` (applied to mt2, pt141, nalt, akg2 \u2014 with no nitrate and no PDE5-inhibitor record anywhere) and to `insulin-secretagogue-or-analogue` on the sulfonylurea side. Every section-C tag except the CYP3A4 trio is designed to pair with a drug class the catalogue does not contain."
+   },
+   {
+    "rule": "Additive hepatotoxicity from stacked 17-AA orals",
+    "missingTag": "a severity/magnitude qualifier on `hepatotoxic` (and the `oral` route tag above)",
+    "note": "Expressible but wrong-scoped in both directions. Scoped to `17aa-oral` it matches only 5 compounds (oxan, stanozolol, dianabol, anadrol, turinabol) and misses the oral SARM stack that is the best-documented DILI cluster in this very dataset \u2014 the lgd note cites '8 of the 15 published SARM DILI case reports are LGD-4033, including a case requiring transplant evaluation'. Scoped to `hepatotoxic` it matches ~19 compounds and will fire equally on acarbose + LDN-era naltrexone as on anadrol + stanozolol, because the tag is a flat boolean. The notes repeatedly presuppose a grading that does not exist: primo \u2014 'an order of magnitude below any true 17aa oral \u2014 if the rules engine grades severity, this should be the lowest band'; primooral \u2014 'downstream rules should treat this as a much lower hepatic tier'; trenace/trenenan \u2014 hepatotoxic applied at 'moderate confidence'. None of that survives serialization to a string array."
+   },
+   {
+    "rule": "Two 19-nors and prolactin",
+    "missingTag": "prolactin-lowering (for the counter-agent side)",
+    "note": "The detection half works: `19-nor` on nandro, npp, trenace, trenenan, yk11, and `prolactin-raising` on those plus hexarelin, ghrp2, ghrp6, mk677. What cannot be expressed is the resolution half. Cabergoline and bromocriptine \u2014 the entire reason those two records exist in this catalogue \u2014 are tagged `dopamine-agonist`, which also has to serve as an impulse-control/fibrosis flag, and the caberbromo note states the problem directly: 'there is no prolactin-lowering tag and prolactin-raising would be inverted and dangerous, so this entry carries no prolactin tag at all despite prolactin being its entire purpose'. The npp record's own cons say 'Cabergoline may be needed' and nothing in the tag layer connects the two records. Also note yk11 carries `19-nor` but not `prolactin-raising`, so a rule keyed on the risk tag rather than the structural tag silently drops it."
+   },
+   {
+    "rule": "Anything hematocrit-raising stacked",
+    "missingTag": "hematocrit-lowering (opposite direction)",
+    "note": "The stacking rule fires correctly. What is unexpressible is the offset, which is the clinically interesting case in this catalogue: the telmisartan note states 'ARBs LOWER haematocrit (they are used for post-transplant erythrocytosis), which is precisely why the entry pairs it with TRT; do not let any rule infer the opposite', and the rapamycin note states 'rapamycin will LOWER haematocrit, the opposite direction from most of this app's catalogue'. Neither is representable, so an engine sees TRT + telmisartan as an untouched polycythaemia risk and cannot explain the pairing. bonomarlot compounds this \u2014 it is tagged `hematocrit-raising` on an entry whose own text claims a bidirectional effect ('both too high and too low')."
+   }
+  ],
+  "underTagged": [
+   {
+    "id": "pregnenolone",
+    "quote": "Can convert to any steroid \u2014 unpredictable conversion pathway",
+    "suggestTags": [
+     "aromatizing",
+     "hormone-precursor"
+    ]
+   },
+   {
+    "id": "nolv",
+    "quote": "Visual disturbances (rare, reversible)",
+    "suggestTags": [
+     "ocular-toxic"
+    ]
+   },
+   {
+    "id": "proviron",
+    "quote": "reduces estrogen activity by displacing estradiol from SHBG",
+    "suggestTags": [
+     "shbg-displacing",
+     "raises-free-fraction-of-others"
+    ]
+   },
+   {
+    "id": "telmisartan",
+    "quote": "May interact with lithium and NSAIDs",
+    "suggestTags": [
+     "raises-lithium",
+     "renally-cleared-narrow-index-interactor"
+    ]
+   },
+   {
+    "id": "ala",
+    "quote": "Should be separated from thyroid medication by 4 hours",
+    "suggestTags": [
+     "chelating-agent",
+     "impairs-absorption-of-others"
+    ]
+   },
+   {
+    "id": "npp",
+    "quote": "Cabergoline may be needed",
+    "suggestTags": [
+     "prolactin-raising-requires-counteragent"
+    ]
+   },
+   {
+    "id": "tc",
+    "quote": "Potential hair loss in susceptible individuals",
+    "suggestTags": [
+     "androgenic-alopecia"
+    ]
+   },
+   {
+    "id": "sustanon",
+    "quote": "PSA (men 40+)",
+    "suggestTags": [
+     "prostate-risk",
+     "psa-elevating"
+    ]
+   },
+   {
+    "id": "t4",
+    "quote": "TSH-based dosing may leave patients symptomatic in low-normal range",
+    "suggestTags": [
+     "hpt-axis-suppressive"
+    ]
+   },
+   {
+    "id": "ndt",
+    "quote": "TSH typically suppresses \u2014 guide dose by Free T3 target",
+    "suggestTags": [
+     "hpt-axis-suppressive"
+    ]
+   },
+   {
+    "id": "trenace",
+    "quote": "Tren cough, aggression, mood changes",
+    "suggestTags": [
+     "acute-injection-reaction"
+    ]
+   },
+   {
+    "id": "anadrol",
+    "quote": "Appetite suppression at high doses (paradoxical)",
+    "suggestTags": [
+     "appetite-modulating"
+    ]
+   },
+   {
+    "id": "ghrp6",
+    "quote": "Strong hunger side effect \u2014 problematic for cutting",
+    "suggestTags": [
+     "appetite-modulating"
+    ]
+   },
+   {
+    "id": "stanozolol",
+    "quote": "Severe joint dryness and pain",
+    "suggestTags": [
+     "tendon-joint-degrading"
+    ]
+   },
+   {
+    "id": "nandro",
+    "quote": "Recovery / Joint: 100-200mg/week",
+    "suggestTags": [
+     "tendon-joint-protective"
+    ]
+   },
+   {
+    "id": "rapamycin",
+    "quote": "Wound healing impairment at therapeutic doses",
+    "suggestTags": [
+     "impairs-wound-healing"
+    ]
+   },
+   {
+    "id": "card",
+    "quote": "SERIOUS: Caused rapid cancer development in 2-year animal studies",
+    "suggestTags": [
+     "carcinogenic"
+    ]
+   },
+   {
+    "id": "estriol",
+    "quote": "Bone density annually",
+    "suggestTags": [
+     "bone-density-affecting",
+     "estrogen"
+    ]
+   },
+   {
+    "id": "ai1",
+    "quote": "Blunts cardiovascular protection from estrogen",
+    "suggestTags": [
+     "cardiotoxic",
+     "bone-density-affecting"
+    ]
+   },
+   {
+    "id": "dianabol",
+    "quote": "Requires AI and liver support",
+    "suggestTags": [
+     "requires-ancillary"
+    ]
+   },
+   {
+    "id": "melatonin-ther",
+    "quote": "Can suppress endogenous melatonin production at high doses",
+    "suggestTags": [
+     "endogenous-production-suppressing"
+    ]
+   },
+   {
+    "id": "insulin",
+    "quote": "The margin narrows with a missed meal, alcohol, heat, cardio or a hot shower",
+    "suggestTags": [
+     "alcohol-interacting"
+    ]
+   },
+   {
+    "id": "andarine",
+    "quote": "Yellow vision tint at higher doses",
+    "suggestTags": [
+     "ocular-toxic"
+    ]
+   },
+   {
+    "id": "clom",
+    "quote": "Vision disturbances rare",
+    "suggestTags": [
+     "ocular-toxic"
+    ]
+   }
+  ],
+  "missingForTools": [
+   "DATA-INTEGRITY: 6 records whose `store` FIELD contradicts the store call written in their own `notes`. A build filter reads the field, so these ship wrong. hcg2 field='reframe' / notes='store=exclude, and this is the clearest call in the batch' \u2014 this is the dangerous direction: it ships the one entry Google Play prohibits by name (hCG in conjunction with anabolic steroids). Also progesterone field='reframe'/notes='store=ok'; p21pep field='exclude'/notes=\"STORE: 'reframe' rather than 'exclude'\"; ndt field='reframe'/notes=\"STORE 'ok' on platform grounds\"; pt141 field='reframe'/notes='STORE ok... Caveat recorded rather than escalated to reframe'; estriol field='reframe'/notes='Store = ok... it needs no rewrite'.",
+   "DATA-INTEGRITY: 5 records whose `tags` array contradicts their own notes. pregnenolone \u2014 notes say \"'aromatizing' applied on the uncertainty asymmetry\" but tags contain only ['neuropsychiatric']; the tag is missing. In the other direction, tags were applied that the notes say were rejected: vip has `gastric-emptying-delaying` while notes say 'I did not tag gastric-emptying-delaying'; dianabol has `electrolyte-disturbing` while notes say 'Considered electrolyte-disturbing... and left it off'; dasatinib has `electrolyte-disturbing` while notes say 'Considered and not applied: electrolyte-disturbing'; taurine and akg2 both carry `hypoglycemic` while both notes say the effect 'was judged below the threshold for hypoglycemic'. Any merge that produced these needs a notes-vs-tags assertion in CI.",
+   "DEDUPE KEY \u2014 blocks every 'total load' computation a PCT builder needs. Six records are the same molecule (tc, te, tprop, testsusp, sustanon, testpellets) and they carry THREE different tag sets: tc/te have 13 tags including `cyp3a4-substrate` and `hypoglycemic`; tprop/testsusp/sustanon have 11 and lack both; testpellets has 14 and uniquely adds `electrolyte-disturbing`. Identical hormone, different warnings depending on which ester the user logged \u2014 the exact failure the te note tried to prevent between cypionate and enanthate. Same problem: aod9604 \u2261 hghfrag (the aod9604 note flags it); nandro's `aka` covers NPP while npp is a separate record; primo and primooral are both methenolone; trenace/trenenan. There is no `molecule_id`/`same_as` field, so androgen load, 17aa hepatic load and 'am I already on a 19-nor' are all uncomputable.",
+   "PROTOCOL/COMPOSITE MODEL \u2014 pct1 is not a compound (medium=null, halfLifeHours=null, doses are multi-drug taper strings) but is stored in the same shape and tagged with the union of tamoxifen + clomiphene properties. There is no `is_protocol` flag and no `constituents` array, so an engine treats it as a substance and double-counts against separately logged nolv/clom/hcg2. The note itself hedges: 'if the rules engine resolves protocols by expanding constituents rather than by reading protocol-level tags, that is the better mechanism and these tags should be treated as a fallback' \u2014 the dataset provides neither the flag nor the constituent list to choose between them. Its third dose row's hCG properties were deliberately omitted from the tags, so the union is knowingly incomplete.",
+   "HPTA DIRECTION \u2014 the single most damaging omission for a PCT builder. `hpta-suppressive` is applied to the recovery TOOLS as well as the suppressants: hcg2, gonadorelin, kissp and kisspeptin54 all carry it, identically to trenbolone. A builder keyed on that tag excludes its own instruments. There is no `hpta-stimulating` tag and no directionality qualifier; four separate notes flag it (kissp: 'the correct warning is do not dose continuously, not the AAS-style expect suppression, plan a restart... the tag alone is misleading and the note carries the meaning'; kisspeptin54: 'bidirectional HPG agents cannot currently be distinguished from true suppressants'). The actual PCT drugs (nolv, clom, enclo) carry only `serm`, which also matches raloxifene, which is not a PCT drug.",
+   "SUPPRESSION MAGNITUDE + RECOVERY TIME \u2014 no field exists. trenace ('near-total'), nandro ('profound and slow-recovering'), osta ('minimal suppression' contradicted by its own cons) and oxan all reduce to the same boolean. A PCT builder cannot choose SERM vs SERM+hCG, set duration, or rank compounds without it.",
+   "HALF-LIFE UNUSABLE FOR PCT TIMING \u2014 halfLifeHours is null or absent on 59 of 131 records, including pct1, testpellets, insulin, estriol and every Khavinson peptide; `medium` is null on 12 including testpellets and insulin. Where present it is wrong for the record's own scope: nandro carries 180h (decanoate) on a record whose aka includes NPP; stanozolol carries 9h on a record whose dose row is '25-50mg/day oral or 50mg EOD injectable'. PCT start date is a function of ester clearance and cannot be computed.",
+   "DOSES ARE UNPARSED FREE TEXT \u2014 no numeric amount, unit, frequency, duration or route fields. pct1's rows are literally 'Nolvadex 40/40/20/20/20/20mg + Clomid 50/50/25/25mg'. A protocol builder cannot read a taper out of that, and a store filter cannot mechanically delete 'the performance row'.",
+   "DOSE-ROW \u2192 TAG PROVENANCE \u2014 the vocabulary's own rule of application makes tags conditional on documented doses ('the app documents 300-500mg/week performance dosing, so it qualifies'), but nothing records WHICH dose row justified which tag. The consequence is circular and unhandled: a compliant store build deletes the performance rows, and the tags those rows justified (tc `cardiotoxic`, sustanon `hematocrit-raising`, oxan `bp-raising`, primo's whole risk set) silently become unsupported. The reframed entry and the tag set cannot both be correct.",
+   "NO SEVERITY OR CONFIDENCE FIELD ON TAGS \u2014 the notes are saturated with grading language that a flat string array discards: 'my softest tag', 'lowest-confidence', 'precautionary', 'deliberate false positive', 'if the rules engine grades severity, this should be the lowest band'. An engine cannot distinguish isotretinoin's boxed-warning `teratogenic` from enclo's ('practically relevant only if used in women, which is not the documented use'), or oxan's `warfarin-potentiating` (documented ~85% warfarin dose reduction) from boldenone's (pure class inference). This is the structural omission that most degrades every rule listed above.",
+   "STORE FILTER CANNOT ACT \u2014 `store` gates but does not describe. For all ~60 'reframe' records the required edits exist only as prose in `notes`, with no structured field naming the dose rows to delete or the sentences to remove (cerebrolysin's 'Requires sourcing from countries where it's approved', chonluten's post-COVID claim, thymalpha's 'Active illness / Cancer adjuvant: 1.6mg' row, testpellets' revenue line, nalt's 'especially valuable on oral AAS', argireline's single 'SubQ (experimental): 50-100mcg' row). There is also no `reframed`/review-state boolean, so a build cannot tell an un-rewritten entry from a rewritten one, and no escalation flag for the entries the notes explicitly refer up (pda, ghrp6, p21pep, ndt, sustanon).",
+   "NO JURISDICTION DIMENSION \u2014 `store` and `dea` are single scalars for a global build. Several 'ok' calls are US-only by the notes' own admission and are wrong elsewhere: dhea ('prescription-only in several countries (UK, Canada, Australia) \u2014 so ok is a US-market call'), melatonin-ther, nad/NMN, akg2/NAC. sustanon is marked 'reframe' with the note conceding 'Sustanon specifically is NOT FDA-approved in the US \u2014 if the store build is US-targeted... this should drop to exclude'. rhgh's dea=null is federal-only while the note flags 21 USC 333(e) and state-level scheduling of hGH.",
+   "NO approval_status FIELD \u2014 `store` is derived from approval status but the status itself is never stored, so it cannot be re-derived, audited, or updated when it changes. It has already changed under this dataset: ss31's entry still reads 'Clinical trials ongoing \u2014 not FDA approved' after elamipretide's Sept 2025 approval; aod9604, thymalpha and dac all moved on and off FDA's Category 2 503A bulks list; retatrutide and cagrilintide are pending decisions. Needed values: approved / withdrawn-commercial / withdrawn-safety / unapproved / investigational / grandfathered-pre-1938 / compounding-restricted.",
+   "NO prescription_only FLAG DISTINCT FROM `dea` \u2014 the notes draw this line repeatedly ('prescription-only is a different thing from scheduled, so dea is null') but nothing encodes it. To a filter reading `dea: null`, dasatinib, isotretinoin, raloxifene, rapamycin, telmisartan, t4 and semaglutide are indistinguishable from spermidine and creatine.",
+   "NO wada_prohibited FLAG \u2014 asserted in ~20 notes (bpc S0, tb5/tbnouveau S2, mk677 S2, osta/lgd/rad140, card, hcg2, dac, keto-dhea S1, dhea, igf1lr3) and explicitly requested twice ('there is no wada-prohibited tag, and I'd argue for one'). Any athlete-facing or 'will this test positive' feature has no data to run on.",
+   "NO REMS / PREGNANCY-PROGRAM FLAG \u2014 isotretinoin's iPLEDGE (dual contraception, monthly pregnancy testing) and dutasteride's crushed-tablet handling prohibition and 6-month blood-donation deferral are the highest-consequence handling requirements in the corpus and have no home outside prose.",
+   "NO CARCINOGENIC / PROLIFERATIVE-RISK TAG \u2014 requested independently in 9 notes (card, igf1lr3, tb5, tbnouveau, bpc, bpc157sys, dihexa, p21pep, follistatin, epi, spermidine). For card it is the defining fact of the compound ('GSK abandoned development specifically due to carcinogenicity') and the record still ships a dose row; `hepatotoxic` was applied as an acknowledged partial proxy that will be misread as coverage.",
+   "NO HYPERGLYCEMIC / INSULIN-RESISTANCE TAG \u2014 requested in 8 notes across the entire GH-secretagogue class (cjc, ipa, ghrp2, ghrp6, serm2, tesam, mk677, rhgh, dac) plus rapamycin. `hypoglycemic` is the only glucose tag and points the wrong way, so a diabetic-user rule built from these tags silently misses every GH agent \u2014 despite those records' own monitoring lines all asking for fasting glucose.",
+   "NO IMMUNOSTIMULANT TAG \u2014 requested in 5 notes (ll37, thymalin, vilon, crystagen, thymalpha, selank). `immunosuppressive` is the only immune tag and applying it would invert the meaning, so the autoimmune-disease and transplant-recipient caution \u2014 which the crystagen note calls out as surviving 'only in prose, which no rules engine can consume' \u2014 has no representation at all.",
+   "NO thrombogenic TAG \u2014 requested in the nolv note ('venous thromboembolism (a boxed warning)... arguably tamoxifen's single most important acute risk') and forced raloxifene's `cardiotoxic` to be applied off-definition as a stand-in ('strictly read the tag does not fit'). Also applies to clom, enclo, estriol and the oestrogen class.",
+   "NO bp-lowering / hypotensive TAG \u2014 flagged in 5 notes (caberg, caberbromo, telmisartan, taurine, vip). taurine's own monitoring says 'Blood pressure (taurine lowers it \u2014 monitor if on antihypertensives)' and telmisartan is in the same catalogue; the additive-hypotension rule between two in-catalogue compounds cannot be written.",
+   "NO cortisol-raising / HPA-AXIS TAG \u2014 flagged in 5 notes (hexarelin, ghrp2, ghrp6, dsip, pregnenolone). ghrp6's cons say 'Most cortisol and prolactin elevation of common GHRPs' and its monitoring row asks for cortisol; only the prolactin half is taggable.",
+   "MISCELLANEOUS SCHEMA DEFECTS: (a) 12 records (dianabol, anadrol, turinabol, mastenan, primooral, testsusp, sustanon, slupp332, raloxifene, isotretinoin, caberbromo) carry an `aa_note: null` key that the other 119 do not \u2014 schema drift from a partial merge. (b) The akg2 id belongs to GlyNAC but reads as alpha-ketoglutarate, colliding conceptually with the separate akglutarate record; the note flags it as 'a copy-paste id collision' that will break any id-keyed rule. (c) `cls` is unreliable as a role proxy: card is filed under 'SARMs' though it is a PPAR\u03b4 agonist with no AR activity, and hcg2 sits in 'Ancillaries \u2014 AIs and SERMs' though it is neither. (d) The Khavinson series carries at least three wrong peptide sequences (cardiogen listed as KEDW not AEDR; sigumir listed as AEDG, which is Epithalon's sequence, so two records claim the same molecule; chonluten listed as Ventfort's KED)."
+  ]
+ }
+}

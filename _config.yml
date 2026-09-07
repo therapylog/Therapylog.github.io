@@ -1,0 +1,29 @@
+# GitHub Pages / Jekyll configuration.
+#
+# This file used to be named " config.yml" (with a leading space), so GitHub
+# never read it and Jekyll ran with its defaults: every file without a leading
+# underscore was published. That put docs/LEDGER.md, docs/COMPLIANCE-AUDIT.md,
+# docs/BRAND-AND-ENTITY-STRUCTURE.md and the root PDF/zip/PNG junk on
+# therapylog.app for anyone who guessed the URL. Renaming it is the fix.
+#
+# Do NOT replace this with .nojekyll — that would publish more of the tree, not
+# less. No page in this repo has YAML front matter, so Jekyll copies every HTML
+# file through byte-identically; new pages must never start with "---".
+#
+# `include` is for files Jekyll would otherwise skip: CNAME, plus any future
+# Search Console HTML verification token. The IndexNow key file is plain hex
+# and needs no entry.
+include:
+  - CNAME
+
+exclude:
+  - docs
+  - scripts
+  - "*.md"
+  - "*.pdf"
+  - "*.zip"
+  - "IMG_*.PNG"
+  - "assets-1786901*.png"
+  - arctos-labs
+  - README.md
+  - .github

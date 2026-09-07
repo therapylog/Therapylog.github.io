@@ -21,6 +21,12 @@ const results=[]; const check=(n,p,d)=>{results.push(p);console.log(`${p?'PASS':
   const { s: srv, base } = await serve();
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
   const page = await browser.newPage({ viewport:{width:390,height:844}, isMobile:true, hasTouch:true });
+
+  /* No off-origin requests. The Google Fonts stylesheet cannot resolve on an
+     offline or sandboxed machine, and waiting for it to time out is most of
+     the run. Per-file API stubs are registered separately and still win,
+     because routes registered earlier take precedence. */
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
   page.on('pageerror',()=>{});
 
   await page.goto(base + '/app.html', { waitUntil:'load' });
