@@ -3573,7 +3573,6 @@ if ('serviceWorker' in navigator &&
     !(window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform())) {
   navigator.serviceWorker.register('/sw.js').catch(()=>{});
 }
-if (!window.Capacitor && 'serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(()=>{}); }
 function isIOSBrowserTab() {
 return /iP(hone|ad|od)/.test(navigator.userAgent) && !window.matchMedia('(display-mode: standalone)').matches && !navigator.standalone;
 }
@@ -7830,7 +7829,6 @@ function switchHubSection(hub, section, btn) {
 if (section === 'cycle' && window.TLTier && !TLTier.check('cycle_tracker')) return;
 if (section === 'femcycle' && window.TLTier && !TLTier.check('cycle_tracker')) return;
 if (section === 'photos' && window.TLTier && !TLTier.check('progress_photos')) return;
-if ((section === 'femcycle' || section === 'photos') && window.TLTier && !TLTier.check(section === 'femcycle' ? 'cycle_tracker' : 'progress_photos')) return;
 _tlScrollTop();
 hubState[hub] = section;
 /* the Plan & backup card lives on Settings, so refresh it as that section opens
