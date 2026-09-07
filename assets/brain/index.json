@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "7ebda9bbcf8e978f",
+ "generated": "ad450adf34e991da",
  "counts": {
   "compound": 131,
   "marker": 100,
@@ -5421,7 +5421,16 @@
     "deca dick",
     "decadick",
     "tren dick",
-    "trendick"
+    "trendick",
+    "sex drive",
+    "sexdrive",
+    "no sex drive",
+    "nosexdrive",
+    "low sex drive",
+    "lowsexdrive",
+    "cant get hard",
+    "cantgethard",
+    "erectile"
    ],
    "text": "High prolactin — what it is and what to do\n\nUsual causes: Most often from 19-nor compounds (nandrolone, trenbolone).\n\nSigns: Nipple sensitivity or discharge, killed libido, erectile trouble, flat mood.\n\nLabs: Serum prolactin. Confirm it is actually elevated before treating — these symptoms overlap with high and low E2.\n\nCommonly discussed responses:\n• Cabergoline is the commonly used dopamine agonist; literature dosing is typically 0.25 mg twice weekly, titrated on labs.\n• Reduce or drop the 19-nor — the response treats the number, not the cause.\n• P5P (active B6) is a mild adjunct discussed in the community; evidence is thin.\n\nEscalate / seek care: Two things belong with a doctor before a first cabergoline dose, not after: the US label requires an echocardiogram BEFORE treatment starts and repeats every 6 to 12 months, and the drug is contraindicated outright in uncontrolled hypertension, in any history of cardiac valve disorder or pericardial fibrosis, and in pleural, pulmonary or retroperitoneal fibrotic disease. A prolactin above 250 ng/mL makes a prolactinoma highly likely and warrants imaging rather than self-management.\n\nWhat the evidence says: Confirm the number before treating it. Four reversible causes should be excluded before anyone orders an MRI: pregnancy, drug-induced hyperprolactinaemia, primary hypothyroidism and renal failure. Two assay artefacts matter as much — macroprolactin is biologically inactive and accounts for 4-40% of raised results depending on population, and the hook effect can make a very large prolactinoma read falsely low, in published cases disproportionately in men. On dose, the figure that resolved idiopathic hyperprolactinaemia with a normal MRI was 0.25 mg ONCE weekly, lower than the twice-weekly figure that circulates. Uncertain: no trial of cabergoline exists in men using exogenous androgens or performance compounds, nothing shows a benefit to lowering an already-normal prolactin, and the valvulopathy literature contradicts itself — one study found a signal above 115 mg cumulative, two larger ones found nothing at 152 mg and 278 mg. The community pattern of continuous low-dose use for years with no baseline echo has never been studied at all.",
    "src": [
@@ -5633,7 +5642,15 @@
     "phlebotomy",
     "blood donation",
     "blooddonation",
-    "rbc"
+    "rbc",
+    "flushed",
+    "flushed face",
+    "flushedface",
+    "red face",
+    "redface",
+    "face is red",
+    "faceisred",
+    "ruddy"
    ],
    "text": "High hematocrit — what it is and what to do\n\nUsual causes: Testosterone drives red cell production; worse with higher doses and sleep apnea.\n\nSigns: Often silent. Flushed face, headaches, high BP at the extreme.\n\nLabs: CBC — hematocrit and hemoglobin. Hydrate normally before the draw; dehydration fakes a high reading. Track ferritin alongside.\n\nCommonly discussed responses:\n• Above roughly 52–54%, clinicians typically act: dose reduction, injection frequency increase (smaller, more frequent doses flatten peaks), or supervised therapeutic phlebotomy.\n• Regular cardio measurably helps plasma volume.\n• Screen for sleep apnea — it compounds erythrocytosis.\n\nWhat the evidence says: Two things here are weaker than they look. First, the thresholds: no hematocrit threshold has ever been tested prospectively in testosterone users. The only randomised evidence that lowering hematocrit reduces events targeted under 45%, and it was run in polycythemia vera — a clonal blood cancer, not drug-driven erythrocytosis. Second, the response: haematologists who specialise in erythrocytosis advise AGAINST routine phlebotomy for non-clonal cases, there is no evidence it is effective or safe here, and a plausible mechanism exists by which it could raise thrombotic risk. The published management hierarchy puts re-evaluating the indication, fixing modifiable risk factors and changing route ahead of removing blood. Route and frequency are measurable levers: at an identical 100 mg weekly, subcutaneous enanthate produced significantly lower hematocrit than intramuscular cypionate. In context, absolute event rates are low — 20% of one cohort crossed 50% while thromboembolic events occurred in 0.9%, mostly minor.",
    "src": [
@@ -5796,7 +5813,6 @@
     "lipid strain",
     "lipidstrain",
     "lipid",
-    "strain",
     "cholesterol",
     "ldl",
     "hdl",
@@ -6005,7 +6021,14 @@
     "fsh",
     "hcg",
     "natural production",
-    "naturalproduction"
+    "naturalproduction",
+    "balls",
+    "nuts",
+    "testicles",
+    "testicle",
+    "smaller",
+    "shrinking",
+    "shrunk"
    ],
    "text": "HPTA suppression & recovery — what it is and what to do\n\nUsual causes: Any suppressive compound. The question is never if, only how deep and how long.\n\nSigns: Post-cycle: fatigue, low mood, no libido — the low-T package.\n\nLabs: LH, FSH, total and free testosterone. Recovery is confirmed on paper, not by feel.\n\nCommonly discussed responses:\n• On TRT for life: recovery protocols don’t apply — this section is for cycling without a TRT base.\n• Wait out the ester before starting a restart protocol (long esters keep you suppressed for weeks after the last pin).\n• SERM-based restarts (clomiphene, enclomiphene, or tamoxifen at commonly cited doses) are the standard framework; HCG during the cycle preserves testicular volume and shortens the road back.\n\nWhat the evidence says: Start from the honest headline: there is no randomised trial of any PCT protocol against simply stopping. Not one. A 2026 specialist review states that every drug used for this — SERMs, hCG, aromatase inhibitors, prescribed testosterone — is unlicensed for the purpose. What IS established: the testis stays hCG-responsive during androgen-induced suppression, and splitting hCG into small frequent doses beat a single large one at the same total dose, roughly doubling the testosterone response. Serum testosterone is a poor proxy for what is happening inside the testis — baseline serum was 1.2% of intratesticular — but serum 17-hydroxyprogesterone tracks it and can be ordered without a biopsy. On timelines, the best data give a median 3.4 months to a sperm concentration of 20 million/mL, 67% by 6 months and 90% by 12. That is the clean population. In actual long-term AAS users recovery is often incomplete: more than a quarter were still below the testosterone reference range a mean of 2.5 years after stopping, against zero controls. Note also that the most-cited male clomiphene dose is 25 mg every other day titrated to 50 mg every other day — not 50 mg daily — and that enclomiphene’s gains disappear when it is stopped.",
    "src": [
@@ -6178,7 +6201,6 @@
     "liver strain",
     "liverstrain",
     "liver",
-    "strain",
     "liver damage",
     "liverdamage",
     "liver values",
@@ -6401,8 +6423,6 @@
     "tendon loading protocols",
     "tendonloadingprotocols",
     "tendon",
-    "loading",
-    "protocols",
     "tendinitis",
     "tendonitis",
     "tendinopathy",
@@ -6506,11 +6526,7 @@
    "terms": [
     "training around a sore elbow or shoulder",
     "trainingaroundasoreelboworshoulder",
-    "training",
-    "around",
-    "sore",
     "elbow",
-    "or",
     "shoulder",
     "bicep",
     "biceps",
@@ -6630,11 +6646,6 @@
     "load management and getting back to training",
     "loadmanagementandgettingbacktotraining",
     "load",
-    "management",
-    "getting",
-    "back",
-    "to",
-    "training",
     "deload",
     "load management",
     "loadmanagement",

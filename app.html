@@ -2560,12 +2560,22 @@ return ctx;
      the entry is shown as related reading and the assistant stays the primary
      path. Cheap, deterministic, and it needs no model to decide.
 
-     0.10 is measured, not guessed. Across the 44-question eval set the two
-     classes separate cleanly: every question that should be answered from the
-     library scores 0.14 or above, and every question that should defer scores
-     0.07 or below — 18 of 19 of them at exactly 0.00, because nothing matched
-     at all. The single near-miss is the tirzepatide-and-a-deficit question at
-     0.07, which is the case this threshold exists for.
+     0.10 was measured against the 44-question eval set, where the two classes
+     separated cleanly: everything that should be answered scored 0.14 or above,
+     everything that should defer scored 0.07 or below.
+
+     A caveat found later, by probing shorter phrasings (scripts/probe-brain.js):
+     coverage is a FRACTION of the question's tokens, so it rises as the question
+     gets terser. The long form of the tirzepatide-and-a-deficit question scores
+     0.07 and defers as intended; the five-token form, "im on tirzepatide and
+     lifting, how do i keep muscle", scores 0.20 and is answered with the
+     compound entry. Same question, opposite routing, purely because of length.
+
+     Left at 0.10 deliberately. The constant is calibrated against the eval set
+     that decides the model tier, and re-tuning it on a 41-question probe would
+     trade a measured number for a less-measured one. The real fix for the
+     compositional case is content — an entry that actually answers "how do I
+     keep muscle in a deficit" — not a threshold that hides the gap.
 
      The margin is thin, so it is worth being clear about which way a
      misclassification fails. Too low and the app shows a related card the
