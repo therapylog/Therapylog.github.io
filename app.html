@@ -2560,12 +2560,22 @@ return ctx;
      the entry is shown as related reading and the assistant stays the primary
      path. Cheap, deterministic, and it needs no model to decide.
 
-     0.10 is measured, not guessed. Across the 44-question eval set the two
-     classes separate cleanly: every question that should be answered from the
-     library scores 0.14 or above, and every question that should defer scores
-     0.07 or below — 18 of 19 of them at exactly 0.00, because nothing matched
-     at all. The single near-miss is the tirzepatide-and-a-deficit question at
-     0.07, which is the case this threshold exists for.
+     0.10 was measured against the 44-question eval set, where the two classes
+     separated cleanly: everything that should be answered scored 0.14 or above,
+     everything that should defer scored 0.07 or below.
+
+     A caveat found later, by probing shorter phrasings (scripts/probe-brain.js):
+     coverage is a FRACTION of the question's tokens, so it rises as the question
+     gets terser. The long form of the tirzepatide-and-a-deficit question scores
+     0.07 and defers as intended; the five-token form, "im on tirzepatide and
+     lifting, how do i keep muscle", scores 0.20 and is answered with the
+     compound entry. Same question, opposite routing, purely because of length.
+
+     Left at 0.10 deliberately. The constant is calibrated against the eval set
+     that decides the model tier, and re-tuning it on a 41-question probe would
+     trade a measured number for a less-measured one. The real fix for the
+     compositional case is content — an entry that actually answers "how do I
+     keep muscle in a deficit" — not a threshold that hides the gap.
 
      The margin is thin, so it is worth being clear about which way a
      misclassification fails. Too low and the app shows a related card the
@@ -2582,7 +2592,7 @@ return ctx;
      entry, and "test cyp vs enanthate" answered with a protocol. An entry that
      merely mentions a compound must rank below the entry that IS that
      compound. */
-  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
+  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
 
   /* Join hyphen/slash-separated word parts, matching how terms() flattens the
      index side. Without this, "MK-677" tokenized to "mk-677" and the index
@@ -2630,7 +2640,15 @@ return ctx;
       }
       /* Every word of the term present, order-independent. */
       const tw = term.split(/\s+/).filter((w) => w.length > 1);
-      if (tw.length && tw.every((w) => qSet.has(w))) {
+      /* A term that survives this filter as a single bare number must not match.
+         '16:8' is indexed as the term "16 8"; the length filter drops the "8",
+         leaving ["16"], which then matched ANY question containing 16 — and the
+         one that found it was "I'm 16 and I want to start my first cycle", which
+         got answered with an intermittent-fasting entry. A bare number carries no
+         topic, and letting one satisfy a match is how a safety question ends up
+         reaching a nutrition card. */
+      const numericOnly = tw.length === 1 && /^\d+$/.test(tw[0]);
+      if (tw.length && !numericOnly && tw.every((w) => qSet.has(w))) {
         best = Math.max(best, 55 + 15 * tw.length);
       }
     }
@@ -2641,6 +2659,32 @@ return ctx;
       best += Math.min(20, Math.round((hit / qTokens.length) * 20));
     }
     return Math.round(best * (KIND_WEIGHT[entry.kind] != null ? KIND_WEIGHT[entry.kind] : 1));
+  }
+
+  /* A stated age under 18, next to a question about cycles or compounds.
+     This is checked on the device, before anything is sent, because the answer
+     must not depend on a model complying with a prompt. There is no version of
+     this question that gets a protocol, so there is no reason to spend a paid
+     call deciding that.
+
+     Two failure modes were designed against. Missing a real minor is the worse
+     one, so the age patterns are generous. Firing on an adult is the annoying
+     one, so a number is only read as an age when it is stated as one: "I'm 16"
+     and "16 years old" count, while "16 weeks into my cycle", "16 units",
+     "16 mg" and "hematocrit 16" do not, because a unit follows the number.
+     The topic test is required as well — a 16-year-old asking about protein
+     intake gets the nutrition entry like anyone else. */
+  const MINOR_AGE = /\b(?:i'?m|i am|im|age|aged|turning)\s+(1[0-7])\b(?!\s*(?:weeks?|wks?|months?|mos?|days?|years? in|lbs?|kg|kgs|pounds|mg|mcg|ml|iu|units?|%|percent|nmol|pmol|ng|pg))/i;
+  const MINOR_AGE2 = /\b(1[0-7])\s*(?:years?|yrs?|yo)\s*old\b/i;
+  const MINOR_WORDS = /\b(?:high\s?school|highschool|sophomore|freshman|junior year|my parents (?:say|wont|won't|don't|dont)|still in school|year 1[01]\b)/i;
+  /* The topic half. Deliberately narrow: anabolic and hormonal intervention,
+     not training or food, which are worth helping a teenager with. */
+  const ENHANCEMENT = /\b(?:cycle|cycles|cycling|steroid|steroids|aas|gear|juice|sarm|sarms|test(?:osterone)?\s*(?:e|c|cyp|prop|enanthate|cypionate)?\b|trt|anabolic|prohormone|pct|hgh|growth hormone|peptide|first cycle|blast|pin(?:ning)?)/i;
+
+  function minorEnhancementAsk(q) {
+    const s = String(q || '');
+    const minor = MINOR_AGE.test(s) || MINOR_AGE2.test(s) || MINOR_WORDS.test(s);
+    return minor && ENHANCEMENT.test(s);
   }
 
   /* Deterministic questions that should never reach a language model: the
@@ -2664,6 +2708,11 @@ return ctx;
      should offer its calculator first — the model cannot beat arithmetic. */
   function search(q, index, opts) {
     const o = opts || {};
+    /* Answered here and nowhere else. Returning early means the question is not
+       scored against the library and is never sent to the assistant. */
+    if (minorEnhancementAsk(q)) {
+      return { tool: null, results: [], answerable: [], answers: false, guard: 'minor' };
+    }
     const limit = o.limit || 3;
     const norm = normalize(q);
     const qTokens = tokens(q);
@@ -2706,7 +2755,7 @@ return ctx;
     /* rehab sits with the playbooks: both are authored, fully cited answers to a
        question someone asked in their own words, and both are the reason this
        matcher exists — to answer without a round trip. */
-    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1 };
+    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1 };
     const answerable = picked.filter((r) => !r.related &&
       ANSWER_KINDS[r.entry.kind] &&
       r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
@@ -2718,7 +2767,7 @@ return ctx;
     };
   }
 
-  return { search, normalize, tokens, toolFor, THRESHOLD, ANSWER_COVERAGE };
+  return { search, normalize, tokens, toolFor, minorEnhancementAsk, THRESHOLD, ANSWER_COVERAGE };
 });
 /* @@TL_BRAIN_MATCHER@@ end */
 
@@ -2768,6 +2817,26 @@ function tlBrainSourcesHtml(entry) {
         : `<a href="https://pubmed.ncbi.nlm.nih.gov/${id}/" target="_blank" rel="noopener" style="color:var(--accent)">PubMed ${id}</a>`}</li>`).join('')}</ol></details>`;
 }
 
+/* The one question the app answers by refusing. A stated age under 18 next to a
+   question about cycles or compounds gets this and nothing else — no compound
+   names, no "safer" option, no first-cycle framework, and no trip to the paid
+   assistant, because there is no answer there worth buying either. Rendered
+   from a constant rather than generated, so it cannot drift into helpfulness. */
+function addMinorGuardMsg() {
+  const box = document.getElementById('chat-log'); if (!box) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ai';
+  wrap.innerHTML = `<div style="font-size:13px;font-weight:600;color:var(--danger);margin-bottom:7px">Don’t. Not at your age.</div>
+    <div style="font-size:12.5px;line-height:1.7;color:var(--text2)">
+      <p style="margin:0 0 9px">This is the one thing TherapyLog won’t help with. Anabolic compounds, SARMs and hormone protocols act on two things that are still finishing in a teenager: the growth plates in your bones, and the hormonal axis that will run your own testosterone production for the rest of your life. Interrupting either one can leave permanent changes that the same compounds would not cause in an adult — shorter final height, and a system that may not restart properly on its own.</p>
+      <p style="margin:0 0 9px">There is no dose, compound or cycle length that makes that a good trade at 16, so there is no version of this the app will lay out — not as harm reduction, and not as “here’s what people do”.</p>
+      <p style="margin:0 0 9px"><strong style="color:var(--text)">What actually works at your age</strong> is the part nobody finds exciting: you are already in the window where training and eating properly produce the fastest gains you will ever make, with none of this attached. Ask me about training, protein, or how to build a meal plan and I will help with all of it, in as much detail as you want.</p>
+      <p style="margin:0">If you are dealing with something specific — you think something is genuinely wrong hormonally, or the pressure to do this is coming from somewhere — that is worth a real doctor, not a forum and not an app.</p>
+    </div>`;
+  box.appendChild(wrap);
+  box.scrollTop = box.scrollHeight;
+}
+
 /* Renders the free answer, and always offers the assistant as the next step —
    the brain is a shortcut, not a wall. */
 function addBrainMsg(hit, original) {
@@ -2794,6 +2863,14 @@ if(!msg) return;
    can answer is free, instant, and never transmitted. Only a miss — or the user
    pressing "ask the assistant" on the answer, which sets skipBrain — goes on to
    the paid path below. */
+/* Checked before everything, including the "ask the assistant" escape hatch —
+   skipBrain deliberately does NOT bypass this one. */
+if (window.TLBrain && TLBrain.minorEnhancementAsk && TLBrain.minorEnhancementAsk(msg)) {
+  if (!forced) input.value = "";
+  addMsg("user", msg);
+  addMinorGuardMsg();
+  return;
+}
 if (!skipBrain) {
   let hit = null;
   try { hit = await tlBrainAnswer(msg); } catch (e) {}
@@ -10521,6 +10598,310 @@ resp:[ 'Water symptoms usually settle in 2–3 weeks; if not, the dose is too hi
 'Ipamorelin is the selective choice — GHRP-6 and hexarelin also bump cortisol and prolactin at higher doses.' ],
 caution:'Rising fasting glucose on a GH secretagogue is the signal to cut the dose or stop — insulin resistance is the long-term cost nobody logs.' }
 ];
+/* ===== NUTRITION: what the trials support about eating =====
+   Its own kind, like REHAB, because nobody types "playbook" when they want to
+   know how much protein to eat. Eight topics, 160 citations, every PMID checked
+   against PubMed before it was written here.
+
+   Deliberately general. The app cannot and should not prescribe an individual's
+   meals — that needs their weight, their logged intake and their goal, which is
+   the assistant's job with the user's own data. What lives here is the layer
+   that generalises: the dose-response the trials actually found, the rate that
+   preserved lean mass, the effect size a change buys, and — repeatedly — the
+   populations nobody has studied.
+
+   That last part is not a disclaimer bolted on. Across all eight topics the
+   same gap recurs: essentially none of this literature includes people using
+   anabolic compounds or on hormone therapy. Zero trials pair a GLP-1 with
+   testosterone. Zero pair creatine with AAS. The numbers are real and the
+   population is not ours, and an entry that hid that would be worse than no
+   entry. */
+const NUTRITION = [
+{ t:'Protein: how much actually helps', i:'🥩',
+what:'What the trials support for protein intake when building or holding muscle, and where the extra grams stop doing anything.',
+signs:'Asked as "how much protein do I need", usually with a number someone heard.',
+prot:[ 'In energy balance the ceiling is about 1.6 g/kg bodyweight per day — past that, no further gain in fat-free mass was detectable across the pooled trials, and returns are already shrinking about threefold above 1.3 g/kg.',
+'In a deficit the useful range is higher: 2.3-3.1 g/kg of FAT-FREE mass. At a 40% deficit, 2.4 g/kg gained 1.2 kg of lean mass against 0.1 kg at 1.2 g/kg, and 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg.',
+'Extra protein only pays under a stressor. Pooled: +0.36 kg while dieting, +0.77 kg while training, +0.08 kg with neither.',
+'Very high intakes buy fat loss, not muscle: 3.4 vs 2.3 g/kg gave identical fat-free-mass gain despite greater fat loss, with no adverse kidney-filtration change in healthy adults.' ],
+rule:'Total daily protein is what matters. Per-meal distribution has a real same-day synthesis advantage of 25-31%, but the 16-week body-composition trial under a deficit found no difference between spreading it evenly and back-loading it, and there is no per-meal anabolic ceiling even at 100 g.',
+avoid:'Do not treat 1.6 g/kg as a target to exceed for its own sake in maintenance, and do not treat the "20-25 g per sitting" rule as real — it does not survive the trial that tested a 100 g bolus.',
+ev:'Established: the dose-response in energy balance and the higher requirement in a deficit are both from pooled randomised evidence. NOT established, and this is the part that matters here: there are zero trials of any protein dose in people using exogenous testosterone, anabolic compounds, or GLP-1 agonists. The 1.6 g/kg ceiling and the 2.3-3.1 g/kg-FFM deficit range are wholly untested in that population, and GLP-1 appetite suppression makes hitting those numbers a practical problem no study has examined.',
+src:[ ['28698222','Across 49 randomised trials of resistance training lasting six weeks or more, adding protein kept improving fat-free mass only up to a total intake of about 1.6 g per kg of bodyweight per…'],
+['35187864','A meta-analysis of 74 randomised trials found that eating more protein gives only small extra lean-mass gains, and in adults under 65 doing resistance exercise the benefit appeared only at…'],
+['33300582','Pooling 105 trials, each additional 0.1 g/kg/day of protein was worth about 0.39 kg of lean mass while total intake was below 1.3 g/kg/day, but only about 0.12 kg once above it - returns…'],
+['28179492','Isotope-tracer measurement in trained male bodybuilders on a rest day put the average protein requirement at 1.7 g/kg/day with an upper recommended intake of 2.2 g/kg/day - roughly 2.6…'],
+['31618421','In resistance-trained men already habitually eating a lot of protein, whole-body protein balance on a training day stopped improving at about 2.0 g/kg/day - higher than tracer-derived…'],
+['26817506','Young men in a severe 40% calorie deficit who ate 2.4 g/kg/day gained 1.2 kg of lean mass over four weeks while those at 1.2 g/kg/day gained essentially none, and the higher-protein group…'],
+['19927027','Resistance-trained athletes cutting to 60% of their usual calories for two weeks lost 1.6 kg of lean mass on 1.0 g/kg/day but only 0.3 kg on 2.3 g/kg/day, with no difference in fat loss or…'],
+['23739654','In a controlled 21-day 40% calorie deficit, both 1.6 and 2.4 g/kg/day protected fat-free mass better than the 0.8 g/kg/day RDA - but 2.4 was no better than 1.6, suggesting the protective…'],
+['31794597','A meta-analysis of 22 comparisons found protein above the RDA helps lean mass only when the body is stressed: it preserved 0.36 kg during calorie restriction and added 0.77 kg with…'],
+['24257722','In roughly 80 kg resistance-trained young men, 20 g of whey after leg exercise raised muscle protein synthesis about as much as 40 g did; the extra 20 g mainly increased amino acid burning…'],
+['27511985','When the training session works the whole body rather than one leg, 40 g of whey stimulated more muscle protein synthesis than 20 g - and how much lean mass a person carried did not change…'],
+['38118410','A quadruple-tracer study found no upper limit to the anabolic response to a single meal: 100 g of protein after exercise produced a larger and longer-lasting response (beyond 12 hours)…'],
+['23459753','Splitting 80 g of whey into four 20 g servings every three hours stimulated 31-48% more muscle protein synthesis across 12 hours of post-exercise recovery than either eight 10 g servings…'],
+['24477298','Spreading the same daily protein evenly across three meals of about 30 g each produced 25% higher 24-hour muscle protein synthesis than loading most of it into dinner, and the advantage…'],
+['28903957','Over 16 weeks of dieting plus resistance training, splitting protein evenly across three meals versus skewing it to dinner made no difference to lean mass, fat loss or thigh muscle area.'],
+['26500462','Trained men and women who pushed protein to 3.4 g/kg/day alongside a periodised heavy lifting programme lost more fat than a 2.3 g/kg/day group despite eating more total calories - but…'],
+['30383278','Pooling 28 trials in 1358 adults without kidney disease, high-protein diets did not worsen the change in kidney filtration rate compared with lower-protein diets, though filtration rate…'],
+['24092765','A systematic review of six studies in lean, energy-restricted resistance-trained athletes concluded protein needs are likely 2.3-3.1 g per kg of fat-free mass per day, rising with how lean…'],
+['29497353','Reviewing both acute and long-term data, two sports-nutrition researchers concluded there is no hard per-meal ceiling and recommended aiming for 0.4 g per kg of bodyweight per meal across…'],
+['27761114','In rats held at a 40% calorie restriction for 16 weeks, muscle protein content fell 38% and anabolic mTORC1 signalling was suppressed regardless of whether the diet supplied 10% or 32%…'] ] },
+
+{ t:'Cutting: rate, deficit and what breaks', i:'📉',
+what:'How fast to lose, how big a deficit to run, and the point at which a cut starts costing you hormones and bone rather than fat.',
+signs:'Asked as "how fast should I cut" or "am I losing muscle".',
+prot:[ 'Rate is the lever with the cleanest trial behind it: 0.7% of bodyweight per week let elite athletes GAIN lean mass and 1RM strength, while 1.4% per week held lean mass flat for the same total fat loss.',
+'Deficit size has a break point around 500 kcal/day. Beyond it, resistance training no longer adds lean mass — though strength gains were not significantly impaired.',
+'Protein at 2.3-3.1 g/kg fat-free mass offsets much of the lean-mass cost of a deficit.',
+'At a 1000 kcal/day deficit, power output fell 21% with testosterone and IGF-1 down alongside it.' ],
+rule:'Below roughly 30 kcal per kg of fat-free mass per day is where things break rather than merely slow: LH pulsatility collapses, bone turnover shifts to resorption within five days, and high protein does NOT rescue the bone response. Athletes with suppressed reproductive hormones carried about 4.5 times the bone injuries.',
+avoid:'Do not read the 0.7%-per-week result as permanent: at 12-month follow-up the difference between the fast and slow groups had washed out. It buys a better cut, not a better year.',
+ev:'The rate and deficit numbers are from randomised trials in athletes, which is closer to this audience than most nutrition evidence gets. What is NOT established: none of it was studied in enhanced populations. No rate, deficit or protein trial included people on anabolic compounds; the one testosterone-plus-diet trial was in obese 53-year-olds with low testosterone and no resistance training, and testosterone did not prevent lean-mass loss during the diet phase itself. No GLP-1 trial has manipulated deficit size, rate or training at all. The 30 kcal/kg threshold itself comes from five-day studies in sedentary women — there is no validated male, trained or long-duration equivalent.',
+src:[ ['21558571','In elite athletes doing four resistance sessions a week, losing 0.7% of bodyweight per week let them ADD lean body mass while cutting, whereas losing 1.4% per week left lean mass flat -…'],
+['21896944','The lean-mass and strength advantage of the slower cut was real at the end of the diet but had disappeared by 12 months, suggesting rate of loss matters for how you finish a cut rather…'],
+['34623696','Pooling resistance-training trials, a deficit of roughly 500 kcal/day was the point at which lean-mass gains stopped; strength gains, by contrast, were not significantly impaired by dieting.'],
+['26817506','Even at a very aggressive ~40% deficit, young men training hard six days a week gained lean mass when protein was 2.4 g/kg/day, while a matched group on 1.2 g/kg/day only held steady - and…'],
+['19927027','In trained athletes on a two-week crash diet at 60% of habitual intake, raising protein from ~1.0 to ~2.3 g/kg cut lean mass loss by about 80% (-0.3 kg vs -1.6 kg) with no difference in…'],
+['24092765','Protein requirements during a cut scale with how lean you already are and how hard you are restricting: the review concluded 2.3-3.1 g per kg of fat-free mass per day for lean,…'],
+['24864135','The standard evidence-based recommendation for drug-free physique competitors is to set calories so bodyweight falls by roughly 0.5-1% per week, on the reasoning that this maximises muscle…'],
+['12519869','Reproductive hormone signalling in women is not a smooth dose-response to dieting: LH pulsatility was untouched at an energy availability of 30 kcal per kg lean mass per day and only broke…'],
+['26852783','In exercising men, four days at 15 kcal per kg fat-free mass per day halved leptin and cut insulin by about a third, and it made no difference whether the shortfall came from eating less…'],
+['28847532','Just five days at 15 kcal per kg lean mass per day flipped bone turnover toward breakdown in women (less formation, more resorption) but not in men, though the study could not demonstrate…'],
+['33671093','In men, five days of low energy availability shifted bone turnover toward resorption, and doubling protein to 1.7 g/kg did not rescue it - protein protects muscle during a cut but does not…'],
+['37752011','The IOC\'s 2023 consensus frames the downside of over-dieting as a syndrome - Relative Energy Deficiency in Sport (REDs) - affecting both women and men, driven by low energy availability,…'],
+['28119632','A four-month contest diet that stripped 35-50% of fat mass from normal-weight women lowered leptin, T3, testosterone and estradiol and increased menstrual irregularity; most hormones…'],
+['36645885','Across a 23-week contest prep in drug-free physique athletes, resting energy expenditure fell even after adjusting for the lean and fat mass lost - true adaptive thermogenesis - and men…'],
+['17762372','At the extreme end - an average 1000 kcal/day deficit sustained for 8 weeks alongside heavy military training - soldiers lost 13% of bodyweight including 6% of fat-free mass, and explosive…'],
+['29252050','In elite distance athletes, those with suppressed reproductive hormones (amenorrhea in women, low testosterone in men) had lower T3 and about 4.5-fold more bone injuries - the clearest…'],
+['23412685','In a drug-free male bodybuilder tracked for a year, dieting from 14.8% to 4.5% body fat drove testosterone from 9.22 to 2.27 ng/mL; testosterone rebounded fully after the show, but…'],
+['42175739','A well-run ~21-week natural physique prep can be about 77% fat: -7.1 kg bodyweight of which -5.8 kg was fat and only -1.7 kg fat-free mass, with strength broadly maintained but free T3…'],
+['39719170','Weight lost on GLP-1 and GLP-1/GIP drugs is roughly 25% lean mass, and the most potent agents (tirzepatide 15 mg, semaglutide 2.4 mg) were the best for fat loss but among the worst for…'],
+['27716209','Adding testosterone to a very-low-energy diet did not stop lean-mass loss during the acute diet itself (-3.9 kg vs -4.8 kg, not significantly different) - the benefit only appeared…'] ] },
+
+{ t:'Bulking: surplus size and realistic gain rates', i:'📈',
+what:'How big a surplus to run, how fast lean mass can actually be added, and why a bigger surplus mostly buys fat.',
+signs:'Asked as "how much should I eat to bulk" or "is this too fast".',
+prot:[ 'A bigger surplus buys fat, not muscle. At +620 kcal/day against a smaller surplus, elite athletes gained 2.6 times the bodyweight and 5 times the fat mass with NO difference in lean body mass gained.',
+'In trained lifters comparing a 15%, 5% and maintenance intake, faster body-mass gain predicted skinfold change far better than it predicted muscle thickness.',
+'The usable rate anchor is about 0.5% of bodyweight per week, and it is weak evidence — a single-arm regression in 21 overfed men whose own authors said outcomes could generally not be predicted with precision.',
+'Realistic lean gain is small and falls with training age: about 1.5 kg per intervention pooled across 111 trials, but only 0.5-0.8 kg over 8 weeks in men with roughly seven years of lifting.' ],
+rule:'Judge a bulk by the ratio of what you gained, not the speed of the scale. The trials that ran a larger surplus did not gain more muscle — they gained more fat and then had to lose it.',
+avoid:'The 0.45 kg/week figure repeated in textbooks is explicitly flagged in the literature as possibly unachievable. Do not treat it as a target to hit.',
+ev:'For scale, and stated because the contrast is the honest context: 600 mg/week of testosterone with training produced 6.1 kg of fat-free mass in 10 weeks, against the 0.5-0.8 kg over 8 weeks that trained men manage from food and training alone. NOT established: not one energy-surplus or rate-of-gain study was done in people using anabolic compounds, and none in anyone on replacement or gender-affirming hormone therapy. The surplus-by-anabolic-agent interaction is entirely unstudied, nothing runs longer than 12 weeks, and no validated way exists to individualise a surplus in advance.',
+src:[ ['37914977','In trained lifters, a large energy surplus (15% above maintenance) added more fat than maintenance eating without adding more muscle thickness or squat strength; across the whole sample,…'],
+['33919267','In resistance-trained men deliberately overfed for six weeks, an average body-mass gain of about 0.55% of bodyweight per week corresponded to essentially all of the gained weight being…'],
+['23679146','In elite athletes adding four strength sessions a week, eating an extra ~620 kcal/day versus eating ad libitum produced about 2.6 times more bodyweight gain, but all of the extra weight…'],
+['21851204','A planned surplus of about 500 kcal/day plus four strength sessions a week added roughly 2.8% lean body mass over 8-12 weeks in young elite athletes, whereas athletes left to eat ad…'],
+['42442697','In a 12-week bulking trial prescribing 300-500 kcal/day above requirements, the group that actually ate the full surplus gained more than twice as much fat as the group that under-ate it,…'],
+['40241374','A modest single-digit surplus is enough to support substantial lean gains in already well-trained lifters: 10% above maintenance with 2.2 g/kg/day protein produced 1.8-2.7 kg of fat-free…'],
+['31915482','In competitive male bodybuilders, a much higher energy intake produced about 2.5 times more muscle gain but roughly 9 times more body-fat gain over four weeks, illustrating how sharply the…'],
+['12094125','A counter-example to the small-surplus rule: adding roughly 2000 kcal/day on top of a normal diet during 8 weeks of resistance training increased body mass by ~3.1 kg and fat-free mass by…'],
+['26957922','Bolting a large daily calorie surplus onto the diet of men who were already resistance-trained increased body mass and fat mass but produced no statistically significant increase in lean…'],
+['24834017','Surplus calories eaten as protein alone behave differently from surplus calories generally: resistance-trained people eating 4.4 g/kg/day of protein for 8 weeks gained no bodyweight, no…'],
+['34623696','Meta-regression of resistance-training trials identifies roughly a 500 kcal/day deficit as the point at which lean-mass gains are abolished entirely, which sets the lower bound on the…'],
+['10865771','How much of a weight gain arrives as lean tissue depends heavily on how lean you already are: across overfeeding experiments of at least three weeks, lean tissue made up 60-70% of the…'],
+['9880251','The same surplus deposits wildly different amounts of fat in different people, mostly because spontaneous non-exercise activity ramps up: with a fixed 1000 kcal/day surplus for 8 weeks,…'],
+['2336074','A precisely controlled surplus does not produce a predictable amount of weight gain: an identical 84,000 kcal cumulative excess produced gains ranging from 4.3 to 13.3 kg across…'],
+['32079265','Pooling 111 resistance-training trials in healthy adult men, the average whole-body muscle mass gained over an entire intervention was about 1.5 kg — and neither age, bodyweight, height…'],
+['29489727','Lean-mass gain slows dramatically with training age: men with about seven years of lifting experience added only 0.5-0.8 kg of total-body lean mass across 8 weeks of hard training (roughly…'],
+['8637535','For scale on what changes when androgens are added: 600 mg/week of testosterone enanthate plus supervised strength training produced 6.1 kg of fat-free mass in 10 weeks, and testosterone…'],
+['35233712','The textbook sports-nutrition prescription for gaining mass (an extra 300-500 kcal/day aiming at about 0.45 kg per week, mostly lean) is not well supported by trial evidence, and that…'],
+['31247944','The most widely cited practice guidance for drug-free bodybuilders sets the off-season surplus at 10-20% above maintenance targeting 0.25-0.5% of bodyweight gained per week, and explicitly…'],
+['31482093','No study has ever validated an optimal surplus size for maximising muscle relative to fat; the commonly quoted kcal figures come from theoretical calculations of the energy stored in new…'] ] },
+
+{ t:'Eating on a GLP-1', i:'💉',
+what:'What happens to muscle on semaglutide or tirzepatide, whether protein and lifting change it, and what actually helps the gut side effects.',
+signs:'Asked as "am I losing muscle on this" or "what should I eat on tirzepatide".',
+prot:[ 'About 25-28% of the weight lost is lean mass. That sounds alarming until it is compared: it is statistically indistinguishable from dieting alone at 26.2%.',
+'Resistance training is the lever that moves it. Lifestyle intervention PLUS resistance training cut the lean fraction to 17.5%.',
+'The published protein target of 1.2-1.6 g/kg/day, 0.3-0.4 g/kg per meal, is borrowed from the general sarcopenia literature — not measured on a GLP-1.',
+'Both the Wegovy and Zepbound labels specify only a reduced-calorie diet and increased physical activity. Neither gives any macronutrient or protein target.' ],
+rule:'The deficit drives the lean loss, not the drug. That reframes the question from "how do I stop this drug eating my muscle" to "how do I run this deficit like any other deficit" — which means lifting and adequate protein.',
+avoid:'Zepbound’s own label makes SLOW DOSE TITRATION, not diet, its stated tool for limiting gastrointestinal reactions. Diet advice for nausea — smaller frequent meals, hydration, less fat and sugar per sitting — is expert opinion, and 16 trials found gut symptoms happened anyway despite dietary counselling.',
+ev:'NOT established, and the gap is total: no completed randomised trial tests protein intake or resistance training on a GLP-1. The trial that would settle it has published a protocol only. The best direct human evidence linking protein to lean-mass retention on these drugs is a correlation of 0.41 in 28 people. Searches pairing GLP-1 agonists with resistance-trained or athlete populations returned nothing — all body-composition data comes from sedentary or unselected adults at BMI 28-42. Pairing them with testosterone or other anabolic compounds returned nothing at all, so that combination cannot be inferred from anything published.',
+src:[ ['41996180','Across 35 randomized trials of incretin drugs, roughly 28% of the weight lost was muscle-related tissue, and about two thirds of the trials exceeded the ~25% benchmark expected from weight…'],
+['41877354','In a meta-analysis of 20 RCTs, lean mass made up a quarter to a third of weight lost depending on the drug, with semaglutide highest and tirzepatide lowest; the proportion was…'],
+['39996356','In the DXA substudy of the pivotal tirzepatide obesity trial, about 25% of the weight lost was lean mass - the identical split seen in the placebo group, and consistent across sex, age and…'],
+['39719170','Pooling 22 trials, GLP-1 drugs cut lean mass by just under a kilogram on average (about a quarter of total weight lost), but lean mass as a percentage of body weight did not fall - the…'],
+['40318682','Measured by MRI rather than DXA, thigh muscle volume fell on tirzepatide by about the amount expected for that much weight loss in the general population - and fat infiltrating the muscle…'],
+['39295512','Framed against ageing, the muscle loss in the pivotal obesity trials is large: participants lost 10% or more of their muscle mass in under 18 months, roughly what two decades of ageing…'],
+['38687506','Incretin drugs strip roughly 6 kg of lean mass, while supervised resistance training programs longer than 10 weeks independently add about 3 kg of lean mass and 25% strength - the…'],
+['42020128','The first randomized trial designed to test whether protein and lifting actually preserve muscle on semaglutide or tirzepatide is still running - only its protocol has been published, so…'],
+['42440974','In a real-world cohort given no nutrition support, people who ate more total protein retained more muscle - the closest thing to direct human evidence that protein intake matters on these…'],
+['42631799','Protein holds its share of the diet on GLP-1 therapy (about 14-17.5% of calories), but because total calories collapse, absolute grams of protein can fall below the threshold needed to…'],
+['33269530','Semaglutide 2.4 mg cuts intake at a free-choice meal by about a third - the mechanism that makes protein targets hard to hit. Notably this trial found no delayed gastric emptying at 20…'],
+['39175746','Across studies that measured it, GLP-1 and dual agonists cut total daily calorie intake by 16-39% - but hardly any study recorded what the remaining diet was actually made of.'],
+['42037117','A systematic review of 16 randomized trials found GI symptoms occurred despite background dietary counselling, lean mass was broadly preserved in proportion to weight loss, and no trial…'],
+['33951361','Adding a supervised exercise program to liraglutide roughly doubled the fall in body-fat percentage versus either alone - the strongest randomized evidence that training changes the…'],
+['41579235','In that same trial, strength relative to body weight improved on exercise, liraglutide or both while falling ~8% on placebo - because absolute strength was preserved even as weight came…'],
+['38544798','A year after all treatment stopped, people who had exercised held their weight loss while those who had only taken liraglutide regained 6 kg more - training buys durability that the drug…'],
+['41577337','Grip strength is generally preserved short-term despite lean-tissue loss, and in young men tirzepatide added to resistance and aerobic training gave no strength benefit beyond training…'],
+['42036071','The most explicit published protein prescription for GLP-1 users is at least 1.2 g/kg/day, up to 1.6 g/kg in people without kidney disease, split into per-meal doses of 0.3-0.4 g/kg…'],
+['41324524','40-70% of patients get gastrointestinal side effects, and the recommended first response is dietary rather than pharmacological: smaller and more frequent meals, adequate hydration, and…'],
+['42106160','Dietary fiber is proposed to ease GLP-1-related constipation and stabilise the gut microbiome, but raising intake too quickly causes bloating and gas, and no trial has yet tested fiber…'],
+['40445127','Four US professional societies jointly name GI side-effect management, protein adequacy, micronutrient sufficiency and resistance training as the core nutritional priorities during GLP-1…'] ] },
+
+{ t:'Meal timing and fasting: what matters', i:'⏱️',
+what:'Whether when you eat changes anything once calories and protein are matched. Mostly it does not, and this entry exists to say which parts do.',
+signs:'Asked as "does the anabolic window matter", "should I do 16:8", "do I need carbs before lifting".',
+prot:[ 'The anabolic window does not survive controlling for total protein. A meta-regression found no timing effect on strength or hypertrophy, and a 10-week trial giving 25 g before versus after training produced identical results.',
+'Time-restricted eating is not a body-composition lever once calories and protein are matched — several trials null, and the meta-analysis of fasting plus resistance training found no fat-free-mass difference.',
+'Carbohydrate before lifting earns its keep only for sessions longer than about 45 minutes, or after a fast of 8 hours or more.',
+'Early eating windows improve insulin sensitivity independent of weight; morning-loaded calories reduce hunger but change neither energy expenditure nor weight lost.' ],
+rule:'Total intake first, protein total second, distribution a distant third, clock time last. Protein spreading has a real 25-31% same-day synthesis advantage that has never been shown to produce more lean mass over months.',
+avoid:'Worth knowing before adopting 16:8 on hormone therapy: calorie-matched trials in trained men found significantly LOWER testosterone and IGF-1 at 8 weeks and at 12 months, and one randomised trial found MORE appendicular lean mass lost on a 16:8 schedule.',
+ev:'NOT established: no meal-timing study of any kind has been run in people on exogenous hormone therapy, and the testosterone and IGF-1 suppression seen with 8-hour eating windows in trained men has never been followed through to a muscle or strength endpoint. So the hormonal signal above is real but its consequences are unmeasured — which is a reason to weigh it, not to panic about it.',
+src:[ ['24299050','When you account for how much total protein people ate, eating protein close to the workout produced no measurable extra strength or muscle growth. Total daily protein intake, not timing,…'],
+['28070459','In trained men given the identical protein dose immediately before versus immediately after lifting for 10 weeks, every outcome measured came out the same. The authors concluded the usable…'],
+['38118410','The widely repeated claim that the body can only \'use\' 20-25 g of protein per sitting is wrong at the level of measured protein metabolism: a 100 g bolus after exercise drove a bigger and…'],
+['28919842','The sports-nutrition consensus position is that hitting your total daily protein target matters most, with roughly even spacing as a secondary refinement; the same document states that in…'],
+['23459753','With total protein held identical over 12 hours after a workout, four 20 g feedings spaced 3 hours apart raised muscle protein synthesis 31-48% more than eight small 10 g feedings or two…'],
+['24477298','Spreading the same amount of protein evenly across three meals raised 24-hour muscle protein synthesis by 25% versus loading most of it at dinner. Again, this is a synthesis-rate…'],
+['26024494','The apparent body-composition benefit of eating more frequent meals evaporated on sensitivity analysis: the entire positive pooled effect across 15 studies was driven by one single trial.'],
+['27737674','In resistance-trained men fed the same calories and macros, compressing eating into an 8-hour window for 8 weeks reduced fat mass while preserving lean mass and strength, but also…'],
+['34649266','Extending the same 8-hour-window protocol to 12 months, testosterone and IGF-1 remained lower than in the normal-eating group, and the fasting group spontaneously ate fewer calories -…'],
+['31268131','Resistance-trained women eating within a 7.5-hour window gained the same fat-free mass, muscle size and strength over 8 weeks as women eating across 13 hours, once energy and protein were…'],
+['32316561','When both groups ran the same 25% calorie deficit and the same 1.8 g/kg/day protein, adding an 8-hour eating window produced no extra fat loss and no extra lean-mass preservation over 4…'],
+['33984329','Pooling 8 trials of intermittent fasting alongside resistance training, fasting groups lost about 1.4 kg more fat than non-fasting controls but showed no difference in fat-free mass - the…'],
+['32986097','In the largest randomised trial of 16:8 eating, 12 weeks of time-restricted eating produced no more weight loss than three structured meals a day - and the time-restricted group lost…'],
+['29754952','Meal timing does have a real metabolic effect that is separate from calories: under supervised weight-maintaining feeding, an early 6-hour eating window improved insulin sensitivity,…'],
+['36087576','Front-loading calories into a big breakfast did not raise energy expenditure or produce more weight loss than back-loading the same calories into dinner. The only real difference was that…'],
+['30700403','Across 13 randomised trials, adding breakfast did not help weight control - people assigned to eat breakfast weighed about 0.44 kg more and ate about 260 kcal/day more in total than people…'],
+['37742826','Skipping breakfast did not hurt afternoon lifting performance - reps, bar velocity and power were unchanged whether the same food was eaten as breakfast plus lunch or as lunch only, and…'],
+['25429252','Doing cardio fasted did not accelerate fat loss. With exercise volume matched and both groups in a calorie deficit, fasted and fed training produced identical changes in weight and fat…'],
+['35809162','Carbohydrate before or during lifting does help, but only in specific conditions: sessions longer than 45 minutes, or when you have already fasted 8 hours or more. The size of the…'],
+['32811763','Pre-sleep casein reliably raises overnight protein synthesis in young men, and may add to muscle and strength gains over 10-12 weeks - but the reviewers flag that the trials showing…'] ] },
+
+{ t:'What to limit, and what it actually buys', i:'🚫',
+what:'The dietary changes with measurable effects on the numbers this app already tracks — blood pressure, lipids and liver — with the effect sizes attached.',
+signs:'Asked as "what should I avoid", "will cutting salt help my cholesterol", "how bad is alcohol".',
+prot:[ 'Sodium is the largest single lever on blood pressure and it works even on medication: 100 mmol/day less sodium gave 6.81 mmHg lower systolic in people already being treated.',
+'Sodium does nothing for lipids. Total cholesterol moved +0.05 mmol/L and LDL +0.05 — both null. Cutting salt to fix a lipid panel is aiming at the wrong number.',
+'The LDL benefit attributed to "swapping in unsaturated fat" comes from removing the saturated fat, not adding the unsaturated. When saturated fat was held equal, the LDL difference fell to 3.45 mg/dL and was not significant.',
+'Alcohol has a threshold rather than a gradient for blood pressure: no significant benefit from cutting below about two drinks a day, but 5.50 mmHg lower systolic when heavy drinkers halved intake.' ],
+rule:'Match the intervention to the marker. Sodium and alcohol for blood pressure; saturated fat for LDL. The common mistake is expecting one change to move everything.',
+avoid:'Alcohol and the liver do not follow the blood-pressure pattern — the risk is supra-linear, with cirrhosis relative risk around 1.81 at 25 g/day rising to 8.15 at 100 g/day. On an oral 17-alpha-alkylated compound that curve is the one to think about.',
+ev:'NOT established, and it is the caveat that matters most here: nothing in this literature tests whether any dietary change offsets lipid or blood-pressure shifts driven by a COMPOUND rather than by diet. Every effect size above comes from diet- or disease-driven markers. Testosterone therapy itself raises blood pressure and lowers HDL, but the two bodies of evidence have never been combined, and the mechanism of compound-driven HDL suppression differs enough that these numbers cannot simply be transferred.',
+src:[ ['39236753','In people already on blood-pressure medication, cutting dietary sodium still lowers blood pressure substantially, and the size of the drop is proportional to how much sodium comes out of…'],
+['23558162','A realistic, sustainable salt cut of roughly one teaspoon a day lowers blood pressure in four weeks or more, with about twice the effect in people whose blood pressure is already high as…'],
+['32500831','Potassium (the mineral behind salt substitutes and the DASH pattern\'s fruit and vegetables) helps blood pressure only up to a point - past a moderate dose the benefit disappears and, in…'],
+['38804177','Combining the DASH eating pattern with sodium restriction lowers blood pressure, but only when the food is actually supplied - trials that just taught people the pattern produced no…'],
+['25430608','The DASH pattern is one of the few single dietary changes that moves blood pressure and cholesterol at the same time, and it works harder in people who start with worse numbers.'],
+['29253389','Cutting alcohol lowers blood pressure only in people who currently drink more than two drinks a day; below that threshold, drinking less produced no measurable blood-pressure benefit.'],
+['37684424','Alcohol\'s effect on the liver accelerates faster than linearly: doubling the daily amount roughly doubles-again the risk of cirrhosis, so the drink-count reduction matters far more at the…'],
+['40885400','Swapping saturated fat for polyunsaturated fat at the same total fat and calories lowers LDL by about 10 mg/dL - but the drop comes from removing the saturated fat, not from adding the…'],
+['32428300','Reducing saturated fat for two years or more cuts cardiovascular events by about a fifth, and the trials that cut it most cut events most - but the lipid changes it produces are small, and…'],
+['23053553','Industrial trans fat is the one fat that damages both sides of the lipid panel at once - it raises LDL and lowers HDL in controlled trials, unlike saturated fat which mainly raises LDL.'],
+['31105044','Ultra-processed food drives overeating on its own, independent of calories, sugar, salt, fat and fibre on the label - when everything else was matched, people ate ~500 kcal/day more and…'],
+['37573217','In long-term population data, higher ultra-processed food intake tracks with more cardio-cerebrovascular disease and specifically more hypertension, with risk climbing steeply from the…'],
+['37242149','Ultra-processed food intake is associated with fatty liver disease in a dose-dependent way, with the jump concentrated at the highest intakes rather than spread evenly.'],
+['38665062','Processed red meat specifically - bacon, sausage, deli meat - shows a clean linear dose-response with fatty liver disease, so each daily portion counts rather than only heavy intakes…'],
+['35889803','Sugar hurts the liver mainly when it is added on top of maintenance calories and mainly when it arrives as a drink - swapping sugar for other calories at the same energy intake did not…'],
+['38035997','A Mediterranean-style diet high in fibre and unsaturated fat cut liver fat by about a third in 12 weeks and improved GGT - roughly three times the liver-fat reduction of habitual diet,…'],
+['34977959','Adding oats or oat beta-glucan is one of the best-quantified single food swaps for cholesterol, cutting LDL by roughly 11 mg/dL regardless of what the rest of the diet looks like.'],
+['40806090','Fermentable (prebiotic) fibre lowered blood pressure in people who already had hypertension, but the pooled effect vanished once people with normal blood pressure were included - the…'],
+['34481638','Long-term androgen therapy itself raises blood pressure and lowers HDL - the same two markers diet is being used to manage - and the evidence for this is observational and based on blood…'] ] },
+
+{ t:'Supplements: the short list that works', i:'💊',
+what:'Which sports supplements have real randomised evidence, which do not, and the contamination problem that matters specifically for anyone tracking bloodwork.',
+signs:'Asked as "is creatine worth it", "should I take BCAAs", "does HMB do anything".',
+prot:[ 'The IOC consensus names four with good evidence for performance: caffeine, creatine, buffering agents and nitrate. That is the list.',
+'Creatine adds roughly 1.14 kg of lean mass in adults under 50 at 7 g/day or 0.3 g/kg. Caffeine works at 3-6 mg/kg about 60 minutes before training.',
+'Protein powder helps only until total intake is adequate — the benefit plateaus completely at 1.62 g/kg/day of total protein, powder included.',
+'BCAAs have no supporting human data: no human study has measured muscle protein synthesis after oral BCAAs, and the two intravenous studies showed a DECREASE. Isolated leucine at 3 g/day for 8 weeks produced no strength or size benefit.' ],
+rule:'Judge a supplement by whether a randomised trial in trained people found an effect on the outcome you care about, not by mechanism. Several popular compounds have a plausible mechanism and a measured effect size of zero.',
+avoid:'HMB effect size was exactly 0.00 for bench press in trained athletes, and citrulline malate does not improve strength. Beta-alanine works for efforts of one to four minutes but added nothing to strength or muscle thickness over 8 weeks in trained men.',
+ev:'One finding here matters more than the efficacy results for this audience: 38% of high-risk sports supplements bought from ordinary web shops contained undeclared doping substances including anabolic steroids. That is a direct confounder for anyone interpreting their own bloodwork. NOT established: nothing in this literature was studied alongside anabolic compounds — searches for trials combining creatine with testosterone therapy or AAS returned zero results. Also worth flagging: the HMB evidence splits along authorship lines, with two independent meta-analyses finding no effect while the position stand recommending it was co-authored by employees of a manufacturer, without independent replication.',
+src:[ ['29138605','Creatine taken alongside resistance training adds roughly 1.4 kg of lean tissue over and above training alone in older adults, with smaller but real gains in chest press and leg press…'],
+['39074168','In adults under 50, creatine added to resistance training increases lean body mass by about 1.1 kg and modestly reduces fat mass compared with the same training without creatine; taking it…'],
+['28615996','The ISSN position stand concludes creatine is safe long term at doses far above what most people take, and that a low habitual intake may itself be worthwhile across the lifespan.'],
+['36007881','DOES NOT WORK: creatyl-L-leucine, a marketed \'advanced\' creatine derivative, failed to raise muscle creatine content at all, while plain creatine monohydrate at the same dose did. The…'],
+['30926628','Across 21 published meta-analyses, caffeine improved strength, muscle endurance, power and aerobic endurance, but the evidence was graded only moderate quality and some analyses could not…'],
+['33388079','The effective caffeine dose is 3-6 mg per kg bodyweight taken about an hour before training; going up to 9 mg/kg adds side effects without adding performance.'],
+['26175657','Beta-alanine works for efforts lasting roughly one to four minutes by buffering muscle acidity, and needs several weeks of daily loading to work at all. The ISSN itself states the strength…'],
+['27797728','Pooled across 40 trials the overall beta-alanine effect is small (effect size 0.18) and depends heavily on exercise duration; total amount of beta-alanine ingested did not moderate the…'],
+['36636181','DOES NOT WORK FOR HYPERTROPHY: in resistance-trained men, eight weeks of full-dose beta-alanine added nothing to strength or muscle thickness gains. The training worked; the supplement…'],
+['34176406','DOES NOT WORK: citrulline malate does not increase muscle strength in resistance-trained adults. The pooled effect was small, non-significant, and its confidence interval crossed zero for…'],
+['34010809','Citrulline malate\'s one demonstrable benefit is small: about 3 extra reps to failure across a whole session, and even that was not statistically significant for upper-body exercises…'],
+['29249685','DOES NOT WORK: in trained and competitive athletes, HMB produced a trivial, non-significant effect on every outcome measured, including a bench press effect size of exactly zero. Subgroup…'],
+['32456217','DOES NOT WORK: an independent meta-analysis in young adults found HMB nudged total body mass slightly but produced no gain in fat-free mass, no strength gain, and no fat loss. The authors…'],
+['39699070','The 2024 ISSN position stand recommends HMB at 38 mg/kg/day and reports body composition benefits, directly contradicting the independent meta-analyses above. Note the conflict of…'],
+['28852372','DOES NOT WORK: there is not one human study measuring muscle protein synthesis after swallowing BCAAs alone. The only two studies that infused BCAAs intravenously found they DECREASED…'],
+['28444456','DOES NOT WORK: adding isolated leucine (the BCAA thought to be the active one) to training produced no extra strength and no extra muscle cross-sectional area versus placebo, provided…'],
+['28698222','Protein supplementation does add real strength and size gains on top of resistance training, but the benefit stops entirely once total daily protein passes about 1.6 g per kg of…'],
+['28642676','The ISSN sets the practical daily protein target at 1.4-2.0 g/kg/day, with 20-40 g per serving, and is explicit that whole food can meet this - powder is a convenience, not a requirement.'],
+['29540367','The IOC\'s consensus position is that of the entire performance-supplement market, only four ingredients have good evidence: caffeine, creatine, buffering agents such as beta-alanine and…'],
+['34211326','CONTAMINATION IS REAL AND COMMON: 38% of high-risk sports supplements bought from ordinary web shops contained undeclared doping substances, including anabolic steroids and stimulants that…'] ] },
+
+{ t:'How to count macros', i:'🔢',
+what:'Setting your own calorie and macro targets from your bodyweight, and how to track them without the tracking becoming the hobby.',
+signs:'Asked as "how do I count macros", "what should my macros be", "how many calories should I eat".',
+howto:[ 'Protein first, because it is the one with a real number behind it. Maintenance or gaining: about 1.6 g per kg of bodyweight — 1.6 x 82 kg is roughly 130 g a day. Cutting: work from lean mass instead, 2.3-3.1 g per kg of FAT-FREE mass, which for an 82 kg person around 15% body fat is about 70 kg lean, so 160-215 g. Those two numbers come from the trials cited below, not from convention.',
+'Calories second. A practical starting estimate is 31-33 kcal per kg to maintain, then apply the goal: for a cut subtract about 500 (the point past which the trials stopped showing lean-mass gain), for a gain add 200-300. These multipliers are a convention to START from, not a measurement — the scale over two to three weeks is what actually calibrates them.',
+'Fat third. A floor of about 0.6-0.8 g per kg keeps hormone production and fat-soluble vitamin absorption comfortable. Below roughly 0.5 g/kg is where people tend to feel it.',
+'Carbohydrate is whatever calories are left: subtract protein and fat calories (protein and carbs are 4 kcal per gram, fat is 9) and divide the remainder by 4.',
+'Weigh food raw where you can, and be consistent. Rice and pasta roughly triple in weight when cooked, so 75 g dry is about 225 g cooked — logging the cooked figure against a raw entry is the single most common way a "tracked" day is 300 kcal out.',
+'Accuracy has a ceiling worth knowing: labels are permitted a margin, restaurant figures are estimates, and your expenditure moves day to day. Chasing the last 5% is wasted effort. Consistent method beats precise method.' ],
+rule:'Set protein from bodyweight, calories from the goal, fat to a floor, carbs from the remainder — then change ONE variable at a time and give it two weeks. The number you adjust is calories; protein stays put.',
+avoid:'Do not re-set your targets every time the scale moves. Daily bodyweight swings of 1-2 kg are water, gut contents and sodium, and a weekly average is the only number worth reacting to.',
+ev:'The protein figures above are the ones with randomised evidence behind them: about 1.6 g/kg is where fat-free-mass gains stopped improving in the pooled analysis, and 2.3-3.1 g/kg of fat-free mass is the range that protected lean mass in a deficit. The 500 kcal deficit figure is the meta-regression break point. NOT evidence: the calorie-per-kg multipliers, the fat floor and the two-week adjustment window are standard practice, useful as a starting point, and no trial validated them as such. They are labelled here rather than dressed up.',
+src:[ ['28698222','No further fat-free-mass gain was detectable past about 1.62 g/kg bodyweight per day in the pooled trials.'],
+['26817506','At a 40% energy deficit, 2.4 g/kg protein gained 1.2 kg of lean mass against 0.1 kg at 1.2 g/kg.'],
+['19927027','Protein at 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg over a two-week deficit in athletes.'],
+['34623696','Meta-regression put the break point around a 500 kcal/day deficit, beyond which resistance training no longer added lean mass.'],
+['33300582','Returns on additional protein shrink roughly threefold above 1.3 g/kg per day.'] ] },
+
+{ t:'Building a meal plan, and what to eat for a cut or a bulk', i:'🍽️',
+what:'How to lay out a week of food you will actually repeat, and which foods do the work in a deficit versus a surplus — with portions scaled to bodyweight.',
+signs:'Asked as "what should I eat", "meal prep ideas", "what foods for cutting", "how do I build a meal plan".',
+howto:[ 'Build each meal in the same order: protein anchor, then volume, then fat, then starch to fill the calories. Doing it in that order means the two things that matter most — hitting protein, and feeling full — are settled before the flexible calories get spent.',
+'Portion the protein anchor by bodyweight. Divide your daily protein target across the meals you actually eat: at 130 g a day over four meals that is roughly 33 g each, which is about 120 g raw chicken breast, 150 g white fish, 5 whole eggs, 200 g of 5% Greek yoghurt, or 150 g firm tofu. Over three meals it is about 43 g each and the portions scale up accordingly.',
+'CUTTING — lean on foods with a lot of weight per calorie, because the trials that cut energy density had people eating MORE total food while losing more weight. Potatoes, rice and oats by cooked weight; any lean protein; vegetables essentially without limit; whole fruit; broth-based soups; 0% dairy. A useful anchor is 400-600 g of vegetables and fruit a day at around 80 kg, scaling roughly with bodyweight.',
+'BULKING — invert it. You want calories that do not fill you: olive oil, nut butters, whole milk, dried fruit, granola, fattier cuts, and liquid calories, which bypass the fullness problem that stops most people eating enough. A shake of milk, oats, peanut butter and a banana is 700-900 kcal and takes two minutes to drink.',
+'Prep in components, not in finished meals. Cook a protein, a starch and a vegetable in bulk and combine them differently through the week — it survives boredom far better than five identical boxes, which is the usual reason a prep habit dies by Wednesday.',
+'Keep one repeatable default meal for the day that goes wrong. Not having one is when people eat out and lose the week.',
+'Weigh and log the components ONCE, save them, and reuse. The tracking effort is nearly all in the first week; after that it is picking from a list you already built.' ],
+rule:'Pick the structure you will repeat over the structure that is theoretically optimal. Across four popular diets, weight loss tracked how well people stuck to the plan and did not track which plan it was.',
+avoid:'Do not build a cutting plan out of calorie-dense foods and willpower, and do not build a bulking plan out of chicken and broccoli — in both cases the food volume is fighting the goal, and volume is the thing people fail on.',
+ev:'Two findings here are evidence rather than craft, and they are the two the plan is built around: the largest reducers of dietary energy density lost 5.9 kg against 2.4 kg while eating about 300 g MORE food per day, and adherence predicted the result at 0.60 while diet choice predicted it at 0.07. NOT evidence, and said plainly because it is the part people most want to be science: no trial has ever tested meal prepping itself — batch cooking, pre-portioning, component prep. The planning literature is cross-sectional and confounded. Everything above about HOW to prep is craft that works in practice, offered as such.',
+src:[ ['17490955','The biggest reducers of dietary energy density lost 5.9 kg against 2.4 kg while eating about 300 g more food per day.'],
+['15632335','Across four popular diets, weight loss correlated with adherence at 0.60 and with diet assignment at 0.07.'],
+['32234531','Portioning a problem food beat avoiding it entirely over one year.'],
+['25686165','A single fibre-focused goal lost 2.1 kg against 2.7 kg for a full multi-component diet at 12 months.'] ] },
+
+{ t:'Meal prep and making a plan stick', i:'🍱',
+what:'What the evidence supports about building meals and adhering to a plan — the part of nutrition that decides outcomes more than diet choice does.',
+signs:'Asked as "meal prep ideas", "what diet should I follow", "how do I stop falling off".',
+prot:[ 'Adherence predicts the result; the diet does not. Across four popular diets, weight loss correlated with self-reported adherence at 0.60 and with diet assignment at 0.07.',
+'Simpler plans hold up surprisingly well: a single fibre-focused goal lost 2.1 kg against 2.7 kg for a full multi-component diet at 12 months.',
+'Energy density is the strongest lever for a meal that satisfies. The biggest reducers of energy density lost 5.9 kg against 2.4 kg while eating about 300 g MORE food per day.',
+'Portioning a problem food beat avoiding it entirely over a year.' ],
+rule:'Build meals around high-volume, lower-energy-density foods and a protein anchor, then pick the structure you will actually repeat. The structure you keep beats the optimal one you abandon.',
+avoid:'Diet breaks split by population and are worth selling honestly: two-week blocks doubled fat loss in men with obesity, but the same structure gave NO body-composition advantage in resistance-trained adults — only lower hunger and greater satisfaction. That makes them an adherence tool, not a metabolic one.',
+ev:'The honest limit on this whole topic: NO trial has ever tested meal prepping itself — batch-cooking, pre-portioning — as an intervention. The meal-planning and home-cooking evidence is cross-sectional and confounded, so what can be said is what planners’ diets look like, not that planning caused it. The adherence literature is also almost entirely from clinical weight-management samples rather than trained or physique populations. Protein-quality and leucine claims rest on acute synthesis surrogates, and the one medium-term trial that matched total protein at 1.6 g/kg/day found the source irrelevant.',
+src:[ ['32635174','Behavioural weight-loss programmes that use smartphone or other mobile self-monitoring of diet and activity produce moderately greater weight loss AND higher adherence than the same…'],
+['15632335','Across four popular diets with very different structures, how much weight someone lost tracked how well they adhered, not which diet they were assigned to; overall adherence was low in…'],
+['11348556','When people record their own intake they systematically under-report it against objectively measured energy expenditure, and the size of the error varies with body size, dietary restraint…'],
+['33599941','When total protein is held at 1.6 g per kg per day, protein source stops mattering for training outcomes: over 12 weeks of supervised resistance training an exclusively plant-based diet…'],
+['15159224','Energy density and portion size raise intake independently and additively, and the two stack: the biggest portion of the more energy-dense entree drove 56% more energy intake than the…'],
+['17490955','In a real behavioural trial, the third of participants who cut their diet\'s energy density the most lost 5.9 kg versus 2.4 kg in the third who cut it least - and they did it while eating…'],
+['32234531','For the tempting foods people find hardest to control, portioning beats banning: over a year, women who more often ate a limited portion of a problem food lost weight faster, while the…'],
+['31105044','How food is processed changes how much of it people eat even when the numbers on the plan are identical: with meals matched for presented calories, energy density, macronutrients, sugar,…'],
+['30621363','Soluble fibres are not interchangeable for appetite control: pooled effects on post-meal energy intake were largest for guar gum and smallest for pectin, with the doses that worked being…'],
+['23885994','Adding fibre is a much less reliable fullness lever than it is usually sold as: across 107 acute treatments only 39% significantly reduced subjective appetite and only 22% reduced food or…'],
+['25686165','A deliberately simplified plan can be nearly as effective as a complex one: being told only to eat more fibre produced 2.1 kg of weight loss at 12 months versus 2.7 kg for the full…'],
+['28925405','Splitting a diet into two-week blocks of restriction alternating with two-week blocks of eating at maintenance produced substantially more weight and fat loss than the same restriction run…'],
+['33587549','In resistance-trained adults, that same intermittent structure did NOT improve fat loss or fat-free-mass retention over 12 weeks of restriction - fat mass, fat-free mass, strength,…'],
+['25056502','The per-meal protein dose that maximally stimulates muscle protein synthesis scales with body size rather than being a fixed number of grams: roughly 0.24 g per kg of body mass in young…'],
+['24284442','Leucine content, not just total grams of protein, drives the acute muscle-building signal: a small 6.25 g whey dose fortified to 5.0 g total leucine stimulated muscle protein synthesis…'],
+['34515966','Plant proteins generally trigger a smaller acute muscle protein synthesis response than animal proteins, mainly because of lower digestibility, greater splanchnic extraction and a lower…'],
+['33630880','A single one-week diet break at estimated maintenance calories, taken after 12 weeks of dieting, lowered hunger, desire to eat and irritability and raised fullness, satisfaction and…'],
+['28153017','Planning meals ahead is associated with a more varied, more guideline-adherent diet and lower odds of obesity - 57% of a very large French cohort planned at least occasionally - but the…'],
+['33467235','A two-consecutive-day weekly higher-carbohydrate refeed inside a roughly 25% deficit produced the same body-weight and fat loss as continuous restriction over 7 weeks; the trial\'s authors…'],
+['33467300','That refeed result should be treated as unresolved: an independent reanalysis published as a formal comment concluded that only dry fat-free mass actually differed between the refeed and…'] ] }
+];
+
 /* ===== REHAB: musculoskeletal load guidance =====
    Separate from SIDEFX on purpose. A side effect is something a compound did
    to you; a tendon is something you have to keep loading correctly whether or
