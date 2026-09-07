@@ -1,7 +1,16 @@
 {
  "version": 1,
- "count": 88,
+ "count": 218,
  "sources": [
+  {
+   "id": "pmid-11715139",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/11715139/",
+   "title": "[Anabolic steroids and gynecomastia. Review of the literature]",
+   "note": "PMID 11715139 resolves to exactly this work: de Luis DA, Aller R, Cuellar LA, Terroba C, Romero E, An Med Interna 2001 Sep — a Spanish-language review with a case report. Abstract seen in results notes high gynecomastia prevalence (52%) among heavy anabolic steroid users, few studies in this population, and a single case of bilateral gynecomastia with only a partial response to tamoxifen. Supports",
+   "topic": "serms-gyno",
+   "tier": "community",
+   "citedBy": []
+  },
   {
    "id": "sciencedirect-abea5af3",
    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0960076015301643",
@@ -12,6 +21,15 @@
    ]
   },
   {
+   "id": "pmid-20096638",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/20096638/",
+   "title": "A comparison of anastrozole and testosterone versus placebo and testosterone for treatment of sexual dysfunction in men with epilepsy and hypogonadism (Herzog AG et al., Epilepsy & Behavior, Feb 2010)",
+   "note": "Real paper, PMID 20096638 matches the cited title exactly; also on ScienceDirect (S1525505009006799). Visible abstract confirms nearly every specific in the claim: prospective, randomized, double-blind; forty men with focal epilepsy, hyposexuality and hypogonadism randomized 1:1 to depotestosterone + anastrozole vs depotestosterone + placebo; 3-month treatment trial. Findings seen: bioactive T did",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "lipidjournal-a3f328bc",
    "url": "https://www.lipidjournal.com/article/S1933-2874(24)00033-3/fulltext",
    "title": "A focused update to the 2019 NLA scientific statement on use of lipoprotein(a) in clinical practice. Journal of Clinical Lipidology, 2024.",
@@ -19,6 +37,15 @@
    "citedBy": [
     "markers/lipoprotein-a/"
    ]
+  },
+  {
+   "id": "pmid-21134732",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/21134732/",
+   "title": "A qualitative systematic review of the evidence base for non-cross-resistance between steroidal and non-steroidal aromatase inhibitors in metastatic breast cancer (DARE structured abstract)",
+   "note": "Real. NBK81846 is the genuine CRD/DARE quality-assessed structured abstract on NCBI Bookshelf. The underlying paper is Beresford M, Tumur I, Chakrabarti J, et al., Clin Oncol (R Coll Radiol) 2011 — PMID 21134732, ScienceDirect PII S0936655510004516; that PubMed record is the better identifier and is what I would cite. Abstract seen: Medline/Embase/Cochrane searched, studies of cross-resistance, ef",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "pmc-2151312",
@@ -42,12 +69,14 @@
    "id": "myadlm-d1487862",
    "url": "https://myadlm.org/advocacy-and-outreach/optimal-testing-guide-to-lab-test-utilization/a-f/estradiol-testing-in-men",
    "title": "ADLM (formerly AACC), Optimal Testing: Estradiol Testing in Men",
-   "note": "Recommends LC/MS-based measurement in men and advises against immunoassay at low concentrations.",
+   "note": "Real ADLM (formerly AACC) Optimal Testing Guide page; the cited URL is the exact one that surfaced in results, and sibling index pages (Optimal Testing Guide Articles A-F) corroborate it. Visible text supports the core claim: estradiol in men and children 'should be performed by a sensitive liquid chromatography-tandem mass spectrometry (LC/MS)-based assay' and 'immunoassay-based estradiol tests p",
    "citedBy": [
     "markers/estradiol-sensitive-vs-standard/",
     "markers/lh-fsh/",
     "markers/total-testosterone-immunoassay-vs-lcms/"
-   ]
+   ],
+   "topic": "ai-protocols",
+   "tier": "clinical"
   },
   {
    "id": "thyroid-8a645bee",
@@ -68,6 +97,24 @@
    ]
   },
   {
+   "id": "pmid-19481335",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/19481335/",
+   "title": "An open, randomised, multicentre, phase 3 trial comparing the efficacy of two tamoxifen schedules in preventing gynaecomastia induced by bicalutamide monotherapy in prostate cancer patients",
+   "note": "PMID 19481335 resolves to this exact title (Bedognetti et al., European Urology 2010;57(2):238-45). Abstract text seen in results: gynaecomastia in 31.7% (daily tamoxifen 20 mg) vs 74.4% (weekly 20 mg), p<0.0001; mastalgia 12.2% vs 46.1%, p=0.001; conclusion that 20 mg/wk is inferior to 20 mg/d. So it supports 'prophylactic tamoxifen 20 mg/day reduces breast events' — but note the comparator is we",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-12404296",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12404296/",
+   "title": "An overview of the pharmacology and pharmacokinetics of the newer generation aromatase inhibitors anastrozole, letrozole, and exemestane",
+   "note": "PMID 12404296 resolves to this exact title; Buzdar AU, Robertson JF, Eiermann W, et al., Cancer 2002;95(9):2006-16 (DOI 10.1002/cncr.10908). Abstract text seen: plasma half-lives of anastrozole 1 mg/d, letrozole 2.5 mg/d and exemestane 25 mg/d were 41-48 hours, 2-4 days and 27 hours; time to steady-state plasma levels was 7 days for anastrozole and exemestane and 60 days for letrozole. The 41-48 h",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "sciencedirect-03e5dece",
    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0960076023000833",
    "title": "Analytical variation concerning total 25-hydroxyvitamin D measurement, where are we now? A DEQAS review of current assay performance. J Steroid Biochem Mol Biol (2023)",
@@ -77,6 +124,15 @@
    ]
   },
   {
+   "id": "academic-5ec5a50b",
+   "url": "https://academic.oup.com/jes/article/8/10/bvae141/7742262",
+   "title": "Anastrozole vs Letrozole to Augment Height in Pubertal Males With Idiopathic Short Stature: A 3-Year Randomized Trial",
+   "note": "Fully confirmed at the cited URL: Zegarra W, Ranadive S, Toulan D, Neely EK, Journal of the Endocrine Society 2024;8(10):bvae141 — author list, journal, volume, issue and article number all match exactly as cited. Abstract text seen: open-label randomized trial at Stanford Pediatric Endocrine Clinic; 79 pubertal males >=10 years with bone age 10",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "accessdata-7bdf8c95",
    "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2007/021015s019s020lbl.pdf",
    "title": "AndroGel (testosterone gel) US prescribing information, US Food and Drug Administration.",
@@ -84,6 +140,24 @@
    "citedBy": [
     "markers/dht/"
    ]
+  },
+  {
+   "id": "drugs-be2ef459",
+   "url": "https://www.drugs.com/history/androxal.html",
+   "title": "Androxal (enclomiphene): What is it and is it FDA approved? — Drugs.com",
+   "note": "Real page at the exact cited URL. Content seen supports every element of the claim: Androxal/enclomiphene is not FDA approved; Repros Therapeutics received a Complete Response Letter in December 2015; the FDA said the phase 3 design was no longer adequate and asked for an additional phase 3 study or studies; Repros never resubmitted and the programme was shelved. Independently corroborated by the",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "urotoday-2708b706",
+   "url": "https://www.urotoday.com/conference-highlights/apccc-2024/151566-apccc-2024-gynecomastia-how-to-assess-and-treat.html",
+   "title": "APCCC 2024: Gynecomastia – How to Assess and Treat?",
+   "note": "Real page, URL matches exactly. UroToday coverage of the 2024 Advanced Prostate Cancer Consensus Conference, presentation by Dr. Lisa Horvath; a companion video lecture also exists on UroToday. Visible summary covers distinguishing true gynecomastia from chest fat (nodular mass, nipple/areola enlargement, tenderness), ultrasound/mammogram assessment, and compares preventive approaches with tamoxif",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "doi-10-7326-0003-4819-121-4-199408150-00002",
@@ -104,6 +178,60 @@
    ]
   },
   {
+   "id": "pfizermedical-ebb39910",
+   "url": "https://www.pfizermedical.com/aromasin/clinical-pharmacology",
+   "title": "AROMASIN (exemestane) 12 CLINICAL PHARMACOLOGY | Pfizer Medical - US",
+   "note": "The page is real and live at exactly the cited URL (sibling pages /aromasin, /aromasin/clinical-studies, /patient/aromasin/clinical-pharmacology also exist). The snippet text I could see covers mechanism of action, metabolism (CYP3A4 oxidation at the 6-methylene position, 17-keto reduction, metabolites inactive or far less potent) and lack of CYP inhibition — none of which speaks to male dose-find",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-17079446",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/17079446/",
+   "title": "Aromatase Destabilizer: Novel Action of Exemestane, a Food and Drug Administration-Approved Aromatase Inhibitor",
+   "note": "Real. Wang X, Chen S, Cancer Res 2006;66(21):10281-10286; volume/issue/page and the AACR article URL all match. Better identifier for the app: PMID 17079446. Abstract seen: exemestane, unlike letrozole and anastrozole, destabilises aromatase protein — dose-responsive degradation (25-200 nmol/L) visible by 2 h, aromatase half-life cut from 28.2 h to 12.5 h at 200 nmol/L, blocked by the proteasome i",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-35321462",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/35321462/",
+   "title": "Aromatase inhibitor-associated musculoskeletal pain: An overview of pathophysiology and treatment modalities",
+   "note": "Real: Grigorian N, Baumrucker SJ, SAGE Open Med 2022;10:20503121221078722, doi 10.1177/20503121221078722, PMID 35321462. Authors, journal and DOI all match the citation. Text seen states that AI-induced joint pain is frequently cited as the leading cause of premature discontinuation and that approximately 50% of patients report new-onset or worsening joint pain 1 year after starting therapy - dire",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "sciencedirect-157cc2b6",
+   "url": "https://www.sciencedirect.com/science/article/pii/S221126692500060X",
+   "title": "Aromatase inhibitors as a potential harm reduction strategy for men with low-normal testosterone at risk of non-prescribed androgen use",
+   "note": "Real. Exact title match at the cited PII on the first search. Published September 2025. The PII prefix S22112669 is Performance Enhancement & Health (Elsevier) — the same journal as the related 'Navigating non-medical androgen use: Towards a harm reduction paradigm' (S2211266924000252). No PubMed record surfaced, so the ScienceDirect link is the best identifier available; I could not independently",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "sciencedirect-b387cca6",
+   "url": "https://www.sciencedirect.com/science/article/pii/S2603924922000386",
+   "title": "Aromatase inhibitors in male: A literature review",
+   "note": "Real. Mohsen Korani, Medicina Clinica Practica, Vol 6 Issue 1, January 2023; the ScienceDirect PII S2603924922000386 in the cited URL is correct, and an open Elsevier PDF exists at elsevier.es/es-revista-medicina-clinica-practica-5-pdf-download-S2603924922000386. Visible abstract covers aromatase/CYP19A1 and AI use in men for late-onset hypogonadism, short stature/delayed puberty, obesity-associat",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "sciencedirect-e1adc3a8",
+   "url": "https://www.sciencedirect.com/science/article/pii/S2451965020300351",
+   "title": "Aromatase inhibitors in puberty",
+   "note": "The PII S2451965020300351 resolves to a real review: Hero M, Varimo T, Raivio T, 'Aromatase inhibitors in puberty', Current Opinion in Endocrine and Metabolic Research 2020;14:37-41. Existence and identifier confirmed. TIMELINE PROBLEM for the claim: this review was published in 2020 and therefore cannot be a source for the 79-male randomized anastrozole-vs-letrozole comparison reported by Zegarra",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "myadlm-70bb21d0",
    "url": "https://myadlm.org/advocacy-and-outreach/optimal-testing-guide-to-lab-test-utilization/t-z/vitamin-d",
    "title": "Association for Diagnostics &amp; Laboratory Medicine (ADLM), Optimal Testing: Guide to Lab Test Utilization — Vitamin D",
@@ -120,6 +248,24 @@
    "citedBy": [
     "markers/ferritin-and-iron-panel/"
    ]
+  },
+  {
+   "id": "pmc-4767354",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4767354/",
+   "title": "Battle of the sex steroids in the male skeleton: and the winner is…",
+   "note": "Real and correctly identified. JCI article 85006 = Thomas J. Weber (Duke), J Clin Invest 2016;126(3):829. Confirmed three ways: the PDF at jci.org/articles/view/85006/files/pdf surfaced with matching front matter, a PMC record exists (PMC4767354), and it has a Wikidata entry (Q36618570). Marked partly on support with a caveat the author should know: this is a COMMENTARY on a different Finkelstein",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-15238910",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15238910/",
+   "title": "Beneficial effects of raloxifene and tamoxifen in the treatment of pubertal gynecomastia - The Journal of Pediatrics",
+   "note": "Real, and the cited jpeds.com URL with PII S0022-3476(04)00319-1 surfaced verbatim. Lawrence SE, Faught KA, Vethamuthu J, Lawson ML; J Pediatr 2004;145(1):71-76 — authors, journal, year, volume and pages all as cited. PMID 15238910. Abstract text seen in results confirms the duration element of the claim directly: patients received reassurance alone or 'a 3- to 9-month course' of an estrogen recep",
+   "topic": "serms-gyno",
+   "tier": "off-label",
+   "citedBy": []
   },
   {
    "id": "pmid-28386638",
@@ -161,6 +307,15 @@
    ]
   },
   {
+   "id": "pathologyoutlines-a29e5176",
+   "url": "https://www.pathologyoutlines.com/topic/breastgynecomastia.html",
+   "title": "Breast - Gynecomastia (Pathology Outlines)",
+   "note": "Real and correctly identified. The exact cited URL appeared in results as a live Pathology Outlines topic page. Visible content supports the histology claim: a florid/early phase with irregular branching ducts, mild-to-moderate epithelial hyperplasia and cellular/myxoid/edematous periductal stroma; an intermediate phase mixing both patterns; and a late fibrous phase with collagenous stroma, less e",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-41440551",
    "url": "https://pubmed.ncbi.nlm.nih.gov/41440551/",
    "title": "Burzyńska M, Jankowski P, Banach M, Chudzik M. Is a single lipoprotein(a) measurement enough? Results from the STAR-Lp(a) study. Medical Sciences 2025;13(4):320.",
@@ -188,6 +343,33 @@
    ]
   },
   {
+   "id": "pmid-24407184",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/24407184/",
+   "title": "Challenges and improvements in testosterone and estradiol testing",
+   "note": "Real article, correctly identified: PMC3955326 = PMID 24407184, Asian Journal of Andrology 2014;16(2) (DOI 10.4103/1008-682x.122338). Visible abstract supports the general assay-accuracy claim — 'high degrees of accuracy and precision are not always met for testosterone and estradiol measurements', 'nonuniform assay calibration and lack of specificity being two major contributors to assay variabil",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-3615207",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3615207/",
+   "title": "Challenges to the measurement of estradiol: an Endocrine Society position statement",
+   "note": "Real: Rosner W, Hankinson SE, Sluss PM, Vesper HW, Wierman ME, J Clin Endocrinol Metab 2013;98(4):1376-87, PMID 23463657, free full text PMC3615207. First author, title, journal and PMID all match. Abstract seen supports the core claim directly: problems of inaccuracy are particularly found when measuring the low estradiol levels commonly seen in prepubertal children, postmenopausal women and MEN,",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "drugs-eb3bfc3c",
+   "url": "https://www.drugs.com/pro/chorionic-gonadotropin.html",
+   "title": "Chorionic Gonadotropin: Package Insert / Prescribing Information (drugs.com professional monograph)",
+   "note": "The monograph exists at the cited URL. Snippet returned both labelled male regimens verbatim: '500 to 1000 USP units 3 times a week for 3 weeks, followed by the same dose twice a week for 3 weeks' and '4000 USP units 3 times weekly for 6 to 9 months, following which the dosage may be reduced to 2000 USP units 3 times weekly for an additional 3 months' — matching the claim exactly. Note this is a r",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "nature-267d17c6",
    "url": "https://www.nature.com/articles/s41443-025-01025-6",
    "title": "Cilio S, et al. Post-finasteride syndrome — a true clinical entity? International Journal of Impotence Research, 2025.",
@@ -195,6 +377,15 @@
    "citedBy": [
     "markers/dht/"
    ]
+  },
+  {
+   "id": "pmid-19436016",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/19436016/",
+   "title": "Circulating Estradiol and Mortality in Men With Systolic Chronic Heart Failure",
+   "note": "Real: Jankowska EA et al., JAMA 2009;301(18):1892-1901, PMID 19436016. The JAMA fullarticle ID 183891 resolves to this exact article title in search results, so the cited URL is correct. Abstract/coverage seen confirms 501 men with stable systolic heart failure, mean age 58, mean LVEF 28%, 3-year mortality 34%, and that both high and low estradiol quintiles versus the middle quintile were associat",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "academic-4c483a2e",
@@ -215,6 +406,78 @@
    ]
   },
   {
+   "id": "accessdata-1b7b652e",
+   "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2012/016131s026lbl.pdf",
+   "title": "Clomid (clomiphene citrate tablets USP) label — accessdata.fda.gov, 2012 supplement s026",
+   "note": "The exact URL resolves in search results to the real FDA label PDF for NDA 016131 supplement 026 (2012). Snippet text seen confirms the female-only framing — 'CLOMID has been demonstrated to be a useful therapy for the anovulatory patient desiring pregnancy', 50 mg daily for 5 days, 50 mg per tablet — which supports the claim that the indication is ovulation induction in women only, hence all male",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "opss-b90b8eb5",
+   "url": "https://www.opss.org/article/clomiphene-and-enclomiphene-drugs-not-dietary-supplements",
+   "title": "Clomiphene and Enclomiphene: Drugs, Not Dietary Supplements — Operation Supplement Safety (US DoD)",
+   "note": "Real page at the exact cited URL. Text seen states plainly 'By itself, enclomiphene has not been approved by FDA for any use', that both substances are drugs rather than dietary supplement ingredients, that they are on the DoD Prohibited Dietary Supplement Ingredients List and clomiphene is on the WADA Prohibited List (Section 4, Hormone and Metabolic Modulators), and that they are nonetheless sol",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "doi-10-1111-bju-14401",
+   "url": "https://bjui-journals.onlinelibrary.wiley.com/doi/10.1111/bju.14401",
+   "title": "Clomiphene citrate and human chorionic gonadotropin are both effective in restoring testosterone in hypogonadism: a short-course randomized study",
+   "note": "Real work; Habous et al., BJU International 2018;122(5):889-897, DOI 10.1111/bju.14401 — journal, year, volume and page range all match the citation. Visible abstract: 282 hypogonadal men wishing to preserve fertility randomised to CC 50 mg (n=95), hCG 5000 IU twice weekly (n=94), or both (n=94); testosterone rose at 1 and 3 months in all three arms, and the authors conclude single-agent CC 'seems",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "sciencedirect-26073fee",
+   "url": "https://www.sciencedirect.com/science/article/pii/S221126692400015X",
+   "title": "Clomiphene citrate and optional human chorionic gonadotropin for treating male hypogonadism arising from long-term anabolic-androgenic steroid use—A pilot study (2024)",
+   "note": "Real work, ScienceDirect PII matches exactly; this is the results paper for the CloTASH protocol in citation [4]. Abstract seen states the treatment verbatim as the claim describes it: '25 mg clomiphene citrate every second day for 16 weeks, transdermal testosterone daily during the first four weeks, and if indicated, human chorionic gonadotropin injections for a maximum of eight weeks', in AAS-de",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-42387872",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42387872/",
+   "title": "Clomiphene Citrate in off-Label Post-Cycle Therapy: Mechanisms, Efficacy and Diagnostic Challenges in Endocrine Recovery Following Anabolic Steroid Use",
+   "note": "Real and correctly identified. Bandura et al., Andrology; DOI 10.1111/andr.70306 matches the cited Wiley URL; PMID 42387872. Visible abstract text: anabolic steroid-induced hypogonadism follows prolonged HPG suppression; PCT is 'often pursued through unsupervised use' of SERMs, hCG and AIs; clomiphene is the most commonly employed off-label agent 'yet its clinical efficacy, safety and optimal moni",
+   "topic": "pct",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-12510335",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12510335/",
+   "title": "Clomiphene or enclomiphene citrate for the treatment of male hypogonadism: a systematic review and meta-analysis of randomized controlled trials — Arch Endocrinol Metab 2025;69(5)",
+   "note": "Confirmed at the cited publisher URL and independently in PMC (PMC12510335). Journal, year and volume/issue all match: Archives of Endocrinology and Metabolism 2025, vol 69 no 5. Abstract corroborates the claim's figures exactly: ten randomised controlled trials, 819 patients, total testosterone mean difference +273.76 ng/dL (95% CI 191.87-355.66, p<0.01) versus placebo, plus LH +4.66 IU/L and FSH",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-39483570",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39483570/",
+   "title": "Clomiphene-Induced Portal Vein Thrombosis and Superior Mesenteric Venous Thrombosis (Cureus, 2024)",
+   "note": "Real case report; PMC11526769 matches the title exactly. Published in Cureus, also indexed as PMID 39483570 (a better/stabler identifier than the PMC link). Abstract seen: 32-year-old man, portal vein and superior mesenteric venous thrombosis after three months of clomiphene for infertility, no other hypercoagulable condition, treated with anticoagulation; described as the first reported case link",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "doi-10-1111-jsm-12320",
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/jsm.12320",
+   "title": "Coadministration of Anastrozole Sustains Therapeutic Testosterone Levels in Hypogonadal Men Undergoing Testosterone Pellet Insertion (Mechlin CW, Frankel J, McCullough A; J Sex Med 2014;11(1):254-261)",
+   "note": "Real paper, DOI 10.1111/jsm.12320 matches the cited URL; also indexed at ScienceDirect (S1743609515305555) and generated a European Urology 'Words of Wisdom' commentary (PMID 25587593). Visible text confirms the exact numbers in the claim: single-center RETROSPECTIVE study of 38 hypogonadal men across 65 pellet insertions; 12 men were offered oral anastrozole 1 mg daily at insertion; men on pellet",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "sciencedirect-1b17ed77",
    "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743609515311565",
    "title": "Comparison of the Steady-State Pharmacokinetics, Metabolism, and Variability of a Transdermal Testosterone Patch Versus a Transdermal Testosterone Gel in Hypogonadal Men. The Journal of Sexual Medicine.",
@@ -222,6 +485,33 @@
    "citedBy": [
     "markers/dht/"
    ]
+  },
+  {
+   "id": "doi-10-1016-j-juro-2012-09-043",
+   "url": "https://www.auajournals.org/doi/10.1016/j.juro.2012.09.043",
+   "title": "Concomitant Intramuscular Human Chorionic Gonadotropin Preserves Spermatogenesis in Men Undergoing Testosterone Replacement Therapy — Hsieh, Pastuszak, Hwang, Lipshultz, J Urol 2013;189:647-650",
+   "note": "Real and correctly identified: J Urol 2013, vol 189, pages 647-650, DOI 10.1016/j.juro.2012.09.043, authors Hsieh T, Pastuszak AW, Hwang K, Lipshultz LI. Abstract confirms that no patient became azoospermic during concomitant TRT plus low-dose hCG and that 9 of 26 men contributed to a pregnancy. Support is only partial because the claim text attached to this citation describes the Coviello randomi",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-11003819",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11003819/",
+   "title": "Current and future advances in practice: aromatase inhibitor-induced arthralgia",
+   "note": "Real: Kim S, Chen N, Reid P, Rheumatol Adv Pract 2024;8(2):rkae024, PMID 38601139, PMC11003819. Journal, volume, issue and article ID all match. Abstract seen reports a mean AI-induced arthralgia incidence of 39.1% - inside the claim's 35-50% range - plus risk factors (shorter time since last menstrual period, pre-existing joint pain) and that most AIAs were non-inflammatory. However it reports me",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "dailymed-6899975b",
+   "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e8b6cbe0-c1f4-4678-b852-f629a7f6a1b5",
+   "title": "DailyMed - RALOXIFENE HYDROCHLORIDE tablet, film coated",
+   "note": "Real. A domain-restricted search of dailymed.nlm.nih.gov returned this exact setid URL under the title 'RALOXIFENE HYDROCHLORIDE tablet, film coated', matching the citation exactly. Label content seen in results: raloxifene hydrochloride 60 mg film-coated tablets; indicated as an estrogen agonist/antagonist for treatment and prevention of osteoporosis in postmenopausal women and reduction of invas",
+   "topic": "serms-gyno",
+   "tier": "off-label",
+   "citedBy": []
   },
   {
    "id": "pmid-34849724",
@@ -249,6 +539,24 @@
    "citedBy": [
     "markers/lipoprotein-a/"
    ]
+  },
+  {
+   "id": "pmc-6517163",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6517163/",
+   "title": "Diagnosis and Management of Anabolic Androgenic Steroid Use",
+   "note": "Confirmed directly on PMC: PMC6517163 is the free full text of the same JCEM 2019;104(7):2490-2500 article by Anawalt BD cited at [10] — the identifier and the work match. Visible text: 'AAS use occurs primarily in male elite athletes and men who want a muscular appearance' and 'the evidence for effective, safe management of AAS cessation and withdrawal is weak.' Same source as [10], so citing bot",
+   "topic": "ai-protocols",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "academic-f7ee06cc",
+   "url": "https://academic.oup.com/jcem/article/104/7/2490/5310131",
+   "title": "Diagnosis and Management of Anabolic Androgenic Steroid Use (Anawalt BD, JCEM 2019;104(7):2490-2500)",
+   "note": "Real article, correctly identified: cited Oxford Academic URL, volume 104, issue 7, page 2490 all match; July 2019 JCEM; author Anawalt BD. Search surfaced text matching the claim closely: aromatase inhibitors combined with AAS to prevent gynecomastia have 'not been shown to be proven effective', and for men using an AI to prevent AAS-related gynecomastia the decreased estradiol production is like",
+   "topic": "ai-protocols",
+   "tier": "community",
+   "citedBy": []
   },
   {
    "id": "ashpublications-7147b82f",
@@ -279,6 +587,96 @@
    ]
   },
   {
+   "id": "pmid-33550376",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33550376/",
+   "title": "Disruption and recovery of testicular function during and after androgen abuse: the HAARLEM study",
+   "note": "Real work; Smit, Buijs, de Hon, den Heijer & de Ronde, Human Reproduction 2021;36(4):880-890, DOI 10.1093/humrep/deaa366 — the cited OUP URL (36/4/880) matches exactly. Visible abstract text: 'Testosterone concentrations normalized within 3 months after discontinuation of androgen abuse in most subjects but recovery of spermatogenesis took longer - approximately 1 year', and endogenous testosteron",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-35660259",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/35660259/",
+   "title": "Doping with aromatase inhibitors and oestrogen receptor modulators in steroid users: Analysis of a forum to identify dosages, durations and adverse drug reactions",
+   "note": "Real. Rochoy M, Danel A, Chazard E, Gautier S, Berkhout C. Therapie, April 2022. The ScienceDirect PII S0040595722000646 surfaced in results under this exact title, and the DOI/journal (Therapie, Elsevier) is consistent. Abstract text seen in results matches the claim's numbers precisely: 1792 posts total, 845 SERM, 571 AI, 2180 drugs used, population exclusively male, mean age 28.2 +/- 6.3 years,",
+   "topic": "serms-gyno",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-31099174",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31099174/",
+   "title": "EAA clinical practice guidelines—gynecomastia evaluation and management",
+   "note": "Real work, DOI and attribution correct. Kanakis GA, Nordkap L, Bang AK, Calogero AE, Bártfai G, Corona G, Forti G, Toppari J, Goulis DG, Jørgensen N. Andrology. 2019 Nov;7(6):778-793, DOI 10.1111/andr.12636, PMID 31099174, free full text; European Academy of Andrology guideline released May 2019. Only definitional abstract text was visible ('benign proliferation of glandular tissue of the breast i",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-14556812",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/14556812/",
+   "title": "Effectiveness of combined tamoxifen citrate and testosterone undecanoate treatment in men with idiopathic oligozoospermia (Adamopoulos et al., Fertil Steril 2003;80(4):914-20)",
+   "note": "Real paper; PMID 14556812 matches title, journal and year (DOI 10.1016/s0015-0282(03)01123-3). Abstract seen: prospective randomised placebo-controlled trial, 212 men with idiopathic oligozoospermia, tamoxifen citrate 20 mg/day PLUS testosterone undecanoate 120 mg/day (n=106) vs placebo for 6 months, improving sperm variables and pregnancy rate. It supports 20 mg/day as an established tamoxifen do",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-24636210",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/24636210/",
+   "title": "Effects of adjuvant exemestane versus anastrozole on bone mineral density for women with early breast cancer (MA.27B): a companion analysis of a randomised controlled trial",
+   "note": "Real. PMID 24636210 matches; Lancet Oncol 2014, DOI 10.1016/S1470-2045(14)70035-X, companion analysis of NCIC CTG MA.27, also indexed at Mayo Clinic Pure and ScienceDirect (PII S147020451470035X). Abstract seen: the trial's stated hypothesis was exactly the one the claim attacks — that exemestane, 'a mildly androgenic steroid, might have a less detrimental effect on bone than non-steroidal anastro",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-28258581",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/28258581/",
+   "title": "Effects of Anabolic Androgenic Steroids on the Reproductive System of Athletes and Recreational Users: A Systematic Review and Meta-Analysis",
+   "note": "Real work; PMID 28258581 matches (Christou et al., Sports Medicine 2017;47(9):1869-1883, DOI 10.1007/s40279-017-0709-z). Visible abstract: 26 studies, 963 participants, median AAS intake 16 weeks; gonadotropins and testosterone fell during use and gradually returned to normal after cessation, with the majority of users showing hypogonadism and persistently low gonadotropins and testosterone for se",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-15001605",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15001605/",
+   "title": "Effects of Aromatase Inhibition in Elderly Men with Low or Borderline-Low Serum Testosterone Levels",
+   "note": "Real work, correctly identified: Leder BZ et al., J Clin Endocrinol Metab 2004;89(3):1174-1180. The cited Oxford Academic URL (article-abstract/89/3/1174/2844209) is the publisher record for exactly this paper. Abstract text seen: 37 elderly men aged 62-74 with screening testosterone <350 ng/dl; anastrozole 1 mg daily (n=12) or 1 mg twice weekly (n=11) for 12 weeks; total T rose 343+/-61 to 572+/-",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-18616708",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18616708/",
+   "title": "Effects of aromatase inhibition in hypogonadal older men: a randomized, double-blind, placebo-controlled trial",
+   "note": "Real: Burnett-Bowie et al., Clin Endocrinol (Oxf), PMID 18616708, doi 10.1111/j.1365-2265.2008.03327.x. Title and PMID match exactly. IMPORTANT CAVEAT: the abstract of THIS paper covers 88 men aged >=60 on anastrozole 1 mg daily for 1 year and reports that testosterone rose, estradiol fell modestly, and body composition, strength, PSA, BPH symptoms, hematocrit and lipids did not change. It does NO",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-19820017",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/19820017/",
+   "title": "Effects of Aromatase Inhibition on Bone Mineral Density and Bone Turnover in Older Men with Low Testosterone Levels",
+   "note": "Real and correctly identified. J Clin Endocrinol Metab 2009;94(12):4785 — volume, issue, page and year all match; PMID 19820017. Cited Oxford Academic URL resolved as an exact match. Abstract seen in results supports the claim closely: 1-year double-blind randomized placebo-controlled trial, 69 men aged 60+ with low/borderline testosterone, anastrozole 1 mg daily; testosterone rose 319 to 524 ng/d",
+   "topic": "serms-gyno",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "doi-10-1111-andr-12126",
+   "url": "https://onlinelibrary.wiley.com/doi/10.1111/andr.12126",
+   "title": "Effects of aromatase inhibition vs. testosterone in older men with low testosterone: randomized-controlled trial (Dias JP et al., Andrology 2016;4(1):33-40)",
+   "note": "Real trial, DOI 10.1111/andr.12126 matches the cited URL exactly; registered as NCT00104572. Design confirmed in results: men >=65 with total T <350 ng/dL randomized to 5 g transdermal testosterone gel vs anastrozole 1 mg vs placebo daily for 12 months (roughly 43 men, ~16/14/13 per arm). Directly supports the 'AI MONOTHERAPY, not add-on' framing — T rose and E2 fell in the AI arm, in men NOT on e",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "academic-e4d72e39",
    "url": "https://academic.oup.com/jcem/article/101/9/3251/2806423",
    "title": "Elston MS, Sehgal S, Du Toit S, Yarndley T, Conaglen JV, Factitious Graves' Disease Due to Biotin Immunoassay Interference — A Case and Review of the Literature, J Clin Endocrinol Metab 101(9):3251–3255 (2016)",
@@ -288,6 +686,42 @@
    ]
   },
   {
+   "id": "pmid-25044085",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/25044085/",
+   "title": "Enclomiphene citrate stimulates testosterone production while preventing oligospermia: a randomized phase II clinical trial comparing topical testosterone (Wiehle et al., Fertil Steril 2014;102(3):720-7)",
+   "note": "Real trial, article ID in the URL matches. Better identifier: PMID 25044085. Abstract text seen supports the claim's contrast directly — enclomiphene raised morning testosterone, estradiol and LH similarly to topical testosterone gel, raised FSH and LH, and 'maintained sperm concentration in the normal range over the treatment period, while there was a marked reduction in spermatogenesis in the te",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-7547212",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/7547212/",
+   "title": "Endocrinological and clinical evaluation of exemestane, a new steroidal aromatase inhibitor",
+   "note": "Real. PMC2034036 resolves to Zilembo N et al., Br J Cancer 1995;72(4):1007-1012; PMID 7547212 (also nature.com/articles/bjc1995451). Abstract seen: exemestane (FCE 24304) described as 'an androstenedione derivative ... orally active irreversible aromatase inhibitor'; 56 postmenopausal advanced breast cancer patients at 25, 12.5, 5 and 2.5 mg/day; after 7 days mean estrone and estradiol fell 64% an",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "omim-d7d770bc",
+   "url": "https://www.omim.org/entry/613546",
+   "title": "Entry - #613546 - AROMATASE DEFICIENCY",
+   "note": "Real database entry, number matches the title cited. OMIM #613546 is indeed AROMATASE DEFICIENCY, caused by homozygous or compound heterozygous CYP19A1 (OMIM 107910) mutation on 15q21. Visible summary text describes the inability to synthesize endogenous estrogens, fetal/maternal virilization, and pseudohermaphroditism in affected females — it confirms the condition exists and its genetic basis, b",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-8090165",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/8090165/",
+   "title": "Estrogen resistance caused by a mutation in the estrogen-receptor gene in a man",
+   "note": "Real and correctly identified. Smith EP, Boyd J, Frank GR, Takahashi H, Cohen RM, Specker B, Williams TC, Lubahn DB, Korach KS. N Engl J Med 1994 Oct 20;331(16):1056-1061. DOI 10.1056/NEJM199410203311604 matches the cited URL; PMID 8090165. Visible abstract text: 28-year-old man with homozygous C-to-T transition at codon 157 of the estrogen-receptor gene producing a premature stop codon, studied f",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "ema-9e971b3a",
    "url": "https://www.ema.europa.eu/en/documents/referral/finasteride-dutasteride-containing-medicinal-products-article-31-referral-measures-minimise-risk-suicidal-thoughts_en.pdf",
    "title": "European Medicines Agency. Finasteride- and dutasteride-containing medicinal products: Article 31 referral — measures to minimise the risk of suicidal thoughts.",
@@ -295,6 +729,42 @@
    "citedBy": [
     "markers/dht/"
    ]
+  },
+  {
+   "id": "pmid-29601923",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/29601923/",
+   "title": "Evaluation and Management of Testosterone Deficiency: AUA Guideline",
+   "note": "Real guideline; the cited auanet.org PDF URL surfaced verbatim in results, and the guideline is also at auajournals.org (DOI 10.1016/j.juro.2018.03.115) and PubMed 29601923 (given as the more durable identifier). Visible text supports the claim closely: 'Clinicians may use aromatase inhibitors, human chorionic gonadotropin, selective estrogen receptor modulators, or a combination thereof in men wi",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-6859661",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6859661/",
+   "title": "Evaluation of gonadotropin-replacement therapy in male patients with hypogonadotropic hypogonadism — Asian Journal of Andrology 2019;21(6):623-627",
+   "note": "PMC6859661 is correct and resolves to this article; also on the publisher site at journals.lww.com/ajandrology (2019;21(6):623-627). Abstract confirms the general framework the claim borrows: 135 azoospermic men with idiopathic hypogonadotropic hypogonadism (2002-2012 retrospective), 112 diagnosed with low T, LH and FSH and normal prolactin, treated with LH and FSH analogues; sperm appeared in the",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-15681525",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15681525/",
+   "title": "Evaluation of Tamoxifen and Anastrozole in the Prevention of Gynecomastia and Breast Pain Induced by Bicalutamide Monotherapy of Prostate Cancer",
+   "note": "Real. Boccardo F, Rubagotti A, Battaglia M, et al., J Clin Oncol 2005; DOI 10.1200/JCO.2005.12.013 matches, and a Google Scholar lookup result explicitly pairs this DOI with PMID 15681525, so the identifier is correct. Abstract seen in results: double-blind placebo-controlled trial, N=114, bicalutamide 150 mg/d plus placebo vs tamoxifen 20 mg/d vs anastrozole 1 mg/d for 48 weeks; gynecomastia 73%",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "academic-7ad91abd",
+   "url": "https://academic.oup.com/ejendo/article/189/6/601/7475314",
+   "title": "Factors predicting normalization of reproductive hormones after cessation of anabolic-androgenic steroids in men: a single center retrospective study",
+   "note": "Real and correctly identified. Grant B, Campbell J, Pradeep A, Burns A, Bassett P, Abbara A, Saket P, Minhas S, Dhillo WS, McVeigh J, Bhasin S, Jayasena CN. Eur J Endocrinol 2023 Dec;189(6):601-610; DOI 10.1093/ejendo/lvad164. Volume, issue and page all match the cited URL. Visible abstract: retrospective study of 641 men attending a clinic 2015-2022; hormone normalization achieved in 48.2%; bioch",
+   "topic": "pct",
+   "tier": "community",
+   "citedBy": []
   },
   {
    "id": "pmc-7222281",
@@ -324,6 +794,15 @@
    ]
   },
   {
+   "id": "pmid-27532478",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/27532478/",
+   "title": "Former Abusers of Anabolic Androgenic Steroids Exhibit Decreased Testosterone Levels and Hypogonadal Symptoms Years after Cessation: A Case-Control Study",
+   "note": "Real. Rasmussen JJ et al., PLOS ONE 2016;11(8):e0161208, DOI 10.1371/journal.pone.0161208 — journal, year, volume and article number all match. PMID 27532478, PMC4988681, and the cited PLOS URL is a live open-access link. Abstract supports the general proposition the claim rests on: 37 current abusers, 33 former abusers (mean 2.5 years since cessation) and 30 controls; former abusers had significa",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "doi-10-3109-13685538-2013-835800",
    "url": "https://www.tandfonline.com/doi/full/10.3109/13685538.2013.835800",
    "title": "Free testosterone by direct and calculated measurement versus equilibrium dialysis in a clinical population, The Aging Male (2013)",
@@ -332,6 +811,51 @@
     "markers/free-vs-total-testosterone/",
     "markers/shbg/"
    ]
+  },
+  {
+   "id": "ncbi-de142904",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK537115/",
+   "title": "Galactorrhea — StatPearls (NCBI Bookshelf)",
+   "note": "Real chapter, Bookshelf ID correct. Authors Shiva Kumar Y. Gosi and Vishnu V. Garla; last updated 14 Aug 2023; also indexed at PMID 30725800. Visible text: galactorrhea is milk production unrelated to pregnancy or lactation (milk >1 year after cessation of breastfeeding counts); prolactin, estrogens and TRH affect milk production; causes split into hypothalamic-pituitary and non-hypothalamic-pitui",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "aafp-11a5e3f9",
+   "url": "https://www.aafp.org/pubs/afp/issues/2022/1200/galactorrhea.html",
+   "title": "Galactorrhea: Rapid Evidence Review",
+   "note": "Real work, URL matches exactly. American Family Physician 2022;106(6):695-700; also indexed on Ovid (00000405-202212000-00019) and available as a PDF at aafp.org/afp/2022/1200/galactorrhea.pdf. Abstract visible: galactorrhea defined as non-physiologic milk production, most often from hyperprolactinemia due to medications or pituitary microadenomas, less often hypothyroidism/renal failure/cirrhosis",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-26901812",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/26901812/",
+   "title": "Gonadal steroid-dependent effects on bone turnover and bone mineral density in men",
+   "note": "Real: Finkelstein JS, Lee H, Leder BZ, Burnett-Bowie SA, Yu EW et al., J Clin Invest 2016;126(3):1114-25. JCI article ID 84137 resolves to this exact paper; author list and journal/volume/page (126:1114) all match. Abstract text seen in results states directly that estradiol levels above 10 pg/mL and testosterone above 200 ng/dL were generally sufficient to prevent increases in bone resorption and",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-4767351",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4767351/",
+   "title": "Gonadal steroid-dependent effects on bone turnover and bone mineral density in men",
+   "note": "Same work as [1]; PMC4767351 is confirmed as the correct PMCID for Finkelstein et al., J Clin Invest 2016;126(3):1114-25 (PMID 26901812). Abstract seen supports the 10 pg/mL estradiol and 200 ng/dL testosterone thresholds and the goserelin-clamp design. Note this is a duplicate of citation [1] pointing at the same paper via a different host - fine, but the app may want to de-duplicate.",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-24024838",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/24024838/",
+   "title": "Gonadal Steroids and Body Composition, Strength, and Sexual Function in Men",
+   "note": "Real and correctly identified. Finkelstein JS, Lee H, Burnett-Bowie SM, Pallais JC, Yu EW, Borges LF, et al. N Engl J Med 2013;369:1011-1022, doi 10.1056/NEJMoa1206168, PMID 24024838. Cited URL resolved as an exact match. Abstract supports the claim including the sample size: 198 men aged 20-50 given goserelin plus placebo or graded testosterone gel, plus a second cohort of 202 men who additionall",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "academic-2b6a26ba",
@@ -350,6 +874,69 @@
    "citedBy": [
     "markers/apob-vs-ldl/"
    ]
+  },
+  {
+   "id": "abs-afeaac51",
+   "url": "https://abs.amegroups.org/article/view/6806/html",
+   "title": "Gynecomastia",
+   "note": "Real and correctly identified. The cited URL was the top result and resolves to 'Gynecomastia' by Nicole E. Sharp and Richard J. Bleicher, Annals of Breast Surgery, published online 30 September 2021, open access. Cited as '(Sharp, ...)' — accurate as first author, though the co-author Bleicher is omitted. Abstract support unknown: the visible result text confirms only that it is a review of gynec",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "emedicine-29e1b18e",
+   "url": "https://emedicine.medscape.com/article/120858-workup",
+   "title": "Gynecomastia Workup: Approach Considerations",
+   "note": "Real Medscape eMedicine page; the cited URL is the exact one that surfaced in results (article 120858, Workup section of the Gynecomastia topic). Content seen in results supports part of the panel: serum chemistry panel (renal/liver), free or total testosterone, LH, estradiol, DHEAS, plus TSH and free T4 if hyperthyroidism is suspected, with mammography and testicular ultrasound as imaging. It doe",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "frontiersin-03a8b736",
+   "url": "https://www.frontiersin.org/journals/pediatrics/articles/10.3389/fped.2022.978311/full",
+   "title": "Gynecomastia: A systematic review of pharmacological treatments",
+   "note": "Real and correctly identified. Berger O, Landau Z, Talisman R (2022) Front Pediatr 10:978311, doi 10.3389/fped.2022.978311, received 25 Jun 2022, accepted 05 Oct 2022, published 01 Nov 2022. Cited URL is the exact canonical Frontiers URL and appeared verbatim in results; also indexed on the Ben-Gurion University research portal. On the claim: a search snippet from the article itself states 'Tamoxi",
+   "topic": "serms-gyno",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "public-pages-files-2025-2432bba2",
+   "url": "https://public-pages-files-2025.frontiersin.org/journals/pediatrics/articles/10.3389/fped.2022.978311/pdf",
+   "title": "Gynecomastia: A systematic review of pharmacological treatments (Frontiers open-access PDF)",
+   "note": "Same work as [0], PDF rendition. The exact PDF URL appeared as a search result in two independent searches, with a snippet showing the article front matter ('EDITED BY Eli Hershkovitz, Soroka Medical Center, Israel — REVIEWED BY...'), confirming the file is live and is this paper. Same support assessment as [0]: the tamoxifen-vs-raloxifene study-count contrast is supported by visible text from the",
+   "topic": "serms-gyno",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "doi-10-1586-eem-11-57",
+   "url": "https://www.tandfonline.com/doi/full/10.1586/eem.11.57",
+   "title": "Gynecomastia: incidence, causes and treatment",
+   "note": "Real work, DOI correct. Deepinder F, Braunstein GD. Expert Rev Endocrinol Metab. 2011;6(6):723-730 (some indexes date it 2012), DOI 10.1586/eem.11.57. No PubMed/PMC record surfaced, so the Taylor & Francis link is the best identifier available. Abstract visible: benign glandular proliferation, peaks in the neonatal period, puberty and senescence, underlying pathophysiology an estrogen/androgen act",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-2770912",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2770912/",
+   "title": "Gynecomastia: Pathophysiology, Evaluation, and Management - Mayo Clinic Proceedings",
+   "note": "Real. The cited Mayo Clinic Proceedings URL with PII S0025-6196(11)60671-X surfaced verbatim under exactly the cited title. Authors are Johnson RE and Murad MH, Mayo Clin Proc 2009;84(11):1010-1015; free full text at PMC2770912 (its Table 1 also surfaced separately in results). Snippet text from this article directly supports the dosing claim: 'tamoxifen 10 to 20 mg orally twice a day for 3 to 9 m",
+   "topic": "serms-gyno",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-2199107",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/2199107/",
+   "title": "Gynecomastia. Treatment by liposuction subcutaneous mastectomy",
+   "note": "Real work, PMID correct. Dolsky RL, Dermatol Clin. 1990 Jul;8(3):469-478. Abstract visible: describes applying liposuction to the prepectoral region with three cannula types, 60 patients, no operative complications. Caution for the citing sentence — this 1990 paper emphasizes liposuction successfully reducing the tissue mound, and the visible abstract does NOT say glandular tissue is 'often imposs",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "academic-a9b68db3",
@@ -372,6 +959,15 @@
    ]
   },
   {
+   "id": "pmid-640052",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/640052/",
+   "title": "Hormonal Effects of an Antiestrogen, Tamoxifen, in Normal and Oligospermic Men",
+   "note": "Real and correctly identified: Fertility and Sterility 1978 Mar;29(3):320-327, PII S0015-0282(16)43160-2 matches the cited URL. Better identifier: PMID 640052. Abstract seen in results is a direct match for the claim's specifics: tamoxifen 20 mg/day for 10 days in normal males produced a moderate increase in LH, FSH, testosterone and estradiol, comparable to 150 mg clomiphene, and unlike clomiphen",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-29626044",
    "url": "https://pubmed.ncbi.nlm.nih.gov/29626044/",
    "title": "Houston BL, Hurrie D, Graham J, et al. Efficacy of iron supplementation on fatigue and physical capacity in non-anaemic iron-deficient adults: a systematic review of randomised controlled trials. BMJ Open, 8(4):e019240, 2018.",
@@ -379,6 +975,42 @@
    "citedBy": [
     "markers/ferritin-and-iron-panel/"
    ]
+  },
+  {
+   "id": "fertstert-cf7d1cd4",
+   "url": "https://www.fertstert.org/article/S0015-0282(24)01893-4/fulltext",
+   "title": "HPG AXIS RESPONSE TO HCG TREATMENT AFTER TESTOSTERONE INDUCED INFERTILITY",
+   "note": "Real and correctly identified — the PII S0015-0282(24)01893-4 resolves to exactly this Fertility and Sterility conference abstract. Visible text on a targeted follow-up search: at 3 months, 71.4% of patients showed continued LH suppression (<1 mIU/mL) and 64.3% continued FSH suppression (<1 mIU/mL); 'TRT patients continue to have pituitary suppression while on HCG after 3 and 6 months of treatment",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-40966237",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/40966237/",
+   "title": "Idiopathic hyperprolactinemia-associated hypogonadism in men presenting with normal testosterone levels",
+   "note": "Real work, DOI correct. PLOS One, published 18 Sep 2025, DOI 10.1371/journal.pone.0332871, PMID 40966237, PMC12445487. Abstract visible: retrospective analysis of 23 men with idiopathic hyperprolactinemia and normal testosterone (Jul 2019-Dec 2024, ~10% of hyperprolactinemic men; ~90% had the typical reduced testosterone); presenting symptoms were libido loss, erectile dysfunction and gynecomastia",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-11962791",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11962791/",
+   "title": "Illegal and falsified medicines self-administrated in not approved post-cycle therapy after the cessation of anabolic-androgenic steroids – qualitative analysis",
+   "note": "Real, PMC ID matches. Blazewicz A, Poplawska M, Daniszewska B, Piorunska K, Karynski M; Frontiers in Chemistry, 19 March 2025; DOI 10.3389/fchem.2025.1536858; also PMID 40177353. National Medicines Institute, Warsaw. The claim's three specific numbers were all visible in result text and all match: of the 63 PCT-declared samples, 33.3% indicated SERMs (tamoxifen, clomiphene), 25.4% indicated AIs (a",
+   "topic": "serms-gyno",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-9718379",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/9718379/",
+   "title": "Increased bone mass as a result of estrogen therapy in a man with aromatase deficiency",
+   "note": "Real and correctly identified. Bilezikian JP, Morishima A, Bell J, Grumbach MM. N Engl J Med 1998 Aug 27;339(9):599-603. DOI 10.1056/NEJM199808273390905 matches the cited URL; PMID 9718379. Visible result text: three-year conjugated-estrogen trial in a young man with severe aromatase deficiency; spinal bone mineral density increased and complete epiphyseal closure was achieved after nine months. S",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "pmc-4267409",
@@ -435,6 +1067,15 @@
    ]
   },
   {
+   "id": "dailymed-2c29fcca",
+   "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2ca373c1-4dba-4126-8616-5c533d606fe5",
+   "title": "Label: CLOMID- clomiphene citrate tablet — DailyMed",
+   "note": "The DailyMed setid resolves to the real CLOMID label page and surfaced in results with that exact URL and title. No label body text was visible in the snippet, so I cannot judge from what I saw whether the visual-blurring and ovulation-indication wording appears there — though it is the same label document as citation [1], which did show the female-only indication.",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmid-37848158",
    "url": "https://pubmed.ncbi.nlm.nih.gov/37848158/",
    "title": "Large method differences for free thyroid hormone assays in the hyperthyroid range can affect assessment of hyperthyroid status: comparison of Abbott Alinity to Roche Cobas, Siemens Centaur and equilibrium dialysis LC-MS/MS (PubMed 37848158)",
@@ -480,6 +1121,24 @@
    ]
   },
   {
+   "id": "pmid-15811136",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15811136/",
+   "title": "Letrozole normalizes serum testosterone in severely obese men with hypogonadotropic hypogonadism",
+   "note": "Real work at the cited DOI: de Boer H, Verschoor L, Ruinemans-Koerts J, Jansen M, Diabetes, Obesity and Metabolism 2005;7(3):211-215, DOI 10.1111/j.1463-1326.2004.00397.x, PMID 15811136 — here de Boer IS the first author, so the 'de Boer H et al.' attribution is correct for this one (unlike [6]/[7]). Abstract text seen confirms the claim's specifics: ten severely obese men, mean age 48.2+/-2.3, BM",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "academic-0bee827e",
+   "url": "https://academic.oup.com/ejendo/article-abstract/158/5/741/6676004",
+   "title": "Letrozole once a week normalizes serum testosterone in obesity-related male hypogonadism",
+   "note": "Real work: European Journal of Endocrinology 2008;158(5):741-747, DOI 10.1530/EJE-07-0663 — journal, volume, issue and first page all match the citation. AUTHORSHIP CORRECTION: the authors are Loves S, Ruinemans-Koerts J, de Boer H. The citation reads 'de Boer H et al.', which implies de Boer is first author; he is in fact the senior/last author. Cite as 'Loves et al.' (or 'Loves S, ... de Boer H'",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "aacrjournals-a645d379",
    "url": "https://aacrjournals.org/cebp/article/19/4/903/68242/Limitations-of-Direct-Immunoassays-for-Measuring",
    "title": "Limitations of Direct Immunoassays for Measuring Circulating Estradiol Levels in Postmenopausal Women and Men in Epidemiologic Studies, Cancer Epidemiol Biomarkers Prev 19(4):903 (2010)",
@@ -505,6 +1164,69 @@
    "citedBy": [
     "markers/dht/"
    ]
+  },
+  {
+   "id": "pmc-3616141",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3616141/",
+   "title": "Long-term efficacy and safety of exemestane in the treatment of breast cancer",
+   "note": "Real. PMC3616141 matches; published in Patient Prefer Adherence, DOI 10.2147/PPA.S42223 (Dovepress), also indexed at Manchester's research repository. Abstract seen covers efficacy (superiority to megestrol after tamoxifen, noninferiority to fulvestrant and to nonsteroidal AIs, adjuvant switch data, chemoprevention) and safety (myalgia/arthralgia, reduced BMD and fracture risk that appear to retur",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-15713727",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15713727/",
+   "title": "Low-Dose Human Chorionic Gonadotropin Maintains Intratesticular Testosterone in Normal Men with Testosterone-Induced Gonadotropin Suppression — Coviello et al., J Clin Endocrinol Metab 2005;90(5):2595-2602",
+   "note": "Fully matches: JCEM vol 90, issue 5, 1 May 2005, pages 2595-2602, DOI 10.1210/jc.2004-0802, first author Andrea D Coviello (Univ. of Washington), co-authors including Matsumoto and Bremner. Abstract confirms the claim's design: 29 men with normal reproductive physiology randomised to testosterone enanthate 200 mg weekly plus saline placebo or hCG 125, 250 or 500 IU every other day for 3 weeks; int",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "uroweb-8933b973",
+   "url": "https://uroweb.org/guidelines/sexual-and-reproductive-health/chapter/male-hypogonadism",
+   "title": "Male Hypogonadism - EAU Guidelines on Sexual and Reproductive Health - Uroweb",
+   "note": "Real guideline chapter; the cited URL surfaced verbatim in results. Living EAU guideline, so cite it with an access date rather than a year — the 2025 update is published as Eur Urol (europeanurology.com/article/S0302-2838(25)00211-8/fulltext) if a fixed citable version is wanted. On support: text seen in results confirms AIs are off-label in men, that published evidence is poor, that they require",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-40862363",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/40862363/",
+   "title": "Male hypogonadism: recommendations from the Fifth International Consultation on Sexual Medicine (ICSM 2024)",
+   "note": "Real and correctly identified. Khera M, Torres LO, Grober ED, Morgentaler A, Miner M, Jones TH, Mills JN, Salonia A. Sexual Medicine Reviews 2025;13(4):548-573; PMID 40862363. Volume/issue/page in the citation match the cited URL exactly. A follow-up search surfaced the specific text: patients with a testosterone to 17beta-estradiol ratio less than 10 were classified as eligible for aromatase inhi",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "auanet-c2267e4b",
+   "url": "https://www.auanet.org/documents/Guidelines/PDF/2024%20Guidelines/Male%20Infertility%20Unabridged%20Final.pdf",
+   "title": "Male Infertility: AUA/ASRM Guideline (2020; Amended 2024) — Unabridged",
+   "note": "Real document at the exact cited URL — it surfaced in search results under the heading 'AUA/ASRM GUIDELINE (2020; Amended 2024)', hosted on auanet.org, and the 2024 amendment is independently corroborated by the peer-reviewed companion 'Updates to Male Infertility: AUA/ASRM Guideline (2024)', J Urol, DOI 10.1097/JU.0000000000004180, PMID 39145501. Title, issuing bodies and the 2020/amended-2024 fr",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-12052019",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12052019/",
+   "title": "Management of Adverse Effects in Testosterone Replacement Therapy",
+   "note": "Real, PMC ID matches. International Brazilian Journal of Urology 2025, vol 51(3), May-June; DOI 10.1590/S1677-5538.IBJU.2025.9904; also on SciELO. It is a narrative review, not primary data — worth flagging, since the claim leans on it for a specific trial statistic. The abstract text seen supports the general point that TRT-related estrogen rise and gynecomastia are managed with AIs and tamoxifen",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-7076311",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7076311/",
+   "title": "Management of Anabolic Steroid-Induced Infertility: Novel Strategies for Fertility Maintenance and Recovery",
+   "note": "Real and correctly identified. Tatem AJ, Beilan J (et al.), World J Mens Health; PMID 30929329 matches the cited URL; DOI 10.5534/wjmh.190002; free full text at PMC7076311. One discrepancy worth noting: the citation gives the year as 2019, which matches the DOI stem (wjmh.190002) and the 2019 PMID range, but the PMC record indexes it under a 2020 issue — if the app displays a year, 'World J Mens H",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
   },
   {
    "id": "doi-10-1056-nejmoa1809944",
@@ -579,6 +1301,15 @@
    ]
   },
   {
+   "id": "transfemscience-f59e2e37",
+   "url": "https://transfemscience.org/articles/nandrolone/",
+   "title": "Nandrolone as a Potential Alternative Androgen with Reduced Androgenic Side Effects for Transfeminine and Transmasculine People",
+   "note": "Real page at the exact cited URL. Note the full title includes 'for Transfeminine and Transmasculine People', which the citation truncates — cosmetic, not a mismatch. A follow-up search surfaced text from this article stating directly that nandrolone's affinity for the progesterone receptor is 5- to 20-fold higher than that of testosterone, with correspondingly greater progestogenic potency (still",
+   "topic": "serms-gyno",
+   "tier": "preclinical",
+   "citedBy": []
+  },
+  {
    "id": "thelancet-897ec6b6",
    "url": "https://www.thelancet.com/journals/landia/article/PIIS2213-8587(21)00345-4/abstract",
    "title": "Neale RE, et al. The D-Health Trial: a randomised controlled trial of the effect of vitamin D on mortality. Lancet Diabetes Endocrinol 2022;10(2):120-128",
@@ -586,6 +1317,132 @@
    "citedBy": [
     "markers/vitamin-d/"
    ]
+  },
+  {
+   "id": "academic-62b42afb",
+   "url": "https://academic.oup.com/jcem/article-abstract/95/12/5443/2835341",
+   "title": "Neuroendocrine Regulation of Growth Hormone and Androgen Axes by Selective Estrogen Receptor Modulators in Healthy Men",
+   "note": "Real and correctly identified: Birzniece V, Sata A, Sutanto S, Ho KKY. J Clin Endocrinol Metab 2010 Dec;95(12):5443-5448 — volume, issue, page and article ID all match the cited URL. Context text visible in results supports the mechanism half of the claim: in men, GH stimulation and LH inhibition by testosterone require aromatization to estradiol, and tamoxifen has central estrogen-antagonist with",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-31521709",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31521709/",
+   "title": "New insights into progesterone actions on prolactin secretion and prolactinoma development",
+   "note": "Real paper, correctly identified: Camilletti MA, Abeledo-Machado A, Faraoni EY, Thomas P, Diaz-Torga G. Steroids 2019 Dec;152:108496. The cited ScienceDirect PII S0039128X19301862 matches. Better identifier: PMID 31521709. Support is partial and indirect — the abstract covers progesterone's genomic (nPR) and non-genomic (mPR) actions on lactotroph regulation and prolactin secretion; it says nothin",
+   "topic": "serms-gyno",
+   "tier": "preclinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-39022178",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/39022178/",
+   "title": "Off-label use of clomiphene citrate to treat anabolic androgenic steroid induced hypogonadism upon cessation among men (CloTASH) – A pilot study protocol (Contemp Clin Trials Commun, 2024)",
+   "note": "Real work, ScienceDirect PII matches exactly. Better identifiers: PMID 39022178 and open-access PMC11253696. Abstract seen confirms an open-labelled non-randomised 16-week intervention with clomiphene citrate, transdermal testosterone gel for the first four weeks, and optional hCG from week 4 for low treatment response, in AAS-dependent men intending to cease use — matching the claim's protocol sh",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-18518773",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18518773/",
+   "title": "Older men with low serum estradiol and high serum SHBG have an increased risk of fractures",
+   "note": "Real: MrOS Sweden cohort paper, PMID 18518773, n=2639 men, mean age 75. Abstract seen: the inverse relation between serum E2 and fracture risk was nonlinear with a strong relation below 16 pg/mL for E2 (0.3 pg/mL free E2); older Swedish men with low E2 and high SHBG had increased fracture risk. This is OBSERVATIONAL cohort evidence and it does not contain the 10 pg/mL and 200 ng/dL goserelin-clamp",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-19381855",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/19381855/",
+   "title": "Oral tamoxifen citrate treatment is more effective in normogonadotropic patients who have follicle-stimulating hormone levels within the lower half of normal",
+   "note": "Real work; PMID 19381855 matches the title exactly (cited title abbreviates 'follicle-stimulating hormone' to 'FSH', otherwise identical). Abstract visible in results: retrospective study of 120 normogonadotropic infertile men with idiopathic oligozoospermia, all given tamoxifen citrate 20 mg daily for 6 months; FSH, LH and testosterone were significantly increased after treatment, with larger spe",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-36050608",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36050608/",
+   "title": "Pediatric endoscopic subcutaneous mastectomy (PESMA) with liposuction in adolescents with gynecomastia",
+   "note": "Real work, identifier correct. PMC9839820 = PMID 36050608. Abstract visible: 24 male adolescents, Simon grade 2B/3, mean age 16, 5-step technique, 20.8% Clavien 2 complications, good aesthetic outcome in 87.5%. It supports 'surgery is a safe and effective treatment' but contains NOTHING about a ~12-month decision boundary or drug reversibility windows — that is the specific claim cited. This citat",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "sciencedirect-dc875736",
+   "url": "https://www.sciencedirect.com/science/article/pii/S0015028211006406",
+   "title": "Persistent primary hypogonadism associated with anabolic steroid abuse",
+   "note": "Real. Boregowda K, Joels L, Stephens JW, Price DE. Fertility and Sterility 2011;96(1):e7-e8, DOI 10.1016/j.fertnstert.2011.04.029 — journal, year, volume and the distinctive e7-e8 pagination all match the citation. The cited ScienceDirect PII resolves to this article. Supports the claim only in part from what I could see: it is a case report establishing that AAS can cause persistent PRIMARY (test",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-14671195",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/14671195/",
+   "title": "Pharmacokinetics and dose finding of a potent aromatase inhibitor, aromasin (exemestane), in young males",
+   "note": "Real. Mauras N et al., J Clin Endocrinol Metab 88(12):5951, Dec 2003; PMID 14671195 matches exactly (also academic.oup.com/jcem/article-abstract/88/12/5951). Abstract text seen in results confirms every specific in the claim: healthy eugonadal males aged 14-26, n=12, crossover randomisation to 25 or 50 mg exemestane daily for 10 days with a 14-day washout; estradiol suppression comparable at both",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-12538502",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/12538502/",
+   "title": "Pharmacology and Pharmacokinetics of the Newer Generation Aromatase Inhibitors",
+   "note": "Real work at the cited URL and page reference: Buzdar AU, Clinical Cancer Research 2003;9(1):468s-472s (PMID 12538502). Snippet seen repeats the same PK figures: anastrozole 1 mg once daily plasma half-life 41-48 hours, time to steady-state plasma levels 7 days. Supports the claim's half-life and steady-state points. Note this is a supplement/review by the same first author as [4] and largely rest",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-37855241",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37855241/",
+   "title": "Physical, psychological and biochemical recovery from anabolic steroid-induced hypogonadism: a scoping review",
+   "note": "Real work; Solanki, Eu, Smith, Allan & Lee, Endocrine Connections 2023;12(12):e230358 — the cited bioscientifica URL (ec/12/12/EC-23-0358.xml) resolves exactly. Free full text at PMC10620455; PubMed record PMID 37855241 (in foundUrl). Two cautions for the app text: (a) this is a SCOPING REVIEW, not a systematic review and meta-analysis, so it should not be described as backing a 'meta-analysis' se",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-42644333",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/42644333/",
+   "title": "Post-cycle therapy after androgen abuse: A narrative review of mechanisms, evidence, and clinical perspectives",
+   "note": "Real and correctly identified — PMID 42644333 resolves to exactly this title. Visible abstract text: PCT uses SERMs, hCG and aromatase inhibitors after cessation of androgen abuse; 'evidence supporting its use is limited, with most data derived from observational studies or extrapolated from other forms of secondary hypogonadism'; and 'spontaneous recovery occurs in the majority of individuals wit",
+   "topic": "pct",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-41147237",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41147237/",
+   "title": "Post-cycle therapy after short-term anabolic-androgenic steroid use: comparative outcomes in recreational bodybuilders",
+   "note": "Every element of the citation checks out: PMID 41147237, BJU International 2026;137(1):154-165, DOI 10.1111/bju.70059, İbis MA, Yap T, Satchi M, Ghazanfar N, Karaburun MC, Cakir OO, Yaman O, Castiglione F; epub 28 Oct 2025. Abstract confirms the study design in the claim: retrospective dual-centre cohort, 79 men with <=6 months AAS use and documented normal pre-cycle reproductive hormones and seme",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "accessdata-ca9bd2ad",
+   "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2023/017692s028s036s043lbl.pdf",
+   "title": "Pregnyl (chorionic gonadotropin) for injection — FDA label, NDA 017692 (2023 revision, supplements s028/s036/s043)",
+   "note": "Real FDA document. The exact filename cited (017692s028s036s043lbl.pdf) appeared verbatim in search results, alongside the matching approval letter 017692Orig1s028,s036,s043ltr.pdf, so the URL and application number are correct. Snippets I saw from this PDF covered DESCRIPTION, mechanism and storage only — I did not see the DOSAGE AND ADMINISTRATION text in a snippet from this specific file. The t",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-12313775",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12313775/",
+   "title": "Prevention of bicalutamide-induced breast events in patients with prostate cancer: a meta-analysis of randomized controlled trials",
+   "note": "Real and correctly identified. Spagnolo L, Tienforti D, Moretto C, et al., J Endocrinol Invest 2025;48:1659-1668; DOI 10.1007/s40618-025-02583-8 matches the cited URL. Free full text at PMC12313775. Abstract text seen in results supports the claim precisely: nine RCTs met inclusion criteria; tamoxifen reduced the risk of breast events by 82% (RR 0.18, 95% CI 0.08-0.38 for gynecomastia; RR 0.18, 95",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
   },
   {
    "id": "ncbi-91083b39",
@@ -597,6 +1454,33 @@
    ]
   },
   {
+   "id": "pmc-4398624",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4398624/",
+   "title": "Prolonged hypogonadism in males following withdrawal from anabolic-androgenic steroids: an under-recognized problem",
+   "note": "Real. Kanayama G, Hudson JI, DeLuca J, Isaacs S, Baggish A, Weiner R, Bhasin S, Pope HG Jr. Addiction 2015;110(5):823-831, DOI 10.1111/add.12850 — journal, volume, pages and DOI all match the citation. PMID 25598171, free full text at PMC4398624. Search results directly reproduce the claimed figures: of 24 former long-term AAS users, 5 were on testosterone replacement leaving 19 untreated, and 5 (",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-12267013",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12267013/",
+   "title": "Prolonged post-androgen abuse hypogonadism: potential mechanisms and a proposed standardized diagnosis",
+   "note": "Real. van Os J, Smit DL, Bond P, de Ronde W. Frontiers in Endocrinology, published 3 July 2025, DOI 10.3389/fendo.2025.1621558 — journal, year and article number match the citation exactly. Open access; also PMID 40678315 and PMC12267013. Abstract text seen in results states PPAAH is provisionally defined as persistent hypogonadism six months after cessation of androgen abuse in individuals with c",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-40678315",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/40678315/",
+   "title": "Prolonged post-androgen abuse hypogonadism: potential mechanisms and a proposed standardized diagnosis",
+   "note": "Real, and PMID 40678315 is the correct PubMed identifier for this exact paper — the PubMed record surfaced under this number with the cited title. Same work as [2] (Front Endocrinol 2025;16:1621558, PMC12267013), so these two entries are duplicate citations of one article; consider collapsing them. Abstract supports the 6-month PPAAH definition and the ≥150 mg/week for ≥6 months exposure criterion",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "accessdata-3dbfce10",
    "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2022/020788s030lbl.pdf",
    "title": "PROPECIA (finasteride) tablets, US prescribing information, US Food and Drug Administration, 2022.",
@@ -604,6 +1488,42 @@
    "citedBy": [
     "markers/dht/"
    ]
+  },
+  {
+   "id": "drugs-a45ae159",
+   "url": "https://www.drugs.com/pro/raloxifene-hydrochloride-tablets.html",
+   "title": "Raloxifene Hydrochloride Tablets: Package Insert / Prescribing Info / MOA",
+   "note": "Real page at the exact cited URL. Label text visible in results confirms all three elements of the claim: a boxed warning for increased risk of venous thromboembolism (and death from stroke); increased risk of DVT, PE and retinal vein thrombosis with the greatest risk for DVT/PE in the first 4 months of treatment; and a contraindication in active or past history of venous thromboembolism. One prec",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "link-c8a5de1a",
+   "url": "https://link.springer.com/article/10.1007/BF02383389",
+   "title": "Raloxifene: A selective estrogen receptor modulator",
+   "note": "Real and correctly identified. Title, journal (Journal of Bone and Mineral Metabolism) and DOI 10.1007/BF02383389 all match; the cited URL was the top result. Visible abstract text supports the mechanistic claim well: raloxifene is described as 'a complete estrogen antagonist' in breast tissue and uteri while behaving as 'a potent estrogen agonist' in bone and serum lipids, with tissue-specific ef",
+   "topic": "serms-gyno",
+   "tier": "preclinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-32030409",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/32030409/",
+   "title": "Rate and Extent of Recovery from Reproductive and Cardiac Dysfunction Due to Androgen Abuse in Men",
+   "note": "Real work; Shankara-Narayana et al., J Clin Endocrinol Metab 2020;105(6):1827-1839, DOI 10.1210/clinem/dgz324 — volume, issue and start page all match the cited URL (the OUP PDF path jcem_105_6_1827.pdf confirms page 1827). Results explicitly showed the mean times to recovery quoted in the claim: serum AMH 7.3 months, serum LH 10.7 months, sperm output 14.1 months. One wording check: a snippet of",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-16650651",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/16650651/",
+   "title": "Rate, extent, and modifiers of spermatogenic recovery after hormonal male contraception: an integrated analysis",
+   "note": "Real work; PMID 16650651 matches (Liu et al., Lancet 2006;367:1412-20). Visible abstract: integrated multivariate time-to-event analysis of individual data from 30 studies published 1990-2005; median time for sperm to recover to 20 million/mL was 3.4 months (95% CI 3.2-3.5), with 67% recovered by 6 months, 90% by 12, 96% by 16 and 100% by 24 months. IMPORTANT DISCREPANCY in the app's claim, not in",
+   "topic": "pct",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "academic-06e8c9b6",
@@ -634,6 +1554,15 @@
    ]
   },
   {
+   "id": "pmid-30079473",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30079473/",
+   "title": "Role of tamoxifen in idiopathic gynecomastia: A 10-year prospective cohort study. — Nuffield Department of Surgical Sciences",
+   "note": "Real. The cited Oxford NDS repository URL (record 904965) surfaced verbatim with exactly the cited title. It is an institutional repository record for a real journal article: Role of tamoxifen in idiopathic gynecomastia: A 10-year prospective cohort study, Breast J 2018, PMID 30079473. Abstract text seen in results confirms most of the claim's specifics: 81 patients, mean age 42.8 years (SD 19.5),",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "academic-81b29fac",
    "url": "https://academic.oup.com/jcem/article-abstract/96/1/53/2833225",
    "title": "Ross AC, Manson JE, Abrams SA, et al. The 2011 Report on Dietary Reference Intakes for Calcium and Vitamin D from the Institute of Medicine: What Clinicians Need to Know. J Clin Endocrinol Metab 2011;96(1):53-58",
@@ -652,6 +1581,15 @@
    ]
   },
   {
+   "id": "pmid-15356042",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15356042/",
+   "title": "Safety and Efficacy of Anastrozole for the Treatment of Pubertal Gynecomastia: A Randomized, Double-Blind, Placebo-Controlled Trial",
+   "note": "Real and correctly identified. Plourde PV, Reiter EO, Jou HC, Desrochers PE, Rubin SD, Bercu BB, Diamond FB Jr, Backeljauw PF. J Clin Endocrinol Metab 2004;89(9):4428-33. The cited Oxford Academic URL resolved as an exact match. Abstract text seen in results supports the claim in detail: 80 boys aged 11-18 with pubertal gynecomastia that had not regressed over 3 months, randomized to anastrozole 1",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "journals-8f08d020",
    "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0048774",
    "title": "Schöttker B, Jansen EHJM, Haug U, Schomburg L, Köhrle J, Brenner H. Standardization of Misleading Immunoassay Based 25-Hydroxyvitamin D Levels with Liquid Chromatography Tandem-Mass Spectrometry in a Large Cohort Study. PLoS ONE 2012;7(11):e48774",
@@ -659,6 +1597,24 @@
    "citedBy": [
     "markers/vitamin-d/"
    ]
+  },
+  {
+   "id": "pmid-27413851",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/27413851/",
+   "title": "Self-Treatment of Gynecomastia in Bodybuilders Who Use Anabolic Steroids",
+   "note": "Real and correctly identified: The Physician and Sportsmedicine 1989;17(3), DOI 10.1080/00913847.1989.11709731 matches the cited URL. Also indexed at PMID 27413851 (a better, free identifier), with a full-text PDF on ResearchGate under author Karl Friedl. Abstract seen in results supports the claim well: four case reports of bodybuilders who developed gynecomastia on self-administered drug program",
+   "topic": "serms-gyno",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-16410685",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/16410685/",
+   "title": "Sequential treatment with exemestane and non-steroidal aromatase inhibitors in advanced breast cancer",
+   "note": "Real; PMID 16410685 matches the title exactly. Abstract seen: postmenopausal patients with advanced hormone receptor-positive/unknown breast cancer took exemestane 25 mg daily as first anti-aromatase agent and crossed over to anastrozole or letrozole at progression; conclusion that exemestane is active after failure of letrozole or anastrozole AND that patients can benefit from a non-steroidal AI",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "doi-10-1161-circoutcomes-110-959247",
@@ -679,6 +1635,33 @@
    ]
   },
   {
+   "id": "pmid-31315085",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31315085/",
+   "title": "Subcutaneous Testosterone Anastrozole Therapy in Men: Rationale, Dosing, and Levels on Therapy",
+   "note": "Real paper, PMID 31315085 matches the cited title exactly (also on europepmc.org/article/med/31315085; published in the International Journal of Pharmaceutical Compounding, ijpc.com abstract 4641). Visible abstract: 344 men in an IRB-approved cohort study, April 2014-2017, combination subcutaneous testosterone-anastrozole implant; mean anastrozole dose 15.3 +/- 3.2 mg (most received 16 mg SUBCUTAN",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "fertstert-fe155be0",
+   "url": "https://www.fertstert.org/article/S0015-0282(03)00365-0/fulltext",
+   "title": "Successful treatment of anabolic steroid-induced azoospermia with human chorionic gonadotropin and human menopausal gonadotropin — Menon DK, Fertil Steril 2003;79(Suppl 3):1659-1661",
+   "note": "Real and correctly identified: Fertility and Sterility, vol 79, Suppl 3, June 2003, pages 1659-1661, author Menon DK; the cited fertstert URL resolves and a free PDF is at the same path ending /pdf. Abstract confirms it documents successful hCG + hMG treatment of AAS-induced azoospermia persisting despite one year off steroids, in a bodybuilder with an extensive AAS history; semen analyses normali",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-38649619",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/38649619/",
+   "title": "Superior suppression of serum estrogens during neoadjuvant breast cancer treatment with letrozole compared to exemestane",
+   "note": "Real; PMID 38649619 matches the title exactly, free full text at PMC11182829 (2024). Abstract seen: 102 breast cancer patients, intra-patient crossover, letrozole 2.5 mg vs exemestane 25 mg for 3 months each in either order, ultrasensitive LC-MS/MS; letrozole suppressed E1/E2 more deeply (94% of patients below LLOQ for estrone on letrozole vs 35% on exemestane). SUBSTANTIVE MISMATCH WITH THE CLAIM",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
    "id": "academic-51010a0a",
    "url": "https://academic.oup.com/edrv/article/38/3/220/3788611",
    "title": "Swerdloff RS, Dudley RE, Page ST, Wang C, Salameh WA. Dihydrotestosterone: Biochemistry, Physiology, and Clinical Implications of Elevated Blood Levels. Endocrine Reviews 2017;38(3):220-254.",
@@ -688,6 +1671,96 @@
    ]
   },
   {
+   "id": "pmid-17270340",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/17270340/",
+   "title": "Tamoxifen as prophylaxis for prevention of gynaecomastia and breast pain associated with bicalutamide 150 mg monotherapy in patients with prostate cancer: a randomised, placebo-controlled, dose-response study",
+   "note": "Real, PMID matches. European Urology 2007; also at ScienceDirect PII S0302283807000358. Note the cited title is truncated — the full title includes 'in patients with prostate cancer', which matters here because it names the population and makes the app's own caveat visible in the reference itself. Abstract seen in results supports the claim: 282 men randomized to bicalutamide 150 mg/d plus tamoxif",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "urologytimes-1b1e46b5",
+   "url": "https://www.urologytimes.com/view/tamoxifen-eases-androgen-deprivation-therapy-related-gynecomastia-pain",
+   "title": "Tamoxifen eases androgen deprivation therapy-related gynecomastia, pain",
+   "note": "Real page, URL matches exactly. Reports an Italian multicentre study (nine institutions, Group for the Study of Urologic Tumors Foundation): tamoxifen 10 mg/d prophylaxis significantly reduces gynecomastia; 20 mg/d given at first sign of symptoms reduced severity, with incidence rising 33% at 3 months to 61% at 12 months and 23% still with gynecomastia / 18% with pain at 12 months. Supports 'treat",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-6472395",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/6472395/",
+   "title": "Tamoxifen for Gynecomastia Induced by Anabolic Steroids?",
+   "note": "Real and correctly identified: N Engl J Med 1984 Sep 27;311(13):861-862, authors Spano F and Ryan WG; DOI 10.1056/NEJM198409273111323 matches the cited URL. Better identifier: PMID 6472395. Results describe it as a correspondence/letter describing a 20-year-old man with roughly two months of gynecomastia from anabolic steroid use — consistent with the claim that the published record for this indic",
+   "topic": "serms-gyno",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-27152880",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/27152880/",
+   "title": "Tamoxifen in men: a review of adverse events",
+   "note": "Real and correctly identified: Wibowo E, Pollock PA, Hollis N, Wassersug RJ. Andrology 2016 Sep;4(5):776-88, DOI 10.1111/andr.12197 (PMID 27152880). Abstract visible in results confirms scope — a review of adverse events in men given tamoxifen for prostate cancer, breast cancer, infertility and idiopathic gynecomastia, drawn from RCT safety data. The abstract text I saw establishes the review exis",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-30655614",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30655614/",
+   "title": "Tamoxifen treatment for male breast cancer and risk of thromboembolism: prospective cohort analysis",
+   "note": "PMC6353985 resolves to exactly this work; also PMID 30655614, published in British Journal of Cancer (2019), DOI 10.1038/s41416-018-0369-2. Abstract seen in results supports the thromboembolic half of the claim with numbers: 448 male breast cancer patients, median follow-up 47 months; thrombotic events in 21/177 (11.9%) on tamoxifen vs 1/41 (2.5%) not on tamoxifen (51.9 vs 21.5 per 1000 person-yea",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-10601691",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10601691/",
+   "title": "Tamoxifen Treatment for Pubertal Gynecomastia: When to Start and How Long to Continue",
+   "note": "Real work, identifier correct. Breast Care (Karger) 2023;18(4):249-255; PMC10601691 resolves to exactly this title. Abstract text visible in results covers disc diameter thresholds (>=3 cm) and treatment duration (significant disc reduction starting after month 4, continuing to month 6, in 83 adolescents treated 2006-2018). I saw NO mention of florid/proliferative vs fibrotic histology, epithelial",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-3744245",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3744245/",
+   "title": "Tamoxifen vs Raloxifene vs Exemestane for Chemoprevention",
+   "note": "Real and correctly identified. PMC3744245 = Reimers L, Crew KD, 'Tamoxifen vs Raloxifene vs Exemestane for Chemoprevention,' Current Breast Cancer Reports, published 26 June 2012; PMID 23956815, doi 10.1007/s12609-012-0082-8. The pmc.ncbi.nlm.nih.gov/articles/PMC3744245 URL appeared directly in results. Abstract support marked unknown: the visible abstract covers breast-cancer incidence reduction",
+   "topic": "serms-gyno",
+   "tier": "preclinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-6264875",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/6264875/",
+   "title": "Temporal relationship between hCG induced desensitization of LH/hCG responsive adenylyl cyclase and downregulation of LH/hCG receptors in the rat testis",
+   "note": "Real, and PMID 6264875 is correct — the PubMed record surfaced under this number with the cited title verbatim. Early-1980s work (related to Hansson et al.'s LH/hCG adenylyl cyclase series). Abstract supports the claim well: a single subcutaneous 75 IU hCG injection in adult male rats reduced LH/hCG-responsive adenylyl cyclase by 40% at 2 hours while LH binding was still normal, abolished it by 24",
+   "topic": "pct",
+   "tier": "preclinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-3747510",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/3747510/",
+   "title": "Testicular responsiveness to human chorionic gonadotrophin during transient hypogonadotrophic hypogonadism induced by androgenic/anabolic steroids in power athletes",
+   "note": "Real and correctly identified. Martikainen H, Alen M, Rahkila P, Vihko R. J Steroid Biochem 1986;25(1):109-112; PMID 3747510 matches the cited URL. Visible abstract: 6 power athletes who had used high-dose testosterone and anabolic steroids for 3 months were tested 3 weeks after cessation while still hypogonadotrophic (mean LH 2.6, FSH 1.1 mIU/ml); after a single hCG injection, serum testosterone",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-29562364",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/29562364/",
+   "title": "Testosterone Therapy in Men With Hypogonadism: An Endocrine Society Clinical Practice Guideline (Bhasin S et al., JCEM 2018;103(5):1715-1744)",
+   "note": "Real guideline, correctly identified: the cited Oxford Academic URL matches, volume/issue/page 103(5):1715-1744 match, DOI 10.1210/jc.2018-00229, PMID 29562364 (offered as a stabler identifier). Visible text confirms only the guideline's scope and provenance (2018 update of the 2010 'Testosterone Therapy in Men With Androgen Deficiency Syndromes' guideline, Endocrine Society task force of 10 conte",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
    "id": "pmc-11466264",
    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11466264/",
    "title": "Testosterone therapy-induced erythrocytosis: can phlebotomy be justified?",
@@ -695,6 +1768,42 @@
    "citedBy": [
     "markers/hematocrit-on-trt/"
    ]
+  },
+  {
+   "id": "pmid-37705825",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37705825/",
+   "title": "The Burden of Anabolic Androgenic Steroid-Induced Gynecomastia",
+   "note": "Real work, DOI correct. Beniwal M, Singh K, Singh P, Sharma A, Beniwal S. Indian J Plast Surg 2023;56(4):338-343, DOI 10.1055/s-0043-1771293, PMID 37705825, free full text at PMC10497340. Prospective cohort 2019-2022; true prevalence of AAS-associated gynecomastia 39.2% on postoperative reassessment vs 4.1% from preoperative history. Search-result text stated that SERMs/AIs work in the early tende",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "touchoncology-419ee206",
+   "url": "https://touchoncology.com/breast-cancer/journal-articles/the-clinical-pharmacology-of-anastrozole/",
+   "title": "The Clinical Pharmacology of Anastrozole | touchONCOLOGY",
+   "note": "The page exists at the cited URL and is titled as cited. Snippet text seen states anastrozole 'has a half-life of 40-50 hours' and that 'steady-state concentrations are achieved after seven days' — matching both PK numbers in the claim. Caveat worth flagging to the author: touchONCOLOGY is a commercially sponsored review publication, not PubMed-indexed, and no PMID/DOI was found for it. Citations",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-37198036",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37198036/",
+   "title": "The combination of endoscopic subcutaneous mastectomy and liposuction (Liu and Shang's 2-hole 7-step method) as the treatment of gynecomastia",
+   "note": "Real work, URL resolves to exactly this article. Surgery (journal), May 2023, PMID 37198036. NOTE the cited title is truncated — it omits '(Liu and Shang's 2-hole 7-step method)' from the real title; the work itself is correctly identified, so not a MISMATCH, but the title should be quoted in full. Abstract visible: 101 gynecomastia patients across Simon grades, all operations completed successful",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-36031476",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36031476/",
+   "title": "The Effect of Anastrozole on the Lipid Profile: Systematic Review and Meta-analysis of Randomized Controlled Trials",
+   "note": "Real: Clinical Therapeutics 2022, PMID 36031476, doi via S0149-2918(22)00282-X. Title, journal and PMID match. The exact number in the claim was confirmed in abstract text seen: HDL-C decreased after anastrozole when treatment duration was >3 months (WMD -1.67 mg/dL; 95% CI -3.24 to -0.10; P=0.03). IMPORTANT: the same abstract states that across the 9 included RCTs anastrozole had NO significant i",
+   "topic": "ai-protocols",
+   "tier": "clinical",
+   "citedBy": []
   },
   {
    "id": "thelancet-d2216f59",
@@ -713,6 +1822,60 @@
    "citedBy": [
     "markers/thyroid-panel/"
    ]
+  },
+  {
+   "id": "pmid-7714991",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/7714991/",
+   "title": "The reversibility of anabolic steroid-induced azoospermia",
+   "note": "Real, and PMID 7714991 is the correct identifier — the PubMed record surfaced directly under this number with the cited title. Turek PJ et al., J Urol 1995;153(5):1628-1630. Supports the claim as stated: results describe a bodybuilder with a 5-year history of steroid use who was azoospermic, underwent gonadotropin replacement, and achieved conception 3 months after therapy was initiated — matching",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-9271319",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9271319/",
+   "title": "The Safety of Human Chorionic Gonadotropin Monotherapy Among Men With Previous Exogenous Testosterone Use — Rainer et al., Cureus 2022;14(6):e25826",
+   "note": "PMC9271319 is correct and resolves to this Cureus article (June 2022, 14(6):e25826, first author Rainer). Abstract matches the claim closely: retrospective analysis of 28 men with previous exogenous testosterone use switched to hCG monotherapy with follow-up labs at least one month later; average weekly hCG dose 2,435 IU; across the whole cohort no significant change in mean hormone levels, HbA1c",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "doi-10-1111-jsm-12890",
+   "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/jsm.12890",
+   "title": "The Use of HCG-Based Combination Therapy for Recovery of Spermatogenesis after Testosterone Use — Wenker et al., J Sex Med 2015;12(6):1334-1337",
+   "note": "Title, journal, year, volume, issue and page range all match, and the cited OUP URL surfaced verbatim. First author Wenker; DOI 10.1111/jsm.12890. Abstract confirms the specifics in the claim: retrospective chart review across two tertiary infertility clinics of men azoospermic or severely oligospermic (<1 million/mL) while on exogenous testosterone; 49 men; hCG 3,000 units SC every other day plus",
+   "topic": "pct",
+   "tier": "off-label",
+   "citedBy": []
+  },
+  {
+   "id": "pmc-10640727",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10640727/",
+   "title": "The use of post-cycle therapy is associated with reduced withdrawal symptoms from anabolic-androgenic steroid use: a survey of 470 men",
+   "note": "Real. Grant B, Kean J, Vali N et al. Substance Abuse Treatment, Prevention, and Policy 2023;18:66, DOI 10.1186/s13011-023-00573-8, published 11 November 2023 — journal, year, article number and DOI all match. Open access, PMC10640727. Abstract confirms every number in the claim: 470 men surveyed; 65.1% had attempted cessation, 95.1% of those had at least one symptom; PCT was used by 56.5% of those",
+   "topic": "pct",
+   "tier": "community",
+   "citedBy": []
+  },
+  {
+   "id": "pmid-3526085",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/3526085/",
+   "title": "Treatment of gynecomastia with tamoxifen: A double-blind crossover study - Metabolism - Clinical and Experimental",
+   "note": "Real, and the cited Metabolism Journal URL with PII 0026-0495(86)90237-4 surfaced verbatim. Parker LN, Gray DR, Lai MK, Levin ER; Metabolism 1986;35:705-708 — authors, journal, year and pages as cited. Abstract text seen in results supports the claim closely: one-month courses of placebo or tamoxifen 10 mg orally bid compared in random order, double-blind crossover; 7 of 10 patients had a decrease",
+   "topic": "serms-gyno",
+   "tier": "clinical",
+   "citedBy": []
+  },
+  {
+   "id": "clinicaltrials-2ca4cb85",
+   "url": "https://clinicaltrials.gov/study/NCT00179517",
+   "title": "Treatment of Sexual Dysfunction in Hypogonadal Men With Epilepsy With Testosterone and Either Anastrozole or Placebo (NCT00179517)",
+   "note": "Real registry record, NCT number matches the title exactly; visible on classic.clinicaltrials.gov and mirrored on cdek.pharmacy.purdue.edu and ctv.veeva.com. Registry confirms: 3-month study at Beth Israel Deaconess Medical Center, PI Andrew Herzog MD MSc, biweekly IM depotestosterone cypionate 300 mg plus oral anastrozole 1 mg daily or matching placebo; it is the registration for the PMID 2009663",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
   },
   {
    "id": "annclinlabsci-84222493",
@@ -758,6 +1921,15 @@
    "citedBy": [
     "markers/thyroid-panel/"
    ]
+  },
+  {
+   "id": "pmid-34090245",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/34090245/",
+   "title": "Utilization and Impact of Aromatase Inhibitor Therapy in Men With Elevated Estradiol Levels on Testosterone Therapy | Sexual Medicine | Oxford Academic",
+   "note": "Real, and every element of the citation checks out: Punjani N, Bernie H, Salter C et al., Sexual Medicine vol 9 issue 4, article 100378, August 2021; the cited Oxford Academic URL surfaced verbatim. Authors are from Memorial Sloan Kettering / Weill Cornell. Abstract seen in results confirms the exact institutional threshold the claim quotes: patients on testosterone therapy 2005-2019 were started",
+   "topic": "ai-protocols",
+   "tier": "off-label",
+   "citedBy": []
   },
   {
    "id": "doi-10-1111-j-1365-2265-1995-tb01894-x",

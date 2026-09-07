@@ -1,0 +1,914 @@
+[
+ {
+  "topic": "hair-5ar",
+  "gap": "Incidence of persistent post-discontinuation sexual dysfunction is genuinely unknown. No prospective randomized trial has ever measured sexual function with a validated instrument (e.g. IIEF) at baseline, on treatment, and for a defined period after stopping. Every number circulating \u2014 from '0.2%' t"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Whether 'post-finasteride syndrome' is a distinct biological entity is unresolved. There are no validated diagnostic criteria, no confirmed biomarker, no established mechanism (neurosteroid, androgen-receptor, and epigenetic hypotheses all exist without confirmation), and no evidence-based treatment"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Dutasteride's roughly 20-25 percentage-point greater DHT suppression has never been shown to produce a proportionally greater long-term hair benefit against finasteride in a large randomized head-to-head. The pivotal comparison (917 men) ran only 24 weeks. The 5-year dutasteride data are single-arm/"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Because dutasteride's terminal half-life is ~5 weeks, an adverse effect cannot be reversed quickly by stopping. No study has characterised time-to-resolution of adverse effects after dutasteride cessation in AGA patients. This is a real asymmetry against dutasteride that the efficacy comparisons do "
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Intermittent dutasteride dosing (0.5 mg twice or thrice weekly) has only a 60-man, 24-week, investigator-blinded pilot behind it. Whether it matches daily dosing on long-term outcomes is unknown; treat the intermittent regimens as unvalidated."
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Pivotal finasteride efficacy data come from men aged 18-41 with vertex-predominant loss. Effect sizes in men over 50, and in frontal/temporal recession specifically, are less well characterised; the 5% minoxidil foam frontotemporal data are from a single 70-man trial."
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "The exact timing and duration of the minoxidil shedding phase rests on one retrospective study plus a large volume of commercial and forum content. The frequently quoted '2-8 weeks, resolving by 12' should be treated as approximate."
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "The SULT1A1 plucked-hair assay predicts minoxidil response in small single-centre studies but has no validated activity threshold, no regulatory standing, and no demonstrated effect on outcomes when used to triage treatment."
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Not covered in this pass and needed before acting: finasteride/dutasteride effects on semen parameters and fertility; gynecomastia rates; the PCPT high-grade prostate cancer signal and PSA interpretation on a 5-ARI; depression and suicidality signals; combination therapy (5-ARI + minoxidil) effect s"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "No source retrieved here quantifies how much of the on-treatment sexual side effect rate is nocebo. Blinded trials with informed-consent language mentioning sexual side effects show elevated placebo-arm rates, but this specific decomposition was not verified in this task."
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "PubMed, PMC, FDA accessdata, JAAD and several publisher domains were blocked by the network egress proxy during this research, so claims were sourced from search-engine result summaries of those pages rather than from full text. Numeric values (hair counts, risk ratios, confidence intervals, DHT per"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "No trial has established isometric hold duration, sets or intensity AT THE ELBOW. The 5 x 45 s at 70-80% MVIC figure is patellar-derived (Rio 2015), and the one elbow-specific dosing study (Coombes 2016) shows that loading above the individual pain threshold makes lateral elbow pain worse \u2014 so the p"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "The exact set/rep/RM progression and tempo used in the only elbow HSR trial (Couppe 2022, AJSM) could not be retrieved \u2014 PubMed, PMC, DOI, JOSPT, SAGE, Wiley, ScienceDirect and Cochrane full text were all blocked by the egress proxy in this session. The 15RM-to-6RM and 3 s/3 s tempo figures are take"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "The Tyler 2010 eccentric FlexBar dose commonly quoted as 3 sets of 15 repetitions once daily was NOT confirmed in the abstract retrieved here. The trial result (added eccentric improved all outcomes, n=21) is confirmed; the dose is not."
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "No head-to-head trial compares isometric versus heavy slow resistance versus eccentric loading at the elbow, so the two-phase 'analgesic phase then loading phase' structure is a rational construction, not a tested sequence."
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "The numeric pain threshold is contested. Silbernagel's validated rule is <=5/10; a large body of clinical load-management writing uses <=3/10 or <=4/10. No trial has compared thresholds, so anyone using 3/10 versus 5/10 is choosing on preference, not evidence. The 24-hour return-to-baseline componen"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Distal biceps tendinopathy loading rests on two case reports (n=1 each). There is no randomised evidence, no dose-response data, no comparison to any alternative, and no evidence on whether loading changes the risk of progression to partial or complete distal biceps rupture. The 3 x 7 eccentric dose"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "All the pulling and grip-aid EMG data are from healthy, pain-free trained lifters performing submaximal or maximal efforts, not from people with elbow tendinopathy. Surface EMG amplitude is not tendon load or tendon strain, and the relationship is especially unreliable at an enthesis. No study has m"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "No study has tested whether using lifting straps changes the symptom trajectory or recovery rate of either tendinopathy. The strap data show an acute recruitment shift (forearm -16.0%, biceps -8.0% in the snatch first pull) in healthy lifters; whether that magnitude is clinically meaningful for a sy"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "The overall effect sizes are small and the certainty is low (Cochrane 2024, Karanasios 2021 BJSM). Loading is the best-supported management available for lateral elbow tendinopathy, but a substantial fraction of people will not get better on it, and effects may not be sustained. Precise parameters s"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Nothing in this evidence base addresses the TherapyLog audience's specific context: none of these trials enrolled or stratified by anabolic-androgenic steroid, growth hormone, IGF-1 secretagogue, SARM, BPC-157/TB-500, or fluoroquinolone exposure. Whether rapid pharmacologically-driven strength gain "
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Differential diagnosis limits are unaddressed here: posterior interosseous nerve entrapment, radiocapitellar joint pathology and cervical referral can mimic lateral elbow tendinopathy, and a partial distal biceps tear can mimic distal biceps tendinopathy. None of the loading parameters above are val"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Whether the isometric analgesic effect exists at all beyond a small subgroup. The 7-to-0 pain drop comes from n=6 (Rio 2015); the two larger, better-controlled studies (van Ark 2016 n=29; Holden 2020 n=21 pre-registered crossover) found no between-group advantage, and Holden found only 0.9/10 relief"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "No trial has randomised people to 'isometrics then HSR' versus 'HSR alone'. The sequencing is inference from a staging framework; the incremental value of the isometric block over simply starting HSR is unmeasured."
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Optimal isometric intensity is unknown. Published arms used 70%, 80% and 85% MVIC with no head-to-head comparison, and most people self-managing have no way to measure MVIC \u2014 in practice intensity is set by feel, which is not what the trials did."
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Whether isometric analgesia has any effect on tendon structure, healing, or long-term outcome. All positive isometric data are short-term pain and VISA-P over <=4-12 weeks. Only HSR has 6-month structural and satisfaction data."
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "How many holds per day. Rio 2015 was a single bout; some clinical descriptions extend this to 2-3 times per day, and the van Ark field study reported athletes doing it 5 times per week. Daily frequency is not a trial-validated parameter."
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Kongsgaard 2009 enrolled 39 men only. HSR parameters have not been validated in women with patellar tendinopathy, in older adults, or in non-jumping populations, and the network meta-analysis rests on only 7 trials."
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Rest between HSR sets is reported as 2-3 minutes in Kongsgaard 2009 but is rarely reported elsewhere; Morrison & Cook argue that unreported rest and rate-of-loading make published HSR doses under-specified and non-reproducible."
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "The pain-monitoring numbers (<=5/10, settling within 24 h) come primarily from Achilles tendinopathy (Silbernagel 2007) and from a clinical framework paper (JOSPT 2015), not from a patellar trial that randomised people to different pain thresholds. No study has tested whether a 5/10 ceiling outperfo"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Interaction with anything a TherapyLog user might be taking concurrently \u2014 androgens, GH secretagogues, BPC-157, fluoroquinolone exposure, systemic corticosteroids \u2014 was not assessed in any of these trials. Kongsgaard 2009 studied peritendinous corticosteroid injection and found it did not match HSR"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "Whether pain relief from a hold is a useful signal at all. Holden et al. concluded contraction mode may not be the important variable, which raises the possibility that acute pain change is a poor guide to load progression regardless of the number attached to it."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Publisher full texts were blocked by this environment's network egress (PubMed, PMC, Lancet, BMJ, JOSPT, Cochrane, Frontiers, Sage, ScienceDirect, Taylor & Francis all refused direct fetch). Every number above came from search-engine extraction of those pages, not from my own reading of the full tex"
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "The Holmgren protocol's ALLOWED PAIN THRESHOLD could not be retrieved. Trials in this literature commonly cap exercise pain at a numeric rating and require return to baseline within 24 hours, but I could not confirm Holmgren's specific rule. Do not quote a number for it."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "The exact names and positions of Holmgren's six exercises beyond their muscle targets (two eccentric cuff, three concentric/eccentric scapular, one posterior stretch) were not retrievable. The commonly reproduced version uses eccentric external rotation and eccentric scapular-plane elevation, but I "
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "RoCTEx's actual loading parameters (the RM range and set/rep scheme that defined 'high-load' vs 'low-load') were not retrievable. The trial's null result is solid; the numbers that produced it are not confirmed here."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Maenhout 2013's eccentric dose (sets, reps, load, daily vs weekly) was not retrievable \u2014 only the 9-sessions-over-12-weeks contact schedule and the 15% strength result."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Cavaggion 2024's pain caps (the NPRS thresholds that operationally separated 'into pain' from 'without pain') were not retrievable."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "GRASP vs SUPPORT genuinely conflict on the value of supervised sessions. My reconciliation (comparator quality explains it) is my inference, not a finding either trial reports. GRASP's 8-week timepoint may have favoured exercise before converging at 12 months, but I could not retrieve that timepoint"
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "NO TRIAL has tested pressing-pattern substitution as an intervention in subacromial pain. The bench press and overhead press claims rest on musculoskeletal modelling, EMG and ultrasound subacromial-space measurement in mostly ASYMPTOMATIC subjects. Whether a narrower grip, tucked elbows or a landmin"
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Acromiohumeral distance and subacromial space are surrogate outcomes. Decompression surgery enlarges that space and does not help, which is direct evidence that the mechanical narrowing model is at best incomplete. Do not over-weight the space-based reasoning behind the substitutions."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "The JOSPT 2022 clinical practice guideline on rotator cuff disorders (doi:10.2519/jospt.2022.11306) exists and is directly on-topic, but I could not retrieve its recommendation text or dosage grades. Nothing above is sourced to it."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "None of this addresses interaction with the compounds this audience is likely running. Anabolic androgenic steroids, growth-hormone secretagogues and fluoroquinolone-class drugs plausibly alter tendon mechanical properties and load tolerance, and no trial in this set enrolled or stratified for that."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Sex differences and hormone-therapy status were not reported in the retrieved records. Whether these exercise doses perform equivalently on testosterone or oestradiol therapy is unstudied."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Everything here concerns rotator cuff-related / subacromial pain with INTACT or degenerative tendons. Acute traumatic full-thickness tears, frozen shoulder, cervical referral and glenohumeral instability are different problems with different evidence, and self-selecting into this protocol with one o"
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "No RCT defines the optimal load reduction or reload percentage after a low-back-pain flare in trained lifters. The 2-10% ACSM progression rule is from healthy-adult resistance training, and the JOSPT deadlift trial specified a pain ceiling but the retrieved sources did not give the sets, reps or %RM"
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "The <=5/10, back-to-baseline-by-morning pain-monitoring model has never been tested as the reloading rule in low back pain specifically. It was derived and validated in Achilles tendinopathy (n=38) and is applied to the spine by extrapolation."
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "There are no published sensitivity/specificity or likelihood ratios for the individual NICE cauda equina red flags. The revised CKS list is expert consensus aimed at reducing missed diagnoses, not an accuracy-derived rule \u2014 so its false-positive rate, and how often each flag appears in benign mechan"
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "The >2-day preoperative-duration prognostic threshold for cauda equina recovery came from a single aggregated source in this search; I did not retrieve an independent quantification of it."
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "The deadlift and motor-control trials recruited people with 'nociceptive mechanical' dominant pain. None of the reloading parameters here have been tested in people with radicular or neuropathic-dominant leg pain, and they should not be assumed to transfer to sciatica."
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "No trial has recorded anabolic steroid, GH, or peptide use in a low-back-pain cohort. Whether exogenous androgens, GH/IGF-1, or glucocorticoid co-use alters pain trajectory, tissue healing rate, or safe reload speed is entirely unstudied."
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "The incidence of spinal epidural abscess or vertebral osteomyelitis specifically among non-medical injectors of hormones and peptides is unquantified. Risk is inferred from the injecting-drug-use literature, where injection frequency, drug preparation and sterility practices differ."
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "I retrieved no human trial evidence at all for injectable peptides (BPC-157, TB-500, or similar) in low back pain. Treat any claim of efficacy for these in back pain as unevidenced \u2014 I did not find preclinical or clinical data either way in this search."
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "The Cochrane exercise review's pain effect sits essentially at the minimal clinically important difference and its function effect below it, and the review flagged risk-of-bias and small-study concerns. Which exercise type is best remains open; a network meta-analysis exists (Hayden 2023, CD015608) "
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "No evidence defines how long a lifter should wait before seeking assessment for back pain with no red flags. The 6-week benchmark used here is derived from population prognosis curves, not from a trial of a referral threshold."
+ },
+ {
+  "topic": "rehab-back",
+  "gap": "Aromatase-inhibitor bone data in men comes from older hypogonadal men on 1 mg/day anastrozole for 12 months. Whether lower doses, intermittent on-cycle use, or use in younger men with supraphysiological testosterone produces the same BMD decrement is unknown, as is whether it translates into actual "
+ },
+ {
+  "topic": "load-management",
+  "gap": "The 5/10 pain ceiling has never been compared head-to-head against other ceilings (0/10, 3/10, 7/10) in a trial. It is a convention inherited from Thomee 1997 and reused, not an optimised threshold. Nobody knows whether 5 is the right number or merely the first number published."
+ },
+ {
+  "topic": "load-management",
+  "gap": "The 24-hour rule has not been validated against tissue-level outcomes. No study has shown that symptoms settling by the next morning corresponds to absence of tendon microdamage on imaging or biopsy; it is a symptom heuristic that happens not to produce worse outcomes than rest."
+ },
+ {
+  "topic": "load-management",
+  "gap": "The pain-monitoring model was developed and tested in tendinopathy and patellofemoral pain. It has NOT been validated for bone stress injury, muscle strain, or articular pathology, and applying a 5/10 pain allowance to a suspected bone stress injury is not supported by anything retrieved here - the "
+ },
+ {
+  "topic": "load-management",
+  "gap": "No intervention trial has tested whether acting on ACWR changes injury incidence. Every ACWR study is observational. The 7-day acute and 28-day chronic windows have no physiological derivation and were not selected empirically."
+ },
+ {
+  "topic": "load-management",
+  "gap": "Load units for ACWR are not standardised (session-RPE x minutes, total distance, high-speed distance, throw counts), so a ratio computed one way is not comparable to a ratio computed another way, and the 0.8-1.3 band was never shown to transfer across units."
+ },
+ {
+  "topic": "load-management",
+  "gap": "There is no prospective human study measuring tendon mechanical properties before, during and after androgen initiation. Every human tendon-mechanics dataset in androgen users is cross-sectional, and current studies disagree on the direction of effect (stiffer in Seynnes 2013, more compliant in form"
+ },
+ {
+  "topic": "load-management",
+  "gap": "There is no dose-response, duration-response, ester-specific or compound-specific data on androgens and tendon rupture in humans. No mg/week, no cycle length, no cumulative exposure threshold has been identified. Anyone quoting one is inventing it."
+ },
+ {
+  "topic": "load-management",
+  "gap": "Whether the tendon signal is caused by androgens directly or by the rapid strength and training-load increases androgens permit has never been disentangled in humans. The two are perfectly confounded in every dataset retrieved."
+ },
+ {
+  "topic": "load-management",
+  "gap": "Whether deliberately slowing load progression while on androgens reduces tendon rupture risk has never been tested. The recommendation is mechanistically reasonable and completely untested."
+ },
+ {
+  "topic": "load-management",
+  "gap": "The database studies of prescribed testosterone cannot distinguish testosterone-therapy patients from people concurrently using undisclosed non-prescribed androgens, and lack data on serum levels, adherence, formulation, training exposure and pre-existing tendinopathy. Their large odds ratios sit on"
+ },
+ {
+  "topic": "load-management",
+  "gap": "Whether androgen use alters pain perception in a way that makes the 5/10 ceiling less protective (by allowing higher loading at the same reported pain) has not been studied. This is a plausible failure mode of applying the model to this population and there is no data on it."
+ },
+ {
+  "topic": "load-management",
+  "gap": "The 90% limb-symmetry threshold used as a return gate has no validation study behind it as a cut-point; it is a practical benchmark. It also produces different verdicts depending on which heel-rise parameter is measured, and a large fraction of surgically repaired patients never reach it despite rep"
+ },
+ {
+  "topic": "load-management",
+  "gap": "The strongest criteria-based return-to-sport dataset (Grindem 2016) is ACL-specific. No equivalent prospective criteria-versus-reinjury dataset exists for tendinopathy or for return to resistance training, so the 9-month and >90% numbers should not be transplanted onto tendon rehab."
+ },
+ {
+  "topic": "load-management",
+  "gap": "Nothing retrieved in this task addresses whether peptides marketed for tendon repair (e.g. BPC-157, TB-500) alter tendon adaptation, rupture risk, or any return-to-training criterion in humans. No claim about them should be built on this research."
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "No trial has tested these protein targets in people using exogenous testosterone, estradiol, GH secretagogues, SARMs, or anabolic steroids. Every study cited here excluded or did not report hormone use. Androgens plausibly lower the protein threshold for lean mass preservation in a deficit by improv"
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "No head-to-head RCT compares 2.4 g/kg FFM against 3.1 g/kg FFM in an energy deficit. The upper end of the 2.3\u20133.1 g/kg FFM band is an extrapolation from a linear dose-response with no observed plateau (2025 meta-regression), not a measured optimum. Pasiakos 2013 found no benefit of 2.4 over 1.6 g/kg"
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "The ~500 kcal/day deficit threshold (Murphy & Koehler) is an absolute figure fitted mostly on overweight and untrained cohorts. It does not scale to body size \u2014 500 kcal/day is a far larger relative insult at 55 kg than at 100 kg \u2014 and the rate-based 0.5\u20131.0%/week rule and the \u226530 kcal/kg FFM/day en"
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "Almost all controlled feeding evidence is in young men. Longland, Mettler, Pasiakos and Roth were male or male-dominated; the 2025 meta-regression explicitly found the protein\u2013FFM relationship weaker in women, and could not say why. Whether the same g/kg FFM targets apply across the menstrual cycle,"
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "DXA and BIA cannot distinguish muscle protein from glycogen and its bound water. In 2\u20134 week studies (Mettler, Longland, Pasiakos), a meaningful fraction of measured 'lean mass' change is glycogen and fluid, particularly when carbohydrate intake shifts with the protein manipulation. Short-trial effe"
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "Longland's finding of lean mass *gain* at a 40% deficit came with an unusually high novel training stimulus (RT + HIIT 6 d/wk) in men who were recreationally active rather than well-trained. It should not be read as a general promise that a 40% deficit is safe for lean mass in an experienced lifter,"
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "No trial has established whether these protein targets are achievable, or whether they preserve lean mass, under GLP-1 receptor agonist appetite suppression \u2014 a context in which fat-free mass typically comprises a large share of weight lost. Extrapolating the athlete literature into that setting is "
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "The intensity-maintenance recommendation (keep loads >60% 1RM, cut sets not load) is an inference. It rests on (a) strength being preserved in a deficit and (b) load-dependence of strength adaptations in non-deficit trials. No RCT has directly randomised load prescription within an energy deficit."
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "Optimal training frequency during a deficit is not established. Roth tested volume, Bickel tested maintenance dosing outside a deficit; whether the same weekly volume distributed over more sessions helps or hurts under restricted recovery has not been tested."
+ },
+ {
+  "topic": "nutrition-deficit",
+  "gap": "Nothing here addresses people over roughly 60 who are already lean and resistance-trained. The higher-protein evidence base is young athletes; the resistance-training-preserves-lean-mass evidence base at older ages (Villareal, Sardeli) is obese elderly. The intersection is unstudied, and Bickel sugg"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "Retrieval limitation affecting this entire report: WebFetch was blocked by the network egress proxy for pubmed.ncbi.nlm.nih.gov, pmc.ncbi.nlm.nih.gov, academic.oup.com, europepmc.org, Wiley, Frontiers and Taylor & Francis. Every number here was extracted from search-result summaries of abstracts rat"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "No completed randomised controlled trial has tested a protein dose or a resistance-training prescription specifically in semaglutide or tirzepatide users. LEAN-PREP (n=232, 6 months, MRI quadriceps CSA, Dasman Diabetes Institute) is a published protocol with no results. A separate resistance-trainin"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "DXA lean mass is not skeletal muscle. It includes water, glycogen, organs and connective tissue, all of which change during rapid weight loss. There is an active methodological dispute that anti-obesity-medication muscle-loss estimates are confounded by measurement method (see PubMed 41287517 and He"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "Neither the STEP 1 (n=140 of 1,961, restricted to BMI <=40, 9 sites) nor the SURMOUNT-1 (n=160 of 2,539) DXA substudy was a randomly drawn subset of the parent trial, and neither was powered for body composition. Both are exploratory."
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "Whether the documented lean-mass loss translates into measurable loss of strength, power or physical function is not established by either substudy \u2014 neither reported strength or function outcomes."
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "The intra-week pattern of appetite suppression and nausea relative to injection day is not characterised in any source I retrieved. The common advice to 'eat protein early in the dosing week' has no retrieved evidence behind it. Semaglutide's ~7-day half-life argues against a large intra-week swing "
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "Tirzepatide pharmacokinetics (tmax, half-life, steady-state interval) were not retrieved in this task, so the timing reasoning above is verified only for semaglutide."
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "The reported mean energy intake of 753 kcal/day and protein 33.4 g/day in the preliminary dietary-adequacy study (PubMed 41965670) is implausibly low for 24-hour habitual intake. The dietary assessment method behind it was not verified. The direction (most users under-eat protein) is corroborated by"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "All real-world intake data here rests on self-reported recall, which under-reports systematically \u2014 so the true gap between intended and measured protein intake could be either larger (if under-reporting inflates the shortfall) or smaller than reported. The meta-analysis authors explicitly flag habi"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "Pharmacological approaches to lean-mass preservation on GLP-1s (for example the enobosarm plus semaglutide phase 2b programme in older adults) exist and are being promoted, but I retrieved only trade-press headlines, not peer-reviewed data. No claim about their efficacy or safety is made here and no"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "Protein indexed to body mass is a poor anchor at high BMI. The case series reported 0.7-1.7 g/kg body mass but 1.6-2.3 g/kg fat-free mass for the same people. Which denominator the 1.2-2.0 g/kg guidance is meant to use is not consistently specified across the sources retrieved, and the difference is"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "No retrieved source quantifies creatine, leucine or EAA supplementation effects in GLP-1 users, and no retrieved source addresses whether protein tolerability differs by source (whey vs casein vs whole food vs liquid) under incretin-induced early satiety \u2014 a question that matters a great deal in pra"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "The S-LiTE exercise programme was predominantly aerobic and used liraglutide 3.0 mg daily, not semaglutide or tirzepatide. Its 3.9-percentage-point body-fat benefit should not be assumed to transfer unchanged to a resistance-training programme on a more potent agent producing far larger weight loss."
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "No randomized controlled trial has ever tested tamoxifen or raloxifene for anabolic-steroid-induced gynecomastia. Every dose in circulation for this purpose (tamoxifen 20 mg/day, raloxifene 60 mg/day) is extrapolated from prostate-cancer antiandrogen trials and pubertal-gynecomastia studies in popul"
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "No controlled trial has shown that any SERM reverses fibrotic, established gynecomastia in an adult man. Positive trials enrolled recent-onset or pubertal disease, or gave the drug prophylactically before tissue formed. The widely repeated claim that raloxifene works where tamoxifen has failed on ol"
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "The exact reversibility cut-off is not established by prospective data. The 12-month figure comes from histologic phase descriptions and expert reviews, not from a trial that randomized men by duration of gynecomastia. Nobody has published a dose-response or duration-response curve, so the boundary "
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "No head-to-head randomized trial of tamoxifen versus raloxifene exists for gynecomastia in any population, at any duration. The only comparison is retrospective, non-randomized, in adolescents, with small numbers."
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "Raloxifene has never been studied for safety or efficacy in men at all in its licensing programme. There is no male pharmacokinetic, bone, cardiovascular or long-term safety dataset comparable to what exists for postmenopausal women, and the boxed VTE warning was derived entirely from female cohorts"
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "There is no evidence that on-cycle prophylactic SERM use prevents gynecomastia in AAS users, and no trial has established whether continuing a SERM alongside ongoing aromatizable androgen exposure works, fails, or merely delays. The prostate-cancer prophylaxis data are the closest analogue and invol"
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "The prolactin-driven presentation in 19-nor users is mechanistically plausible (nandrolone has 5-20x testosterone's progesterone receptor affinity) but clinically untested. No human study has measured how often gynecomastia in 19-nor users is progestogen/prolactin-mediated versus estrogen-mediated, "
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "Whether adding a SERM to an aromatase inhibitor, or sequencing them, helps has never been tested for gynecomastia. Combination practice is entirely community-derived."
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "Optimal duration is not established. Published courses span 1 month to 9 months with no trial comparing durations head to head, no data on what happens after stopping in AAS users, and no recurrence data in this population."
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "There is no evidence on whether SERM treatment for gynecomastia is safe or effective in men concurrently on exogenous testosterone. Tamoxifen's mechanism in men partly depends on disinhibiting an intact HPG axis, which a TRT user does not have \u2014 so the pharmacology that supports its use in eugonadal"
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "Black-market product integrity is an unmeasured confounder in everything the community believes about these drugs: about a third of illicitly sourced PCT samples contained none of the declared active ingredient, so reported personal failures and successes cannot be attributed to the drug with any co"
+ },
+ {
+  "topic": "serms-gyno",
+  "gap": "Methodological caveat affecting all citations above: in this session the network egress policy blocked direct fetching of PubMed, PMC, Europe PMC, AAFP, DailyMed and all publisher domains (403 at the proxy for every host tested). Claims were built from retrieved web-search content extracts and cross"
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "No dose-finding trial of any aromatase inhibitor has ever been run in men on exogenous testosterone. The 1 mg daily anastrozole dose used in every male RCT was inherited from postmenopausal breast-cancer oncology, where the design goal was MAXIMAL estrogen suppression \u2014 the opposite of what is wante"
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "There is only ONE randomized placebo-controlled trial of an AI added to exogenous testosterone in men: n=40, 3 months, all with focal epilepsy (Herzog 2010). No RCT has tested AI-on-TRT in the general TRT population, at any dose, for any duration. Everything else is retrospective cohort, case series"
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "No trial has ever studied an AI alongside supraphysiologic androgen doses. Every male AI trial used physiologic or sub-physiologic testosterone. The dose-response of aromatization at 500\u20131000+ mg/week of testosterone, or with aromatizable 19-nors and orals in the mix, is uncharacterized. Community a"
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "No trial has established a target estradiol range for men on TRT. The frequently quoted 20\u201330 pg/mL 'optimal' band comes from lab-marketing and clinic content, not from any outcome trial. The only hard numbers with experimental backing are estradiol >10 pg/mL to protect bone under clamp conditions ("
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "No head-to-head trial of anastrozole vs exemestane vs letrozole has been run in men for estradiol control. The comparative potency data in males comes from a short-stature trial in pubertal boys; the reversible-vs-irreversible switching data comes entirely from metastatic breast cancer in postmenopa"
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "Exemestane has never been studied in men beyond a 10-day, 12-subject pharmacokinetic dose-finding study (Mauras 2003). There is no efficacy data, no safety data beyond 10 days, and no data at the sub-25 mg doses (e.g. 12.5 mg every other day) commonly used in practice."
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "The claim that exemestane is bone-sparing in men because 17-hydroexemestane is androgenic is unsupported: the randomized head-to-head (MA.27B) found NO BMD difference vs anastrozole, and that trial was in women. There is zero bone data for exemestane in men at any dose."
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "No trial has tested whether AI dose-reduction or discontinuation reverses AI-induced bone loss in men. Burnett-Bowie 2009 showed 12 months of anastrozole 1 mg/day loses spine BMD; nobody has studied recovery."
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "There is no evidence that prophylactic AI use prevents gynecomastia in men on testosterone. The only placebo-controlled gynecomastia RCT with an AI was negative for TREATMENT, and no prevention trial exists in TRT or AAS populations."
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "The kinetics of estradiol recovery after stopping an AI in men are uncharacterized. For exemestane, single-dose suppression persists \u22655 days despite an 8.9-hour male half-life, and full aromatase recovery requires de novo enzyme synthesis \u2014 but nobody has measured how long that takes in men, so 'how"
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "No study has quantified rebound hyperestrogenism after abrupt AI cessation in men on continuing testosterone, despite this being a routinely reported community phenomenon."
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "Whether AI-induced arthralgia occurs at the same 35\u201350% rate in men as in postmenopausal women is unknown. Every incidence figure is from breast-cancer cohorts at full oncology doses; there is no male incidence data at the lower intermittent doses used on TRT."
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "There is no cardiovascular outcome data for AI use in men at all. The U-shaped estradiol-mortality association (Jankowska 2009) is observational and in systolic heart failure; it does not establish that AI-induced low estradiol causes cardiovascular harm in healthy men, and no trial has looked."
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "No trial has established whether an AI affects TRT-induced erythrocytosis, or whether it changes hematocrit at all in men. Hematocrit management on TRT rests on dose reduction and therapeutic phlebotomy above 52%, not on estradiol control."
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "Compounded, research-chemical and grey-market AIs are of unverified identity and content. Every dose figure in this document assumes a pharmaceutical-grade product; none of the community dosing literature verified what was actually in the tablet or liquid, so a 'known' community dose is not a known "
+ },
+ {
+  "topic": "ai-protocols",
+  "gap": "METHOD CAVEAT for the parent agent: WebFetch was fully egress-blocked in this session (PubMed, PMC, DOI, FDA/DailyMed, ClinicalTrials.gov, AUA, and all publisher domains returned EGRESS_BLOCKED). All content above was retrieved through WebSearch, which returns extracted page text. Every URL cited su"
+ },
+ {
+  "topic": "pct",
+  "gap": "The single most common PCT structure in the community \u2014 a tapered SERM 'pyramid' such as tamoxifen 40/40/20/20 mg or clomiphene 100/50/50/25 mg over four weeks \u2014 has never been tested in any controlled trial, in any population. There is no human evidence that tapering a SERM is better than a flat do"
+ },
+ {
+  "topic": "pct",
+  "gap": "How long to wait after the last injection before starting PCT \u2014 the 'ester washout' rules (e.g. two weeks after testosterone enanthate, three-plus weeks after decanoate or undecanoate) \u2014 is pure pharmacokinetic inference. No trial has compared starting a restart early versus late after a long-ester "
+ },
+ {
+  "topic": "pct",
+  "gap": "Whether hCG before a SERM is actually better than a SERM alone is unresolved for anything longer than a short cycle. The one comparative study (\u0130bis 2026, BJU Int) covers AAS use of six months or less in men with documented normal pre-cycle hormones, and found the benefit was in sperm and testicular"
+ },
+ {
+  "topic": "pct",
+  "gap": "The optimal hCG lead-in length before starting a SERM has no evidence at all. Community protocols use anywhere from 10 days to 6 weeks; published series used continuous hCG (Wenker: 3,000 IU EOD until recovery) or hCG as a rescue added at week 4 (CloTASH), which is the reverse sequence. There is no "
+ },
+ {
+  "topic": "pct",
+  "gap": "Whether high-dose hCG blunts the very recovery it is meant to enable is untested in humans. The Leydig desensitisation rationale is rodent and in vitro; the fact that gonadotropins stay suppressed while on hCG is documented, but nobody has run the study asking whether a long, high-dose hCG course le"
+ },
+ {
+  "topic": "pct",
+  "gap": "Aromatase inhibitors during PCT have zero supporting human data for that use. Anastrozole 1 mg daily has RCT data in older hypogonadal men, but no trial has tested whether suppressing estradiol during an HPTA restart helps, does nothing, or actively impairs recovery \u2014 and estradiol is part of the fe"
+ },
+ {
+  "topic": "pct",
+  "gap": "Enclomiphene's supposed superiority over clomiphene for restart is unevidenced. There is no head-to-head trial of enclomiphene versus clomiphene for HPTA recovery, none in AAS users, and enclomiphene is not an FDA-approved drug \u2014 so compounded product identity and potency are additionally unverified"
+ },
+ {
+  "topic": "pct",
+  "gap": "No PCT drug or protocol has ever been tested for the outcome users actually care about: preserving muscle or strength after a cycle. All trial endpoints are hormonal or seminal. Claims that PCT 'keeps gains' have no human evidence of any tier."
+ },
+ {
+  "topic": "pct",
+  "gap": "Symptom relief \u2014 the main real-world reason people run PCT \u2014 has essentially no controlled evidence. The 470-man survey is self-reported and unblinded; the CloTASH pilot is single-arm and small. Nobody has run a placebo-controlled trial of PCT for mood, libido, energy or withdrawal severity after AA"
+ },
+ {
+  "topic": "pct",
+  "gap": "There is no validated threshold that defines 'failed restart' other than a provisional 2025 expert proposal (PPAAH at 6 months with cumulative exposure \u2265150 mg/week for \u22656 months). That threshold has not been prospectively validated, and no study has tested whether intervening at 6 months versus 12 "
+ },
+ {
+  "topic": "pct",
+  "gap": "Nobody has established what predicts a slow restart at an individual level well enough to act on prospectively. Duration of use and cumulative dose are reproducibly associated with slower recovery, but no validated prediction rule exists, and baseline testicular volume, inhibin B and AMH have not be"
+ },
+ {
+  "topic": "pct",
+  "gap": "19-nor compounds (nandrolone, trenbolone) are widely believed to suppress the axis harder and longer than testosterone, and progestin-receptor and prolactin effects are invoked to justify adding cabergoline to PCT. No controlled human study has compared restart timelines by compound class in AAS use"
+ },
+ {
+  "topic": "pct",
+  "gap": "Long-term safety of repeated SERM courses in men is unestablished. The 2025 meta-analysis reported no serious adverse events but is underpowered for safety endpoints, clomiphene has no male label at all, and nobody has studied men who have run four or five PCT courses over a decade \u2014 which is the ac"
+ },
+ {
+  "topic": "pct",
+  "gap": "Whether PCT changes the probability of eventual full recovery, as opposed to the speed of it, is unknown. The retrospective association of PCT with faster recovery (13 vs 26 weeks) is confounded by who chooses to run PCT, and the comparative cohort found all groups reached normal testosterone by mon"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "No controlled trial of ANY antihypertensive \u2014 telmisartan, any other ARB, ACE inhibitor or anything else \u2014 has been conducted in people using supraphysiologic androgens. The entire case for an ARB in this population is imported from general hypertension trials plus sports-cardiology reasoning about "
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Telmisartan's PPAR-gamma partial agonism \u2014 the specific reason it is preferred in community practice over other ARBs \u2014 has been tested for glucose, insulin, HOMA-IR and HbA1c in hypertensive patients with metabolic syndrome. It has never been tested for any outcome in androgen users, and PPAR-gamma "
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Androgen users commonly start an ARB prophylactically before BP is actually elevated, or 'for kidney protection' during a cycle. There is no human evidence for either practice, and no data on whether pre-emptive RAS blockade during a cycle changes anything."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "The natriuretic-peptide suppression mechanism documented in AAS users is not addressed by an ARB at all. Nobody has tested whether that limb matters clinically, or whether an agent acting on it would work better."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "No trial of statins, ezetimibe, omega-3, fibrates or niacin has ever been run in AAS users. Whether lowering ApoB during androgen exposure reduces plaque progression or events in this population is completely untested \u2014 the plaque data are observational and the treatment data are from other populati"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "It is unknown whether the profoundly suppressed HDL-C and ApoA1 on orals carries the same risk meaning as spontaneous low HDL, and unknown whether anything other than cessation raises it. Hepatic lipase induction is the mechanism, and no clinically available agent has been shown to counteract it dur"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Lp(a) FALLS about 38% during androgen use. Nobody knows whether an on-cycle Lp(a) has any prognostic meaning, or how long after cessation it must be measured to be interpretable as a lifetime risk marker."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Whether switching from oral to injectable androgens meaningfully protects the lipid profile is mechanistically plausible and completely untested as a mitigation strategy in humans."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "There is no controlled evidence that therapeutic phlebotomy reduces thrombotic risk in testosterone- or AAS-induced erythrocytosis, and the published position is that efficacy and safety evidence is lacking. No study quantifies how much hematocrit falls per unit removed in this population \u2014 figures "
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Whether therapeutic phlebotomy and altruistic blood donation differ in outcome for the donor has not been studied, and the evidence base says nothing about donating blood while on androgens as a management strategy specifically."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "The iron-depletion consequences of a recurring donation or phlebotomy schedule in ANDROGEN USERS specifically are unstudied. The ferritin-halving-per-unit-per-year data come from general blood donors, not from men whose erythropoiesis is being simultaneously driven by exogenous androgen and suppress"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "No ferritin floor has been validated for androgen users on a phlebotomy schedule, and no iron-repletion protocol (dose, form, frequency) has been tested in this population. The commonly cited ferritin <30 ng/mL trigger comes from general blood-donor practice."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "The correct hematocrit threshold for action in supraphysiologic androgen use is unknown. The 50%, 52% and 54% figures come from TRT guidelines, European versus American convention, and individual case series \u2014 the 2025 systematic review's explicit conclusion is that there is no clear consensus. None"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "How much to reduce the dose by, when a dose reduction is used to control erythrocytosis, is specified by no guideline and no trial. HAARLEM further found the hematocrit rise was NOT associated with higher dose or longer use, which undercuts the assumption that dose titration controls it at supraphys"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Whether more frequent, lower-per-injection dosing, or switching intramuscular to subcutaneous, prevents erythrocytosis at supraphysiologic doses is untested. All route and frequency data are from TRT-range dosing, and even there a 2025 analysis found no significant IM versus SC difference in resulti"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "No validated monitoring interval or marker panel exists for 17-alpha-alkylated hepatotoxicity. No prospective study has shown that any schedule of liver testing prevents severe cholestasis, and the injury can present abruptly. Any stated testing cadence for orals is convention, not evidence."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Community 'liver support' during oral cycles \u2014 TUDCA, UDCA, silymarin, NAC, SAMe \u2014 has zero human data in AAS-induced liver injury. TUDCA and UDCA human evidence is in cholestatic liver DISEASE as treatment, never as prophylaxis alongside a hepatotoxin, and no one has shown any of these prevents 17-"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "The community convention of limiting orals to a fixed duration (commonly cited as 4-6 weeks) has no human data behind it. No study establishes a duration threshold below which 17-AA hepatotoxicity is unlikely \u2014 the oxymetholone RCT ran 16 weeks and showed roughly one in three participants exceeding "
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "There is no established dose-toxicity curve for most 17-alpha-alkylated compounds actually used recreationally (methandrostenolone, oxandrolone, methylstenbolone, designer compounds). The oxymetholone HIV-wasting trial is the exception, and it is not generalizable across compounds."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "The occurrence and significance of non-alcoholic fatty liver disease during AAS use is an open research question being investigated by the Dutch AAS expertise centre \u2014 meaning the absence of the classic cholestatic pattern on injectables does not establish that injectables leave the liver unaffected"
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Sleep apnea is directed by guideline to be evaluated when erythrocytosis appears, but whether treating OSA lowers hematocrit enough to permit continued androgen use is untested."
+ },
+ {
+  "topic": "on-cycle-support",
+  "gap": "Essentially everything above is derived from studies in men. The BP, lipid, hematocrit and hepatic management of androgen use in women is not covered by any of this evidence, and effects of androgens combined with GLP-1 receptor agonists, or with other concurrently used agents, are unstudied for all"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "BLOCKING FAILURE \u2014 READ FIRST. This task returned zero claims because zero sources could be retrieved, not because zero evidence exists. Two independent failures: (1) WebSearch returned 'this session has used its web search budget (200 of 200 WebSearch calls)' on the first attempt and every attempt "
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "CONSEQUENCE: I am deliberately returning an empty claims array. I hold substantial recalled knowledge about finasteride 1 mg, dutasteride 0.5 mg, 5AR isoform selectivity, minoxidil and post-finasteride syndrome, but the task rules forbid citing from memory of a title, and I could not open a single p"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "RESTART PATH: the repository already contains a curated source registry at /home/user/Therapylog.github.io/assets/sources/registry.json (88 entries) whose markers/dht/ page carries roughly a dozen entries directly relevant to this topic \u2014 a Propecia US label, an EMA Article 31 referral on suicidal i"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "GENUINE EVIDENCE GAPS TO CONFIRM (stated as questions to verify, not as findings \u2014 none of these were checkable in this task): whether any controlled human trial has tested a 5-alpha-reductase inhibitor specifically in men on exogenous testosterone rather than in eugonadal men, which is the exact po"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Whether the incidence, mechanism and persistence of post-finasteride syndrome have any prospective controlled human data at all, versus resting on pharmacovigilance reports, cross-sectional surveys and regulatory label changes. The direction and strength of evidence on BOTH sides needs sourcing \u2014 th"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Whether dutasteride's greater DHT suppression translates into proportionally greater adverse-effect risk, or only greater efficacy \u2014 and whether any head-to-head trial powered for harms (not just hair counts) exists."
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Whether topical finasteride, topical dutasteride and compounded topical antiandrogens achieve meaningful scalp effect without systemic DHT suppression, and what serum DHT reduction is actually measured with each \u2014 my expectation is that 'topical means no systemic effect' is a community belief that m"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "RU58841 and other non-approved topical antiandrogens circulating in community use: whether ANY human trial data exists. I expect the answer is that there is none and that development was abandoned, making all community dosing purely anecdotal \u2014 but this needs an actual source, and if none can be fou"
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Whether oral minoxidil at low dose has controlled trial support for androgenetic alopecia or only observational/off-label dermatology series, and what cardiovascular monitoring (if any) is recommended at those doses."
+ },
+ {
+  "topic": "hair-5ar",
+  "gap": "Whether any dose of any of these agents has been studied for interaction with supraphysiologic testosterone or with anabolic compounds other than testosterone \u2014 I expect none, and if so the page must say plainly that people combining these are operating outside all trial evidence."
+ },
+ {
+  "topic": "prolactin",
+  "gap": "No human study \u2014 controlled, observational, or even a case series with measured prolactin \u2014 was retrieved linking nandrolone, trenbolone, or any 19-nortestosterone derivative to hyperprolactinaemia. The entire premise that '19-nors raise prolactin' rests on community bloodwork anecdote. Community so"
+ },
+ {
+  "topic": "prolactin",
+  "gap": "No study of any design was retrieved evaluating cabergoline, bromocriptine, or any dopamine agonist for prolactin elevation attributed to anabolic steroid use. There is no efficacy data, no dose-finding, no duration guidance, and no safety data in this population. Every number a user takes is borrow"
+ },
+ {
+  "topic": "prolactin",
+  "gap": "Community cabergoline protocols (typically fractions of a milligram weekly, run for the length of a cycle, often prophylactically without a prolactin measurement) have never been studied. No source documenting either the doses actually used or their outcomes was retrieved, so no dose can be stated f"
+ },
+ {
+  "topic": "prolactin",
+  "gap": "Whether intermittent, cycle-length, low-cumulative-dose cabergoline exposure carries any valvular risk is unstudied. The valve data come from 204-443 mg cumulative over 4-7 years of continuous therapy. Low cumulative exposure is a reason the prolactinoma data cannot be read across, not evidence of s"
+ },
+ {
+  "topic": "prolactin",
+  "gap": "The original ergot-valvulopathy alarm arose from Parkinson's disease dosing (milligrams per day rather than per week). Those primary sources could not be retrieved in this task, so the size of the dose gap between Parkinson's exposure and prolactinoma exposure is asserted nowhere in the claims above"
+ },
+ {
+  "topic": "prolactin",
+  "gap": "P5P (pyridoxal-5'-phosphate) has no human prolactin data at all. Every retrieved human study used pyridoxine hydrochloride. No P5P-versus-pyridoxine comparison for prolactin exists, and community P5P doses are far below the 600 mg/day that produced the one randomised effect."
+ },
+ {
+  "topic": "prolactin",
+  "gap": "High-dose vitamin B6 sensory neuropathy: the trial supporting B6 used 600 mg/day for 16 weeks, a dose in the range where pyridoxine neurotoxicity is a recognised concern, but no source quantifying that risk or its dose threshold was retrieved in this task. Do not treat 600 mg/day as established as s"
+ },
+ {
+  "topic": "prolactin",
+  "gap": "Whether prolactin elevation in anabolic steroid users actually causes the symptoms attributed to it \u2014 low libido, erectile dysfunction, anorgasmia, 'deca dick' \u2014 versus those symptoms being driven by suppressed endogenous testosterone, oestradiol swings, or direct compound effects. No retrieved stud"
+ },
+ {
+  "topic": "prolactin",
+  "gap": "No data was retrieved on prolactin assay behaviour in anabolic steroid users specifically: macroprolactin prevalence, hook effect risk, and whether standard male reference intervals apply are all unstudied in this group."
+ },
+ {
+  "topic": "prolactin",
+  "gap": "No study was retrieved on whether empirical dopamine agonist use masks a genuine prolactinoma by normalising the prolactin number without imaging. This is a plausible harm with no evidence base either way."
+ },
+ {
+  "topic": "prolactin",
+  "gap": "The specific guideline threshold at which pituitary MRI becomes indicated in hyperprolactinaemia could not be retrieved in this task. What is supported is narrower: drug-induced elevation is typically 25-100 ng/mL but potent dopamine blockers exceed 200 ng/mL, and confirmed hyperprolactinaemia in so"
+ },
+ {
+  "topic": "prolactin",
+  "gap": "Cabergoline discontinuation: withdrawal protocols, remission rates, and whether prolactin rebounds above baseline after stopping were not retrieved. Relevant because community use is intended to be short-term and stopped."
+ },
+ {
+  "topic": "prolactin",
+  "gap": "Bromocriptine dosing for any of these uses was not retrieved, so no dose is given for it above."
+ },
+ {
+  "topic": "prolactin",
+  "gap": "Vitex agnus-castus (chasteberry), mucuna/L-dopa, and other community prolactin adjuncts: no evidence was retrieved in this task in either direction. Their absence from the claims above reflects no search coverage, not a negative finding."
+ },
+ {
+  "topic": "prolactin",
+  "gap": "Cabergoline drug interactions relevant to this population \u2014 including with other dopaminergics, and cardiovascular interactions \u2014 were not retrieved."
+ },
+ {
+  "topic": "prolactin",
+  "gap": "Method limitation for this entire report: direct full-text retrieval of journals, PubMed, PMC, FDA and guideline sites was blocked by network egress policy in this session, so claims were built from search-engine retrieval of source content rather than reading full texts. Every URL cited was returne"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "RESEARCH NOT PERFORMED \u2014 TOOLING FAILURE, NOT AN EVIDENCE GAP. Zero claims are returned because I could not retrieve any source in this task. (1) WebSearch returned: 'this session has used its web search budget (200 of 200 WebSearch calls)' on the first and every subsequent call. (2) All outbound HT"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "REMEDY FOR THE ORCHESTRATOR: re-run this topic in a session with (a) CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION raised, and (b) an egress allowlist that includes at minimum pubmed.ncbi.nlm.nih.gov, pmc.ncbi.nlm.nih.gov, doi.org, bjsm.bmj.com, www.jospt.org and www.cochranelibrary.com. Nothing about th"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "DELIBERATE REFUSAL TO WRITE FROM MEMORY: I can recall the general shape of this literature (isometric-then-heavy-slow-resistance progressions, a numeric pain-monitoring threshold during and 24h after loading, months-long timelines, grip demand as a confounder in elbow flexor loading, imaging trigger"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "GENUINE EVIDENCE GAPS FLAGGED AS LEADS ONLY \u2014 UNVERIFIED IN THIS SESSION, each must be confirmed against retrieved sources before publication: whether isometric holds produce reliable analgesia beyond placebo/comparator loading (later replication attempts have reportedly been less favourable than th"
+ },
+ {
+  "topic": "rehab-tendon",
+  "gap": "NO DOSING CLAIMS ARE MADE, so no dose is attached to any drug or compound in this output. If the orchestrator expected pharmacological adjuncts for tendinopathy (corticosteroid injection, PRP, nitroglycerin patches, collagen/vitamin C peri-loading protocols, BPC-157 or TB-500 as used in this app's c"
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "BLOCKING FAILURE \u2014 READ FIRST: This task produced zero claims because zero sources could be retrieved. The WebSearch budget was already exhausted (200/200 calls) at the moment this subagent started, so no search was ever performed. WebFetch was then tried directly against stable URLs on pubmed.ncbi."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Everything below is background context for the re-run, NOT a finding. None of it was verified in this task and none of it should be published without sources."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Sets/reps/frequency prescriptions for rotator cuff and scapular exercise in subacromial pain are a genuine evidence gap even in the published literature: trials establish that exercise beats no exercise and roughly matches subacromial decompression surgery, but head-to-head dose-finding trials (whic"
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Whether specific pressing patterns (barbell bench to the chest, wide-grip vs neutral-grip, overhead press vs landmine press, dips, upright rows) actually aggravate subacromial pain, and whether the commonly recommended substitutions genuinely reduce symptoms, is essentially untested in controlled hu"
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "The 'scapular dyskinesis causes impingement, therefore correct the scapula' model is contested in the recent literature and may have been substantially walked back. A re-run must check the current position rather than reproducing the older scapular-control framing, because guidance here has moved."
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Low back pain red flags (cauda equina syndrome, progressive neurological deficit, systemic/constitutional features, suspected fracture or malignancy) have well-established guideline text, but the individual red-flag questions have poor diagnostic accuracy in isolation. A re-run must source both the "
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Graded reloading versus rest for non-specific low back pain, and the evidence against passive-only management (rest, traction, ultrasound, prolonged bracing, passive modalities alone), is well covered in guidelines \u2014 this is the part of the topic most likely to yield genuine clinical-tier citations,"
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "No drug is named anywhere in this output, so the dose-attachment rule is not triggered. If a re-run adds any pharmacological content for either condition (NSAIDs, corticosteroid injection, neuropathic agents), every named drug needs either an explicit dose with units and frequency or an explicit 'pr"
+ },
+ {
+  "topic": "rehab-shoulder",
+  "gap": "Compound-specific interaction that this app's audience needs and that is very likely to have NO controlled human evidence: how AAS, TRT, GLP-1s and the connective-tissue peptides marketed for healing (BPC-157, TB-500) affect tendon and disc rehab outcomes, tendon stiffness, or safe reloading rate. P"
+ },
+ {
+  "topic": "load-management",
+  "gap": "**BLOCKER \u2014 NO SOURCES RETRIEVED; THIS TASK MUST BE RE-RUN.** Zero claims are returned because zero sources were retrievable in this session, not because none exist. WebSearch was exhausted before this subagent started (200/200 calls consumed, every call returns the budget error). WebFetch egress is"
+ },
+ {
+  "topic": "load-management",
+  "gap": "Androgen use and tendon adaptation \u2014 the core question in this brief \u2014 has no randomised or prospective controlled human trial testing whether AAS use at self-administered doses alters tendon mechanical properties, stiffness, cross-sectional area, or rupture incidence. The 'strength outpaces tendon "
+ },
+ {
+  "topic": "load-management",
+  "gap": "No human dose-response data exist for any androgen on tendon collagen turnover: no threshold dose, no duration threshold, no compound-specific comparison (testosterone vs nandrolone/19-nors vs oral 17-alpha-alkylated agents), and no washout or reversibility data. Community claims that specific compo"
+ },
+ {
+  "topic": "load-management",
+  "gap": "Human evidence linking AAS use to tendon rupture is, to the best of my knowledge, limited to case reports, case series and retrospective observation \u2014 designs that cannot establish incidence, dose-response, or causation, and that are subject to heavy reporting bias because ruptures in AAS users are "
+ },
+ {
+  "topic": "load-management",
+  "gap": "The ACWR (acute:chronic workload ratio) model has no evidence from any intervention trial that prospectively manipulating the ratio reduces injury rate. It is an observational construct, and its statistical foundations have been substantially challenged in the methodological literature. Presenting A"
+ },
+ {
+  "topic": "load-management",
+  "gap": "No ACWR thresholds have been derived or validated in resistance-trained non-athlete populations \u2014 the population this app serves. All commonly cited band values come from team-sport athlete cohorts with sport-specific external load measures (GPS distance, ball counts) that have no clean analogue in "
+ },
+ {
+  "topic": "load-management",
+  "gap": "Pain-monitoring loading thresholds in tendinopathy rehab were developed and tested predominantly in Achilles and patellar tendinopathy. Whether the same numeric acceptable-pain ceiling and next-morning reassessment rule transfer to rotator cuff, gluteal, hamstring or elbow tendinopathy is largely ex"
+ },
+ {
+  "topic": "load-management",
+  "gap": "No pain-monitoring or load-progression protocol has been tested specifically in androgen-using or performance-enhancing-drug-using populations. Whether analgesia, altered pain perception, or accelerated strength gain on-cycle changes the safety of a pain-guided loading rule is entirely untested."
+ },
+ {
+  "topic": "load-management",
+  "gap": "Distinguishing an irritable/reactive tendinopathy from a structural injury (partial tear, full rupture, enthesopathy, bone stress injury) on history alone has no history-only decision rule with published sensitivity and specificity. The features clinicians use are expert-consensus pattern recognitio"
+ },
+ {
+  "topic": "load-management",
+  "gap": "Peptides marketed for tendon and connective-tissue healing (BPC-157, TB-500/thymosin beta-4, and similar) have no controlled human trials for tendon injury or return-to-training outcomes. The evidence base is preclinical (rodent and in-vitro) only. Any return-to-training timeline that assumes accele"
+ },
+ {
+  "topic": "load-management",
+  "gap": "No human data address whether aromatase inhibitor use and the resulting oestradiol suppression affect tendon mechanical properties, injury risk, or healing in men. Given that oestrogen has documented effects on tendon and ligament in other contexts, this is a plausible and completely unstudied inter"
+ },
+ {
+  "topic": "load-management",
+  "gap": "No human data address whether rapid fat loss on GLP-1 receptor agonists \u2014 including the lean-mass loss component \u2014 changes tendon load tolerance, connective-tissue adaptation, or injury rate during concurrent resistance training. Load-management guidance for a user losing weight rapidly on a GLP-1 i"
+ },
+ {
+  "topic": "load-management",
+  "gap": "Return-to-training and return-to-sport criteria after tendon rupture or surgical repair have not been studied in androgen-using populations, so whether standard timelines and objective discharge criteria (strength symmetry, hop/power testing, tendon length restoration) should be modified for this gr"
+ },
+ {
+  "topic": "load-management",
+  "gap": "There is no validated objective criterion set for the progress/hold/regress decision in recreational resistance training. Criteria in circulation are adapted from athlete rehab and sports-medicine practice; none has been prospectively tested for injury reduction in self-managing lifters, which means"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "BLOCKER \u2014 READ FIRST: This task retrieved and read ZERO sources. The empty claims array is a tooling failure report, NOT a finding. Do not interpret it as 'no evidence exists on this topic' \u2014 the opposite is true; this is one of the better-evidenced topics in the whole TherapyLog domain (ISSN positi"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "CAUSE 1 \u2014 web search budget exhausted: the session had already used 200 of 200 WebSearch calls before this subagent started (consumed by earlier/parallel subagents). Every WebSearch call in this task returned a budget-exhausted notice and performed no search. Fix: raise CLAUDE_CODE_MAX_WEB_SEARCHES_"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "CAUSE 2 \u2014 egress policy blocks every citable domain: WebFetch and curl both got HTTP 403 on CONNECT (organization egress policy denial) for every host tried. Confirmed blocked: pubmed.ncbi.nlm.nih.gov, pmc.ncbi.nlm.nih.gov, www.ncbi.nlm.nih.gov, europepmc.org, doi.org, api.crossref.org, openalex.org"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "NO DOSE OR NUMBER IS SUPPLIED ANYWHERE IN THIS OUTPUT, BY DESIGN. Every quantity this topic calls for \u2014 protein g/kg bodyweight or g/kg lean mass targets in a deficit, per-meal protein dose, the deficit size or %-bodyweight-per-week rate at which lean mass loss accelerates, the lean-mass fraction of"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP (unverified in this task, flagged for the re-run rather than asserted): whether protein targets during energy restriction are better scaled to total bodyweight or to fat-free mass, and how the target should shift at high leanness, needs the ISSN protein position stand and the natu"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: the deficit threshold beyond which lean-mass loss accelerates is widely discussed as a percent-of-bodyweight-per-week rule, but the underlying dose-response has not been mapped by controlled trials across different starting body-fat levels, training statuses and ages. Whatever th"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: GLP-1 body-composition data comes from DXA substudies nested in the large weight-loss RCTs. DXA 'lean mass' includes water and glycogen, both of which fall sharply with rapid weight loss and carbohydrate reduction, so the headline lean-mass-loss fraction systematically overstates"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: whether GLP-1-induced weight loss costs proportionally MORE lean mass than equivalent diet-induced weight loss is genuinely contested, not settled. The pivotal trials were not designed to answer it \u2014 they lacked structured resistance-training arms, lacked protein-intake targets, "
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: there are very few RCTs testing the intervention that actually matters to this audience \u2014 a defined protein target plus structured progressive resistance training, layered on top of an ongoing GLP-1, with body composition as the primary endpoint. This is the central practical que"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: 'measured intake falls below intended intake on these drugs' is a plausible and important mechanism, but no validated method exists for measuring intake under strong pharmacological appetite suppression. Self-reported intake under-reporting is a well-known general problem in nutr"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP \u2014 COMMUNITY TIER, NO CONTROLLED DATA: the practical intake tactics this topic asks about under absent appetite \u2014 liquid and shake-based protein, high-protein-density and low-volume food selection, front-loading protein earlier in the day, eating on a clock rather than on hunger cu"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: per-meal protein distribution and per-dose saturation research was conducted at or near energy balance, or in mild deficits, in people eating adequate total protein. Whether even distribution still matters \u2014 or whether total daily intake dominates \u2014 at the very low total intakes "
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: resistance-training programming specifics under a GLP-1 (weekly set volume, intensity, frequency, how to autoregulate when recovery is impaired by low energy availability, whether to reduce volume during dose escalation) have no trial support. Resistance training as the primary l"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP \u2014 ZERO HUMAN TRIALS: the concurrent use pattern that a meaningful share of this app's users actually run \u2014 a GLP-1 alongside TRT or anabolic steroids, often with an aggressive deficit \u2014 has no controlled human data whatsoever. Exogenous-androgen users are systematically excluded f"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: bone mineral density loss accompanies rapid weight loss and is measured far less often than lean mass in these trials; older users and those running long, deep deficits are the population at risk, and the GLP-1-specific bone data is sparse. Worth a separate research pass."
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "GENUINE DOMAIN GAP: whether deliberately raising protein intake worsens GLP-1 gastrointestinal tolerability \u2014 nausea, early satiety, delayed gastric emptying \u2014 or conversely helps, has not been tested. This is a direct practical conflict for a user told to hit a protein target while nauseated, and I"
+ },
+ {
+  "topic": "nutrition-glp1",
+  "gap": "RE-RUN CHECKLIST \u2014 the sources that should be retrieved and read in full when tooling is fixed, listed as retrieval targets whose contents I am NOT asserting here: the ISSN position stand on protein and exercise; the ISSN position stand on diets and body composition; the ACSM / Academy of Nutrition "
+ }
+]
