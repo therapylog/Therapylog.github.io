@@ -78,12 +78,28 @@
      the entry is shown as related reading and the assistant stays the primary
      path. Cheap, deterministic, and it needs no model to decide.
 
-     0.10 is measured, not guessed. Across the 44-question eval set the two
-     classes separate cleanly: every question that should be answered from the
-     library scores 0.14 or above, and every question that should defer scores
-     0.07 or below — 18 of 19 of them at exactly 0.00, because nothing matched
-     at all. The single near-miss is the tirzepatide-and-a-deficit question at
-     0.07, which is the case this threshold exists for.
+     0.10 was measured against the 44-question eval set, where the two classes
+     separated cleanly: everything that should be answered scored 0.14 or above,
+     everything that should defer scored 0.07 or below.
+
+     A caveat found later, by probing shorter phrasings (scripts/probe-brain.js):
+     coverage is a FRACTION of the question's tokens, so it rises as the question
+     gets terser. The same question can therefore route differently depending on
+     how much of it the user typed.
+
+     The tirzepatide-and-a-deficit question used to be the example here, as a
+     case that ought to defer. It is no longer: the GLP-1 nutrition entry now
+     answers it directly — the deficit drives the lean loss rather than the drug,
+     and resistance training is the lever — so answering is correct and the entry
+     is the right one. That was the fix predicted when this comment first said
+     the answer was content rather than threshold tuning.
+
+     Left at 0.10 deliberately. The constant is calibrated against the eval set
+     that decides the model tier, and re-tuning it on a smaller probe would trade
+     a measured number for a less-measured one. Where the library genuinely must
+     not answer, the two shapes that matter are handled explicitly above:
+     requests to build something bespoke, and dose questions about compounds the
+     index does not know.
 
      The margin is thin, so it is worth being clear about which way a
      misclassification fails. Too low and the app shows a related card the
@@ -100,7 +116,7 @@
      entry, and "test cyp vs enanthate" answered with a protocol. An entry that
      merely mentions a compound must rank below the entry that IS that
      compound. */
-  const KIND_WEIGHT = { compound: 1, playbook: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
+  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
 
   /* Join hyphen/slash-separated word parts, matching how terms() flattens the
      index side. Without this, "MK-677" tokenized to "mk-677" and the index
@@ -148,7 +164,15 @@
       }
       /* Every word of the term present, order-independent. */
       const tw = term.split(/\s+/).filter((w) => w.length > 1);
-      if (tw.length && tw.every((w) => qSet.has(w))) {
+      /* A term that survives this filter as a single bare number must not match.
+         '16:8' is indexed as the term "16 8"; the length filter drops the "8",
+         leaving ["16"], which then matched ANY question containing 16 — and the
+         one that found it was "I'm 16 and I want to start my first cycle", which
+         got answered with an intermittent-fasting entry. A bare number carries no
+         topic, and letting one satisfy a match is how a safety question ends up
+         reaching a nutrition card. */
+      const numericOnly = tw.length === 1 && /^\d+$/.test(tw[0]);
+      if (tw.length && !numericOnly && tw.every((w) => qSet.has(w))) {
         best = Math.max(best, 55 + 15 * tw.length);
       }
     }
@@ -159,6 +183,54 @@
       best += Math.min(20, Math.round((hit / qTokens.length) * 20));
     }
     return Math.round(best * (KIND_WEIGHT[entry.kind] != null ? KIND_WEIGHT[entry.kind] : 1));
+  }
+
+  /* Two shapes of question the library must not answer even when something in
+     it scores well. Both were found by the eval, and both fail in the same
+     direction: the app shows a confident card for a question it has not
+     actually answered.
+
+     1. A request to BUILD something bespoke. "Build me a meal prep plan, 3,000
+        calories, 220 g protein" matched the meal-prep entry at 0.25 coverage
+        and would have been answered with general advice about component
+        prepping. The user asked for a plan with their numbers in it; a card
+        that does not contain those numbers is not a worse answer, it is a
+        different one. This belongs to the assistant, which has their data.
+
+     2. A dose question about something the index does not know. "What's the
+        standard dose of Tesamorelin-B for lean mass gain?" names a compound
+        that does not exist, and matched the BULKING entry at 0.50 coverage on
+        the words "lean mass gain" alone. Answering it with a nutrition card
+        implies the compound is real, which is the one thing a reference must
+        never do about a name it has never heard. A dose question is only
+        answerable by a compound entry. */
+  const BESPOKE = /\b(?:build|make|write|design|create|put together|lay out|structure|plan out)\s+(?:me\s+)?(?:a|an|my|the)?\s*(?:\w+\s+){0,3}(?:plan|program|programme|routine|split|schedule|protocol|template|week|day)\b|\bhow should i (?:structure|organi[sz]e|split|lay out|set up)\b/i;
+  const DOSE_ASK = /\b(?:standard |typical |normal |usual |correct |right )?dose (?:of|for)\b|\bhow (?:much|many) (?:mg|mcg|iu|units)\b|\bdosing (?:of|for)\b/i;
+
+  /* A stated age under 18, next to a question about cycles or compounds.
+     This is checked on the device, before anything is sent, because the answer
+     must not depend on a model complying with a prompt. There is no version of
+     this question that gets a protocol, so there is no reason to spend a paid
+     call deciding that.
+
+     Two failure modes were designed against. Missing a real minor is the worse
+     one, so the age patterns are generous. Firing on an adult is the annoying
+     one, so a number is only read as an age when it is stated as one: "I'm 16"
+     and "16 years old" count, while "16 weeks into my cycle", "16 units",
+     "16 mg" and "hematocrit 16" do not, because a unit follows the number.
+     The topic test is required as well — a 16-year-old asking about protein
+     intake gets the nutrition entry like anyone else. */
+  const MINOR_AGE = /\b(?:i'?m|i am|im|age|aged|turning)\s+(1[0-7])\b(?!\s*(?:weeks?|wks?|months?|mos?|days?|years? in|lbs?|kg|kgs|pounds|mg|mcg|ml|iu|units?|%|percent|nmol|pmol|ng|pg))/i;
+  const MINOR_AGE2 = /\b(1[0-7])\s*(?:years?|yrs?|yo)\s*old\b/i;
+  const MINOR_WORDS = /\b(?:high\s?school|highschool|sophomore|freshman|junior year|my parents (?:say|wont|won't|don't|dont)|still in school|year 1[01]\b)/i;
+  /* The topic half. Deliberately narrow: anabolic and hormonal intervention,
+     not training or food, which are worth helping a teenager with. */
+  const ENHANCEMENT = /\b(?:cycle|cycles|cycling|steroid|steroids|aas|gear|juice|sarm|sarms|test(?:osterone)?\s*(?:e|c|cyp|prop|enanthate|cypionate)?\b|trt|anabolic|prohormone|pct|hgh|growth hormone|peptide|first cycle|blast|pin(?:ning)?)/i;
+
+  function minorEnhancementAsk(q) {
+    const s = String(q || '');
+    const minor = MINOR_AGE.test(s) || MINOR_AGE2.test(s) || MINOR_WORDS.test(s);
+    return minor && ENHANCEMENT.test(s);
   }
 
   /* Deterministic questions that should never reach a language model: the
@@ -182,6 +254,11 @@
      should offer its calculator first — the model cannot beat arithmetic. */
   function search(q, index, opts) {
     const o = opts || {};
+    /* Answered here and nowhere else. Returning early means the question is not
+       scored against the library and is never sent to the assistant. */
+    if (minorEnhancementAsk(q)) {
+      return { tool: null, results: [], answerable: [], answers: false, guard: 'minor' };
+    }
     const limit = o.limit || 3;
     const norm = normalize(q);
     const qTokens = tokens(q);
@@ -194,6 +271,13 @@
       out.sort((a, b) => b.score - a.score || a.entry.title.length - b.entry.title.length);
     }
     const picked = out.slice(0, limit);
+
+    /* Applied after scoring rather than before, so the entries still appear as
+       related reading — the question is only whether one is offered AS the
+       answer. */
+    const bespoke = BESPOKE.test(String(q || ''));
+    const doseAskOffTopic = DOSE_ASK.test(String(q || '')) &&
+      picked.length && picked[0].entry.kind !== 'compound';
 
     /* Markers carry the range, playbooks carry what to do about it. "My
        hematocrit is 53" matches the marker on the word alone, but the useful
@@ -221,17 +305,20 @@
        eating 700 below maintenance, how do I keep muscle" was answered with a
        GLP-1 combination warning, because an entry with few terms reaches a
        given coverage on fewer hits than a richly-aliased compound does. */
-    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1 };
+    /* rehab sits with the playbooks: both are authored, fully cited answers to a
+       question someone asked in their own words, and both are the reason this
+       matcher exists — to answer without a round trip. */
+    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1 };
     const answerable = picked.filter((r) => !r.related &&
       ANSWER_KINDS[r.entry.kind] &&
       r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
     return {
       tool: toolFor(q),
       results: picked,
-      answerable,
-      answers: !!(toolFor(q) || answerable.length)
+      answerable: (bespoke || doseAskOffTopic) ? [] : answerable,
+      answers: !!(toolFor(q) || ((bespoke || doseAskOffTopic) ? false : answerable.length))
     };
   }
 
-  return { search, normalize, tokens, toolFor, THRESHOLD, ANSWER_COVERAGE };
+  return { search, normalize, tokens, toolFor, minorEnhancementAsk, THRESHOLD, ANSWER_COVERAGE };
 });

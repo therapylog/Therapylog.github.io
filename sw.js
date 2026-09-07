@@ -1,7 +1,14 @@
 /* TherapyLog service worker — offline shell + notification display. */
-const CACHE = 'therapylog-v3';
+const CACHE = 'therapylog-v4';
 const PRECACHE = [
   '/app.html',
+  /* The brain index answers questions on-device for free. Precaching it is what
+     makes that work with no signal — which is when a gym-floor question is most
+     likely to be asked and least likely to reach an API. It is fetched rather
+     than inlined so it can grow without bloating app.html, and it is same-origin
+     precisely so this cache applies: the fetch handler below passes cross-origin
+     straight through, so a subdomain would have no offline copy at all. */
+  '/assets/brain/index.json',
   '/manifest.webmanifest',
   '/vendor/chart.umd.min.js',
   '/icons/icon.svg',
