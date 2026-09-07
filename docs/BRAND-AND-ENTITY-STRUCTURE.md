@@ -223,34 +223,71 @@ backlog needs a healthcare attorney before it is built.
 
 ---
 
-## 6. Naming
+## 6. Naming — decided: **Millwright**
 
-Do not reuse TherapyLog or Arctos. Candidates, all men's-health/hormone-clinic
-appropriate, none colliding with the existing brands' meaning. **Clear each one for
-trademark and domain before committing — this list is a starting point, not a search
-result.**
+*Chosen 2 September 2026, after screening 22 candidates. The shortlist that used to
+live here is superseded; the full screen and the reasoning are in
+`docs/NAME-SCREEN.md`.*
 
-| Name | Note |
+**Millwright** — *the trade that installs and keeps machinery true.* A millwright aligns
+and maintains machines that must run for decades. The clinic's product is not a
+transformation, it is maintenance: a lab draw every eight weeks, indefinitely. The name
+says that, which is both truer to the medicine and a better retention story than the
+forge-and-transformation names the category is full of.
+
+It is masculine through the trade rather than through the customer, which was the brief:
+nothing in it tells a woman on BHRT that she is in the wrong place, the way
+"[Something] Men's Health" does in the name.
+
+### What the screen ruled out, and why it matters
+
+Four earlier favourites are unusable because a competitor already trades under them.
+Do not revisit these:
+
+| Ruled out | Conflict |
 |---|---|
-| Meridian Men's Health | "Meridian" is well-used in healthcare — clear carefully |
-| Northgate Health | Neutral, clinical, expandable beyond men's health |
-| Keystone Hormone Health | Descriptive, easy to explain |
-| Baseline Health | Plays to the bloodwork-first positioning |
-| Trailhead Health | Warm, Texas-friendly, not gym-coded |
-| Anvil Health | Strong, masculine without being PED-coded |
-| Latitude Men's Health | Clean, ownable |
-| Cardinal Hormone Clinic | Traditional, credible |
-| Foundry Health | Industrial, sober |
-| Longview Health | Longevity-adjacent without the biohacker signal |
+| **Anvil** | `anvilformen.com` — "ANVIL — Hormone Optimization for Men". Telehealth TRT, Quest draws, free T and sensitive E2. The same business, the same name. |
+| **Keystone** | Keystone Telehealth™ (uses the ™ on the exact service) and Keystone Health, a primary-care system in Franklin County, PA. |
+| **Ironwood** | `ironwoodmenshealth.com` — a TRT clinic in Flower Mound, **Texas**. Same state, same service. |
+| **Bastion** | `getbastion.com` — "Bastion Health", a men's digital clinic with a hormonal-health line. |
 
-**Avoid** anything with *cycle, stack, peak, alpha, apex, elite, prime, max, beast*, or a
-bear. Those read as bodybuilding, which is the association the clinic must not have — and
-"PRIME" is already an Arctos SKU.
+Runners-up, both clear and both still viable if Millwright fails its trademark search:
+**Whetstone** (easier to spell, warmer, slightly less distinctive) and **Datum** (safest
+to clear, but a label rather than an idea — it says nothing about what the clinic does).
 
-Register the domain, the trademark class 44 (medical services), and the social handles
-before spending anything on the brand.
+### The spelling problem, and its price
 
----
+"-wright" is genuinely misspelled — *playwright* is one of the most-misspelled words in
+English for the same reason. The mitigation is cheap and should happen at registration:
+buy `millwriteclinic.com`, `milwrightclinic.com`, `millriteclinic.com` and
+`millwrightsclinic.com` alongside the real one and 301 them all. About $60/year total.
+
+The residual cost domains cannot fix: in forum threads people will write it wrong, which
+fragments brand mentions and search results. Acceptable, given that acquisition here is
+link-driven (forum posts, affiliate links) rather than verbal.
+
+### Domains — all open as of 2 September 2026, none yet registered
+
+`millwrightclinic.com` is the primary. `millwrighthealth.com` is taken;
+`<name>health.com` was taken or brokered for **every** one of the 22 candidates, so
+plan on `clinic.com`. Also open: `millwrighthormone.com`, `millwrightmd.com`,
+`millwrightcare.com`, `millwrighthealth.co`.
+
+**Register before the trademark search, not after.** Twelve dollars against the risk of
+losing the name while counsel works.
+
+### Identity direction
+
+The mark is a **plumb bob** — a weight on a line that finds true vertical. Plumb means
+true; the word is already in the name's own sentence. Sketch:
+`claude.ai/code/artifact/e50a2af0-b73d-40cb-b922-41bf9e7d23c4`.
+
+**Not a gear.** Two reasons, and the second is the one that matters: gears are the most
+overused device in industrial identity, and *body-plus-gear* reads as
+fitness-optimisation-machine — precisely the register §2 says this brand must not share
+with TherapyLog. A clinic that looks like a gym is a clinic that struggles with
+LegitScript and looks wrong to a medical board. A millwright's craft is alignment, not
+gearing; the instruments are the plumb bob, the dial indicator and the precision level.
 
 ## 7. Sequence
 
@@ -260,13 +297,18 @@ before spending anything on the brand.
    controlled substances). This is a different specialist from the FDA/DSHEA attorney
    Arctos needs. Bring: the two partner proposals, this memo, and the question of whether
    the TherapyLog directory can list your own clinic.
-3. Name and trademark clearance.
-4. Form the LLC. Separate everything per §4.3.
-5. Insurance: professional liability (or confirm the PC's policy covers the brand as an
+3. **Register the Millwright domains today** (see §6) — this is the only step that can
+   be lost by waiting.
+4. **Trademark clearance on Millwright**, class 44, federal + state + common-law. The
+   screen in `docs/NAME-SCREEN.md` is marketplace evidence only — who is *trading*, not
+   who has *filed*. Do this before paying a designer, or you may pay twice. If it comes
+   back dirty, take Whetstone.
+5. Form the LLC. Separate everything per §4.3.
+6. Insurance: professional liability (or confirm the PC's policy covers the brand as an
    additional insured), cyber, and media liability.
-6. LegitScript certification for the clinic domain **before** building paid acquisition
+7. LegitScript certification for the clinic domain **before** building paid acquisition
    plans around it.
-7. Only then build the site.
+8. Only then build the site.
 
 ---
 
