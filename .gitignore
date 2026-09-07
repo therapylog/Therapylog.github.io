@@ -2,3 +2,6 @@
 build/
 
 __pycache__/
+
+# Transient: CI and the ui-check scripts npm-install acorn/playwright-core here.
+node_modules/
