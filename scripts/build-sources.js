@@ -33,6 +33,12 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const MANUAL = path.join(ROOT, 'assets', 'sources', 'manual.json');
 const REGISTRY = path.join(ROOT, 'assets', 'sources', 'registry.json');
+/* Researched but NOT existence-checked. Kept in the repo so the research is not
+   lost, and kept OUT of the registry so it cannot be mistaken for verified.
+   Verification here is search-based and the session search budget is finite
+   (200 queries), so a large research batch routinely outruns the ability to
+   check it. That is a reason to stage the surplus, never a reason to ship it. */
+const PENDING = path.join(ROOT, 'assets', 'sources', 'pending.json');
 const PAGE = path.join(ROOT, 'sources', 'index.html');
 
 const SKIP_DIRS = new Set(['node_modules', '.git', 'vendor', 'icons', 'assets']);
@@ -106,9 +112,28 @@ function loadManual() {
   });
 }
 
+function loadPending() {
+  if (!fs.existsSync(PENDING)) return [];
+  const raw = JSON.parse(fs.readFileSync(PENDING, 'utf8'));
+  return (raw.sources || raw || []).map((s) => s.url).filter(Boolean);
+}
+
 function build() {
   const discovered = discover();
   const manual = loadManual();
+  const pending = new Set(loadPending());
+
+  /* The one way this file could do damage: an unverified citation reaching the
+     registry and being rendered with the same authority as a checked one.
+     A URL cannot be in both places. */
+  const leaked = manual.filter((m) => pending.has(m.url));
+  if (leaked.length) {
+    throw new Error(
+      'these URLs are in BOTH manual.json (verified) and pending.json (unverified):\n  ' +
+      leaked.map((m) => m.url).join('\n  ') +
+      '\nRemove them from pending.json once verified, or from manual.json if they are not.'
+    );
+  }
 
   for (const m of manual) {
     if (discovered.has(m.id)) {
@@ -224,7 +249,12 @@ function main() {
   fs.writeFileSync(REGISTRY, json);
   fs.writeFileSync(PAGE, page);
   const withTopic = registry.sources.filter((s) => s.topic && s.topic !== 'general').length;
+  const pendingCount = loadPending().length;
   console.log(`wrote assets/sources/registry.json and sources/index.html — ${registry.count} works (${withTopic} topic-tagged)`);
+  if (pendingCount) {
+    console.log(`${pendingCount} further citations are researched but unverified — assets/sources/pending.json. ` +
+                'They are deliberately absent from the registry and the page.');
+  }
 }
 
 main();
