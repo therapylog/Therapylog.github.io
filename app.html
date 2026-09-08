@@ -2721,13 +2721,31 @@ return ctx;
      model's mental math. */
   const TOOL_PATTERNS = [
     { tool: 'reconstitution',
-      re: /\b(bac(?:teriostatic)?\s*water|reconstitut|how much water|units? on (?:an? )?(?:insulin )?syringe|how many units|mcg per unit|mg per ml|dilut)/i },
+      re: /\b(bac(?:teriostatic)?\s*water|back\s?water|reconstitut|how much water|units? on (?:an? )?(?:insulin )?syringe|how many units|mcg per unit|mg per ml|dilut)/i },
     { tool: 'reconstitution',
-      re: /\b\d+\s*(?:mg|mcg|iu)\b[\s\S]{0,40}\b(?:vial|syringe|units?)\b/i }
+      re: /\b\d+\s*(?:mg|mcg|iu)\b[\s\S]{0,40}\b(?:vial|syringe|units?)\b/i },
+    /* "BAC" on its own is what people actually type — "still a little confused on
+       BAC and how to add to my vials", "how much bac do i use". The first pattern
+       needed the word "water" after it and so missed every one of them. Three
+       letters is too little to route on alone, so it needs a mixing verb or a
+       vial nearby, in either order. ("backwater" above is the same question after
+       autocorrect, and is what one real user actually wrote.) */
+    { tool: 'reconstitution',
+      re: /\bbac\b[\s\S]{0,60}\b(?:vial|vials|add|adding|mix|mixing|put|use|using|water)\b|\b(?:vial|vials|add|adding|mix|mixing|put|use|using)\b[\s\S]{0,60}\bbac\b/i }
   ];
+
+  /* Storage and stability questions say "reconstituted" without being arithmetic:
+     "is Klow kept at room temp once it's reconstituted", "I left my peptides out
+     overnight, are they garbage". Routing those to the calculator answers a
+     question nobody asked AND suppresses every encyclopedia entry, because a tool
+     match grounds nothing. The guard runs before the patterns, so storage wins the
+     tie. What to do with such a question is settled content in the app's own
+     storage rules — it belongs to the model, not the calculator. */
+  const STORAGE_CONTEXT = /\b(room temp(?:erature)?|fridge|refrigerat|freez|frozen|storage|store (?:it|them|my)|left (?:it|them|my|the)[\s\S]{0,20}\bout\b|out overnight|out all night|expire|expiry|expired|still good|still ok|go bad|gone bad|ruined|garbage|spoil|shelf ?life|how long (?:is|does|will|can) (?:it|they|this)[\s\S]{0,20}\b(?:last|keep|stay|good)\b)/i;
 
   function toolFor(q) {
     const s = String(q || '');
+    if (STORAGE_CONTEXT.test(s)) return null;
     for (const p of TOOL_PATTERNS) if (p.re.test(s)) return p.tool;
     return null;
   }

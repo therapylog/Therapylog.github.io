@@ -384,7 +384,17 @@ function build() {
         kind: 'compound',
         title: dr.name,
         subtitle: dr.aka || cls.name,
-        terms: terms(dr.name, (dr.aka || '').split(/[,/]/), dr.cls, cls.name, dr.id),
+        /* Name, alias and id — NOT dr.cls or cls.name. The app's own encyclopedia
+           search matches on class because browsing by class is useful: "show me
+           the peptides" should list them. Answering by class is not. Every
+           compound in a class carried its class name as a search term, so the
+           bare word "peptides" was a term on 23 entries, and "I accidentally left
+           my peptides out overnight, are they garbage now?" retrieved four
+           arbitrary compounds — cjc, kpv, ll37, ss31 — cleared the coverage bar
+           on the strength of that one word, and was shown to the user as a free
+           on-device answer. A term that names a category cannot discriminate
+           between its members; it can only pick some at random. */
+        terms: terms(dr.name, (dr.aka || '').split(/[,/]/), dr.id),
         text: compoundText(dr, cls),
         route: { view: 'encyclopedia', cls: cls.id, drug: dr.id }
       });
@@ -564,7 +574,12 @@ function build() {
       title: it.title || drugs.join(' + ') || 'Interaction',
       subtitle: drugs.join(' + ') || 'interaction warning',
       severity: it.severity || null,
-      terms: terms(it.title, drugs, drugs.join(' '), 'interaction'),
+      /* The literal word "interaction" was a term on all 53 interaction entries,
+         and "template"/"protocol" on all 17 templates — the kind label, not the
+         identity. Same defect as the compound class names above: a term shared by
+         every member of a kind can only pick one at random. The drug names are
+         what make an interaction findable. */
+      terms: terms(it.title, drugs, drugs.join(' ')),
       text: body,
       route: { view: 'interactions' }
     });
@@ -590,7 +605,7 @@ function build() {
       /* The compounds a protocol uses are matchable too: someone asking about
          "first TRT protocol" and someone asking "what do I stack with HCG"
          should both be able to land here. */
-      terms: terms(t.name, t.id, comps.map((c) => c.name), 'protocol', 'template'),
+      terms: terms(t.name, t.id, comps.map((c) => c.name)),
       text: body,
       route: { view: 'protocol', template: t.id }
     });
@@ -651,11 +666,63 @@ function checkMatcherInlined() {
   }
 }
 
+/* A term that names a CATEGORY cannot discriminate between its members.
+ *
+ * This has now gone wrong five times, each time the same way and each time
+ * caught only by a user-visible symptom: "sore" and "back" from rehab titles
+ * sent a hot swollen calf — a possible DVT — to the elbow entry; "what" from a
+ * nutrition title; "16" from "16:8" sent a 16-year-old's cycle question to an
+ * intermittent-fasting entry; and the compound class names made the bare word
+ * "peptides" a term on 23 entries, so "I left my peptides out overnight, are
+ * they garbage now?" was answered on-device with four unrelated compounds.
+ *
+ * The structural tell is sharp, and it is not word frequency. A legitimate
+ * shared term spans KINDS: "bpc-157" is on a compound, a rehab entry, four
+ * interactions and a template, because they genuinely all concern BPC-157. A
+ * category label sits on many entries of exactly ONE kind, because that is what
+ * a category is. So the rule is: a term on four or more entries that are all
+ * the same kind is a label, not an identity.
+ *
+ * ALLOW exists for the case where a genuine identity really is confined to one
+ * kind and shared widely. Add to it deliberately, with the reason, rather than
+ * loosening the threshold. */
+const CATEGORY_TERM_ALLOW = new Set([]);
+
+function checkNoCategoryTerms(entries) {
+  const byTerm = new Map();
+  for (const e of entries) {
+    for (const t of e.terms || []) {
+      if (!byTerm.has(t)) byTerm.set(t, []);
+      byTerm.get(t).push(e);
+    }
+  }
+  const bad = [];
+  for (const [term, hits] of byTerm) {
+    if (hits.length < 4 || CATEGORY_TERM_ALLOW.has(term)) continue;
+    const kinds = new Set(hits.map((e) => e.kind));
+    if (kinds.size === 1) {
+      bad.push(`  "${term}" is a term on ${hits.length} entries, all of kind ` +
+        `"${[...kinds][0]}" — e.g. ${hits.slice(0, 3).map((e) => e.id).join(', ')}`);
+    }
+  }
+  if (bad.length) {
+    throw new Error(
+      'category labels leaked into the search terms:\n' + bad.join('\n') +
+      '\n\nA term shared by that many entries of a single kind names the category, not\n' +
+      'any one member, so it can only retrieve some of them at random — and a\n' +
+      'question that matches only on it will be answered with whichever won.\n' +
+      'Drop it from the terms for that kind, or add it to CATEGORY_TERM_ALLOW with\n' +
+      'a reason if the identity really is that broad.');
+  }
+}
+
 function main() {
   const check = process.argv.includes('--check');
   if (check) checkMatcherInlined();
   else if (syncMatcherInlined()) console.log('re-inlined assets/brain/match.js into app.html');
   const out = build();
+  /* Before either branch, so --check enforces it in CI and not only a local build. */
+  checkNoCategoryTerms(JSON.parse(out).entries);
   if (check) {
     if (!fs.existsSync(OUT)) {
       console.error(`missing ${path.relative(ROOT, OUT)} — run: node scripts/build-brain.js`);
