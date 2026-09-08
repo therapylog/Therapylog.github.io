@@ -290,6 +290,36 @@ for (const q of TOOL_MUST_NOT) {
   if (B.search(q, idx).tool) toolBad.push('FALSE TOOL FIRE: ' + q);
   else toolOk++;
 }
+/* The free card has a kill switch, and the thing most likely to go wrong with it
+   is not the switch failing — it is the under-18 guard being swept up in it. The
+   guard is a refusal, not an answer, so it must keep firing when the card is off;
+   it runs before tlBrainAnswer in sendChat and needs only the inlined matcher.
+   Asserted structurally against app.html, because a behavioural test of a
+   constant somebody may flip is a test of today's value rather than the wiring. */
+{
+  const app = require('fs').readFileSync(path.join(ROOT, 'app.html'), 'utf8');
+  const switchBad = [];
+  if (!/const TL_BRAIN_ENABLED = (true|false);/.test(app)) {
+    switchBad.push('TL_BRAIN_ENABLED is gone — the free card can no longer be turned off');
+  }
+  if (!/async function tlBrainAnswer\(q\) \{\s*\n\s*if \(!TL_BRAIN_ENABLED\) return null;/.test(app)) {
+    switchBad.push('tlBrainAnswer no longer gates on TL_BRAIN_ENABLED as its first statement');
+  }
+  /* The guard call must sit OUTSIDE any TL_BRAIN_ENABLED block. Checked by
+     position: it has to appear before the switch is ever consulted in sendChat. */
+  const send = app.slice(app.indexOf('async function sendChat'));
+  const guardAt = send.indexOf('minorEnhancementAsk');
+  const gateAt = send.indexOf('tlBrainAnswer');
+  if (guardAt < 0) switchBad.push('the under-18 guard is no longer called in sendChat');
+  else if (gateAt >= 0 && guardAt > gateAt) {
+    switchBad.push('the under-18 guard now runs AFTER the brain gate — a disabled card would disable the guard');
+  }
+  console.log('\n--- free-card kill switch ---');
+  console.log('correct                 :', switchBad.length ? 'NO' : 'yes');
+  switchBad.forEach((b) => console.log('  ' + b));
+  if (switchBad.length) process.exitCode = 1;
+}
+
 console.log('\n--- calculator routing ---');
 console.log('correct                 :', toolOk, '/', TOOL_MUST.length + TOOL_MUST_NOT.length);
 toolBad.forEach((b) => console.log('  ' + b));

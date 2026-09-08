@@ -3011,6 +3011,19 @@ return ctx;
    silently drop the offline support that makes this useful on a gym floor with
    no signal, and GitHub Pages cannot set the CORS header it would need. Same
    origin keeps both. TL_BRAIN.origin exists so moving it later is one line. */
+/* The kill switch for the free on-device answer.
+ *
+ * Set to false and every question goes to the assistant exactly as it did before
+ * the brain existed: no card, no index fetch, no behaviour change anywhere else.
+ * It is a one-line edit rather than a revert, which is the point — the retrieval
+ * work is worth keeping in the tree even on a day it is not worth showing.
+ *
+ * What this deliberately does NOT switch off is the under-18 guard. That runs in
+ * sendChat() before this, needs only the inlined matcher and not the index, and
+ * is a refusal rather than an answer. Turning off the free card must never turn
+ * off the one thing here whose job is to withhold one. */
+const TL_BRAIN_ENABLED = true;
+
 const TL_BRAIN = { origin: '', path: '/assets/brain/index.json' };
 let _tlBrainIndex = null, _tlBrainTried = false;
 
@@ -3027,6 +3040,7 @@ async function tlBrainLoad() {
 /* A miss returns null and the question goes to the assistant exactly as before.
    That is deliberate: a wrong free answer is worse than a paid right one. */
 async function tlBrainAnswer(q) {
+  if (!TL_BRAIN_ENABLED) return null;
   if (!window.TLBrain) return null;
   const idx = await tlBrainLoad();
   if (!idx) return null;
