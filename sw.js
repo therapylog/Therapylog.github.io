@@ -1,5 +1,5 @@
 /* TherapyLog service worker — offline shell + notification display. */
-const CACHE = 'therapylog-v4';
+const CACHE = 'therapylog-v5';
 const PRECACHE = [
   '/app.html',
   /* The brain index answers questions on-device for free. Precaching it is what
@@ -11,9 +11,9 @@ const PRECACHE = [
   '/assets/brain/index.json',
   '/manifest.webmanifest',
   '/vendor/chart.umd.min.js',
-  '/icons/icon.svg',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  '/icons/icon.svg?v=2026-08-30',
+  '/icons/icon-192.png?v=2026-08-30',
+  '/icons/icon-512.png?v=2026-08-30'
 ];
 
 self.addEventListener('install', (event) => {
@@ -87,8 +87,8 @@ self.addEventListener('push', (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title || 'TherapyLog', {
       body: data.body || 'You have a dose reminder.',
-      icon: '/icons/icon-192.png',
-      badge: '/icons/icon-192.png',
+      icon: '/icons/icon-192.png?v=2026-08-30',
+      badge: '/icons/icon-192.png?v=2026-08-30',
       tag: data.tag || 'therapylog-push'
     })
   );

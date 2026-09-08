@@ -251,7 +251,7 @@ function head(o) {
 <meta name="author" content="${AUTHOR}">
 <link rel="canonical" href="${o.canonical}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="TherapyLog"><meta property="og:title" content="${title}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${o.canonical}"><meta property="og:image" content="${og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TherapyLog — hormone therapy and peptide protocol tracking"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title}"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${og}">
-<link rel="icon" href="/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png"><meta name="theme-color" content="#0a0c0f">
+<link rel="icon" href="/icons/icon.svg?v=2026-08-30" type="image/svg+xml"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png?v=2026-08-30"><meta name="theme-color" content="#0a0c0f">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* Lifted from app.html at build time by scripts/lib/app-source.js — do not edit
