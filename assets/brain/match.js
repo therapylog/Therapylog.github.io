@@ -467,12 +467,42 @@
     const grounding = picked.filter((r) => !r.related &&
       GROUND_KINDS[r.entry.kind] &&
       (r.coverage >= (o.answerCoverage || ANSWER_COVERAGE) || namedOutright(r)))
-      .map((r) => (contextUnmet(r.entry) ? Object.assign({}, r, { contextGap: true }) : r));
+      .map((r) => Object.assign({}, r, {
+        /* Whether the question NAMED this entry, as opposed to merely covering
+           enough of it. The API uses this when an arithmetic clause is present:
+           a post can be one question or eight, and one clause looking like maths
+           must not silence the rest. */
+        named: namedOutright(r),
+        contextGap: contextUnmet(r.entry) || undefined
+      }));
+
+    /* Is the question ONLY the arithmetic, or a long post that happens to contain
+       some? The app's manual asks users to write a paragraph with full context to
+       get the most from a question against their cap, so a real post routinely
+       carries one arithmetic clause among seven other asks. Short with a single
+       ask is the shape the calculator can finish on its own; anything longer has
+       a remainder that needs answering.
+       This decides two things that must not disagree: whether the client answers
+       locally and for free, and whether the API grounds the named entries. When
+       it is only the arithmetic, grounding stays empty — "how many mcg is 30
+       units on an insulin syringe" names insulin, and grounding the insulin
+       monograph is precisely what once produced a confident 1041 mcg for a vial
+       whose concentration nobody stated. */
+    const qWords = String(q || '').trim().split(/\s+/).filter(Boolean).length;
+    const qAsks = (String(q || '').match(/\?/g) || []).length;
+    const toolOnly = !!toolFor(q) && qWords <= 25 && qAsks <= 1;
 
     return {
       tool: toolFor(q),
+      toolOnly: toolOnly,
       results: picked,
-      answerable: (bespoke || doseAskOffTopic) ? [] : answerable,
+      /* A tool fire empties the card set: the calculator IS the answer, and a
+         monograph shown beside it answers a question nobody asked. "5mg BPC-157
+         vial, I add 2ml BAC water, how many units for 250mcg" was being carded
+         with the load-management rehab entry, and a semaglutide reconstitution
+         question with the semaglutide monograph. Same rule groundable() already
+         applies, now applied to the card too. */
+      answerable: (toolFor(q) || bespoke || doseAskOffTopic) ? [] : answerable,
       /* bespoke and doseAskOffTopic suppress the CARD, not the briefing: "build me
          a 12 week program" should not be answered from a card, and the model still
          benefits from the entries. */
