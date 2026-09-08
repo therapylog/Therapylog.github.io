@@ -9747,7 +9747,10 @@ encyclopedia_advanced: 'Dosing & Stacking Detail',
 pk_advanced: 'Steady-State & Dosing Frequency',
 protocol_templates: 'Protocol Templates',
 correlations: 'Symptom Correlations',
-cost_tracking: 'Cost & Supply Tracking'
+cost_tracking: 'Cost & Supply Tracking',
+/* Every gated feature needs an entry: the paywall title falls back to the raw
+   key, so a missing one puts "pct_builder" on screen where a name belongs. */
+pct_builder: 'PCT Protocol Builder'
 },
 prompt: function(tier, feat) {
 var name = this.names[feat] || feat;

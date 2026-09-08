@@ -286,11 +286,21 @@
           body: JSON.stringify({ email: email, action: 'resend' })
         });
         var data = await res.json().catch(function () { return {}; });
-        /* Deliberately the same answer either way — this can't be used to find
-           out who bought. */
-        show('key-success', (data && data.message) || "If that address has a license, the key is on its way.");
-        document.getElementById('key-email').value = '';
-        tlTrack('key_resend_requested');
+        if (!res.ok) {
+          /* A 5xx or a rate-limit is a fact about the server, not about the
+             address, so saying so leaks nothing and keeps the guarantee below
+             intact. Reporting it matters because the alternative — telling
+             someone their key is on its way when the request never reached the
+             mailer — is the one answer here that is simply untrue, and they
+             would wait on an email that is never coming. */
+          show('key-error', (data && data.error) || 'That did not go through. Please try again in a minute, or email hello@therapylog.app.');
+        } else {
+          /* Deliberately the same answer either way — this can't be used to find
+             out who bought. */
+          show('key-success', (data && data.message) || "If that address has a license, the key is on its way.");
+          document.getElementById('key-email').value = '';
+          tlTrack('key_resend_requested');
+        }
       } catch (e) {
         show('key-error', 'Connection error. Please try again.');
       }
