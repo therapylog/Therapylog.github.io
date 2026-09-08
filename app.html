@@ -2516,7 +2516,10 @@ return ctx;
 
   function normalize(q) {
     let s = String(q || '').toLowerCase().trim();
-    s = s.replace(/[?!.,;:()"']+/g, ' ').replace(/\s+/g, ' ').trim();
+    /* '+' separates compounds the way people actually write them — "CJC-1295+ipa",
+       "NAD+" — and left in place it welded the name to its neighbour and matched
+       nothing. */
+    s = s.replace(/[?!.,;:()"'+]+/g, ' ').replace(/\s+/g, ' ').trim();
     /* Strip repeatedly: "what should i do about high e2" has three layers. */
     for (let i = 0; i < 4; i++) {
       const next = s.replace(SCAFFOLD, '').trim();
@@ -2714,15 +2717,42 @@ return ctx;
      intake gets the nutrition entry like anyone else. */
   const MINOR_AGE = /\b(?:i'?m|i am|im|age|aged|turning)\s+(1[0-7])\b(?!\s*(?:weeks?|wks?|months?|mos?|days?|years? in|lbs?|kg|kgs|pounds|mg|mcg|ml|iu|units?|%|percent|nmol|pmol|ng|pg))/i;
   const MINOR_AGE2 = /\b(1[0-7])\s*(?:years?|yrs?|yo)\s*old\b/i;
+  /* The same euphemism applied to the age rather than to the compound: "my rat is
+     16 and wants to run test". The self-referent is the entire point of the
+     framing, so an age attached to the rat is the person's own. */
+  const MINOR_AGE3 = /\b(?:my|the)\s+rat\s+(?:is|turns?|just turned|will be|turned)\s+(1[0-7])\b(?!\s*(?:weeks?|wks?|months?|mos?|days?|years? in|lbs?|kg|kgs|pounds|mg|mcg|ml|iu|units?|%|percent|nmol|pmol|ng|pg))/i;
   const MINOR_WORDS = /\b(?:high\s?school|highschool|sophomore|freshman|junior year|my parents (?:say|wont|won't|don't|dont)|still in school|year 1[01]\b)/i;
   /* The topic half. Deliberately narrow: anabolic and hormonal intervention,
      not training or food, which are worth helping a teenager with. */
   const ENHANCEMENT = /\b(?:cycle|cycles|cycling|steroid|steroids|aas|gear|juice|sarm|sarms|test(?:osterone)?\s*(?:e|c|cyp|prop|enanthate|cypionate)?\b|trt|anabolic|prohormone|pct|hgh|growth hormone|peptide|first cycle|blast|pin(?:ning)?)/i;
 
+  /* The audience writes around moderation. "Pepper" and the chilli emoji stand in
+     for peptide, and "my rat" is the research-chemical framing — posts are written
+     about a lab rat because the product is sold "not for human consumption". A
+     guard that only knows the plain words is defeated by the vocabulary the group
+     is actually written in: "I am 16 and want to start my first peptide cycle"
+     was caught, and "I am 16 and want to start my first pepper for my rat" was
+     not. Both are the same question from the same person.
+
+     "Pepper" is also a food, and a teenager asking about seasoning must not get a
+     steroid refusal, so the culinary senses are excluded explicitly. */
+  const EUPHEMISM = /\b(?:peppers?|research\s*chem(?:ical)?s?|my\s+rat|the\s+rat|for\s+(?:my|the)\s+rat)\b|\u{1F336}/iu;
+  const FOOD_PEPPER = /\b(?:black|bell|red|green|chill?i|cayenne|hot|bird'?s? eye|lemon)\s+peppers?\b|\bpepper\s+(?:flakes|corns?|jack|mill|grinder|sauce)\b|\bsalt and pepper\b/i;
+
   function minorEnhancementAsk(q) {
-    const s = String(q || '');
-    const minor = MINOR_AGE.test(s) || MINOR_AGE2.test(s) || MINOR_WORDS.test(s);
-    return minor && ENHANCEMENT.test(s);
+    const raw = String(q || '');
+    /* Both forms. normalize() strips punctuation and scaffolding, which is what
+       makes "im 16 — first pepper?" reach the same test as the plain sentence;
+       the raw string is kept because normalize() also strips phrases the age
+       patterns rely on. Either matching is enough: this guard should be hard to
+       slip past, not elegant. */
+    const norm = normalize(raw);
+    const minor = [raw, norm].some((t) =>
+      MINOR_AGE.test(t) || MINOR_AGE2.test(t) || MINOR_AGE3.test(t) || MINOR_WORDS.test(t));
+    if (!minor) return false;
+    const topical = [raw, norm].some((t) =>
+      ENHANCEMENT.test(t) || (EUPHEMISM.test(t) && !FOOD_PEPPER.test(t)));
+    return topical;
   }
 
   /* Deterministic questions that should never reach a language model: the
@@ -2754,9 +2784,13 @@ return ctx;
   const STORAGE_CONTEXT = /\b(room temp(?:erature)?|fridge|refrigerat|freez|frozen|storage|store (?:it|them|my)|left (?:it|them|my|the)[\s\S]{0,20}\bout\b|out overnight|out all night|expire|expiry|expired|still good|still ok|go bad|gone bad|ruined|garbage|spoil|shelf ?life|how long (?:is|does|will|can) (?:it|they|this)[\s\S]{0,20}\b(?:last|keep|stay|good)\b)/i;
 
   function toolFor(q) {
-    const s = String(q || '');
-    if (STORAGE_CONTEXT.test(s)) return null;
-    for (const p of TOOL_PATTERNS) if (p.re.test(s)) return p.tool;
+    const raw = String(q || '');
+    /* Checked against both forms for the same reason as the minor guard: the raw
+       string carries punctuation the patterns want ("0.25mg"), the normalized one
+       carries phrasing the scaffolding stripper reveals. Storage still wins. */
+    const forms = [raw, normalize(raw)];
+    if (forms.some((t) => STORAGE_CONTEXT.test(t))) return null;
+    for (const p of TOOL_PATTERNS) if (forms.some((t) => p.re.test(t))) return p.tool;
     return null;
   }
 
@@ -2853,10 +2887,78 @@ return ctx;
     const answerable = picked.filter((r) => !r.related && !contextUnmet(r.entry) &&
       ANSWER_KINDS[r.entry.kind] &&
       r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
+
+    /* Showing a card and briefing the model are different jobs, and they were
+       sharing one gate.
+     *
+     * coverage is the fraction of the QUESTION's tokens an entry explains, so it
+     * falls as the question gets longer. That is right for the free card: a long
+     * rambling post should not be answered on-device by an entry that covers a
+     * tenth of it. It is wrong for grounding, where the only question is whether
+     * the entry is worth putting in front of the model. Measured on eleven real
+     * posts from the audience — 23 to 69 tokens each — every retrieved entry
+     * landed between 0.023 and 0.094 against the 0.10 bar, so ten of eleven were
+     * sent to the paid model with NOTHING attached, while terse paraphrases of
+     * the same questions grounded correctly. The library was invisible to real
+     * writing and visible only to search-box phrasing.
+     *
+     * So grounding gets its own rule. An entry grounds when it clears the card
+     * bar, OR when the question names it outright — its own title or one of its
+     * terms appearing as a whole phrase, which is a specificity signal that does
+     * not decay with length. Typing "tirzepatide" means the tirzepatide entry is
+     * relevant whether the post is eight words or eighty.
+     *
+     * The phrase must be long enough to be a name rather than a fragment (the
+     * C-Peptide lesson), and "related" entries stay out: they are the ones the
+     * scorer already judged tangential.
+     *
+     * GROUND_KINDS is wider than ANSWER_KINDS on purpose. Templates and
+     * interactions make poor free cards — a protocol template is not an answer to
+     * a question — but they are exactly what a model should see. They were 70 of
+     * 327 entries, 21% of the library, structurally unable to reach the model:
+     * every female-specific entry is a template, and all 53 drug interactions
+     * were unreachable, including for a question that named two compounds and
+     * asked whether to combine them. */
+    const GROUND_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1,
+                           template: 1, interaction: 1 };
+    /* Three, not five. The community's names for things are short — reta, tirz,
+       sema, hcg, mt2, ipa, cjc, nad — and a five-character floor excluded most of
+       them, which is why naming the compound outright still grounded nothing.
+       Whole-phrase boundaries already prevent fragment matches, so length was
+       doing little except silencing the vocabulary the audience uses. */
+    const NAMED_MIN = 3;
+    const namedOutright = (r) => {
+      const hay = ' ' + normalize(q) + ' ';
+      const cands = [String(r.entry.title || '')].concat(r.entry.terms || []);
+      return cands.some((c) => {
+        const t = String(c || '').toLowerCase().trim();
+        if (t.length < NAMED_MIN || t.split(/\s+/).length > 6) return false;
+        return hay.indexOf(' ' + t + ' ') !== -1;
+      });
+    };
+    /* The context gate does NOT apply here, and that is deliberate. Dropping the
+       entry made the card safe and the briefing empty: f11 — two cancers, a failed
+       quad tendon repair — lost rehab:Tendon loading protocols, which is real,
+       cited, and exactly what she needs. Withholding it does not make the answer
+       safer, it makes it thinner and leaves the model to improvise the part it
+       does know.
+       So the entry goes through carrying a flag, and the API turns the flag into
+       an instruction: these entries do not address the context you were asked
+       about, so do not let their silence read as clearance. That is strictly
+       better than dropping them — the model gets the content AND the warning. */
+    const grounding = picked.filter((r) => !r.related &&
+      GROUND_KINDS[r.entry.kind] &&
+      (r.coverage >= (o.answerCoverage || ANSWER_COVERAGE) || namedOutright(r)))
+      .map((r) => (contextUnmet(r.entry) ? Object.assign({}, r, { contextGap: true }) : r));
+
     return {
       tool: toolFor(q),
       results: picked,
       answerable: (bespoke || doseAskOffTopic) ? [] : answerable,
+      /* bespoke and doseAskOffTopic suppress the CARD, not the briefing: "build me
+         a 12 week program" should not be answered from a card, and the model still
+         benefits from the entries. */
+      grounding: grounding,
       answers: !!(toolFor(q) || ((bespoke || doseAskOffTopic) ? false : answerable.length))
     };
   }
