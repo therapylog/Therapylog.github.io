@@ -163,7 +163,8 @@
         }
       }
       /* Every word of the term present, order-independent. */
-      const tw = term.split(/\s+/).filter((w) => w.length > 1);
+      const rawWords = term.split(/\s+/);
+      const tw = rawWords.filter((w) => w.length > 1);
       /* A term that survives this filter as a single bare number must not match.
          '16:8' is indexed as the term "16 8"; the length filter drops the "8",
          leaving ["16"], which then matched ANY question containing 16 — and the
@@ -172,7 +173,16 @@
          topic, and letting one satisfy a match is how a safety question ends up
          reaching a nutrition card. */
       const numericOnly = tw.length === 1 && /^\d+$/.test(tw[0]);
-      if (tw.length && !numericOnly && tw.every((w) => qSet.has(w))) {
+      /* If the length filter dropped words, what is left is a FRAGMENT of the
+         term rather than the term. "c peptide" survives as ["peptide"], which
+         then matched any question containing that word — so "what peptide for
+         hot flashes" and "peptide storage" were both answered, free and
+         on-device, with the C-Peptide lab marker card. The numericOnly guard
+         above is the same bug caught once already, in its narrower numeric form
+         ("16 8" -> ["16"]); this generalises it. A fragment carries the topic of
+         neither the term nor the question. */
+      const collapsed = tw.length < rawWords.length;
+      if (tw.length && !numericOnly && !collapsed && tw.every((w) => qSet.has(w))) {
         best = Math.max(best, 55 + 15 * tw.length);
       }
     }
@@ -311,6 +321,37 @@
         picked.push({ entry: rel, score: r.score - 1, related: true });
       }
     }
+    /* Some contexts change the answer completely, and an entry that is a
+       perfectly good monograph may not speak to them at all. compound:sema is a
+       correct semaglutide entry that contains the word "thyroid" zero times; as
+       a free on-device card to "is semaglutide safe with thyroid cancer
+       history" it answers a question nobody asked, and silence reads as
+       clearance. Four such questions were served that way — semaglutide,
+       tesamorelin, BPC-157 and ipamorelin — with no API call and no caveat, and
+       tesamorelin's own FDA label contraindicates active malignancy.
+
+       These survived the category-term fix precisely because they are legitimate
+       matches: the person did type the compound's name. What is wrong is not the
+       retrieval but treating it as sufficient. So when the question raises one of
+       these contexts and the entry does not address it, the entry stops being an
+       answer and the question goes to the assistant, which has both the model's
+       knowledge and the system prompt's safety rules. Gating "answerable" rather
+       than the card alone also removes it from groundable(), so the paid path is
+       not anchored to it either. */
+    const CONTEXT_GATES = [
+      { asks: /\b(cancer|malignan|tumou?r|oncolog|carcinoma|in remission|chemo(?:therapy)?|metasta|leukemia|lymphoma)/i,
+        answers: /cancer|malignan|tumou?r|oncolog|carcinoma|neoplas|leukemia|lymphoma/i },
+      { asks: /\b(pregnan|breast ?feed|nursing|trying to conceive)/i,
+        answers: /pregnan|breast ?feed|nursing|lactat|fetal|teratogen/i },
+      { asks: /\b(menopaus|perimenopaus|post ?menopaus)/i,
+        answers: /menopaus/i }
+    ];
+    const contextUnmet = (entry) => {
+      const body = String(entry.title || '') + ' ' + String(entry.text || '');
+      for (const g of CONTEXT_GATES) if (g.asks.test(q) && !g.answers.test(body)) return true;
+      return false;
+    };
+
     /* answerable: the app may show these as a free answer. related: relevant
        context to display alongside, but the assistant is still the primary
        path. A tool match is always answerable — arithmetic beats a model.
@@ -327,7 +368,7 @@
        question someone asked in their own words, and both are the reason this
        matcher exists — to answer without a round trip. */
     const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1 };
-    const answerable = picked.filter((r) => !r.related &&
+    const answerable = picked.filter((r) => !r.related && !contextUnmet(r.entry) &&
       ANSWER_KINDS[r.entry.kind] &&
       r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
     return {

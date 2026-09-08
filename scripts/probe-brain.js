@@ -80,8 +80,51 @@ const PROBES = [
   ['does the anabolic window matter', 'nutrition:'],
   ['should i do 16:8', 'nutrition:'],
   ['are bcaas worth taking', 'nutrition:'],
-  ['how much salt is too much', 'nutrition:']
+  ['how much salt is too much', 'nutrition:'],
+  // --- real questions from the audience: coded language and short names ---
+  // Collected from Facebook peptide groups. These are the phrasings people
+  // actually type, and every one of them was broken until it was measured.
+  // "reta" alone appeared in four of eleven collected questions.
+  ['reta', 'compound:'],
+  ['tren', 'compound:'],
+  ['trenbolone', 'compound:'],
+  ['melanotan 2', 'compound:'],
+  ['ghcku', 'compound:'],          // transposition of GHK-Cu, seen in the wild
+
+  // --- a compound question carrying a context the entry does not address ---
+  // compound:sema is a correct semaglutide monograph containing the word
+  // "thyroid" zero times. Served as a free on-device card to a cancer-history
+  // question it answers something nobody asked, and silence reads as clearance.
+  // Tesamorelin's own FDA label contraindicates active malignancy. These match
+  // legitimately on the compound name, which is exactly why they need a gate
+  // rather than a term fix.
+  ['is semaglutide safe with thyroid cancer history', null],
+  ['is tesamorelin safe with a history of cancer', null],
+  ['is BPC-157 safe if I had cancer', null],
+  ['is ipamorelin safe after cancer', null],
+  ['can I take BPC-157 while pregnant', null],
+
+  // --- fragment matching: a multi-word term reduced to one word is not the term ---
+  // marker:cpeptide carries "c peptide"; the term-word length filter dropped the
+  // "c", leaving ["peptide"], which then matched any question containing it.
+  // Same shape as "16 8" -> ["16"], which sent a sixteen-year-old's cycle
+  // question to intermittent fasting.
+  ['what peptide for hot flashes', null],
+  ['what peptide helps wrinkles', null],
+  ['peptide storage', null],
+  ['c-peptide range', 'marker:cpeptide'],     // the real lookup must still work
+  ['what is my c peptide level', 'marker:cpeptide'],
+
+  // --- storage and stability: real, frequent, and currently uncovered ---
+  // These must DEFER rather than answer: there is no storage entry in the index,
+  // and the answer is settled content in the assistant's own system prompt. What
+  // must never happen again is the old behaviour, where "peptides" was a term on
+  // 23 compound entries and this question was answered on-device with four
+  // unrelated compounds.
+  ['I accidentally left my peptides out overnight. Are they garbage now?', null],
+  ['is Klow supposed to be kept at room temp once reconstituted', null]
 ];
+
 
 /* Resolved from this file's own location, like every other script here. The
    first version of this hardcoded the absolute path of the machine it was
@@ -145,7 +188,64 @@ console.log('correctly deferred      :', correctDefer);
 console.log('MISSED (should answer)  :', missedAnswer);
 console.log('WRONG (answered badly)  :', wrongAnswer);
 console.log('total                   :', PROBES.length);
+/* Until now only the guard and tool sections could fail the build; a routing
+   regression printed WRONG-ANSWER and CI stayed green. That is how the C-Peptide
+   card and the cancer-history cards would have landed — as warnings nobody read.
+   So the counts are pinned to the current baseline instead.
+
+   The two standing WRONG-ANSWERs are known and judged acceptable: "im on
+   tirzepatide and lifting, how do i keep muscle" answers with compound:tirz, and
+   "what should i eat today" with the meal-plan entry. Both are defensible cards
+   for a vague question. The one MISSED is "estrodiol too high", a misspelling the
+   lexical matcher cannot reach. Lower these numbers when the underlying issue is
+   fixed; never raise them to make a new failure pass. */
+const MAX_WRONG = 2;
+const MAX_MISSED = 1;
+if (wrongAnswer > MAX_WRONG) {
+  console.log(`\nREGRESSION: ${wrongAnswer} wrong answers, baseline is ${MAX_WRONG}`);
+  process.exitCode = 1;
+}
+if (missedAnswer > MAX_MISSED) {
+  console.log(`\nREGRESSION: ${missedAnswer} missed, baseline is ${MAX_MISSED}`);
+  process.exitCode = 1;
+}
+
 console.log('\n--- minor guard ---');
 console.log('correct                 :', guardOk, '/', GUARD_MUST.length + GUARD_MUST_NOT.length);
 guardBad.forEach((b) => console.log('  ' + b));
 if (guardBad.length) process.exitCode = 1;
+
+/* Tool routing is checked separately from retrieval, because a tool match
+   SUPPRESSES all encyclopedia grounding for the turn — so a false fire silences
+   the brain and a missed fire sends arithmetic to the model. Both happened at
+   once: "is Klow kept at room temp once it's reconstituted" fired the calculator
+   on the word "reconstituted", while "how much backwater to put with it" — the
+   only genuine reconstitution question in the collected set — fired nothing,
+   because the pattern required the word "water" to follow "bac". */
+const TOOL_MUST = [
+  'How much BAC water do I use for a 60mg vial of GLOW?',
+  'still a little confused on BAC and how to add to my vials',
+  "I don't know how much backwater to put with it",
+  'how much bac do i add to a 5mg vial',
+  '10mg semaglutide vial and I want 0.25mg doses. How do I reconstitute it?'
+];
+const TOOL_MUST_NOT = [
+  "Is Klow supposed to be kept at room temp once it's reconstituted?",
+  'I accidentally left my peptides out overnight. Are they garbage now?',
+  'how long is a reconstituted vial good for in the fridge',
+  'my peptides were left in a hot car, are they ruined'
+];
+let toolOk = 0; const toolBad = [];
+for (const q of TOOL_MUST) {
+  if (B.search(q, idx).tool === 'reconstitution') toolOk++;
+  else toolBad.push('MISSED TOOL: ' + q);
+}
+for (const q of TOOL_MUST_NOT) {
+  if (B.search(q, idx).tool) toolBad.push('FALSE TOOL FIRE: ' + q);
+  else toolOk++;
+}
+console.log('\n--- calculator routing ---');
+console.log('correct                 :', toolOk, '/', TOOL_MUST.length + TOOL_MUST_NOT.length);
+toolBad.forEach((b) => console.log('  ' + b));
+if (toolBad.length) process.exitCode = 1;
+

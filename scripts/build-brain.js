@@ -112,7 +112,7 @@ function declarations(html, names) {
 const STOP = new Set(['high', 'low', 'the', 'and', 'for', 'with', 'signs', 'early',
   'rising', 'crashed', 'effects', 'reaction', 'reactions', 'site', 'recovery', 'a', 'of',
   'back', 'getting', 'around', 'management', 'to', 'training', 'protocols', 'sore',
-  'loading', 'strain', 'or',
+  'loading', 'strain', 'or', 'that',
   /* Second wave, from the nutrition titles. "Meal timing and fasting: what
      matters" put the bare word "what" into the index, and "what" matches almost
      any question — it answered "I'm 16 and I want to start my first cycle" with
@@ -317,6 +317,30 @@ const REHAB_SYNONYMS = {
    Hand-written rather than derived: there are twelve, and a fuzzy match that
    sends a prolactin question to the estradiol protocol is worse than no
    match at all. */
+/* Community short names, keyed by compound id.
+ *
+ * A compound is indexed from terms(dr.name, dr.aka, dr.id), so a short name is
+ * reachable only when it happens to BE the internal id. That is why "tirz",
+ * "sema", "mt2" and "ipa" resolve and "reta" does not — and "reta" appears in
+ * four of the eleven real questions collected from the audience. "tren" and
+ * "trenbolone" reached nothing either: the only reason "tren cough" ever worked
+ * was that "tren a" collapsed to ["tren"] under the term-word length filter,
+ * which is the same fragment bug that served the C-Peptide lab card to "what
+ * peptide for hot flashes". Closing that hole correctly meant these names had to
+ * become real terms rather than accidents.
+ *
+ * Also here: forms the audience writes that the canonical name does not cover —
+ * the Arabic-numeral "melanotan 2" against the indexed Roman "Melanotan II", and
+ * "ghcku", a transposition common enough to appear in this small sample. */
+const COMPOUND_SYNONYMS = {
+  retatrutide: ['reta'],
+  trenace: ['tren', 'trenbolone', 'tren ace'],
+  trenenan: ['tren', 'trenbolone', 'tren enth'],
+  mt2: ['melanotan 2', 'melanotan2'],
+  ghkcu: ['ghcku', 'ghk cu'],
+  nad: ['nad plus']
+};
+
 const PLAYBOOK_SYNONYMS = {
   'Liver strain': ['liver', 'liver damage', 'liver values', 'liver enzymes', 'alt', 'ast',
     'alt high', 'ast high', 'ggt', 'bilirubin', 'jaundice', 'yellow eyes', 'hepatotoxic',
@@ -394,7 +418,7 @@ function build() {
            on the strength of that one word, and was shown to the user as a free
            on-device answer. A term that names a category cannot discriminate
            between its members; it can only pick some at random. */
-        terms: terms(dr.name, (dr.aka || '').split(/[,/]/), dr.id),
+        terms: terms(dr.name, (dr.aka || '').split(/[,/]/), dr.id, COMPOUND_SYNONYMS[dr.id] || []),
         text: compoundText(dr, cls),
         route: { view: 'encyclopedia', cls: cls.id, drug: dr.id }
       });
@@ -407,6 +431,18 @@ function build() {
   /* A renamed playbook in app.html would silently orphan its synonym list and
      quietly make that whole topic unreachable again — the exact failure this
      layer exists to fix, and one no output check would notice. */
+  /* Same guard the playbooks get: a renamed or removed compound id would leave
+     its synonyms silently pointing at nothing, and the short name the audience
+     actually types would go quiet again with no test failing. */
+  {
+    const ids = new Set();
+    for (const cls of d.DB.classes) for (const dr of cls.drugs) ids.add(dr.id);
+    const gone = Object.keys(COMPOUND_SYNONYMS).filter((k) => !ids.has(k));
+    if (gone.length) {
+      throw new Error(`COMPOUND_SYNONYMS names compound ids that no longer exist: ${gone.join(', ')}`);
+    }
+  }
+
   const orphaned = Object.keys(PLAYBOOK_SYNONYMS).filter((t) => !playbookByTitle[t]);
   if (orphaned.length) {
     throw new Error(`PLAYBOOK_SYNONYMS names playbooks app.html no longer has: ${orphaned.join(', ')}`);

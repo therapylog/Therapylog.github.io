@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "9b7d2b13c93d2847",
+ "generated": "ee0733f1909b150b",
  "counts": {
   "compound": 131,
   "marker": 100,
@@ -901,7 +901,9 @@
     "nicotinamidemononucleotide",
     "nicotinamide riboside",
     "nicotinamideriboside",
-    "nad"
+    "nad",
+    "nad plus",
+    "nadplus"
    ],
    "text": "NMN / NR (NAD+ Precursors) (Nicotinamide Mononucleotide, Nicotinamide Riboside) — Nootropics and Longevity\n\nNAD+ (Nicotinamide Adenine Dinucleotide) is a critical coenzyme involved in over 500 enzymatic reactions, DNA repair, circadian rhythm regulation, and cellular energy production. NAD+ levels decline ~50% by age 50. NMN and NR are oral precursors that effectively raise NAD+ levels. David Sinclair's research at Harvard has popularized these compounds in longevity science. Clinical trials (2021-2026) confirm NMN and NR safely increase NAD+ levels in humans. Benefits include improved mitochondrial function, DNA repair capacity, metabolic health, and potential longevity signaling via sirtuin activation.\n\nReported benefits:\n• Clinically validated to raise NAD+ levels in humans\n• Activates sirtuins — longevity-associated proteins\n• Improves mitochondrial biogenesis and energy\n• Enhances DNA repair mechanisms\n• Metabolic benefits — improved insulin sensitivity\n• Excellent safety profile in trials to date\n\nRisks and trade-offs:\n• Expensive for quality products\n• Optimal dose for longevity benefits not established\n• NMN vs NR debate ongoing — unclear which is superior\n• Some debate whether oral NMN survives digestion without IV\n• Long-term human longevity data still accumulating\n• Theoretical concern: NAD+ feeds cancer cell metabolism\n\nDosing discussed in the literature:\n• NMN: 500-1000mg/day — Daily oral AM with or without food (Ongoing)\n• NR: 300-500mg/day — Daily oral (Ongoing)\n\nProgression: Take in the AM — NAD+ is involved in circadian signaling. Often combined with Resveratrol or Pterostilbene (sirtuin activators) and TMG (methyl donor) to maximize benefit. Sublingual NMN may have superior bioavailability.\n\nCommon protocols:\n• Longevity / Mitochondrial: NMN 500-1000mg AM, Resveratrol 500mg with fat, TMG 500-1000mg, Testosterone TRT dose (if applicable), Epithalon pulse cycles\n\nMonitoring: No specific labs required. Optional: cellular NAD+ testing (specialty labs), HbA1c, fasting glucose.\n\nRegulatory status: NMN and NR are sold as dietary supplements in the US. Not FDA approved as drugs.",
    "route": {
@@ -1427,7 +1429,8 @@
     "ghk copper",
     "ghk-cu (copper peptide)",
     "ghkcucopperpeptide",
-    "ghk cu copper peptide"
+    "ghk cu copper peptide",
+    "ghcku"
    ],
    "text": "GHK-Cu (Copper Peptide, Glycyl-L-Histidyl-L-Lysine, GHK-Copper, GHK-Cu (Copper Peptide)) — Additional Peptides\n\nGHK-Cu is a naturally occurring copper-binding tripeptide found in human plasma, saliva, and urine. Levels decline significantly with age. Research by Loren Pickart spanning 40+ years demonstrates remarkable biological activity: wound healing, anti-inflammatory, antioxidant, collagen production stimulation, hair follicle stimulation, and nerve regeneration. More recently, genome studies show GHK-Cu resets thousands of genes toward a younger expression pattern. Topical application for skin and hair is well established. Systemic SubQ use for anti-aging, injury healing, and tissue regeneration is an emerging application.\n\nReported benefits:\n• Naturally occurring — excellent safety profile\n• Stimulates collagen and elastin production\n• Promotes hair follicle activation and growth\n• Wound healing and tissue regeneration\n• Anti-inflammatory and antioxidant\n• Gene expression reset toward youthful patterns in research\n• Extremely broad tissue repair effects\n• Stimulates collagen and elastin\n• Hair follicle regeneration\n• Excellent safety profile\n• Available topical and injectable\n\nRisks and trade-offs:\n• Topical vs systemic absorption debate ongoing\n• SubQ injection data limited compared to topical\n• Copper accumulation theoretically possible at very high doses\n• Sourcing quality varies\n• Mechanism fully characterized only in vitro and animal models\n• Long-term systemic safety not established\n• Multiple administration routes can be confusing\n• Quality control varies widely by source\n• Research mostly in vitro or animal models\n• Not FDA approved\n• Optimal dosing protocols still being established\n\nDosing discussed in the literature:\n• Topical (skin/hair): Apply to target area — 1-2x daily (Ongoing)\n• SubQ systemic: 1-2mg/day — Daily SubQ (4-8 weeks on / 4 weeks off)\n• Subcutaneous: 1–2mg/day — SubQ injection (1–3 months)\n• Intranasal: 100–200mcg/day — Nasal spray (Ongoing)\n• Topical: As directed — Topical cream/serum (Ongoing)\n\nProgression: Topical is the most established route with the most evidence. For systemic SubQ use, 1mg/day is a starting point. Often cycled to prevent potential copper accumulation. Stack with BPC-157 for synergistic tissue healing.\n\nCommon protocols:\n• Anti-aging / Tissue Repair: GHK-Cu 2mg/day SubQ or topical, BPC-157 250mcg/day, Testosterone TRT dose, NMN 500mg/day\n• Longevity Stack: GHK-Cu 1mg/day SubQ, Epithalon 5mg/day (cycled), NMN 500mg/day, BPC-157 250mcg/day\n• Skin and Hair: GHK-Cu topical 2x/day, GHK-Cu 1mg SubQ/day, Biotin 5mg/day\n\nMonitoring: General health markers. Copper levels with extended high-dose use. Hair and skin photographic documentation.\n\nRegulatory status: Topical use is cosmetic/OTC. Systemic SubQ use is research only — no FDA approval.",
    "route": {
@@ -1695,7 +1698,8 @@
     "retatrutide",
     "ly3437943",
     "triple g agonist",
-    "triplegagonist"
+    "triplegagonist",
+    "reta"
    ],
    "text": "Retatrutide (LY3437943, triple G agonist) — Metabolic Peptides\n\nRetatrutide is a triple agonist targeting GIP, GLP-1, AND glucagon receptors — the next generation beyond tirzepatide's dual mechanism. Phase II clinical trials (2023) demonstrated extraordinary weight loss outcomes: up to 24.2% body weight reduction at 48 weeks — exceeding even tirzepatide. The addition of glucagon receptor agonism increases energy expenditure and fat oxidation beyond what GLP-1/GIP alone can achieve. Currently in Phase III trials. Considered the most potent weight loss compound in development and likely to become best-in-class when approved.\n\nReported benefits:\n• Up to 24.2% body weight loss in Phase II trials — best ever recorded\n• Triple mechanism: GLP-1 + GIP + glucagon\n• Glucagon agonism adds energy expenditure beyond GLP-1 alone\n• Phase III trials ongoing — strong pipeline\n• Once weekly dosing\n• Strong cardiovascular outcome data expected\n\nRisks and trade-offs:\n• Not yet FDA approved — Phase III as of 2024\n• All GLP-1 class side effects apply plus glucagon effects\n• Muscle loss without testosterone and resistance training\n• Nausea and GI effects potentially more pronounced than tirzepatide\n• Long-term safety data still accumulating\n• Not yet commercially available — research/clinical trial access only\n\nDosing discussed in the literature:\n• Phase II trial doses: 1-12mg/week — Weekly SubQ — titrated over months (Ongoing)\n• Estimated clinical: Start 1-2mg/week, titrate — Weekly SubQ (Ongoing when approved)\n\nProgression: Follow same titration approach as tirzepatide — slow titration minimizes GI side effects. Testosterone support for muscle preservation is even more critical given the superior fat loss potential. Protein intake minimum 1g/lb body weight.\n\nCommon protocols:\n• Maximum Fat Loss: Retatrutide (per clinical protocol when available), Testosterone Cypionate 200mg/week (muscle preservation essential), CJC-1295 + Ipamorelin (GH support), Collagen peptides + resistance training\n\nMonitoring: HbA1c, fasting glucose, lipids, liver enzymes, body composition monthly, weight weekly.\n\nRegulatory status: Phase III clinical trials ongoing as of 2026. Not FDA approved. Expect approval 2025-2026.",
    "route": {
@@ -1734,7 +1738,9 @@
     "mt2",
     "mt 2",
     "bremelanotide precursor",
-    "bremelanotideprecursor"
+    "bremelanotideprecursor",
+    "melanotan 2",
+    "melanotan2"
    ],
    "text": "Melanotan II (MT-2, bremelanotide precursor) — Metabolic Peptides\n\nMelanotan II (MT-2) is a synthetic analogue of alpha-melanocyte stimulating hormone (alpha-MSH) that activates multiple melanocortin receptors (MC1R, MC3R, MC4R, MC5R). Effects include: skin tanning without UV exposure (MC1R), appetite suppression and fat mobilization (MC3R), potent sexual desire and erectile function enhancement (MC4R — same as PT-141's mechanism), and potential anti-inflammatory effects. Unlike PT-141 (bremelanotide) which is a fragment of MT-2 targeting primarily MC4R, MT-2 has the full melanocortin spectrum. Popular in TRT clinics as an adjunct for libido, sexual function, and body composition. Requires careful dosing to avoid side effects.\n\nReported benefits:\n• Tanning without UV — melanogenesis via MC1R\n• Appetite suppression and fat mobilization\n• Potent sexual function enhancement via MC4R\n• Erection quality improvement\n• Combines tanning + libido + fat loss effects simultaneously\n• Popular and widely studied in clinical research\n\nRisks and trade-offs:\n• Nausea — most common side effect, dose-dependent\n• Facial flushing\n• Spontaneous erections can be problematic\n• Moles and nevi can darken — skin check important\n• Yawning and drowsiness at higher doses\n• Not FDA approved — PT-141 (bremelanotide) is the FDA-approved version for women\n\nDosing discussed in the literature:\n• Starting (tanning): 0.25mg — SubQ before tanning/bedtime (Build up slowly)\n• Standard: 0.5-1mg — SubQ as needed — not daily use (Cycle on/off)\n• Sexual function: 0.5-1mg — SubQ 30-60 min before activity (As needed)\n\nProgression: Start at 0.25mg to assess nausea — most users develop tolerance to nausea within 5-10 uses. Take at bedtime to sleep through nausea. Avoid high-fat meals around dosing. Sun exposure after dosing accelerates tanning effect. Have skin checked by dermatologist before use — existing moles should be monitored.\n\nCommon protocols:\n• Sexual Health and Body Composition: MT-2 0.5-1mg as needed, Testosterone Cypionate TRT dose, PT-141 1mg (can alternate with MT-2), BPC-157 for overall wellness\n\nMonitoring: Skin monitoring — photograph moles at baseline and every 3 months. Blood pressure (transient elevation). Dermatologist consultation before long-term use.\n\nRegulatory status: Research compound — not FDA approved. PT-141 (bremelanotide) is FDA approved for women's HSDD. MT-2 is a precursor compound.",
    "route": {
@@ -2454,7 +2460,10 @@
     "tren a",
     "trena",
     "fina",
-    "trenace"
+    "trenace",
+    "tren",
+    "trenbolone",
+    "tren ace"
    ],
    "text": "Trenbolone Acetate (Tren A, Fina) — AAS\n\nTrenbolone Acetate is one of the most powerful anabolic steroids available, a 19-nor derivative roughly five times more anabolic and androgenic than testosterone. The acetate ester gives a short half-life requiring frequent injection but rapid clearance. Produces dramatic lean mass, strength, and conditioning with no aromatization. Considered an advanced-only compound due to the severity and frequency of side effects.\n\nReported benefits:\n• Extremely potent — dramatic strength and lean mass\n• No aromatization to estrogen\n• Powerful nutrient partitioning and fat loss\n• Increases IGF-1 and red blood cell production\n• Dramatic conditioning and hardening effect\n• Short ester allows quick adjustment\n\nRisks and trade-offs:\n• Severe — night sweats, insomnia, anxiety\n• Tren cough, aggression, mood changes\n• Strong libido and erectile issues for many\n• Suppresses natural testosterone heavily\n• Prolactin and progesterone sides possible\n• Cardiovascular and kidney stress — advanced only\n\nDosing discussed in the literature:\n• Intermediate: 50mg EOD (175mg/wk) — IM injection every other day (8 weeks max)\n• Advanced: 75-100mg EOD — IM injection every other day (8 weeks + full PCT)\n\nProgression: Advanced users only. Never a first cycle. Run with testosterone base. Have cabergoline for prolactin. Monitor mental health closely — discontinue if mood severely affected.\n\nCommon protocols:\n• Contest Prep: Testosterone Propionate 100mg/wk, Trenbolone Acetate 350mg/wk, Masteron 400mg/wk\n\nMonitoring: Blood pressure — frequent,Lipid panel — HDL crashes,Kidney function,Prolactin,Mental health and sleep,Hematocrit",
    "route": {
@@ -2473,7 +2482,11 @@
     "trenboloneenanthate",
     "tren e",
     "trene",
-    "trenenan"
+    "trenenan",
+    "tren",
+    "trenbolone",
+    "tren enth",
+    "trenenth"
    ],
    "text": "Trenbolone Enanthate (Tren E) — AAS\n\nTrenbolone Enanthate is the longer-ester version of trenbolone, offering the same extreme potency with a longer half-life allowing twice-weekly injection. Identical effects to the acetate version — dramatic lean mass, strength, conditioning, no aromatization — but blood levels build and clear more slowly, making side effects harder to reverse quickly if they become problematic.\n\nReported benefits:\n• Same potency as Tren Ace, less frequent injection\n• Dramatic lean mass and strength\n• No aromatization\n• Powerful fat loss and conditioning\n• Stable blood levels with twice-weekly dosing\n• Increases IGF-1\n\nRisks and trade-offs:\n• Same severe sides as Tren Ace\n• Longer to clear if sides become severe\n• Heavy testosterone suppression\n• Night sweats, insomnia, anxiety\n• Prolactin/progesterone sides\n• Advanced users only\n\nDosing discussed in the literature:\n• Intermediate: 200mg/week — IM injection 2x/week (10 weeks max)\n• Advanced: 300-400mg/week — IM injection 2x/week (10-12 weeks + PCT)\n\nProgression: Advanced only. Run with testosterone. Cabergoline on hand. Monitor mental health and sleep — the longer ester means you commit to the side effects for longer.\n\nCommon protocols:\n• Lean Bulk: Testosterone Enanthate 300mg/wk, Trenbolone Enanthate 300mg/wk, Proper PCT after\n\nMonitoring: Blood pressure,Lipid panel,Kidney function,Prolactin,Mental health,Hematocrit",
    "route": {
@@ -7273,7 +7286,6 @@
     "supplements the short list that works",
     "supplements:",
     "supplements",
-    "that",
     "supplement",
     "creatine",
     "caffeine",
