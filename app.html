@@ -2601,7 +2601,10 @@ return ctx;
      entry, and "test cyp vs enanthate" answered with a protocol. An entry that
      merely mentions a compound must rank below the entry that IS that
      compound. */
-  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
+  /* storage sits with the playbooks at full weight: it is authored guidance
+     answering a question in the words someone asked it, and it is the single
+     most frequently asked class in this audience. */
+  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
 
   /* Join hyphen/slash-separated word parts, matching how terms() flattens the
      index side. Without this, "MK-677" tokenized to "mk-677" and the index
@@ -2883,7 +2886,7 @@ return ctx;
     /* rehab sits with the playbooks: both are authored, fully cited answers to a
        question someone asked in their own words, and both are the reason this
        matcher exists — to answer without a round trip. */
-    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1 };
+    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1 };
     const answerable = picked.filter((r) => !r.related && !contextUnmet(r.entry) &&
       ANSWER_KINDS[r.entry.kind] &&
       r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
@@ -2920,7 +2923,7 @@ return ctx;
      * were unreachable, including for a question that named two compounds and
      * asked whether to combine them. */
     const GROUND_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1,
-                           template: 1, interaction: 1 };
+                           storage: 1, template: 1, interaction: 1 };
     /* Three, not five. The community's names for things are short — reta, tirz,
        sema, hcg, mt2, ipa, cjc, nad — and a five-character floor excluded most of
        them, which is why naming the compound outright still grounded nothing.
@@ -10071,6 +10074,23 @@ const TL_STORAGE = {
       after: 'Reconstituted, refrigerate at 2\u20138\u00A0\u00B0C and use within about 28 days if you mixed it with bacteriostatic water. Plain sterile water has no preservative and should be treated as a single day\u2019s worth. This is swallowed rather than injected, so sterility matters less than it would for a shot \u2014 but the peptide degrades on the same clock either way.',
       avoid: 'Do not freeze a reconstituted vial. Do not leave it on the counter between doses \u2014 three doses a day before meals means three trips to the fridge, not a vial that lives in a gym bag.'
     }
+  },
+  /* What to do when storage already went wrong.
+     The classes above answer "how do I store this". They do not answer the
+     question people actually arrive with, which is "I left it out overnight \u2014
+     is it ruined?" \u2014 asked in a hurry, about a vial that cost real money. That
+     is a different question and it needs a different answer: not a rule, a
+     decision. The fork is deliberate. Whether the vial was a sealed powder or
+     already mixed changes the answer completely, and the question as people ask
+     it almost never says which. */
+  excursion: {
+    label: 'Left out, too warm, or frozen by accident',
+    fork: 'Two vials in the same drawer can have opposite answers, so start here: was it still a sealed powder, or already mixed with water? Sealed powder is far more forgiving than anything in solution, and most of the worry attaches to the wrong one.',
+    powder: 'A sealed lyophilized vial that spent a night at room temperature is close to a non-event. Sealed powder tolerates room temperature in transit by design \u2014 that is how it reached you in the first place. Put it back in the fridge and carry on. What actually threatens powder is moisture and light, not one warm night.',
+    mixed: 'A reconstituted vial is the one worth thinking about. The roughly 28-day window assumes it stayed at 2\u20138\u00A0\u00B0C, and peptide breakdown runs on temperature and time, so a warm night spends part of that budget rather than none of it. That usually means somewhat weaker, not ruined. If it was mixed with BACTERIOSTATIC water, the benzyl alcohol goes on holding bacterial growth down \u2014 that is the job it is there to do \u2014 but it does nothing whatever about the peptide itself degrading. If it was mixed with PLAIN STERILE water there is no preservative at all, and a vial that sat out warm should be discarded rather than reasoned about.',
+    frozen: 'Frozen is a worse question than warm, and a separate one. Freeze\u2013thaw is among the more reliable ways to wreck a peptide, and a reconstituted vial that looks perfectly clear again after thawing can still have lost a great deal of its activity. An oil-based vial that merely got cold is usually recoverable \u2014 warm it in your hand and inspect, per the oil rule. Insulin that has frozen is not recoverable and should be discarded.',
+    inspect: 'Look at it before you use it. Cloudiness where it should be clear, visible particles, a colour change, or anything that will not redissolve are all reasons to stop. But a vial can look flawless and still have degraded, so appearance rules a vial OUT \u2014 it never rules one in.',
+    honest: 'The honest limit: nobody can tell you from a description how much potency one specific vial lost, and anyone who gives you a percentage is guessing. What can be decided is whether it crossed a line that makes it unsafe rather than merely weaker \u2014 no preservative plus a warm night, a freeze, or visible contamination. Those are discard. And never answer a vial that seems weak by taking more of it: if it has degraded you are guessing at a dose, and if it has not, you are simply overdosing.'
   }
 };
 

@@ -341,6 +341,66 @@ const COMPOUND_SYNONYMS = {
   nad: ['nad plus']
 };
 
+/* Storage is the highest-frequency question class in the audience and had zero
+   entries in a 327-entry index, so "I accidentally left my peptides out
+   overnight, are they garbage now?" reached the model with nothing attached —
+   and before the category-term fix, was answered on-device with four unrelated
+   compounds.
+   The answer already existed in TL_STORAGE, which the app renders in its own
+   storage panel. These entries are GENERATED from it rather than written again,
+   for the same reason the brain index is generated from app.html: a second copy
+   of a storage rule is a second thing to get wrong, and a stale one reads as
+   authoritative. Only the terms are authored, because the words people use for
+   this ("garbage", "hot car", "left it out") appear nowhere in the rules. */
+const STORAGE_SYNONYMS = {
+  aq: ['peptide storage', 'store peptides', 'storing peptides', 'lyophilized', 'lyophilised',
+    'powder vial', 'reconstituted storage', 'how long does a mixed vial last', 'mixed vial',
+    'bacteriostatic water storage', '28 days', 'fridge', 'refrigerate', 'freezer', 'kit of vials',
+    /* Explicit rather than inherited from the label, which is no longer split into
+       words. These are the words the questions actually use. */
+    'reconstituted', 'reconstitute', 'room temp', 'room temperature', 'can i freeze',
+    'freeze a vial', 'freeze it', 'keep it cold', 'how cold'],
+  oil: ['oil storage', 'testosterone storage', 'store testosterone', 'oil vial cloudy',
+    'crystals in vial', 'crystals', 'crystallized', 'crystallised', 'cloudy vial', 'cloudy',
+    'refrigerate testosterone', 'cold oil', 'oil went cloudy'],
+  oral: ['tablet storage', 'capsule storage', 'store pills', 'desiccant', 'bathroom cabinet',
+    'humidity pills', 'tablets', 'capsules', 'where do i keep my tablets', 'keep my pills',
+    'store my tablets', 'store my capsules'],
+  susp: ['suspension storage', 'settled vial', 'shake the vial', 'resuspend', 'clumped'],
+  topical: ['cream storage', 'gel storage', 'store cream', 'beyond use date', 'airless pump'],
+  excursion: ['left out', 'left it out', 'left them out', 'out overnight', 'overnight',
+    'room temp overnight', 'is it ruined', 'are they ruined', 'garbage', 'still good',
+    'still ok', 'go bad', 'gone bad', 'spoiled', 'wasted', 'hot car', 'left in the car',
+    'mailbox', 'porch', 'shipping heat', 'melted', 'thawed', 'accidentally froze',
+    'froze my peptides', 'forgot to refrigerate', 'not refrigerated', 'unrefrigerated',
+    'did i ruin', 'wasted my vial', 'throw it away', 'discard']
+};
+
+/* One paragraph per field, in the order someone actually needs them. The class
+   rules read before/after/avoid; the excursion entry reads fork first, because
+   which vial you have changes every line under it. */
+function storageText(key, c, caveat) {
+  const p = [];
+  p.push(c.fork
+    ? `${c.label} — whether a vial that was stored wrong is still usable.`
+    : `${c.label} — how to store it, and what ruins it.`);
+  if (c.fork) {
+    p.push('', 'Which vial is it?', c.fork);
+    if (c.powder) p.push('', 'If it was still sealed powder:', c.powder);
+    if (c.mixed) p.push('', 'If it was already mixed:', c.mixed);
+    if (c.frozen) p.push('', 'If it froze:', c.frozen);
+    if (c.inspect) p.push('', 'What to look for:', c.inspect);
+    if (c.honest) p.push('', 'What cannot be known from here:', c.honest);
+  } else {
+    if (c.before) p.push('', 'Before opening or mixing:', c.before);
+    if (c.after) p.push('', 'After opening or mixing:', c.after);
+    if (c.premixed) p.push('', 'If it came ready-mixed:', c.premixed);
+    if (c.avoid) p.push('', 'What ruins it:', c.avoid);
+  }
+  p.push('', caveat);
+  return p.join('\n');
+}
+
 const PLAYBOOK_SYNONYMS = {
   'Liver strain': ['liver', 'liver damage', 'liver values', 'liver enzymes', 'alt', 'ast',
     'alt high', 'ast high', 'ggt', 'bilirubin', 'jaundice', 'yellow eyes', 'hepatotoxic',
@@ -396,7 +456,7 @@ function build() {
   const d = declarations(html, [
     'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB', 'NUTRITION',
     'INTERACTIONS', 'NEW_INTERACTIONS', 'CLINIC_INTERACTIONS',
-    'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES'
+    'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES', 'TL_STORAGE'
   ]);
 
   const entries = [];
@@ -592,6 +652,42 @@ function build() {
       src: n.src || [],
       route: { view: 'nutrition', item: n.t }
     });
+  }
+
+  /* Storage, generated from TL_STORAGE so the brain and the app's own storage
+     panel cannot disagree. Overrides are skipped: insulin and larazotide are
+     answered by their compound entries, and a second card saying almost the
+     same thing is how a user ends up comparing two of our own answers. */
+  {
+    const st = d.TL_STORAGE || {};
+    const cls = Object.assign({}, st.classes || {});
+    if (st.excursion) cls.excursion = st.excursion;
+    const unmappedStorage = Object.keys(cls).filter((k) => !STORAGE_SYNONYMS[k]);
+    if (unmappedStorage.length) {
+      throw new Error('TL_STORAGE has formulations with no STORAGE_SYNONYMS entry: ' +
+        unmappedStorage.join(', ') + ' — without terms they are unreachable, which is the ' +
+        'state this content was added to fix.');
+    }
+    for (const [key, c] of Object.entries(cls)) {
+      entries.push({
+        id: `storage:${key}`,
+        kind: 'storage',
+        title: c.label,
+        subtitle: 'storage and handling',
+        /* The label is NOT split into words here, unlike the playbook and nutrition
+           entries whose titles are topical. These labels are descriptive sentences —
+           "Left out, too warm, or frozen by accident" — and splitting one puts "too",
+           "out", "use" and "by" into the term list, where they match anything.
+           Measured: it sent "estrodiol too high" to the excursion entry and "can I
+           just USE my wife's prescription" to the powder entry. That is the same
+           generic-word defect as sore/back/what, and it slips under the category-term
+           guard because each word lands on only one or two entries rather than four.
+           The synonyms carry the retrieval; the label is a heading, not an index. */
+        terms: terms(c.label, STORAGE_SYNONYMS[key] || []),
+        text: storageText(key, c, st.caveat || ''),
+        route: { view: 'storage', item: key }
+      });
+    }
   }
 
   const allInteractions = [...d.INTERACTIONS, ...d.NEW_INTERACTIONS, ...d.CLINIC_INTERACTIONS];

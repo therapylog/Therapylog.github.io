@@ -111,18 +111,28 @@ const PROBES = [
   // question to intermittent fasting.
   ['what peptide for hot flashes', null],
   ['what peptide helps wrinkles', null],
-  ['peptide storage', null],
+  ['peptide storage', 'storage:'],   // answers now that storage entries exist
   ['c-peptide range', 'marker:cpeptide'],     // the real lookup must still work
   ['what is my c peptide level', 'marker:cpeptide'],
 
-  // --- storage and stability: real, frequent, and currently uncovered ---
-  // These must DEFER rather than answer: there is no storage entry in the index,
-  // and the answer is settled content in the assistant's own system prompt. What
-  // must never happen again is the old behaviour, where "peptides" was a term on
-  // 23 compound entries and this question was answered on-device with four
-  // unrelated compounds.
-  ['I accidentally left my peptides out overnight. Are they garbage now?', null],
-  ['is Klow supposed to be kept at room temp once reconstituted', null]
+  // --- storage and stability: the most frequent question class in the audience ---
+  // These deferred until the storage entries existed, because the index held
+  // nothing on the subject at all. They now answer, from entries generated out of
+  // TL_STORAGE so the brain and the app's own storage panel cannot disagree.
+  // The old failure to guard against is answering them with the WRONG thing:
+  // before the category-term fix, "peptides" was a term on 23 compound entries
+  // and the overnight question was answered on-device with four unrelated
+  // compounds. Asserting the exact entry, not merely that something answered,
+  // is what keeps that distinction.
+  ['I accidentally left my peptides out overnight. Are they garbage now?', 'storage:excursion'],
+  ['my peptides were left in a hot car, are they ruined', 'storage:excursion'],
+  ['i forgot to refrigerate my vial, did i ruin it', 'storage:excursion'],
+  ['is Klow supposed to be kept at room temp once reconstituted', 'storage:aq'],
+  ['how long does a mixed vial last in the fridge', 'storage:aq'],
+  ['can i freeze a reconstituted vial', 'storage:aq'],
+  ['do i refrigerate testosterone', 'storage:oil'],
+  ['my oil vial has crystals in it', 'storage:oil'],
+  ['where do i keep my tablets', 'storage:oral']
 ];
 
 
