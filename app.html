@@ -2604,7 +2604,7 @@ return ctx;
   /* storage sits with the playbooks at full weight: it is authored guidance
      answering a question in the words someone asked it, and it is the single
      most frequently asked class in this audience. */
-  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
+  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1, referral: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
 
   /* Join hyphen/slash-separated word parts, matching how terms() flattens the
      index side. Without this, "MK-677" tokenized to "mk-677" and the index
@@ -2886,7 +2886,7 @@ return ctx;
     /* rehab sits with the playbooks: both are authored, fully cited answers to a
        question someone asked in their own words, and both are the reason this
        matcher exists — to answer without a round trip. */
-    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1 };
+    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1, referral: 1 };
     const answerable = picked.filter((r) => !r.related && !contextUnmet(r.entry) &&
       ANSWER_KINDS[r.entry.kind] &&
       r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
@@ -2923,7 +2923,7 @@ return ctx;
      * were unreachable, including for a question that named two compounds and
      * asked whether to combine them. */
     const GROUND_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1,
-                           storage: 1, template: 1, interaction: 1 };
+                           storage: 1, referral: 1, template: 1, interaction: 1 };
     /* Three, not five. The community's names for things are short — reta, tirz,
        sema, hcg, mt2, ipa, cjc, nad — and a five-character floor excluded most of
        them, which is why naming the compound outright still grounded nothing.
@@ -10895,6 +10895,51 @@ caution:'Rising fasting glucose on a GH secretagogue is the signal to cut the do
    testosterone. Zero pair creatine with AAS. The numbers are real and the
    population is not ours, and an entry that hid that would be worse than no
    entry. */
+/* When the honest answer is a clinician, not an answer.
+ *
+ * The index had 327 entries and not one modelled this. Zero matched "oncologist",
+ * "your prescriber" or "your doctor" as guidance rather than a passing mention,
+ * and the eval showed the cost: asked about a rising blood pressure on TRT with
+ * metformin and lisinopril already prescribed, both model arms recommended
+ * adding telmisartan and handed out a blood donation schedule. With no model of
+ * what a good referral looks like, a model improvises one, and improvises it
+ * confidently.
+ *
+ * These are deliberately not refusals. A referral that gives nothing is a worse
+ * answer than a wrong one, because the person leaves with the same question and
+ * one fewer place to take it. Every entry gives what IS settled first, then
+ * names the specific variables that put the rest out of reach, then says what to
+ * bring and what to ask. "Consult a professional" appears nowhere. */
+const REFERRAL = [
+{ t:'A cancer history, and anything that pushes growth signalling', i:'\u{1F52C}',
+when:'You have had cancer \u2014 in treatment, treated, in remission or under surveillance \u2014 and you are considering a peptide, a growth hormone secretagogue, or HGH itself. Or you have read that one of them is off-limits for you and want to know whether that is true.',
+why:'What decides this is not in the question: what the cancer was and whether it was hormone or growth-factor sensitive, whether treatment is complete, what surveillance you are on and how long since, and what else you take. Those change the answer completely and no chat has them.',
+settled:'The two growth-axis drugs that have actually been through FDA review both contraindicate ACTIVE malignancy. Tesamorelin goes further than a bare contraindication: its label says any preexisting malignancy should be inactive and its treatment complete before starting, and that it should be discontinued on any evidence of recurrence. The label states its own reason plainly \u2014 the drug releases endogenous growth hormone, which it calls a known growth factor, and raises IGF-1, whose effects at prolonged elevation it describes as unknown. That is a regulator writing down the exact mechanism people worry about. What does NOT follow is that the same finding transfers to BPC-157, TB-500 or the research-chemical secretagogues. Those have no approved label at all, and that is not reassurance \u2014 it is the absence of the review process that produced the warning above. Separately worth knowing, because it is the part people miss: quite a lot of what someone in this position actually wants does not touch the growth axis. Tendon and muscle recovery has a real, evidence-backed loading answer that involves no compound whatsoever, and persistent fatigue has a workup \u2014 thyroid, ferritin, B12, vitamin D \u2014 before it has a peptide.',
+bring:'Your most recent full panel. The pathology and staging summary, or the clinic letter that has it. The name of the specific compound and one line on what it does mechanistically \u2014 whether it raises GH or IGF-1 is the part your oncologist will care about. Your current surveillance schedule.',
+ask:'Does what I am considering raise growth hormone or IGF-1, and does that matter for the cancer I had? If I did use it, what would you want to monitor and how often? Is there a way to get what I am after that does not touch the growth axis at all?',
+ev:'Label: both FDA-reviewed growth-axis products list active malignancy as a contraindication, and the tesamorelin label supplies the mechanistic reasoning and the "inactive and treatment complete" standard. No human trial data exists for BPC-157 or TB-500 in people with a cancer history, in either direction \u2014 the absence is the finding.',
+src:[['label:3d783378-b02d-4f19-99dd-0fc91a042224','Tesamorelin (EGRIFTA SV): contraindicated in active malignancy; preexisting malignancy must be inactive and treatment complete before starting; discontinue on evidence of recurrence; GH described as a known growth factor and IGF-1 elevation of unknown long-term effect'],
+['label:a774e1ae-3997-49ee-8b0e-99a2b315d409','Somatropin (HUMATROPE): active malignancy listed among contraindications, showing this is a property of the growth-hormone class rather than of one product']] },
+
+{ t:'A change to a medication someone else prescribed', i:'\u{1F48A}',
+when:'You are on a prescription \u2014 blood pressure, thyroid, metformin, an antidepressant, TRT from a clinic \u2014 and you are wondering whether to add one, raise it, lower it, or stop.',
+why:'Prescribing decisions turn on things a chat cannot see and cannot verify: your full medication list including anything over the counter, kidney and liver function, what has already been tried and why it was changed, and the reason your prescriber chose this drug over the alternatives. There is also a plain practical point \u2014 whoever writes the prescription is the one who has to act on it, so a plan they were not part of usually costs you a visit rather than saving one.',
+settled:'What a number means is not the same question as what to do about it, and the first half is answerable here. A haematocrit reading, a blood pressure trend, a TSH with a normal free T4 \u2014 the app has entries on what those indicate, what typically drives them, and which of them tend to move together. Read the number first. Bring the DECISION to your prescriber. The distinction is not a formality: arriving with "my haematocrit has climbed from 47 to 51 over four months on TRT and my blood pressure has gone up with it" gets a better appointment than arriving with "the internet said to add telmisartan".',
+bring:'Your current panel and the one before it, so the trend is visible rather than a single point. A complete list of what you take, including anything bought without a prescription. When the change you noticed started, and anything that changed around the same time.',
+ask:'What is driving this number? Is this a dose question, a different-drug question, or a wait-and-recheck question? What would make you want to see me sooner?',
+ev:'',
+src:[] },
+
+{ t:'Several conditions, several compounds, and a question that needs all of them', i:'\u{1F9E9}',
+when:'Your question has more moving parts than any single entry covers \u2014 an autoimmune condition and a GLP-1, a thyroid history and a stimulant, two prescriptions and a peptide you want to add, a symptom that could be any of four things.',
+why:'Not because the question is too hard, but because the parts interact and the interaction is where the answer lives. Each piece may have a good answer on its own that stops being right in combination. That is exactly the case where a confident single answer is worse than an honest map of the problem.',
+settled:'Take the parts one at a time and quite a lot of it becomes answerable. What each compound does on its own, what each marker means, which pairs are known to interact and how \u2014 all of that is worth having before an appointment, and the app can give it. What no chat should do is collapse the pieces into one recommendation and hand it over as if the interaction had been worked out. Ask for the parts, not the verdict.',
+bring:'A written list of every condition and every substance, prescription and otherwise, with doses and how long. Your most recent panel. The specific question you want answered, written down \u2014 appointments run short and this is the thing most often left unsaid.',
+ask:'Which of these interacts with which? What would you watch if I went ahead? Which one would you change first if we had to change something?',
+ev:'',
+src:[] }
+];
+
 const NUTRITION = [
 { t:'Protein: how much actually helps', i:'🥩',
 what:'What the trials support for protein intake when building or holding muscle, and where the extra grams stop doing anything.',

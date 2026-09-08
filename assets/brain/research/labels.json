@@ -1,6 +1,6 @@
 {
  "note": "FDA/DailyMed label findings. Approved indication and dose per drug, and whether this app's use is within it. Retrieved from openFDA via DailyMed. 34 of 37 findings are off-label for the use this app discusses — that gap is the point of collecting them. Enclomiphene has no US prescribing information at all. Three setids (anastrozole, cabergoline, dutasteride) were re-resolved live and matched exactly; the rest are recorded as the retrieval tool returned them.",
- "count": 37,
+ "count": 39,
  "labels": [
   {
    "drug": "Anastrozole",
@@ -297,6 +297,22 @@
    "onLabelForThisUse": false,
    "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=cfbb53d4-b868-4a28-8436-f9112eb01c39",
    "topic": "load-mgmt"
+  },
+  {
+   "drug": "Tesamorelin (EGRIFTA SV)",
+   "approvedIndication": "Reduction of excess visceral abdominal fat in adults with HIV-associated lipodystrophy. That is the only approved use. It is not approved for recovery, injury healing, body composition in people without HIV lipodystrophy, or anti-ageing.",
+   "approvedDose": "Retrieved for the contraindication rather than the dose. The label contraindicates EGRIFTA SV in patients with active malignancy, and states that any preexisting malignancy should be inactive and its treatment complete prior to instituting therapy, with discontinuation if there is any evidence of recurrent malignancy. Section 5.1 gives the regulator's own mechanism: the drug induces release of endogenous growth hormone, described as a known growth factor. Section 5.2 adds that it raises serum IGF-1, also described as a growth factor, and that the effects of prolonged elevations in IGF-1 are unknown, with monitoring advised.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=3d783378-b02d-4f19-99dd-0fc91a042224",
+   "topic": "referral-cancer"
+  },
+  {
+   "drug": "Somatropin (HUMATROPE)",
+   "approvedIndication": "Growth hormone deficiency and several specific growth disorders. Retrieved here as the second regulator-reviewed GH-axis label, to establish that the active-malignancy contraindication is a property of the class rather than of one product.",
+   "approvedDose": "Retrieved for the contraindication rather than the dose. Active malignancy is listed in the label's contraindications section.",
+   "onLabelForThisUse": false,
+   "dailymedUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a774e1ae-3997-49ee-8b0e-99a2b315d409",
+   "topic": "referral-cancer"
   }
  ]
 }

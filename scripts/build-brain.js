@@ -338,7 +338,12 @@ const COMPOUND_SYNONYMS = {
   trenenan: ['tren', 'trenbolone', 'tren enth'],
   mt2: ['melanotan 2', 'melanotan2'],
   ghkcu: ['ghcku', 'ghk cu'],
-  nad: ['nad plus']
+  nad: ['nad plus'],
+  /* The title is "Levothyroxine (T4)", so the bare drug name was never a term:
+     the parenthesised form and the brand names were, and "levothyroxine" alone
+     reached nothing. Same shape for the T3 entry. */
+  t4: ['levothyroxine'],
+  t3: ['liothyronine']
 };
 
 /* Storage is the highest-frequency question class in the audience and had zero
@@ -352,6 +357,56 @@ const COMPOUND_SYNONYMS = {
    of a storage rule is a second thing to get wrong, and a stale one reads as
    authoritative. Only the terms are authored, because the words people use for
    this ("garbage", "hot car", "left it out") appear nowhere in the rules. */
+/* The words people use when they are in one of these situations, which are not
+   the words in the titles. Someone who has had cancer writes "I had thyroid
+   cancer" or "since my treatment", never "growth signalling". */
+const REFERRAL_SYNONYMS = {
+  'A cancer history, and anything that pushes growth signalling': [
+    /* Plurals and the way people actually write it. One real post says "I had 2
+       cancers. Thyroid and endometrial" — whole-phrase matching means "cancer"
+       does not reach "cancers", and that one word was the whole difference
+       between reaching this entry and not. */
+    'cancer', 'cancers', 'had cancer', 'had cancers', 'two cancers', 'had 2 cancers',
+    'cancer history', 'history of cancer', 'in remission', 'remission', 'post cancer',
+    'after cancer', 'cancer treatment', 'cancer treatments', 'had treatment',
+    'survivor', 'chemo', 'chemotherapy', 'radiation', 'tumor', 'tumour', 'oncologist',
+    'oncology', 'malignancy', 'thyroid cancer', 'breast cancer', 'prostate cancer',
+    'endometrial cancer', 'melanoma', 'lymphoma', 'leukemia', 'is it safe after cancer',
+    'safe with cancer history', 'growth hormone and cancer', 'igf-1 and cancer',
+    'peptides after cancer', 'bpc after cancer', 'hgh cancer'],
+  'A change to a medication someone else prescribed': [
+    /* Deliberately NOT bare "prescription" or "prescribed". Those matched "can I
+       just use my wife's testosterone prescription instead of getting my own",
+       which is a different question with a different hazard — someone else's dose,
+       no indication, no monitoring — and a generic change-your-medication card is
+       a weak answer to it. The terms here name the ACTION of adding, stopping or
+       changing your own. */
+    'my prescription', 'should i add', 'should i stop',
+    'should i increase', 'change my dose', 'my doctor prescribed', 'my prescriber',
+    'lisinopril', 'telmisartan', 'amlodipine', 'losartan', 'statin', 'blood pressure medication',
+    'bp meds', 'thyroid medication', 'levothyroxine dose', 'add a medication',
+    'stop taking my', 'come off my'],
+  'Several conditions, several compounds, and a question that needs all of them': [
+    'multiple conditions', 'several compounds', 'stack with my medication',
+    'autoimmune', 'hashimotos', 'hashimoto', 'lupus', 'crohns', 'too many variables',
+    'interacts with my', 'is this safe with my condition', 'my conditions']
+};
+
+/* Settled first, then why the rest is out of reach, then what to bring. The
+   order is the point: a referral that leads with "see your doctor" is the answer
+   people already had. */
+function referralText(r) {
+  const p = [];
+  p.push(`${r.t} \u2014 when the honest answer needs someone who can examine you.`);
+  if (r.when) p.push('', 'When this applies:', r.when);
+  if (r.settled) p.push('', 'What is settled, and worth having first:', r.settled);
+  if (r.why) p.push('', 'What puts the rest out of a chat\u2019s reach:', r.why);
+  if (r.bring) p.push('', 'What to bring:', r.bring);
+  if (r.ask) p.push('', 'What to ask:', r.ask);
+  if (r.ev) p.push('', 'Evidence:', r.ev);
+  return p.join('\n');
+}
+
 const STORAGE_SYNONYMS = {
   aq: ['peptide storage', 'store peptides', 'storing peptides', 'lyophilized', 'lyophilised',
     'powder vial', 'reconstituted storage', 'how long does a mixed vial last', 'mixed vial',
@@ -454,7 +509,7 @@ const MARKER_PLAYBOOK = {
 function build() {
   const html = fs.readFileSync(APP, 'utf8');
   const d = declarations(html, [
-    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB', 'NUTRITION',
+    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB', 'NUTRITION', 'REFERRAL',
     'INTERACTIONS', 'NEW_INTERACTIONS', 'CLINIC_INTERACTIONS',
     'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES', 'TL_STORAGE'
   ]);
@@ -528,7 +583,7 @@ function build() {
     const pmids = new Set([...claims, ...nutrition].map((c) => String(c.pmid || '').trim()));
     const setids = new Set(labels.map((l) => String(l.dailymedUrl || '').split('setid=')[1]).filter(Boolean));
     const bad = [];
-    for (const s of [...d.SIDEFX, ...d.REHAB, ...d.NUTRITION]) {
+    for (const s of [...d.SIDEFX, ...d.REHAB, ...d.NUTRITION, ...(d.REFERRAL || [])]) {
       for (const row of (s.src || [])) {
         if (!Array.isArray(row) || row.length !== 2 || !row[0] || !row[1]) {
           bad.push(`${s.t}: malformed src row ${JSON.stringify(row)} — expected [identifier, what it shows]`);
@@ -651,6 +706,23 @@ function build() {
       text: nutritionText(n),
       src: n.src || [],
       route: { view: 'nutrition', item: n.t }
+    });
+  }
+
+  for (const r of (d.REFERRAL || [])) {
+    if (!REFERRAL_SYNONYMS[r.t]) {
+      throw new Error(`REFERRAL entry "${r.t}" has no REFERRAL_SYNONYMS list — its title ` +
+        'is not how anyone describes their own situation, so without terms it is unreachable.');
+    }
+    entries.push({
+      id: `referral:${r.t}`,
+      kind: 'referral',
+      title: r.t,
+      subtitle: 'when to involve a clinician',
+      terms: terms(r.t, REFERRAL_SYNONYMS[r.t] || []),
+      text: referralText(r),
+      src: r.src || [],
+      route: { view: 'referral', item: r.t }
     });
   }
 

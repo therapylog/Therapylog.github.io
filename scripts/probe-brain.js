@@ -98,10 +98,15 @@ const PROBES = [
   // Tesamorelin's own FDA label contraindicates active malignancy. These match
   // legitimately on the compound name, which is exactly why they need a gate
   // rather than a term fix.
-  ['is semaglutide safe with thyroid cancer history', null],
-  ['is tesamorelin safe with a history of cancer', null],
-  ['is BPC-157 safe if I had cancer', null],
-  ['is ipamorelin safe after cancer', null],
+  // These deferred until the referral entry existed — correct when the index held
+  // nothing to say, wrong now that it does. They must reach the referral entry:
+  // the compound monograph is still suppressed by the context gate, so the choice
+  // is between a real answer and silence, and silence was never the goal.
+  ['is semaglutide safe with thyroid cancer history', 'referral:'],
+  ['is tesamorelin safe with a history of cancer', 'referral:'],
+  ['is BPC-157 safe if I had cancer', 'referral:'],
+  ['is ipamorelin safe after cancer', 'referral:'],
+  // Pregnancy has no referral entry yet, so this one must still defer.
   ['can I take BPC-157 while pregnant', null],
 
   // --- fragment matching: a multi-word term reduced to one word is not the term ---
@@ -132,7 +137,26 @@ const PROBES = [
   ['can i freeze a reconstituted vial', 'storage:aq'],
   ['do i refrigerate testosterone', 'storage:oil'],
   ['my oil vial has crystals in it', 'storage:oil'],
-  ['where do i keep my tablets', 'storage:oral']
+  ['where do i keep my tablets', 'storage:oral'],
+
+  // --- referral: when the honest answer needs a clinician ---
+  // The index had 327 entries and none modelled this, and the eval showed what
+  // that costs: asked about rising blood pressure on TRT with metformin and
+  // lisinopril already prescribed, BOTH model arms recommended adding telmisartan
+  // and handed out a blood donation schedule. These must reach the referral entry
+  // rather than a compound monograph, because for these questions the framing is
+  // the answer and the facts are the smaller half.
+  ['I had thyroid and endometrial cancer, can I take peptides for my tendons', 'referral:'],
+  ['im in remission, is HGH safe', 'referral:'],
+  ['my doctor prescribed levothyroxine, should i increase the dose', 'referral:'],
+  ['I have hashimotos and im on a GLP-1, is that safe', 'referral:'],
+
+  // Controls: a plain question about the same compounds must NOT be diverted to a
+  // referral. A referral entry that swallows ordinary lookups is worse than none.
+  ['what is telmisartan', 'compound:telmisartan'],
+  ['what is BPC-157', 'compound:bpc'],
+  ['what does levothyroxine do', 'compound:'],
+  ['normal tsh range', 'marker:tsh']
 ];
 
 
@@ -149,9 +173,21 @@ let right = 0, wrongAnswer = 0, missedAnswer = 0, correctDefer = 0;
 const rows = [];
 for (const [q, want] of PROBES) {
   const r = B.search(q, idx);
-  const top = (r.results || [])[0];
-  const id = r.tool ? ('tool:' + r.tool) : (top ? top.entry.id : null);
   const answered = !!r.answers;
+  /* What the APP would actually put on screen, which is answerable[0] — not
+     results[0], the top-scoring match. Those differ whenever a higher-scoring
+     entry is filtered out of the card set, which the context gate now does
+     routinely: "is semaglutide safe with thyroid cancer history" scores
+     compound:sema highest and shows the cancer referral, because the monograph is
+     suppressed. Reporting results[0] made the probe print compound:sema and call
+     it a wrong answer, for behaviour that was correct. A probe that names the
+     wrong entry is worse than one that says nothing, because it sends you to fix
+     something that is not broken. On a deferral there is no card, so the top
+     match is shown instead, as a diagnostic of what nearly matched. */
+  const shown = (r.answerable || [])[0];
+  const top = (r.results || [])[0];
+  const id = r.tool ? ('tool:' + r.tool)
+    : (answered && shown ? shown.entry.id : (top ? top.entry.id : null));
   let verdict;
   if (want === null) {
     if (!answered) { verdict = 'ok-defer'; correctDefer++; }

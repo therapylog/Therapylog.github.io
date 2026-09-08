@@ -122,7 +122,7 @@
   /* storage sits with the playbooks at full weight: it is authored guidance
      answering a question in the words someone asked it, and it is the single
      most frequently asked class in this audience. */
-  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
+  const KIND_WEIGHT = { compound: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1, referral: 1, marker: 0.95, interaction: 0.75, template: 0.7 };
 
   /* Join hyphen/slash-separated word parts, matching how terms() flattens the
      index side. Without this, "MK-677" tokenized to "mk-677" and the index
@@ -404,7 +404,7 @@
     /* rehab sits with the playbooks: both are authored, fully cited answers to a
        question someone asked in their own words, and both are the reason this
        matcher exists — to answer without a round trip. */
-    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1 };
+    const ANSWER_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1, storage: 1, referral: 1 };
     const answerable = picked.filter((r) => !r.related && !contextUnmet(r.entry) &&
       ANSWER_KINDS[r.entry.kind] &&
       r.coverage >= (o.answerCoverage || ANSWER_COVERAGE));
@@ -441,7 +441,7 @@
      * were unreachable, including for a question that named two compounds and
      * asked whether to combine them. */
     const GROUND_KINDS = { compound: 1, marker: 1, playbook: 1, rehab: 1, nutrition: 1,
-                           storage: 1, template: 1, interaction: 1 };
+                           storage: 1, referral: 1, template: 1, interaction: 1 };
     /* Three, not five. The community's names for things are short — reta, tirz,
        sema, hcg, mt2, ipa, cjc, nad — and a five-character floor excluded most of
        them, which is why naming the compound outright still grounded nothing.
