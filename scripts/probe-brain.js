@@ -156,7 +156,38 @@ const PROBES = [
   ['what is telmisartan', 'compound:telmisartan'],
   ['what is BPC-157', 'compound:bpc'],
   ['what does levothyroxine do', 'compound:'],
-  ['normal tsh range', 'marker:tsh']
+  ['normal tsh range', 'marker:tsh'],
+
+  // --- multi-compound stacks: the shape the bodybuilding audience actually asks
+  // in. Before this playbook existed every one of these retrieved a per-compound
+  // monograph, which answers "what is trenbolone" and not "what happens if I run
+  // these four" — a6 in the eval scored a zero on safety with those monographs
+  // grounded, in BOTH arms.
+  ['can i run test tren anavar and npp together', 'playbook:Multi-compound stack risk'],
+  ['is tren and npp a bad idea', 'playbook:Multi-compound stack risk'],
+  ['eq or npp for my stack', 'playbook:Multi-compound stack risk'],
+  ['is this stack safe', 'playbook:Multi-compound stack risk'],
+
+  // Controls for the same: naming ONE compound must still reach that compound.
+  // The synonym list is deliberately combination-shaped for exactly this reason
+  // — a bare compound name on the stack playbook would hijack every lookup.
+  ['what is trenbolone', 'compound:tren'],
+  ['anavar dose for women', 'compound:oxan'],
+  ['what does npp do', 'compound:'],
+
+  // --- a lab question must reach the LAB MARKER, not the drug that shares the
+  // analyte's abbreviation. compound:t4 carried a bare "t4" from its id and aka
+  // while every marker form is qualified ("free t4", "total t4"), so the drug
+  // won that token uncontested and the model, handed a thyroid-drug monograph,
+  // steered toward starting thyroid medication for an in-range value.
+  ['tsh is 3.8 with a normal free t4', 'marker:'],
+  ['my total t4 is low', 'marker:t4total'],
+
+  // Controls: the drug must stay reachable by every name someone who means the
+  // DRUG would actually type.
+  ['what is levothyroxine', 'compound:t4'],
+  ['should i be on synthroid', 'compound:t4'],
+  ['cytomel vs t3', 'compound:t3']
 ];
 
 

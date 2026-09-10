@@ -1,10 +1,10 @@
 {
  "version": 1,
- "generated": "5c24543f81037198",
+ "generated": "23b9f452ea5484d9",
  "counts": {
   "compound": 131,
   "marker": 100,
-  "playbook": 13,
+  "playbook": 14,
   "rehab": 3,
   "nutrition": 10,
   "referral": 3,
@@ -1069,7 +1069,6 @@
     "liothyroninet3",
     "liothyronine t3",
     "cytomel",
-    "t3",
     "lt3",
     "liothyronine"
    ],
@@ -1092,7 +1091,6 @@
     "synthroid",
     "levoxyl",
     "lt4",
-    "t4",
     "levothyroxine"
    ],
    "text": "Levothyroxine (T4) (Synthroid, Levoxyl, LT4) — Thyroid Hormones\n\nLevothyroxine is the most prescribed hormone medication in the United States — a synthetic T4 that must be converted to active T3 by peripheral deiodinase enzymes. Standard of care for hypothyroidism. However, research (2019-2026) increasingly shows that a subset of patients feel suboptimally on T4 monotherapy due to poor T4-to-T3 conversion. In these cases, combination T4/T3 therapy or pure T3 supplementation is more effective. T4 has a long half-life of 7 days allowing once-daily dosing and stable levels.\n\nReported benefits:\n• Most studied thyroid hormone — decades of safety data\n• Once daily dosing due to long half-life\n• FDA approved — widely available\n• Stable blood levels\n• Well understood dosing\n• Lower cardiac risk than pure T3 at equivalent doses\n\nRisks and trade-offs:\n• Requires conversion to T3 — poor converters see suboptimal response\n• Slower onset than T3\n• TSH-based dosing may leave patients symptomatic in low-normal range\n• Generic vs brand differences in absorption matter\n• Absorption affected by food, coffee, calcium, iron\n• Doesn't address Reverse T3 issues\n\nDosing discussed in the literature:\n• Starting: 25-50mcg/day — Once daily oral on empty stomach (6-8 weeks then recheck labs)\n• Therapeutic: 75-150mcg/day — Once daily oral (Ongoing with annual monitoring)\n\nProgression: Take 30-60 minutes before food or coffee. Titrate based on Free T4 and Free T3 — not TSH alone. If symptomatic on T4 monotherapy, consider adding small T3 dose.\n\nCommon protocols:\n• Complete Thyroid Protocol: Levothyroxine T4 100mcg/day, Liothyronine T3 10mcg/day (combination), Selenium 200mcg/day, Testosterone TRT dose\n\nMonitoring: Free T4, Free T3, TSH, Reverse T3 at 6-8 weeks after any dose change, then every 6-12 months stable.\n\nRegulatory status: FDA APPROVED for hypothyroidism. Standard of care worldwide.",
@@ -1914,9 +1912,6 @@
    "subtitle": "7,3',4'-flavon-3-ol, senolytic flavonoid",
    "terms": [
     "fisetin",
-    "7",
-    "3'",
-    "3",
     "4'-flavon-3-ol",
     "4flavon3ol",
     "4 flavon 3 ol",
@@ -5086,6 +5081,138 @@
    }
   },
   {
+   "id": "playbook:Multi-compound stack risk",
+   "kind": "playbook",
+   "title": "Multi-compound stack risk",
+   "subtitle": "side-effect playbook",
+   "terms": [
+    "multi-compound stack risk",
+    "multicompoundstackrisk",
+    "multi compound stack risk",
+    "multi-compound",
+    "multicompound",
+    "multi compound",
+    "stack",
+    "risk",
+    "stacking",
+    "stack safe",
+    "stacksafe",
+    "is this stack safe",
+    "isthisstacksafe",
+    "good stack",
+    "goodstack",
+    "stack advice",
+    "stackadvice",
+    "cycle stack",
+    "cyclestack",
+    "compound stack",
+    "compoundstack",
+    "run together",
+    "runtogether",
+    "running together",
+    "runningtogether",
+    "all together",
+    "alltogether",
+    "at the same time",
+    "atthesametime",
+    "multiple compounds",
+    "multiplecompounds",
+    "two 19-nors",
+    "two19nors",
+    "two 19 nors",
+    "tren and npp",
+    "trenandnpp",
+    "tren and deca",
+    "trenanddeca",
+    "test tren anavar",
+    "testtrenanavar",
+    "test tren",
+    "testtren",
+    "tren npp",
+    "trennpp",
+    "npp or eq",
+    "npporeq",
+    "eq or npp",
+    "eqornpp",
+    "eq better than npp",
+    "eqbetterthannpp",
+    "add another compound",
+    "addanothercompound",
+    "second compound",
+    "secondcompound",
+    "third compound",
+    "thirdcompound",
+    "four compounds",
+    "fourcompounds",
+    "three compounds",
+    "threecompounds",
+    "polypharmacy"
+   ],
+   "text": "Multi-compound stack risk — what it is and what to do\n\nUsual causes: Running several androgens at once — a common shape is testosterone plus trenbolone plus an oral plus a second 19-nor such as NPP. The risks do not add together, they concentrate: every compound in the stack suppresses, most push lipids the same direction, and two of them may be doing the same thing at the same receptor for no extra benefit.\n\nSigns: Expect, roughly in this order: blood pressure climbing within the first few weeks; haematocrit climbing; HDL falling hard, often into single digits on an oral; night sweats and broken sleep; anxiety, irritability or flat mood; erectile trouble and killed libido despite high testosterone (the 19-nor signature); nipple sensitivity. Later or at higher exposure: ankle or calf swelling, breathlessness lying flat, and in the oral-driven cases jaundice.\n\nLabs: Baseline before anything, then repeat: full lipid panel with ApoB (not just total cholesterol — total and triglycerides can look untouched while ApoB and HDL move badly), CBC for haematocrit and haemoglobin, comprehensive metabolic panel with bilirubin, an oestradiol and a prolactin, and blood pressure taken at home with a correctly sized cuff rather than once in a clinic. An ECHO is the test that actually reads cardiac remodelling, and nothing on a blood panel substitutes for it.\n\nCommonly discussed responses:\n• Two 19-nors is the first thing to fix. Trenbolone and NPP are both 19-nortestosterone derivatives — running both doubles the progestogenic and prolactin-side pressure without adding a mechanism. If the stack keeps one, it should keep one.\n• The oral is where the lipid damage concentrates, and oxandrolone is the compound most often called mild. The evidence disagrees: 4 mg/day for 28 days drove HDL-C below 40 mg/dL in 7 of 10 patients, and a 2-year randomised trial at roughly 4-5 mg/day for a 70 kg adult still cut HDL. There is no oral dose low enough to spare it. The mechanism is hepatic lipase induction — up 277% after two weeks of an oral.\n• The strongest single argument against stacking sits inside one paper. Its randomised arm gave nandrolone decanoate 200 mg/week alone for 8 weeks and moved nothing — not HDL, not ApoB, not triglycerides. Its real-world arm, people running their own stacks, showed ApoB up 38%, HDL-C down 60%, HDL2 down 76% and apoA-I down 50%. Same paper, same lab. The stack is doing that, not any one compound in it.\n• Cardiac risk tracks dose and cumulative exposure, not how you feel. Left ventricular mass rose 28.3 g over a median 16-week cycle and tracked weekly dose, returning to baseline only after a median 8 months off. Coronary plaque volume tracked cumulative lifetime dose in 140 weightlifters, and a 2025 replication found the same at a median lifetime exposure of just 2.2 years. In 1,189 men sanctioned for AAS use followed about 11 years, cardiomyopathy risk ran roughly 9-fold and heart failure about 3.6-fold against 59,450 matched controls.\n• EQ instead of NPP is a real trade, not an upgrade. Boldenone is not a 19-nor, so the swap removes the doubled progestogenic and prolactin pressure — that part is genuine. It buys a different problem: boldenone drives erythropoiesis hard, and the undecylenate ester is very long, so a haematocrit that climbs on it takes months to come back down after stopping. Neither swap turns a four-compound stack into a two-compound risk.\n• Trenbolone specifically has almost no human data. There is no controlled human trial of it at any dose. Everything said about its neuropsychiatric profile — the sleep disruption, night sweats, anxiety and aggression — is community report and mechanism, not clinical evidence, and should be read as tier (c). That absence is not reassurance; it is the absence of the work that would have found the harms.\n• If the decision is already made, fewer compounds and a shorter run is the change that actually moves risk. A single injectable at a moderate dose is a materially different exposure from four compounds at once, and the lipid data above is the clearest illustration of the gap.\n\nEscalate / seek care: Stop and get seen the same day for: chest pain or pressure, breathlessness at rest or on lying flat, ankle or calf swelling (especially one-sided), yellowing of the eyes or skin, dark urine with pale stools, a sudden severe headache or visual change, or a resting blood pressure above about 180/110. Get help urgently for new suicidal thoughts or a mood change severe enough that people around you have noticed — that is a recognised presentation, not a character failing, and it usually improves after stopping.\n\nWhat the evidence says: The honest summary is that almost none of this combination has been studied as a combination. What exists is single-compound trials, cohort studies of people who used stacks, and imaging. The single-compound trials consistently show injectables are comparatively kind to lipids and orals are not; the cohort and imaging work consistently shows that the people running real stacks carry measurably worse lipids, more coronary plaque, more cardiac remodelling and more heart failure, dose-dependently. No trial has ever randomised anyone to a four-compound stack, and none ever will. Reason from the single-compound data and the cohorts, and say that is what you are doing.",
+   "src": [
+    [
+     "15155420",
+     "One paper, both arms: nandrolone decanoate 200 mg/week alone moved no lipid at all, while real-world self-administered stacks showed ApoB +38%, HDL-C -60%, HDL2 -76% and apoA-I -50%"
+    ],
+    [
+     "231951",
+     "Oxandrolone at just 4 mg/day for 28 days drove HDL-C below 40 mg/dL in 7 of 10 patients"
+    ],
+    [
+     "27802097",
+     "A 2-year randomised placebo-controlled trial at roughly 4-5 mg/day still cut HDL — no oral dose is low enough to spare it"
+    ],
+    [
+     "2294373",
+     "Head-to-head at a matched 280 mg/week: the oral dropped HDL-C 36% while the injectable did not"
+    ],
+    [
+     "9284885",
+     "Mechanism: two weeks of an oral raised hepatic lipase activity 277%, with HDL-C down 49% and HDL2 down 90%"
+    ],
+    [
+     "30826541",
+     "The HDL that remains also works less well — cholesterol efflux capacity was significantly lower in users than matched strength-trained controls"
+    ],
+    [
+     "36304014",
+     "Left ventricular mass rose 28.3 g over a median 16-week cycle, tracked weekly dose, and returned to baseline only after a median 8 months off"
+    ],
+    [
+     "28533317",
+     "In 140 weightlifters, coronary plaque volume was higher in AAS users and tracked cumulative dose"
+    ],
+    [
+     "40880090",
+     "Replicated in 2025 in 164 Danish recreational athletes at a median cumulative lifetime use of only 2.2 years"
+    ],
+    [
+     "39945117",
+     "1,189 Danish men sanctioned for AAS use followed about 11 years against 59,450 matched controls: roughly 9-fold cardiomyopathy and 3.6-fold heart failure"
+    ],
+    [
+     "33214235",
+     "52 AAS liver-injury cases: bilirubin peaked at 705 micromol/L with ALT only 125 U/L and GGT 52, and bilirubin peaked 28 days AFTER stopping"
+    ],
+    [
+     "17764474",
+     "One 60-minute weightlifting session raised AST and ALT in healthy men for at least seven days while GGT, ALP and bilirubin stayed normal"
+    ],
+    [
+     "19917783",
+     "AAS-associated focal segmental glomerulosclerosis in a series of 10 bodybuilders, mean proteinuria 10.1 g/day"
+    ],
+    [
+     "33599731",
+     "Modifiable predictors of crossing haematocrit 0.50 on testosterone, with effect sizes including smoking and long-acting esters"
+    ]
+   ],
+   "route": {
+    "view": "sidefx",
+    "item": "Multi-compound stack risk"
+   }
+  },
+  {
    "id": "playbook:High prolactin",
    "kind": "playbook",
    "title": "High prolactin",
@@ -5690,7 +5817,6 @@
     "hpta suppression recovery",
     "hpta",
     "suppression",
-    "&",
     "suppressed",
     "shut down",
     "shutdown",
@@ -7021,8 +7147,6 @@
     "anabolicwindow",
     "intermittent fasting",
     "intermittentfasting",
-    "16:8",
-    "168",
     "16 8",
     "time restricted",
     "timerestricted",

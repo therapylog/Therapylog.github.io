@@ -125,6 +125,27 @@ const STOP = new Set(['high', 'low', 'the', 'and', 'for', 'with', 'signs', 'earl
   'works', 'short', 'list', 'limit', 'stick', 'rates', 'realistic', 'size',
   'breaks', 'rate', 'eating', 'prep', 'meal']);
 
+/* Abbreviations that belong to a lab ANALYTE first and a drug second.
+
+   "TSH is 3.8 with a normal free T4" was grounding the Levothyroxine monograph,
+   and the eval showed the cost: handed a thyroid-drug monograph as supporting
+   material, the model steered toward starting thyroid medication for a value
+   inside the reference range. The mechanism is that no marker carries the bare
+   form — they are all qualified ("free t4", "total t4", "t4, total") — while
+   compound:t4 carries "t4" from both its id and its aka list. So the one token
+   the question and the drug share is a token no marker competes for, and the
+   drug wins it uncontested.
+
+   Someone who means the medicine types levothyroxine, Synthroid or LT4, and all
+   three stay terms. Someone who types a bare "T4" means the lab value.
+
+   This is a list rather than a rule because the collision is not general: DHEA
+   (compound) against DHEA-S (marker) is the same SHAPE and must NOT be
+   collapsed — they are different molecules and "dhea" should reach the
+   compound. Only add an entry here when the bare form genuinely names the
+   analyte in ordinary use. */
+const ANALYTE_ABBREV = new Set(['t3', 't4']);
+
 function terms(...bits) {
   const out = new Set();
   for (const b of bits.flat()) {
@@ -137,7 +158,21 @@ function terms(...bits) {
     const spaced = s.replace(/[^a-z0-9]+/g, ' ').trim();
     if (spaced && spaced !== s) out.add(spaced);
   }
-  return [...out];
+  /* Drop shrapnel from splitting chemical names. Fisetin's title carries its
+     IUPAC form, which split into the terms "3", "7" and "3'" — a bare number
+     is exactly the "16 8" bug that once answered "I'm 16 and want to start my
+     first cycle" with an intermittent-fasting card. The matcher's numericOnly
+     guard already refuses to match these, so this is the same rule enforced one
+     layer earlier: junk that cannot match should not be in the index at all,
+     because the only thing standing between it and a bad match is that one
+     guard continuing to exist.
+
+     The test is a SINGLE token carrying no letter. It has to be that precise:
+     a first attempt at this required two letters anywhere in the term and
+     silently deleted every term of the 16:8 fasting entry ("16 8", "168"),
+     which is a real protocol name people type. The probe caught it. A
+     multi-token numeric term like "16 8" is a name; a lone "3" is debris. */
+  return [...out].filter((t) => /[a-z]/.test(t) || /\s/.test(t));
 }
 
 const lines = (a) => (a || []).filter(Boolean);
@@ -457,6 +492,19 @@ function storageText(key, c, caveat) {
 }
 
 const PLAYBOOK_SYNONYMS = {
+  /* Stack questions are the single most common shape in the bodybuilding
+     communities this app is aimed at, and until this entry existed the index
+     had no answer to any of them — a4/a6 in the eval retrieved per-compound
+     monographs, which answer "what is trenbolone" and not "what happens if I
+     run these four". Terms stay deliberately multi-word or combination-shaped:
+     a bare compound name here would hijack every single-compound question. */
+  'Multi-compound stack risk': ['stack', 'stacking', 'stack safe', 'is this stack safe',
+    'good stack', 'stack advice', 'cycle stack', 'compound stack', 'run together',
+    'running together', 'all together', 'at the same time', 'multiple compounds',
+    'two 19-nors', 'two 19 nors', 'tren and npp', 'tren and deca', 'test tren anavar',
+    'test tren', 'tren npp', 'npp or eq', 'eq or npp', 'eq better than npp',
+    'add another compound', 'second compound', 'third compound', 'four compounds',
+    'three compounds', 'multi compound', 'polypharmacy'],
   'Liver strain': ['liver', 'liver damage', 'liver values', 'liver enzymes', 'alt', 'ast',
     'alt high', 'ast high', 'ggt', 'bilirubin', 'jaundice', 'yellow eyes', 'hepatotoxic',
     'hepatotoxicity', 'liver toxic', 'liver support', 'tudca', 'nac', '17aa', '17-aa',
@@ -533,7 +581,12 @@ function build() {
            on the strength of that one word, and was shown to the user as a free
            on-device answer. A term that names a category cannot discriminate
            between its members; it can only pick some at random. */
-        terms: terms(dr.name, (dr.aka || '').split(/[,/]/), dr.id, COMPOUND_SYNONYMS[dr.id] || []),
+        /* ANALYTE_ABBREV is applied to COMPOUNDS only. The bare abbreviation
+           is dropped from the drug so the lab marker is the entry a lab
+           question reaches; a marker that ever wants the bare form is free to
+           carry it. */
+        terms: terms(dr.name, (dr.aka || '').split(/[,/]/), dr.id, COMPOUND_SYNONYMS[dr.id] || [])
+          .filter((t) => !ANALYTE_ABBREV.has(t)),
         text: compoundText(dr, cls),
         route: { view: 'encyclopedia', cls: cls.id, drug: dr.id }
       });
