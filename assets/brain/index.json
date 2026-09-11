@@ -1,11 +1,11 @@
 {
  "version": 1,
- "generated": "3eb07e9cef5ff74d",
+ "generated": "197c7f5e9d2224dc",
  "counts": {
   "compound": 131,
   "marker": 100,
   "playbook": 14,
-  "rehab": 3,
+  "rehab": 4,
   "nutrition": 10,
   "referral": 3,
   "storage": 6,
@@ -6230,6 +6230,132 @@
    }
   },
   {
+   "id": "rehab:Programming a training week around an injury",
+   "kind": "rehab",
+   "title": "Programming a training week around an injury",
+   "subtitle": "rehab and load guidance",
+   "terms": [
+    "programming a training week around an injury",
+    "programmingatrainingweekaroundaninjury",
+    "programming",
+    "week",
+    "an",
+    "injury",
+    "split",
+    "training split",
+    "trainingsplit",
+    "program",
+    "programme",
+    "routine",
+    "how to structure",
+    "howtostructure",
+    "structure my training",
+    "structuremytraining",
+    "structure my week",
+    "structuremyweek",
+    "training week",
+    "trainingweek",
+    "weekly split",
+    "weeklysplit",
+    "3 days a week",
+    "3daysaweek",
+    "3 day split",
+    "3daysplit",
+    "four day split",
+    "fourdaysplit",
+    "upper lower",
+    "upperlower",
+    "full body",
+    "fullbody",
+    "push pull legs",
+    "pushpulllegs",
+    "ppl",
+    "how many sets",
+    "howmanysets",
+    "sets per week",
+    "setsperweek",
+    "weekly sets",
+    "weeklysets",
+    "training volume",
+    "trainingvolume",
+    "volume",
+    "training frequency",
+    "trainingfrequency",
+    "how often should i train",
+    "howoftenshoulditrain",
+    "still make progress",
+    "stillmakeprogress",
+    "train around",
+    "trainaround",
+    "training around an injury",
+    "trainingaroundaninjury",
+    "work around injury",
+    "workaroundinjury",
+    "external rotation",
+    "externalrotation",
+    "scapular",
+    "overhead press pain",
+    "overheadpresspain",
+    "landmine press",
+    "landminepress"
+   ],
+   "text": "Programming a training week around an injury — How to organise a training week when something is irritated and the days available are limited — what to keep, what to modify, and what actually decides whether progress continues.\n\nWhat it looks like: Asked as \"I have shoulder impingement and can only train 3 days a week, how do I still make progress\" or \"what do I do with my split while this heals\".\n\nProtocols and parameters:\n• START FROM WEEKLY SETS, NOT FROM DAYS. Volume is what drives growth: across 67 studies and 2058 participants the probability that more weekly sets means more hypertrophy is 100%, with clear diminishing returns. Frequency is mostly the delivery mechanism — in that same analysis its effect on hypertrophy was compatible with NEGLIGIBLE once volume was accounted for. Three days a week is not a cap on muscle growth. It is a constraint on how the sets get distributed.\n• THE DEFAULT SPLIT AT THREE DAYS is full-body or upper/lower rotated, so each muscle group is hit about twice a week. Twice weekly beat once weekly on a volume-equated basis (effect size 0.49 vs 0.30) and that is the one frequency step with a clear payoff; going beyond twice adds little for size once the sets are equal. Two touches per muscle per week, sets allocated by what tolerates load, is the whole scheme.\n• PUT A NUMBER ON THE VOLUME. Each additional weekly set per muscle is worth roughly 0.37% more gain, so the arithmetic favours adding sets to what does NOT hurt rather than mourning what does. Note the familiar under-5 / 5-9 / 10+ brackets were only a statistical trend (P = 0.074) — the continuous relationship is the better-supported finding, so treat set counts as a dial, not as tiers.\n• WHAT KEEPS RUNNING WITH AN IRRITATED SHOULDER: all lower body, all hinging and squatting, and most pulling. Horizontal and neutral-grip pressing usually tolerate load when overhead pressing does not, so a shoulder problem is a reason to change the press angle, not to unload the chest for six weeks. Row and pull volume generally continues untouched and is where added sets are cheapest.\n• WHAT GETS MODIFIED: overhead and behind-neck pressing are the usual aggravators. Substitute a landmine press, a floor press or an incline in the pain-free range rather than deleting pressing entirely.\n• ADD THE THING THAT IS USUALLY MISSING: dedicated EXTERNAL ROTATION loading. Face pulls and reverse flyes are posterior-delt and retraction work and only partially cover it. Side-lying dumbbell external rotation, or cable external rotation at 0 and at 90 degrees of abduction, is the specific item — a home-based eccentric rotator-cuff plus scapular-stabiliser programme run once or twice daily for 12 weeks is the protocol with trial support behind it.\n• MORE REHAB IS NOT BETTER REHAB. Doubling the total dose of shoulder strengthening on top of usual care produced no additional benefit, progressive high-load was not superior to traditional low-load for rotator cuff tendinopathy, and a supervised programme of up to six sessions was no better over 12 months than a single best-practice advice session. Add the external rotation work; do not bury the week in it.\n• PROGRESS ON A CRITERION, NOT A CALENDAR. Add load or a set when the last session stayed at or below the agreed pain ceiling DURING the work and had settled back to baseline within 24 hours. Hold when it is at the ceiling. Regress one step when it exceeded the ceiling or had not settled by the next day. That rule is what turns three days a week into progression rather than maintenance.\n\nHow to judge progression: Weekly sets decide whether you grow; the pain rule decides where those sets are allowed to go. Keep total weekly volume roughly constant by moving sets from what is irritated into what is not, rather than by cutting the week down.\n\nWhat not to do: Do not delete a whole movement pattern for weeks when an angle change would keep it. Do not stack extra rehab volume on top of a full programme and call it caution — the dose-response evidence for shoulder strengthening is flat, so more of it buys nothing while costing recovery. And do not use a fixed calendar to decide progression; there is no consensus sets-and-reps prescription to follow, with frequency ranging 2-7 sessions a week across 46 programmes in 22 randomised trials.\n\nEscalate / seek care: A structured week is not an assessment, and nothing here identifies WHAT is irritated. Get hands-on evaluation before settling in to a long modification block, and sooner than that for: pain that wakes you at night, weakness rather than pain (a shoulder that cannot be lifted rather than one that hurts to lift), numbness or pins and needles down the arm, a specific traumatic moment with a pop or a tear, or symptoms that have not shifted at all after six to eight weeks of sensible loading. \"Impingement\" is a description of a symptom pattern, not a diagnosis, and several different things produce it.\n\nWhat the evidence says: The programming half of this is well evidenced and the rehab half is mostly negative evidence, which is useful in its own right. Volume-hypertrophy dose-response is established with diminishing returns; frequency matters clearly for strength and barely for size once volume is equated; twice a week per muscle is the supported default. On the shoulder side, the strongest findings are about what does NOT help: subacromial decompression is no better than placebo surgery at 6 months, 24 months or 5 years and no better than exercise therapy, doubling exercise dose adds nothing, high load is not superior to low load, and six supervised sessions match one good advice session. That pattern argues for a modest, specific, sustained programme rather than an aggressive one.",
+   "src": [
+    [
+     "41343037",
+     "67 studies and 2058 participants: volume-hypertrophy probability 100% with diminishing returns, while frequency effects on hypertrophy were compatible with negligible once volume was accounted for"
+    ],
+    [
+     "27433992",
+     "Each additional weekly set per muscle was worth about 0.37% more gain; the <5 / 5-9 / 10+ brackets were only a trend at P = 0.074"
+    ],
+    [
+     "27102172",
+     "Volume-equated, twice weekly beat once weekly for hypertrophy (effect size 0.49 vs 0.30); major muscle groups should be trained at least twice a week"
+    ],
+    [
+     "38832666",
+     "No consensus sets-and-reps prescription exists: across 46 programmes in 22 randomised trials frequency ranged 2-7 sessions per week"
+    ],
+    [
+     "22349588",
+     "The rotator-cuff protocol with trial support: home-based eccentric cuff plus scapular-stabiliser work, once or twice daily for 12 weeks"
+    ],
+    [
+     "34048281",
+     "Doubling the total dose of shoulder strengthening on top of usual care produced no additional benefit"
+    ],
+    [
+     "28875153",
+     "Progressive high-load exercise was not superior to traditional low-load exercise for rotator cuff tendinopathy"
+    ],
+    [
+     "34265255",
+     "A supervised programme of up to 6 sessions was no better over 12 months than a single best-practice advice session"
+    ],
+    [
+     "29169668",
+     "Arthroscopic subacromial decompression was no better than placebo arthroscopy at 6 months"
+    ],
+    [
+     "33020137",
+     "At 5 years, decompression was no better than placebo surgery and no better than exercise therapy"
+    ],
+    [
+     "34722783",
+     "The pain rule in its most-cited numeric form: not above 5/10 during activity, settled within 24 hours"
+    ],
+    [
+     "28596288",
+     "Exercising into pain is not harmful and gives a small short-term advantage over strictly pain-free exercise"
+    ]
+   ],
+   "route": {
+    "view": "rehab",
+    "item": "Programming a training week around an injury"
+   }
+  },
+  {
    "id": "rehab:Tendon loading protocols",
    "kind": "rehab",
    "title": "Tendon loading protocols",
@@ -6380,8 +6506,12 @@
     "row",
     "rows"
    ],
-   "text": "Training around a sore elbow or shoulder — What actually changes the load on an irritated elbow flexor or shoulder — and which popular adjustments measurably do nothing.\n\nWhat it looks like: Pain at the front of the elbow on pulling and curling, or at the shoulder on pressing and overhead work.\n\nProtocols and parameters:\n• Back work with less elbow flexor involvement: the honest finding is that grip changes do far less than people assume. Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was SIMILAR — no grip spares the biceps.\n• In the lat pulldown, pronating the grip increased latissimus activity but had NO effect on biceps brachii, at either wide or narrow grip. So a pronated pulldown is a better lat exercise, not a lower-biceps one.\n• Where grip does matter is curling: biceps excitation was 19% higher with a supinated grip than pronated at 8RM. If you are trying to load elbow flexors less, that is the lever with evidence behind it.\n• Thick or fat grips move recruitment the WRONG way for an irritated distal biceps — they significantly increased forearm muscle activity.\n• Lifting straps changed nothing measurable in the lat pulldown: not 1RM, not reps to failure at 70% 1RM, not latissimus activity.\n\nHow to judge progression: Exercising into pain is not harmful. In shoulder pain it gave a small short-term advantage over strictly pain-free exercise, with the two equivalent by medium and long term.\n\nWhat not to do: Do not reach for surgery for subacromial shoulder pain on the assumption it is mechanical. Arthroscopic subacromial decompression was no better than PLACEBO surgery at 6 months, 24 months and 5 years, Cochrane rates that no-benefit finding high-certainty, and serious surgical complications run about 5-7 per 1000.\n\nEscalate / seek care: Weakness that is genuine rather than pain-limited, night pain that wakes you consistently, or numbness and tingling down the arm belongs with a clinician rather than a programme adjustment.\n\nWhat the evidence says: Read the grip findings with their limit attached: EMG amplitude is not tendon load. None of the grip, curl, pulldown or pull-up studies measured force or strain in the tendon itself, so \"less activation\" is a proxy, not a measurement of what the tendon feels. The bigger caveat is population — distal biceps tendinopathy is very rare with limited published evidence, and NO loading trial exists for it at all. Everything above is extrapolated from patellar, Achilles and lateral elbow tendons. For the shoulder, three separate results point the same way and are worth knowing before spending money: doubling the total dose of strengthening produced no additional benefit, progressive high-load was not superior to low-load, and a supervised programme of up to 6 sessions was no better at 12 months than a single best-practice advice session. There is also no consensus sets-and-reps prescription — across 46 programmes in 22 randomised trials, frequency ranged from 2 to 7 sessions per week.",
+   "text": "Training around a sore elbow or shoulder — What actually changes the load on an irritated elbow flexor or shoulder — and which popular adjustments measurably do nothing.\n\nWhat it looks like: Pain at the front of the elbow on pulling and curling, or at the shoulder on pressing and overhead work.\n\nProtocols and parameters:\n• STRAIGHT-ARM WORK IS THE MECHANICAL ANSWER, AND IT IS AN EXTRAPOLATION. Keeping the elbow essentially static through the rep is the only adjustment that actually changes elbow-flexor demand - unlike grip, which does not. A straight-arm pulldown is the usual pick. But be honest about two limits: no EMG trial in the retrieved evidence measured biceps activation during straight-arm pulldowns specifically, and the pullover, which gets recommended in the same breath, appears to preferentially activate PECTORALIS MAJOR rather than selectively target the lat. So this is reasoning from joint mechanics, not a measured result.\n• CHEST-SUPPORTED AND MACHINE ROWS help for a different reason than people usually give: the torso is braced, so the load does not have to be stabilised through the arm and the path is fixed. That reduces the incidental gripping and bracing demand on an irritated distal biceps even though the rowing motion itself still flexes the elbow.\n• Back work with less elbow flexor involvement: the honest finding is that grip changes do far less than people assume. Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was SIMILAR — no grip spares the biceps.\n• In the lat pulldown, pronating the grip increased latissimus activity but had NO effect on biceps brachii, at either wide or narrow grip. So a pronated pulldown is a better lat exercise, not a lower-biceps one.\n• Where grip does matter is curling: biceps excitation was 19% higher with a supinated grip than pronated at 8RM. If you are trying to load elbow flexors less, that is the lever with evidence behind it.\n• Thick or fat grips move recruitment the WRONG way for an irritated distal biceps — they significantly increased forearm muscle activity.\n• Lifting straps changed nothing measurable in the lat pulldown: not 1RM, not reps to failure at 70% 1RM, not latissimus activity.\n\nHow to judge progression: Exercising into pain is not harmful. In shoulder pain it gave a small short-term advantage over strictly pain-free exercise, with the two equivalent by medium and long term.\n\nWhat not to do: Do not reach for surgery for subacromial shoulder pain on the assumption it is mechanical. Arthroscopic subacromial decompression was no better than PLACEBO surgery at 6 months, 24 months and 5 years, Cochrane rates that no-benefit finding high-certainty, and serious surgical complications run about 5-7 per 1000.\n\nEscalate / seek care: Weakness that is genuine rather than pain-limited, night pain that wakes you consistently, or numbness and tingling down the arm belongs with a clinician rather than a programme adjustment.\n\nWhat the evidence says: Read the grip findings with their limit attached: EMG amplitude is not tendon load. None of the grip, curl, pulldown or pull-up studies measured force or strain in the tendon itself, so \"less activation\" is a proxy, not a measurement of what the tendon feels. The bigger caveat is population — distal biceps tendinopathy is very rare with limited published evidence, and NO loading trial exists for it at all. Everything above is extrapolated from patellar, Achilles and lateral elbow tendons. For the shoulder, three separate results point the same way and are worth knowing before spending money: doubling the total dose of strengthening produced no additional benefit, progressive high-load was not superior to low-load, and a supervised programme of up to 6 sessions was no better at 12 months than a single best-practice advice session. There is also no consensus sets-and-reps prescription — across 46 programmes in 22 randomised trials, frequency ranged from 2 to 7 sessions per week.",
    "src": [
+    [
+     "42647355",
+     "A narrative review of 23 EMG studies: pull-up variations showed broadly similar lat activation across grips, and the pullover appeared to preferentially activate pectoralis major rather than selectively target the lat"
+    ],
     [
      "28011412",
      "Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was similar"
@@ -6670,7 +6800,7 @@
     "macro split",
     "macrosplit"
    ],
-   "text": "Protein: how much actually helps — What the trials support for protein intake when building or holding muscle, and where the extra grams stop doing anything.\n\nUsually asked as: Asked as \"how much protein do I need\", usually with a number someone heard.\n\nWhat the trials found:\n• In energy balance the ceiling is about 1.6 g/kg bodyweight per day — past that, no further gain in fat-free mass was detectable across the pooled trials, and returns are already shrinking about threefold above 1.3 g/kg.\n• In a deficit the useful range is higher: 2.3-3.1 g/kg of FAT-FREE mass. At a 40% deficit, 2.4 g/kg gained 1.2 kg of lean mass against 0.1 kg at 1.2 g/kg, and 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg.\n• Extra protein only pays under a stressor. Pooled: +0.36 kg while dieting, +0.77 kg while training, +0.08 kg with neither.\n• Very high intakes buy fat loss, not muscle: 3.4 vs 2.3 g/kg gave identical fat-free-mass gain despite greater fat loss, with no adverse kidney-filtration change in healthy adults.\n\nThe rule of thumb: Total daily protein is what matters. Per-meal distribution has a real same-day synthesis advantage of 25-31%, but the 16-week body-composition trial under a deficit found no difference between spreading it evenly and back-loading it, and there is no per-meal anabolic ceiling even at 100 g.\n\nWhat not to do: Do not treat 1.6 g/kg as a target to exceed for its own sake in maintenance, and do not treat the \"20-25 g per sitting\" rule as real — it does not survive the trial that tested a 100 g bolus.\n\nWhat the evidence says: Established: the dose-response in energy balance and the higher requirement in a deficit are both from pooled randomised evidence. NOT established, and this is the part that matters here: there are zero trials of any protein dose in people using exogenous testosterone, anabolic compounds, or GLP-1 agonists. The 1.6 g/kg ceiling and the 2.3-3.1 g/kg-FFM deficit range are wholly untested in that population, and GLP-1 appetite suppression makes hitting those numbers a practical problem no study has examined.",
+   "text": "Protein: how much actually helps — What the trials support for protein intake when building or holding muscle, and where the extra grams stop doing anything.\n\nUsually asked as: Asked as \"how much protein do I need\", usually with a number someone heard.\n\nWhat the trials found:\n• In energy balance the ceiling is about 1.6 g/kg bodyweight per day (roughly 0.73 g/lb) — past that, no further gain in fat-free mass was detectable across the pooled trials, and returns are already shrinking about threefold above 1.3 g/kg.\n• In a deficit the useful range is higher: 2.3-3.1 g/kg of FAT-FREE mass (roughly 1.05-1.4 g per lb of fat-free mass). At a 40% deficit, 2.4 g/kg (about 1.1 g/lb) gained 1.2 kg (2.6 lb) of lean mass against 0.1 kg at 1.2 g/kg (about 0.55 g/lb), and 2.3 g/kg (about 1.05 g/lb) cut lean-mass loss from 1.6 kg (3.5 lb) to 0.3 kg (0.7 lb).\n• Extra protein only pays under a stressor. Pooled: +0.36 kg while dieting, +0.77 kg while training, +0.08 kg with neither.\n• Very high intakes buy fat loss, not muscle: 3.4 vs 2.3 g/kg gave identical fat-free-mass gain despite greater fat loss, with no adverse kidney-filtration change in healthy adults.\n\nThe rule of thumb: Total daily protein is what matters. Per-meal distribution has a real same-day synthesis advantage of 25-31%, but the 16-week body-composition trial under a deficit found no difference between spreading it evenly and back-loading it, and there is no per-meal anabolic ceiling even at 100 g.\n\nWhat not to do: Do not treat 1.6 g/kg as a target to exceed for its own sake in maintenance, and do not treat the \"20-25 g per sitting\" rule as real — it does not survive the trial that tested a 100 g bolus.\n\nWhat the evidence says: Established: the dose-response in energy balance and the higher requirement in a deficit are both from pooled randomised evidence. NOT established, and this is the part that matters here: there are zero trials of any protein dose in people using exogenous testosterone, anabolic compounds, or GLP-1 agonists. The 1.6 g/kg ceiling and the 2.3-3.1 g/kg-FFM deficit range are wholly untested in that population, and GLP-1 appetite suppression makes hitting those numbers a practical problem no study has examined.",
    "src": [
     [
      "28698222",
@@ -7037,7 +7167,7 @@
     "protein on glp1",
     "proteinonglp1"
    ],
-   "text": "Eating on a GLP-1 — What happens to muscle on semaglutide or tirzepatide, whether protein and lifting change it, and what actually helps the gut side effects.\n\nUsually asked as: Asked as \"am I losing muscle on this\" or \"what should I eat on tirzepatide\".\n\nWhat the trials found:\n• About 25-28% of the weight lost is lean mass. That sounds alarming until it is compared: it is statistically indistinguishable from dieting alone at 26.2%.\n• Resistance training is the lever that moves it. Lifestyle intervention PLUS resistance training cut the lean fraction to 17.5%.\n• The published protein target of 1.2-1.6 g/kg/day, 0.3-0.4 g/kg per meal, is borrowed from the general sarcopenia literature — not measured on a GLP-1.\n• That sarcopenia figure is the wrong target for anyone lifting. Someone on one of these drugs is BY DEFINITION in a deficit, and the deficit literature asks for far more: 2.3-3.1 g/kg of FAT-FREE mass in lean, energy-restricted trained people. The gap is not academic. In a 40% deficit, 2.4 g/kg/day gained 1.2 kg of lean mass over four weeks while 1.2 g/kg/day gained essentially none, and 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg against 1.0 g/kg. Reading 1.2-1.6 g/kg as your number on a GLP-1 means targeting the range that performed WORST in those trials.\n• Appetite suppression is the practical problem, not the target. If only a limited amount of food is going down, protein is the first thing to fill rather than the last: liquid protein counts, and front-load it earlier in the day before suppression peaks. Log what was actually eaten for a week rather than what was planned — measured intake on these drugs routinely drifts well below the intended deficit, which is how the lean loss ends up worse than the arithmetic predicted.\n• Both the Wegovy and Zepbound labels specify only a reduced-calorie diet and increased physical activity. Neither gives any macronutrient or protein target.\n\nThe rule of thumb: The deficit drives the lean loss, not the drug. That reframes the question from \"how do I stop this drug eating my muscle\" to \"how do I run this deficit like any other deficit\" — which means lifting and adequate protein.\n\nWhat not to do: Zepbound’s own label makes SLOW DOSE TITRATION, not diet, its stated tool for limiting gastrointestinal reactions. Diet advice for nausea — smaller frequent meals, hydration, less fat and sugar per sitting — is expert opinion, and 16 trials found gut symptoms happened anyway despite dietary counselling.\n\nWhat the evidence says: NOT established, and the gap is total: no completed randomised trial tests protein intake or resistance training on a GLP-1. The trial that would settle it has published a protocol only. The best direct human evidence linking protein to lean-mass retention on these drugs is a correlation of 0.41 in 28 people. Searches pairing GLP-1 agonists with resistance-trained or athlete populations returned nothing — all body-composition data comes from sedentary or unselected adults at BMI 28-42. Pairing them with testosterone or other anabolic compounds returned nothing at all, so that combination cannot be inferred from anything published.",
+   "text": "Eating on a GLP-1 — What happens to muscle on semaglutide or tirzepatide, whether protein and lifting change it, and what actually helps the gut side effects.\n\nUsually asked as: Asked as \"am I losing muscle on this\" or \"what should I eat on tirzepatide\".\n\nWhat the trials found:\n• About 25-28% of the weight lost is lean mass. That sounds alarming until it is compared: it is statistically indistinguishable from dieting alone at 26.2%.\n• Resistance training is the lever that moves it. Lifestyle intervention PLUS resistance training cut the lean fraction to 17.5%.\n• The published protein target of 1.2-1.6 g/kg/day (about 0.55-0.73 g/lb), 0.3-0.4 g/kg per meal, is borrowed from the general sarcopenia literature — not measured on a GLP-1.\n• That sarcopenia figure is the wrong target for anyone lifting. Someone on one of these drugs is BY DEFINITION in a deficit, and the deficit literature asks for far more: 2.3-3.1 g/kg of FAT-FREE mass (roughly 1.05-1.4 g per lb of fat-free mass) in lean, energy-restricted trained people. The gap is not academic. In a 40% deficit, 2.4 g/kg/day (about 1.1 g/lb) gained 1.2 kg (2.6 lb) of lean mass over four weeks while 1.2 g/kg/day (about 0.55 g/lb) gained essentially none, and 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg against 1.0 g/kg. Reading 1.2-1.6 g/kg as your number on a GLP-1 means targeting the range that performed WORST in those trials.\n• Appetite suppression is the practical problem, not the target. If only a limited amount of food is going down, protein is the first thing to fill rather than the last: liquid protein counts, and front-load it earlier in the day before suppression peaks. Log what was actually eaten for a week rather than what was planned — measured intake on these drugs routinely drifts well below the intended deficit, which is how the lean loss ends up worse than the arithmetic predicted.\n• Both the Wegovy and Zepbound labels specify only a reduced-calorie diet and increased physical activity. Neither gives any macronutrient or protein target.\n\nThe rule of thumb: The deficit drives the lean loss, not the drug. That reframes the question from \"how do I stop this drug eating my muscle\" to \"how do I run this deficit like any other deficit\" — which means lifting and adequate protein.\n\nWhat not to do: Zepbound’s own label makes SLOW DOSE TITRATION, not diet, its stated tool for limiting gastrointestinal reactions. Diet advice for nausea — smaller frequent meals, hydration, less fat and sugar per sitting — is expert opinion, and 16 trials found gut symptoms happened anyway despite dietary counselling.\n\nWhat the evidence says: NOT established, and the gap is total: no completed randomised trial tests protein intake or resistance training on a GLP-1. The trial that would settle it has published a protocol only. The best direct human evidence linking protein to lean-mass retention on these drugs is a correlation of 0.41 in 28 people. Searches pairing GLP-1 agonists with resistance-trained or athlete populations returned nothing — all body-composition data comes from sedentary or unselected adults at BMI 28-42. Pairing them with testosterone or other anabolic compounds returned nothing at all, so that combination cannot be inferred from anything published.",
    "src": [
     [
      "26817506",

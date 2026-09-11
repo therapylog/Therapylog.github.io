@@ -1,6 +1,6 @@
 {
   "note": "Claims built from PubMed abstracts the researching agents retrieved and quoted verbatim. Each carries the PMID, DOI, the population actually studied, and an evidence tier. VERIFIED: all 204 distinct PMIDs were checked against PubMed with get_article_metadata — every one resolves to a real article, and every one is in the journal it was cited from. Two had the wrong year recorded (26707957, 31198105); the registry carries PubMed's year for those. NOT VERIFIED: the independent audit pass did not run (session limit), so the verbatim quotes have not been re-read against the abstracts by a second reader. The citation points at a real paper; that the quote is faithful to it rests on the single agent that retrieved it.",
-  "count": 243,
+  "count": 247,
   "claims": [
     {
       "statement": "The anastrozole label's own bone warning documents that the licensed 1 mg/day dose lowers bone mineral density at both the spine and hip. This is the regulator-reviewed statement of the drug's skeletal effect at the only dose the FDA has ever evaluated, and it is a decrease, not a neutral effect.",
@@ -2877,6 +2877,54 @@
       "journal": "The New England journal of medicine",
       "year": "2023",
       "topic": "glp1-titration"
+    },
+    {
+      "statement": "VOLUME DRIVES GROWTH; FREQUENCY MOSTLY DELIVERS IT. The largest dose-response meta-regression to date (67 studies, 2058 participants) found the probability that more weekly sets means more hypertrophy is 100% — but with clear DIMINISHING RETURNS, and the diminishing returns are far more pronounced for strength than for size. For FREQUENCY the result splits: the effect on strength was a 100% posterior probability, while the effect on hypertrophy was 'compatible with negligible effects'. Practically: once weekly set volume is accounted for, spreading it over more days does little extra for size. Someone who can only train three days a week is not capped on muscle growth, provided the weekly sets still get done.",
+      "dose": "Weekly set volume and weekly frequency, fractionally quantified (indirect sets counted as 0.5)",
+      "tier": "clinical",
+      "population": "67 studies, 2058 participants, 79.1% male, mean age 25.2. Multi-level Bayesian meta-regressions adjusted for intervention duration and training status.",
+      "pmid": "41343037",
+      "doi": "10.1007/s40279-025-02344-w",
+      "quote": "The posterior probability of the marginal slope exceeding zero for the effect of volume on both hypertrophy and strength was 100% ... However, both best-fit models suggest diminishing returns ... The posterior probability of the marginal slope exceeding zero for frequency's effect on hypertrophy was less than 100%, indicating compatibility with negligible effects.",
+      "journal": "Sports medicine (Auckland, N.Z.)",
+      "year": "2025",
+      "topic": "training-programming"
+    },
+    {
+      "statement": "THE PER-SET NUMBER, for putting a figure on 'more volume'. Across 34 treatment groups in 15 studies, each additional weekly set per muscle was associated with an effect-size increase of 0.023, corresponding to about 0.37% more muscle gain. Comparing higher against lower volumes within each study gave an effect-size difference of 0.241, about a 3.9 percentage-point difference in gain. The three-level split the field quotes — under 5, 5-9, and 10+ sets per muscle per week — showed only a trend (P = 0.074), so the commonly repeated set-count brackets are weaker evidence than the continuous relationship they are drawn from.",
+      "dose": "Weekly sets per muscle group, analysed continuously and in <5 / 5-9 / 10+ brackets",
+      "tier": "clinical",
+      "population": "34 treatment groups from 15 studies, meta-regression on measures of muscle size.",
+      "pmid": "27433992",
+      "doi": "10.1080/02640414.2016.1210197",
+      "quote": "Each additional set was associated with an increase in effect size (ES) of 0.023 corresponding to an increase in the percentage gain by 0.37% ... Outcomes for weekly sets as a three-level categorical variable (<5, 5-9 and 10+ per muscle) showed a trend for an effect of weekly sets (P = 0.074).",
+      "journal": "Journal of sports sciences",
+      "year": "2016",
+      "topic": "training-programming"
+    },
+    {
+      "statement": "THE COUNTERWEIGHT, and the reason twice a week is still the sane default. An earlier meta-analysis restricted to studies that directly compared frequencies on a VOLUME-EQUATED basis found twice weekly beat once weekly for hypertrophy (effect size 0.49 vs 0.30), and concluded major muscle groups should be trained at least twice a week. Whether three times beats twice was undetermined. Read alongside the 2025 meta-regression this is not a contradiction so much as a ceiling: going from once to twice helps, going beyond that adds little for size once the sets are equated.",
+      "dose": "1 vs 2 vs 3 sessions per muscle group per week, volume-equated",
+      "tier": "clinical",
+      "population": "10 studies meeting criteria; only volume-equated direct frequency comparisons were pooled.",
+      "pmid": "27102172",
+      "doi": "10.1007/s40279-016-0543-8",
+      "quote": "When comparing studies that investigated training muscle groups between 1 to 3 days per week on a volume-equated basis, the current body of evidence indicates that frequencies of training twice a week promote superior hypertrophic outcomes to once a week.",
+      "journal": "Sports medicine (Auckland, N.Z.)",
+      "year": "2016",
+      "topic": "training-programming"
+    },
+    {
+      "statement": "A CORRECTION TO A POPULAR SUBSTITUTION: the pullover is not a lat isolation exercise. A narrative review of 23 EMG studies across the major pulling movements found the pullover 'appeared to preferentially activate the pectoralis major rather than selectively target the LD'. It also found pull-up variations showed broadly similar latissimus activation across grip configurations, and that in the lat pull-down an anterior bar path was the configuration most consistently associated with greater latissimus amplitude while grip-width effects were inconsistent. All of it is acute EMG amplitude rather than longitudinal growth, and the authors say so.",
+      "dose": "n/a - acute surface and high-density EMG amplitude across pulling exercise configurations",
+      "tier": "preclinical",
+      "population": "23 eligible EMG studies appraised on a six-criterion methodological checklist. Acute activation only; the review explicitly states these are not longitudinal training outcomes.",
+      "pmid": "42647355",
+      "doi": "10.3390/jfmk11030315",
+      "quote": "Pull-up variations showed broadly similar LD activation across grip configurations, while the pullover appeared to preferentially activate the pectoralis major rather than selectively target the LD.",
+      "journal": "Journal of functional morphology and kinesiology",
+      "year": "2026",
+      "topic": "training-programming"
     }
   ]
 }

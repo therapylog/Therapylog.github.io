@@ -187,7 +187,31 @@ const PROBES = [
   // DRUG would actually type.
   ['what is levothyroxine', 'compound:t4'],
   ['should i be on synthroid', 'compound:t4'],
-  ['cytomel vs t3', 'compound:t3']
+  ['cytomel vs t3', 'compound:t3'],
+
+  // --- programming a week, not just loading a tendon. r8 in the eval had a null
+  // brain key: the three original rehab entries all rehabilitate an injured
+  // tissue and none of them organises a training week, so "I have shoulder
+  // impingement and can only train 3 days a week" reached nothing.
+  //
+  // Note what is NOT asserted here. r8's own phrasing ("how should I structure
+  // those sessions") trips the BESPOKE guard, which empties the card set on
+  // purpose — a request to build someone a week is not answerable by a generic
+  // card, and it belongs to the assistant, which has their data. The entry still
+  // reaches the model as grounding, and THAT is asserted in the API repo's
+  // test-grounding-gate.js. What is pinned here is the plain lookup shape.
+  ['how many sets per week for chest', 'rehab:Programming a training week around an injury'],
+  ['what split should i run on 3 days a week', 'rehab:Programming a training week around an injury'],
+  ['upper lower vs full body', 'rehab:Programming a training week around an injury'],
+  ['training volume for hypertrophy', 'rehab:Programming a training week around an injury'],
+
+  // Controls: the new entry's scheduling vocabulary must not swallow the three
+  // entries that actually treat an irritated tissue. Its synonym list is
+  // deliberately scheduling-shaped for this reason.
+  ['patellar tendinopathy isometrics or eccentrics', 'rehab:Tendon loading protocols'],
+  ['shoulder impingement what can i still train', 'rehab:Training around a sore elbow or shoulder'],
+  ['back exercises with least bicep', 'rehab:Training around a sore elbow or shoulder'],
+  ['i tweaked my lower back deadlifting', 'rehab:Load management and getting back to training']
 ];
 
 

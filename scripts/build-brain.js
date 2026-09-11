@@ -327,6 +327,20 @@ const NUTRITION_SYNONYMS = {
    this the three rehab entries are unreachable for exactly the people who need
    them. */
 const REHAB_SYNONYMS = {
+  /* r8 in the eval had a null brain key: nothing in the index could answer
+     "I have shoulder impingement and can only train 3 days a week, how should I
+     structure those sessions". The other three rehab entries all load an
+     injured tissue; none of them programs a WEEK. Terms therefore lean on the
+     scheduling vocabulary ("split", "3 days a week", "how to structure") rather
+     than the injury vocabulary the other entries already own. */
+  'Programming a training week around an injury': ['split', 'training split', 'program',
+    'programme', 'programming', 'routine', 'how to structure', 'structure my training',
+    'structure my week', 'training week', 'weekly split', '3 days a week', '3 day split',
+    'four day split', 'upper lower', 'full body', 'push pull legs', 'ppl',
+    'how many sets', 'sets per week', 'weekly sets', 'training volume', 'volume',
+    'training frequency', 'how often should i train', 'still make progress',
+    'train around', 'training around an injury', 'work around injury',
+    'external rotation', 'scapular', 'overhead press pain', 'landmine press'],
   'Tendon loading protocols': ['tendon', 'tendinitis', 'tendonitis', 'tendinopathy',
     'patellar', 'jumpers knee', 'achilles', 'tennis elbow', 'golfers elbow',
     'lateral epicondylitis', 'eccentric', 'eccentrics', 'heavy slow resistance', 'hsr',
