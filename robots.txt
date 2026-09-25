@@ -1,12 +1,24 @@
 # https://therapylog.app/robots.txt
-# Nothing is disallowed on purpose. The empty Disallow is the explicit "crawl
-# everything" form — a User-agent group with no rules at all is inert.
-# The pages that must stay out of the index (marketing.html,
-# directory/add-partner.html, 404.html) carry a meta noindex instead, because a
-# crawler that is disallowed here never loads the page to read that tag. docs/
-# and scripts/ are excluded from the published site by _config.yml, so a rule
-# for them would be moot.
+# Crawl everything by default — the empty Disallow below is the explicit form
+# of that, not an oversight. The pages that must stay out of the index
+# (marketing.html, directory/add-partner.html, 404.html) carry a meta noindex
+# instead, because a crawler that is disallowed here never loads the page to
+# read that tag. docs/ and scripts/ are excluded from the published site by
+# _config.yml, so a rule for them would be moot.
 User-agent: *
 Disallow:
+# The two rules below are the only exception, and they exclude URL variants,
+# never a page. /app and /pro each carry a canonical tag, but a crawler has
+# to fetch the page before it can read that tag, so canonical doesn't save
+# crawl budget — only a Disallow does. Every tool and compound page links to
+# /app and /pro with its own ?utm_source=tools&utm_campaign=<page-slug> for
+# attribution, which is real click-through data worth keeping for humans, but
+# to a crawler it is 130+ URLs that all serve the byte-identical page.
+# Blocking the ones with a query string leaves the canonical /app and /pro
+# fully crawlable and does not touch the links themselves — this only tells
+# bots to skip the tagged variants, so real clicks (and their attribution)
+# are unaffected.
+Disallow: /app?
+Disallow: /pro?
 
 Sitemap: https://therapylog.app/sitemap.xml
