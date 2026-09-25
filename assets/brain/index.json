@@ -1,12 +1,14 @@
 {
  "version": 1,
- "generated": "ee0733f1909b150b",
+ "generated": "197c7f5e9d2224dc",
  "counts": {
   "compound": 131,
   "marker": 100,
-  "playbook": 13,
-  "rehab": 3,
+  "playbook": 14,
+  "rehab": 4,
   "nutrition": 10,
+  "referral": 3,
+  "storage": 6,
   "interaction": 53,
   "template": 17
  },
@@ -1067,8 +1069,8 @@
     "liothyroninet3",
     "liothyronine t3",
     "cytomel",
-    "t3",
-    "lt3"
+    "lt3",
+    "liothyronine"
    ],
    "text": "Liothyronine (T3) (Cytomel, T3, LT3) — Thyroid Hormones\n\nLiothyronine is the active form of thyroid hormone (triiodothyronine, T3) that directly binds thyroid hormone receptors. While T4 (levothyroxine) must be converted to T3 by deiodinase enzymes, T3 acts immediately. Many individuals — particularly those on hormone optimization protocols — have suboptimal T4-to-T3 conversion due to nutrient deficiencies, chronic stress, or genetic variants in deiodinase enzymes. T3 directly controls metabolic rate, body temperature, cardiac output, cognitive function, and energy levels. Used in TRT and peptide contexts to optimize metabolism and address symptoms of subclinical hypothyroidism that persist despite normal TSH.\n\nReported benefits:\n• Direct thyroid receptor activation — no conversion needed\n• Rapidly improves metabolic rate and energy\n• Enhances fat loss by increasing basal metabolic rate\n• Improves cognitive function and mood\n• Fast onset (hours vs weeks for T4)\n• Addresses conversion issues undetectable on standard TSH testing\n\nRisks and trade-offs:\n• Short half-life — requires multiple daily doses or sustained-release\n• Risk of hyperthyroidism (palpitations, anxiety, insomnia) if overdosed\n• Bone density loss with long-term excess dosing\n• Cardiac risk at supraphysiological doses\n• Requires careful titration and monitoring\n• Suppresses endogenous thyroid production\n\nDosing discussed in the literature:\n• Starting: 5-12.5mcg/day — Once or twice daily oral (4-6 weeks then assess)\n• Therapeutic: 25-50mcg/day — Split twice daily (AM and noon) (Ongoing with monitoring)\n• Optimization: 50-75mcg/day — Split 2-3x daily (Ongoing — physician supervised)\n\nProgression: Start very low at 5mcg and increase by 5mcg every 2-4 weeks. Monitor heart rate, temperature, energy, and labs. Target Free T3 in upper third of normal range. Many practitioners use T3/T4 combination therapy.\n\nCommon protocols:\n• Hormone Optimization: T3 25-50mcg/day (split doses), Testosterone Cypionate TRT dose, Selenium 200mcg/day (supports conversion), Zinc 30mg/day\n• Fat Loss / Metabolic: T3 25mcg/day, Tirzepatide (GLP-1 agent), Testosterone TRT dose (muscle preservation)\n\nMonitoring: Free T3, Free T4, TSH, Reverse T3, heart rate (resting), blood pressure, bone density (long-term). TSH will suppress — this is expected at therapeutic T3 doses.\n\nRegulatory status: FDA approved for hypothyroidism. Off-label for optimization when Free T3 is in low-normal range despite normal TSH.",
    "route": {
@@ -1089,7 +1091,7 @@
     "synthroid",
     "levoxyl",
     "lt4",
-    "t4"
+    "levothyroxine"
    ],
    "text": "Levothyroxine (T4) (Synthroid, Levoxyl, LT4) — Thyroid Hormones\n\nLevothyroxine is the most prescribed hormone medication in the United States — a synthetic T4 that must be converted to active T3 by peripheral deiodinase enzymes. Standard of care for hypothyroidism. However, research (2019-2026) increasingly shows that a subset of patients feel suboptimally on T4 monotherapy due to poor T4-to-T3 conversion. In these cases, combination T4/T3 therapy or pure T3 supplementation is more effective. T4 has a long half-life of 7 days allowing once-daily dosing and stable levels.\n\nReported benefits:\n• Most studied thyroid hormone — decades of safety data\n• Once daily dosing due to long half-life\n• FDA approved — widely available\n• Stable blood levels\n• Well understood dosing\n• Lower cardiac risk than pure T3 at equivalent doses\n\nRisks and trade-offs:\n• Requires conversion to T3 — poor converters see suboptimal response\n• Slower onset than T3\n• TSH-based dosing may leave patients symptomatic in low-normal range\n• Generic vs brand differences in absorption matter\n• Absorption affected by food, coffee, calcium, iron\n• Doesn't address Reverse T3 issues\n\nDosing discussed in the literature:\n• Starting: 25-50mcg/day — Once daily oral on empty stomach (6-8 weeks then recheck labs)\n• Therapeutic: 75-150mcg/day — Once daily oral (Ongoing with annual monitoring)\n\nProgression: Take 30-60 minutes before food or coffee. Titrate based on Free T4 and Free T3 — not TSH alone. If symptomatic on T4 monotherapy, consider adding small T3 dose.\n\nCommon protocols:\n• Complete Thyroid Protocol: Levothyroxine T4 100mcg/day, Liothyronine T3 10mcg/day (combination), Selenium 200mcg/day, Testosterone TRT dose\n\nMonitoring: Free T4, Free T3, TSH, Reverse T3 at 6-8 weeks after any dose change, then every 6-12 months stable.\n\nRegulatory status: FDA APPROVED for hypothyroidism. Standard of care worldwide.",
    "route": {
@@ -1701,7 +1703,7 @@
     "triplegagonist",
     "reta"
    ],
-   "text": "Retatrutide (LY3437943, triple G agonist) — Metabolic Peptides\n\nRetatrutide is a triple agonist targeting GIP, GLP-1, AND glucagon receptors — the next generation beyond tirzepatide's dual mechanism. Phase II clinical trials (2023) demonstrated extraordinary weight loss outcomes: up to 24.2% body weight reduction at 48 weeks — exceeding even tirzepatide. The addition of glucagon receptor agonism increases energy expenditure and fat oxidation beyond what GLP-1/GIP alone can achieve. Currently in Phase III trials. Considered the most potent weight loss compound in development and likely to become best-in-class when approved.\n\nReported benefits:\n• Up to 24.2% body weight loss in Phase II trials — best ever recorded\n• Triple mechanism: GLP-1 + GIP + glucagon\n• Glucagon agonism adds energy expenditure beyond GLP-1 alone\n• Phase III trials ongoing — strong pipeline\n• Once weekly dosing\n• Strong cardiovascular outcome data expected\n\nRisks and trade-offs:\n• Not yet FDA approved — Phase III as of 2024\n• All GLP-1 class side effects apply plus glucagon effects\n• Muscle loss without testosterone and resistance training\n• Nausea and GI effects potentially more pronounced than tirzepatide\n• Long-term safety data still accumulating\n• Not yet commercially available — research/clinical trial access only\n\nDosing discussed in the literature:\n• Phase II trial doses: 1-12mg/week — Weekly SubQ — titrated over months (Ongoing)\n• Estimated clinical: Start 1-2mg/week, titrate — Weekly SubQ (Ongoing when approved)\n\nProgression: Follow same titration approach as tirzepatide — slow titration minimizes GI side effects. Testosterone support for muscle preservation is even more critical given the superior fat loss potential. Protein intake minimum 1g/lb body weight.\n\nCommon protocols:\n• Maximum Fat Loss: Retatrutide (per clinical protocol when available), Testosterone Cypionate 200mg/week (muscle preservation essential), CJC-1295 + Ipamorelin (GH support), Collagen peptides + resistance training\n\nMonitoring: HbA1c, fasting glucose, lipids, liver enzymes, body composition monthly, weight weekly.\n\nRegulatory status: Phase III clinical trials ongoing as of 2026. Not FDA approved. Expect approval 2025-2026.",
+   "text": "Retatrutide (LY3437943, triple G agonist) — Metabolic Peptides\n\nRetatrutide is a triple agonist targeting GIP, GLP-1, AND glucagon receptors — the next generation beyond tirzepatide's dual mechanism. Phase II clinical trials (2023) demonstrated extraordinary weight loss outcomes: up to 24.2% body weight reduction at 48 weeks — exceeding even tirzepatide. The addition of glucagon receptor agonism increases energy expenditure and fat oxidation beyond what GLP-1/GIP alone can achieve. Currently in Phase III trials. Considered the most potent weight loss compound in development and likely to become best-in-class when approved.\n\nReported benefits:\n• Up to 24.2% body weight loss in Phase II trials — best ever recorded\n• Triple mechanism: GLP-1 + GIP + glucagon\n• Glucagon agonism adds energy expenditure beyond GLP-1 alone\n• Phase III trials ongoing — strong pipeline\n• Once weekly dosing\n• Strong cardiovascular outcome data expected\n\nRisks and trade-offs:\n• Not yet FDA approved — Phase III as of 2024\n• All GLP-1 class side effects apply plus glucagon effects\n• Muscle loss without testosterone and resistance training\n• Nausea and GI effects potentially more pronounced than tirzepatide\n• Long-term safety data still accumulating\n• Not yet commercially available — research/clinical trial access only\n\nDosing discussed in the literature:\n• Starting dose (all trial arms above 1 mg): 2mg/week — Once weekly SubQ (A 2mg start produced fewer GI events than a 4mg start)\n• Phase 2 — 4mg maintenance: 2mg/week escalating to 4mg — Once weekly SubQ (-17.1% body weight at 48 weeks)\n• Phase 2 — 8mg maintenance: 2mg/week escalating to 8mg — Once weekly SubQ (-22.8% at 48 weeks; reaching it slowly matched reaching it fast)\n• Phase 2 — 12mg maintenance: 2mg/week escalating to 12mg — Once weekly SubQ (-24.2% at 48 weeks — the most effective arm studied)\n\nProgression: NOBODY STARTS AT THE DOSE THAT WORKS, and the trials are explicit about why. Every phase 2 arm above 1mg was a titration: a 2mg or 4mg start climbing to a 4, 8 or 12mg maintenance dose across 48 weeks. The 2mg start produced fewer gastrointestinal events than the 4mg start. The type 2 diabetes trial then ran the comparison head to head at the SAME maintenance dose — 8mg reached slowly (from 2mg) against 8mg reached fast (from 4mg) — and got 16.81% versus 16.34% weight loss at 36 weeks. Effectively identical. But GI adverse events ranged from 13% at the lowest dose up to 50% in that fast-escalation arm, the highest in the study. Going up slowly gave up no weight loss and roughly halved the chance of feeling ill on the way. That is the whole answer to \"why not just start at 8mg\".\n\nWHAT THE PUBLISHED SCHEDULE DOES AND DOES NOT SAY: the trials report the starting dose, the maintenance dose and that slower was better tolerated. They do not publish a week-by-week escalation table, so anyone presenting one as the trial protocol is filling in a gap. Escalation was stepwise across the 48 weeks, on the order of every 4 weeks.\n\nTIMEFRAME, so the drug is not written off at week 6: the second half of the year carried a large share of the result. At 8mg, -17.3% at 24 weeks became -22.8% at 48. At 12mg, -17.5% became -24.2%. Weight loss had not plateaued at 48 weeks at any dose. The dose-dependent heart rate rise peaked at 24 weeks and declined after it, so an early rise is not automatically a permanent one.\n\nTestosterone support for muscle preservation matters more here than on weaker agents given the size of the fat loss, and protein intake at a minimum of 1g/lb body weight.\n\nCommon protocols:\n• Maximum Fat Loss: Retatrutide (per clinical protocol when available), Testosterone Cypionate 200mg/week (muscle preservation essential), CJC-1295 + Ipamorelin (GH support), Collagen peptides + resistance training\n\nMonitoring: HbA1c, fasting glucose, lipids, liver enzymes, body composition monthly, weight weekly.\n\nRegulatory status: Phase III clinical trials ongoing as of 2026. Not FDA approved. Expect approval 2025-2026.",
    "route": {
     "view": "encyclopedia",
     "cls": "metabolic2",
@@ -1910,9 +1912,6 @@
    "subtitle": "7,3',4'-flavon-3-ol, senolytic flavonoid",
    "terms": [
     "fisetin",
-    "7",
-    "3'",
-    "3",
     "4'-flavon-3-ol",
     "4flavon3ol",
     "4 flavon 3 ol",
@@ -5082,6 +5081,138 @@
    }
   },
   {
+   "id": "playbook:Multi-compound stack risk",
+   "kind": "playbook",
+   "title": "Multi-compound stack risk",
+   "subtitle": "side-effect playbook",
+   "terms": [
+    "multi-compound stack risk",
+    "multicompoundstackrisk",
+    "multi compound stack risk",
+    "multi-compound",
+    "multicompound",
+    "multi compound",
+    "stack",
+    "risk",
+    "stacking",
+    "stack safe",
+    "stacksafe",
+    "is this stack safe",
+    "isthisstacksafe",
+    "good stack",
+    "goodstack",
+    "stack advice",
+    "stackadvice",
+    "cycle stack",
+    "cyclestack",
+    "compound stack",
+    "compoundstack",
+    "run together",
+    "runtogether",
+    "running together",
+    "runningtogether",
+    "all together",
+    "alltogether",
+    "at the same time",
+    "atthesametime",
+    "multiple compounds",
+    "multiplecompounds",
+    "two 19-nors",
+    "two19nors",
+    "two 19 nors",
+    "tren and npp",
+    "trenandnpp",
+    "tren and deca",
+    "trenanddeca",
+    "test tren anavar",
+    "testtrenanavar",
+    "test tren",
+    "testtren",
+    "tren npp",
+    "trennpp",
+    "npp or eq",
+    "npporeq",
+    "eq or npp",
+    "eqornpp",
+    "eq better than npp",
+    "eqbetterthannpp",
+    "add another compound",
+    "addanothercompound",
+    "second compound",
+    "secondcompound",
+    "third compound",
+    "thirdcompound",
+    "four compounds",
+    "fourcompounds",
+    "three compounds",
+    "threecompounds",
+    "polypharmacy"
+   ],
+   "text": "Multi-compound stack risk — what it is and what to do\n\nUsual causes: Running several androgens at once — a common shape is testosterone plus trenbolone plus an oral plus a second 19-nor such as NPP. The risks do not add together, they concentrate: every compound in the stack suppresses, most push lipids the same direction, and two of them may be doing the same thing at the same receptor for no extra benefit.\n\nSigns: Expect, roughly in this order: blood pressure climbing within the first few weeks; haematocrit climbing; HDL falling hard, often into single digits on an oral; night sweats and broken sleep; anxiety, irritability or flat mood; erectile trouble and killed libido despite high testosterone (the 19-nor signature); nipple sensitivity. Later or at higher exposure: ankle or calf swelling, breathlessness lying flat, and in the oral-driven cases jaundice.\n\nLabs: Baseline before anything, then repeat: full lipid panel with ApoB (not just total cholesterol — total and triglycerides can look untouched while ApoB and HDL move badly), CBC for haematocrit and haemoglobin, comprehensive metabolic panel with bilirubin, an oestradiol and a prolactin, and blood pressure taken at home with a correctly sized cuff rather than once in a clinic. An ECHO is the test that actually reads cardiac remodelling, and nothing on a blood panel substitutes for it.\n\nCommonly discussed responses:\n• Two 19-nors is the first thing to fix. Trenbolone and NPP are both 19-nortestosterone derivatives — running both doubles the progestogenic and prolactin-side pressure without adding a mechanism. If the stack keeps one, it should keep one.\n• The oral is where the lipid damage concentrates, and oxandrolone is the compound most often called mild. The evidence disagrees: 4 mg/day for 28 days drove HDL-C below 40 mg/dL in 7 of 10 patients, and a 2-year randomised trial at roughly 4-5 mg/day for a 70 kg adult still cut HDL. There is no oral dose low enough to spare it. The mechanism is hepatic lipase induction — up 277% after two weeks of an oral.\n• The strongest single argument against stacking sits inside one paper. Its randomised arm gave nandrolone decanoate 200 mg/week alone for 8 weeks and moved nothing — not HDL, not ApoB, not triglycerides. Its real-world arm, people running their own stacks, showed ApoB up 38%, HDL-C down 60%, HDL2 down 76% and apoA-I down 50%. Same paper, same lab. The stack is doing that, not any one compound in it.\n• Cardiac risk tracks dose and cumulative exposure, not how you feel. Left ventricular mass rose 28.3 g over a median 16-week cycle and tracked weekly dose, returning to baseline only after a median 8 months off. Coronary plaque volume tracked cumulative lifetime dose in 140 weightlifters, and a 2025 replication found the same at a median lifetime exposure of just 2.2 years. In 1,189 men sanctioned for AAS use followed about 11 years, cardiomyopathy risk ran roughly 9-fold and heart failure about 3.6-fold against 59,450 matched controls.\n• EQ instead of NPP is a real trade, not an upgrade. Boldenone is not a 19-nor, so the swap removes the doubled progestogenic and prolactin pressure — that part is genuine. It buys a different problem: boldenone drives erythropoiesis hard, and the undecylenate ester is very long, so a haematocrit that climbs on it takes months to come back down after stopping. Neither swap turns a four-compound stack into a two-compound risk.\n• Trenbolone specifically has almost no human data. There is no controlled human trial of it at any dose. Everything said about its neuropsychiatric profile — the sleep disruption, night sweats, anxiety and aggression — is community report and mechanism, not clinical evidence, and should be read as tier (c). That absence is not reassurance; it is the absence of the work that would have found the harms.\n• If the decision is already made, fewer compounds and a shorter run is the change that actually moves risk. A single injectable at a moderate dose is a materially different exposure from four compounds at once, and the lipid data above is the clearest illustration of the gap.\n\nEscalate / seek care: Stop and get seen the same day for: chest pain or pressure, breathlessness at rest or on lying flat, ankle or calf swelling (especially one-sided), yellowing of the eyes or skin, dark urine with pale stools, a sudden severe headache or visual change, or a resting blood pressure above about 180/110. Get help urgently for new suicidal thoughts or a mood change severe enough that people around you have noticed — that is a recognised presentation, not a character failing, and it usually improves after stopping.\n\nWhat the evidence says: The honest summary is that almost none of this combination has been studied as a combination. What exists is single-compound trials, cohort studies of people who used stacks, and imaging. The single-compound trials consistently show injectables are comparatively kind to lipids and orals are not; the cohort and imaging work consistently shows that the people running real stacks carry measurably worse lipids, more coronary plaque, more cardiac remodelling and more heart failure, dose-dependently. No trial has ever randomised anyone to a four-compound stack, and none ever will. Reason from the single-compound data and the cohorts, and say that is what you are doing.",
+   "src": [
+    [
+     "15155420",
+     "One paper, both arms: nandrolone decanoate 200 mg/week alone moved no lipid at all, while real-world self-administered stacks showed ApoB +38%, HDL-C -60%, HDL2 -76% and apoA-I -50%"
+    ],
+    [
+     "231951",
+     "Oxandrolone at just 4 mg/day for 28 days drove HDL-C below 40 mg/dL in 7 of 10 patients"
+    ],
+    [
+     "27802097",
+     "A 2-year randomised placebo-controlled trial at roughly 4-5 mg/day still cut HDL — no oral dose is low enough to spare it"
+    ],
+    [
+     "2294373",
+     "Head-to-head at a matched 280 mg/week: the oral dropped HDL-C 36% while the injectable did not"
+    ],
+    [
+     "9284885",
+     "Mechanism: two weeks of an oral raised hepatic lipase activity 277%, with HDL-C down 49% and HDL2 down 90%"
+    ],
+    [
+     "30826541",
+     "The HDL that remains also works less well — cholesterol efflux capacity was significantly lower in users than matched strength-trained controls"
+    ],
+    [
+     "36304014",
+     "Left ventricular mass rose 28.3 g over a median 16-week cycle, tracked weekly dose, and returned to baseline only after a median 8 months off"
+    ],
+    [
+     "28533317",
+     "In 140 weightlifters, coronary plaque volume was higher in AAS users and tracked cumulative dose"
+    ],
+    [
+     "40880090",
+     "Replicated in 2025 in 164 Danish recreational athletes at a median cumulative lifetime use of only 2.2 years"
+    ],
+    [
+     "39945117",
+     "1,189 Danish men sanctioned for AAS use followed about 11 years against 59,450 matched controls: roughly 9-fold cardiomyopathy and 3.6-fold heart failure"
+    ],
+    [
+     "33214235",
+     "52 AAS liver-injury cases: bilirubin peaked at 705 micromol/L with ALT only 125 U/L and GGT 52, and bilirubin peaked 28 days AFTER stopping"
+    ],
+    [
+     "17764474",
+     "One 60-minute weightlifting session raised AST and ALT in healthy men for at least seven days while GGT, ALP and bilirubin stayed normal"
+    ],
+    [
+     "19917783",
+     "AAS-associated focal segmental glomerulosclerosis in a series of 10 bodybuilders, mean proteinuria 10.1 g/day"
+    ],
+    [
+     "33599731",
+     "Modifiable predictors of crossing haematocrit 0.50 on testosterone, with effect sizes including smoking and long-acting esters"
+    ]
+   ],
+   "route": {
+    "view": "sidefx",
+    "item": "Multi-compound stack risk"
+   }
+  },
+  {
    "id": "playbook:High prolactin",
    "kind": "playbook",
    "title": "High prolactin",
@@ -5686,7 +5817,6 @@
     "hpta suppression recovery",
     "hpta",
     "suppression",
-    "&",
     "suppressed",
     "shut down",
     "shutdown",
@@ -6100,6 +6230,132 @@
    }
   },
   {
+   "id": "rehab:Programming a training week around an injury",
+   "kind": "rehab",
+   "title": "Programming a training week around an injury",
+   "subtitle": "rehab and load guidance",
+   "terms": [
+    "programming a training week around an injury",
+    "programmingatrainingweekaroundaninjury",
+    "programming",
+    "week",
+    "an",
+    "injury",
+    "split",
+    "training split",
+    "trainingsplit",
+    "program",
+    "programme",
+    "routine",
+    "how to structure",
+    "howtostructure",
+    "structure my training",
+    "structuremytraining",
+    "structure my week",
+    "structuremyweek",
+    "training week",
+    "trainingweek",
+    "weekly split",
+    "weeklysplit",
+    "3 days a week",
+    "3daysaweek",
+    "3 day split",
+    "3daysplit",
+    "four day split",
+    "fourdaysplit",
+    "upper lower",
+    "upperlower",
+    "full body",
+    "fullbody",
+    "push pull legs",
+    "pushpulllegs",
+    "ppl",
+    "how many sets",
+    "howmanysets",
+    "sets per week",
+    "setsperweek",
+    "weekly sets",
+    "weeklysets",
+    "training volume",
+    "trainingvolume",
+    "volume",
+    "training frequency",
+    "trainingfrequency",
+    "how often should i train",
+    "howoftenshoulditrain",
+    "still make progress",
+    "stillmakeprogress",
+    "train around",
+    "trainaround",
+    "training around an injury",
+    "trainingaroundaninjury",
+    "work around injury",
+    "workaroundinjury",
+    "external rotation",
+    "externalrotation",
+    "scapular",
+    "overhead press pain",
+    "overheadpresspain",
+    "landmine press",
+    "landminepress"
+   ],
+   "text": "Programming a training week around an injury — How to organise a training week when something is irritated and the days available are limited — what to keep, what to modify, and what actually decides whether progress continues.\n\nWhat it looks like: Asked as \"I have shoulder impingement and can only train 3 days a week, how do I still make progress\" or \"what do I do with my split while this heals\".\n\nProtocols and parameters:\n• START FROM WEEKLY SETS, NOT FROM DAYS. Volume is what drives growth: across 67 studies and 2058 participants the probability that more weekly sets means more hypertrophy is 100%, with clear diminishing returns. Frequency is mostly the delivery mechanism — in that same analysis its effect on hypertrophy was compatible with NEGLIGIBLE once volume was accounted for. Three days a week is not a cap on muscle growth. It is a constraint on how the sets get distributed.\n• THE DEFAULT SPLIT AT THREE DAYS is full-body or upper/lower rotated, so each muscle group is hit about twice a week. Twice weekly beat once weekly on a volume-equated basis (effect size 0.49 vs 0.30) and that is the one frequency step with a clear payoff; going beyond twice adds little for size once the sets are equal. Two touches per muscle per week, sets allocated by what tolerates load, is the whole scheme.\n• PUT A NUMBER ON THE VOLUME. Each additional weekly set per muscle is worth roughly 0.37% more gain, so the arithmetic favours adding sets to what does NOT hurt rather than mourning what does. Note the familiar under-5 / 5-9 / 10+ brackets were only a statistical trend (P = 0.074) — the continuous relationship is the better-supported finding, so treat set counts as a dial, not as tiers.\n• WHAT KEEPS RUNNING WITH AN IRRITATED SHOULDER: all lower body, all hinging and squatting, and most pulling. Horizontal and neutral-grip pressing usually tolerate load when overhead pressing does not, so a shoulder problem is a reason to change the press angle, not to unload the chest for six weeks. Row and pull volume generally continues untouched and is where added sets are cheapest.\n• WHAT GETS MODIFIED: overhead and behind-neck pressing are the usual aggravators. Substitute a landmine press, a floor press or an incline in the pain-free range rather than deleting pressing entirely.\n• ADD THE THING THAT IS USUALLY MISSING: dedicated EXTERNAL ROTATION loading. Face pulls and reverse flyes are posterior-delt and retraction work and only partially cover it. Side-lying dumbbell external rotation, or cable external rotation at 0 and at 90 degrees of abduction, is the specific item — a home-based eccentric rotator-cuff plus scapular-stabiliser programme run once or twice daily for 12 weeks is the protocol with trial support behind it.\n• MORE REHAB IS NOT BETTER REHAB. Doubling the total dose of shoulder strengthening on top of usual care produced no additional benefit, progressive high-load was not superior to traditional low-load for rotator cuff tendinopathy, and a supervised programme of up to six sessions was no better over 12 months than a single best-practice advice session. Add the external rotation work; do not bury the week in it.\n• PROGRESS ON A CRITERION, NOT A CALENDAR. Add load or a set when the last session stayed at or below the agreed pain ceiling DURING the work and had settled back to baseline within 24 hours. Hold when it is at the ceiling. Regress one step when it exceeded the ceiling or had not settled by the next day. That rule is what turns three days a week into progression rather than maintenance.\n\nHow to judge progression: Weekly sets decide whether you grow; the pain rule decides where those sets are allowed to go. Keep total weekly volume roughly constant by moving sets from what is irritated into what is not, rather than by cutting the week down.\n\nWhat not to do: Do not delete a whole movement pattern for weeks when an angle change would keep it. Do not stack extra rehab volume on top of a full programme and call it caution — the dose-response evidence for shoulder strengthening is flat, so more of it buys nothing while costing recovery. And do not use a fixed calendar to decide progression; there is no consensus sets-and-reps prescription to follow, with frequency ranging 2-7 sessions a week across 46 programmes in 22 randomised trials.\n\nEscalate / seek care: A structured week is not an assessment, and nothing here identifies WHAT is irritated. Get hands-on evaluation before settling in to a long modification block, and sooner than that for: pain that wakes you at night, weakness rather than pain (a shoulder that cannot be lifted rather than one that hurts to lift), numbness or pins and needles down the arm, a specific traumatic moment with a pop or a tear, or symptoms that have not shifted at all after six to eight weeks of sensible loading. \"Impingement\" is a description of a symptom pattern, not a diagnosis, and several different things produce it.\n\nWhat the evidence says: The programming half of this is well evidenced and the rehab half is mostly negative evidence, which is useful in its own right. Volume-hypertrophy dose-response is established with diminishing returns; frequency matters clearly for strength and barely for size once volume is equated; twice a week per muscle is the supported default. On the shoulder side, the strongest findings are about what does NOT help: subacromial decompression is no better than placebo surgery at 6 months, 24 months or 5 years and no better than exercise therapy, doubling exercise dose adds nothing, high load is not superior to low load, and six supervised sessions match one good advice session. That pattern argues for a modest, specific, sustained programme rather than an aggressive one.",
+   "src": [
+    [
+     "41343037",
+     "67 studies and 2058 participants: volume-hypertrophy probability 100% with diminishing returns, while frequency effects on hypertrophy were compatible with negligible once volume was accounted for"
+    ],
+    [
+     "27433992",
+     "Each additional weekly set per muscle was worth about 0.37% more gain; the <5 / 5-9 / 10+ brackets were only a trend at P = 0.074"
+    ],
+    [
+     "27102172",
+     "Volume-equated, twice weekly beat once weekly for hypertrophy (effect size 0.49 vs 0.30); major muscle groups should be trained at least twice a week"
+    ],
+    [
+     "38832666",
+     "No consensus sets-and-reps prescription exists: across 46 programmes in 22 randomised trials frequency ranged 2-7 sessions per week"
+    ],
+    [
+     "22349588",
+     "The rotator-cuff protocol with trial support: home-based eccentric cuff plus scapular-stabiliser work, once or twice daily for 12 weeks"
+    ],
+    [
+     "34048281",
+     "Doubling the total dose of shoulder strengthening on top of usual care produced no additional benefit"
+    ],
+    [
+     "28875153",
+     "Progressive high-load exercise was not superior to traditional low-load exercise for rotator cuff tendinopathy"
+    ],
+    [
+     "34265255",
+     "A supervised programme of up to 6 sessions was no better over 12 months than a single best-practice advice session"
+    ],
+    [
+     "29169668",
+     "Arthroscopic subacromial decompression was no better than placebo arthroscopy at 6 months"
+    ],
+    [
+     "33020137",
+     "At 5 years, decompression was no better than placebo surgery and no better than exercise therapy"
+    ],
+    [
+     "34722783",
+     "The pain rule in its most-cited numeric form: not above 5/10 during activity, settled within 24 hours"
+    ],
+    [
+     "28596288",
+     "Exercising into pain is not harmful and gives a small short-term advantage over strictly pain-free exercise"
+    ]
+   ],
+   "route": {
+    "view": "rehab",
+    "item": "Programming a training week around an injury"
+   }
+  },
+  {
    "id": "rehab:Tendon loading protocols",
    "kind": "rehab",
    "title": "Tendon loading protocols",
@@ -6250,8 +6506,12 @@
     "row",
     "rows"
    ],
-   "text": "Training around a sore elbow or shoulder — What actually changes the load on an irritated elbow flexor or shoulder — and which popular adjustments measurably do nothing.\n\nWhat it looks like: Pain at the front of the elbow on pulling and curling, or at the shoulder on pressing and overhead work.\n\nProtocols and parameters:\n• Back work with less elbow flexor involvement: the honest finding is that grip changes do far less than people assume. Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was SIMILAR — no grip spares the biceps.\n• In the lat pulldown, pronating the grip increased latissimus activity but had NO effect on biceps brachii, at either wide or narrow grip. So a pronated pulldown is a better lat exercise, not a lower-biceps one.\n• Where grip does matter is curling: biceps excitation was 19% higher with a supinated grip than pronated at 8RM. If you are trying to load elbow flexors less, that is the lever with evidence behind it.\n• Thick or fat grips move recruitment the WRONG way for an irritated distal biceps — they significantly increased forearm muscle activity.\n• Lifting straps changed nothing measurable in the lat pulldown: not 1RM, not reps to failure at 70% 1RM, not latissimus activity.\n\nHow to judge progression: Exercising into pain is not harmful. In shoulder pain it gave a small short-term advantage over strictly pain-free exercise, with the two equivalent by medium and long term.\n\nWhat not to do: Do not reach for surgery for subacromial shoulder pain on the assumption it is mechanical. Arthroscopic subacromial decompression was no better than PLACEBO surgery at 6 months, 24 months and 5 years, Cochrane rates that no-benefit finding high-certainty, and serious surgical complications run about 5-7 per 1000.\n\nEscalate / seek care: Weakness that is genuine rather than pain-limited, night pain that wakes you consistently, or numbness and tingling down the arm belongs with a clinician rather than a programme adjustment.\n\nWhat the evidence says: Read the grip findings with their limit attached: EMG amplitude is not tendon load. None of the grip, curl, pulldown or pull-up studies measured force or strain in the tendon itself, so \"less activation\" is a proxy, not a measurement of what the tendon feels. The bigger caveat is population — distal biceps tendinopathy is very rare with limited published evidence, and NO loading trial exists for it at all. Everything above is extrapolated from patellar, Achilles and lateral elbow tendons. For the shoulder, three separate results point the same way and are worth knowing before spending money: doubling the total dose of strengthening produced no additional benefit, progressive high-load was not superior to low-load, and a supervised programme of up to 6 sessions was no better at 12 months than a single best-practice advice session. There is also no consensus sets-and-reps prescription — across 46 programmes in 22 randomised trials, frequency ranged from 2 to 7 sessions per week.",
+   "text": "Training around a sore elbow or shoulder — What actually changes the load on an irritated elbow flexor or shoulder — and which popular adjustments measurably do nothing.\n\nWhat it looks like: Pain at the front of the elbow on pulling and curling, or at the shoulder on pressing and overhead work.\n\nProtocols and parameters:\n• STRAIGHT-ARM WORK IS THE MECHANICAL ANSWER, AND IT IS AN EXTRAPOLATION. Keeping the elbow essentially static through the rep is the only adjustment that actually changes elbow-flexor demand - unlike grip, which does not. A straight-arm pulldown is the usual pick. But be honest about two limits: no EMG trial in the retrieved evidence measured biceps activation during straight-arm pulldowns specifically, and the pullover, which gets recommended in the same breath, appears to preferentially activate PECTORALIS MAJOR rather than selectively target the lat. So this is reasoning from joint mechanics, not a measured result.\n• CHEST-SUPPORTED AND MACHINE ROWS help for a different reason than people usually give: the torso is braced, so the load does not have to be stabilised through the arm and the path is fixed. That reduces the incidental gripping and bracing demand on an irritated distal biceps even though the rowing motion itself still flexes the elbow.\n• Back work with less elbow flexor involvement: the honest finding is that grip changes do far less than people assume. Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was SIMILAR — no grip spares the biceps.\n• In the lat pulldown, pronating the grip increased latissimus activity but had NO effect on biceps brachii, at either wide or narrow grip. So a pronated pulldown is a better lat exercise, not a lower-biceps one.\n• Where grip does matter is curling: biceps excitation was 19% higher with a supinated grip than pronated at 8RM. If you are trying to load elbow flexors less, that is the lever with evidence behind it.\n• Thick or fat grips move recruitment the WRONG way for an irritated distal biceps — they significantly increased forearm muscle activity.\n• Lifting straps changed nothing measurable in the lat pulldown: not 1RM, not reps to failure at 70% 1RM, not latissimus activity.\n\nHow to judge progression: Exercising into pain is not harmful. In shoulder pain it gave a small short-term advantage over strictly pain-free exercise, with the two equivalent by medium and long term.\n\nWhat not to do: Do not reach for surgery for subacromial shoulder pain on the assumption it is mechanical. Arthroscopic subacromial decompression was no better than PLACEBO surgery at 6 months, 24 months and 5 years, Cochrane rates that no-benefit finding high-certainty, and serious surgical complications run about 5-7 per 1000.\n\nEscalate / seek care: Weakness that is genuine rather than pain-limited, night pain that wakes you consistently, or numbness and tingling down the arm belongs with a clinician rather than a programme adjustment.\n\nWhat the evidence says: Read the grip findings with their limit attached: EMG amplitude is not tendon load. None of the grip, curl, pulldown or pull-up studies measured force or strain in the tendon itself, so \"less activation\" is a proxy, not a measurement of what the tendon feels. The bigger caveat is population — distal biceps tendinopathy is very rare with limited published evidence, and NO loading trial exists for it at all. Everything above is extrapolated from patellar, Achilles and lateral elbow tendons. For the shoulder, three separate results point the same way and are worth knowing before spending money: doubling the total dose of strengthening produced no additional benefit, progressive high-load was not superior to low-load, and a supervised programme of up to 6 sessions was no better at 12 months than a single best-practice advice session. There is also no consensus sets-and-reps prescription — across 46 programmes in 22 randomised trials, frequency ranged from 2 to 7 sessions per week.",
    "src": [
+    [
+     "42647355",
+     "A narrative review of 23 EMG studies: pull-up variations showed broadly similar lat activation across grips, and the pullover appeared to preferentially activate pectoralis major rather than selectively target the lat"
+    ],
     [
      "28011412",
      "Across supinated, pronated, neutral and rope pull-up grips, arm and forearm activation over a complete repetition was similar"
@@ -6540,7 +6800,7 @@
     "macro split",
     "macrosplit"
    ],
-   "text": "Protein: how much actually helps — What the trials support for protein intake when building or holding muscle, and where the extra grams stop doing anything.\n\nUsually asked as: Asked as \"how much protein do I need\", usually with a number someone heard.\n\nWhat the trials found:\n• In energy balance the ceiling is about 1.6 g/kg bodyweight per day — past that, no further gain in fat-free mass was detectable across the pooled trials, and returns are already shrinking about threefold above 1.3 g/kg.\n• In a deficit the useful range is higher: 2.3-3.1 g/kg of FAT-FREE mass. At a 40% deficit, 2.4 g/kg gained 1.2 kg of lean mass against 0.1 kg at 1.2 g/kg, and 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg.\n• Extra protein only pays under a stressor. Pooled: +0.36 kg while dieting, +0.77 kg while training, +0.08 kg with neither.\n• Very high intakes buy fat loss, not muscle: 3.4 vs 2.3 g/kg gave identical fat-free-mass gain despite greater fat loss, with no adverse kidney-filtration change in healthy adults.\n\nThe rule of thumb: Total daily protein is what matters. Per-meal distribution has a real same-day synthesis advantage of 25-31%, but the 16-week body-composition trial under a deficit found no difference between spreading it evenly and back-loading it, and there is no per-meal anabolic ceiling even at 100 g.\n\nWhat not to do: Do not treat 1.6 g/kg as a target to exceed for its own sake in maintenance, and do not treat the \"20-25 g per sitting\" rule as real — it does not survive the trial that tested a 100 g bolus.\n\nWhat the evidence says: Established: the dose-response in energy balance and the higher requirement in a deficit are both from pooled randomised evidence. NOT established, and this is the part that matters here: there are zero trials of any protein dose in people using exogenous testosterone, anabolic compounds, or GLP-1 agonists. The 1.6 g/kg ceiling and the 2.3-3.1 g/kg-FFM deficit range are wholly untested in that population, and GLP-1 appetite suppression makes hitting those numbers a practical problem no study has examined.",
+   "text": "Protein: how much actually helps — What the trials support for protein intake when building or holding muscle, and where the extra grams stop doing anything.\n\nUsually asked as: Asked as \"how much protein do I need\", usually with a number someone heard.\n\nWhat the trials found:\n• In energy balance the ceiling is about 1.6 g/kg bodyweight per day (roughly 0.73 g/lb) — past that, no further gain in fat-free mass was detectable across the pooled trials, and returns are already shrinking about threefold above 1.3 g/kg.\n• In a deficit the useful range is higher: 2.3-3.1 g/kg of FAT-FREE mass (roughly 1.05-1.4 g per lb of fat-free mass). At a 40% deficit, 2.4 g/kg (about 1.1 g/lb) gained 1.2 kg (2.6 lb) of lean mass against 0.1 kg at 1.2 g/kg (about 0.55 g/lb), and 2.3 g/kg (about 1.05 g/lb) cut lean-mass loss from 1.6 kg (3.5 lb) to 0.3 kg (0.7 lb).\n• Extra protein only pays under a stressor. Pooled: +0.36 kg while dieting, +0.77 kg while training, +0.08 kg with neither.\n• Very high intakes buy fat loss, not muscle: 3.4 vs 2.3 g/kg gave identical fat-free-mass gain despite greater fat loss, with no adverse kidney-filtration change in healthy adults.\n\nThe rule of thumb: Total daily protein is what matters. Per-meal distribution has a real same-day synthesis advantage of 25-31%, but the 16-week body-composition trial under a deficit found no difference between spreading it evenly and back-loading it, and there is no per-meal anabolic ceiling even at 100 g.\n\nWhat not to do: Do not treat 1.6 g/kg as a target to exceed for its own sake in maintenance, and do not treat the \"20-25 g per sitting\" rule as real — it does not survive the trial that tested a 100 g bolus.\n\nWhat the evidence says: Established: the dose-response in energy balance and the higher requirement in a deficit are both from pooled randomised evidence. NOT established, and this is the part that matters here: there are zero trials of any protein dose in people using exogenous testosterone, anabolic compounds, or GLP-1 agonists. The 1.6 g/kg ceiling and the 2.3-3.1 g/kg-FFM deficit range are wholly untested in that population, and GLP-1 appetite suppression makes hitting those numbers a practical problem no study has examined.",
    "src": [
     [
      "28698222",
@@ -6907,8 +7167,20 @@
     "protein on glp1",
     "proteinonglp1"
    ],
-   "text": "Eating on a GLP-1 — What happens to muscle on semaglutide or tirzepatide, whether protein and lifting change it, and what actually helps the gut side effects.\n\nUsually asked as: Asked as \"am I losing muscle on this\" or \"what should I eat on tirzepatide\".\n\nWhat the trials found:\n• About 25-28% of the weight lost is lean mass. That sounds alarming until it is compared: it is statistically indistinguishable from dieting alone at 26.2%.\n• Resistance training is the lever that moves it. Lifestyle intervention PLUS resistance training cut the lean fraction to 17.5%.\n• The published protein target of 1.2-1.6 g/kg/day, 0.3-0.4 g/kg per meal, is borrowed from the general sarcopenia literature — not measured on a GLP-1.\n• Both the Wegovy and Zepbound labels specify only a reduced-calorie diet and increased physical activity. Neither gives any macronutrient or protein target.\n\nThe rule of thumb: The deficit drives the lean loss, not the drug. That reframes the question from \"how do I stop this drug eating my muscle\" to \"how do I run this deficit like any other deficit\" — which means lifting and adequate protein.\n\nWhat not to do: Zepbound’s own label makes SLOW DOSE TITRATION, not diet, its stated tool for limiting gastrointestinal reactions. Diet advice for nausea — smaller frequent meals, hydration, less fat and sugar per sitting — is expert opinion, and 16 trials found gut symptoms happened anyway despite dietary counselling.\n\nWhat the evidence says: NOT established, and the gap is total: no completed randomised trial tests protein intake or resistance training on a GLP-1. The trial that would settle it has published a protocol only. The best direct human evidence linking protein to lean-mass retention on these drugs is a correlation of 0.41 in 28 people. Searches pairing GLP-1 agonists with resistance-trained or athlete populations returned nothing — all body-composition data comes from sedentary or unselected adults at BMI 28-42. Pairing them with testosterone or other anabolic compounds returned nothing at all, so that combination cannot be inferred from anything published.",
+   "text": "Eating on a GLP-1 — What happens to muscle on semaglutide or tirzepatide, whether protein and lifting change it, and what actually helps the gut side effects.\n\nUsually asked as: Asked as \"am I losing muscle on this\" or \"what should I eat on tirzepatide\".\n\nWhat the trials found:\n• About 25-28% of the weight lost is lean mass. That sounds alarming until it is compared: it is statistically indistinguishable from dieting alone at 26.2%.\n• Resistance training is the lever that moves it. Lifestyle intervention PLUS resistance training cut the lean fraction to 17.5%.\n• The published protein target of 1.2-1.6 g/kg/day (about 0.55-0.73 g/lb), 0.3-0.4 g/kg per meal, is borrowed from the general sarcopenia literature — not measured on a GLP-1.\n• That sarcopenia figure is the wrong target for anyone lifting. Someone on one of these drugs is BY DEFINITION in a deficit, and the deficit literature asks for far more: 2.3-3.1 g/kg of FAT-FREE mass (roughly 1.05-1.4 g per lb of fat-free mass) in lean, energy-restricted trained people. The gap is not academic. In a 40% deficit, 2.4 g/kg/day (about 1.1 g/lb) gained 1.2 kg (2.6 lb) of lean mass over four weeks while 1.2 g/kg/day (about 0.55 g/lb) gained essentially none, and 2.3 g/kg cut lean-mass loss from 1.6 kg to 0.3 kg against 1.0 g/kg. Reading 1.2-1.6 g/kg as your number on a GLP-1 means targeting the range that performed WORST in those trials.\n• Appetite suppression is the practical problem, not the target. If only a limited amount of food is going down, protein is the first thing to fill rather than the last: liquid protein counts, and front-load it earlier in the day before suppression peaks. Log what was actually eaten for a week rather than what was planned — measured intake on these drugs routinely drifts well below the intended deficit, which is how the lean loss ends up worse than the arithmetic predicted.\n• Both the Wegovy and Zepbound labels specify only a reduced-calorie diet and increased physical activity. Neither gives any macronutrient or protein target.\n\nThe rule of thumb: The deficit drives the lean loss, not the drug. That reframes the question from \"how do I stop this drug eating my muscle\" to \"how do I run this deficit like any other deficit\" — which means lifting and adequate protein.\n\nWhat not to do: Zepbound’s own label makes SLOW DOSE TITRATION, not diet, its stated tool for limiting gastrointestinal reactions. Diet advice for nausea — smaller frequent meals, hydration, less fat and sugar per sitting — is expert opinion, and 16 trials found gut symptoms happened anyway despite dietary counselling.\n\nWhat the evidence says: NOT established, and the gap is total: no completed randomised trial tests protein intake or resistance training on a GLP-1. The trial that would settle it has published a protocol only. The best direct human evidence linking protein to lean-mass retention on these drugs is a correlation of 0.41 in 28 people. Searches pairing GLP-1 agonists with resistance-trained or athlete populations returned nothing — all body-composition data comes from sedentary or unselected adults at BMI 28-42. Pairing them with testosterone or other anabolic compounds returned nothing at all, so that combination cannot be inferred from anything published.",
    "src": [
+    [
+     "26817506",
+     "In a severe 40% deficit, 2.4 g/kg/day gained 1.2 kg of lean mass over four weeks while 1.2 g/kg/day gained essentially none"
+    ],
+    [
+     "19927027",
+     "Trained athletes cutting hard lost 1.6 kg of lean mass on 1.0 g/kg/day but only 0.3 kg on 2.3 g/kg/day"
+    ],
+    [
+     "24092765",
+     "Systematic review in lean, energy-restricted trained athletes: protein needs are likely 2.3-3.1 g per kg of fat-free mass per day"
+    ],
     [
      "41996180",
      "Across 35 randomized trials of incretin drugs, roughly 28% of the weight lost was muscle-related tissue, and about two thirds of the trials exceeded the ~25% benchmark expected from weight…"
@@ -7017,8 +7289,6 @@
     "anabolicwindow",
     "intermittent fasting",
     "intermittentfasting",
-    "16:8",
-    "168",
     "16 8",
     "time restricted",
     "timerestricted",
@@ -7676,6 +7946,427 @@
    "route": {
     "view": "nutrition",
     "item": "Meal prep and making a plan stick"
+   }
+  },
+  {
+   "id": "referral:A cancer history, and anything that pushes growth signalling",
+   "kind": "referral",
+   "title": "A cancer history, and anything that pushes growth signalling",
+   "subtitle": "when to involve a clinician",
+   "terms": [
+    "a cancer history, and anything that pushes growth signalling",
+    "acancerhistoryandanythingthatpushesgrowthsignalling",
+    "a cancer history and anything that pushes growth signalling",
+    "cancer",
+    "cancers",
+    "had cancer",
+    "hadcancer",
+    "had cancers",
+    "hadcancers",
+    "two cancers",
+    "twocancers",
+    "had 2 cancers",
+    "had2cancers",
+    "cancer history",
+    "cancerhistory",
+    "history of cancer",
+    "historyofcancer",
+    "in remission",
+    "inremission",
+    "remission",
+    "post cancer",
+    "postcancer",
+    "after cancer",
+    "aftercancer",
+    "cancer treatment",
+    "cancertreatment",
+    "cancer treatments",
+    "cancertreatments",
+    "had treatment",
+    "hadtreatment",
+    "survivor",
+    "chemo",
+    "chemotherapy",
+    "radiation",
+    "tumor",
+    "tumour",
+    "oncologist",
+    "oncology",
+    "malignancy",
+    "thyroid cancer",
+    "thyroidcancer",
+    "breast cancer",
+    "breastcancer",
+    "prostate cancer",
+    "prostatecancer",
+    "endometrial cancer",
+    "endometrialcancer",
+    "melanoma",
+    "lymphoma",
+    "leukemia",
+    "is it safe after cancer",
+    "isitsafeaftercancer",
+    "safe with cancer history",
+    "safewithcancerhistory",
+    "growth hormone and cancer",
+    "growthhormoneandcancer",
+    "igf-1 and cancer",
+    "igf1andcancer",
+    "igf 1 and cancer",
+    "peptides after cancer",
+    "peptidesaftercancer",
+    "bpc after cancer",
+    "bpcaftercancer",
+    "hgh cancer",
+    "hghcancer"
+   ],
+   "text": "A cancer history, and anything that pushes growth signalling — when the honest answer needs someone who can examine you.\n\nWhen this applies:\nYou have had cancer — in treatment, treated, in remission or under surveillance — and you are considering a peptide, a growth hormone secretagogue, or HGH itself. Or you have read that one of them is off-limits for you and want to know whether that is true.\n\nWhat is settled, and worth having first:\nThe two growth-axis drugs that have actually been through FDA review both contraindicate ACTIVE malignancy. Tesamorelin goes further than a bare contraindication: its label says any preexisting malignancy should be inactive and its treatment complete before starting, and that it should be discontinued on any evidence of recurrence. The label states its own reason plainly — the drug releases endogenous growth hormone, which it calls a known growth factor, and raises IGF-1, whose effects at prolonged elevation it describes as unknown. That is a regulator writing down the exact mechanism people worry about. What does NOT follow is that the same finding transfers to BPC-157, TB-500 or the research-chemical secretagogues. Those have no approved label at all, and that is not reassurance — it is the absence of the review process that produced the warning above. Separately worth knowing, because it is the part people miss: quite a lot of what someone in this position actually wants does not touch the growth axis. Tendon and muscle recovery has a real, evidence-backed loading answer that involves no compound whatsoever, and persistent fatigue has a workup — thyroid, ferritin, B12, vitamin D — before it has a peptide.\n\nWhat puts the rest out of a chat’s reach:\nWhat decides this is not in the question: what the cancer was and whether it was hormone or growth-factor sensitive, whether treatment is complete, what surveillance you are on and how long since, and what else you take. Those change the answer completely and no chat has them.\n\nWhat to bring:\nYour most recent full panel. The pathology and staging summary, or the clinic letter that has it. The name of the specific compound and one line on what it does mechanistically — whether it raises GH or IGF-1 is the part your oncologist will care about. Your current surveillance schedule.\n\nWhat to ask:\nDoes what I am considering raise growth hormone or IGF-1, and does that matter for the cancer I had? If I did use it, what would you want to monitor and how often? Is there a way to get what I am after that does not touch the growth axis at all?\n\nEvidence:\nLabel: both FDA-reviewed growth-axis products list active malignancy as a contraindication, and the tesamorelin label supplies the mechanistic reasoning and the \"inactive and treatment complete\" standard. No human trial data exists for BPC-157 or TB-500 in people with a cancer history, in either direction — the absence is the finding.",
+   "src": [
+    [
+     "label:3d783378-b02d-4f19-99dd-0fc91a042224",
+     "Tesamorelin (EGRIFTA SV): contraindicated in active malignancy; preexisting malignancy must be inactive and treatment complete before starting; discontinue on evidence of recurrence; GH described as a known growth factor and IGF-1 elevation of unknown long-term effect"
+    ],
+    [
+     "label:a774e1ae-3997-49ee-8b0e-99a2b315d409",
+     "Somatropin (HUMATROPE): active malignancy listed among contraindications, showing this is a property of the growth-hormone class rather than of one product"
+    ]
+   ],
+   "route": {
+    "view": "referral",
+    "item": "A cancer history, and anything that pushes growth signalling"
+   }
+  },
+  {
+   "id": "referral:A change to a medication someone else prescribed",
+   "kind": "referral",
+   "title": "A change to a medication someone else prescribed",
+   "subtitle": "when to involve a clinician",
+   "terms": [
+    "a change to a medication someone else prescribed",
+    "achangetoamedicationsomeoneelseprescribed",
+    "my prescription",
+    "myprescription",
+    "should i add",
+    "shouldiadd",
+    "should i stop",
+    "shouldistop",
+    "should i increase",
+    "shouldiincrease",
+    "change my dose",
+    "changemydose",
+    "my doctor prescribed",
+    "mydoctorprescribed",
+    "my prescriber",
+    "myprescriber",
+    "lisinopril",
+    "telmisartan",
+    "amlodipine",
+    "losartan",
+    "statin",
+    "blood pressure medication",
+    "bloodpressuremedication",
+    "bp meds",
+    "bpmeds",
+    "thyroid medication",
+    "thyroidmedication",
+    "levothyroxine dose",
+    "levothyroxinedose",
+    "add a medication",
+    "addamedication",
+    "stop taking my",
+    "stoptakingmy",
+    "come off my",
+    "comeoffmy"
+   ],
+   "text": "A change to a medication someone else prescribed — when the honest answer needs someone who can examine you.\n\nWhen this applies:\nYou are on a prescription — blood pressure, thyroid, metformin, an antidepressant, TRT from a clinic — and you are wondering whether to add one, raise it, lower it, or stop.\n\nWhat is settled, and worth having first:\nWhat a number means is not the same question as what to do about it, and the first half is answerable here. A haematocrit reading, a blood pressure trend, a TSH with a normal free T4 — the app has entries on what those indicate, what typically drives them, and which of them tend to move together. Read the number first. Bring the DECISION to your prescriber. The distinction is not a formality: arriving with \"my haematocrit has climbed from 47 to 51 over four months on TRT and my blood pressure has gone up with it\" gets a better appointment than arriving with \"the internet said to add telmisartan\".\n\nWhat puts the rest out of a chat’s reach:\nPrescribing decisions turn on things a chat cannot see and cannot verify: your full medication list including anything over the counter, kidney and liver function, what has already been tried and why it was changed, and the reason your prescriber chose this drug over the alternatives. There is also a plain practical point — whoever writes the prescription is the one who has to act on it, so a plan they were not part of usually costs you a visit rather than saving one.\n\nWhat to bring:\nYour current panel and the one before it, so the trend is visible rather than a single point. A complete list of what you take, including anything bought without a prescription. When the change you noticed started, and anything that changed around the same time.\n\nWhat to ask:\nWhat is driving this number? Is this a dose question, a different-drug question, or a wait-and-recheck question? What would make you want to see me sooner?",
+   "src": [],
+   "route": {
+    "view": "referral",
+    "item": "A change to a medication someone else prescribed"
+   }
+  },
+  {
+   "id": "referral:Several conditions, several compounds, and a question that needs all of them",
+   "kind": "referral",
+   "title": "Several conditions, several compounds, and a question that needs all of them",
+   "subtitle": "when to involve a clinician",
+   "terms": [
+    "several conditions, several compounds, and a question that needs all of them",
+    "severalconditionsseveralcompoundsandaquestionthatneedsallofthem",
+    "several conditions several compounds and a question that needs all of them",
+    "multiple conditions",
+    "multipleconditions",
+    "several compounds",
+    "severalcompounds",
+    "stack with my medication",
+    "stackwithmymedication",
+    "autoimmune",
+    "hashimotos",
+    "hashimoto",
+    "lupus",
+    "crohns",
+    "too many variables",
+    "toomanyvariables",
+    "interacts with my",
+    "interactswithmy",
+    "is this safe with my condition",
+    "isthissafewithmycondition",
+    "my conditions",
+    "myconditions"
+   ],
+   "text": "Several conditions, several compounds, and a question that needs all of them — when the honest answer needs someone who can examine you.\n\nWhen this applies:\nYour question has more moving parts than any single entry covers — an autoimmune condition and a GLP-1, a thyroid history and a stimulant, two prescriptions and a peptide you want to add, a symptom that could be any of four things.\n\nWhat is settled, and worth having first:\nTake the parts one at a time and quite a lot of it becomes answerable. What each compound does on its own, what each marker means, which pairs are known to interact and how — all of that is worth having before an appointment, and the app can give it. What no chat should do is collapse the pieces into one recommendation and hand it over as if the interaction had been worked out. Ask for the parts, not the verdict.\n\nWhat puts the rest out of a chat’s reach:\nNot because the question is too hard, but because the parts interact and the interaction is where the answer lives. Each piece may have a good answer on its own that stops being right in combination. That is exactly the case where a confident single answer is worse than an honest map of the problem.\n\nWhat to bring:\nA written list of every condition and every substance, prescription and otherwise, with doses and how long. Your most recent panel. The specific question you want answered, written down — appointments run short and this is the thing most often left unsaid.\n\nWhat to ask:\nWhich of these interacts with which? What would you watch if I went ahead? Which one would you change first if we had to change something?",
+   "src": [],
+   "route": {
+    "view": "referral",
+    "item": "Several conditions, several compounds, and a question that needs all of them"
+   }
+  },
+  {
+   "id": "storage:aq",
+   "kind": "storage",
+   "title": "Lyophilized powder, reconstituted before use",
+   "subtitle": "storage and handling",
+   "terms": [
+    "lyophilized powder, reconstituted before use",
+    "lyophilizedpowderreconstitutedbeforeuse",
+    "lyophilized powder reconstituted before use",
+    "peptide storage",
+    "peptidestorage",
+    "store peptides",
+    "storepeptides",
+    "storing peptides",
+    "storingpeptides",
+    "lyophilized",
+    "lyophilised",
+    "powder vial",
+    "powdervial",
+    "reconstituted storage",
+    "reconstitutedstorage",
+    "how long does a mixed vial last",
+    "howlongdoesamixedviallast",
+    "mixed vial",
+    "mixedvial",
+    "bacteriostatic water storage",
+    "bacteriostaticwaterstorage",
+    "28 days",
+    "28days",
+    "fridge",
+    "refrigerate",
+    "freezer",
+    "kit of vials",
+    "kitofvials",
+    "reconstituted",
+    "reconstitute",
+    "room temp",
+    "roomtemp",
+    "room temperature",
+    "roomtemperature",
+    "can i freeze",
+    "canifreeze",
+    "freeze a vial",
+    "freezeavial",
+    "freeze it",
+    "freezeit",
+    "keep it cold",
+    "keepitcold",
+    "how cold",
+    "howcold"
+   ],
+   "text": "Lyophilized powder, reconstituted before use — how to store it, and what ruins it.\n\nBefore opening or mixing:\nSealed powder tolerates room temperature in transit, but keep it refrigerated at 2–8 °C (36–46 °F) for anything beyond a few weeks, or frozen for months. Keep it dark — the carton it shipped in is doing a job.\n\nAfter opening or mixing:\nOnce reconstituted with bacteriostatic water: refrigerate at 2–8 °C and use within about 28 days. The benzyl alcohol in bacteriostatic water is what buys that window — plain sterile water has no preservative, so a vial mixed with it should be treated as one sitting only. Kits are usually ten vials: only the one you mixed is on that 28-day clock — the sealed ones keep their own, much longer shelf life, so store them as powder, not as solution.\n\nIf it came ready-mixed:\nIf yours arrived as a pre-filled pen or a ready-made solution rather than a powder, follow that product’s label instead — those are refrigerated from the start.\n\nWhat ruins it:\nDo not freeze a reconstituted vial. Repeated freeze–thaw is one of the more reliable ways to degrade a peptide.\n\nGeneral handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.",
+   "route": {
+    "view": "storage",
+    "item": "aq"
+   }
+  },
+  {
+   "id": "storage:oil",
+   "kind": "storage",
+   "title": "Oil-based injectable",
+   "subtitle": "storage and handling",
+   "terms": [
+    "oil-based injectable",
+    "oilbasedinjectable",
+    "oil based injectable",
+    "oil storage",
+    "oilstorage",
+    "testosterone storage",
+    "testosteronestorage",
+    "store testosterone",
+    "storetestosterone",
+    "oil vial cloudy",
+    "oilvialcloudy",
+    "crystals in vial",
+    "crystalsinvial",
+    "crystals",
+    "crystallized",
+    "crystallised",
+    "cloudy vial",
+    "cloudyvial",
+    "cloudy",
+    "refrigerate testosterone",
+    "refrigeratetestosterone",
+    "cold oil",
+    "coldoil",
+    "oil went cloudy",
+    "oilwentcloudy"
+   ],
+   "text": "Oil-based injectable — how to store it, and what ruins it.\n\nBefore opening or mixing:\nRoom temperature, 20–25 °C, out of direct light.\n\nAfter opening or mixing:\nSame once opened. Oil-based vials do not get a fridge.\n\nWhat ruins it:\nDo not refrigerate. Cold thickens the carrier and can bring the ester out of solution. If you see crystals or cloudiness, warm the vial in your hand or a cup of warm water and look again — if it does not clear, do not use it.\n\nGeneral handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.",
+   "route": {
+    "view": "storage",
+    "item": "oil"
+   }
+  },
+  {
+   "id": "storage:oral",
+   "kind": "storage",
+   "title": "Oral tablet or capsule",
+   "subtitle": "storage and handling",
+   "terms": [
+    "oral tablet or capsule",
+    "oraltabletorcapsule",
+    "tablet storage",
+    "tabletstorage",
+    "capsule storage",
+    "capsulestorage",
+    "store pills",
+    "storepills",
+    "desiccant",
+    "bathroom cabinet",
+    "bathroomcabinet",
+    "humidity pills",
+    "humiditypills",
+    "tablets",
+    "capsules",
+    "where do i keep my tablets",
+    "wheredoikeepmytablets",
+    "keep my pills",
+    "keepmypills",
+    "store my tablets",
+    "storemytablets",
+    "store my capsules",
+    "storemycapsules"
+   ],
+   "text": "Oral tablet or capsule — how to store it, and what ruins it.\n\nBefore opening or mixing:\nRoom temperature and dry, in the original container with whatever desiccant came in it, out of light.\n\nAfter opening or mixing:\nUnchanged once opened, as long as it stays dry.\n\nWhat ruins it:\nHumidity is the real enemy — a bathroom cabinet is the worst place in the house for these.\n\nGeneral handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.",
+   "route": {
+    "view": "storage",
+    "item": "oral"
+   }
+  },
+  {
+   "id": "storage:susp",
+   "kind": "storage",
+   "title": "Aqueous suspension",
+   "subtitle": "storage and handling",
+   "terms": [
+    "aqueous suspension",
+    "aqueoussuspension",
+    "suspension storage",
+    "suspensionstorage",
+    "settled vial",
+    "settledvial",
+    "shake the vial",
+    "shakethevial",
+    "resuspend",
+    "clumped"
+   ],
+   "text": "Aqueous suspension — how to store it, and what ruins it.\n\nBefore opening or mixing:\nFollow the label for temperature.\n\nAfter opening or mixing:\nRoll or swirl the vial to resuspend before every draw. A suspension that has settled doses unevenly — the first draw comes out weak and the last comes out strong.\n\nWhat ruins it:\nDo not freeze. Thawing leaves the particles clumped and the vial unusable even when it looks fine once shaken. Suspensions also block fine needles more readily than solutions, so a slightly wider gauge draws more easily.\n\nGeneral handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.",
+   "route": {
+    "view": "storage",
+    "item": "susp"
+   }
+  },
+  {
+   "id": "storage:topical",
+   "kind": "storage",
+   "title": "Topical cream, gel or serum",
+   "subtitle": "storage and handling",
+   "terms": [
+    "topical cream, gel or serum",
+    "topicalcreamgelorserum",
+    "topical cream gel or serum",
+    "cream storage",
+    "creamstorage",
+    "gel storage",
+    "gelstorage",
+    "store cream",
+    "storecream",
+    "beyond use date",
+    "beyondusedate",
+    "airless pump",
+    "airlesspump"
+   ],
+   "text": "Topical cream, gel or serum — how to store it, and what ruins it.\n\nBefore opening or mixing:\nRoom temperature, 20–25 °C, out of direct sun and away from heat. A compounded prescription cream usually carries its own beyond-use date from the pharmacy that made it — that date is the one that counts, not a general shelf life.\n\nAfter opening or mixing:\nUnchanged once opened, with the cap or pump closed between uses. Do not decant into a different jar and do not try to refill an airless pump or tube — both invite contamination and neither is designed to be reopened.\n\nWhat ruins it:\nHeat and sunlight are what break these down: a glovebox, a windowsill, a bathroom shelf above a shower. Keep water out of an open jar — dry hands or the applicator that came with it, never a wet finger.\n\nGeneral handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.",
+   "route": {
+    "view": "storage",
+    "item": "topical"
+   }
+  },
+  {
+   "id": "storage:excursion",
+   "kind": "storage",
+   "title": "Left out, too warm, or frozen by accident",
+   "subtitle": "storage and handling",
+   "terms": [
+    "left out, too warm, or frozen by accident",
+    "leftouttoowarmorfrozenbyaccident",
+    "left out too warm or frozen by accident",
+    "left out",
+    "leftout",
+    "left it out",
+    "leftitout",
+    "left them out",
+    "leftthemout",
+    "out overnight",
+    "outovernight",
+    "overnight",
+    "room temp overnight",
+    "roomtempovernight",
+    "is it ruined",
+    "isitruined",
+    "are they ruined",
+    "aretheyruined",
+    "garbage",
+    "still good",
+    "stillgood",
+    "still ok",
+    "stillok",
+    "go bad",
+    "gobad",
+    "gone bad",
+    "gonebad",
+    "spoiled",
+    "wasted",
+    "hot car",
+    "hotcar",
+    "left in the car",
+    "leftinthecar",
+    "mailbox",
+    "porch",
+    "shipping heat",
+    "shippingheat",
+    "melted",
+    "thawed",
+    "accidentally froze",
+    "accidentallyfroze",
+    "froze my peptides",
+    "frozemypeptides",
+    "forgot to refrigerate",
+    "forgottorefrigerate",
+    "not refrigerated",
+    "notrefrigerated",
+    "unrefrigerated",
+    "did i ruin",
+    "didiruin",
+    "wasted my vial",
+    "wastedmyvial",
+    "throw it away",
+    "throwitaway",
+    "discard"
+   ],
+   "text": "Left out, too warm, or frozen by accident — whether a vial that was stored wrong is still usable.\n\nWhich vial is it?\nTwo vials in the same drawer can have opposite answers, so start here: was it still a sealed powder, or already mixed with water? Sealed powder is far more forgiving than anything in solution, and most of the worry attaches to the wrong one.\n\nIf it was still sealed powder:\nA sealed lyophilized vial that spent a night at room temperature is close to a non-event. Sealed powder tolerates room temperature in transit by design — that is how it reached you in the first place. Put it back in the fridge and carry on. What actually threatens powder is moisture and light, not one warm night.\n\nIf it was already mixed:\nA reconstituted vial is the one worth thinking about. The roughly 28-day window assumes it stayed at 2–8 °C, and peptide breakdown runs on temperature and time, so a warm night spends part of that budget rather than none of it. That usually means somewhat weaker, not ruined. If it was mixed with BACTERIOSTATIC water, the benzyl alcohol goes on holding bacterial growth down — that is the job it is there to do — but it does nothing whatever about the peptide itself degrading. If it was mixed with PLAIN STERILE water there is no preservative at all, and a vial that sat out warm should be discarded rather than reasoned about.\n\nIf it froze:\nFrozen is a worse question than warm, and a separate one. Freeze–thaw is among the more reliable ways to wreck a peptide, and a reconstituted vial that looks perfectly clear again after thawing can still have lost a great deal of its activity. An oil-based vial that merely got cold is usually recoverable — warm it in your hand and inspect, per the oil rule. Insulin that has frozen is not recoverable and should be discarded.\n\nWhat to look for:\nLook at it before you use it. Cloudiness where it should be clear, visible particles, a colour change, or anything that will not redissolve are all reasons to stop. But a vial can look flawless and still have degraded, so appearance rules a vial OUT — it never rules one in.\n\nWhat cannot be known from here:\nThe honest limit: nobody can tell you from a description how much potency one specific vial lost, and anyone who gives you a percentage is guessing. What can be decided is whether it crossed a line that makes it unsafe rather than merely weaker — no preservative plus a warm night, a freeze, or visible contamination. Those are discard. And never answer a vial that seems weak by taking more of it: if it has degraded you are guessing at a dose, and if it has not, you are simply overdosing.\n\nGeneral handling practice for this formulation. Your supplier’s own insert or COA overrides anything here.",
+   "route": {
+    "view": "storage",
+    "item": "excursion"
    }
   },
   {

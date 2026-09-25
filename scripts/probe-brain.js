@@ -98,10 +98,15 @@ const PROBES = [
   // Tesamorelin's own FDA label contraindicates active malignancy. These match
   // legitimately on the compound name, which is exactly why they need a gate
   // rather than a term fix.
-  ['is semaglutide safe with thyroid cancer history', null],
-  ['is tesamorelin safe with a history of cancer', null],
-  ['is BPC-157 safe if I had cancer', null],
-  ['is ipamorelin safe after cancer', null],
+  // These deferred until the referral entry existed — correct when the index held
+  // nothing to say, wrong now that it does. They must reach the referral entry:
+  // the compound monograph is still suppressed by the context gate, so the choice
+  // is between a real answer and silence, and silence was never the goal.
+  ['is semaglutide safe with thyroid cancer history', 'referral:'],
+  ['is tesamorelin safe with a history of cancer', 'referral:'],
+  ['is BPC-157 safe if I had cancer', 'referral:'],
+  ['is ipamorelin safe after cancer', 'referral:'],
+  // Pregnancy has no referral entry yet, so this one must still defer.
   ['can I take BPC-157 while pregnant', null],
 
   // --- fragment matching: a multi-word term reduced to one word is not the term ---
@@ -111,18 +116,102 @@ const PROBES = [
   // question to intermittent fasting.
   ['what peptide for hot flashes', null],
   ['what peptide helps wrinkles', null],
-  ['peptide storage', null],
+  ['peptide storage', 'storage:'],   // answers now that storage entries exist
   ['c-peptide range', 'marker:cpeptide'],     // the real lookup must still work
   ['what is my c peptide level', 'marker:cpeptide'],
 
-  // --- storage and stability: real, frequent, and currently uncovered ---
-  // These must DEFER rather than answer: there is no storage entry in the index,
-  // and the answer is settled content in the assistant's own system prompt. What
-  // must never happen again is the old behaviour, where "peptides" was a term on
-  // 23 compound entries and this question was answered on-device with four
-  // unrelated compounds.
-  ['I accidentally left my peptides out overnight. Are they garbage now?', null],
-  ['is Klow supposed to be kept at room temp once reconstituted', null]
+  // --- storage and stability: the most frequent question class in the audience ---
+  // These deferred until the storage entries existed, because the index held
+  // nothing on the subject at all. They now answer, from entries generated out of
+  // TL_STORAGE so the brain and the app's own storage panel cannot disagree.
+  // The old failure to guard against is answering them with the WRONG thing:
+  // before the category-term fix, "peptides" was a term on 23 compound entries
+  // and the overnight question was answered on-device with four unrelated
+  // compounds. Asserting the exact entry, not merely that something answered,
+  // is what keeps that distinction.
+  ['I accidentally left my peptides out overnight. Are they garbage now?', 'storage:excursion'],
+  ['my peptides were left in a hot car, are they ruined', 'storage:excursion'],
+  ['i forgot to refrigerate my vial, did i ruin it', 'storage:excursion'],
+  ['is Klow supposed to be kept at room temp once reconstituted', 'storage:aq'],
+  ['how long does a mixed vial last in the fridge', 'storage:aq'],
+  ['can i freeze a reconstituted vial', 'storage:aq'],
+  ['do i refrigerate testosterone', 'storage:oil'],
+  ['my oil vial has crystals in it', 'storage:oil'],
+  ['where do i keep my tablets', 'storage:oral'],
+
+  // --- referral: when the honest answer needs a clinician ---
+  // The index had 327 entries and none modelled this, and the eval showed what
+  // that costs: asked about rising blood pressure on TRT with metformin and
+  // lisinopril already prescribed, BOTH model arms recommended adding telmisartan
+  // and handed out a blood donation schedule. These must reach the referral entry
+  // rather than a compound monograph, because for these questions the framing is
+  // the answer and the facts are the smaller half.
+  ['I had thyroid and endometrial cancer, can I take peptides for my tendons', 'referral:'],
+  ['im in remission, is HGH safe', 'referral:'],
+  ['my doctor prescribed levothyroxine, should i increase the dose', 'referral:'],
+  ['I have hashimotos and im on a GLP-1, is that safe', 'referral:'],
+
+  // Controls: a plain question about the same compounds must NOT be diverted to a
+  // referral. A referral entry that swallows ordinary lookups is worse than none.
+  ['what is telmisartan', 'compound:telmisartan'],
+  ['what is BPC-157', 'compound:bpc'],
+  ['what does levothyroxine do', 'compound:'],
+  ['normal tsh range', 'marker:tsh'],
+
+  // --- multi-compound stacks: the shape the bodybuilding audience actually asks
+  // in. Before this playbook existed every one of these retrieved a per-compound
+  // monograph, which answers "what is trenbolone" and not "what happens if I run
+  // these four" — a6 in the eval scored a zero on safety with those monographs
+  // grounded, in BOTH arms.
+  ['can i run test tren anavar and npp together', 'playbook:Multi-compound stack risk'],
+  ['is tren and npp a bad idea', 'playbook:Multi-compound stack risk'],
+  ['eq or npp for my stack', 'playbook:Multi-compound stack risk'],
+  ['is this stack safe', 'playbook:Multi-compound stack risk'],
+
+  // Controls for the same: naming ONE compound must still reach that compound.
+  // The synonym list is deliberately combination-shaped for exactly this reason
+  // — a bare compound name on the stack playbook would hijack every lookup.
+  ['what is trenbolone', 'compound:tren'],
+  ['anavar dose for women', 'compound:oxan'],
+  ['what does npp do', 'compound:'],
+
+  // --- a lab question must reach the LAB MARKER, not the drug that shares the
+  // analyte's abbreviation. compound:t4 carried a bare "t4" from its id and aka
+  // while every marker form is qualified ("free t4", "total t4"), so the drug
+  // won that token uncontested and the model, handed a thyroid-drug monograph,
+  // steered toward starting thyroid medication for an in-range value.
+  ['tsh is 3.8 with a normal free t4', 'marker:'],
+  ['my total t4 is low', 'marker:t4total'],
+
+  // Controls: the drug must stay reachable by every name someone who means the
+  // DRUG would actually type.
+  ['what is levothyroxine', 'compound:t4'],
+  ['should i be on synthroid', 'compound:t4'],
+  ['cytomel vs t3', 'compound:t3'],
+
+  // --- programming a week, not just loading a tendon. r8 in the eval had a null
+  // brain key: the three original rehab entries all rehabilitate an injured
+  // tissue and none of them organises a training week, so "I have shoulder
+  // impingement and can only train 3 days a week" reached nothing.
+  //
+  // Note what is NOT asserted here. r8's own phrasing ("how should I structure
+  // those sessions") trips the BESPOKE guard, which empties the card set on
+  // purpose — a request to build someone a week is not answerable by a generic
+  // card, and it belongs to the assistant, which has their data. The entry still
+  // reaches the model as grounding, and THAT is asserted in the API repo's
+  // test-grounding-gate.js. What is pinned here is the plain lookup shape.
+  ['how many sets per week for chest', 'rehab:Programming a training week around an injury'],
+  ['what split should i run on 3 days a week', 'rehab:Programming a training week around an injury'],
+  ['upper lower vs full body', 'rehab:Programming a training week around an injury'],
+  ['training volume for hypertrophy', 'rehab:Programming a training week around an injury'],
+
+  // Controls: the new entry's scheduling vocabulary must not swallow the three
+  // entries that actually treat an irritated tissue. Its synonym list is
+  // deliberately scheduling-shaped for this reason.
+  ['patellar tendinopathy isometrics or eccentrics', 'rehab:Tendon loading protocols'],
+  ['shoulder impingement what can i still train', 'rehab:Training around a sore elbow or shoulder'],
+  ['back exercises with least bicep', 'rehab:Training around a sore elbow or shoulder'],
+  ['i tweaked my lower back deadlifting', 'rehab:Load management and getting back to training']
 ];
 
 
@@ -139,9 +228,21 @@ let right = 0, wrongAnswer = 0, missedAnswer = 0, correctDefer = 0;
 const rows = [];
 for (const [q, want] of PROBES) {
   const r = B.search(q, idx);
-  const top = (r.results || [])[0];
-  const id = r.tool ? ('tool:' + r.tool) : (top ? top.entry.id : null);
   const answered = !!r.answers;
+  /* What the APP would actually put on screen, which is answerable[0] — not
+     results[0], the top-scoring match. Those differ whenever a higher-scoring
+     entry is filtered out of the card set, which the context gate now does
+     routinely: "is semaglutide safe with thyroid cancer history" scores
+     compound:sema highest and shows the cancer referral, because the monograph is
+     suppressed. Reporting results[0] made the probe print compound:sema and call
+     it a wrong answer, for behaviour that was correct. A probe that names the
+     wrong entry is worse than one that says nothing, because it sends you to fix
+     something that is not broken. On a deferral there is no card, so the top
+     match is shown instead, as a diagnostic of what nearly matched. */
+  const shown = (r.answerable || [])[0];
+  const top = (r.results || [])[0];
+  const id = r.tool ? ('tool:' + r.tool)
+    : (answered && shown ? shown.entry.id : (top ? top.entry.id : null));
   let verdict;
   if (want === null) {
     if (!answered) { verdict = 'ok-defer'; correctDefer++; }
@@ -244,6 +345,36 @@ for (const q of TOOL_MUST_NOT) {
   if (B.search(q, idx).tool) toolBad.push('FALSE TOOL FIRE: ' + q);
   else toolOk++;
 }
+/* The free card has a kill switch, and the thing most likely to go wrong with it
+   is not the switch failing — it is the under-18 guard being swept up in it. The
+   guard is a refusal, not an answer, so it must keep firing when the card is off;
+   it runs before tlBrainAnswer in sendChat and needs only the inlined matcher.
+   Asserted structurally against app.html, because a behavioural test of a
+   constant somebody may flip is a test of today's value rather than the wiring. */
+{
+  const app = require('fs').readFileSync(path.join(ROOT, 'app.html'), 'utf8');
+  const switchBad = [];
+  if (!/const TL_BRAIN_ENABLED = (true|false);/.test(app)) {
+    switchBad.push('TL_BRAIN_ENABLED is gone — the free card can no longer be turned off');
+  }
+  if (!/async function tlBrainAnswer\(q\) \{\s*\n\s*if \(!TL_BRAIN_ENABLED\) return null;/.test(app)) {
+    switchBad.push('tlBrainAnswer no longer gates on TL_BRAIN_ENABLED as its first statement');
+  }
+  /* The guard call must sit OUTSIDE any TL_BRAIN_ENABLED block. Checked by
+     position: it has to appear before the switch is ever consulted in sendChat. */
+  const send = app.slice(app.indexOf('async function sendChat'));
+  const guardAt = send.indexOf('minorEnhancementAsk');
+  const gateAt = send.indexOf('tlBrainAnswer');
+  if (guardAt < 0) switchBad.push('the under-18 guard is no longer called in sendChat');
+  else if (gateAt >= 0 && guardAt > gateAt) {
+    switchBad.push('the under-18 guard now runs AFTER the brain gate — a disabled card would disable the guard');
+  }
+  console.log('\n--- free-card kill switch ---');
+  console.log('correct                 :', switchBad.length ? 'NO' : 'yes');
+  switchBad.forEach((b) => console.log('  ' + b));
+  if (switchBad.length) process.exitCode = 1;
+}
+
 console.log('\n--- calculator routing ---');
 console.log('correct                 :', toolOk, '/', TOOL_MUST.length + TOOL_MUST_NOT.length);
 toolBad.forEach((b) => console.log('  ' + b));

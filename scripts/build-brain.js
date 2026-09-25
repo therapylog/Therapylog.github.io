@@ -125,6 +125,27 @@ const STOP = new Set(['high', 'low', 'the', 'and', 'for', 'with', 'signs', 'earl
   'works', 'short', 'list', 'limit', 'stick', 'rates', 'realistic', 'size',
   'breaks', 'rate', 'eating', 'prep', 'meal']);
 
+/* Abbreviations that belong to a lab ANALYTE first and a drug second.
+
+   "TSH is 3.8 with a normal free T4" was grounding the Levothyroxine monograph,
+   and the eval showed the cost: handed a thyroid-drug monograph as supporting
+   material, the model steered toward starting thyroid medication for a value
+   inside the reference range. The mechanism is that no marker carries the bare
+   form — they are all qualified ("free t4", "total t4", "t4, total") — while
+   compound:t4 carries "t4" from both its id and its aka list. So the one token
+   the question and the drug share is a token no marker competes for, and the
+   drug wins it uncontested.
+
+   Someone who means the medicine types levothyroxine, Synthroid or LT4, and all
+   three stay terms. Someone who types a bare "T4" means the lab value.
+
+   This is a list rather than a rule because the collision is not general: DHEA
+   (compound) against DHEA-S (marker) is the same SHAPE and must NOT be
+   collapsed — they are different molecules and "dhea" should reach the
+   compound. Only add an entry here when the bare form genuinely names the
+   analyte in ordinary use. */
+const ANALYTE_ABBREV = new Set(['t3', 't4']);
+
 function terms(...bits) {
   const out = new Set();
   for (const b of bits.flat()) {
@@ -137,7 +158,21 @@ function terms(...bits) {
     const spaced = s.replace(/[^a-z0-9]+/g, ' ').trim();
     if (spaced && spaced !== s) out.add(spaced);
   }
-  return [...out];
+  /* Drop shrapnel from splitting chemical names. Fisetin's title carries its
+     IUPAC form, which split into the terms "3", "7" and "3'" — a bare number
+     is exactly the "16 8" bug that once answered "I'm 16 and want to start my
+     first cycle" with an intermittent-fasting card. The matcher's numericOnly
+     guard already refuses to match these, so this is the same rule enforced one
+     layer earlier: junk that cannot match should not be in the index at all,
+     because the only thing standing between it and a bad match is that one
+     guard continuing to exist.
+
+     The test is a SINGLE token carrying no letter. It has to be that precise:
+     a first attempt at this required two letters anywhere in the term and
+     silently deleted every term of the 16:8 fasting entry ("16 8", "168"),
+     which is a real protocol name people type. The probe caught it. A
+     multi-token numeric term like "16 8" is a name; a lone "3" is debris. */
+  return [...out].filter((t) => /[a-z]/.test(t) || /\s/.test(t));
 }
 
 const lines = (a) => (a || []).filter(Boolean);
@@ -292,6 +327,20 @@ const NUTRITION_SYNONYMS = {
    this the three rehab entries are unreachable for exactly the people who need
    them. */
 const REHAB_SYNONYMS = {
+  /* r8 in the eval had a null brain key: nothing in the index could answer
+     "I have shoulder impingement and can only train 3 days a week, how should I
+     structure those sessions". The other three rehab entries all load an
+     injured tissue; none of them programs a WEEK. Terms therefore lean on the
+     scheduling vocabulary ("split", "3 days a week", "how to structure") rather
+     than the injury vocabulary the other entries already own. */
+  'Programming a training week around an injury': ['split', 'training split', 'program',
+    'programme', 'programming', 'routine', 'how to structure', 'structure my training',
+    'structure my week', 'training week', 'weekly split', '3 days a week', '3 day split',
+    'four day split', 'upper lower', 'full body', 'push pull legs', 'ppl',
+    'how many sets', 'sets per week', 'weekly sets', 'training volume', 'volume',
+    'training frequency', 'how often should i train', 'still make progress',
+    'train around', 'training around an injury', 'work around injury',
+    'external rotation', 'scapular', 'overhead press pain', 'landmine press'],
   'Tendon loading protocols': ['tendon', 'tendinitis', 'tendonitis', 'tendinopathy',
     'patellar', 'jumpers knee', 'achilles', 'tennis elbow', 'golfers elbow',
     'lateral epicondylitis', 'eccentric', 'eccentrics', 'heavy slow resistance', 'hsr',
@@ -338,10 +387,138 @@ const COMPOUND_SYNONYMS = {
   trenenan: ['tren', 'trenbolone', 'tren enth'],
   mt2: ['melanotan 2', 'melanotan2'],
   ghkcu: ['ghcku', 'ghk cu'],
-  nad: ['nad plus']
+  nad: ['nad plus'],
+  /* The title is "Levothyroxine (T4)", so the bare drug name was never a term:
+     the parenthesised form and the brand names were, and "levothyroxine" alone
+     reached nothing. Same shape for the T3 entry. */
+  t4: ['levothyroxine'],
+  t3: ['liothyronine']
 };
 
+/* Storage is the highest-frequency question class in the audience and had zero
+   entries in a 327-entry index, so "I accidentally left my peptides out
+   overnight, are they garbage now?" reached the model with nothing attached —
+   and before the category-term fix, was answered on-device with four unrelated
+   compounds.
+   The answer already existed in TL_STORAGE, which the app renders in its own
+   storage panel. These entries are GENERATED from it rather than written again,
+   for the same reason the brain index is generated from app.html: a second copy
+   of a storage rule is a second thing to get wrong, and a stale one reads as
+   authoritative. Only the terms are authored, because the words people use for
+   this ("garbage", "hot car", "left it out") appear nowhere in the rules. */
+/* The words people use when they are in one of these situations, which are not
+   the words in the titles. Someone who has had cancer writes "I had thyroid
+   cancer" or "since my treatment", never "growth signalling". */
+const REFERRAL_SYNONYMS = {
+  'A cancer history, and anything that pushes growth signalling': [
+    /* Plurals and the way people actually write it. One real post says "I had 2
+       cancers. Thyroid and endometrial" — whole-phrase matching means "cancer"
+       does not reach "cancers", and that one word was the whole difference
+       between reaching this entry and not. */
+    'cancer', 'cancers', 'had cancer', 'had cancers', 'two cancers', 'had 2 cancers',
+    'cancer history', 'history of cancer', 'in remission', 'remission', 'post cancer',
+    'after cancer', 'cancer treatment', 'cancer treatments', 'had treatment',
+    'survivor', 'chemo', 'chemotherapy', 'radiation', 'tumor', 'tumour', 'oncologist',
+    'oncology', 'malignancy', 'thyroid cancer', 'breast cancer', 'prostate cancer',
+    'endometrial cancer', 'melanoma', 'lymphoma', 'leukemia', 'is it safe after cancer',
+    'safe with cancer history', 'growth hormone and cancer', 'igf-1 and cancer',
+    'peptides after cancer', 'bpc after cancer', 'hgh cancer'],
+  'A change to a medication someone else prescribed': [
+    /* Deliberately NOT bare "prescription" or "prescribed". Those matched "can I
+       just use my wife's testosterone prescription instead of getting my own",
+       which is a different question with a different hazard — someone else's dose,
+       no indication, no monitoring — and a generic change-your-medication card is
+       a weak answer to it. The terms here name the ACTION of adding, stopping or
+       changing your own. */
+    'my prescription', 'should i add', 'should i stop',
+    'should i increase', 'change my dose', 'my doctor prescribed', 'my prescriber',
+    'lisinopril', 'telmisartan', 'amlodipine', 'losartan', 'statin', 'blood pressure medication',
+    'bp meds', 'thyroid medication', 'levothyroxine dose', 'add a medication',
+    'stop taking my', 'come off my'],
+  'Several conditions, several compounds, and a question that needs all of them': [
+    'multiple conditions', 'several compounds', 'stack with my medication',
+    'autoimmune', 'hashimotos', 'hashimoto', 'lupus', 'crohns', 'too many variables',
+    'interacts with my', 'is this safe with my condition', 'my conditions']
+};
+
+/* Settled first, then why the rest is out of reach, then what to bring. The
+   order is the point: a referral that leads with "see your doctor" is the answer
+   people already had. */
+function referralText(r) {
+  const p = [];
+  p.push(`${r.t} \u2014 when the honest answer needs someone who can examine you.`);
+  if (r.when) p.push('', 'When this applies:', r.when);
+  if (r.settled) p.push('', 'What is settled, and worth having first:', r.settled);
+  if (r.why) p.push('', 'What puts the rest out of a chat\u2019s reach:', r.why);
+  if (r.bring) p.push('', 'What to bring:', r.bring);
+  if (r.ask) p.push('', 'What to ask:', r.ask);
+  if (r.ev) p.push('', 'Evidence:', r.ev);
+  return p.join('\n');
+}
+
+const STORAGE_SYNONYMS = {
+  aq: ['peptide storage', 'store peptides', 'storing peptides', 'lyophilized', 'lyophilised',
+    'powder vial', 'reconstituted storage', 'how long does a mixed vial last', 'mixed vial',
+    'bacteriostatic water storage', '28 days', 'fridge', 'refrigerate', 'freezer', 'kit of vials',
+    /* Explicit rather than inherited from the label, which is no longer split into
+       words. These are the words the questions actually use. */
+    'reconstituted', 'reconstitute', 'room temp', 'room temperature', 'can i freeze',
+    'freeze a vial', 'freeze it', 'keep it cold', 'how cold'],
+  oil: ['oil storage', 'testosterone storage', 'store testosterone', 'oil vial cloudy',
+    'crystals in vial', 'crystals', 'crystallized', 'crystallised', 'cloudy vial', 'cloudy',
+    'refrigerate testosterone', 'cold oil', 'oil went cloudy'],
+  oral: ['tablet storage', 'capsule storage', 'store pills', 'desiccant', 'bathroom cabinet',
+    'humidity pills', 'tablets', 'capsules', 'where do i keep my tablets', 'keep my pills',
+    'store my tablets', 'store my capsules'],
+  susp: ['suspension storage', 'settled vial', 'shake the vial', 'resuspend', 'clumped'],
+  topical: ['cream storage', 'gel storage', 'store cream', 'beyond use date', 'airless pump'],
+  excursion: ['left out', 'left it out', 'left them out', 'out overnight', 'overnight',
+    'room temp overnight', 'is it ruined', 'are they ruined', 'garbage', 'still good',
+    'still ok', 'go bad', 'gone bad', 'spoiled', 'wasted', 'hot car', 'left in the car',
+    'mailbox', 'porch', 'shipping heat', 'melted', 'thawed', 'accidentally froze',
+    'froze my peptides', 'forgot to refrigerate', 'not refrigerated', 'unrefrigerated',
+    'did i ruin', 'wasted my vial', 'throw it away', 'discard']
+};
+
+/* One paragraph per field, in the order someone actually needs them. The class
+   rules read before/after/avoid; the excursion entry reads fork first, because
+   which vial you have changes every line under it. */
+function storageText(key, c, caveat) {
+  const p = [];
+  p.push(c.fork
+    ? `${c.label} — whether a vial that was stored wrong is still usable.`
+    : `${c.label} — how to store it, and what ruins it.`);
+  if (c.fork) {
+    p.push('', 'Which vial is it?', c.fork);
+    if (c.powder) p.push('', 'If it was still sealed powder:', c.powder);
+    if (c.mixed) p.push('', 'If it was already mixed:', c.mixed);
+    if (c.frozen) p.push('', 'If it froze:', c.frozen);
+    if (c.inspect) p.push('', 'What to look for:', c.inspect);
+    if (c.honest) p.push('', 'What cannot be known from here:', c.honest);
+  } else {
+    if (c.before) p.push('', 'Before opening or mixing:', c.before);
+    if (c.after) p.push('', 'After opening or mixing:', c.after);
+    if (c.premixed) p.push('', 'If it came ready-mixed:', c.premixed);
+    if (c.avoid) p.push('', 'What ruins it:', c.avoid);
+  }
+  p.push('', caveat);
+  return p.join('\n');
+}
+
 const PLAYBOOK_SYNONYMS = {
+  /* Stack questions are the single most common shape in the bodybuilding
+     communities this app is aimed at, and until this entry existed the index
+     had no answer to any of them — a4/a6 in the eval retrieved per-compound
+     monographs, which answer "what is trenbolone" and not "what happens if I
+     run these four". Terms stay deliberately multi-word or combination-shaped:
+     a bare compound name here would hijack every single-compound question. */
+  'Multi-compound stack risk': ['stack', 'stacking', 'stack safe', 'is this stack safe',
+    'good stack', 'stack advice', 'cycle stack', 'compound stack', 'run together',
+    'running together', 'all together', 'at the same time', 'multiple compounds',
+    'two 19-nors', 'two 19 nors', 'tren and npp', 'tren and deca', 'test tren anavar',
+    'test tren', 'tren npp', 'npp or eq', 'eq or npp', 'eq better than npp',
+    'add another compound', 'second compound', 'third compound', 'four compounds',
+    'three compounds', 'multi compound', 'polypharmacy'],
   'Liver strain': ['liver', 'liver damage', 'liver values', 'liver enzymes', 'alt', 'ast',
     'alt high', 'ast high', 'ggt', 'bilirubin', 'jaundice', 'yellow eyes', 'hepatotoxic',
     'hepatotoxicity', 'liver toxic', 'liver support', 'tudca', 'nac', '17aa', '17-aa',
@@ -394,9 +571,9 @@ const MARKER_PLAYBOOK = {
 function build() {
   const html = fs.readFileSync(APP, 'utf8');
   const d = declarations(html, [
-    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB', 'NUTRITION',
+    'DB', 'MARKER_REGISTRY', 'LAB_REF', 'SIDEFX', 'REHAB', 'NUTRITION', 'REFERRAL',
     'INTERACTIONS', 'NEW_INTERACTIONS', 'CLINIC_INTERACTIONS',
-    'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES'
+    'TEMPLATES', 'NEW_TEMPLATES', 'FEMALE_TEMPLATES', 'TL_STORAGE'
   ]);
 
   const entries = [];
@@ -418,7 +595,12 @@ function build() {
            on the strength of that one word, and was shown to the user as a free
            on-device answer. A term that names a category cannot discriminate
            between its members; it can only pick some at random. */
-        terms: terms(dr.name, (dr.aka || '').split(/[,/]/), dr.id, COMPOUND_SYNONYMS[dr.id] || []),
+        /* ANALYTE_ABBREV is applied to COMPOUNDS only. The bare abbreviation
+           is dropped from the drug so the lab marker is the entry a lab
+           question reaches; a marker that ever wants the bare form is free to
+           carry it. */
+        terms: terms(dr.name, (dr.aka || '').split(/[,/]/), dr.id, COMPOUND_SYNONYMS[dr.id] || [])
+          .filter((t) => !ANALYTE_ABBREV.has(t)),
         text: compoundText(dr, cls),
         route: { view: 'encyclopedia', cls: cls.id, drug: dr.id }
       });
@@ -468,7 +650,7 @@ function build() {
     const pmids = new Set([...claims, ...nutrition].map((c) => String(c.pmid || '').trim()));
     const setids = new Set(labels.map((l) => String(l.dailymedUrl || '').split('setid=')[1]).filter(Boolean));
     const bad = [];
-    for (const s of [...d.SIDEFX, ...d.REHAB, ...d.NUTRITION]) {
+    for (const s of [...d.SIDEFX, ...d.REHAB, ...d.NUTRITION, ...(d.REFERRAL || [])]) {
       for (const row of (s.src || [])) {
         if (!Array.isArray(row) || row.length !== 2 || !row[0] || !row[1]) {
           bad.push(`${s.t}: malformed src row ${JSON.stringify(row)} — expected [identifier, what it shows]`);
@@ -592,6 +774,59 @@ function build() {
       src: n.src || [],
       route: { view: 'nutrition', item: n.t }
     });
+  }
+
+  for (const r of (d.REFERRAL || [])) {
+    if (!REFERRAL_SYNONYMS[r.t]) {
+      throw new Error(`REFERRAL entry "${r.t}" has no REFERRAL_SYNONYMS list — its title ` +
+        'is not how anyone describes their own situation, so without terms it is unreachable.');
+    }
+    entries.push({
+      id: `referral:${r.t}`,
+      kind: 'referral',
+      title: r.t,
+      subtitle: 'when to involve a clinician',
+      terms: terms(r.t, REFERRAL_SYNONYMS[r.t] || []),
+      text: referralText(r),
+      src: r.src || [],
+      route: { view: 'referral', item: r.t }
+    });
+  }
+
+  /* Storage, generated from TL_STORAGE so the brain and the app's own storage
+     panel cannot disagree. Overrides are skipped: insulin and larazotide are
+     answered by their compound entries, and a second card saying almost the
+     same thing is how a user ends up comparing two of our own answers. */
+  {
+    const st = d.TL_STORAGE || {};
+    const cls = Object.assign({}, st.classes || {});
+    if (st.excursion) cls.excursion = st.excursion;
+    const unmappedStorage = Object.keys(cls).filter((k) => !STORAGE_SYNONYMS[k]);
+    if (unmappedStorage.length) {
+      throw new Error('TL_STORAGE has formulations with no STORAGE_SYNONYMS entry: ' +
+        unmappedStorage.join(', ') + ' — without terms they are unreachable, which is the ' +
+        'state this content was added to fix.');
+    }
+    for (const [key, c] of Object.entries(cls)) {
+      entries.push({
+        id: `storage:${key}`,
+        kind: 'storage',
+        title: c.label,
+        subtitle: 'storage and handling',
+        /* The label is NOT split into words here, unlike the playbook and nutrition
+           entries whose titles are topical. These labels are descriptive sentences —
+           "Left out, too warm, or frozen by accident" — and splitting one puts "too",
+           "out", "use" and "by" into the term list, where they match anything.
+           Measured: it sent "estrodiol too high" to the excursion entry and "can I
+           just USE my wife's prescription" to the powder entry. That is the same
+           generic-word defect as sore/back/what, and it slips under the category-term
+           guard because each word lands on only one or two entries rather than four.
+           The synonyms carry the retrieval; the label is a heading, not an index. */
+        terms: terms(c.label, STORAGE_SYNONYMS[key] || []),
+        text: storageText(key, c, st.caveat || ''),
+        route: { view: 'storage', item: key }
+      });
+    }
   }
 
   const allInteractions = [...d.INTERACTIONS, ...d.NEW_INTERACTIONS, ...d.CLINIC_INTERACTIONS];
