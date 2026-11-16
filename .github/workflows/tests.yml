@@ -1,0 +1,35 @@
+name: Tests
+on:
+  push:
+    paths:
+      - 'app.html'
+      - 'src/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - '.github/workflows/tests.yml'
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
+      # The tests lift the app's own functions out of app.html and run them, so
+      # what passes here is the shipped text, not a copy of it. Dates in this
+      # code are local calendar days, and a test that only passes in one
+      # timezone is hiding a bug for everyone outside it, so the suite runs
+      # behind, on and ahead of UTC.
+      - name: Unit tests, UTC
+        run: node --test tests/*.test.js
+        env: { TZ: UTC }
+      - name: Unit tests, America/Chicago
+        run: node --test tests/*.test.js
+        env: { TZ: America/Chicago }
+      - name: Unit tests, Pacific/Auckland
+        run: node --test tests/*.test.js
+        env: { TZ: Pacific/Auckland }
+      # Pinch-zoom unlocked, decimal keypads on number inputs, dvh fallbacks.
+      # Fails if a new number input arrives without its inputmode.
+      - name: app.html keeps the mobile-fit patch
+        run: node scripts/mobile-fit-patch.js --check
