@@ -244,8 +244,8 @@
     "lastmod": "2026-09-08"
   },
   "/compounds/retatrutide/": {
-    "hash": "af2e78ad3bb52dae33915dfcf16e313135fc1b04e6a739fcf23dc1de164b484e",
-    "lastmod": "2026-09-25"
+    "hash": "d42338fef8dfe725dcb3e4cba808cd4686f3673de6a2fb885fe738275acfca67",
+    "lastmod": "2026-11-16"
   },
   "/compounds/selank/": {
     "hash": "e9af8c762ea5584e11a274e6be2e748e7536a2785a8dbb8455e9444387454b1f",
@@ -404,20 +404,20 @@
     "lastmod": "2026-09-08"
   },
   "/tools/bpc-157-reconstitution-calculator/": {
-    "hash": "5b3ab3a95f1b4f613f2e2ba17cbe2f0d7287fb159bab4aca43d93ee6294cb845",
-    "lastmod": "2026-09-08"
+    "hash": "0642a4283aaa292987a04b7f469a3c33feb10995bc371bb7bb8c0a9c0e187f9f",
+    "lastmod": "2026-11-16"
   },
   "/tools/bpc-157-tb-500-blend-calculator/": {
-    "hash": "e3baba6d57d1d73a2c8efe61e2397564ef972e974e2d33d401f4a6497044f50b",
-    "lastmod": "2026-09-08"
+    "hash": "e047bd44f7b136dcfe16a4218ab0f0f36bd377ee73f405140ec2a0e22e30a1c1",
+    "lastmod": "2026-11-16"
   },
   "/tools/free-testosterone-calculator/": {
     "hash": "dca08b412e40861ae358db3b28c4da2fdc6a516cb81af5ceef98f12742d1e52a",
     "lastmod": "2026-09-08"
   },
   "/tools/glow-peptide-blend-calculator/": {
-    "hash": "6864eef2af9196446b68ef6be74158f714c9c8c95487a8d4d455f0acb333b708",
-    "lastmod": "2026-09-08"
+    "hash": "3402f0df351e85a65d1000d135b0a11631a5732ab6666c64a7cbf9bb0dc9d589",
+    "lastmod": "2026-11-16"
   },
   "/tools/half-life-calculator/": {
     "hash": "b9b7382b6b1973abb741c20a962ee460aa84f31c6ad5b9aeacc3369885278551",
@@ -452,8 +452,8 @@
     "lastmod": "2026-09-08"
   },
   "/tools/half-life/retatrutide/": {
-    "hash": "50485a46b52598a9d6182714cfa0af2246a0d4ef020ea8ef4e233c33f88f2e52",
-    "lastmod": "2026-09-25"
+    "hash": "915a8fc007b43987f9e4b1403a878d147b223fa19575a0e16a6025f4e7ad3671",
+    "lastmod": "2026-11-16"
   },
   "/tools/half-life/semaglutide/": {
     "hash": "c12ad36a87a388b7d0b8de64a0990c363609217bc93a17c961feb3ce716999c9",
@@ -488,24 +488,24 @@
     "lastmod": "2026-09-08"
   },
   "/tools/klow-peptide-blend-calculator/": {
-    "hash": "669f38cc5d44075d3ea6cddedacc3f8e79cde0ce87e073e767f04d12cb2c197b",
-    "lastmod": "2026-09-08"
+    "hash": "42351a4d044bcf2fdbe66137d724847c7881ad4fa8880c3f01827bb369592e9b",
+    "lastmod": "2026-11-16"
   },
   "/tools/peptide-reconstitution-calculator/": {
-    "hash": "a7cb3f664061ec2c755d9978157a3c2f23c49d50ca3608fa192769d41dd7ee6b",
-    "lastmod": "2026-09-08"
+    "hash": "ef7445ec0ff299763eb27a644b929d032aee4512bc31b66cef4769fe1eab61c0",
+    "lastmod": "2026-11-16"
   },
   "/tools/post-cycle-drugs-evidence/": {
     "hash": "54320a3246534eeb4b03a63fbce84511ed060c92a22381bc88bc2b1a54839512",
     "lastmod": "2026-09-08"
   },
   "/tools/retatrutide-reconstitution-calculator/": {
-    "hash": "8b2ee428a757814686ca3bc9d7077892eb8d334fbf9ba5a527c053310b579571",
-    "lastmod": "2026-09-25"
+    "hash": "e7b8c66614579cffd54a1dbd04dbfa41f9961e79609212fc3f3327eb6e227db6",
+    "lastmod": "2026-11-16"
   },
   "/tools/semaglutide-reconstitution-calculator/": {
-    "hash": "81ca38a192fea708165e6b6ed1b64495daf4718241f97b59b640816ba9cfed07",
-    "lastmod": "2026-09-08"
+    "hash": "a0395611ddbc945d43c6cc7fef6e926c18f8c0475013e64572416e72e281b11d",
+    "lastmod": "2026-11-16"
   },
   "/tools/serms-and-gynecomastia/": {
     "hash": "b2eb6c2a7b724634902073d960771c7c12b0dfe8a46a53385d25cd6a0ba19f14",
@@ -520,20 +520,20 @@
     "lastmod": "2026-09-08"
   },
   "/tools/syringe-builder/": {
-    "hash": "66f166a45554ed253c9e19b0ccab665e8900a9e8fd741fa83eeda207692f1b35",
-    "lastmod": "2026-09-08"
+    "hash": "ad075d6496439a313d448b9e6344157a3eeb3ffa3f424e7c6470eac896ca1260",
+    "lastmod": "2026-11-16"
   },
   "/tools/tb-500-reconstitution-calculator/": {
-    "hash": "e89fb58dd81066779f663133f94d53bf282fb2d8b30fe191f2650afe8c47c4e5",
-    "lastmod": "2026-09-08"
+    "hash": "ad8a06632a5f414d0709e8e72708274f215291bda49e3059c4af843d24410284",
+    "lastmod": "2026-11-16"
   },
   "/tools/tendon-loading-protocols/": {
     "hash": "8185c966743d1e5c63ecf4ce15b03ee08f2edd113385367fe05e2fae9c8d4c2b",
     "lastmod": "2026-09-08"
   },
   "/tools/tirzepatide-reconstitution-calculator/": {
-    "hash": "8de5e8f6152284beaa0dd8d364fa86d7ddcc88597f5808718f4f398a48c70ea3",
-    "lastmod": "2026-09-08"
+    "hash": "d3c65be9315d7c608356991b899696dbb4a4a858ef682e218ea964b2d20e5d19",
+    "lastmod": "2026-11-16"
   },
   "/tools/training-load-management/": {
     "hash": "331c04344f4e9aa436246300c0bb1f5f54c0e7adcd60fd4fb429f2756c8fb342",
