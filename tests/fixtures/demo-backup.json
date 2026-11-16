@@ -1,0 +1,517 @@
+{
+  "version": 2,
+  "exportedAt": "2026-11-16T15:00:00.000Z",
+  "appName": "TherapyLog",
+  "data": {
+    "entries": [
+      {
+        "type": "weight",
+        "ts": "2026-11-16T15:00:00.000Z",
+        "weight": 195.2,
+        "energy": 8,
+        "sleep": 7.5,
+        "hrv": 58,
+        "steps": 9200,
+        "stress": 3,
+        "mood": "great",
+        "notes": "Feeling strong today"
+      },
+      {
+        "type": "weight",
+        "ts": "2026-11-13T15:00:00.000Z",
+        "weight": 196,
+        "energy": 7,
+        "sleep": 6.5,
+        "hrv": 52,
+        "steps": 7800,
+        "stress": 4,
+        "mood": "good",
+        "notes": ""
+      },
+      {
+        "type": "weight",
+        "ts": "2026-11-09T15:00:00.000Z",
+        "weight": 196.8,
+        "energy": 8,
+        "sleep": 8,
+        "hrv": 61,
+        "steps": 10400,
+        "stress": 2,
+        "mood": "peak",
+        "notes": "Best sleep this week"
+      },
+      {
+        "type": "weight",
+        "ts": "2026-11-06T15:00:00.000Z",
+        "weight": 197.5,
+        "energy": 6,
+        "sleep": 6,
+        "hrv": 45,
+        "steps": 6200,
+        "stress": 6,
+        "mood": "good",
+        "notes": "Stressful work week"
+      },
+      {
+        "type": "weight",
+        "ts": "2026-11-02T15:00:00.000Z",
+        "weight": 198.2,
+        "energy": 7,
+        "sleep": 7,
+        "hrv": 54,
+        "steps": 8500,
+        "stress": 3,
+        "mood": "good",
+        "notes": ""
+      },
+      {
+        "type": "weight",
+        "ts": "2026-10-26T14:00:00.000Z",
+        "weight": 199,
+        "energy": 7,
+        "sleep": 7.5,
+        "hrv": 50,
+        "steps": 8000,
+        "stress": 3,
+        "mood": "good",
+        "notes": "Starting to see progress"
+      },
+      {
+        "type": "weight",
+        "ts": "2026-10-17T14:00:00.000Z",
+        "weight": 201.4,
+        "energy": 6,
+        "sleep": 7,
+        "hrv": 48,
+        "steps": 7500,
+        "stress": 4,
+        "mood": "neutral",
+        "notes": "Before protocol adjustment"
+      },
+      {
+        "type": "weight",
+        "ts": "2026-10-02T14:00:00.000Z",
+        "weight": 204,
+        "energy": 5,
+        "sleep": 6,
+        "hrv": 42,
+        "steps": 6000,
+        "stress": 5,
+        "mood": "neutral",
+        "notes": "Pre-TRT baseline"
+      },
+      {
+        "type": "weight",
+        "ts": "2026-09-17T14:00:00.000Z",
+        "weight": 207.5,
+        "energy": 4,
+        "sleep": 5.5,
+        "hrv": 38,
+        "steps": 5200,
+        "stress": 7,
+        "mood": "neutral",
+        "notes": "Original baseline weight"
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-16T15:00:00.000Z",
+        "medication": "Testosterone Cypionate",
+        "dose": "100mg",
+        "site": "R Glute",
+        "notes": ""
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-16T15:00:00.000Z",
+        "medication": "BPC-157",
+        "dose": "250mcg",
+        "site": "Sub-Q Belly",
+        "notes": "AM dose"
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-15T15:00:00.000Z",
+        "medication": "Ipamorelin",
+        "dose": "200mcg",
+        "site": "L Delt",
+        "notes": "Pre-bed"
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-15T15:00:00.000Z",
+        "medication": "CJC-1295",
+        "dose": "200mcg",
+        "site": "L Delt",
+        "notes": "With Ipamorelin"
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-13T15:00:00.000Z",
+        "medication": "BPC-157",
+        "dose": "250mcg",
+        "site": "Sub-Q Belly",
+        "notes": "PM dose"
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-13T15:00:00.000Z",
+        "medication": "Testosterone Cypionate",
+        "dose": "100mg",
+        "site": "L Glute",
+        "notes": ""
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-12T15:00:00.000Z",
+        "medication": "Ipamorelin",
+        "dose": "200mcg",
+        "site": "R Delt",
+        "notes": "Pre-bed"
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-12T15:00:00.000Z",
+        "medication": "CJC-1295",
+        "dose": "200mcg",
+        "site": "R Delt",
+        "notes": "With Ipamorelin"
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-09T15:00:00.000Z",
+        "medication": "Testosterone Cypionate",
+        "dose": "100mg",
+        "site": "R Quad",
+        "notes": ""
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-09T15:00:00.000Z",
+        "medication": "BPC-157",
+        "dose": "250mcg",
+        "site": "Sub-Q Belly",
+        "notes": "AM"
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-06T15:00:00.000Z",
+        "medication": "Testosterone Cypionate",
+        "dose": "100mg",
+        "site": "L Quad",
+        "notes": ""
+      },
+      {
+        "type": "medication",
+        "ts": "2026-11-02T15:00:00.000Z",
+        "medication": "Testosterone Cypionate",
+        "dose": "100mg",
+        "site": "R Glute",
+        "notes": ""
+      },
+      {
+        "type": "medication",
+        "ts": "2026-10-30T14:00:00.000Z",
+        "medication": "Testosterone Cypionate",
+        "dose": "100mg",
+        "site": "L Glute",
+        "notes": ""
+      },
+      {
+        "type": "medication",
+        "ts": "2026-10-26T14:00:00.000Z",
+        "medication": "Testosterone Cypionate",
+        "dose": "100mg",
+        "site": "R Delt",
+        "notes": ""
+      },
+      {
+        "type": "bloodpressure",
+        "ts": "2026-11-16T15:00:00.000Z",
+        "sys": 122,
+        "dia": 78,
+        "hr": 62,
+        "device": "Arm cuff",
+        "conditions": "Resting AM",
+        "stage": "Normal",
+        "notes": "Morning reading before coffee"
+      },
+      {
+        "type": "bloodpressure",
+        "ts": "2026-11-13T15:00:00.000Z",
+        "sys": 126,
+        "dia": 80,
+        "hr": 65,
+        "device": "Arm cuff",
+        "conditions": "Resting AM",
+        "stage": "Normal",
+        "notes": ""
+      },
+      {
+        "type": "bloodpressure",
+        "ts": "2026-11-09T15:00:00.000Z",
+        "sys": 124,
+        "dia": 79,
+        "hr": 63,
+        "device": "Arm cuff",
+        "conditions": "Resting AM",
+        "stage": "Normal",
+        "notes": ""
+      },
+      {
+        "type": "bloodpressure",
+        "ts": "2026-11-02T15:00:00.000Z",
+        "sys": 128,
+        "dia": 82,
+        "hr": 68,
+        "device": "Arm cuff",
+        "conditions": "Resting AM",
+        "stage": "Elevated",
+        "notes": "Slightly up — monitoring"
+      },
+      {
+        "type": "bloodpressure",
+        "ts": "2026-10-17T14:00:00.000Z",
+        "sys": 134,
+        "dia": 86,
+        "hr": 72,
+        "device": "Arm cuff",
+        "conditions": "Resting AM",
+        "stage": "High — Stage 1",
+        "notes": "Before Telmisartan added"
+      },
+      {
+        "type": "bloodpressure",
+        "ts": "2026-10-02T14:00:00.000Z",
+        "sys": 138,
+        "dia": 88,
+        "hr": 74,
+        "device": "Arm cuff",
+        "conditions": "Resting AM",
+        "stage": "High — Stage 1",
+        "notes": "Baseline on TRT only"
+      },
+      {
+        "type": "symptom",
+        "ts": "2026-11-14T15:00:00.000Z",
+        "category": "Joint Pain",
+        "severity": 3,
+        "description": "Mild left knee discomfort after leg day",
+        "related": "BPC-157",
+        "notes": "Improving with BPC-157"
+      },
+      {
+        "type": "symptom",
+        "ts": "2026-11-08T15:00:00.000Z",
+        "category": "Sleep Quality",
+        "severity": 4,
+        "description": "Some trouble falling asleep",
+        "related": "Ipamorelin",
+        "notes": "Moved Ipamorelin earlier"
+      },
+      {
+        "type": "symptom",
+        "ts": "2026-11-01T15:00:00.000Z",
+        "category": "Energy",
+        "severity": 2,
+        "description": "Afternoon energy dip",
+        "related": "",
+        "notes": ""
+      },
+      {
+        "type": "symptom",
+        "ts": "2026-10-25T14:00:00.000Z",
+        "category": "Mood",
+        "severity": 3,
+        "description": "Mild irritability mid-week",
+        "related": "Testosterone Cypionate",
+        "notes": "E2 may be slightly high — labs ordered"
+      },
+      {
+        "type": "bloodwork",
+        "ts": "2026-11-11T15:00:00.000Z",
+        "labDate": "2026-11-11",
+        "labs": {
+          "tott": 748,
+          "freet": 18.2,
+          "e2": 28,
+          "shbg": 24,
+          "lh": 0.3,
+          "fsh": 0.4,
+          "hct": 46.2,
+          "hgb": 15.8,
+          "rbc": 5.1,
+          "wbc": 5.8,
+          "plt": 228,
+          "psa": 0.8,
+          "igf1": 218,
+          "chol": 172,
+          "ldl": 88,
+          "hdl": 52,
+          "trig": 82,
+          "glucose": 88,
+          "hba1c": 5.1,
+          "creat": 1,
+          "egfr": 98,
+          "alt": 28,
+          "ast": 24,
+          "vitd": 62,
+          "b12": 680,
+          "crp": 0.4,
+          "tsh": 1.8,
+          "ft4": 1.3,
+          "ft3": 3.4
+        },
+        "notes": "Week 8 labs — good response to protocol"
+      },
+      {
+        "type": "bloodwork",
+        "ts": "2026-09-17T14:00:00.000Z",
+        "labDate": "2026-09-17",
+        "labs": {
+          "tott": 312,
+          "freet": 7.8,
+          "e2": 18,
+          "shbg": 38,
+          "lh": 4.2,
+          "fsh": 5.1,
+          "hct": 42.8,
+          "hgb": 14.2,
+          "rbc": 4.6,
+          "wbc": 6.2,
+          "plt": 245,
+          "psa": 0.6,
+          "igf1": 142,
+          "chol": 198,
+          "ldl": 118,
+          "hdl": 44,
+          "trig": 145,
+          "glucose": 97,
+          "hba1c": 5.4,
+          "creat": 0.95,
+          "egfr": 102,
+          "alt": 32,
+          "ast": 28,
+          "vitd": 38,
+          "b12": 420,
+          "crp": 1.8,
+          "tsh": 2.4,
+          "ft4": 1.1,
+          "ft3": 2.9
+        },
+        "notes": "Baseline labs before starting TRT protocol"
+      }
+    ],
+    "proto": {
+      "name": "TRT + Peptide Optimization Protocol",
+      "start": "2026-09-17",
+      "weeks": 16,
+      "meds": "Testosterone Cypionate, 200mg/week, Twice weekly (Mon/Thu)\nBPC-157, 250mcg twice daily, Twice daily\nCJC-1295, 200mcg, Daily (pre-bed)\nIpamorelin, 200mcg, Daily (pre-bed with CJC-1295)\nAnastrozole, 0.5mg, Twice weekly (with Test injection)\nHCG, 250IU, Twice weekly (Mon/Thu)",
+      "pct": "Nolvadex 40/40/20/20/20/20mg + Clomid 50/50/25/25mg\nBegin 2 weeks after last testosterone injection",
+      "_created": "2026-09-17T14:00:00.000Z"
+    },
+    "profile": {
+      "name": "James Mitchell (sample data)",
+      "dob": "1985-03-14",
+      "sex": "Male",
+      "diagnosis": "Hypogonadism / Low Testosterone",
+      "height": "5'11\"",
+      "goal": "Optimize testosterone levels, improve body composition, and enhance overall performance and recovery. Long-term goal is maintaining optimal hormone levels while building lean mass and reducing body fat to 12%.",
+      "physician": "Dr. Sample (demo)",
+      "clinic": "Example Clinic — demo data",
+      "specialty": "Men's Health / TRT Clinic",
+      "drPhone": "(555) 847-2210",
+      "nextAppt": "2026-11-30",
+      "drNotes": "SAMPLE DATA — not a real clinical note. Illustrates where notes from your own provider appear once you enter them. Reviewed labs and current protocol; recheck in 6 weeks.",
+      "updatedAt": "2026-11-11T15:00:00.000Z"
+    },
+    "bodyComp": [
+      {
+        "ts": "2026-11-16T15:00:00.000Z",
+        "weight": 195.2,
+        "bf": 16.2,
+        "lean": 163.6,
+        "fat": 31.6
+      },
+      {
+        "ts": "2026-11-02T15:00:00.000Z",
+        "weight": 197.5,
+        "bf": 17.1,
+        "lean": 163.7,
+        "fat": 33.8
+      },
+      {
+        "ts": "2026-10-17T14:00:00.000Z",
+        "weight": 201.4,
+        "bf": 18.8,
+        "lean": 163.5,
+        "fat": 37.9
+      },
+      {
+        "ts": "2026-09-17T14:00:00.000Z",
+        "weight": 207.5,
+        "bf": 22.4,
+        "lean": 161,
+        "fat": 46.5
+      }
+    ],
+    "photos": [
+      {
+        "ts": "2026-11-16T15:00:00.000Z",
+        "date": "2026-11-16",
+        "week": "Week 8 Check-in",
+        "weight": 195.2,
+        "bf": 16.2,
+        "notice": "Noticeably more vascular in arms and shoulders. Waist has reduced by about an inch. Energy and fullness significantly improved compared to baseline.",
+        "conditions": "Morning fasted, consistent lighting, relaxed pose",
+        "mood": "4",
+        "protocol": "Week 8 of 16",
+        "notes": "Protocol working well. BPC-157 has made a real difference in recovery."
+      },
+      {
+        "ts": "2026-10-17T14:00:00.000Z",
+        "date": "2026-10-17",
+        "week": "Week 4 Check-in",
+        "weight": 201.4,
+        "bf": 18.8,
+        "notice": "Starting to see some definition returning. Face looks leaner. Energy improving week over week.",
+        "conditions": "Morning fasted",
+        "mood": "3",
+        "protocol": "Week 4 of 16",
+        "notes": "First month complete."
+      },
+      {
+        "ts": "2026-09-17T14:00:00.000Z",
+        "date": "2026-09-17",
+        "week": "Baseline — Day 1",
+        "weight": 207.5,
+        "bf": 22.4,
+        "notice": "Baseline photos before starting protocol.",
+        "conditions": "Morning fasted",
+        "mood": "2",
+        "protocol": "Pre-protocol",
+        "notes": "Starting TRT and peptide protocol today."
+      }
+    ],
+    "reminderTimes": {
+      "Testosterone Cypionate": [
+        "08:00"
+      ],
+      "BPC-157": [
+        "07:30",
+        "20:00"
+      ],
+      "CJC-1295": [
+        "21:30"
+      ],
+      "Ipamorelin": [
+        "21:30"
+      ],
+      "Anastrozole": [
+        "08:00"
+      ],
+      "HCG": [
+        "08:30"
+      ]
+    }
+  }
+}

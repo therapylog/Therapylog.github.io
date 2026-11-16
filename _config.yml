@@ -24,6 +24,10 @@ exclude:
   - node_modules
   - docs
   - scripts
+  # Test code and its fixtures (a sample patient's backup), and the source
+  # modules scripts/build-app.js inlines into app.html. Neither is a page.
+  - tests
+  - src
   - "*.md"
   - "*.pdf"
   - "*.zip"
