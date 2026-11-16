@@ -190,6 +190,132 @@ function tlDueBanner(protocol, entries, nowMs) {
   return { at: at, alert: tlRoundAlert(rounds[hit], rounds.slice(hit + 1), protocol.discreet) };
 }
 
+/* ---- src/logic/backup.js ---- */
+/* Backup state, and the log as a spreadsheet.
+ *
+ * Two different things, kept apart on purpose. A BACKUP is the JSON file
+ * exportData() writes: the whole record, restorable. The CSV here is the log
+ * laid out for a person to read, in a spreadsheet or at an appointment. It
+ * cannot be restored from and does not count as a backup.
+ */
+
+var TL_BACKUP_STALE_DAYS = 7;
+
+/* Where the user's backup stands.
+ *
+ *   lastExportMs   when a backup was last written (localStorage tl-last-export),
+ *                  or null if never
+ *   linked         whether a backup file is linked for the weekly rewrite
+ *   hasData        whether there is anything to lose
+ *
+ * `stale` is what turns the Settings row amber: seven days or more since the
+ * last backup, or no backup at all once there is something to back up. */
+function tlBackupState(lastExportMs, nowMs, linked, hasData) {
+  var never = !(lastExportMs > 0);
+  var days = never ? null : Math.max(0, Math.floor((nowMs - lastExportMs) / 864e5));
+  var stale = never ? !!hasData : days >= TL_BACKUP_STALE_DAYS;
+  var line = '';
+  if (stale) {
+    line = never ? 'No backup yet. Weekly is the recommendation.'
+      : 'Last backup was ' + days + (days === 1 ? ' day' : ' days') + ' ago. Weekly is the recommendation.';
+  }
+  return { never: never, lastAt: never ? null : lastExportMs, days: days, stale: stale, weekly: !!linked, line: line };
+}
+
+/* ---- CSV ----------------------------------------------------------------- */
+
+/* One cell. Quoted when it holds a comma, a quote or a line break. A text cell
+   that begins with = + - or @ gets a leading apostrophe: a spreadsheet would
+   otherwise run a note like "=HYPERLINK(...)" as a formula. Numbers are left
+   as numbers, so a negative value is not touched. */
+function tlCsvCell(v) {
+  if (v === null || v === undefined) return '';
+  if (typeof v === 'number') return isFinite(v) ? String(v) : '';
+  var s = String(v);
+  if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function tlCsv(rows) {
+  return rows.map(function (r) { return r.map(tlCsvCell).join(','); }).join('\r\n') + '\r\n';
+}
+
+/* The record as rows: Date, Time, Type, Item, Value, Unit, Notes. One row per
+   logged thing, a lab panel and a set of measurements one row per value.
+   Oldest first, the way a log is read. Dates and times are local. `label` may
+   turn a lab marker's key into its name; without it the key is shown. */
+function tlLogRows(d, label) {
+  var rows = [], name = label || function (k) { return k; };
+  var stamp = function (ts) {
+    var x = new Date(ts);
+    if (isNaN(x)) return ['', ''];
+    return [tlDayKey(x), tlMinToTime(x.getHours() * 60 + x.getMinutes())];
+  };
+  var join = function (parts) { return parts.filter(function (p) { return p !== null && p !== undefined && p !== ''; }).join('; '); };
+  var add = function (ts, type, item, value, unit, notes, day) {
+    var s = stamp(ts);
+    rows.push({ at: new Date(ts).getTime() || 0, row: [day || s[0], day ? '' : s[1], type, item, value, unit, notes || ''] });
+  };
+
+  ((d && d.entries) || []).forEach(function (e) {
+    if (!e) return;
+    if (e.type === 'weight') {
+      var extra = join([
+        e.energy ? 'energy ' + e.energy + '/10' : '', e.sleep ? 'sleep ' + e.sleep + ' h' : '',
+        e.hrv ? 'HRV ' + e.hrv + ' ms' : '', e.steps ? 'steps ' + e.steps : '',
+        e.stress ? 'stress ' + e.stress + '/10' : '', e.alcohol ? 'alcohol ' + e.alcohol : '',
+        e.mood && e.mood.l ? 'mood ' + e.mood.l : '', e.notes
+      ]);
+      if (e.weight > 0) add(e.ts, 'Weight', 'Weight', e.weight, 'lb', extra);
+      else if (extra) add(e.ts, 'Daily', 'Daily log', '', '', extra);
+    } else if (e.type === 'medication') {
+      add(e.ts, 'Dose', e.medication || '', e.dose || '', '', join([e.site ? 'site ' + e.site : '', e.notes]));
+    } else if (e.type === 'bloodpressure') {
+      add(e.ts, 'Blood pressure', 'Systolic/diastolic', e.sys + '/' + e.dia, 'mmHg',
+        join([e.hr ? 'pulse ' + e.hr : '', e.device, e.conditions, e.notes]));
+    } else if (e.type === 'symptom') {
+      add(e.ts, 'Symptom', e.category || 'Symptom', e.severity || '', e.severity ? '/10' : '', join([e.description, e.related, e.notes]));
+    } else if (e.type === 'body') {
+      Object.keys(e.measurements || {}).forEach(function (k) {
+        add(e.ts, 'Measurement', k, e.measurements[k], k === 'bf' ? '%' : 'in', e.notes);
+      });
+    } else if (e.type === 'bloodwork') {
+      Object.keys(e.labs || {}).forEach(function (k) {
+        var meta = (e.labMeta && e.labMeta[k]) || {};
+        add(e.ts, 'Lab', name(k), e.labs[k], meta.unit || '', join([meta.method, e.notes]), e.labDate || null);
+      });
+    }
+  });
+  ((d && d.bodyComp) || []).forEach(function (b) {
+    if (!b) return;
+    add(b.ts, 'Body composition', 'Weight', b.weight, 'lb', '');
+    add(b.ts, 'Body composition', 'Body fat', b.bf, '%', '');
+    add(b.ts, 'Body composition', 'Lean mass (estimate)', b.lean, 'lb', '');
+  });
+  ((d && d.photos) || []).forEach(function (p) {
+    if (!p) return;
+    add(p.ts, 'Check-in', p.week || 'Check-in', '', '', join([p.notice, p.conditions, p.notes]), p.date || null);
+  });
+  ((d && d.doseChanges) || []).forEach(function (c) {
+    if (!c) return;
+    add(c.ts, 'Dose change', c.name || '', (c.from || '') + ' to ' + (c.to || ''), '', '');
+  });
+
+  rows.sort(function (a, b) { return a.row[0] < b.row[0] ? -1 : a.row[0] > b.row[0] ? 1 : a.at - b.at; });
+  return [['Date', 'Time', 'Type', 'Item', 'Value', 'Unit', 'Notes']].concat(rows.map(function (r) { return r.row; }));
+}
+
+function tlLogCsv(d, label) { return tlCsv(tlLogRows(d, label)); }
+
+/* ---- theme --------------------------------------------------------------- */
+
+/* The theme to start in: the one the user chose, or failing that the device's
+   own preference. The same rule initTheme() has always applied. */
+function tlThemeFrom(saved, prefersDark) {
+  if (saved === 'dark' || saved === 'light') return saved;
+  return prefersDark ? 'dark' : 'light';
+}
+
 /* ---- src/logic/changes.js ---- */
 /* The dose-change log.
  *
@@ -1472,6 +1598,87 @@ function tlEnv() {
 /* The user's protocol, as the model. */
 function tlCurrentProtocol() {
   return tlProtocol(gd(), tlEnv());
+}
+
+/* ---- the upgrade screen -------------------------------------------------- */
+
+/* The one way into the upgrade screen. Every feature gate arrives here through
+   TLTier.prompt(), carrying the gated feature's display name, which tier
+   unlocks it ('pro' or 'std') and the feature's key.
+   For now the screen is the overlay TLTier has always shown; the redesign's
+   Pro screen replaces the body of this function and nothing else changes. */
+function openUpgrade(featureName, tier, featureKey) {
+  if (window.TLTier && typeof TLTier._overlay === 'function') {
+    TLTier._overlay(tier === 'pro' ? 'pro' : 'std', featureKey || featureName);
+  }
+}
+
+/* Restore a purchase. On iOS that is the App Store's own restore; everywhere
+   else a plan is restored by entering its license key. Returns which was
+   started, 'store' or 'license', or null if neither is available. */
+function tlRestorePurchases() {
+  var platform = (window.Capacitor && window.Capacitor.getPlatform) ? window.Capacitor.getPlatform() : 'web';
+  if (platform === 'ios' && window.TLIAP && typeof TLIAP.restore === 'function') { TLIAP.restore(); return 'store'; }
+  if (window.TLTier && typeof TLTier.showActivation === 'function') { TLTier.showActivation(); return 'license'; }
+  return null;
+}
+
+/* ---- backup -------------------------------------------------------------- */
+
+/* Where the user's backup stands. `linked` is whether a backup file is linked
+   for the weekly rewrite, which only the caller can know (the handle lives in
+   IndexedDB and is read asynchronously, by tlGetHandle). */
+function tlBackupStatus(linked) {
+  var last = null;
+  try { last = parseInt(localStorage.getItem('tl-last-export') || '0', 10) || null; } catch (e) {}
+  var d = gd();
+  var hasData = (d.entries || []).length > 0 || !!d.proto || !!(d.profile && d.profile.name);
+  return tlBackupState(last, Date.now(), !!linked, hasData);
+}
+
+/* A lab marker's name, for the spreadsheet: a built-in field's label, a custom
+   marker's name, or the key when it is neither. */
+function tlMarkerLabel(key) {
+  var i;
+  if (typeof LAB_FIELDS !== 'undefined') {
+    for (i = 0; i < LAB_FIELDS.length; i++) if (LAB_FIELDS[i].key === key) return LAB_FIELDS[i].label || key;
+  }
+  var custom = (typeof getAllCustomMarkers === 'function') ? getAllCustomMarkers()[key] : null;
+  return (custom && custom.name) || key;
+}
+
+/* Download the log as a spreadsheet. Not a backup: it cannot be restored from,
+   so it does not reset the backup clock. */
+function tlExportCsv() {
+  var csv = tlLogCsv(gd(), tlMarkerLabel);
+  /* The byte-order mark makes Excel read the file as UTF-8. */
+  var blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'therapylog-log-' + tlTodayStr() + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  return csv;
+}
+
+/* ---- theme --------------------------------------------------------------- */
+
+/* The theme showing now: 'dark' or 'light'. */
+function tlTheme() {
+  return document.body.classList.contains('light-mode') ? 'light' : 'dark';
+}
+
+/* Set the theme, and keep it. toggleTheme() already knows how to switch the
+   class, store the choice and redraw the charts, so this only decides whether
+   a switch is needed. */
+function tlSetTheme(mode) {
+  if (mode !== 'light' && mode !== 'dark') return tlTheme();
+  if (tlTheme() !== mode) toggleTheme();
+  else { try { localStorage.setItem('tl-theme', mode); } catch (e) {} }
+  return tlTheme();
 }
 /* TL-LOGIC:END */
 </script> <script>const DB = {
@@ -11183,7 +11390,12 @@ cost_tracking: 'Cost & Supply Tracking',
    key, so a missing one puts "pct_builder" on screen where a name belongs. */
 pct_builder: 'PCT Protocol Builder'
 },
-prompt: function(tier, feat) {
+/* Every gate comes through here, and from here to openUpgrade() in
+   src/logic/wire.js: one way into the upgrade screen, so the redesign has one
+   place to replace. tier is 'pro' or 'std'; feat is the gated feature's key. */
+prompt: function(tier, feat) { openUpgrade(this.names[feat] || feat, tier, feat); },
+/* The upgrade screen as it is today. Called by openUpgrade() only. */
+_overlay: function(tier, feat) {
 var name = this.names[feat] || feat;
 var isPro = tier === 'pro';
 var div = document.createElement('div');
