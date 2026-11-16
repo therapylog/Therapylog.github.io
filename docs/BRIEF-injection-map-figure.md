@@ -105,7 +105,13 @@ wholesale, with the zones in a **separate sibling group** (`id="zones"`).
 | `dg-r` / `dg-l` | Dorsogluteal | IM | upper outer gluteal quadrant |
 | `calf-r` / `calf-l` | Calf | IM | rear lower leg, upper third |
 
-Left and right are the **viewer's** left and right, mirrored across x=100.
+Left and right are the **person's** left and right, on both views: `-r` is
+their right side. Facing you, their right is on your left; seen from behind,
+it is on your right. (This line used to say the viewer's left and right. The
+site data in `assets/figures/injection-sites.json` followed the person's sides
+on the front view and the viewer's on the back; the back view was corrected
+in November 2026 so that a logged site id means the same side of the body
+whichever view it was tapped on.)
 
 **Sizing:** every marker must be at least 44×44 CSS pixels at a 360px-wide phone
 render. On a 200-unit viewBox scaled to ~250px that means a minimum radius of
