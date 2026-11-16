@@ -5,8 +5,10 @@ Written for Phase 0.2 of the app redesign: Phase 1 migrates this data to a new
 protocol, rounds, supply and injection-site model, and those migrations are
 written from this document.
 
-Line numbers are for `app.html` as of 16 November 2026 (`APP_VERSION`
-`2026.09.07`) and will drift. The key names will not, and they are checked:
+Written against `app.html` as of 16 November 2026 (`APP_VERSION`
+`2026.09.07`), before the redesign's logic was added, and extended in section
+8 with what Phase 1 adds. Code is cited by function name, not by line: the
+first command below prints the current line of every reader and writer.
 
     node scripts/inventory-data-layer.js           every stored key, with the
                                                    functions that touch it
@@ -36,8 +38,8 @@ there.
 
 ## 2. The storage core
 
-`gd()` (1589) reads; `sd(d)` (1599) writes. Nothing else should touch `tlv2`.
-One thing does: `loadDemoData` (8688) writes it directly.
+`gd()` reads; `sd(d)` writes. Nothing else should touch `tlv2`.
+One thing does: `loadDemoData` writes it directly.
 
 - **`gd()` returns a deep copy** of `_memCache`, filling the cache from
   localStorage on first use. Editing what it returns changes nothing until
@@ -53,7 +55,7 @@ One thing does: `loadDemoData` (8688) writes it directly.
   the IndexedDB write still happens.
 - **A `storage` event** from another tab replaces `_memCache`, or reloads the
   page if the key was removed.
-- **Start-up, `initStorage()` (1634):** when both stores hold a record, the one
+- **Start-up, `initStorage()`:** when both stores hold a record, the one
   with the later `_savedAt` wins; if neither has `_savedAt`, the one with more
   entries wins. The winner is written to the other store. IndexedDB alone
   restores localStorage, which is what brings a record back after Safari
@@ -64,7 +66,8 @@ carry `version: 2` in their envelope (section 7) and nothing reads it.
 
 ## 3. The main record
 
-Twelve top-level keys, plus `_savedAt`. Only `entries` and `proto` always
+Twelve top-level keys, plus `_savedAt`, and four more added by Phase 1 of the
+redesign (section 8). Only `entries` and `proto` always
 exist; every other key is absent until first written, and every reader guards
 with `|| []` or `|| {}`.
 
@@ -88,7 +91,7 @@ with `|| []` or `|| {}`.
 
 Every logged item, one array, newest first. An entry is identified by its
 `type` and `ts`. **Entries have no id.** `ts` is `nowStr()`, which is
-`new Date().toISOString()` (1670): a UTC instant with milliseconds, always the
+`new Date().toISOString()`: a UTC instant with milliseconds, always the
 moment of saving. There is no way to back-date an entry; only bloodwork
 carries a separate, user-chosen `labDate`.
 
@@ -99,10 +102,10 @@ the exception to the order: it writes entries grouped by type, and they stay
 that way until one of those three runs.
 
 Deleting and editing: **only blood-pressure readings can be deleted**
-(`deleteBPEntry`, 8255, by position among the BP entries). No function deletes
+(`deleteBPEntry`, by position among the BP entries). No function deletes
 or edits a weight, dose, body, symptom or bloodwork entry. The
-`confirm('Delete this entry?')` at 7095 belongs to photo check-ins (3.8), not
-to this array. One path edits in place: the Apple Health import (below).
+`confirm('Delete this entry?')` in `deletePhotoEntry` belongs to photo
+check-ins (3.8), not to this array. One path edits in place: the Apple Health import (below).
 
 Duplicates: two entries saved in the same millisecond share a `ts`, and
 import and the cross-tab merge both dedupe on `ts` alone, across types. The
@@ -124,7 +127,7 @@ produce this.
   notes: "" }
 ```
 
-Written by `saveWeight` (1712) from inputs `ww we ws whrv wsteps wstress
+Written by `saveWeight` from inputs `ww we ws whrv wsteps wstress
 walcohol wn`. Zero is stored as `null` for every optional field, because each
 is read with `parseInt(x) || null`. `mood` comes from `selMood`: `e` is an
 emoji from `MOOD_MAP` (keys `sleep neutral good great peak`), `l` the button
@@ -133,7 +136,7 @@ label.
 **The unit is pounds, always.** Nothing in the app stores or converts units;
 labels say "lbs". There is no kg setting.
 
-The Apple Health import (`importAppleHealth`, 8325) adds rows of the shape
+The Apple Health import (`importAppleHealth`) adds rows of the shape
 `{ type: "weight", ts, hrv, weight: null }` for a day with an HRV sample and
 no weight entry, and fills `hrv`, `steps` and `sleep` on an existing weight
 entry whose `ts` starts with that local date. So **a weight entry can have
@@ -153,18 +156,18 @@ Four writers:
 
 | Function | `medication` | `dose` | `site` | `notes` |
 |---|---|---|---|---|
-| `saveMed` (1730) | the `mmed` select, or free text when "Custom..." | input `md`, free text | `S.site` or `null` | input `mn` |
-| `quickLogDose` (4705) | the protocol line's name | the protocol line's dose text | the suggested site or `null` | `"Logged via reminder"` |
-| `syrLog` (10648) | the syringe row's name | `r.dose + r.unit` | `null` | `"Combined syringe"` |
-| `loadDemoData` (8588) | literal | literal | literal | literal |
+| `saveMed` | the `mmed` select, or free text when "Custom..." | input `md`, free text | `S.site` or `null` | input `mn` |
+| `quickLogDose` | the protocol line's name | the protocol line's dose text | the suggested site or `null` | `"Logged via reminder"` |
+| `syrLog` | the syringe row's name | `r.dose + r.unit` | `null` | `"Combined syringe"` |
+| `loadDemoData` | literal | literal | literal | literal |
 
 `site` is exactly one of: `L Delt`, `R Delt`, `L Glute`, `R Glute`, `L Quad`,
 `R Quad`, `L Lat`, `R Lat`, `Sub-Q Belly`. The ninth button is labelled
-"Sub-Q" but stores `Sub-Q Belly` (`selSite`, 1708; pinned in
+"Sub-Q" but stores `Sub-Q Belly` (`selSite`; pinned in
 `tests/sites-and-levels.test.js`). Route (IM or SubQ) is not stored anywhere.
 
 `dose` is whatever was typed: `200mg`, `0.5ml`, `250mcg twice daily`,
-`200mg/week`. `pkParseDose` (10302) is the only parser: first number, then an
+`200mg/week`. `pkParseDose` is the only parser: first number, then an
 optional unit directly after it (`mcg mg iu unit(s) ml`), default mg.
 
 `medication` is the join key to the protocol, and it is compared by exact
@@ -177,7 +180,7 @@ string equality everywhere except the level chart (3.5).
     larm: 15.5, rarm: 15.5, lthigh: 24, rthigh: 24, bf: 16.2 }, notes: "" }
 ```
 
-`saveBody` (1748). `measurements` holds only the keys that were filled in.
+`saveBody`. `measurements` holds only the keys that were filled in.
 Inches, except `bf` which is a percentage. Not in the demo data.
 
 #### `symptom`
@@ -189,7 +192,7 @@ Inches, except `bf` which is a percentage. Not in the demo data.
   related: "" }                              // free text
 ```
 
-`saveSymptom` (1760) writes no `notes`; the demo entries have one.
+`saveSymptom` writes no `notes`; the demo entries have one.
 
 #### `bloodwork`
 
@@ -202,7 +205,7 @@ Inches, except `bf` which is a percentage. Not in the demo data.
   notes: "" }
 ```
 
-`saveBloodwork` (1775). `labs` keys are `LAB_FIELDS` keys (4722) plus custom
+`saveBloodwork`. `labs` keys are `LAB_FIELDS` keys plus custom
 marker keys (3.7); only filled fields are present; values are numbers in the
 app's canonical unit for that marker. **`labMeta` is added after the entry is
 built** and only when at least one marker has metadata, so the inventory
@@ -220,10 +223,10 @@ script does not list it: per marker, any of `source`, `unit`, `refLo`,
   stage: "Elevated" }                        // getBPStage(sys, dia).stage at save time
 ```
 
-`saveBP` (8200) accepts systolic 60 to 250 and diastolic 40 to 150 and does
+`saveBP` accepts systolic 60 to 250 and diastolic 40 to 150 and does
 not check that systolic is above diastolic. `stage` is one of `Normal`,
 `Elevated`, `High — Stage 1`, `High — Stage 2`, `Hypertensive Crisis`, or `""`,
-frozen at save time (`getBPStage`, 8172; boundaries pinned in
+frozen at save time (`getBPStage`; boundaries pinned in
 `tests/blood-pressure.test.js`). Readers recompute it for display, so the
 stored value can disagree with a later version of the rules.
 
@@ -238,19 +241,18 @@ stored value can disagree with a later version of the rules.
   _created: "2026-09-17T15:00:00.000Z" }
 ```
 
-One protocol at a time, or `null`. Written whole by `saveProtocol` (1822,
-inputs `cn cs cd cm cp`), `saveObStep4` (6490, onboarding, `pct: ""`),
-`loadDemoData`, and set to `null` by `clearProtocol` (4241). `loadTemplate`
-(3905) only fills the form; the user still saves. Import fills it only when
+One protocol at a time, or `null`. Written whole by `saveProtocol` (inputs `cn cs cd cm cp`), `saveObStep4` (onboarding, `pct: ""`),
+`loadDemoData`, and set to `null` by `clearProtocol`. `loadTemplate`
+only fills the form; the user still saves. Import fills it only when
 the device has none.
 
 **The protocol is free text.** `meds` is one compound per line,
-`name, dose, frequency`, split on every comma (`parseMeds`, 4159). There are
+`name, dose, frequency`, split on every comma (`parseMeds`). There are
 no compound ids: `parseMeds` assigns `id: "med-" + lineIndex` and a colour by
 position at every call, so both change when a line is inserted. The name is
 whatever was typed and need not match the encyclopedia.
 
-`parseFrequency` (4139) matches the third field by substring, in this order:
+`parseFrequency` matches the third field by substring, in this order:
 
 | Contains | Result |
 |---|---|
@@ -272,12 +274,12 @@ pins every case.
 **Nothing stores a schedule.** Two engines derive one from the text at every
 call:
 
-- **`getDoseDays` / `tlFreqDays` (4170).** The one the user sees: the
+- **`getDoseDays` / `tlFreqDays`.** The one the user sees: the
   dashboard's next-dose card, the week view, reminders, both calendar exports,
   the report and the clinic view. Weekly protocols are placed from the
   protocol's start weekday (start day, and start day + 3 for twice weekly),
   ignoring `days: [1, 4]`. `pulse` is never a dose day.
-- **`tlDueOn` and the rule engine (5440 to 5645).** Called only by
+- **`tlDueOn` and the rule engine.** Called only by
   `tlClinicalAnalysis`, to count expected doses for adherence. It accepts a
   richer rule (`daily`, `every.days` including 3.5, `every.weeks`, `weekdays`,
   `weeklyCount`, `monthly`, `taper` with `per`, `pattern.on/off`, `times`,
@@ -300,20 +302,20 @@ remindersFired: { "BPC-157-07:30-Mon Nov 16 2026": true }
 `reminderTimes` is keyed by the compound's name exactly as typed in
 `proto.meds`. Values are 24-hour local `HH:MM` strings, any number, any
 minute. Written by `saveReminderTime`, `addReminderTime`,
-`removeReminderTime` (4580 to 4604). A compound with no entry falls back to
+`removeReminderTime`. A compound with no entry falls back to
 `getDefaultTimes(freq)`: `["08:00", "21:00"]` for twice daily, `["08:00"]` for
 daily, `["09:00"]` otherwise. Renaming or removing a line in the protocol
 leaves its old key behind; nothing prunes this map.
 
 `remindersFired` is `name-HH:MM-` + `new Date().toDateString()`, written by
-`checkAndFireReminder` (4382) when a notification fires, and pruned to 30
+`checkAndFireReminder` when a notification fires, and pruned to 30
 days there. Because names can contain hyphens, the key cannot be split back
 reliably; the pruner takes the last hyphen-separated part as the date.
 
 The "discreet" switch is not here; it is localStorage `tl_notif_discreet`
 (section 5). On the web, reminders are `setTimeout`s armed for the next hour
 while the page is open (`scheduleAllReminders`, every five minutes). The
-native shell replaces that with `TLNative.reschedule` (11526), which reads
+native shell replaces that with `TLNative.reschedule`, which reads
 `proto` and `reminderTimes`.
 
 ### 3.4 `supply`
@@ -322,10 +324,10 @@ native shell replaces that with `TLNative.reschedule` (11526), which reads
 supply: { "BPC-157": { vials: 2, sinceTs: "2026-11-01T15:00:00.000Z" } }
 ```
 
-Keyed by compound name. Written only by `tlSetSupply` (8160), which asks with
-a browser `prompt()`. Read only by `calcRefillAlerts` (8061). There is no
+Keyed by compound name. Written only by `tlSetSupply`, which asks with
+a browser `prompt()`. Read only by `calcRefillAlerts`. There is no
 vial size, no dose count and no spare-vial count: "days per vial" is
-`30 / DRUG_COSTS[name].monthly`, a fixed table (6914) keyed by exact name, so
+`30 / DRUG_COSTS[name].monthly`, a fixed table keyed by exact name, so
 a compound the table does not list has no refill tracking at all. The
 arithmetic is pinned in `tests/supply.test.js`.
 
@@ -336,9 +338,9 @@ pk: { "tc": { hl: 192, tmax: 48 }, "raw:myblend": { hl: 12, tmax: 2 } }
 ```
 
 Per-compound overrides of half-life and time to peak, in hours
-(`pkSaveOverride`, 10550). The key is `pkKeyFor(name)`: an encyclopedia drug
+(`pkSaveOverride`). The key is `pkKeyFor(name)`: an encyclopedia drug
 id when `pkResolve` can match the name, otherwise `raw:` + the normalised
-name. `pkResolve` (10272) is the one fuzzy name match in the app: normalised
+name. `pkResolve` is the one fuzzy name match in the app: normalised
 equality against drug names and aliases, then a prefix match either way for
 names longer than three characters. The level chart (`renderPKLevels`) reads
 medication entries, resolves each name this way, and parses `dose` with
@@ -353,13 +355,12 @@ medication entries, resolves each name this way, and parses `dose` with
   nextAppt: "2026-11-30", drNotes: "...", updatedAt: "2026-11-11T15:00:00.000Z" }
 ```
 
-`saveProfile` (5408) replaces the whole object from the profile form.
+`saveProfile` replaces the whole object from the profile form.
 Onboarding (`saveObStep2`, `saveObStep3`) sets individual fields. Everything
-is a string. `sex` is `"Male"`, `"Female"`, `"Other"` or `""`; `isFemale()`
-(8718) is `sex === "Female"` exactly, and it decides whether the cycle page is
+is a string. `sex` is `"Male"`, `"Female"`, `"Other"` or `""`; `isFemale()` is `sex === "Female"` exactly, and it decides whether the cycle page is
 offered.
 `dob` and `nextAppt` are `YYYY-MM-DD`. `height` is free text. `sex` and the
-age from `dob` adjust lab reference ranges (`getAdjustedLabRanges`, 6983).
+age from `dob` adjust lab reference ranges (`getAdjustedLabRanges`).
 
 Not in the profile, and not anywhere: a unit preference, a body-map figure,
 the user's initial as a separate field.
@@ -373,7 +374,7 @@ customMarkers: { cm_zonulin: { name: "Zonulin", unit: "ng/mL", lo: 0, hi: 40,
 
 User-defined lab markers. The key is `cm_` + the normalised name, cut to 40
 characters (`customMarkerKey`), and is the key used inside a bloodwork
-entry's `labs`. `removeCustomMarker` (4882) deletes an unused definition and
+entry's `labs`. `removeCustomMarker` deletes an unused definition and
 sets `hidden: true` on one that past panels reference.
 
 ### 3.8 `photos`
@@ -385,8 +386,8 @@ sets `hidden: true` on one that past panels reference.
 ```
 
 **There are no photos in `photos`.** It is a list of written progress
-check-ins: `savePhotoEntry` (7038) stores text and two numbers, and no image
-data exists anywhere in the app's storage. `deletePhotoEntry` (7093) removes
+check-ins: `savePhotoEntry` stores text and two numbers, and no image
+data exists anywhere in the app's storage. `deletePhotoEntry` removes
 by array index. Newest first by `unshift`; import appends without re-sorting.
 
 ### 3.9 `bodyComp`
@@ -395,7 +396,7 @@ by array index. Newest first by `unshift`; import appends without re-sorting.
 { ts, weight: 195.2, bf: 16.2, lean: 163.6, fat: 31.6 }
 ```
 
-`saveBodyComp` (3918), from the body-composition tool. Pounds and percent;
+`saveBodyComp`, from the body-composition tool. Pounds and percent;
 `lean = weight × (1 − bf/100)` and `fat = weight × bf/100`, each rounded to
 one decimal and stored. This is a third place a weight lives, beside `weight`
 entries and photo check-ins, and a second place body fat lives, beside
@@ -411,15 +412,15 @@ computed anywhere.
 { ts, date, type: "ovulation", cm: "...", opk: "...", bbt: 97.9, mittelschmerz: "...", notes: "" }
 ```
 
-`saveFemEntry` (8745). Its `type` is `period`, `symptom` or `ovulation`, a
-different vocabulary from `entries[].type`. `getCycleStats` (8779) takes
+`saveFemEntry`. Its `type` is `period`, `symptom` or `ovulation`, a
+different vocabulary from `entries[].type`. `getCycleStats` takes
 period entries whose `flow` is not `end` or `spotting` as cycle starts and
 keeps gaps of 16 to 49 days.
 
 ### 3.11 `_bpSysBuffer`
 
 Scratch space inside `importAppleHealth`: systolic values waiting for their
-diastolic pair. It is deleted before the save (8422) and never reaches
+diastolic pair. It is deleted before the save and never reaches
 storage.
 
 ## 4. What is not stored
@@ -434,12 +435,12 @@ Worth stating because the redesign assumes some of it exists:
 - no inventory beyond `supply[].vials`
 - no images
 - no units, theme-independent display settings, or figure choice
-- clinic mode (`clinicModeActive`, 7314) and the open tab are memory only
+- clinic mode (`clinicModeActive`) and the open tab are memory only
 
 ## 5. localStorage outside the main record
 
 None of these is in a backup or restored by import. "Reset" is whether
-`resetAllData` (7204) removes it.
+`resetAllData` removes it.
 
 | Key | Value | Written by | Read by | Reset |
 |---|---|---|---|---|
@@ -476,7 +477,7 @@ None of these is in a backup or restored by import. "Reset" is whether
   iosToken: null }
 ```
 
-`tlEffectiveTier()` (9563) is the only thing that should be asked for the
+`tlEffectiveTier()` is the only thing that should be asked for the
 tier: it returns `free` once `expires` plus seven days has passed, or once a
 licence has gone seven days unverified. `window.TLTier` wraps it: `get`,
 `isPro()` (pro only), `isStd()` (standard, byok or pro), `canByok()`,
@@ -501,13 +502,13 @@ entitlement. There is no CSV export.
 
 **Weekly backup.** There is no stored "weekly" switch. If the user linked a
 file (`tlLinkBackupFile`, File System Access, Chromium only), its handle sits
-in IndexedDB `TherapyLogBackup` / `handles`, and `tlAutoBackup` (9465)
+in IndexedDB `TherapyLogBackup` / `handles`, and `tlAutoBackup`
 rewrites that file on start-up when `tl-last-export` is more than seven days
 old. `tlDaysSinceBackup()` returns whole days since the last export, or
 `null` if there has never been one. The dashboard banner (`checkPersistBanner`)
 appears after seven days without an export.
 
-**Import is a merge, not a restore** (`importData`, 7141). It accepts the
+**Import is a merge, not a restore** (`importData`). It accepts the
 envelope or a bare record, and then, key by key:
 
 | Key | Rule |
@@ -521,11 +522,11 @@ envelope or a bare record, and then, key by key:
 Entries are never removed or updated by an import. A top-level `labMeta` is
 merged but nothing writes one; per-entry `labMeta` travels inside its entry.
 
-**Reset** (`resetAllData`, 7204) asks two `confirm()` questions, removes
+**Reset** (`resetAllData`) asks two `confirm()` questions, removes
 `tlv2` and the fifteen keys marked "yes" above, and deletes every IndexedDB
 database it can enumerate.
 
-**Demo data** (`loadDemoData`, 8564) asks one `confirm()`, then replaces the
+**Demo data** (`loadDemoData`) asks one `confirm()`, then replaces the
 record with a literal: `entries` (35, no `body` type), `proto`, `profile`,
 `bodyComp`, `photos`, `reminderTimes`. Its dates are relative to the moment
 it runs. It bypasses `sd()`, so the record has no `_savedAt` and unsorted
@@ -589,3 +590,107 @@ Phase 1.
     and `resetAllData` (`confirm()`, twice in the last). The fixture capture
     script answers `loadDemoData`'s dialog and will need updating when it
     becomes an in-app sheet.
+
+## 8. What Phase 1 adds
+
+Phase 1 of the redesign adds logic under `src/logic/`, inlined into
+`app.html` by `scripts/build-app.js`, and with it four top-level keys and
+four fields on medication entries. Nothing here is written for a user who
+only uses the screens that existed before: the new keys appear on the first
+write through the new model. `tests/fixtures/demo-backup-v3.json` is a record
+that has them all.
+
+| Key | Type | Written by |
+|---|---|---|
+| `v` | number. Absent before the redesign; `3` once the record holds a protocol model | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel` |
+| `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel`; deleted by `clearProtocol` and by a save from the old protocol form |
+| `doseChanges` | array, newest first | `tlRecordDoseChanges`, `tlImportModel` |
+| `settings` | object: `{ figure, units }` so far | `tlSetSetting`, `tlImportModel` |
+
+### `protocol`
+
+```js
+{ name, start, weeks, pct, created,              // carried from proto
+  discreet: false,                               // hide compound names in alerts
+  slots: { am: { t: 480, alert: true }, mid: { t: 750, alert: true },
+           eve: { t: 1200, alert: true }, bed: { t: 1290, alert: true } },   // t = minutes since midnight
+  compounds: [{
+    key: "bpc",                                  // stable; safe inside a dose id
+    name: "BPC-157",                             // as typed; still the join to older entries
+    drugId: "bpc",                               // encyclopedia id, or null
+    dose: { amount: 250, unit: "mcg", text: "250mcg twice daily" },   // text always kept; amount null if unclear
+    route: "sq",                                 // "im" | "sq" | "oral" | "topical" | null
+    rule: { daily: true },                       // tlDueOn()'s rule shape; null = no schedule
+    freqText: "Twice daily",                     // the old frequency text, when there was one
+    slots: ["am", "eve"],
+    inv: { per: 20, left: 7, spare: 0, since: "2026-11-16T15:00:00.000Z" }   // or null
+  }] }
+```
+
+`tlProtocol(record, env)` returns it. **While a record has no `protocol`, the
+model is derived from `proto`, `reminderTimes` and `supply` at every call and
+nothing is stored** (`tlProtocolFromLegacy`); the derived object carries
+`derived: true`. Once stored, `protocol` is the truth, and each
+`tlStoreProtocol` also rewrites `proto` and `reminderTimes` from it as the
+closest thing the old shape can say, for the code and the older builds that
+still read them. `supply` is not rewritten.
+
+How each old field is read is in `src/logic/protocol.js` and pinned in
+`tests/protocol.test.js`. In short: weekdays the user wrote out in the
+frequency text become the rule; otherwise weekly protocols fall on the start
+weekday, as `getDoseDays` placed them; the 10-day pulse gets no rule; a dose
+gets an amount only when the text is unambiguous; reminder times map to the
+four slots by time of day.
+
+`inv` is never decremented. Doses left now is `left` minus the medication
+entries for that compound since `since`, opening a spare when the open vial
+runs out (`tlSupply`).
+
+### `doseChanges`
+
+```js
+{ ts: "2026-11-16T15:00:00.000Z", key: "hcg2", name: "HCG", from: "250 IU", to: "500 IU" }
+```
+
+One row per compound whose dose changed in a protocol save, from either the
+new model or the old protocol form (`saveProtocol` calls
+`tlAfterLegacyProtocolSave`). Unique `ts` per row.
+
+### `settings`
+
+Display settings that belong to the person rather than the device, kept in
+the record so that a restored backup brings them back. `figure` (`"male"` or
+`"female"`, the body map) and `units` (`"imperial"` or `"metric"`) are the two
+defined so far. The theme stays in localStorage `tl-theme`, where it has to be
+readable before the record loads.
+
+### Medication entries
+
+A dose logged through the rounds checklist is an ordinary `medication` entry
+with up to four more fields:
+
+| Field | Meaning |
+|---|---|
+| `key` | the compound's `protocol.compounds[].key` |
+| `slot` | `am`, `mid`, `eve` or `bed` |
+| `day` | the local day the dose was due, `YYYY-MM-DD`, which can be the day before `ts` for a bedtime dose logged after midnight |
+| `siteId` | an id from `assets/figures/injection-sites.json`, alongside the site's name in `site` |
+
+Together `key:slot:day` is the dose id. An entry without them, logged from an
+old screen, is matched to a round by compound name, local day and nearest
+time (`tlRoundsFor`). Entries logged in one tap get consecutive milliseconds
+so that no two share a `ts`.
+
+### What changed in the old code paths
+
+- `importData` now calls `tlImportModel` for the four keys above, with the
+  same manners as the rest of the import: a merge, and the device wins. A
+  file's `protocol` is taken only when the device has no protocol in either
+  shape. A file whose `v` is higher than this build's is still imported, with
+  a note that some of it may not have carried over.
+- `sd()`'s cross-tab merge unions `doseChanges` along with the four arrays it
+  already did.
+- `saveProtocol` records dose changes and drops a stored `protocol`, so the
+  model is read again from the text just saved. `clearProtocol` drops it too.
+- Item 1 of section 7 is therefore handled for these keys. It will be true
+  again of any key added later: `tlImportModel` is the place to add it.

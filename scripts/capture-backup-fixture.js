@@ -13,6 +13,11 @@
  *                                                       the round trip. Exits 1 on any
  *                                                       difference.
  *   node scripts/capture-backup-fixture.js --roundtrip  the round trip alone
+ *   ... --model                                         the second fixture,
+ *                                                       tests/fixtures/demo-backup-v3.json:
+ *                                                       the same patient after the redesign's
+ *                                                       logic has stored a protocol model, an
+ *                                                       inventory, a dose change and settings
  *   ... --file FILE                                     work on FILE instead of the
  *                                                       committed fixture
  *
@@ -86,6 +91,31 @@ if (!chromium) {
 const ROOT = path.resolve(__dirname, '..');
 const PAGE = 'app.html';
 const FIXTURE = path.join(ROOT, 'tests', 'fixtures', 'demo-backup.json');
+/* The same patient after the redesign's logic has written to the record: the
+   protocol stored as the model, an inventory, a dose change, a round logged
+   from the checklist, two settings. --model works on this file instead. */
+const FIXTURE_MODEL = path.join(ROOT, 'tests', 'fixtures', 'demo-backup-v3.json');
+
+/* Run in the page after the demo data is loaded, for --model. Every call is
+   the app's own function; this only decides what the sample person did. */
+const USE_THE_MODEL = () => {
+  const d = gd(), env = tlEnv(), now = nowStr();
+  tlMigrateRecord(d, env);
+  const p = tlProtocol(d, env);
+  const before = JSON.parse(JSON.stringify(p));
+  tlSetInventory(tlCompound(p, 'bpc'), { per: 20, left: 7, spare: 0 }, now);
+  tlSetInventory(tlCompound(p, 'cjc'), { per: 10, left: 6, spare: 1 }, now);
+  tlCompound(p, 'hcg2').dose = tlParseDose('500 IU');
+  tlRecordDoseChanges(d, before, p, now);
+  p.slots.eve.alert = false;
+  p.discreet = true;
+  tlStoreProtocol(d, p);
+  tlLogRound(d, tlProtocol(d, env), 'bed', new Date(), now);
+  tlSetSetting(d, 'figure', 'female');
+  tlSetSetting(d, 'units', 'metric');
+  sd(d);
+  return Object.keys(d);
+};
 
 const TZ = 'America/Chicago';
 const LOCALE = 'en-US';
@@ -104,16 +134,18 @@ const EXCLUDED = [
 /* ---- arguments ---------------------------------------------------------- */
 
 const argv = process.argv.slice(2);
-const opt = { check: false, roundtrip: false, file: FIXTURE };
+const opt = { check: false, roundtrip: false, model: false, file: null };
 for (let i = 0; i < argv.length; i++) {
   if (argv[i] === '--check') opt.check = true;
   else if (argv[i] === '--roundtrip') opt.roundtrip = true;
+  else if (argv[i] === '--model') opt.model = true;
   else if (argv[i] === '--file' && argv[i + 1]) opt.file = path.resolve(argv[++i]);
   else {
-    console.error('usage: node scripts/capture-backup-fixture.js [--check | --roundtrip] [--file FILE]');
+    console.error('usage: node scripts/capture-backup-fixture.js [--check | --roundtrip] [--model] [--file FILE]');
     process.exit(2);
   }
 }
+if (!opt.file) opt.file = opt.model ? FIXTURE_MODEL : FIXTURE;
 const rel = path.relative(process.cwd(), opt.file);
 const shown = rel && !rel.startsWith('..') ? rel : opt.file;
 
@@ -331,6 +363,12 @@ async function capture(browser, base) {
     try { return (JSON.parse(localStorage.getItem('tlv2')).entries || []).length > 0; } catch (e) { return false; }
   }, null, { timeout: 15000 }).catch(() => {});
   await page.waitForTimeout(SETTLE_MS);
+
+  if (opt.model) {
+    const keys = await page.evaluate(USE_THE_MODEL);
+    t('the redesign\'s logic wrote to the record', ['v', 'protocol', 'doseChanges', 'settings'].every((k) => keys.includes(k)),
+      'keys: ' + keys.join(', '));
+  }
 
   const stored = await storedRecord(page);
   const file = await exportBackup(page);
