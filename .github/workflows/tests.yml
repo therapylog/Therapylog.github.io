@@ -6,6 +6,7 @@ on:
       - 'src/**'
       - 'tests/**'
       - 'scripts/**'
+      - 'docs/DATA-MODEL.md'
       - '.github/workflows/tests.yml'
   pull_request:
 jobs:
@@ -33,3 +34,10 @@ jobs:
       # Fails if a new number input arrives without its inputmode.
       - name: app.html keeps the mobile-fit patch
         run: node scripts/mobile-fit-patch.js --check
+      - name: Install acorn
+        run: npm install --no-save acorn
+      # Every stored key, entry type and database found in app.html's syntax
+      # tree has to be named in docs/DATA-MODEL.md. The redesign's migrations
+      # are written from that document; a key it omits is a key they drop.
+      - name: docs/DATA-MODEL.md names everything the app stores
+        run: node scripts/inventory-data-layer.js --check

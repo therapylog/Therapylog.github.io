@@ -377,7 +377,7 @@ function print(inv) {
    key. A name counts as documented when it appears in backticks. */
 function required(inv) {
   const names = new Set();
-  Object.keys(inv.main).forEach((k) => names.add(k.split('.')[0].replace(/\[\]$/, '')));
+  Object.keys(inv.main).forEach((k) => names.add(k.split('.')[0].replace(/(\[\])+$/, '')));
   Object.keys(inv.entries).forEach((t) => names.add(t));
   for (const store of Object.keys(inv.web)) {
     Object.keys(inv.web[store]).forEach((k) => { if (!k.startsWith('<')) names.add(k); });

@@ -29,9 +29,9 @@
  *                compared as parsed JSON: object key order is not a
  *                difference, array order is. Only the fields in EXCLUDED are
  *                left out, each by name and with its reason printed.
- *                  first: the fixture. The demo record never went through
- *                    sd(), so its entries are grouped by type; import sorts
- *                    them newest-first. That one reorder is allowed, by name.
+ *                  first: the fixture. The demo record's entries are
+ *                    grouped by type; importData sorts them newest-first.
+ *                    That one reorder is allowed, by name.
  *                    Anything else that differs fails.
  *                  second: the first restore's own export. It must come back
  *                    the same in every field and in every array's order.
@@ -411,16 +411,17 @@ function reportKeyOrder(a, b) {
    changed it once and would change it again".
 
    first    the fixture, restored and exported. The demo record is the one
-            record in the app that never went through sd(): loadDemoData writes
-            localStorage directly, with entries grouped by type. Import saves
-            through sd(), which sorts entries newest-first, as every record a
-            person builds by logging already is. So the first restore may put
+            record whose entries are not newest-first: loadDemoData writes
+            localStorage directly, with entries grouped by type, where every
+            record a person builds by logging is in order already (each save
+            puts the new entry first). importData sorts entries newest-first
+            as it merges them. So the first restore may put
             data.entries in that order, and nothing else: same items, counted
             with duplicates, every field equal. That one reorder is allowed by
             name and printed. Any other difference fails.
    second   the first restore's own export, restored and exported again. Now
-            the record has been through sd(), so this one must come back the
-            same in every field and in every array's order. This is the check
+            the record is in order, so this one must come back the same in
+            every field and in every array's order. This is the check
             the migration is held to: a backup of a real record restores to
             itself. */
 async function roundtrip(browser, base, file) {
