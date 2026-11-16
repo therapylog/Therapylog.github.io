@@ -7,6 +7,7 @@ on:
       - 'tests/**'
       - 'scripts/**'
       - 'docs/DATA-MODEL.md'
+      - 'assets/figures/injection-sites.json'
       - '.github/workflows/tests.yml'
   pull_request:
 jobs:
@@ -30,6 +31,11 @@ jobs:
       - name: Unit tests, Pacific/Auckland
         run: node --test tests/*.test.js
         env: { TZ: Pacific/Auckland }
+      # The redesign's logic is written under src/logic/ and copied into one
+      # marked block of app.html. This fails if the two differ: someone edited
+      # the block by hand, or changed a module without rebuilding.
+      - name: app.html carries src/logic exactly
+        run: node scripts/build-app.js --check
       # Pinch-zoom unlocked, decimal keypads on number inputs, dvh fallbacks.
       # Fails if a new number input arrives without its inputmode.
       - name: app.html keeps the mobile-fit patch
