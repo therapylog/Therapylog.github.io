@@ -1,0 +1,39 @@
+/* The shell's layout (src/ui/shell.js). The old chrome is hidden, not
+   deleted: it goes with the old code in Phase 5. */
+
+/* The old header, bottom nav, hub button grids and floating assistant button. */
+body.tl-shell .header,
+body.tl-shell .nav,
+body.tl-shell #fab-ai,
+body.tl-shell .hub-nav{display:none!important}
+
+/* The top bar: the tab's title and the profile button, the Ask bar on Today,
+   a back button on pushed views, and Health's and Library's segments. */
+#tl-top{
+  position:sticky;top:0;z-index:95;
+  padding:0 var(--gutter) 10px;
+  background:var(--color-bg);
+}
+#tl-top .ds-header{padding-bottom:8px}
+#tl-top .tl-top-seg{padding-top:2px}
+#tl-top .tl-back{width:44px;padding:0;margin-left:-12px;font-size:20px}
+#tl-top .tl-back .ph{font-size:20px}
+
+/* A new screen replaces the old pages; until one exists, the old page shows. */
+body.tl-shell #tl-screen:empty{display:none}
+body.tl-new-screen #app>.page,
+body.tl-new-screen .hub-page{display:none!important}
+body.tl-shell #tl-screen{min-height:100dvh}
+
+/* The old pages start below the new top bar, not below the old header. */
+body.tl-shell #app>.page,
+body.tl-shell .hub-page.active{padding-top:4px}
+
+/* Health's BP and Body segments show parts of the old log page, without its
+   own row of tabs. */
+body.tl-r-health-bp #page-log .seg,
+body.tl-r-health-body #page-log .seg{display:none!important}
+
+/* Rows the shell adds to old pages (Settings, Tools). */
+.tl-legacy-block{margin:0 0 14px}
+.tl-legacy-block .ds-seg{margin:4px 0 10px}

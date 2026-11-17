@@ -122,7 +122,11 @@ async function openLabsTab(page, port) {
   await page.waitForTimeout(250);
   await page.locator('button:has-text("Skip setup, explore first")').first().click();
   await page.waitForTimeout(400);
-  await page.locator('.nav-btn', { hasText: 'Log' }).first().click();
+  /* The redesign's tab bar replaces the old bottom nav; use whichever the
+     page has, the way a user would. */
+  const newLog = page.locator('#tl-tabs [data-ds-tab="log"]');
+  if (await newLog.count()) await newLog.click();
+  else await page.locator('.nav-btn', { hasText: 'Log' }).first().click();
   await page.waitForTimeout(250);
   await page.locator('#page-log .seg-btn', { hasText: 'Labs' }).click();
   await page.waitForTimeout(400);
@@ -211,7 +215,9 @@ async function openLabsTab(page, port) {
   t('assay method saved', !!saved && saved.meta && saved.meta.tott && saved.meta.tott.method === 'lc-ms-ms', JSON.stringify(saved && saved.meta));
   t('the form was cleared after saving', (await page.inputValue('#ll-tott')) === '');
 
-  await page.locator('.nav-btn', { hasText: 'Health' }).first().click();
+  const newHealth = page.locator('#tl-tabs [data-ds-tab="health"]');
+  if (await newHealth.count()) await newHealth.click();
+  else await page.locator('.nav-btn', { hasText: 'Health' }).first().click();
   await page.waitForTimeout(700);
   const grid = await page.locator('#bw-grid').textContent().catch(() => '');
   t('bloodwork grid shows a built-in marker', /Total T/.test(grid), grid.slice(0, 120));

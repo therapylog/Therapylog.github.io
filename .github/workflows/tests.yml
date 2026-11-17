@@ -75,3 +75,7 @@ jobs:
       # from /vendor, 44 px targets, 12 px text, names, keyboard and touch.
       - name: The design foundation
         run: node scripts/ui-check-kit.js
+      # The handoff's navigation map: every old page reachable through the
+      # new tabs, paid features still gated, links and Back.
+      - name: The shell and navigation
+        run: node scripts/ui-check-shell.js

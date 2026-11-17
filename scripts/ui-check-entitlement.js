@@ -87,7 +87,11 @@ async function openApp(browser, port, { seed, verifyReply } = {}) {
 }
 
 async function tryScan(page) {
-  await page.locator(".nav-btn", { hasText: "Log" }).first().click();
+  /* The redesign's tab bar replaces the old bottom nav; tap whichever the
+     page has, the way a user would. */
+  const newLog = page.locator('#tl-tabs [data-ds-tab="log"]');
+  if (await newLog.count()) await newLog.click();
+  else await page.locator(".nav-btn", { hasText: "Log" }).first().click();
   await page.waitForTimeout(200);
   await page.locator("#page-log .seg-btn", { hasText: "Labs" }).click();
   await page.waitForTimeout(300);
@@ -273,7 +277,10 @@ async function tryScan(page) {
   /* ===== 6. the app tells people about backups and its own version ===== */
   {
     const { page } = await openApp(browser, port);
-    await page.locator(".nav-btn", { hasText: "Health" }).first().click();
+    /* The old bottom nav is hidden under the redesign's shell; this section
+       opens Profile directly below, so the tap is only to settle the page. */
+    const oldHealth = page.locator(".nav-btn", { hasText: "Health" }).first();
+    if (await oldHealth.isVisible().catch(() => false)) await oldHealth.click();
     await page.waitForTimeout(300);
     const profileBtn = page.locator('.nav-btn', { hasText: 'Health' });
     await page.evaluate(() => { if (typeof showPage === 'function') showPage('profile'); });
