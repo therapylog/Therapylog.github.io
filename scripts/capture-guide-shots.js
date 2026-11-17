@@ -83,7 +83,10 @@ This is educational, not a diagnosis — bring the trend to your clinician.`;
 
   await page.goto(`http://127.0.0.1:${port}/app.html`);
   await page.waitForTimeout(1400);
-  await page.evaluate(() => loadDemoData());
+  /* loadDemoData() asks first, in the app's own confirm sheet. */
+  const loading = page.evaluate(() => loadDemoData());
+  await page.locator('#tl-confirm [data-tl-confirm="action"]').click({ timeout: 10000 });
+  await loading;
   await page.waitForTimeout(1400);
 
   const shots = [];

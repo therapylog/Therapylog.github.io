@@ -62,7 +62,10 @@ function modules() {
     const rel = 'src/logic/' + f;
     if (/<\/script/i.test(text)) fail(`${rel} contains "</script", which would end the block early`);
     if (text.includes(END) || text.includes(START)) fail(`${rel} contains a TL-LOGIC marker`);
-    if (/^\s*(import|export)\s/m.test(text) || /\bmodule\.exports\b|\brequire\(/.test(text)) {
+    /* Checked on the code alone: a comment may say "export a backup first". */
+    const code = text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+    if (/^\s*import\s+[\w{*'"]/m.test(code) || /^\s*export\s+(default|const|let|var|function|class|async|\{|\*)/m.test(code) ||
+        /\bmodule\.exports\b|\brequire\(/.test(code)) {
       fail(`${rel} uses module syntax. Modules are plain browser scripts: top-level function and var declarations only.`);
     }
     return { rel, text };

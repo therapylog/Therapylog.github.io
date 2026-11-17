@@ -291,12 +291,12 @@ async function openApp(browser, base, instant) {
   const context = await browser.newContext({ timezoneId: TZ, locale: LOCALE, serviceWorkers: 'block',
     viewport: { width: 414, height: 900 } });
   const page = await context.newPage();
-  const s = { context, page, instant, errors: [], blocked: [], confirms: [] };
+  const s = { context, page, instant, errors: [], blocked: [], confirms: [], dialogs: [] };
 
   page.on('pageerror', (e) => s.errors.push(e.message));
-  /* Headless dismisses dialogs, and a dismissed confirm() means loadDemoData
-     returns having loaded nothing. */
-  page.on('dialog', (d) => { s.confirms.push(d.message()); d.accept().catch(() => {}); });
+  /* The app no longer uses browser dialogs on this path. One appearing is a
+     regression, so it is recorded and the run fails on it. */
+  page.on('dialog', (d) => { s.dialogs.push(d.message()); d.accept().catch(() => {}); });
   await page.route('**/*', (route) => {
     const url = route.request().url();
     if (url.startsWith(base + '/') || /^(blob|data|about):/.test(url)) return route.continue();
@@ -358,7 +358,15 @@ async function capture(browser, base) {
   console.log(`capture     ${CAPTURE_AT} · ${TZ} · ${LOCALE}`);
   const before = await pinsHold(s);
 
-  await page.evaluate(() => window.loadDemoData());
+  /* loadDemoData() asks first, in the app's own confirm sheet, and resolves
+     once the question is answered. Answer it the way a person would. */
+  const loading = page.evaluate(() => window.loadDemoData());
+  const yes = page.locator('#tl-confirm [data-tl-confirm="action"]');
+  await yes.waitFor({ timeout: 15000 });
+  s.confirms.push((await page.locator('#tl-confirm-title').textContent()) + ' [' + (await yes.textContent()) + ']');
+  s.offeredBackup = (await page.locator('#tl-confirm [data-tl-confirm="export"]').count()) === 1;
+  await yes.click();
+  await loading;
   await page.waitForFunction(() => {
     try { return (JSON.parse(localStorage.getItem('tlv2')).entries || []).length > 0; } catch (e) { return false; }
   }, null, { timeout: 15000 }).catch(() => {});
@@ -380,8 +388,10 @@ async function capture(browser, base) {
   const entries = (parsed && parsed.data && parsed.data.entries) || [];
 
   t('clock, time zone and locale stayed pinned', !before.length && !after.length, before.concat(after).join('; '));
-  t('loadDemoData() asked once and was confirmed', s.confirms.length === 1,
-    s.confirms.length === 1 ? JSON.stringify(s.confirms[0]) : `${s.confirms.length} dialogs`);
+  t('loadDemoData() asked once, in the app\'s own sheet, and was confirmed', s.confirms.length === 1 && s.dialogs.length === 0,
+    s.confirms.length === 1 && !s.dialogs.length ? JSON.stringify(s.confirms[0])
+      : `${s.confirms.length} sheet(s), ${s.dialogs.length} browser dialog(s)`);
+  t('and it offered a backup before replacing the log', s.offeredBackup === true);
   t('the export is JSON with a record in it', entries.length > 0, parsed ? `${entries.length} entries` : 'does not parse');
   /* A full backup: the same record, in the same key order, as the one stored. */
   t('the export carries the whole stored record',

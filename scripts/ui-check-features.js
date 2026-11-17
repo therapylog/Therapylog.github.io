@@ -67,9 +67,8 @@ async function openApp(browser, port, { pro } = {}) {
     errors.push("console: " + s);
   });
 
-  /* loadDemoData() asks for confirmation and headless dismisses dialogs by
-     default, so without this the demo record silently never loads and every
-     assertion about it passes against an empty store. */
+  /* Nothing on these paths uses a browser dialog any more; accept one anyway
+     so a regression shows up as a failed assertion rather than a hang. */
   page.on("dialog", (d) => d.accept().catch(() => {}));
 
   /* Nothing off-origin. The Google Fonts stylesheet has no route out of this
@@ -115,6 +114,15 @@ const toolTab = async (page, tab) => {
   }, tab);
   await page.waitForTimeout(450);
 };
+
+/* loadDemoData() asks first, in the app's own confirm sheet, and resolves once
+   the question is answered. Without the click the demo record never loads and
+   every assertion about it passes against an empty store. */
+async function loadDemo(page) {
+  const loading = page.evaluate(() => window.loadDemoData && window.loadDemoData());
+  await page.locator('#tl-confirm [data-tl-confirm="action"]').click({ timeout: 10000 });
+  await loading;
+}
 
 (async () => {
   if (!EXE) { console.error("ui-check-features: no Chromium found — skipping."); process.exit(0); }
@@ -166,7 +174,7 @@ const toolTab = async (page, tab) => {
   /* ===== the panels that had never been rendered ===== */
   {
     const { page, errors } = await openApp(browser, port, { pro: true });
-    await page.evaluate(() => window.loadDemoData && window.loadDemoData());
+    await loadDemo(page);
     await page.waitForTimeout(700);
 
     await gotoTools(page);
@@ -214,7 +222,7 @@ const toolTab = async (page, tab) => {
   /* ===== the clinical report, which now runs the analysis ===== */
   {
     const { page, errors } = await openApp(browser, port, { pro: true });
-    await page.evaluate(() => window.loadDemoData && window.loadDemoData());
+    await loadDemo(page);
     await page.waitForTimeout(700);
     const rep = await page.evaluate(() => {
       const d = window.gd();

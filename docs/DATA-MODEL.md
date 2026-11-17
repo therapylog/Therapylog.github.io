@@ -104,8 +104,8 @@ that way until one of those three runs.
 Deleting and editing: **only blood-pressure readings can be deleted**
 (`deleteBPEntry`, by position among the BP entries). No function deletes
 or edits a weight, dose, body, symptom or bloodwork entry. The
-`confirm('Delete this entry?')` in `deletePhotoEntry` belongs to photo
-check-ins (3.8), not to this array. One path edits in place: the Apple Health import (below).
+"Delete this entry?" dialog the handoff assigns to log entries was the one in
+`deletePhotoEntry`, which deletes photo check-ins (3.8), not entries. One path edits in place: the Apple Health import (below).
 
 Duplicates: two entries saved in the same millisecond share a `ts`, and
 import and the cross-tab merge both dedupe on `ts` alone, across types. The
@@ -522,11 +522,11 @@ envelope or a bare record, and then, key by key:
 Entries are never removed or updated by an import. A top-level `labMeta` is
 merged but nothing writes one; per-entry `labMeta` travels inside its entry.
 
-**Reset** (`resetAllData`) asks two `confirm()` questions, removes
+**Reset** (`resetAllData`) asks first (section 8), removes
 `tlv2` and the fifteen keys marked "yes" above, and deletes every IndexedDB
 database it can enumerate.
 
-**Demo data** (`loadDemoData`) asks one `confirm()`, then replaces the
+**Demo data** (`loadDemoData`) asks first (section 8), then replaces the
 record with a literal: `entries` (35, no `body` type), `proto`, `profile`,
 `bodyComp`, `photos`, `reminderTimes`. Its dates are relative to the moment
 it runs. It bypasses `sd()`, so the record has no `_savedAt` and unsorted
@@ -584,12 +584,13 @@ Phase 1.
     settings live decides whether a restore brings them back: slot times, the
     discreet flag, the figure and the theme are part of the user's setup, and
     today's equivalents are lost on restore.
-15. **Six functions use browser dialogs on data paths**: `tlSetSupply` (a
+15. **Six functions used browser dialogs on data paths**: `tlSetSupply` (a
     real `window.prompt()`, which the handoff's audit did not count),
     and `loadDemoData`, `clearProtocol`, `deleteBPEntry`, `deletePhotoEntry`
-    and `resetAllData` (`confirm()`, twice in the last). The fixture capture
-    script answers `loadDemoData`'s dialog and will need updating when it
-    becomes an in-app sheet.
+    and `resetAllData` (`confirm()`, twice in the last). The five
+    `confirm()` paths now ask through the in-app sheet (section 8).
+    `tlSetSupply`'s `prompt()` remains until the inventory editor replaces
+    it.
 
 ## 8. What Phase 1 adds
 
@@ -694,3 +695,25 @@ so that no two share a `ts`.
   model is read again from the text just saved. `clearProtocol` drops it too.
 - Item 1 of section 7 is therefore handled for these keys. It will be true
   again of any key added later: `tlImportModel` is the place to add it.
+
+### Questions before destructive actions
+
+The six `confirm()` dialogs are gone. `clearProtocol`, `deleteBPEntry`,
+`deletePhotoEntry`, `resetAllData` and `loadDemoData` are now `async` and ask
+through `tlAsk(tlConfirmCopy(kind, detail))` (`src/logic/confirm.js`): an
+in-app sheet that names the thing being deleted, offers "Export a backup
+first" before the two actions that replace everything, and resolves only when
+the user answers. The two questions `resetAllData` used to ask are one.
+
+Two behaviours a caller relies on:
+
+- The functions return a promise that settles after the question is answered,
+  and nothing has changed while it is open. Scripts that load demo data
+  (`capture-backup-fixture.js`, `ui-check-features.js`,
+  `capture-guide-shots.js`) click the sheet's action button; a browser dialog
+  appearing on these paths is now a failure. `scripts/ui-check-confirm.js`
+  checks every path in a browser.
+- `deleteBPEntry` and `deletePhotoEntry` still take a position in a list, as
+  their buttons pass one, but find the item again by its timestamp once the
+  answer comes back, so a list that changed while the sheet was open cannot
+  lose the wrong item.
