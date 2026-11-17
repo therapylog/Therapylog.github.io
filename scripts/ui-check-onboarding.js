@@ -170,7 +170,9 @@ const fitDetail = (f) => JSON.stringify(f).slice(0, 300);
     s = await ob(page);
     t('step 1 is the welcome: 1 of 5, one pip on, no back button, focus on the heading',
       s.title === 'Know where you stand.' && s.count === '1 of 5' && s.pips === 5 && s.pipsOn === 1 && !s.back && s.focused, JSON.stringify(s));
-    const icon = await page.evaluate(() => { const i = document.querySelector('#tl-ob .tl-ob-icon'); return i && i.complete && i.naturalWidth > 0; });
+    /* Wait for it: on a slow runner the step is drawn before its image arrives. */
+    const icon = await page.waitForFunction(() => { const i = document.querySelector('#tl-ob .tl-ob-icon'); return i && i.complete && i.naturalWidth > 0; },
+      null, { timeout: 10000 }).then(() => true, () => false);
     t('the app icon loads from this site', icon);
     t('step 1 offers a backup restore', await page.$('#tl-ob [data-ob="restore"]') !== null);
     await shot(page, 'ob-1-welcome-dark');
