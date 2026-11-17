@@ -23,7 +23,8 @@
 
 /* name -> { title, tab, segs, back, gate, legacy() } */
 var TL_ROUTES = {
-  today: { title: 'Today', tab: 'today', legacy: function () { showHub('home', document.getElementById('nav-home')); } },
+  today: { title: 'Today', tab: 'today', screen: 'tlTodayScreen', legacy: function () { showHub('home', document.getElementById('nav-home')); } },
+  'home/customize': { title: 'Customize Home', back: 'today', bare: true, screen: 'tlCustomizeScreen' },
   protocol: { title: 'Protocol', tab: 'protocol', gate: 'cycle_tracker', legacy: function () { showPage('cycle'); } },
   log: { title: 'Log', tab: 'log', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('weight'); } },
   health: { title: 'Health', tab: 'health', segs: 'health', seg: 'bloodwork' },
@@ -49,8 +50,17 @@ var TL_ROUTES = {
   ask: { title: 'Ask', back: 'today', legacy: function () { showPage('ai'); } }
 };
 
-/* New screens register here: TL_SCREENS[routeName] = { render(el, route) }. */
+/* A route's new screen is named in TL_ROUTES (`screen`: the name of a
+   function(el, route) that draws it), so the file that draws it runs nothing
+   at load. TL_SCREENS[routeName] = { render(el, route) } also works, for
+   tests and the kit page. */
 var TL_SCREENS = {};
+
+function tlScreenFor(name) {
+  if (TL_SCREENS[name]) return TL_SCREENS[name];
+  var r = TL_ROUTES[name], fn = r && r.screen && typeof window !== 'undefined' ? window[r.screen] : null;
+  return typeof fn === 'function' ? { render: fn } : null;
+}
 
 var TL_SEGS = {
   health: [{ value: 'bloodwork', label: 'Bloodwork' }, { value: 'bp', label: 'BP' },
@@ -125,12 +135,14 @@ function tlTopBar(name, d) {
 function tlShellChrome(name) {
   var d = gd(), r = TL_ROUTES[name];
   var top = document.getElementById('tl-top');
-  if (top) top.innerHTML = tlTopBar(name, d);
+  /* A bare route draws its own header (Customize Home has Done, not Back). */
+  if (top) top.innerHTML = r.bare ? '' : tlTopBar(name, d);
   var tabs = document.getElementById('tl-tabs');
   if (tabs) tabs.innerHTML = tlTabBar(r.tab || null);
   var body = document.body;
   body.className = body.className.replace(/\btl-r-[a-z-]+\b/g, '').replace(/\s+/g, ' ').trim();
   body.classList.add('tl-r-' + name.replace(/\//g, '-'));
+  body.classList.toggle('tl-bare', !!r.bare);
 }
 
 /* ---- going places ------------------------------------------------------ */
@@ -144,7 +156,7 @@ function tlShow(name) {
   tlRoute = name;
   if (r.tab) tlLastTab = name;
   tlShellChrome(name);
-  var screen = TL_SCREENS[name], host = document.getElementById('tl-screen');
+  var screen = tlScreenFor(name), host = document.getElementById('tl-screen');
   if (screen && host) {
     document.body.classList.add('tl-new-screen');
     host.innerHTML = '';
@@ -158,6 +170,8 @@ function tlShow(name) {
     }
   }
   try { window.scrollTo(0, 0); } catch (e) {}
+  /* The round-due banner shows everywhere but Today. */
+  if (typeof tlRoundBannerRefresh === 'function') { try { tlRoundBannerRefresh(); } catch (e) {} }
   return true;
 }
 
@@ -216,9 +230,20 @@ function tlSyncFromLegacy() {
   if (tlRouting || !document.body.classList.contains('tl-shell')) return;
   var name = tlRouteFromLegacy();
   if (!name || name === tlRoute) return;
+  /* Where the old app went has a new screen (the old dashboard is Today):
+     show that instead. */
+  if (tlScreenFor(name)) {
+    tlShow(name);
+    history.pushState(null, '', '#/' + name);
+    return;
+  }
   tlRoute = name;
   if (TL_ROUTES[name].tab) tlLastTab = name;
   document.body.classList.remove('tl-new-screen');
+  /* The new screen that was showing (Today, say) goes, or it would sit above
+     the old page the old app just opened. */
+  var host = document.getElementById('tl-screen');
+  if (host) host.innerHTML = '';
   tlShellChrome(name);
   history.pushState(null, '', '#/' + name);
 }
@@ -312,6 +337,10 @@ function tlShellInit() {
     /* "#/library" becomes "#/library/compounds"; an unknown address, "#/today". */
     if (location.hash !== '#/' + name) history.replaceState(null, '', '#/' + name);
   });
+
+  /* A notification's action can arrive in the address ("#/today?round=…"),
+     which the router is about to tidy away. */
+  if (typeof tlRoundAlertsInit === 'function') tlRoundAlertsInit(location.hash);
 
   var first = tlRouteFromHash(location.hash);
   if (!tlShow(first)) tlShow('today');

@@ -1,5 +1,5 @@
 /* TherapyLog service worker — offline shell + notification display. */
-const CACHE = 'therapylog-v6';
+const CACHE = 'therapylog-v7';
 const PRECACHE = [
   '/app.html',
   /* The brain index answers questions on-device for free. Precaching it is what
@@ -79,6 +79,22 @@ self.addEventListener('message', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
+  /* A round alert's buttons: "Log {round} round" and, once logged, "Undo".
+     An open app is told and does it where it is; otherwise the app opens with
+     the action in its address. "Open", or a tap on the alert, opens Today. */
+  const data = event.notification.data || {};
+  if (data.kind === 'round') {
+    const act = event.action === 'log' || event.action === 'undo' ? event.action : 'open';
+    event.waitUntil(
+      self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+        const app = clients.find((c) => new URL(c.url).pathname.startsWith('/app'));
+        if (app && act !== 'open') { app.postMessage({ type: 'tl-round', action: act, slot: data.slot, day: data.day }); return; }
+        if (app && 'focus' in app) { app.postMessage({ type: 'tl-round', action: 'open', slot: data.slot, day: data.day }); return app.focus(); }
+        return self.clients.openWindow('/app.html#/today?round=' + act + ':' + data.slot + ':' + data.day);
+      })
+    );
+    return;
+  }
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
       for (const client of clients) {

@@ -115,8 +115,9 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
       chrome.oldNav === 'none' && chrome.fab === 'none' && chrome.header === 'none' && chrome.hubNav);
 
     let s = await state(page);
-    t('it opens on Today, showing the old home page under the Ask bar', s.route === 'today' && s.hash === '#/today' && s.tab === 'today' &&
-      s.shown.includes('page-dashboard') && (await page.locator('#tl-top .ds-askbar').count()) === 1, JSON.stringify(s));
+    t('it opens on Today, the new screen under the Ask bar, with the old home page out of sight', s.route === 'today' && s.hash === '#/today' && s.tab === 'today' &&
+      !s.shown.includes('page-dashboard') && (await page.locator('#tl-screen .tl-today').count()) === 1 &&
+      (await page.locator('#tl-top .ds-askbar').count()) === 1, JSON.stringify(s));
     t('  the profile button carries the profile\'s initial', (await page.locator('#tl-top .ds-avatar').textContent()) === 'J');
 
     /* Every tab and segment, by tapping. */

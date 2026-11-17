@@ -312,6 +312,14 @@ leaves its old key behind; nothing prunes this map.
 days there. Because names can contain hyphens, the key cannot be split back
 reliably; the pruner takes the last hyphen-separated part as the date.
 
+The redesign's round alerts (`src/ui/round-alerts.js`) replace that path on
+the web: `scheduleAllReminders` hands over to `tlRoundReminders`, and
+`checkAndFireReminder` is no longer called there. They write two more key
+shapes into the same map: `round:{slot}:{YYYY-MM-DD}` when a round's
+notification fires, and `supply:{key}:{YYYY-MM-DD}` for the once-a-day supply
+alert. `tlMarkFired` prunes keys that end in a date more than 31 days back;
+the old keys end in a `toDateString()` and are left to the old pruner.
+
 The "discreet" switch is not here; it is localStorage `tl_notif_discreet`
 (section 5). On the web, reminders are `setTimeout`s armed for the next hour
 while the page is open (`scheduleAllReminders`, every five minutes). The
@@ -606,7 +614,7 @@ that has them all.
 | `v` | number. Absent before the redesign; `3` once the record holds a protocol model | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel` |
 | `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol` (onboarding stores through it: `tlFinishSetup`), `tlImportModel`; deleted by `clearProtocol` and by a save from the old protocol form |
 | `doseChanges` | array, newest first | `tlRecordDoseChanges`, `tlImportModel` |
-| `settings` | object: `{ focus, figure, units }` so far | `tlSetSetting` (onboarding: `tlFinishSetup`), `tlImportModel` |
+| `settings` | object: `{ focus, figure, units, home }` so far | `tlSetSetting` (onboarding: `tlFinishSetup`), `tlImportModel` |
 
 ### `protocol`
 
@@ -668,6 +676,12 @@ the record so that a restored backup brings them back. Defined so far:
   segment.
 - `figure`: `"male"` or `"female"`, the body map.
 - `units`: `"imperial"` or `"metric"`.
+- `home`: what Home shows and in what order, from Customize Home (2b):
+  `{ hero: [{ key, on }], sections: [{ key, on }] }`. Hero keys `levels`,
+  `system`, `supply`, `labs`; section keys `doses`, `inventory`, `flags`
+  (`TL_HOME_HERO`, `TL_HOME_SECTIONS` in `src/logic/home.js`). Absent means
+  all of them, in that order; `tlHomeLayout` drops unknown keys and appends
+  missing ones, switched on.
 
 The theme stays in localStorage `tl-theme`, where it has to be readable
 before the record loads.

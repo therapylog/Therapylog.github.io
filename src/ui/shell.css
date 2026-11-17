@@ -37,3 +37,16 @@ body.tl-r-health-body #page-log .seg{display:none!important}
 /* Rows the shell adds to old pages (Settings, Tools). */
 .tl-legacy-block{margin:0 0 14px}
 .tl-legacy-block .ds-seg{margin:4px 0 10px}
+
+/* A bare route (Customize Home) has its own header and no tab bar. */
+body.tl-bare #tl-top{display:none}
+body.tl-bare #tl-tabs{display:none}
+
+/* The ground. A new screen sits on the redesign's background, edge to edge.
+   Over an old page the top bar takes the old page's background instead, so
+   the two do not meet in a seam; the old pages and their ground go together
+   in Phase 5. (The old stylesheet sets body's background with !important.) */
+body.tl-shell.tl-new-screen{background:var(--color-bg)!important}
+body.tl-shell:not(.tl-new-screen) #tl-top{background:var(--bg)}
+/* The old app's coloured glow behind every page is not part of the redesign. */
+body.tl-shell.tl-new-screen::before{display:none}

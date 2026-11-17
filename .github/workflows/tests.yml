@@ -83,3 +83,8 @@ jobs:
       # restore instead of setup, and returning users; both themes, 320 px.
       - name: Onboarding
         run: node scripts/ui-check-onboarding.js
+      # Today, Customize Home and round alerts on the demo record with the
+      # clock fixed: ticking doses, Log all and Undo, the hero, the due
+      # banner, a notification's actions; light theme at 320 px.
+      - name: Today
+        run: node scripts/ui-check-today.js

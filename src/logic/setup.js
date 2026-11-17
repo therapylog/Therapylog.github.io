@@ -231,13 +231,19 @@ function tlFinishSetup(d, setup, nowIso) {
   if (setup.figure === 'male' || setup.figure === 'female') tlSetSetting(d, 'figure', setup.figure);
   var p = setup.protocol;
   var had = !!(d.proto || (d.protocol && Array.isArray(d.protocol.compounds)));
-  if (p && ((p.compounds || []).length || had)) {
-    if (!p.created) p.created = nowIso;
-    if (!p.start) p.start = tlDayKey(nowIso);
-    /* Onboarding does not ask for a name; the old screens print one. */
-    if (!p.name) p.name = 'My protocol';
-    delete p.derived;
-    tlStoreProtocol(d, p);
-  }
+  if (p && ((p.compounds || []).length || had)) tlSaveProtocol(d, p, nowIso);
+  return d;
+}
+
+/* Store a protocol edited through the new screens: the model, and the old
+   fields rewritten to match. A protocol stored for the first time gets the
+   start, created and name the old screens expect. */
+function tlSaveProtocol(d, p, nowIso) {
+  if (!p.created) p.created = nowIso;
+  if (!p.start) p.start = tlDayKey(nowIso);
+  /* The new screens do not ask for a name; the old screens print one. */
+  if (!p.name) p.name = 'My protocol';
+  delete p.derived;
+  tlStoreProtocol(d, p);
   return d;
 }

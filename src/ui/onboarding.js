@@ -207,27 +207,11 @@ function tlObView(step) {
   }
 
   /* step 5 */
-  var rounds = tlSetupRounds(p);
-  var cards = rounds.map(function (r) {
-    var n = r.names.length;
-    return '<div class="tl-round"' + (r.alert ? '' : ' data-off') + '>' +
-      '<div class="tl-round-head"><div class="tl-round-main">' +
-        '<div class="tl-round-title">' + tlEsc(r.label) + ' round · ' + n + (n === 1 ? ' dose' : ' doses') + '</div>' +
-        '<div class="tl-round-names">' + tlEsc(r.names.join(', ')) + '</div></div>' +
-        tlToggle('tl-ob-alert-' + r.slot, r.alert, r.label + ' round alert') + '</div>' +
-      '<div class="tl-round-time">' + tlIcon('bell-ringing') + '<span class="tl-round-time-l">Alert at</span>' +
-        '<button type="button" class="ds-btn ds-btn-secondary ds-btn-icon" data-shift="' + r.slot + ':-1" aria-label="' + tlEsc(r.label) + ' round earlier">' + tlIcon('minus') + '</button>' +
-        '<span class="tl-round-time-v" aria-live="polite">' + r.time + '</span>' +
-        '<button type="button" class="ds-btn ds-btn-secondary ds-btn-icon" data-shift="' + r.slot + ':1" aria-label="' + tlEsc(r.label) + ' round later">' + tlIcon('plus') + '</button>' +
-      '</div></div>';
-  }).join('');
   return {
     body: '<h1 class="tl-ob-h1">Your rounds</h1>' +
       '<p class="tl-ob-lede">Built from your stack. Each round sends one alert with its own checklist.</p>' +
-      (cards || '<p class="tl-ob-empty">No times picked yet. Go back and tap a time on any compound, or add compounds later under Protocol.</p>') +
-      '<div class="tl-ob-discreet">' + tlIcon('eye-slash') +
-        '<div class="tl-round-main"><div class="tl-round-title">Discreet alerts</div><div class="tl-round-names">Hide compound names on the lock screen</div></div>' +
-        tlToggle('tl-ob-discreet', !!p.discreet, 'Discreet alerts') + '</div>',
+      tlRoundCardsHtml(p, 'tl-ob', 'No times picked yet. Go back and tap a time on any compound, or add compounds later under Protocol.') +
+      tlDiscreetRowHtml(p.discreet, 'tl-ob'),
     foot: tlObCta('Finish and open Home', 'finish', false)
   };
 }

@@ -295,7 +295,7 @@ const fitDetail = (f) => JSON.stringify(f).slice(0, 300);
       x.querySelector('.ds-toggle').getAttribute('aria-checked')]));
     let rs = await rounds();
     t('one card per round, built from the stack', JSON.stringify(rs) === JSON.stringify([
-      ['Morning round · 2 doses', 'Testosterone Cypionate, BPC-157', '07:00', 'true'],
+      ['Morning round · 2 doses', 'Testosterone Cypionate \u00b7 BPC-157', '07:00', 'true'],
       ['Bedtime round · 1 dose', 'BPC-157', '22:30', 'true']]), JSON.stringify(rs));
     await click(page, '[data-shift="am:1"]');
     await click(page, '[data-shift="am:1"]');

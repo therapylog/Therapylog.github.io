@@ -292,7 +292,9 @@ textarea.ds-input.ds-input.ds-input{padding:10px 12px;min-height:88px;line-heigh
   padding:10px 14px;border-radius:var(--radius-md);
   background:var(--color-surface);color:var(--color-text);box-shadow:var(--shadow-md);
   font-family:var(--font-ui);font-size:14px;line-height:1.35;
+  display:flex;align-items:center;gap:8px;width:max-content;
 }
+.ds-toast-action{margin:-10px -8px -10px 0;flex:none}
 
 @media (prefers-reduced-motion:reduce){
   .ds-ui *,.ds-scrim,.ds-sheet,.ds-toast{animation:none!important;transition:none!important}

@@ -191,6 +191,33 @@ function tlOpenSheet(html, opts) {
   return { el: sheet, close: close };
 }
 
+/* ---- toast ------------------------------------------------------------ */
+
+/* A short message above the tab bar, read out by screen readers. With
+   `action` ({ label, run }) it carries one button, Undo for instance, and
+   stays a little longer. One at a time: a new toast replaces the last. */
+function tlToast(text, opts) {
+  opts = opts || {};
+  var old = document.getElementById('tl-toast');
+  if (old && old.parentNode) old.parentNode.removeChild(old);
+  var el = document.createElement('div');
+  el.id = 'tl-toast';
+  el.className = 'ds-toast ds-ui';
+  el.setAttribute('role', 'status');
+  el.innerHTML = '<span class="ds-toast-text">' + tlEsc(text) + '</span>' +
+    (opts.action ? '<button type="button" class="ds-btn ds-btn-ghost ds-toast-action">' + tlEsc(opts.action.label) + '</button>' : '');
+  document.body.appendChild(el);
+  var timer = setTimeout(close, opts.action ? 6000 : 2600);
+  function close() {
+    clearTimeout(timer);
+    if (el.parentNode) el.parentNode.removeChild(el);
+  }
+  if (opts.action) {
+    el.querySelector('.ds-toast-action').addEventListener('click', function () { close(); opts.action.run(); });
+  }
+  return { el: el, close: close };
+}
+
 /* ---- behaviours, attached once ---------------------------------------- */
 
 function tlDsChange(el, value, checked) {
