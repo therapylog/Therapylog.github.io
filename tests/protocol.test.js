@@ -319,10 +319,11 @@ test('a comma typed into a compound name cannot break the old three-field line',
 test('a stored protocol missing parts is filled in rather than trusted', () => {
   const p = app.tlNormalizeProtocol({ compounds: [{ key: 'x', dose: '5mg', slots: ['bed', 'nope', 'am'] }, { name: 'no key' }],
     slots: { am: { t: 1500 }, bed: { t: 1350, alert: false } } });
-  assert.equal(p.compounds.length, 1);
+  /* A compound with a name and no key is kept, with a key made from its name. */
+  same(p.compounds.map((c) => [c.key, c.name]), [['x', 'x'], ['no-key', 'no key']]);
   same(p.compounds[0].slots, ['am', 'bed']);
   same(p.compounds[0].dose, { amount: 5, unit: 'mg', text: '5mg' });
-  assert.equal(p.slots.am.t, 60);                           /* wrapped into the day */
+  assert.equal(p.slots.am.t, 240);                          /* wrapped into the day, then into the morning's span */
   assert.equal(p.slots.bed.alert, false);
   assert.equal(p.slots.mid.t, 750);
 });
