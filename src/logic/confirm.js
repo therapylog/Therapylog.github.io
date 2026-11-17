@@ -82,15 +82,30 @@ function tlConfirmCopy(kind, detail, nowMs) {
   return null;
 }
 
+/* The open sheet's done(), so that a sheet opened while another is up can
+   answer that one before taking its place. Removing the old sheet's node was
+   not enough: its promise never settled, and its key handler stayed on the
+   document, where a later Escape on the page was taken as "cancel" for a sheet
+   long gone and focus jumped back to what had opened it. */
+var tlConfirmOpen = null;
+
 /* Show the sheet. Resolves when the user chooses, to 'action', 'export' or
    'cancel'. Escape and a tap outside the sheet cancel. Focus starts on Cancel,
-   so a stray Enter cannot delete anything, and goes back where it was. */
+   so a stray Enter cannot delete anything, stays in the sheet, and goes back
+   where it was. One sheet at a time: a sheet already up is answered 'cancel',
+   so its caller goes on as if the user had said no. */
 function tlConfirm(opts) {
   return new Promise(function (resolve) {
     opts = opts || {};
-    var old = document.getElementById('tl-confirm');
-    if (old) old.parentNode.removeChild(old);
     var before = document.activeElement;
+    var old = document.getElementById('tl-confirm');
+    /* If focus was on the old sheet, its button is about to go. The old
+       sheet's done() puts focus back on what opened it, and that is where this
+       sheet should return it too. */
+    var fromOld = !!(old && before && old.contains(before));
+    if (tlConfirmOpen) tlConfirmOpen('cancel');
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+    if (fromOld) before = document.activeElement;
     var tone = opts.tone === 'danger' ? 'var(--danger)' : 'var(--accent3)';
     var el = function (tag, css, text) {
       var n = document.createElement(tag);
@@ -148,12 +163,19 @@ function tlConfirm(opts) {
     function onKey(e) {
       if (e.key === 'Escape') { e.preventDefault(); done('cancel'); return; }
       if (e.key !== 'Tab') return;
-      /* Keep Tab inside the sheet. */
+      /* Keep Tab inside the sheet: round from the last button to the first and
+         back, and from anywhere that is not one of its buttons to the first,
+         or with Shift to the last. Focus is off the buttons after a tap on the
+         sheet's text (it goes to the page's body) or when something on the
+         page took it, and from there the browser's own Tab order led to the
+         page behind the scrim, where Enter could open a second sheet. */
       var bs = sheet.querySelectorAll('button'), first = bs[0], last = bs[bs.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      var on = Array.prototype.indexOf.call(bs, document.activeElement) >= 0;
+      if (e.shiftKey && (!on || document.activeElement === first)) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (!on || document.activeElement === last)) { e.preventDefault(); first.focus(); }
     }
     function done(result) {
+      if (tlConfirmOpen === done) tlConfirmOpen = null;
       document.removeEventListener('keydown', onKey, true);
       if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
       if (before && typeof before.focus === 'function') { try { before.focus(); } catch (e) {} }
@@ -161,6 +183,7 @@ function tlConfirm(opts) {
     }
     wrap.onclick = function (e) { if (e.target === wrap) done('cancel'); };
     document.addEventListener('keydown', onKey, true);
+    tlConfirmOpen = done;
 
     wrap.appendChild(sheet);
     document.body.appendChild(wrap);

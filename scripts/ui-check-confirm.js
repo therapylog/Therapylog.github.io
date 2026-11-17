@@ -5,8 +5,10 @@
  * tests/confirm.test.js pins its wording. This proves what only a page can:
  * that each dangerous action really waits for the sheet, that cancelling
  * leaves the data alone, that the sheet names the thing being deleted, that
- * "Export a backup first" exports and then asks again, and that no browser
- * dialog appears on any of these paths.
+ * "Export a backup first" exports and then asks again, that Tab cannot take
+ * focus out of the sheet, that a sheet opened over another answers the first
+ * with 'cancel' and leaves nothing of it listening, and that no browser dialog
+ * appears on any of these paths.
  *
  * The redesign restyles this sheet. Its behaviour must not change when it
  * does, and this is the check for that.
@@ -97,6 +99,96 @@ const t = (name, ok, detail) => { results.push(!!ok); console.log(`${ok ? 'PASS'
   await pending;
   t('a tap outside the sheet cancels', (await stored()) === null && (await sheet.count()) === 0);
 
+  /* ---- focus stays in the sheet, and a second sheet settles the first ----
+     Two openers on the page, as two delete buttons would be: one first in the
+     page and one last, just before where the sheet goes. The scrim covers
+     them, but a keyboard can still reach them. Each records how its sheet was
+     answered. */
+  await page.evaluate(() => {
+    const opener = (id, kind, where) => {
+      const b = document.createElement('button');
+      b.id = id;
+      b.textContent = id;
+      b.onclick = () => { window[id] = 'pending'; window.tlConfirm(window.tlConfirmCopy(kind)).then((r) => { window[id] = r; }); };
+      if (where === 'first') document.body.insertBefore(b, document.body.firstChild); else document.body.appendChild(b);
+    };
+    opener('uiFirst', 'wipe', 'first');
+    opener('uiLast', 'protocol', 'last');
+    const input = document.createElement('input');
+    input.id = 'uiInput';
+    input.addEventListener('keydown', (e) => { if (e.key === 'Escape') window.uiEscapePrevented = e.defaultPrevented; });
+    document.body.insertBefore(input, document.body.firstChild);
+  });
+  /* Where focus is: the sheet button's name, or the element outside it. */
+  const focused = () => page.evaluate(() => {
+    const a = document.activeElement;
+    if (!a) return 'nothing';
+    if (a.closest('#tl-confirm')) return a.getAttribute('data-tl-confirm') || 'the sheet';
+    return a.id || a.tagName.toLowerCase();
+  });
+  const focusOn = (id) => page.evaluate((i) => document.getElementById(i).focus(), id);
+  const answer = (id) => page.evaluate((i) => window[i], id);
+
+  await focusOn('uiFirst');
+  await page.keyboard.press('Enter');
+  await button('export').waitFor();
+  await focusOn('uiFirst');
+  await page.keyboard.press('Tab');
+  let where = await focused();
+  t('Tab from outside the sheet goes to its first button', where === 'export', where);
+  await focusOn('uiLast');
+  await page.keyboard.press('Shift+Tab');
+  where = await focused();
+  t('  and Shift+Tab to its last', where === 'cancel', where);
+  await page.locator('#tl-confirm-title').click();   /* focus leaves the buttons for the page */
+  await page.keyboard.press('Shift+Tab');
+  where = await focused();
+  t('Shift+Tab after a tap on the sheet\'s text stays in the sheet', where === 'cancel', where);
+  await page.locator('#tl-confirm-title').click();
+  await page.keyboard.press('Tab');
+  where = await focused();
+  t('  and so does Tab', where === 'export', where);
+  await button('cancel').focus();
+  await page.keyboard.press('Tab');
+  where = await focused();
+  t('Tab from the last button comes round to the first', where === 'export', where);
+  await page.keyboard.press('Shift+Tab');
+  where = await focused();
+  t('  and Shift+Tab from the first to the last', where === 'cancel', where);
+
+  /* A second sheet opened from the page while the first is up. */
+  await focusOn('uiLast');
+  await page.keyboard.press('Enter');
+  await page.waitForFunction(() => window.uiLast === 'pending');
+  await page.waitForFunction(() => window.uiFirst !== 'pending', null, { timeout: 2000 }).catch(() => {});
+  t('a sheet opened over another settles the first as cancelled', (await answer('uiFirst')) === 'cancel', String(await answer('uiFirst')));
+  t('  and is the one sheet on the page', (await sheet.count()) === 1 &&
+    (await page.locator('#tl-confirm').getAttribute('data-kind')) === 'protocol');
+  await button('cancel').click();
+  await page.waitForFunction(() => window.uiLast !== 'pending', null, { timeout: 2000 }).catch(() => {});
+  where = await focused();
+  t('  and when it is answered, focus goes back to what opened it', (await answer('uiLast')) === 'cancel' && where === 'uiLast', where);
+  await focusOn('uiInput');
+  await page.evaluate(() => { window.uiEscapePrevented = null; });
+  await page.keyboard.press('Escape');
+  where = await focused();
+  t('  and a later Escape on the page is the page\'s, not the first sheet\'s',
+    (await page.evaluate(() => window.uiEscapePrevented)) === false && where === 'uiInput',
+    `defaultPrevented ${await page.evaluate(() => window.uiEscapePrevented)}, focus on ${where}`);
+
+  /* The same, opened by the app while focus is still inside the first sheet. */
+  await focusOn('uiFirst');
+  await page.keyboard.press('Enter');
+  await button('export').waitFor();
+  await page.evaluate(() => document.getElementById('uiLast').click());
+  await page.waitForFunction(() => window.uiFirst !== 'pending', null, { timeout: 2000 }).catch(() => {});
+  t('a sheet opened over another from the app settles the first too', (await answer('uiFirst')) === 'cancel', String(await answer('uiFirst')));
+  await button('cancel').click();
+  where = await focused();
+  t('  and focus then goes back to what opened the first, not to a button that is gone', where === 'uiFirst', where);
+  await page.evaluate(() => ['uiFirst', 'uiLast', 'uiInput'].forEach((id) => document.getElementById(id).remove()));
+  t('  and nothing is left open', (await sheet.count()) === 0 && (await stored()) === null);
+
   pending = start(() => window.loadDemoData());
   await button('action').waitFor();
   await button('action').click();
@@ -172,5 +264,5 @@ const t = (name, ok, detail) => { results.push(!!ok); console.log(`${ok ? 'PASS'
   server.close();
   const failed = results.filter((ok) => !ok).length;
   if (failed) { console.error(`CONFIRM SHEET CHECK FAILED — ${failed} of ${results.length}`); process.exit(1); }
-  console.log(`confirm sheet OK: ${results.length} checks — every dangerous action waits for the sheet, cancelling changes nothing, and the backup offer exports and asks again`);
+  console.log(`confirm sheet OK: ${results.length} checks — every dangerous action waits for the sheet, cancelling changes nothing, focus stays in the sheet, a second sheet settles the first, and the backup offer exports and asks again`);
 })().catch((e) => { console.error('ui-check-confirm: ' + (e && e.stack || e)); process.exit(2); });
