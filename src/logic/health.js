@@ -125,9 +125,14 @@ function tlLeanMass(weight, bfPct) {
 
 /* A typed height as inches: 5'11", 5 ft 11, 71 in, 180 cm, 1.80 m. A bare
    number is taken as centimetres from 100 up and inches below that. Null when
-   it does not read as a height. */
+   it does not read as a height.
+
+   Curly quotes and prime marks count as the straight ones. An iPhone's Smart
+   Punctuation, on by default, turns 5'11" into 5’11” as it is typed, and the
+   profile stores the text as typed; some people type the primes, 5′11″. */
 function tlParseHeight(text) {
-  var s = String(text === null || text === undefined ? '' : text).trim().toLowerCase();
+  var s = String(text === null || text === undefined ? '' : text).trim().toLowerCase()
+    .replace(/[‘’′]/g, "'").replace(/[“”″]/g, '"');
   if (!s) return null;
   var inches = null, m;
   if ((m = s.match(/^(\d)\s*(?:'|ft|feet|foot)\s*(\d{1,2}(?:\.\d+)?)?\s*(?:"|''|in|inches)?$/))) inches = +m[1] * 12 + (m[2] ? +m[2] : 0);

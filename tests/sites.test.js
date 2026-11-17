@@ -130,6 +130,43 @@ test('the status line reads as the design has it', () => {
   assert.equal(line(daysAgo(20)), 'Last used 20 days ago. Rested.');
 });
 
+/* Times here are local wall-clock times, read in whatever zone the suite runs
+   under, so "last night" is last night in every one of them. */
+const statusAt = (s, used, now) => {
+  const st = app.tlSiteStatus(s, local(used).toISOString(), local(now).getTime());
+  return [st.state, st.days, st.left, st.line];
+};
+
+test('an injection last night was used yesterday, though fewer than 24 hours have passed', () => {
+  const quad = site('quad-r');                              /* seven days */
+  same(statusAt(quad, '2026-03-02T22:00', '2026-03-03T08:00'),
+    ['recent', 1, 6, 'Used yesterday. The 7-day rest ends in 6 days.']);
+  /* Just after midnight, looked at late that evening: still today. */
+  same(statusAt(quad, '2026-03-03T00:30', '2026-03-03T23:30'),
+    ['recent', 0, 7, 'Used today. The 7-day rest ends in 7 days.']);
+});
+
+test('two mornings later is two days ago, while the state still runs on hours', () => {
+  const quad = site('quad-r');
+  /* 47 hours: recent by the clock, but the calendar says two days ago, and the
+     rest ends next Monday morning, five days from Wednesday. */
+  same(statusAt(quad, '2026-03-02T09:00', '2026-03-04T08:00'),
+    ['recent', 2, 5, 'Used 2 days ago. The 7-day rest ends in 5 days.']);
+});
+
+test('the rest ends when its time runs out, and later today when that is today', () => {
+  const abd = site('abd-r');                                /* three days */
+  /* Sunday 09:00 to Wednesday 08:00 is 71 hours: still recovering, until 09:00. */
+  same(statusAt(abd, '2026-03-01T09:00', '2026-03-04T08:00'),
+    ['recovering', 3, 0, 'Used 3 days ago. The 3-day rest ends later today.']);
+  same(statusAt(abd, '2026-03-01T09:00', '2026-03-04T09:00'),
+    ['rested', 3, 0, 'Last used 3 days ago. Rested.']);
+  /* Monday 22:00, looked at the next Monday morning: seven days ago by the
+     calendar, but the seven-day rest has hours to go. */
+  same(statusAt(site('quad-r'), '2026-03-02T22:00', '2026-03-09T08:00'),
+    ['recovering', 7, 0, 'Used 7 days ago. The 7-day rest ends later today.']);
+});
+
 test('a subcutaneous site, with a three-day rest, is rested on the third day', () => {
   const abd = site('abd-l');
   same([1, 2, 3].map((d) => app.tlSiteStatus(abd, daysAgo(d), NOW).state), ['recent', 'recovering', 'rested']);

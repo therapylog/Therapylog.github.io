@@ -135,6 +135,17 @@ test('a typed height reads as inches in the forms people write it', () => {
   for (const bad of ['', null, 'tall', '5', '300', '12 cm']) assert.equal(app.tlParseHeight(bad), null, String(bad));
 });
 
+test('a height typed with curly quotes or prime marks, as a phone keyboard writes it, still reads', () => {
+  /* 5’11” is what iOS Smart Punctuation makes of 5'11"; 5′11″ uses the prime marks. */
+  assert.equal(app.tlParseHeight('5’11”'), 71);
+  assert.equal(app.tlParseHeight('5′11″'), 71);
+  assert.equal(app.tlParseHeight('5’11"'), 71);
+  assert.equal(app.tlParseHeight('5’ 11'), 71);
+  assert.equal(app.tlParseHeight('6’'), 72);
+  assert.equal(app.tlParseHeight('71”'), 71);
+  assert.equal(app.tlFFMI(195.2, 16.2, app.tlParseHeight('5’11”')), 22.8);
+});
+
 test('FFMI is lean mass in kilograms over height in metres squared', () => {
   /* 195.2 lb at 16.2% is 163.6 lb lean, 74.2 kg; 71 in is 1.8034 m. */
   assert.equal(app.tlFFMI(195.2, 16.2, 71), 22.8);
