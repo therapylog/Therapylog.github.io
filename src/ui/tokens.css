@@ -1,0 +1,113 @@
+/* Design tokens: the Nocturne sheet with TherapyLog's signal-green accent.
+   Values are the handoff's (README, "Design tokens"), exactly.
+
+   Dark is the default. Light applies where the app has always put it, on
+   body.light-mode, so the existing theme switch drives old and new screens
+   alike. .ds-dark and .ds-light force a theme on one subtree; the hidden
+   components page uses them to show both side by side. Specificity does not
+   come into it: a custom property declared on an element beats the value it
+   would inherit, so a .ds-dark box inside a light body is dark.
+
+   Derived tokens (divider, muted, the gradients) are declared in every theme
+   scope, not once on :root. A custom property that uses var() is resolved on
+   the element that declares it and inherited as a finished value, so a
+   derived token declared only on :root would carry the dark text colour into
+   a light subtree. */
+
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url("/vendor/fonts/inter-latin-400.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url("/vendor/fonts/inter-latin-500.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url("/vendor/fonts/inter-latin-ext-400.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url("/vendor/fonts/inter-latin-ext-500.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+
+/* ---- dark (default) ---------------------------------------------------- */
+:root,.ds-dark{
+  --color-bg:#161826;
+  --color-surface:#232532;
+  --color-text:#e9e9ed;
+
+  --color-neutral-100:#f3f5fe;
+  --color-neutral-200:#e4e7f5;
+  --color-neutral-300:#cfd3e5;
+  --color-neutral-400:#b2b6ca;
+  --color-neutral-500:#9397ab;
+  --color-neutral-600:#75798c;
+  --color-neutral-700:#595d6c;
+  --color-neutral-800:#3f424d;
+  --color-neutral-900:#292b31;
+
+  --color-accent:#4ade9a;
+  --color-accent-100:oklch(0.97 0.03 158);
+  --color-accent-200:oklch(0.93 0.06 158);
+  --color-accent-300:oklch(0.88 0.10 158);
+  --color-accent-400:oklch(0.82 0.15 158);
+  --color-accent-500:oklch(0.72 0.15 158);
+  --color-accent-600:oklch(0.60 0.13 158);
+  --color-accent-700:oklch(0.48 0.10 158);
+  --color-accent-800:oklch(0.36 0.07 158);
+  --color-accent-900:oklch(0.27 0.045 158);
+
+  --color-danger:oklch(0.74 0.13 22);
+  --color-warn:oklch(0.82 0.11 80);
+
+  --shadow-sm:0 0 0 1px #3f424d;
+  --shadow-md:0 0 0 1px #595d6c,0 6px 18px rgba(0,0,0,0.55);
+  --shadow-lg:0 0 0 1px #9397ab,0 16px 40px rgba(0,0,0,0.65);
+  --ds-scheme:dark;
+}
+
+/* ---- light ------------------------------------------------------------- */
+body.light-mode,.ds-light{
+  --color-bg:#e4e7f5;
+  --color-surface:#f3f5fe;
+  --color-text:#161826;
+
+  --color-neutral-100:#161826;
+  --color-neutral-200:#292b31;
+  --color-neutral-300:#3f424d;
+  --color-neutral-400:#595d6c;
+  --color-neutral-500:#75798c;
+  --color-neutral-600:#9397ab;
+  --color-neutral-700:#b2b6ca;
+  --color-neutral-800:#cfd3e5;
+  --color-neutral-900:#d9dcec;
+
+  --color-accent:oklch(0.47 0.12 158);
+  --color-accent-100:oklch(0.27 0.045 158);
+  --color-accent-200:oklch(0.32 0.07 158);
+  --color-accent-300:oklch(0.37 0.09 158);
+  --color-accent-400:oklch(0.42 0.11 158);
+  --color-accent-500:oklch(0.47 0.12 158);
+  --color-accent-600:oklch(0.60 0.13 158);
+  --color-accent-700:oklch(0.76 0.10 158);
+  --color-accent-800:oklch(0.87 0.07 158);
+  --color-accent-900:oklch(0.92 0.045 158);
+
+  --color-danger:oklch(0.52 0.17 25);
+  /* The handoff gives oklch(0.55 0.12 70), which is 4.04:1 on the light
+     ground: short of the 4.5:1 that text needs, and warn is used for text
+     (the backup warning in Settings, "Below range"). 0.52 is the smallest
+     step of lightness, same hue and chroma, that holds 4.5:1.
+     tests/tokens.test.js checks it. */
+  --color-warn:oklch(0.52 0.12 70);
+
+  --shadow-sm:0 0 0 1px #cfd3e5;
+  --shadow-md:0 0 0 1px #cfd3e5,0 6px 18px rgba(22,24,38,0.14);
+  /* The handoff gives no light lg shadow; this is md's edge one step darker
+     with md's ambient doubled, for the sheets that use it. */
+  --shadow-lg:0 0 0 1px #b2b6ca,0 16px 40px rgba(22,24,38,0.22);
+  --ds-scheme:light;
+}
+/* ---- derived, per theme scope ------------------------------------------ */
+:root,.ds-dark,.ds-light,body.light-mode{
+  --color-divider:color-mix(in srgb,var(--color-text) 16%,transparent);
+  /* All secondary copy: 66%, per the handoff (some turn-2 screens show 60%). */
+  --color-muted:color-mix(in srgb,var(--color-text) 66%,transparent);
+  --hero-ground:linear-gradient(180deg,var(--color-surface),color-mix(in srgb,var(--color-surface) 35%,var(--color-bg)));
+  --tabbar-ground:color-mix(in srgb,var(--color-bg) 92%,transparent);
+
+  --font-ui:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --space-1:2.8px;--space-2:5.6px;--space-3:8.4px;--space-4:11.2px;--space-6:16.8px;--space-8:22.4px;
+  --radius-sm:4px;--radius-md:8px;--radius-lg:14px;--radius-sheet:16px;
+  --gutter:20px;
+  --ease-out:cubic-bezier(.2,.8,.2,1);
+}

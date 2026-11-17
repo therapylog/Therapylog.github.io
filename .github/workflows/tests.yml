@@ -8,6 +8,8 @@ on:
       - 'scripts/**'
       - 'docs/DATA-MODEL.md'
       - 'assets/figures/injection-sites.json'
+      - 'vendor/fonts/**'
+      - 'sw.js'
       - '.github/workflows/tests.yml'
   pull_request:
 jobs:
@@ -69,3 +71,7 @@ jobs:
         run: node scripts/capture-backup-fixture.js --model --check
       - name: The confirm sheet
         run: node scripts/ui-check-confirm.js
+      # The redesign's shared components in both themes: fonts and icons load
+      # from /vendor, 44 px targets, 12 px text, names, keyboard and touch.
+      - name: The design foundation
+        run: node scripts/ui-check-kit.js

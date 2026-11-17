@@ -1,5 +1,5 @@
 /* TherapyLog service worker — offline shell + notification display. */
-const CACHE = 'therapylog-v5';
+const CACHE = 'therapylog-v6';
 const PRECACHE = [
   '/app.html',
   /* The brain index answers questions on-device for free. Precaching it is what
@@ -11,6 +11,15 @@ const PRECACHE = [
   '/assets/brain/index.json',
   '/manifest.webmanifest',
   '/vendor/chart.umd.min.js',
+  /* The redesign's fonts, self-hosted so the app looks right offline and so
+     opening it sends nobody's address to a font CDN. Small: Inter is two
+     weights in two scripts, and the icons are subset to the ones in use. */
+  '/vendor/fonts/inter-latin-400.woff2',
+  '/vendor/fonts/inter-latin-500.woff2',
+  '/vendor/fonts/inter-latin-ext-400.woff2',
+  '/vendor/fonts/inter-latin-ext-500.woff2',
+  '/vendor/fonts/phosphor-regular.woff2',
+  '/vendor/fonts/phosphor-fill.woff2',
   '/icons/icon.svg?v=2026-08-30',
   '/icons/icon-192.png?v=2026-08-30',
   '/icons/icon-512.png?v=2026-08-30'
