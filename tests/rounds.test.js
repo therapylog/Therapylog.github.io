@@ -328,7 +328,9 @@ test('several spare vials read in the plural', () => {
 
 test('the inventory list is soonest-out first, and only compounds with a count', () => {
   const p = withInv({ bpc: { per: 20, left: 7, spare: 0 }, gh: { per: 18, left: 11, spare: 1 }, test: { per: 25, left: 19, spare: 0 } });
-  same(app.tlSupplyAll(p, [], THU).map((s) => [s.key, s.days]), [['gh', 6], ['bpc', 7], ['test', 67]]);
+  /* Eleven doses at two a day cover five days and the sixth morning, so the
+     spare is needed for that sixth day's bedtime dose: day 5, not 6. */
+  same(app.tlSupplyAll(p, [], THU).map((s) => [s.key, s.days]), [['gh', 5], ['bpc', 7], ['test', 67]]);
 });
 
 test('setting the inventory refuses numbers that cannot be right, and changes nothing when it does', () => {
