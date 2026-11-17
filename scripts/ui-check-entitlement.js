@@ -77,6 +77,15 @@ async function openApp(browser, port, { seed, verifyReply } = {}) {
   if (seed) await page.addInitScript(seed);
   await page.goto(`http://127.0.0.1:${port}/app.html`);
   await page.waitForTimeout(1100);
+  /* The redesign's onboarding: accept the terms, then skip setup (no
+     compounds) the way a user would. */
+  if (await page.locator("#tl-ob").count()) {
+    for (const step of ["accept", "next", "next", "next", "next", "finish"]) {
+      await page.locator(`#tl-ob [data-ob="${step}"]`).click();
+      await page.waitForTimeout(80);
+    }
+    await page.waitForTimeout(250);
+  }
   const understood = page.locator('button[onclick="acceptDisclaimer()"]').first();
   if (await understood.count() && await understood.isVisible().catch(() => false)) {
     await understood.click(); await page.waitForTimeout(200);

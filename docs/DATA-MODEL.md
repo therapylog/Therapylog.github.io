@@ -445,11 +445,11 @@ None of these is in a backup or restored by import. "Reset" is whether
 | Key | Value | Written by | Read by | Reset |
 |---|---|---|---|---|
 | `tl-theme` | `"light"` or `"dark"`; absent means follow the OS | `toggleTheme` | `initTheme`, which sets class `light-mode` on `body` | yes |
-| `tl-ob-done` | `"1"` | `obFinish`, `obSkip`, `loadDemoData` | `checkOnboarding`, `acceptDisclaimer` | yes |
-| `tl-disclaimer-done` | `{"v":2,"at":"<ISO>","age18":true}`; legacy `"1"` re-prompts | `acceptDisclaimer` | `disclaimerCurrent` | yes |
+| `tl-ob-done` | `"1"` | `obFinish`, `obSkip`, `loadDemoData`; the redesign's `tlObFinish` and `tlObRestore` | `checkOnboarding`, `acceptDisclaimer`, `tlObWanted` | yes |
+| `tl-disclaimer-done` | `{"v":2,"at":"<ISO>","age18":true}`; legacy `"1"` re-prompts | `acceptDisclaimer` (also from the redesign's gate, `tlObAccept`) | `disclaimerCurrent` | yes |
 | `tl-last-export` | epoch ms as a string | `exportData`, `exportDataFromBanner`, `tlShareBackup`, `tlWriteLinkedBackup` | `checkPersistBanner`, `tlAutoBackup`, `tlDaysSinceBackup` | yes |
 | `tl-banner-dismissed` | epoch ms as a string | `dismissPersistBanner` | `checkPersistBanner` | yes |
-| `tl_notif_discreet` | `"1"` or `"0"` | `setDiscreetReminders` | `discreetReminders` | yes |
+| `tl_notif_discreet` | `"1"` or `"0"` | `setDiscreetReminders`; `tlObFinish`, to match `protocol.discreet` | `discreetReminders` | yes |
 | `tl-chat-history` | JSON array of the last 20 chat messages | `saveChatMemory` | `loadChatMemory` | yes |
 | `tl_ai_mode` | `"managed"` or `"byok"`; absent means managed | `setAIMode`, `saveByokKey` | `sendChat`, `scanLabImage`, `initAISettings` | yes |
 | `tl_ai_key` | the user's own API key, plain text | `saveByokKey` | `sendChat`, `scanLabImage`, `TLTier.hasOwnKey` | yes |
@@ -604,9 +604,9 @@ that has them all.
 | Key | Type | Written by |
 |---|---|---|
 | `v` | number. Absent before the redesign; `3` once the record holds a protocol model | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel` |
-| `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel`; deleted by `clearProtocol` and by a save from the old protocol form |
+| `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol` (onboarding stores through it: `tlFinishSetup`), `tlImportModel`; deleted by `clearProtocol` and by a save from the old protocol form |
 | `doseChanges` | array, newest first | `tlRecordDoseChanges`, `tlImportModel` |
-| `settings` | object: `{ figure, units }` so far | `tlSetSetting`, `tlImportModel` |
+| `settings` | object: `{ focus, figure, units }` so far | `tlSetSetting` (onboarding: `tlFinishSetup`), `tlImportModel` |
 
 ### `protocol`
 
@@ -660,10 +660,28 @@ new model or the old protocol form (`saveProtocol` calls
 ### `settings`
 
 Display settings that belong to the person rather than the device, kept in
-the record so that a restored backup brings them back. `figure` (`"male"` or
-`"female"`, the body map) and `units` (`"imperial"` or `"metric"`) are the two
-defined so far. The theme stays in localStorage `tl-theme`, where it has to be
-readable before the record loads.
+the record so that a restored backup brings them back. Defined so far:
+
+- `focus`: what onboarding's "What are you tracking?" chose, an array of
+  `trt`, `peptides`, `gh`, `cycle`, `glp1`, `hrt` (`TL_FOCUS` in
+  `src/logic/setup.js`). Home reads it; `hrt` also shows Health's Cycle
+  segment.
+- `figure`: `"male"` or `"female"`, the body map.
+- `units`: `"imperial"` or `"metric"`.
+
+The theme stays in localStorage `tl-theme`, where it has to be readable
+before the record loads.
+
+### Onboarding
+
+The redesign's onboarding (`src/ui/onboarding.js`) writes nothing until its
+last step. Then `tlFinishSetup` stores `settings.focus` and `settings.figure`,
+and stores the protocol through `tlStoreProtocol` if it has a compound (or the
+record already had a protocol that was emptied). A new protocol gets
+`start` (today), `created` (now) and the name "My protocol". An empty stack
+on a new record stores no protocol, so a backup restored afterwards can still
+bring one in. Restoring a backup from the first step goes through
+`importData` and skips setup entirely.
 
 ### Medication entries
 

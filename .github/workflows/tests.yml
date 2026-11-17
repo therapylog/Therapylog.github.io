@@ -79,3 +79,7 @@ jobs:
       # new tabs, paid features still gated, links and Back.
       - name: The shell and navigation
         run: node scripts/ui-check-shell.js
+      # A first run from an empty browser to the stored protocol, the backup
+      # restore instead of setup, and returning users; both themes, 320 px.
+      - name: Onboarding
+        run: node scripts/ui-check-onboarding.js

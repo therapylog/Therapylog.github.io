@@ -93,7 +93,15 @@ function tlSegsFor(name, d) {
 
 function tlInitial(d) {
   var name = (d && d.profile && d.profile.name) || '';
-  return String(name).trim().charAt(0).toUpperCase() || '?';
+  return String(name).trim().charAt(0).toUpperCase();
+}
+
+/* The profile button: the first letter of the name, or a figure before
+   there is one. */
+function tlAvatar(d) {
+  var i = tlInitial(d);
+  return '<button type="button" class="ds-avatar" aria-label="Profile and settings" data-tl-go="settings">' +
+    (i ? tlEsc(i) : tlIcon('person-simple')) + '</button>';
 }
 
 function tlTopBar(name, d) {
@@ -101,14 +109,14 @@ function tlTopBar(name, d) {
   if (name === 'today') {
     return '<div class="ds-header tl-top-row"><button type="button" class="ds-askbar" data-tl-go="ask">' +
       tlIcon('sparkle', true) + '<span>Ask, or search 131 compounds</span></button>' +
-      '<button type="button" class="ds-avatar" aria-label="Profile and settings" data-tl-go="settings">' + tlEsc(tlInitial(d)) + '</button></div>';
+      tlAvatar(d) + '</div>';
   }
   if (r.back) {
     return '<div class="ds-header tl-top-row"><button type="button" class="ds-btn ds-btn-ghost tl-back" data-tl-back>' +
       tlIcon('caret-left') + '<span class="ds-sr">Back</span></button><h1 class="ds-h1">' + tlEsc(r.title) + '</h1></div>';
   }
   var html = '<div class="ds-header tl-top-row"><h1 class="ds-h1">' + tlEsc(r.title) + '</h1>' +
-    '<button type="button" class="ds-avatar" aria-label="Profile and settings" data-tl-go="settings">' + tlEsc(tlInitial(d)) + '</button></div>';
+    tlAvatar(d) + '</div>';
   var segs = tlSegsFor(name, d);
   if (segs) html += '<div class="tl-top-seg">' + tlSegmented(r.title + ' section', segs, name.split('/')[1]) + '</div>';
   return html;
@@ -308,6 +316,9 @@ function tlShellInit() {
   var first = tlRouteFromHash(location.hash);
   if (!tlShow(first)) tlShow('today');
   history.replaceState(null, '', '#/' + tlRoute);
+
+  /* A first run, or terms accepted under an older version: onboarding. */
+  if (typeof tlObStart === 'function') tlObStart();
 }
 
 /* The old app starts up asynchronously: once its storage has loaded it moves

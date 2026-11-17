@@ -118,9 +118,18 @@ async function openLabsTab(page, port) {
   });
   await page.goto(`http://127.0.0.1:${port}/app.html`);
   await page.waitForTimeout(1200);
-  await page.locator('button[onclick="acceptDisclaimer()"]').first().click();
-  await page.waitForTimeout(250);
-  await page.locator('button:has-text("Skip setup, explore first")').first().click();
+  if (await page.locator('#tl-ob').count()) {
+    /* The redesign's onboarding: accept the terms, then skip setup (no
+       compounds) the way a user would. */
+    for (const step of ['accept', 'next', 'next', 'next', 'next', 'finish']) {
+      await page.locator(`#tl-ob [data-ob="${step}"]`).click();
+      await page.waitForTimeout(80);
+    }
+  } else {
+    await page.locator('button[onclick="acceptDisclaimer()"]').first().click();
+    await page.waitForTimeout(250);
+    await page.locator('button:has-text("Skip setup, explore first")').first().click();
+  }
   await page.waitForTimeout(400);
   /* The redesign's tab bar replaces the old bottom nav; use whichever the
      page has, the way a user would. */
