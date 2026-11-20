@@ -88,3 +88,7 @@ jobs:
       # banner, a notification's actions; light theme at 320 px.
       - name: Today
         run: node scripts/ui-check-today.js
+      # The Log sheet and the injection-site map: the due card, the tiles, the
+      # dose form on the user's own amount, sites by tap and by keyboard.
+      - name: Log sheet and site map
+        run: node scripts/ui-check-log.js

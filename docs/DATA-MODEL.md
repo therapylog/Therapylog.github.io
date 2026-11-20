@@ -810,6 +810,13 @@ An entry without them, logged from an old screen, is matched to a dose by
 - **Which dose:** the one whose round is nearest its time. If that dose is
   already ticked, the entry is a second record of it and ticks nothing else.
 
+A dose saved from the Log sheet's dose form (`tlLogCompoundDose`) ticks that
+compound's next pending dose today and is written like a checklist entry. With
+nothing pending (an extra dose, a compound with no schedule, a day it is not
+due) it is written with its `key` and no `slot` or `day`, so it is in the log
+and in supply and ticks no round. Either way it carries the site picked on the
+map as `site` (its name) and `siteId`.
+
 Supply counts an entry against the line it was matched to
 (`tlEntryOwner`), and charges today's doses only while they are pending, so
 logging today's dose does not take it off twice.

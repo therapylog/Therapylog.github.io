@@ -99,10 +99,15 @@ async function tryScan(page) {
   /* The redesign's tab bar replaces the old bottom nav; tap whichever the
      page has, the way a user would. */
   const newLog = page.locator('#tl-tabs [data-ds-tab="log"]');
-  if (await newLog.count()) await newLog.click();
-  else await page.locator(".nav-btn", { hasText: "Log" }).first().click();
-  await page.waitForTimeout(200);
-  await page.locator("#page-log .seg-btn", { hasText: "Labs" }).click();
+  if (await newLog.count()) {
+    /* The centre button opens the Log sheet; its Labs tile opens the form. */
+    await newLog.click();
+    await page.locator('[data-log-tile="labs"]').click();
+  } else {
+    await page.locator(".nav-btn", { hasText: "Log" }).first().click();
+    await page.waitForTimeout(200);
+    await page.locator("#page-log .seg-btn", { hasText: "Labs" }).click();
+  }
   await page.waitForTimeout(300);
   await page.setInputFiles("#lab-file-input", { name: "p.png", mimeType: "image/png",
     buffer: Buffer.from("89504e470d0a1a0a", "hex") }).catch(() => {});

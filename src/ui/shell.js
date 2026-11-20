@@ -27,6 +27,8 @@ var TL_ROUTES = {
   'home/customize': { title: 'Customize Home', back: 'today', bare: true, screen: 'tlCustomizeScreen' },
   protocol: { title: 'Protocol', tab: 'protocol', gate: 'cycle_tracker', legacy: function () { showPage('cycle'); } },
   log: { title: 'Log', tab: 'log', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('weight'); } },
+  'log/labs': { title: 'Log labs', tab: 'log', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('labs'); } },
+  'log/symptom': { title: 'Log a symptom', tab: 'log', gate: 'symptoms', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('symp'); } },
   health: { title: 'Health', tab: 'health', segs: 'health', seg: 'bloodwork' },
   'health/bloodwork': { title: 'Health', tab: 'health', segs: 'health', legacy: function () { showPage('bloodwork'); } },
   'health/bp': { title: 'Health', tab: 'health', segs: 'health', gate: 'blood_pressure',
@@ -208,7 +210,7 @@ function tlLegacyLogTab(tab) {
 function tlRouteFromLegacy() {
   var on = function (id) { var el = document.getElementById(id); return el && el.classList.contains('active'); };
   if (on('page-dashboard')) return 'today';
-  if (on('page-log')) return tlRoute === 'health/bp' || tlRoute === 'health/body' ? tlRoute : 'log';
+  if (on('page-log')) return /^(health\/bp|health\/body|log\/)/.test(tlRoute || '') ? tlRoute : 'log';
   var sec = function (s) { return on('hub-sec-' + s); };
   if (on('hub-reference')) return sec('tools') ? 'library/tools' : sec('stack') ? 'library/stack' : 'library/compounds';
   if (on('hub-health')) return sec('cycle') ? 'protocol' : sec('femcycle') ? 'health/cycle' : sec('photos') ? 'health/photos' : 'health/bloodwork';
@@ -322,7 +324,13 @@ function tlShellInit() {
     if (go) { e.preventDefault(); tlGo(go.getAttribute('data-tl-go')); return; }
     if (el.closest('[data-tl-back]')) { e.preventDefault(); tlBack(); return; }
     var tab = el.closest('[data-ds-tab]');
-    if (tab) { e.preventDefault(); tlGo(tab.getAttribute('data-ds-tab')); }
+    if (tab) {
+      e.preventDefault();
+      /* The centre button is an action, not a place: it opens the Log sheet
+         over whatever is showing. */
+      if (tab.getAttribute('data-ds-tab') === 'log' && typeof tlOpenLogSheet === 'function') tlOpenLogSheet();
+      else tlGo(tab.getAttribute('data-ds-tab'));
+    }
   });
   top.addEventListener('ds-change', function (e) {
     var r = TL_ROUTES[tlRoute];

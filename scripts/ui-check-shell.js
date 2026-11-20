@@ -124,8 +124,14 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     const tap = async (sel) => { await page.locator(sel).click(); await page.waitForTimeout(250); return state(page); };
     s = await tap('#tl-tabs [data-ds-tab="protocol"]');
     t('Protocol shows the old cycle page (protocol, reminders, week, levels)', s.route === 'protocol' && s.tab === 'protocol' && s.shown.includes('page-cycle'), s.shown.join(','));
+    const before = s.route;
     s = await tap('#tl-tabs [data-ds-tab="log"]');
-    t('the centre Log button shows the old log page, its tabs included', s.route === 'log' && s.shown.includes('page-log') && s.shown.includes('lt-weight') &&
+    t('the centre Log button opens the Log sheet over the page, without going anywhere', s.route === before &&
+      (await page.locator('.ds-sheet[aria-label="Log"]').count()) === 1, JSON.stringify({ before, after: s.route }));
+    await page.keyboard.press('Escape');
+    await page.evaluate(() => tlGo('log')); await page.waitForTimeout(250);
+    s = await state(page);
+    t('  and #/log still shows the old log page, its tabs included', s.route === 'log' && s.shown.includes('page-log') && s.shown.includes('lt-weight') &&
       (await page.locator('#page-log .seg').first().isVisible()));
     s = await tap('#tl-tabs [data-ds-tab="health"]');
     t('Health opens on Bloodwork', s.route === 'health/bloodwork' && s.seg === 'bloodwork' && s.shown.includes('page-bloodwork'), s.shown.join(','));
