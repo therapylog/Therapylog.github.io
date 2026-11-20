@@ -51,7 +51,16 @@ const CLOCK = new Date(2026, 10, 19, 8, 30, 0);
 
 async function open(browser, base, opts) {
   const context = await browser.newContext({ viewport: { width: opts.width || 390, height: 844 }, serviceWorkers: 'block' });
-  if (opts.notify) await context.grantPermissions(['notifications'], { origin: base });
+  if (opts.notify) {
+    await context.grantPermissions(['notifications'], { origin: base });
+    /* Some headless builds (CI's among them) report notifications as denied
+       whatever is granted. The check captures notifications rather than
+       showing them (fireNotification is replaced below), so it only needs the
+       app to believe it may send them. */
+    await context.addInitScript(() => {
+      try { Object.defineProperty(window, 'Notification', { configurable: true, value: Object.assign(function () {}, { permission: 'granted', requestPermission: () => Promise.resolve('granted') }) }); } catch (e) {}
+    });
+  }
   const page = await context.newPage();
   const errors = [], dialogs = [];
   page.on('pageerror', (e) => errors.push(e.message));
