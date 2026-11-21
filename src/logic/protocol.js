@@ -253,7 +253,12 @@ function tlRuleFromLegacy(med, start, note) {
   if (type === 'check' || type === 'asneeded') return null;
   if (type !== 'interval' && type !== 'monthly' && type !== 'pulse') {
     if (tlDayWords(med && med.freqStr).length) named = tlWeekdaysInText(med.freqStr);
-    else if (type === 'weekly' && note) named = tlWeekdaysInText(note);
+    else if (type === 'weekly' && note) {
+      /* Only the parts of the note that say nothing but days: "Mon AM and Thu
+         PM, glute only" places the line; "refill on Fridays" does not. */
+      var dayParts = String(note).split(',').filter(function (x) { return typeof tlFreqOnlyDays !== 'function' || tlFreqOnlyDays(x); });
+      named = dayParts.length ? tlWeekdaysInText(dayParts.join(', ')) : null;
+    }
     var stated = /\b([1-7])\s*(?:x|times)\s*(?:\/|a|per|each)?\s*week/i.exec((med && med.freqStr) || '');
     if (named && type === 'weekly' && named.length !== (stated ? +stated[1] : (freq.count || 1))) named = null;
   }

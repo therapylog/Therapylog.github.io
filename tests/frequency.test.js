@@ -115,3 +115,47 @@ test('days named in the rest of a weekly line place it in the old screens and th
   /* A daily line is never made weekly by what follows it. */
   assert.equal(app.parseMeds('BPC-157, 250mcg, Daily, refill on Fridays')[0].freq.type, 'daily');
 });
+
+/* ---- found in review: phrases the old reader got right ------------------- */
+
+test('a footnote asterisk does not hide the schedule; "2*daily" is a count', () => {
+  for (const [p, type] of [['Weekly*', 'weekly'], ['EOD*', 'interval'], ['Twice weekly*', 'weekly'], ['Monthly*', 'monthly'], ['*weekly', 'weekly']]) {
+    assert.equal(app.parseFrequency(p).type, type, p);
+  }
+  assert.equal(app.parseFrequency('2*daily').times, 2);
+});
+
+test('"every N days" keeps its interval whatever follows it', () => {
+  for (const [p, n] of [['every 3 days before bed', 3], ['every 2 days after workout', 2], ['every 2 days in the AM', 2],
+    ['every 3 days pre-workout', 3], ['every 2 weeks in the morning', 14]]) {
+    same(plain(app.parseFrequency(p)).interval, n, p);
+  }
+  /* A length of course is still set aside where it is one. */
+  assert.equal(app.parseFrequency('Daily oral, start 2 weeks after last injection').type, 'daily');
+  assert.equal(app.parseFrequency('once a week 2 hours before gym').type, 'weekly');
+});
+
+test('days written as letters after "except" or "not" are not dose days', () => {
+  for (const p of ['Daily except T/Th', 'Daily, not M/W', 'daily except M-F', 'skip MWF']) {
+    assert.notEqual(app.parseFrequency(p).named, true, p);
+  }
+});
+
+test('times of day are doses only when the text lists them; meals are not times', () => {
+  const r = (p) => plain(app.parseFrequency(p));
+  assert.equal(r('AM or PM').times, 1);
+  assert.equal(r('AM or PM').at, undefined);
+  same(r('Before bed (2h after dinner)').at, ['21:30']);
+  same(r('Daily before bed 2 hours after dinner').at, ['21:30']);
+  same(r('AM fasted 30 min before breakfast').at, ['08:00']);
+  same([r('AM/PM').times, r('AM/PM').at], [2, ['08:00', '20:00']]);
+  same([r('morning, noon and night').times, r('morning, noon and night').at], [3, ['08:00', '12:00', '21:30']]);
+});
+
+test('the rest of a line moves a weekly dose only when it names nothing but days', () => {
+  assert.equal(app.parseMeds('Test Cyp, 100mg, Weekly, refill on Fridays')[0].freq.named, undefined);
+  same(plain(app.parseMeds('X, 1mg, 3 times weekly: Mon, Wed, Fri')[0].freq.days), [1, 3, 5]);
+  /* The protocol model reads the note the same way. */
+  const d = { entries: [], proto: proto('Test Cyp, 100mg, Weekly, refill on Fridays') };
+  same(plain(app.tlProtocolFromLegacy(d, env).compounds[0].rule), { weekdays: [1] });
+});
