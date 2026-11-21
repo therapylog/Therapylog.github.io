@@ -164,3 +164,9 @@
 .tl-due-lines{font-size:13px;line-height:1.45;color:var(--color-muted);margin:2px 0 10px}
 .tl-due-actions{display:flex;gap:8px}
 .tl-due-actions .ds-btn-primary{flex:1}
+
+/* A view a free user sees the way to, not the content of. */
+.tl-hero-locked{gap:12px}
+.tl-lock-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tl-lock-text{margin:0;font-size:15px;line-height:1.5;color:var(--color-text)}
+.tl-hero-locked .ds-btn{align-self:flex-start}

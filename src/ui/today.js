@@ -70,7 +70,24 @@ function tlShortDate(ms) {
 
 /* ---- the hero ------------------------------------------------------------ */
 
+/* Estimated levels are analysis, and analysis is paid; the log they come from
+   stays free. A free user sees what the view is and the way to it, not the
+   curve. */
+function tlLevelsLocked() {
+  return !!(window.TLTier && typeof TLTier.get === 'function' && TLTier.get() === 'free');
+}
+
+function tlLockedHero(label, text) {
+  return '<section class="ds-hero tl-hero-card tl-hero-locked" aria-label="' + tlEsc(label) + '">' +
+    '<div class="tl-lock-head"><span class="ds-label">' + tlEsc(label) + '</span><span class="ds-tag ds-tag-outline">Pro</span></div>' +
+    '<p class="tl-lock-text">' + tlEsc(text) + '</p>' +
+    '<button type="button" class="ds-btn ds-btn-primary" data-today="levels-pro">' + tlIcon('lock-simple') + 'See your levels with Pro</button>' +
+    '<p class="tl-hero-foot">Your log, the doses these come from, stays free.</p>' +
+    '</section>';
+}
+
 function tlLevelsCard(x) {
+  if (tlLevelsLocked()) return tlLockedHero('Levels', 'An estimated curve for each compound you log, from its published half-life: where it is now, and where your next week of doses takes it.');
   var list = x.levels;
   var sel = list.filter(function (s) { return s.label === tlTodayState.level; })[0] || list[0];
   tlTodayState.level = sel.label;
@@ -99,6 +116,7 @@ function tlGaugeSvg(pct, i) {
 }
 
 function tlSystemCard(x) {
+  if (tlLevelsLocked()) return tlLockedHero('In your system', 'How much of each compound you log is estimated to be in your system right now, each against its own peak.');
   var n = x.levels.length;
   return '<section class="ds-hero tl-hero-card" aria-label="In your system">' +
     '<div class="ds-label">Estimated, right now</div>' +
@@ -315,6 +333,7 @@ function tlTodayWire(el, heroes) {
     var round = t.closest('[data-log-round]');
     if (round) { tlLogRoundNow(round.getAttribute('data-log-round'), tlDayKey(new Date()), false); return; }
     if (t.closest('[data-today="add"]')) tlAddCompoundFlow();
+    if (t.closest('[data-today="levels-pro"]') && window.TLTier) TLTier.check('cycle_tracker');
   });
   el.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && menu && !menu.hidden) { setMenu(false); opener.focus(); }

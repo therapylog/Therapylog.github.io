@@ -78,7 +78,7 @@ async function open(browser, base, opts) {
       if (record) localStorage.setItem('tlv2', record);
       if (ent) localStorage.setItem('tl_ent', ent);
     } catch (e) {}
-  }, [opts.record ? JSON.stringify(opts.record) : null, opts.theme || 'dark', PAID(CLOCK.getTime())]);
+  }, [opts.record ? JSON.stringify(opts.record) : null, opts.theme || 'dark', opts.free ? null : PAID(CLOCK.getTime())]);
   await page.goto(base + '/app.html' + (opts.hash || '#/today'), { waitUntil: 'load' });
   await page.waitForFunction(() => document.body.classList.contains('tl-shell') && !!document.getElementById('tl-tabs').firstChild);
   await page.waitForTimeout(250);
@@ -341,6 +341,24 @@ const fitDetail = (f) => JSON.stringify(f).slice(0, 300);
     t('Done returns to Today', s.route === 'today');
     t('which follows the new order and switches', JSON.stringify(s.heroes) === JSON.stringify(['Labs', 'Levels']) && !s.sections.includes('Inventory'), JSON.stringify([s.heroes, s.sections]));
     t('and shows the morning round\'s alert as off', s.rounds.some((r) => /^Morning .* alert off$/.test(r)), JSON.stringify(s.rounds));
+    t('no page errors', !errors.length, errors.join(' | '));
+    await context.close();
+  }
+
+  /* ===== a free user ===== */
+  {
+    const { context, page, errors } = await open(browser, base, { record: DEMO, free: true });
+    const hero = await page.evaluate(() => Array.from(document.querySelectorAll('.tl-hero-card')).map((c) => ({
+      label: c.getAttribute('aria-label'), locked: c.classList.contains('tl-hero-locked'),
+      chart: !!c.querySelector('svg.tl-lv-chart, .tl-gauges'), pro: !!c.querySelector('.ds-tag'), text: c.textContent })));
+    const lv = hero.find((h) => h.label === 'Levels'), sys = hero.find((h) => h.label === 'In your system');
+    t('free: the Levels and In your system views say Pro and show no curve', lv && lv.locked && lv.pro && !lv.chart && sys && sys.locked && !sys.chart,
+      JSON.stringify(hero.map((h) => [h.label, h.locked, h.chart])));
+    t('  while Supply and Labs stay as they are', hero.filter((h) => h.label === 'Supply' || h.label === 'Labs').every((h) => !h.locked && !h.pro));
+    t('  and say the log itself stays free', /stays free/.test(lv.text));
+    await page.click('.tl-hero-locked [data-today="levels-pro"]');
+    await page.waitForTimeout(200);
+    t('  the button opens the upgrade screen, and Today stays put', await page.evaluate(() => !!document.getElementById('tl-upgrade-overlay') && tlRoute === 'today'));
     t('no page errors', !errors.length, errors.join(' | '));
     await context.close();
   }
