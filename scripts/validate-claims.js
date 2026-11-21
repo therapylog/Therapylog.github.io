@@ -45,7 +45,9 @@ const DB = extractObject(app, 'const DB = {');
 const compounds = [...new Set(DB.classes.flatMap((c) => c.drugs.map((d) => d.id)))];
 const classCount = DB.classes.length;
 
-const registry = app.indexOf('MARKER_REGISTRY');
+/* The declaration, not the first mention: the redesign's logic block, which
+   comes earlier in app.html, names MARKER_REGISTRY in code that reads it. */
+const registry = app.search(/(?:const|let|var)\s+MARKER_REGISTRY\s*=/);
 const regBlock = registry >= 0 ? app.slice(registry, app.indexOf('\n};', registry)) : '';
 const markers = new Set([...regBlock.matchAll(/^\s*"?([a-zA-Z0-9_]+)"?\s*:\s*\{/gm)].map((m) => m[1])).size;
 
