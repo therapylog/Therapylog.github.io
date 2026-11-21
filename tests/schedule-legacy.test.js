@@ -374,9 +374,10 @@ test('a comma that groups thousands stays in the dose', () => {
   same(app.parseMeds('Vitamin D3, 10,000 IU, Daily')[0].dose, '10,000 IU');
   /* Any other comma still separates fields. */
   same(app.parseMeds('HCG, 500IU, EOD, with the testosterone')[0].freqStr, 'EOD');
-  /* A frequency field cut short by its own comma names no schedule; the
-     next field does. */
-  same(app.parseMeds('BPC-157, 500mcg, SubQ loading phase 4-6 weeks, then once weekly')[0].freq, WEEKLY);
+  /* A frequency field cut short by its own comma names no schedule, and the
+     next field is a later phase ("then once weekly"), not this one: the old
+     reading stands. */
+  same(app.parseMeds('BPC-157, 500mcg, SubQ loading phase 4-6 weeks, then once weekly')[0].freq, unrecognised('SubQ loading phase 4-6 weeks'));
 });
 
 test('two lines for the same compound are two meds', () => {

@@ -357,3 +357,77 @@ test('a model round trip keeps 3x daily, and the field a dose-read schedule left
   assert.equal(back('Test Cyp, 100mg twice weekly, IM glute'), 'Test Cyp, 100mg twice weekly, Twice weekly (Mon · Thu), IM glute');
   assert.equal(back('HCG, 1,000 IU, twice weekly'), 'HCG, 1000 IU, Twice weekly (Mon · Thu)');
 });
+
+/* ---- found in the fourth review ------------------------------------------- */
+
+test('a fraction, a decimal or a count of tablets is an amount, never doses a day', () => {
+  for (const l of ['Anastrozole, 1mg, 1/2 tab daily', 'Anastrozole, 1mg, 1/4 tab daily', 'Arimidex, 1mg, 0.5 tab daily',
+    'Levothyroxine, 50mcg, 1.5 tabs daily', 'Anastrozole, 1mg, 0.25 tab daily', 'Adex, 0.5mg, 0.5 per day', 'X, 1mg, 1/2 a day',
+    'DHEA, 50mg, 2 caps daily', 'Zinc, 2 tabs daily', 'Semax, 300mcg, 2 sprays daily']) {
+    same(line(l), ['daily', 1, null, null, null], l);
+  }
+  same(line('Cabergoline, 0.5mg, 1/2 tab weekly'), ['weekly', 1, null, 1, [1]]);
+  same(line('X, 1mg, 0.5 per week'), ['weekly', 1, null, 1, [1]]);
+});
+
+test('days followed by "rest" or "skipped" are rest days', () => {
+  for (const l of ['GH, 2iu, daily (Sun rest)', 'GH, 2iu, daily, Sunday rest', 'X, 1mg, daily, Sundays skipped', 'X, 1mg, Sun: rest', 'X, 1mg, Sunday = rest day']) {
+    same(plain(app.parseMeds(l)[0].freq.days), [1, 2, 3, 4, 5, 6], l);
+  }
+  same(plain(app.parseMeds('HGH, 3iu, daily, weekends rest')[0].freq.days), [1, 2, 3, 4, 5]);
+});
+
+test('"weekends off" after a range leaves the range whole', () => {
+  for (const l of ['HGH, 2iu, Mon to Fri, weekends off', 'HGH, 2iu, Mon thru Fri, Sat/Sun off', 'HGH, 2iu, Mon-Fri - weekends off']) {
+    same(plain(app.parseMeds(l)[0].freq.days), [1, 2, 3, 4, 5], l);
+  }
+  same(plain(app.parseMeds('X, 1mg, Mon-Sat - Sun off')[0].freq.days), [1, 2, 3, 4, 5, 6]);
+  same(plain(app.parseMeds('X, 1mg, Daily - Sun off')[0].freq.days), [1, 2, 3, 4, 5, 6]);
+});
+
+test('a later phase, an alternative or a former schedule is not this one', () => {
+  for (const [l, times] of [['BPC-157, 250mcg, BID x 4 weeks then 2x weekly', 2], ['HCG, 500iu, once daily for 2 weeks then EOD', 1],
+    ['MT2, 250mcg, daily until tan, then 3x weekly', 1], ['Test Cyp, 15mg, daily (switched from 2x weekly)', 1],
+    ['Test Cyp, 20mg, daily SubQ (was 2x/wk)', 1], ['BPC-157, 250mcg, daily or 3x/week', 1]]) {
+    same(line(l), ['daily', times, null, null, null], l);
+  }
+  same(line('HGH, 2iu, daily, skip 2 days a week'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
+  /* "then" before a time of day joins two doses. */
+  assert.equal(app.parseFrequency('5mg AM then 5mg PM').times, 2);
+});
+
+test('"mth" is a month, "x2/week" is twice weekly', () => {
+  assert.equal(app.parseFrequency('once a mth').type, 'monthly');
+  assert.equal(app.parseFrequency('every 3 mth').type, 'check');
+  same(line('X, 1mg, daily x 1 mth'), ['daily', 1, null, null, null]);
+  same(phrase('x2/week'), ['weekly', 1, null, 2, [1, 4]]);
+  same(phrase('x2/day'), ['daily', 2, null, null, null]);
+});
+
+test('an amount or a small count before AM or PM is not an hour', () => {
+  same(plain(app.parseFrequency('12.5 AM, 12.5 PM').at), ['08:00', '20:00']);
+  same(plain(app.parseFrequency('1/2 AM 1/2 PM').at), ['08:00', '20:00']);
+  same(plain(app.parseFrequency('1 AM 1 PM').at), ['08:00', '20:00']);
+  same(plain(app.parseFrequency('twice daily (1 AM, 1 PM)').at), ['08:00', '20:00']);
+  same(plain(app.parseFrequency('daily at 8am').at), ['08:00']);
+  same(plain(app.parseFrequency('9am/9pm').at), ['09:00', '21:00']);
+});
+
+test('notes in later fields do not become the schedule; a stated schedule does', () => {
+  for (const l of ['Epitalon, 10mg, SubQ, 10 days', 'Clomid, 50mg, oral, 10 days', 'BPC-157, 250mcg, SubQ, vial lasts 10 days', 'HGH, 2iu, SubQ, mix new vial weekly']) {
+    same(line(l), ['daily', 1, null, null, null], l);
+  }
+  same(line('Test C, 100mg, biweekly, Mon/Thu'), ['weekly', 1, null, 2, [1, 4]]);
+});
+
+test('an optional extra dose and a time ruled out are notes', () => {
+  same(plain(app.parseMeds('Ipamorelin, 200mcg, before bed (extra AM dose if needed)')[0].freq.at), ['21:30']);
+  assert.equal(app.parseMeds('Cialis, 5mg, AM, extra 10mg as needed')[0].freq.type, 'daily');
+  assert.equal(app.parseFrequency('as needed').type, 'asneeded');
+  for (const p of ['daily (not at night)', 'daily - avoid taking at night', 'daily (not PM)']) assert.equal(app.parseFrequency(p).at, undefined, p);
+});
+
+test('an unclosed parenthesis does not swallow the line', () => {
+  const m = app.parseMeds('Test C (Pfizer, 100mg, twice weekly')[0];
+  same([m.name, m.dose, m.freq.count], ['Test C (Pfizer', '100mg', 2]);
+});
