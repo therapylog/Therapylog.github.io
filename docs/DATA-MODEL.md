@@ -312,6 +312,14 @@ leaves its old key behind; nothing prunes this map.
 days there. Because names can contain hyphens, the key cannot be split back
 reliably; the pruner takes the last hyphen-separated part as the date.
 
+The redesign's round alerts (`src/ui/round-alerts.js`) replace that path on
+the web: `scheduleAllReminders` hands over to `tlRoundReminders`, and
+`checkAndFireReminder` is no longer called there. They write two more key
+shapes into the same map: `round:{slot}:{YYYY-MM-DD}` when a round's
+notification fires, and `supply:{key}:{YYYY-MM-DD}` for the once-a-day supply
+alert. `tlMarkFired` prunes keys that end in a date more than 31 days back;
+the old keys end in a `toDateString()` and are left to the old pruner.
+
 The "discreet" switch is not here; it is localStorage `tl_notif_discreet`
 (section 5). On the web, reminders are `setTimeout`s armed for the next hour
 while the page is open (`scheduleAllReminders`, every five minutes). The
@@ -445,11 +453,11 @@ None of these is in a backup or restored by import. "Reset" is whether
 | Key | Value | Written by | Read by | Reset |
 |---|---|---|---|---|
 | `tl-theme` | `"light"` or `"dark"`; absent means follow the OS | `toggleTheme` | `initTheme`, which sets class `light-mode` on `body` | yes |
-| `tl-ob-done` | `"1"` | `obFinish`, `obSkip`, `loadDemoData` | `checkOnboarding`, `acceptDisclaimer` | yes |
-| `tl-disclaimer-done` | `{"v":2,"at":"<ISO>","age18":true}`; legacy `"1"` re-prompts | `acceptDisclaimer` | `disclaimerCurrent` | yes |
+| `tl-ob-done` | `"1"` | `obFinish`, `obSkip`, `loadDemoData`; the redesign's `tlObFinish` and `tlObRestore` | `checkOnboarding`, `acceptDisclaimer`, `tlObWanted` | yes |
+| `tl-disclaimer-done` | `{"v":2,"at":"<ISO>","age18":true}`; legacy `"1"` re-prompts | `acceptDisclaimer` (also from the redesign's gate, `tlObAccept`) | `disclaimerCurrent` | yes |
 | `tl-last-export` | epoch ms as a string | `exportData`, `exportDataFromBanner`, `tlShareBackup`, `tlWriteLinkedBackup` | `checkPersistBanner`, `tlAutoBackup`, `tlDaysSinceBackup` | yes |
 | `tl-banner-dismissed` | epoch ms as a string | `dismissPersistBanner` | `checkPersistBanner` | yes |
-| `tl_notif_discreet` | `"1"` or `"0"` | `setDiscreetReminders` | `discreetReminders` | yes |
+| `tl_notif_discreet` | `"1"` or `"0"` | `setDiscreetReminders`; `tlObFinish`, to match `protocol.discreet` | `discreetReminders` | yes |
 | `tl-chat-history` | JSON array of the last 20 chat messages | `saveChatMemory` | `loadChatMemory` | yes |
 | `tl_ai_mode` | `"managed"` or `"byok"`; absent means managed | `setAIMode`, `saveByokKey` | `sendChat`, `scanLabImage`, `initAISettings` | yes |
 | `tl_ai_key` | the user's own API key, plain text | `saveByokKey` | `sendChat`, `scanLabImage`, `TLTier.hasOwnKey` | yes |
@@ -605,9 +613,9 @@ that has them all.
 | Key | Type | Written by |
 |---|---|---|
 | `v` | number. Absent before the redesign; `3` once the record holds a protocol model | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel`, `tlAfterLegacyProtocolSave` |
-| `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel`, and `tlAfterLegacyProtocolSave` when a save from the old protocol form finds one stored; deleted by `clearProtocol` |
+| `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol` (the new screens store through it: `tlSaveProtocol`, `tlFinishSetup`), `tlImportModel`, and `tlAfterLegacyProtocolSave` when a save from the old protocol form finds one stored; deleted by `clearProtocol` |
 | `doseChanges` | array, newest first | `tlRecordDoseChanges`, `tlImportModel` |
-| `settings` | object: `{ figure, units }` so far | `tlSetSetting`, `tlImportModel` |
+| `settings` | object: `{ focus, figure, units, home }` so far | `tlSetSetting` (onboarding: `tlFinishSetup`), `tlImportModel` |
 
 ### `protocol`
 
@@ -744,10 +752,34 @@ case, with the app's own resolver.
 ### `settings`
 
 Display settings that belong to the person rather than the device, kept in
-the record so that a restored backup brings them back. `figure` (`"male"` or
-`"female"`, the body map) and `units` (`"imperial"` or `"metric"`) are the two
-defined so far. The theme stays in localStorage `tl-theme`, where it has to be
-readable before the record loads.
+the record so that a restored backup brings them back. Defined so far:
+
+- `focus`: what onboarding's "What are you tracking?" chose, an array of
+  `trt`, `peptides`, `gh`, `cycle`, `glp1`, `hrt` (`TL_FOCUS` in
+  `src/logic/setup.js`). Home reads it; `hrt` also shows Health's Cycle
+  segment.
+- `figure`: `"male"` or `"female"`, the body map.
+- `units`: `"imperial"` or `"metric"`.
+- `home`: what Home shows and in what order, from Customize Home (2b):
+  `{ hero: [{ key, on }], sections: [{ key, on }] }`. Hero keys `levels`,
+  `system`, `supply`, `labs`; section keys `doses`, `inventory`, `flags`
+  (`TL_HOME_HERO`, `TL_HOME_SECTIONS` in `src/logic/home.js`). Absent means
+  all of them, in that order; `tlHomeLayout` drops unknown keys and appends
+  missing ones, switched on.
+
+The theme stays in localStorage `tl-theme`, where it has to be readable
+before the record loads.
+
+### Onboarding
+
+The redesign's onboarding (`src/ui/onboarding.js`) writes nothing until its
+last step. Then `tlFinishSetup` stores `settings.focus` and `settings.figure`,
+and stores the protocol through `tlStoreProtocol` if it has a compound (or the
+record already had a protocol that was emptied). A new protocol gets
+`start` (today), `created` (now) and the name "My protocol". An empty stack
+on a new record stores no protocol, so a backup restored afterwards can still
+bring one in. Restoring a backup from the first step goes through
+`importData` and skips setup entirely.
 
 ### Medication entries
 
@@ -777,6 +809,13 @@ An entry without them, logged from an old screen, is matched to a dose by
   Whichever day is asked about, an entry counts for exactly one.
 - **Which dose:** the one whose round is nearest its time. If that dose is
   already ticked, the entry is a second record of it and ticks nothing else.
+
+A dose saved from the Log sheet's dose form (`tlLogCompoundDose`) ticks that
+compound's next pending dose today and is written like a checklist entry. With
+nothing pending (an extra dose, a compound with no schedule, a day it is not
+due) it is written with its `key` and no `slot` or `day`, so it is in the log
+and in supply and ticks no round. Either way it carries the site picked on the
+map as `site` (its name) and `siteId`.
 
 Supply counts an entry against the line it was matched to
 (`tlEntryOwner`), and charges today's doses only while they are pending, so

@@ -1,0 +1,301 @@
+/* Shared components for the redesigned screens.
+
+   Values are the handoff's (README, "Shared components"). Every class is
+   prefixed ds- so that nothing here restyles the screens that have not been
+   replaced yet: the old app has its own .btn, .card, .seg and .tag. A new
+   screen puts .ds-ui on its root and uses only ds- classes inside it.
+
+   Two places this departs from the README's numbers, both for the README's
+   own accessibility rules (12 px text floor, 44 px targets):
+     - tags and the tab bar's labels are 12 px, not 11 and 10.5;
+     - the toggle and filter chips keep their drawn size inside a 44 px box.
+   Hover tints only apply on devices that can hover, so a tap on a phone does
+   not leave a button looking pressed. Motion is 150 to 200 ms ease-out and
+   stops for anyone who has asked for reduced motion. */
+
+/* ---- the screen -------------------------------------------------------- */
+.ds-ui{
+  font-family:var(--font-ui);font-size:14px;line-height:1.45;font-weight:400;
+  color:var(--color-text);
+  font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  -webkit-tap-highlight-color:transparent;
+  /* Native controls (date pickers, scrollbars) follow the theme. Set here and
+     not on :root, which would give the old screens a dark scrollbar in light
+     mode. A custom property, so a .ds-dark box in a light page gets it right. */
+  color-scheme:var(--ds-scheme,dark);
+}
+.ds-ui *,.ds-ui *::before,.ds-ui *::after{box-sizing:border-box}
+.ds-screen{background:var(--color-bg);min-height:100%;padding:0 var(--gutter)}
+.ds-ui :focus{outline:none}
+.ds-ui :focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+/* Resets carry no weight (:where), so any component's own class wins over
+   them: a primary button keeps its accent, a paragraph its margin. */
+:where(.ds-ui) button{font:inherit;color:inherit;letter-spacing:inherit}
+:where(.ds-ui) :is(h1,h2,h3,p){margin:0}
+.ds-muted{color:var(--color-muted)}
+.ds-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---- type -------------------------------------------------------------- */
+.ds-h1{font-size:24px;font-weight:500;line-height:1.2;letter-spacing:-0.01em}
+.ds-h2{font-size:17px;font-weight:500;line-height:1.25}
+.ds-label{font-size:13px;font-weight:500;color:var(--color-accent-300)}
+.ds-body{font-size:14.5px;line-height:1.55}
+.ds-small{font-size:12.5px}
+.ds-tiny{font-size:12px}
+.ds-big{font-size:48px;font-weight:500;line-height:1;letter-spacing:-0.035em;font-variant-numeric:tabular-nums}
+.ds-big-unit{font-size:24px;font-weight:500;color:var(--color-accent);letter-spacing:-0.01em}
+
+/* ---- rule: fades to transparent over 48 px at each end ------------------ */
+.ds-hr{
+  height:1px;border:0;margin:0;flex:none;
+  background:linear-gradient(to right,transparent,var(--color-divider) 48px,var(--color-divider) calc(100% - 48px),transparent);
+}
+
+/* ---- buttons ----------------------------------------------------------- */
+.ds-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:44px;padding:5.6px 10.08px;
+  font-family:var(--font-ui);font-size:14px;font-weight:500;line-height:1.2;
+  color:var(--color-text);background:transparent;
+  border:1px solid transparent;border-radius:var(--radius-md);
+  cursor:pointer;text-decoration:none;user-select:none;
+  transition:background-color .15s var(--ease-out);
+}
+.ds-btn .ph,.ds-btn .ph-fill{font-size:17px}
+.ds-btn:disabled,.ds-btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
+/* Primary is an outline, never a fill. */
+.ds-btn-primary{color:var(--color-accent);border-color:var(--color-accent)}
+.ds-btn-secondary{border-color:var(--color-divider)}
+.ds-btn-ghost{color:var(--color-accent);padding-inline:var(--space-2)}
+.ds-btn-danger{color:var(--color-danger);border-color:var(--color-danger)}
+.ds-btn-warn{color:var(--color-warn);border-color:var(--color-warn)}
+.ds-btn-block{display:flex;width:100%;min-height:48px;font-size:15px}
+.ds-btn-icon{width:44px;height:44px;padding:0}
+@media (hover:hover){
+  .ds-btn-primary:hover:not(:disabled){background:color-mix(in srgb,var(--color-accent) 12%,transparent)}
+  .ds-btn-secondary:hover:not(:disabled){background:color-mix(in srgb,var(--color-text) 7%,transparent)}
+  .ds-btn-ghost:hover:not(:disabled){background:color-mix(in srgb,var(--color-accent) 10%,transparent)}
+  .ds-btn-danger:hover:not(:disabled){background:color-mix(in srgb,var(--color-danger) 12%,transparent)}
+  .ds-btn-warn:hover:not(:disabled){background:color-mix(in srgb,var(--color-warn) 12%,transparent)}
+}
+.ds-btn-primary:active:not(:disabled){background:color-mix(in srgb,var(--color-accent) 22%,transparent)}
+.ds-btn-secondary:active:not(:disabled){background:color-mix(in srgb,var(--color-text) 14%,transparent)}
+.ds-btn-ghost:active:not(:disabled){background:color-mix(in srgb,var(--color-accent) 18%,transparent)}
+.ds-btn-danger:active:not(:disabled){background:color-mix(in srgb,var(--color-danger) 22%,transparent)}
+.ds-btn-warn:active:not(:disabled){background:color-mix(in srgb,var(--color-warn) 22%,transparent)}
+
+/* ---- tags and filter chips --------------------------------------------- */
+.ds-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:12px;line-height:1.3;letter-spacing:.02em;font-weight:400;
+  padding:3px 10px;border-radius:6px;white-space:nowrap;
+}
+.ds-tag-accent{background:var(--color-accent-800);color:var(--color-accent-100)}
+.ds-tag-neutral{background:var(--color-neutral-800);color:var(--color-neutral-100)}
+.ds-tag-outline{box-shadow:inset 0 0 0 1px var(--color-accent);color:var(--color-accent)}
+.ds-tag-warn{box-shadow:inset 0 0 0 1px var(--color-warn);color:var(--color-warn)}
+.ds-tag-danger{box-shadow:inset 0 0 0 1px var(--color-danger);color:var(--color-danger)}
+.ds-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--gutter) * -1);padding:0 var(--gutter)}
+.ds-chips::-webkit-scrollbar{display:none}
+/* The chip is drawn at tag size inside a 44 px-tall hit area. */
+.ds-chip{display:inline-flex;align-items:center;flex:none;min-height:44px;padding:0;margin:0;background:none;border:0;cursor:pointer}
+.ds-chip>span{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:13px;line-height:1.3;padding:5px 11px;border-radius:6px;white-space:nowrap;
+  color:var(--color-neutral-300);box-shadow:inset 0 0 0 1px var(--color-divider);
+}
+.ds-chip[aria-pressed="true"]>span,.ds-chip[aria-checked="true"]>span{background:var(--color-accent-800);color:var(--color-accent-100);box-shadow:none}
+
+/* ---- segmented control ------------------------------------------------- */
+.ds-seg{
+  display:flex;gap:4px;padding:3px;border-radius:var(--radius-md);
+  background:var(--color-surface);box-shadow:var(--shadow-sm);
+}
+.ds-seg-opt{
+  flex:1;min-height:38px;padding:0 8px;border:0;border-radius:6px;background:transparent;
+  font-size:13.5px;font-weight:500;color:var(--color-muted);cursor:pointer;
+  transition:background-color .15s var(--ease-out),color .15s var(--ease-out);
+}
+.ds-seg-opt[aria-selected="true"],.ds-seg-opt[aria-checked="true"]{
+  color:var(--color-text);
+  background:color-mix(in srgb,var(--color-accent) 14%,transparent);
+  box-shadow:inset 0 0 0 1px var(--color-accent);
+}
+.ds-seg-opt:focus-visible{outline-offset:-2px}
+/* An option is drawn 38 px tall inside the 3 px padding; its hit area takes
+   the padding too, so the whole 44 px control answers a tap. */
+.ds-seg-opt{position:relative}
+.ds-seg-opt::after{content:"";position:absolute;inset:-3px -2px}
+
+/* ---- toggle: a 44 x 26 track drawn inside a 44 x 44 button ------------- */
+.ds-toggle{
+  position:relative;flex:none;width:44px;height:44px;padding:0;border:0;background:none;cursor:pointer;
+}
+.ds-toggle::before{
+  content:"";position:absolute;left:0;top:9px;width:44px;height:26px;border-radius:13px;
+  border:1px solid var(--color-neutral-600);background:transparent;
+  transition:background-color .18s var(--ease-out),border-color .18s var(--ease-out);
+}
+.ds-toggle::after{
+  content:"";position:absolute;top:13px;left:4px;width:18px;height:18px;border-radius:50%;
+  background:var(--color-neutral-500);
+  transition:transform .18s var(--ease-out),background-color .18s var(--ease-out);
+}
+.ds-toggle[aria-checked="true"]::before{border-color:var(--color-accent);background:color-mix(in srgb,var(--color-accent) 16%,transparent)}
+.ds-toggle[aria-checked="true"]::after{transform:translateX(18px);background:var(--color-accent)}
+.ds-toggle:disabled{opacity:.45;cursor:not-allowed}
+
+/* ---- list rows --------------------------------------------------------- */
+.ds-list{display:flex;flex-direction:column}
+.ds-row{
+  display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:8px 0;
+  text-align:left;color:inherit;background:none;border:0;border-radius:0;text-decoration:none;
+}
+button.ds-row,a.ds-row{cursor:pointer}
+@media (hover:hover){button.ds-row:hover,a.ds-row:hover{background:color-mix(in srgb,var(--color-text) 6%,transparent)}}
+.ds-row-tall{min-height:66px}
+.ds-row-icon{flex:none;width:24px;text-align:center;font-size:19px;color:var(--color-neutral-400)}
+.ds-row-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.ds-row-title{font-size:15px;font-weight:500;line-height:1.3}
+.ds-row-sub{font-size:12.5px;line-height:1.35;color:var(--color-muted)}
+.ds-row-trail{flex:none;display:flex;align-items:center;gap:8px;color:var(--color-muted);font-size:12.5px}
+.ds-caret{font-size:16px;color:var(--color-neutral-500)}
+.ds-row-danger .ds-row-title,.ds-row-danger .ds-row-icon{color:var(--color-danger)}
+
+/* ---- hexagon frame (the logo's hexagon) -------------------------------- */
+.ds-hex{
+  position:relative;flex:none;display:inline-grid;place-items:center;
+  width:40px;height:44px;color:var(--color-accent);
+}
+.ds-hex>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ds-hex>svg polygon{fill:currentColor;fill-opacity:.1;stroke:currentColor;stroke-width:1.25;vector-effect:non-scaling-stroke}
+.ds-hex>i{position:relative;font-size:19px;line-height:1}
+.ds-hex-neutral{color:var(--color-neutral-400)}
+.ds-hex-neutral>svg polygon{fill-opacity:0}
+.ds-hex-danger{color:var(--color-danger)}
+.ds-hex-warn{color:var(--color-warn)}
+.ds-hex-lg{width:44px;height:48px}
+.ds-hex-lg>i{font-size:21px}
+
+/* ---- hero card --------------------------------------------------------- */
+.ds-card{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:14px 16px}
+.ds-hero{background:var(--hero-ground);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:16px}
+
+/* ---- fields ------------------------------------------------------------ */
+.ds-field{display:flex;flex-direction:column;gap:6px}
+.ds-field>label,.ds-field-label{font-size:12.5px;color:var(--color-muted)}
+/* 16 px input text, so iOS does not zoom on focus. */
+.ds-input{
+  width:100%;min-height:44px;padding:0 12px;
+  font-family:var(--font-ui);font-size:16px;color:var(--color-text);caret-color:var(--color-accent);
+  background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-md);
+}
+.ds-input::placeholder{color:var(--color-muted)}
+.ds-input:focus-visible{border-color:var(--color-accent);outline:none}
+/* The old stylesheet styles input[type=text|number|date], textarea and select
+   directly, and body.light-mode input[type=text] outranks one class. Until
+   those rules go (with the old screens), a field restates its look with the
+   class repeated, which outranks them without !important. */
+.ds-input.ds-input.ds-input{
+  width:100%;min-height:44px;padding:0 12px;margin:0;
+  color:var(--color-text);background:var(--color-surface);
+  border:1px solid var(--color-divider);border-radius:var(--radius-md);
+}
+textarea.ds-input.ds-input.ds-input{padding:10px 12px;min-height:88px;line-height:1.45}
+.ds-search>.ds-input.ds-input.ds-input{padding-left:40px}
+.ds-input.ds-input.ds-input:focus,.ds-input.ds-input.ds-input:focus-visible{border-color:var(--color-accent)}
+.ds-search{position:relative;display:flex;align-items:center}
+.ds-search>i{position:absolute;left:12px;font-size:18px;color:var(--color-accent);pointer-events:none}
+.ds-search>.ds-input{padding-left:40px}
+.ds-askbar{
+  flex:1;min-width:0;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;
+  background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-md);
+  font-size:13.5px;color:var(--color-muted);text-align:left;cursor:pointer;
+}
+.ds-askbar>i{font-size:17px;color:var(--color-accent);flex:none}
+.ds-askbar>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---- header ------------------------------------------------------------ */
+.ds-header{
+  display:flex;align-items:center;gap:12px;
+  padding-top:calc(env(safe-area-inset-top, 0px) + 12px);padding-bottom:12px;
+}
+.ds-header>.ds-h1{flex:1;min-width:0}
+.ds-avatar{
+  flex:none;width:44px;height:44px;border-radius:50%;padding:0;cursor:pointer;
+  display:inline-grid;place-items:center;
+  font-size:17px;font-weight:500;color:var(--color-text);
+  background:transparent;border:1px solid var(--color-divider);
+}
+.ds-avatar-ring{border-color:var(--color-accent)}
+@media (hover:hover){.ds-avatar:hover{background:color-mix(in srgb,var(--color-text) 7%,transparent)}}
+
+/* ---- compliance footnote ----------------------------------------------- */
+.ds-foot{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:var(--color-muted)}
+.ds-foot>i{flex:none;font-size:16px;margin-top:1px}
+
+/* ---- bottom sheet ------------------------------------------------------ */
+.ds-scrim{
+  position:fixed;inset:0;z-index:10000;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(0,0,0,0.5);
+  animation:ds-fade .18s var(--ease-out);
+}
+.ds-sheet{
+  width:100%;max-width:560px;max-height:86%;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--color-surface);color:var(--color-text);
+  border-radius:var(--radius-sheet) var(--radius-sheet) 0 0;box-shadow:var(--shadow-lg);
+  padding:10px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 20px);
+  animation:ds-rise .2s var(--ease-out);
+}
+.ds-grabber{width:36px;height:5px;border-radius:3px;background:var(--color-neutral-600);margin:0 auto 14px}
+@keyframes ds-fade{from{opacity:0}to{opacity:1}}
+@keyframes ds-rise{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+
+/* ---- tab bar ----------------------------------------------------------- */
+.ds-tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:900;
+  display:flex;align-items:flex-end;
+  padding:0 4px env(safe-area-inset-bottom, 0px);
+  background:var(--tabbar-ground);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+}
+.ds-tabbar::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--color-divider) 48px,var(--color-divider) calc(100% - 48px),transparent);
+}
+.ds-tab{
+  position:relative;flex:1;min-width:0;min-height:54px;padding:8px 2px 6px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;
+  background:none;border:0;cursor:pointer;color:var(--color-muted);
+}
+.ds-tab>i{font-size:22px;line-height:1}
+.ds-tab-label{font-size:12px;font-weight:500;line-height:1.1;white-space:nowrap}
+.ds-tab[aria-current="page"]{color:var(--color-accent)}
+.ds-tab[aria-current="page"]::before{content:"";position:absolute;top:0;left:50%;width:16px;height:2px;margin-left:-8px;border-radius:1px;background:var(--color-accent)}
+/* The centre Log button: the hexagon at 54 x 59, lifted into the bar. */
+.ds-tab-log{justify-content:flex-end;color:var(--color-accent)}
+.ds-tab-log>.ds-hex{
+  width:54px;height:59px;margin-top:-20px;margin-bottom:1px;
+  filter:drop-shadow(0 0 12px color-mix(in srgb,var(--color-accent) 45%,transparent));
+}
+.ds-tab-log>.ds-hex>svg polygon{fill:var(--color-surface);fill-opacity:1;stroke-width:1.5}
+.ds-tab-log>.ds-hex>i{font-size:26px}
+.ds-tabbar-inline{position:relative;z-index:auto;padding-top:22px}
+/* Room under a screen's content for the bar. */
+.ds-under-tabbar{padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 96px)}
+
+/* ---- toast ------------------------------------------------------------- */
+.ds-toast{
+  position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom, 0px) + 84px);z-index:11000;
+  transform:translateX(-50%);max-width:calc(100% - 2 * var(--gutter));
+  padding:10px 14px;border-radius:var(--radius-md);
+  background:var(--color-surface);color:var(--color-text);box-shadow:var(--shadow-md);
+  font-family:var(--font-ui);font-size:14px;line-height:1.35;
+  display:flex;align-items:center;gap:8px;width:max-content;
+}
+.ds-toast-action{margin:-10px -8px -10px 0;flex:none}
+
+@media (prefers-reduced-motion:reduce){
+  .ds-ui *,.ds-scrim,.ds-sheet,.ds-toast{animation:none!important;transition:none!important}
+}

@@ -8,6 +8,8 @@ on:
       - 'scripts/**'
       - 'docs/DATA-MODEL.md'
       - 'assets/figures/injection-sites.json'
+      - 'vendor/fonts/**'
+      - 'sw.js'
       - '.github/workflows/tests.yml'
   pull_request:
 jobs:
@@ -69,3 +71,29 @@ jobs:
         run: node scripts/capture-backup-fixture.js --model --check
       - name: The confirm sheet
         run: node scripts/ui-check-confirm.js
+      # The redesign's shared components in both themes: fonts and icons load
+      # from /vendor, 44 px targets, 12 px text, names, keyboard and touch.
+      - name: The design foundation
+        run: node scripts/ui-check-kit.js
+      # The handoff's navigation map: every old page reachable through the
+      # new tabs, paid features still gated, links and Back.
+      - name: The shell and navigation
+        run: node scripts/ui-check-shell.js
+      # A first run from an empty browser to the stored protocol, the backup
+      # restore instead of setup, and returning users; both themes, 320 px.
+      - name: Onboarding
+        run: node scripts/ui-check-onboarding.js
+      # Today, Customize Home and round alerts on the demo record with the
+      # clock fixed: ticking doses, Log all and Undo, the hero, the due
+      # banner, a notification's actions; light theme at 320 px.
+      - name: Today
+        run: node scripts/ui-check-today.js
+      # The Log sheet and the injection-site map: the due card, the tiles, the
+      # dose form on the user's own amount, sites by tap and by keyboard.
+      - name: Log sheet and site map
+        run: node scripts/ui-check-log.js
+      # The Protocol tab: the stack as the logic has it, editing doses (kept
+      # as dose changes), times and supply, add and remove with Undo, every
+      # row; free users get the editor and a gate on the analysis; 320 px.
+      - name: Protocol
+        run: node scripts/ui-check-protocol.js

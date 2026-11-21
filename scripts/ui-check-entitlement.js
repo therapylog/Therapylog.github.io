@@ -77,6 +77,15 @@ async function openApp(browser, port, { seed, verifyReply } = {}) {
   if (seed) await page.addInitScript(seed);
   await page.goto(`http://127.0.0.1:${port}/app.html`);
   await page.waitForTimeout(1100);
+  /* The redesign's onboarding: accept the terms, then skip setup (no
+     compounds) the way a user would. */
+  if (await page.locator("#tl-ob").count()) {
+    for (const step of ["accept", "next", "next", "next", "next", "finish"]) {
+      await page.locator(`#tl-ob [data-ob="${step}"]`).click();
+      await page.waitForTimeout(80);
+    }
+    await page.waitForTimeout(250);
+  }
   const understood = page.locator('button[onclick="acceptDisclaimer()"]').first();
   if (await understood.count() && await understood.isVisible().catch(() => false)) {
     await understood.click(); await page.waitForTimeout(200);
@@ -87,9 +96,18 @@ async function openApp(browser, port, { seed, verifyReply } = {}) {
 }
 
 async function tryScan(page) {
-  await page.locator(".nav-btn", { hasText: "Log" }).first().click();
-  await page.waitForTimeout(200);
-  await page.locator("#page-log .seg-btn", { hasText: "Labs" }).click();
+  /* The redesign's tab bar replaces the old bottom nav; tap whichever the
+     page has, the way a user would. */
+  const newLog = page.locator('#tl-tabs [data-ds-tab="log"]');
+  if (await newLog.count()) {
+    /* The centre button opens the Log sheet; its Labs tile opens the form. */
+    await newLog.click();
+    await page.locator('[data-log-tile="labs"]').click();
+  } else {
+    await page.locator(".nav-btn", { hasText: "Log" }).first().click();
+    await page.waitForTimeout(200);
+    await page.locator("#page-log .seg-btn", { hasText: "Labs" }).click();
+  }
   await page.waitForTimeout(300);
   await page.setInputFiles("#lab-file-input", { name: "p.png", mimeType: "image/png",
     buffer: Buffer.from("89504e470d0a1a0a", "hex") }).catch(() => {});
@@ -273,7 +291,10 @@ async function tryScan(page) {
   /* ===== 6. the app tells people about backups and its own version ===== */
   {
     const { page } = await openApp(browser, port);
-    await page.locator(".nav-btn", { hasText: "Health" }).first().click();
+    /* The old bottom nav is hidden under the redesign's shell; this section
+       opens Profile directly below, so the tap is only to settle the page. */
+    const oldHealth = page.locator(".nav-btn", { hasText: "Health" }).first();
+    if (await oldHealth.isVisible().catch(() => false)) await oldHealth.click();
     await page.waitForTimeout(300);
     const profileBtn = page.locator('.nav-btn', { hasText: 'Health' });
     await page.evaluate(() => { if (typeof showPage === 'function') showPage('profile'); });

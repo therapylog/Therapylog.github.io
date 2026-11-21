@@ -1,0 +1,144 @@
+/* Onboarding (3d, 4b) and the compound sheet (src/ui/onboarding.js,
+   compound-sheet.js). */
+
+/* The old onboarding: replaced, hidden until the old code goes in Phase 5. */
+#onboarding{display:none!important}
+
+/* ---- the frame --------------------------------------------------------- */
+/* Above the shell's top bar (95) and tab bar (900), under sheets (10000). */
+.tl-ob{position:fixed;inset:0;z-index:5000;background:var(--color-bg);color:var(--color-text);overflow:hidden}
+.tl-ob-frame{
+  height:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top, 0px) + 12px) var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 20px);
+}
+.tl-ob-top{flex:none;display:flex;align-items:center;gap:6px;min-height:44px}
+.tl-ob-back{width:44px;padding:0;margin-left:-12px;color:var(--color-text)}
+.tl-ob-back .ph{font-size:18px}
+.tl-ob-pip{width:24px;height:3px;border-radius:2px;background:var(--color-neutral-700)}
+.tl-ob-pip-on{background:var(--color-accent)}
+.tl-ob-count{margin-left:auto;font-size:12.5px;color:var(--color-muted)}
+.tl-ob-body{
+  flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;
+  margin:0 calc(var(--gutter) * -1);padding:0 var(--gutter) 8px;
+}
+.tl-ob-body::-webkit-scrollbar{display:none}
+.tl-ob-foot{flex:none;display:flex;flex-direction:column;gap:6px;padding-top:12px}
+.tl-ob-cta{min-height:50px;font-size:15px}
+.tl-ob-error{font-size:13px;line-height:1.45;color:var(--color-danger)}
+
+/* ---- type -------------------------------------------------------------- */
+.tl-ob-h1{font-size:28px;font-weight:500;line-height:1.12;letter-spacing:-0.025em;margin:18px 0 6px}
+.tl-ob-h1:focus{outline:none}
+.tl-ob-hero{font-size:34px;line-height:1.08;letter-spacing:-0.03em;margin:22px 0 8px}
+.tl-ob-lede{font-size:14px;line-height:1.5;color:var(--color-muted);margin-bottom:18px}
+.tl-ob-hero+.tl-ob-lede{font-size:15px;margin-bottom:20px}
+.tl-ob-note,.tl-ob-empty{font-size:12.5px;line-height:1.5;color:var(--color-muted);margin-top:10px}
+.tl-ob-empty{font-size:13.5px;padding:8px 0 16px}
+
+/* ---- the terms gate ---------------------------------------------------- */
+.tl-ob-gate{padding-top:20px}
+.tl-ob-gate p{font-size:14.5px;line-height:1.6;color:var(--color-muted);margin-bottom:12px}
+.tl-ob-gate strong{color:var(--color-text);font-weight:500}
+.tl-ob-gate a{color:var(--color-accent)}
+
+/* ---- 1 welcome --------------------------------------------------------- */
+.tl-ob-icon{display:block;width:56px;height:56px;border-radius:13px;margin-top:28px}
+.tl-ob-point{display:flex;align-items:center;gap:12px;min-height:72px;padding:8px 0}
+.tl-ob-point-t{font-size:15px;font-weight:500;line-height:1.3}
+.tl-ob-point-s{font-size:12.5px;line-height:1.45;color:var(--color-muted)}
+
+/* ---- 2 tracking -------------------------------------------------------- */
+.tl-ob-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:1px}
+.tl-ob-tile{
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:10px;
+  min-height:92px;padding:12px;border:0;border-radius:var(--radius-md);cursor:pointer;
+  text-align:left;font-size:15px;font-weight:500;line-height:1.25;
+  background:var(--color-surface);box-shadow:inset 0 0 0 1px var(--color-divider);
+}
+.tl-ob-tile-top{display:flex;align-items:center;width:100%}
+.tl-ob-tile-top>.ph{font-size:22px;color:var(--color-neutral-400);margin-right:auto}
+.tl-ob-tile-top>.ph-fill{font-size:18px;color:var(--color-accent);visibility:hidden}
+.tl-ob-tile[aria-pressed="true"]{background:color-mix(in srgb,var(--color-accent) 12%,transparent);box-shadow:inset 0 0 0 1px var(--color-accent)}
+.tl-ob-tile[aria-pressed="true"] .tl-ob-tile-top>.ph{color:var(--color-accent)}
+.tl-ob-tile[aria-pressed="true"] .tl-ob-tile-top>.ph-fill{visibility:visible}
+
+/* ---- 3 the stack ------------------------------------------------------- */
+.tl-stack-row{padding:6px 0 4px}
+.tl-stack-head{
+  display:flex;align-items:center;flex-wrap:wrap;column-gap:8px;width:100%;min-height:44px;
+  padding:0;border:0;background:none;color:inherit;text-align:left;cursor:pointer;
+}
+.tl-stack-name{flex:1 1 auto;min-width:0;font-size:15px;font-weight:500;overflow-wrap:anywhere}
+.tl-stack-meta{font-size:12.5px;color:var(--color-muted)}
+.tl-stack-head>.ph{font-size:16px;color:var(--color-neutral-500)}
+.tl-ob-add{margin-top:12px}
+
+/* The four time-of-day buttons (and the day buttons in the compound sheet):
+   drawn 32 px tall inside a 44 px tap area. */
+.tl-slots{display:flex;gap:6px}
+.tl-slot{flex:1;min-width:0;min-height:44px;display:flex;align-items:center;padding:0;border:0;background:none;color:inherit;cursor:pointer}
+.tl-slot>span{
+  flex:1;min-width:0;display:grid;place-items:center;height:32px;border-radius:6px;
+  font-size:12.5px;color:var(--color-muted);white-space:nowrap;overflow:hidden;
+  box-shadow:inset 0 0 0 1px var(--color-divider);
+}
+.tl-slot[aria-pressed="true"]>span{
+  color:var(--color-text);font-weight:500;
+  background:color-mix(in srgb,var(--color-accent) 14%,transparent);box-shadow:inset 0 0 0 1px var(--color-accent);
+}
+.tl-slot:focus-visible{outline:none}
+.tl-slot:focus-visible>span{outline:2px solid var(--color-accent);outline-offset:2px}
+
+/* ---- 4 the figure ------------------------------------------------------ */
+.tl-ob-figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:1px}
+.tl-ob-fig{
+  display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 6px;
+  border:0;border-radius:var(--radius-lg);cursor:pointer;font-size:15px;font-weight:500;
+  background:var(--color-surface);box-shadow:inset 0 0 0 1px var(--color-divider);
+}
+.tl-ob-fig[aria-pressed="true"]{
+  background:color-mix(in srgb,var(--color-accent) 8%,var(--color-surface));
+  box-shadow:inset 0 0 0 1.5px var(--color-accent);
+}
+/* The figure drawn in the accent colour through the image as a mask. */
+.tl-ob-fig-img{
+  display:block;width:132px;max-width:100%;aspect-ratio:132/287;opacity:.6;
+  background:linear-gradient(180deg,var(--color-accent-400),var(--color-accent-600));
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+}
+.tl-ob-fig-male{-webkit-mask-image:url(/assets/figures/male-front.png);mask-image:url(/assets/figures/male-front.png)}
+.tl-ob-fig-female{-webkit-mask-image:url(/assets/figures/female-front.png);mask-image:url(/assets/figures/female-front.png)}
+.tl-ob-fig-label{display:flex;align-items:center;gap:6px;min-height:40px}
+.tl-ob-fig-label>.ph-fill{font-size:18px;color:var(--color-accent);display:none}
+.tl-ob-fig[aria-pressed="true"] .tl-ob-fig-label>.ph-fill{display:inline}
+.tl-ob-aside{display:flex;gap:8px;margin-top:14px;font-size:12.5px;line-height:1.5;color:var(--color-muted)}
+.tl-ob-aside>.ph{flex:none;font-size:16px;margin-top:1px}
+
+/* ---- 5 the rounds ------------------------------------------------------ */
+.tl-round{padding:6px 14px 10px;margin-bottom:10px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm)}
+.tl-round-head{display:flex;align-items:center;gap:10px;min-height:56px}
+.tl-round-main{flex:1;min-width:0}
+.tl-round-title{font-size:15px;font-weight:500;line-height:1.3}
+.tl-round-names{font-size:12.5px;line-height:1.4;color:var(--color-muted)}
+.tl-round-time{display:flex;align-items:center;gap:10px}
+.tl-round-time>.ph{font-size:17px;color:var(--color-accent)}
+.tl-round[data-off] .tl-round-time>.ph{color:var(--color-neutral-500)}
+.tl-round-time-l{flex:1;font-size:13px;color:var(--color-muted)}
+.tl-round-time-v{width:58px;text-align:center;font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+.tl-ob-discreet{display:flex;align-items:center;gap:10px;min-height:56px}
+.tl-ob-discreet>.ph{font-size:18px;color:var(--color-neutral-400)}
+
+/* ---- the compound sheet ------------------------------------------------ */
+.tl-cs{display:flex;flex-direction:column;gap:16px}
+.tl-cs .ds-field .ds-small{margin-top:2px}
+.tl-cs-dose{display:flex;gap:8px}
+.tl-cs-dose>.ds-input:first-child{flex:1;min-width:0}
+.tl-cs-dose>select.ds-input.ds-input.ds-input{flex:none;width:104px}
+.tl-cs-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:6px}
+.tl-cs-days[hidden],.tl-cs-every[hidden]{display:none}
+.tl-cs-every{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px}
+.tl-cs-every .ds-btn-icon{width:44px;padding:0}
+.tl-cs-every-v{min-width:120px;text-align:center;font-size:15px;font-weight:500}
+.tl-cs-error{font-size:13px;line-height:1.45;color:var(--color-danger)}
+.tl-cs-error:empty{display:none}
+.tl-cs-remove{color:var(--color-danger)}

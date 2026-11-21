@@ -74,6 +74,12 @@ function tlConfirmCopy(kind, detail, nowMs) {
       body: 'Every entry, your profile and your protocol. Nothing is kept anywhere else, so this cannot be undone.',
       action: 'Delete everything', exportFirst: true };
   }
+  if (kind === 'template') {
+    return { kind: kind, tone: 'warn', icon: 'ph-stack', title: 'Replace your protocol with this template?',
+      body: (detail.name ? detail.name + ' takes the place of the compounds on your protocol. ' : 'The template takes the place of the compounds on your protocol. ') +
+        'Your log entries stay. Check every dose with your physician.',
+      action: 'Use template', exportFirst: false };
+  }
   if (kind === 'demo') {
     return { kind: kind, tone: 'warn', icon: 'ph-flask', title: 'Replace your log with demo data?',
       body: 'Sample entries take the place of everything in the app now. Export a backup first to keep your log.',
