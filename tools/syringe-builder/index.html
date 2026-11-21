@@ -221,7 +221,7 @@ body.og-card .wrap{display:none}
     get told when two things should not share a syringe. 56 injectables,
     free, no account.</p>
 
-    <div class="updated">Last reviewed: 8 September 2026</div>
+    <div class="updated">Last reviewed: 16 November 2026</div>
 
     <p>Two separate questions get run together when people combine compounds in one draw,
     and only one of them is arithmetic. The arithmetic is easy: a dose divided by the vial's
@@ -331,7 +331,7 @@ body.og-card .wrap{display:none}
     </div>
     <div class="byline">
       <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
-      Last reviewed 8 September 2026. The calculator on this page runs the same code as the app;
+      Last reviewed 16 November 2026. The calculator on this page runs the same code as the app;
       how these pages are written, sourced and corrected is set out in the
       <a href="/about/">editorial policy</a>.</p>
     </div>
@@ -541,11 +541,11 @@ box.innerHTML = SYR.rows.map((r, i) => `
       <label style="font-size:10px;color:var(--text2);flex:1;min-width:150px">Compound<br>
         <select onchange="syrField(${i},'name',this.value)" style="width:100%;margin-top:3px">${opts.replace(`<option${syrMediumOf(r.name)==='oil'?' data-m="oil"':''}>${r.name}</option>`, `<option selected>${r.name}</option>`)}</select></label>
       <label style="font-size:10px;color:var(--text2)">Dose<br>
-        <input type="number" value="${r.dose}" min="0" step="any" oninput="syrField(${i},'dose',this.value)" style="width:76px;margin-top:3px"></label>
+        <input inputmode="decimal" type="number" value="${r.dose}" min="0" step="any" oninput="syrField(${i},'dose',this.value)" style="width:76px;margin-top:3px"></label>
       <label style="font-size:10px;color:var(--text2)">Unit<br>
         <select onchange="syrField(${i},'unit',this.value)" style="margin-top:3px">${['mg','mcg','IU'].map(u=>`<option${u===r.unit?' selected':''}>${u}</option>`).join('')}</select></label>
       <label style="font-size:10px;color:var(--text2)">Vial conc. (${r.unit}/ml)<br>
-        <input type="number" value="${r.conc}" min="0" step="any" oninput="syrField(${i},'conc',this.value)" style="width:86px;margin-top:3px"></label>
+        <input inputmode="decimal" type="number" value="${r.conc}" min="0" step="any" oninput="syrField(${i},'conc',this.value)" style="width:86px;margin-top:3px"></label>
       ${SYR.rows.length > 1 ? `<button onclick="syrRemoveRow(${i})" style="background:none;border:1px solid var(--border2);border-radius:7px;color:var(--danger);font-size:11px;padding:6px 10px;cursor:pointer">✕</button>` : ''}
     </div>
     <div style="font-size:10px;color:var(--text3);margin-top:6px">${syrMediumOf(r.name)==='oil'?'Oil-based':syrMediumOf(r.name)==='susp'?'Aqueous suspension':'Water-based'}${syrFragile(r.name)?' · fragile protein':''}</div>
@@ -671,7 +671,7 @@ document.addEventListener('DOMContentLoaded', function () { renderSyringeBuilder
       "publisher": {
         "@id": "https://therapylog.app/#organization"
       },
-      "dateModified": "2026-09-08",
+      "dateModified": "2026-11-16",
       "breadcrumb": {
         "@type": "BreadcrumbList",
         "itemListElement": [

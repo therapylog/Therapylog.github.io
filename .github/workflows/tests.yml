@@ -1,0 +1,71 @@
+name: Tests
+on:
+  push:
+    paths:
+      - 'app.html'
+      - 'src/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'docs/DATA-MODEL.md'
+      - 'assets/figures/injection-sites.json'
+      - '.github/workflows/tests.yml'
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
+      # The tests lift the app's own functions out of app.html and run them, so
+      # what passes here is the shipped text, not a copy of it. Dates in this
+      # code are local calendar days, and a test that only passes in one
+      # timezone is hiding a bug for everyone outside it, so the suite runs
+      # behind, on and ahead of UTC.
+      - name: Unit tests, UTC
+        run: node --test tests/*.test.js
+        env: { TZ: UTC }
+      - name: Unit tests, America/Chicago
+        run: node --test tests/*.test.js
+        env: { TZ: America/Chicago }
+      - name: Unit tests, Pacific/Auckland
+        run: node --test tests/*.test.js
+        env: { TZ: Pacific/Auckland }
+      # The redesign's logic is written under src/logic/ and copied into one
+      # marked block of app.html. This fails if the two differ: someone edited
+      # the block by hand, or changed a module without rebuilding.
+      - name: app.html carries src/logic exactly
+        run: node scripts/build-app.js --check
+      # Pinch-zoom unlocked, decimal keypads on number inputs, dvh fallbacks.
+      # Fails if a new number input arrives without its inputmode.
+      - name: app.html keeps the mobile-fit patch
+        run: node scripts/mobile-fit-patch.js --check
+      - name: Install acorn
+        run: npm install --no-save acorn
+      # Every stored key, entry type and database found in app.html's syntax
+      # tree has to be named in docs/DATA-MODEL.md. The redesign's migrations
+      # are written from that document; a key it omits is a key they drop.
+      - name: docs/DATA-MODEL.md names everything the app stores
+        run: node scripts/inventory-data-layer.js --check
+
+  # The checks that need a real browser: the two backup fixtures (each
+  # captured again and compared byte for byte, then restored twice through the
+  # app's real import) and the confirm sheet. The fixtures are Phase 1's exit
+  # criterion for data: a backup has to round-trip whether it was written
+  # before the redesign or after it.
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-save playwright@1.63.0
+          npx playwright install --with-deps chromium
+      - name: The demo patient's backup, as written before the redesign
+        run: node scripts/capture-backup-fixture.js --check
+      - name: The same patient, after the redesign's logic has written to the record
+        run: node scripts/capture-backup-fixture.js --model --check
+      - name: The confirm sheet
+        run: node scripts/ui-check-confirm.js
