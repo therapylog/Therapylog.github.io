@@ -123,7 +123,10 @@ test('text after a line\'s frequency is kept as a note on the compound', () => {
 });
 
 test('weekdays in a note set a weekly line\'s days only when they are as many as the line takes', () => {
-  same(rule('X, 1mg, Twice weekly, Mon AM and Thu PM, glute only', '2026-03-06'), { weekdays: [1, 4] });
+  same(rule('X, 1mg, Twice weekly, Mon/Thu, glute only', '2026-03-06'), { weekdays: [1, 4] });
+  /* A different time on each day is more than the old text holds: from the
+     start, as the old screens place it. */
+  same(rule('X, 1mg, Twice weekly, Mon AM and Thu PM, glute only', '2026-03-06'), { weekdays: [1, 5] });
   /* A daily line is not made weekly by a day in its note. */
   same(rule('X, 1mg, Daily, refill on Fridays'), { daily: true });
   /* Nor is a weekly line moved by a note that does not list its days. */

@@ -261,7 +261,12 @@ function tlRuleFromLegacy(med, start, note) {
     else if (type === 'weekly' && note) {
       /* Only the parts of the note that say nothing but days: "Mon AM and Thu
          PM, glute only" places the line; "refill on Fridays" does not. */
-      var dayParts = String(note).split(',').filter(function (x) { return typeof tlFreqOnlyDays !== 'function' || tlFreqOnlyDays(x); });
+      var dayParts = String(note).split(',').filter(function (x) {
+        if (typeof tlFreqOnlyDays === 'function' && !tlFreqOnlyDays(x)) return false;
+        /* Rest days ("Sat/Sun off") are never dose days. */
+        var r = typeof tlFreqDayRule === 'function' ? tlFreqDayRule(tlFreqSpellDays(String(x).toLowerCase())) : null;
+        return !(r && r.rest);
+      });
       named = dayParts.length ? tlWeekdaysInText(dayParts.join(', ')) : null;
     }
     var stated = /\b([1-7])\s*(?:x|times)\s*(?:\/|a|per|each)?\s*week/i.exec((med && med.freqStr) || '');
@@ -405,7 +410,14 @@ function tlProtocolFromLegacy(d, env) {
     var amt = /[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|cc|g|tabs?|caps?)\b/gi;
     var norm = function (x) { return (String(x || '').match(amt) || []).join().replace(/\s+/g, '').toLowerCase(); };
     var says = (norm(parts[2]) && norm(parts[2]) !== norm(parts[1])) || /\b(?:if|as|when)\s+(?:needed|required)\b|\boptional\b|\bprn\b/i.test(parts[2] || '');
-    var note = parts.slice(rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest' || says) ? 2 : 3).join(', ').trim();
+    var noteParts = parts.slice(rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest' || says) ? 2 : 3);
+    /* Days read with the dose ("HCG, 250iu M/W/F, Mon · Wed · Fri") are the
+       rule, which the written frequency says: not a note to write again. */
+    if (rule && med.freqFrom === 'dose' && typeof tlFreqOnlyDays === 'function') {
+      var amt0 = /[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|cc|g|tabs?|caps?)\b/gi;
+      while (noteParts.length && (tlFreqOnlyDays(noteParts[0]) || tlFreqOnlyDays(String(noteParts[0]).replace(amt0, ' ')))) noteParts.shift();
+    }
+    var note = noteParts.join(', ').trim();
     /* Stored times if the user set any, else the defaults the old screens show
        and fire for this frequency. */
     var placed = tlSlotsFromTimes(times[med.name] || getDefaultTimes(med.freq));
@@ -582,8 +594,11 @@ function tlLegacyName(s) {
 function tlLegacyDoseText(dose) {
   if (!dose) return '';
   /* "50,000 IU biweekly" is written "50000 IU biweekly": a comma would start
-     the next field, and the words after the amount may be the schedule. */
-  var text = String(dose.text || '').replace(/(\d),(?=\d{3}(?!\d))/g, '$1');
+     the next field, and the words after the amount may be the schedule. A
+     decimal comma ("0,125mg") is written as a point, never dropped: "0125mg"
+     would read as 125 mg. */
+  var text = String(dose.text || '').replace(/(^|[^\d.,])([1-9]\d{0,2}),(?=\d{3}(?![\d,]))/g, '$1$2')
+    .replace(/(\d),(\d)/g, '$1.$2');
   if (dose.amount === null || dose.amount === undefined) return text;
   var read = tlParseDose(tlLegacyName(text));
   return read.amount === dose.amount && read.unit === (dose.unit || null) ? text : tlDoseText(dose);

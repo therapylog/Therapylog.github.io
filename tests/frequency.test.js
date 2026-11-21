@@ -136,11 +136,14 @@ test('a line the reader cannot schedule keeps its words through a save of the mo
 });
 
 test('days named in the rest of a weekly line place it in the old screens and the model alike', () => {
-  const meds = app.parseMeds('Test C, 100mg, Twice weekly, Mon AM and Thu PM, glute only');
+  const meds = app.parseMeds('Test C, 100mg, Twice weekly, Mon/Thu, glute only');
   same(plain(meds[0].freq.days), [1, 4]);
   assert.equal(meds[0].freq.named, true);
   /* Wednesday 4 March: Thursday is tomorrow, Monday is in five days. */
   same(app.getDoseDays(meds[0], '2026-03-02'), [1, 5]);
+  /* A different time on each day ("Mon AM and Thu PM") is more than the old
+     screens can hold: the old reading, twice weekly from the start. */
+  assert.equal(app.parseMeds('Test C, 100mg, Twice weekly, Mon AM and Thu PM, glute only')[0].freq.named, undefined);
   /* A daily line is never made weekly by what follows it. */
   assert.equal(app.parseMeds('BPC-157, 250mcg, Daily, refill on Fridays')[0].freq.type, 'daily');
 });
@@ -392,8 +395,9 @@ test('a later phase, an alternative or a former schedule is not this one', () =>
     same(line(l), ['daily', times, null, null, null], l);
   }
   same(line('HGH, 2iu, daily, skip 2 days a week'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
-  /* "then" before a time of day joins two doses. */
-  assert.equal(app.parseFrequency('5mg AM then 5mg PM').times, 2);
+  /* "then" is a word this does not read as a schedule: "5mg AM then 5mg PM"
+     keeps the old reading, once a day. */
+  assert.equal(app.parseFrequency('5mg AM then 5mg PM').times, 1);
 });
 
 test('"mth" is a month, "x2/week" is twice weekly', () => {
@@ -485,7 +489,8 @@ test('days split across fields, or after "then", are all dose days', () => {
   same(line('Test C, 100mg Mon, Thu'), ['weekly', 1, null, 2, [1, 4]]);
   same(line('HCG, 250IU Mon, Wed, Fri'), ['weekly', 1, null, 3, [1, 3, 5]]);
   same(line('Test C, 100mg twice weekly, Monday'), ['weekly', 1, null, 2, [1, 4]]);
-  same(line('Test C, 100mg, Mon then Thu'), ['weekly', 1, null, 2, [1, 4]]);
+  /* "then" keeps the old reading. */
+  same(line('Test C, 100mg, Mon then Thu'), ['daily', 1, null, null, null]);
 });
 
 test('notes about labs, vials and titration in later fields never set the schedule', () => {
@@ -545,7 +550,7 @@ test('a weekly amount in the dose is a total when the field states the schedule'
 
 test('rest days written as a range or in other words are never the dose days', () => {
   for (const l of ['HGH, 2iu, daily, Sat-Sun off', 'HGH, 2iu, Daily (Sat-Sun off)', 'Ipamorelin, 100mcg, nightly, Sat-Sun off',
-    'HGH, 2iu, 5 days on (Sat-Sun off)', 'HGH, 3iu, daily, Sat-Sun rest', 'HGH, 2iu, daily (Sat - Sun off)', 'X, 1mg, daily (Sat to Sun off)']) {
+    'HGH, 3iu, daily, Sat-Sun rest', 'HGH, 2iu, daily (Sat - Sun off)', 'X, 1mg, daily (Sat to Sun off)']) {
     same(line(l), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]], l);
   }
   same(line('HGH, 2iu, daily, Fri-Sat off'), ['weekly', 1, null, 5, [0, 1, 2, 3, 4]]);
@@ -649,9 +654,9 @@ test('"weekends off" after named days leaves the days, and a written day list re
   assert.equal(back('BPC-157, 250mcg, 2x daily, Sat/Sun off'), 'BPC-157, 250mcg, Twice daily Mon · Tue · Wed · Thu · Fri, Sat/Sun off');
 });
 
-test('a second schedule on other days adds its days, and an amount or another time on some days moves none', () => {
-  same(line('Tirzepatide, 5mg, Weekly (Sunday), 2.5mg Thu'), ['weekly', 1, null, 2, [0, 4]]);
-  same(line('Test C, 100mg, Twice weekly (Mon/Thu), 50mg Sat'), ['weekly', 1, null, 3, [1, 4, 6]]);
+test('a second schedule on other days keeps the old reading, and an amount or another time on some days moves no days', () => {
+  same(line('Tirzepatide, 5mg, Weekly (Sunday), 2.5mg Thu'), ['weekly', 1, null, 1, [1]]);
+  same(line('Test C, 100mg, Twice weekly (Mon/Thu), 50mg Sat'), ['weekly', 1, null, 2, [1, 4]]);
   for (const l of ['Levothyroxine, 88mcg, daily, 1.5 tabs 3x/week', 'HGH, 2iu daily, 4iu 3x/week', 'BPC, 250mcg, Daily AM, 3x/week PM']) {
     same(line(l), ['daily', 1, null, null, null], l);
   }
@@ -697,4 +702,78 @@ test('smaller misreadings from the seventh review', () => {
   assert.equal(back('Cialis, 5mg, AM + 5mg PM if needed'), 'Cialis, 5mg, Daily, AM + 5mg PM if needed');
   /* "bid" inside a word is still no schedule. */
   same(phrase('morbid curiosity'), ['daily', 1, null, null, null]);
+});
+
+/* ---- found in the eighth review ------------------------------------------- */
+
+test('a schedule is read only from words this fully reads; anything else keeps the old reading', () => {
+  /* A different time or amount on one or two days is a note, not the days. */
+  for (const l of ['Levothyroxine, 75mcg, 6am daily (8am weekends)', 'MK-677, 12.5mg, nightly (AM on weekends)', 'DHEA, 25mg, daily AM (PM on Sundays)',
+    'Enclomiphene, 12.5mg, daily (Sun 10am)', 'Levothyroxine, 50mcg, daily (1.5 Sun)', 'Vitamin D3, 5000IU, daily (Sundays 10000)',
+    'Melanotan II, 250mcg, daily before sun', 'Levothyroxine, 88mcg, daily (1.5 tabs 3x/week)', 'Synthroid, 100mcg, daily (+50mcg twice weekly)',
+    'Levothyroxine, 75mcg, daily - 2 tabs twice a week', 'Levothyroxine, 100mcg, daily (double dose 2x a week)',
+    'Test C, 20mg, daily (M/W/F glute, T/Th delt)', 'Test C, 20mg, daily, M/W/F glute, T/Th delt', 'HGH, 2iu, daily, Mon/Wed/Fri left, Tue/Thu/Sat right',
+    'HGH, 2iu, daily except 2 days per week', 'HGH, 2iu, daily (skip 2x/week)', 'Test C, 20mg, ED minus 1 day/week',
+    'Enclomiphene, 12.5mg, daily AM for 2 weeks then PM', 'Tirzepatide, 5mg, Sunday or Monday', 'T3, 25mcg, 15 AM 10 PM']) {
+    same(line(l), ['daily', 1, null, null, null], l);
+  }
+  same(line('BPC-157, 250mcg, twice daily (AM only on Sundays)'), ['daily', 2, null, null, null]);
+  same(at('Enclomiphene, 12.5mg, daily (vivid dreams if taken at night)'), ['08:00']);
+  same(at('DHEA, 25mg, daily (no food after 8pm)'), ['08:00']);
+  same(line('Test C, 100mg, twice weekly - AM/PM alternating'), ['weekly', 1, null, 2, [1, 4]]);
+  same(line('Test C, 100mg, every 3-4 days or twice weekly'), ['weekly', 1, null, 2, [1, 4]]);
+  same(line('HCG, 500iu, every 2-3 days (or EOD)'), ['interval', 1, 2, null, null]);
+});
+
+test('doses a day and days a week given apart are read together', () => {
+  for (const l of ['Ipamorelin, 100mcg, BID x 5 days/wk', 'CJC/Ipa, 100mcg 2x daily, 5 on 2 off', 'BPC-157, 250mcg BID, M-F', 'Ipamorelin, 100mcg AM and PM, Mon-Fri']) {
+    same(line(l), ['weekly', 2, null, 5, [1, 2, 3, 4, 5]], l);
+  }
+  same(line('HGH, 2iu, x 5 days/week'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
+  same(at('Sermorelin, 200mcg nightly, M-F'), ['21:30']);
+  same(line('Sermorelin, 200mcg nightly, M-F'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
+});
+
+test('a split dose written one day to a field doses on every day named', () => {
+  for (const l of ['Test C, 100mg Mon, 100mg Thu', 'HCG, 500iu Mon, 250iu Thu', 'Test C, 100mg (Mon), 100mg (Thu)']) {
+    same(line(l), ['weekly', 1, null, 2, [1, 4]], l);
+  }
+  same(line('HCG, 250iu Mon, 250iu Wed, 250iu Fri'), ['weekly', 1, null, 3, [1, 3, 5]]);
+  same(line('Test C, 100mg, Mon AM, Thu PM'), ['weekly', 1, null, 2, [1, 4]]);
+  same(at('Test C, 100mg, Mon AM, Thu AM'), ['08:00']);
+});
+
+test('two schedules on one line keep the old reading', () => {
+  for (const l of ['BPC-157, 500mcg daily, 250mcg twice daily', 'Test C, 20mg daily, 10mg BID', 'Ipamorelin, 100mcg, twice daily Mon-Fri, once daily weekends',
+    'BPC-157, 250mcg, BID Mon-Fri, Sat/Sun AM']) {
+    same(line(l), ['daily', 2, null, null, null], l);
+  }
+  same(line('HGH, 2iu daily, 4iu 3x/week'), ['daily', 1, null, null, null]);
+  /* A weekly total beside times of day is twice a day. */
+  same(line('HGH, 14iu weekly, AM and PM'), ['daily', 2, null, null, null]);
+});
+
+test('more ways of writing days and times', () => {
+  for (const l of ['HGH, 2iu, M/T/W/T/F', 'HGH, 2iu, M-T-W-T-F, SubQ', 'HGH, 2iu, M T W T F']) same(line(l), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]], l);
+  same(line('Test C, 100mg, T/T'), ['weekly', 1, null, 2, [2, 4]]);
+  for (const l of ['Melatonin, 3mg, PM/bedtime', 'Melatonin, 3mg, PM / before bed', 'Magnesium, 400mg, evening/night']) same(at(l), ['21:30'], l);
+  same(line('HGH, 2iu, daily (Mon-Fri, weekends off)'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
+  same(line('Ipamorelin, 100mcg, before bed (Mon-Thu, Fri & Sat off)'), ['weekly', 1, null, 4, [1, 2, 3, 4]]);
+  same(line('Sema, 0.25mg, every 7 days (Sunday)'), ['weekly', 1, null, 1, [0]]);
+  same(line('Tirz, 5mg, q7d (Sat)'), ['weekly', 1, null, 1, [6]]);
+  for (const l of ['Cialis, 5mg AM, 5mg PM (if needed)', 'Cialis, 5mg AM, PM (as needed)', 'Cialis, 5mg, AM + PM (PRN)', 'Cialis, 5mg AM, PM only if needed',
+    'Cialis, 5mg AM, PM - if needed', 'Cialis, 5mg AM, PM if necessary']) {
+    same(line(l), ['daily', 1, null, null, null], l);
+  }
+});
+
+test('the model never doses on rest days, keeps a decimal comma, and a save is stable', () => {
+  const p = app.tlProtocolFromLegacy({ entries: [], proto: proto('Test C, 100mg, twice weekly, Sat/Sun off') }, env);
+  same(plain(p.compounds[0].rule.weekdays), [1, 4]);
+  const back = (meds) => app.tlProtocolToLegacy(app.tlProtocolFromLegacy({ entries: [], proto: proto(meds) }, env)).proto.meds;
+  assert.equal(back('Anastrozole, 0,125mg, E3.5D'), 'Anastrozole, 0.125mg, Twice weekly (Mon · Thu)');
+  for (const l of ['HCG, 250iu M/W/F, SubQ', 'HCG, 250IU Mon, Wed, Fri, SubQ', 'Zinc, 25mg M-F', 'Test C, 100mg Mon, 100mg Thu']) {
+    assert.equal(back(back(l)), back(l), l);
+  }
+  assert.equal(back('HCG, 250iu M/W/F, SubQ'), 'HCG, 250iu M/W/F, Mon · Wed · Fri, SubQ');
 });
