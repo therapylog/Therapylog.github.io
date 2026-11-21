@@ -122,8 +122,10 @@ test('when the text names more than one schedule, the first one named wins', () 
   same(app.parseFrequency('weekly, or every 3 days'), WEEKLY);
   same(app.parseFrequency('Weekly SubQ injection OR twice weekly for steadier levels'), WEEKLY);
   same(app.parseFrequency('Weekly SubQ, titrate by 2.5mg every 4 weeks'), WEEKLY);
-  /* A pulse is a pulse wherever it is named. */
-  same(app.parseFrequency('monthly pulse'), PULSE);
+  /* A pulse, or "10 days", is the reading only when nothing else is named. */
+  same(app.parseFrequency('monthly pulse'), MONTHLY);
+  same(app.parseFrequency('EOD pulse'), EOD);
+  same(app.parseFrequency('10 days daily'), DAILY);
 });
 
 test('a phrase that names no schedule becomes once daily and keeps the text as its label', () => {
@@ -175,8 +177,11 @@ test('common ways of writing a weekly or longer schedule are read as written', (
 });
 
 test('a schedule the text states but the reader cannot take is a check, never a guess', () => {
+  /* Text that only mentions weeks is not a schedule it cannot read: it is
+     read as the old reader read it. */
+  assert.equal(load().parseFrequency('Cycle 12 weeks').type, 'daily');
   const app = load();
-  for (const p of ['every 4.5 days', '2x per month', 'every 2 months', '5 on 3 off', 'Cycle 12 weeks', 'every 5 hours']) {
+  for (const p of ['every 4.5 days', '2x per month', 'every 2 months', '5 on 3 off', 'every 5 hours', 'every other Friday', 'twice monthly', 'quarterly']) {
     same(app.parseFrequency(p), check(p), p);
   }
 });
@@ -230,14 +235,14 @@ test('the frequency phrases used by the app\'s own protocol templates parse as f
     'Twice daily fasted (AM + pre-bed)': at(TWICE_DAILY, ['08:00', '21:30']),
     '10-day pulse cycles annually': PULSE,
     'SubQ pulse cycles twice yearly': PULSE,
-    /* These used to be once daily at 08:00. Two describe two doses a day and
-       one names two weekdays. */
+    /* These used to be once daily at 08:00. Two describe two doses a day. */
     'Before bed SubQ fasted': at(unrecognised('Before bed SubQ fasted'), ['21:30']),
     'Once before bed with CJC-1295': at(unrecognised('Once before bed with CJC-1295'), ['21:30']),
     'Split dose AM and noon': { type: 'daily', times: 2, label: 'Split dose AM and noon', days: null, at: ['08:00', '12:00'] },
     '250mcg AM + 250mcg PM SubQ near injury':
       { type: 'daily', times: 2, label: '250mcg AM + 250mcg PM SubQ near injury', days: null, at: ['08:00', '20:00'] },
-    'Mon/Thu alongside Test injection': named(2, [1, 4], 'Twice weekly (Mon · Thu)'),
+    /* Days are read only from text that says nothing but a schedule. */
+    'Mon/Thu alongside Test injection': unrecognised('Mon/Thu alongside Test injection'),
     /* How long to keep going is not a schedule: once daily, as written. */
     'Final 2 weeks of cycle (then stop completely)': unrecognised('Final 2 weeks of cycle (then stop completely)')
   };
@@ -255,7 +260,7 @@ test('every line of every template the app offers gets a schedule a person would
     'BPC-157, 250mcg twice daily, SubQ — helps gut during GLP-1 initiation': 'Twice daily',
     'HCG, 500IU 3x/week, Final 2 weeks of cycle (then stop completely)': '3x weekly',
     'GHK-Cu, Apply topically 2x/day, Face, neck, and hands — morning and evening': 'Twice daily',
-    'HCG, 250IU twice weekly, Mon/Thu alongside Test injection': 'Twice weekly (Mon · Thu)',
+    'HCG, 250IU twice weekly, Mon/Thu alongside Test injection': 'Twice weekly',
     'TB-500, 2.5mg loading, Twice weekly for 4-6 weeks, then once weekly': 'Twice weekly'
   };
   Object.keys(lines).forEach((line) => assert.equal(app.parseMeds(line)[0].freq.label, lines[line], line));
@@ -277,6 +282,7 @@ test('a line of name, dose and frequency becomes one med', () => {
     dose: '100mg',
     freqStr: 'Twice weekly',
     freq: TWICE_WEEKLY,
+    freqFrom: 'field',
     color: '#4ade9a',
     id: 'med-0'
   }]);
@@ -287,9 +293,9 @@ test('each line is a med, numbered and coloured in order', () => {
     'Testosterone Cypionate, 100mg, Twice weekly\nBPC-157, 250mcg, Daily\nHCG, 500IU, EOD');
   same(meds, [
     { name: 'Testosterone Cypionate', dose: '100mg', freqStr: 'Twice weekly', freq: TWICE_WEEKLY,
-      color: '#4ade9a', id: 'med-0' },
-    { name: 'BPC-157', dose: '250mcg', freqStr: 'Daily', freq: DAILY, color: '#3bc4ff', id: 'med-1' },
-    { name: 'HCG', dose: '500IU', freqStr: 'EOD', freq: EOD, color: '#f59e0b', id: 'med-2' }
+      freqFrom: 'field', color: '#4ade9a', id: 'med-0' },
+    { name: 'BPC-157', dose: '250mcg', freqStr: 'Daily', freq: DAILY, freqFrom: 'field', color: '#3bc4ff', id: 'med-1' },
+    { name: 'HCG', dose: '500IU', freqStr: 'EOD', freq: EOD, freqFrom: 'field', color: '#f59e0b', id: 'med-2' }
   ]);
 });
 
@@ -303,27 +309,27 @@ test('blank lines are dropped before numbering, so ids and colours have no gaps'
 
 test('whitespace around each part is trimmed, including a Windows line ending', () => {
   same(load().parseMeds('  BPC-157 ,  250mcg ,daily \r\n\tHCG,500IU,  EOD\r'), [
-    { name: 'BPC-157', dose: '250mcg', freqStr: 'daily', freq: DAILY, color: '#4ade9a', id: 'med-0' },
-    { name: 'HCG', dose: '500IU', freqStr: 'EOD', freq: EOD, color: '#3bc4ff', id: 'med-1' }
+    { name: 'BPC-157', dose: '250mcg', freqStr: 'daily', freq: DAILY, freqFrom: 'field', color: '#4ade9a', id: 'med-0' },
+    { name: 'HCG', dose: '500IU', freqStr: 'EOD', freq: EOD, freqFrom: 'field', color: '#3bc4ff', id: 'med-1' }
   ]);
 });
 
 test('a missing frequency is Daily, a missing dose is empty and a missing name is Unknown', () => {
   const app = load();
   same(app.parseMeds('HCG'), [
-    { name: 'HCG', dose: '', freqStr: 'Daily', freq: DAILY, color: '#4ade9a', id: 'med-0' }
+    { name: 'HCG', dose: '', freqStr: 'Daily', freq: DAILY, freqFrom: 'field', color: '#4ade9a', id: 'med-0' }
   ]);
   same(app.parseMeds('HCG, 500IU'), [
-    { name: 'HCG', dose: '500IU', freqStr: 'Daily', freq: DAILY, color: '#4ade9a', id: 'med-0' }
+    { name: 'HCG', dose: '500IU', freqStr: 'Daily', freq: DAILY, freqFrom: 'field', color: '#4ade9a', id: 'med-0' }
   ]);
   same(app.parseMeds('HCG, , EOD'), [
-    { name: 'HCG', dose: '', freqStr: 'EOD', freq: EOD, color: '#4ade9a', id: 'med-0' }
+    { name: 'HCG', dose: '', freqStr: 'EOD', freq: EOD, freqFrom: 'field', color: '#4ade9a', id: 'med-0' }
   ]);
   same(app.parseMeds(', ,'), [
-    { name: 'Unknown', dose: '', freqStr: 'Daily', freq: DAILY, color: '#4ade9a', id: 'med-0' }
+    { name: 'Unknown', dose: '', freqStr: 'Daily', freq: DAILY, freqFrom: 'field', color: '#4ade9a', id: 'med-0' }
   ]);
   same(app.parseMeds(', 5mg, Weekly'), [
-    { name: 'Unknown', dose: '5mg', freqStr: 'Weekly', freq: WEEKLY, color: '#4ade9a', id: 'med-0' }
+    { name: 'Unknown', dose: '5mg', freqStr: 'Weekly', freq: WEEKLY, freqFrom: 'field', color: '#4ade9a', id: 'med-0' }
   ]);
 });
 
@@ -336,7 +342,7 @@ test('freqStr keeps the text as written while freq.label is the normalised name'
 test('a frequency that names no schedule is kept as the label of a once-daily med', () => {
   same(load().parseMeds('Ipamorelin, 200mcg, with food'), [{
     name: 'Ipamorelin', dose: '200mcg', freqStr: 'with food',
-    freq: unrecognised('with food'), color: '#4ade9a', id: 'med-0'
+    freq: unrecognised('with food'), freqFrom: 'field', color: '#4ade9a', id: 'med-0'
   }]);
 });
 
@@ -353,7 +359,7 @@ test('there are eight colours and the ninth med starts the cycle again', () => {
 
 test('only the first three comma-separated parts are used', () => {
   same(load().parseMeds('HCG, 500IU, EOD, with the testosterone, in the morning'), [
-    { name: 'HCG', dose: '500IU', freqStr: 'EOD', freq: EOD, color: '#4ade9a', id: 'med-0' }
+    { name: 'HCG', dose: '500IU', freqStr: 'EOD', freq: EOD, freqFrom: 'field', color: '#4ade9a', id: 'med-0' }
   ]);
 });
 
@@ -363,16 +369,14 @@ test('a comma that groups thousands stays in the dose', () => {
      and frequency "000mcg", read as daily: the weekly schedule was lost. */
   same(app.parseMeds('Vitamin B12, 1,000mcg, Weekly'), [{
     name: 'Vitamin B12', dose: '1,000mcg', freqStr: 'Weekly',
-    freq: WEEKLY, color: '#4ade9a', id: 'med-0'
+    freq: WEEKLY, freqFrom: 'field', color: '#4ade9a', id: 'med-0'
   }]);
   same(app.parseMeds('Vitamin D3, 10,000 IU, Daily')[0].dose, '10,000 IU');
   /* Any other comma still separates fields. */
   same(app.parseMeds('HCG, 500IU, EOD, with the testosterone')[0].freqStr, 'EOD');
-  /* A frequency field cut short by its own comma, leaving only a length of
-     course, states a schedule nobody can read: it is checked, not taken as
-     daily. */
-  same(app.parseMeds('BPC-157, 500mcg, SubQ loading phase 4-6 weeks, then once weekly')[0].freq,
-    check('SubQ loading phase 4-6 weeks'));
+  /* A frequency field cut short by its own comma names no schedule; the
+     next field does. */
+  same(app.parseMeds('BPC-157, 500mcg, SubQ loading phase 4-6 weeks, then once weekly')[0].freq, WEEKLY);
 });
 
 test('two lines for the same compound are two meds', () => {

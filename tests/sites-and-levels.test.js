@@ -114,8 +114,14 @@ test('pkParseDose assumes mg when there is no unit, and gives null for no number
 });
 
 test('pkParseDose reads a thousands comma as part of the number, and draws no curve for a range', () => {
-  /* "200mg/week" logged as a dose is one 200 mg administration. */
-  same(pk.pkParseDose('200mg/week'), { v: 200, unit: 'mg' });
+  /* A total per week is not one dose, and nor is "2 x 250mcg". */
+  assert.equal(pk.pkParseDose('200mg/week'), null);
+  assert.equal(pk.pkParseDose('2 x 250mcg'), null);
+  /* A dash before another unit or a count is not a range. */
+  same(pk.pkParseDose('100mg - 0.5ml'), { v: 100, unit: 'mg' });
+  same(pk.pkParseDose('250mcg - 2x daily'), { v: 0.25, unit: 'mg' });
+  /* "5.000 IU" may be five thousand. */
+  assert.equal(pk.pkParseDose('5.000 IU'), null);
   /* A range is not one dose. "250-500mcg" used to read as 250 mg, a thousand
      times the low end of the range, because the hyphen hid the unit. */
   for (const range of ['250-500mcg', '10-20mg/week', '0.5-1mg', '100 to 200mg', '250 \u2013 500 mcg']) {

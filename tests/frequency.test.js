@@ -27,7 +27,9 @@ test('a line splits on its commas, except one that groups the thousands of a num
   same(plain(app.tlSplitProtocolLine('D3, 10,000 IU, daily, with food')), ['D3', '10,000 IU', 'daily', 'with food']);
   same(plain(app.tlSplitProtocolLine('A, 1,000,000 IU, monthly')), ['A', '1,000,000 IU', 'monthly']);
   /* Not a thousands separator: too few digits after it, or a fourth. */
-  same(plain(app.tlSplitProtocolLine('A, 2,5mg, daily')), ['A', '2', '5mg', 'daily']);
+  /* A decimal comma before a unit stays in its field. */
+  same(plain(app.tlSplitProtocolLine('A, 2,5mg, daily')), ['A', '2,5mg', 'daily']);
+  same(plain(app.tlSplitProtocolLine('Ozempic, 0,5 mg, weekly')), ['Ozempic', '0,5 mg', 'weekly']);
   same(plain(app.tlSplitProtocolLine('A, 1,0000, daily')), ['A', '1', '0000', 'daily']);
   /* A name ending in digits, with no space after the comma, is still a name. */
   same(plain(app.tlSplitProtocolLine('TB-500,250mcg,2x weekly')), ['TB-500', '250mcg', '2x weekly']);
@@ -250,4 +252,108 @@ test('biweekly is asked about however it is spaced, and a model round trip keeps
   const back = app.tlProtocolToLegacy(p).proto.meds;
   assert.equal(back, 'Test C, 100mg biweekly, IM');
   assert.equal(app.parseMeds(back)[0].freq.ask, 'biweekly');
+});
+
+/* ---- found in the third review -------------------------------------------- */
+
+/* What a line reads as, briefly: type, doses a day, interval, count, days. */
+const brief = (f) => [f.type, f.times || 1, f.interval || null, f.count || null, f.days ? plain(f.days) : null];
+const line = (l) => brief(app.parseMeds(l)[0].freq);
+const phrase = (p) => brief(app.parseFrequency(p));
+
+test('a weekday or "sun" in a note is not a dose day', () => {
+  for (const l of ['Melanotan II, 250mcg, daily before sun exposure', 'Enclomiphene, 12.5mg, daily (half dose Sunday)',
+    'Anastrozole, 0.25mg, daily through Friday', 'Test Cyp, 20mg, daily (labs Monday)', 'Vit D, 5000iu, daily w/f']) {
+    same(line(l), ['daily', 1, null, null, null], l);
+  }
+  same(line('Test Cyp, 100mg, Weekly (refill on Fridays)'), ['weekly', 1, null, 1, [1]]);
+});
+
+test('hyphens, "x2" and "N <things> a week" keep their counts', () => {
+  for (const [p, want] of [['twice-weekly', ['weekly', 1, null, 2, [1, 4]]], ['twice-daily', ['daily', 2, null, null, null]],
+    ['3x-weekly', ['weekly', 1, null, 3, [1, 3, 5]]], ['x2 weekly', ['weekly', 1, null, 2, [1, 4]]], ['2 time per week', ['weekly', 1, null, 2, [1, 4]]],
+    ['2 pins/week', ['weekly', 1, null, 2, [1, 4]]], ['2 injections per week', ['weekly', 1, null, 2, [1, 4]]], ['5 nights/week', ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]],
+    ['2 injections daily', ['daily', 2, null, null, null]], ['2 a day', ['daily', 2, null, null, null]]]) {
+    same(phrase(p), want, p);
+  }
+});
+
+test('prescription shorthand is read: q7d, q2w, EOW, wkly, 12-hourly', () => {
+  for (const [p, want] of [['q7d', ['interval', 1, 7, null, null]], ['Q2W', ['interval', 1, 14, null, null]], ['q1w', ['weekly', 1, null, 1, [1]]],
+    ['q3.5d', ['weekly', 1, null, 2, [1, 4]]], ['q14d', ['interval', 1, 14, null, null]], ['EOW', ['interval', 1, 14, null, null]],
+    ['wkly', ['weekly', 1, null, 1, [1]]], ['qweekly', ['weekly', 1, null, 1, [1]]], ['E.O.D.', ['interval', 1, 2, null, null]],
+    ['alt days', ['interval', 1, 2, null, null]], ['12-hourly', ['daily', 2, null, null, null]]]) {
+    same(phrase(p), want, p);
+  }
+});
+
+test('a pulse or "10 days" is the reading only when nothing else is named', () => {
+  same(phrase('10 days daily'), ['daily', 1, null, null, null]);
+  same(phrase('EOD pulse'), ['interval', 1, 2, null, null]);
+  same(phrase('10-day pulse cycles annually'), ['pulse', 1, null, null, null]);
+  assert.equal(app.parseFrequency('every 7-10 days').type, 'check');
+});
+
+test('doses a day and the days they fall on are read together', () => {
+  for (const [l, want] of [['CJC/Ipa, 100mcg, 2x daily 5 on/2 off', ['weekly', 2, null, 5, [1, 2, 3, 4, 5]]],
+    ['HGH, 2iu, daily (5 days on, 2 off)', ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]],
+    ['Ipamorelin, 100mcg, 3x daily, 5 days a week', ['weekly', 3, null, 5, [1, 2, 3, 4, 5]]],
+    ['Sermorelin, 300mcg, nightly, Mon-Fri', ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]],
+    ['HCG, 500iu, EOD AM and PM', ['interval', 2, 2, null, null]], ['X, 1mg, Mon-Fri AM and PM', ['weekly', 2, null, 5, [1, 2, 3, 4, 5]]]]) {
+    same(line(l), want, l);
+  }
+  same(plain(app.parseFrequency('nightly Mon-Fri').at), ['21:30']);
+  same(plain(app.parseFrequency('morning and before bed').at), ['08:00', '21:30']);
+  same(plain(app.parseFrequency('daily at 10.30pm').at), ['22:30']);
+});
+
+test('a schedule after a route or site field is read', () => {
+  same(line('Test Cyp, 100mg, IM, twice weekly'), ['weekly', 1, null, 2, [1, 4]]);
+  same(line('BPC-157, 250mcg, SC, BID'), ['daily', 2, null, null, null]);
+  same(line('Semaglutide, 0.25mg, abdomen, weekly (Sunday)'), ['weekly', 1, null, 1, [0]]);
+});
+
+test('decimal-comma doses keep the line together', () => {
+  same([app.parseMeds('Ozempic, 0,5 mg, weekly')[0].dose, line('Ozempic, 0,5 mg, weekly')], ['0,5 mg', ['weekly', 1, null, 1, [1]]]);
+  same(app.parseMeds('Mounjaro, 2,5mg, weekly')[0].dose, '2,5mg');
+});
+
+test('days a schedule cannot place, and periods it cannot keep, are checked', () => {
+  for (const p of ['every other Friday', 'alternate Mondays', 'first Monday of the month', 'every third month', 'twice monthly', '2x monthly', 'quarterly', 'annually', '20 days on 10 off']) {
+    assert.equal(app.parseFrequency(p).type, 'check', p);
+  }
+  same(phrase('every third week'), ['interval', 1, 21, null, null]);
+});
+
+test('weekdays, weekends and letters with spaces are days', () => {
+  for (const [p, days] of [['weekdays', [1, 2, 3, 4, 5]], ['daily except weekends', [1, 2, 3, 4, 5]], ['weekends only', [0, 6]],
+    ['M W F', [1, 3, 5]], ['T Th', [2, 4]], ['every week day', [1, 2, 3, 4, 5]]]) {
+    same(plain(app.parseFrequency(p).days), days, p);
+  }
+  same(phrase('5d on 2d off'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
+});
+
+test('rest days fix a weekly count when they leave as many days', () => {
+  for (const l of ['HGH, 3iu, 5x weekly Sat/Sun off', 'Ipamorelin, 100mcg, 5x weekly (skip Sat, Sun)', 'HGH, 3iu, 5x/week, no weekends',
+    'Ipamorelin, 100mcg, 5 on 2 off (Mon-Fri)', 'Enclomiphene, 12.5mg, daily except Sat, Sun']) {
+    same(plain(app.parseMeds(l)[0].freq.days), [1, 2, 3, 4, 5], l);
+  }
+});
+
+test('a day named in a later field places a weekly dose, with its time', () => {
+  same(line('Tirz, 5mg, weekly, every Sunday'), ['weekly', 1, null, 1, [0]]);
+  same(plain(app.parseMeds('Tirz, 5mg, weekly, Sun at 8pm')[0].freq.at), ['20:00']);
+});
+
+test('a note about titration or labs does not replace the schedule in the dose', () => {
+  same(line('Sema, 0.25mg weekly, titrate every 4 weeks'), ['weekly', 1, null, 1, [1]]);
+  same(line('Test Cyp, 100mg twice weekly, bloods every 8 weeks'), ['weekly', 1, null, 2, [1, 4]]);
+  same(line('Test C, 200mg/week (100mg twice weekly)'), ['weekly', 1, null, 2, [1, 4]]);
+});
+
+test('a model round trip keeps 3x daily, and the field a dose-read schedule left behind', () => {
+  const back = (meds) => app.tlProtocolToLegacy(app.tlProtocolFromLegacy({ entries: [], proto: proto(meds) }, env)).proto.meds;
+  assert.equal(back('Ipamorelin, 100mcg, 3x daily'), 'Ipamorelin, 100mcg, 3x daily');
+  assert.equal(back('Test Cyp, 100mg twice weekly, IM glute'), 'Test Cyp, 100mg twice weekly, Twice weekly (Mon · Thu), IM glute');
+  assert.equal(back('HCG, 1,000 IU, twice weekly'), 'HCG, 1000 IU, Twice weekly (Mon · Thu)');
 });

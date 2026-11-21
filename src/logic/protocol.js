@@ -144,6 +144,8 @@ function tlParseDose(text) {
   /* "1,000mcg" and "10,000 IU": a comma that groups thousands, where amounts
      that size are usual. "2,500mg" or "0,250mg" may use a decimal comma, so
      it keeps its text and gets no amount. */
+  /* "5.000 IU" may be five thousand: it keeps its text and gets no amount. */
+  if (/^\d+\.\d{3}\s*(?:iu|units?|mcg|\u00b5g|ug)\b/i.test(raw)) return out;
   var m = raw.replace(/^([1-9]\d{0,2}(?:,\d{3})+)(?!\d)(?=\s*(?:mcg|\u00b5g|ug|iu|units?)\b)/i, function (n) { return n.replace(/,/g, ''); }).match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
   if (!m) return out;
   var rest = m[3] || '';
@@ -386,11 +388,19 @@ function tlProtocolFromLegacy(d, env) {
   /* The same lines parseMeds reads, kept whole for what it drops: everything
      after the third comma, a note the user wrote ("glute only"). */
   var raw = String(proto.meds).split('\n').filter(function (l) { return l.trim(); });
+  var fields = function (i) { return typeof tlSplitProtocolLine === 'function' ? tlSplitProtocolLine(raw[i] || '') : String(raw[i] || '').split(','); };
 
   parseMeds(proto.meds).forEach(function (med, i) {
-    var note = String(raw[i] || '').split(',').slice(3).join(',').trim();
+    /* When the schedule was read from the dose or a later field, the frequency
+       field is part of the note too, so it is written back ("IM glute"). */
+    var parts = fields(i);
     var drugId = env.resolve ? (env.resolve(med.name) || null) : null;
-    var rule = tlRuleFromLegacy(med, proto.start, note);
+    var rule = tlRuleFromLegacy(med, proto.start, parts.slice(3).join(', ').trim());
+    /* When the schedule was read from the dose or a later field, the
+       frequency field is part of the note, so it is written back ("IM
+       glute"). Not for a line with no rule: its own words are written back
+       as its frequency (tlLegacyFreqText). */
+    var note = parts.slice(rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest') ? 2 : 3).join(', ').trim();
     /* Stored times if the user set any, else the defaults the old screens show
        and fire for this frequency. */
     var placed = tlSlotsFromTimes(times[med.name] || getDefaultTimes(med.freq));
@@ -605,7 +615,7 @@ function tlLegacyFreqText(c, start) {
   var days = Array.isArray(rule.weekdays) ? rule.weekdays : [];
   var plain = days.every(function (d, i) { return d >= 0 && d <= 6 && d % 1 === 0 && days.indexOf(d) === i; });
   if ((only('daily') && rule.daily === true) || (only('every') && every === 1) || (only('weekdays') && plain && days.length === 7)) {
-    return n >= 2 ? 'Twice daily' : 'Daily';
+    return n >= 3 ? n + 'x daily' : n === 2 ? 'Twice daily' : 'Daily';
   }
   if (only('weekdays') && plain && days.length === 1) return 'Weekly (' + tlRuleLabel(rule) + ')';
   if (only('weekdays') && plain && days.length === 2) return 'Twice weekly (' + tlRuleLabel(rule) + ')';

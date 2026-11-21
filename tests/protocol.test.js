@@ -311,7 +311,7 @@ test('storing a protocol rewrites the old fields so older readers still see it',
   app.tlStoreProtocol(d, p);
   same(d.proto.meds.split('\n'), [
     'Testosterone Cypionate, 200mg/week, Twice weekly (Mon · Thu)',
-    'BPC-157, 250mcg twice daily, Twice daily',
+    'BPC-157, 250mcg twice daily, 3x daily',
     'CJC-1295, 200mcg, Daily',
     'Ipamorelin, 200mcg, Daily',
     'Anastrozole, 0.5mg, Twice weekly (Thu · Sun)',

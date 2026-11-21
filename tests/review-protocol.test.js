@@ -68,8 +68,10 @@ test('days named after "except", "skip" or "not" are rest days: a daily line tak
   same(rule('X, 1mg, Daily except Sunday'), { weekdays: [1, 2, 3, 4, 5, 6] });
   same(rule('X, 1mg, Daily except Sat and Sun'), { weekdays: [1, 2, 3, 4, 5] });
   same(rule('X, 1mg, Daily (not Sun)'), { weekdays: [1, 2, 3, 4, 5, 6] });
-  /* A comma ends the field, and a note that says more than days is a note. */
-  same(rule('X, 1mg, Daily, skip Sundays'), { daily: true });
+  /* Rest days in the next field narrow a daily line too. */
+  same(rule('X, 1mg, Daily, skip Sundays'), { weekdays: [1, 2, 3, 4, 5, 6] });
+  /* Days that are not rest days do not: they may be a note. */
+  same(rule('X, 1mg, Daily, Mon AM and Thu PM'), { daily: true });
 });
 
 test('a start day is not the only dose day: a twice-weekly line starting Monday stays twice weekly', () => {
