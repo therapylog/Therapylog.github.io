@@ -62,30 +62,42 @@ function tlRuleLastDay(protocol, c) {
 
    Walks the days from `date`, taking out every dose due, and `days` is the
    offset of the first day with a dose they cannot cover (0 when one due
-   today cannot be). Today counts in full whether or not today's doses are
-   logged yet, as it did in the average: six left of a daily compound is six
-   days, the design's own number, and a count that is a day early errs the
-   safe way. `lasts` is true when they cover every dose until the rule ends;
-   `days` is then null. `days` is also null, with `lasts` false, when they
-   outlast the horizon on a rule with no end. */
-function tlSupplyDays(protocol, c, left, date) {
+   today cannot be). On the first day only the doses still pending are taken
+   out (`todayPending`, when the caller knows it): one already logged is
+   already gone from `left`, and taking it out again would make a course
+   bought to fit run short every evening. Six left of a daily compound is six
+   days before today's dose is logged and still six after. `lasts` is true
+   when they cover every dose until the rule ends; `days` is then null.
+   `days` is also null, with `lasts` false, when they outlast the horizon on
+   a rule with no end. */
+function tlSupplyDays(protocol, c, left, date, todayPending) {
   var start = tlDay(tlDayKey(date)), end = tlRuleLastDay(protocol, c);
   var reach = end ? tlDaysBetween(start, end) + 1 : Infinity;
   var span = Math.min(TL_SUPPLY_HORIZON_DAYS, reach);
   for (var i = 0; i < span; i++) {
     var day = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
     if (tlDoseDueOn(protocol, c, day) === null) continue;
-    if (left < c.slots.length) return { days: i, lasts: false };
-    left -= c.slots.length;
+    var need = i === 0 && typeof todayPending === 'number' ? Math.min(todayPending, c.slots.length) : c.slots.length;
+    if (left < need) return { days: i, lasts: false };
+    left -= need;
   }
   return { days: null, lasts: reach <= TL_SUPPLY_HORIZON_DAYS };
+}
+
+/* Today's doses of a compound not yet logged. */
+function tlPendingToday(protocol, c, entries, date, cache) {
+  var day = tlDayKey(date);
+  var match = cache && cache[day] ? cache[day] : tlMatchDay(protocol, day, tlEntriesNear(entries, day, cache));
+  if (cache) cache[day] = match;
+  return match.doses.filter(function (x) { return x.key === c.key && !x.at; }).length;
 }
 
 /* Doses of a compound logged at or after an instant. With the protocol, a
    dose logged the old way by a name another line shares counts only for the
    line it was matched to. */
-function tlDosesSince(entries, c, sinceIso, protocol) {
-  var since = sinceIso ? new Date(sinceIso).getTime() : 0, n = 0, cache = {};
+function tlDosesSince(entries, c, sinceIso, protocol, cache) {
+  var since = sinceIso ? new Date(sinceIso).getTime() : 0, n = 0;
+  cache = cache || {};
   (entries || []).forEach(function (e) {
     if (!tlEntryIsFor(e, c) || !(new Date(e.ts).getTime() >= since)) return;
     if (protocol && !e.key && tlEntryOwner(protocol, e, entries, cache) !== c.key) return;
@@ -111,13 +123,14 @@ function tlDosesSince(entries, c, sinceIso, protocol) {
  *
  * A compound with no schedule has neither days nor a state.
  */
-function tlSupply(protocol, c, entries, date) {
+function tlSupply(protocol, c, entries, date, cache) {
   var inv = c && c.inv;
   var out = { known: false, per: inv ? inv.per : null, left: null, spare: inv ? (inv.spare || 0) : 0,
               daily: tlDailyUse(protocol, c, date), days: null, state: null, stock: '', note: '' };
   if (!inv || !(inv.per > 0) || inv.left === null || inv.left === undefined) return out;
 
-  var left = inv.left - tlDosesSince(entries, c, inv.since, protocol), spare = inv.spare || 0;
+  cache = cache || {};
+  var left = inv.left - tlDosesSince(entries, c, inv.since, protocol, cache), spare = inv.spare || 0;
   while (left <= 0 && spare > 0) { left += inv.per; spare--; }
   if (left < 0) left = 0;
 
@@ -127,7 +140,7 @@ function tlSupply(protocol, c, entries, date) {
   out.note = left + ' of ' + inv.per + ' doses left in the vial';
   var lasts = false;
   if (c.rule && (c.slots || []).length) {
-    var run = tlSupplyDays(protocol, c, left, date);
+    var run = tlSupplyDays(protocol, c, left, date, tlPendingToday(protocol, c, entries, date, cache));
     out.days = run.days;
     lasts = run.lasts;
     out.state = out.days === null ? 'ok' : (out.days <= 7 && !spare) ? 'danger' : out.days > 21 ? 'ok' : 'warn';
@@ -147,9 +160,10 @@ function tlSupply(protocol, c, entries, date) {
 /* Supply for every compound that has an inventory, soonest to run out first.
    The first row is Home's "Next vial needed". */
 function tlSupplyAll(protocol, entries, date) {
-  var rows = [];
+  /* One cache for every compound: each day's match is worked out once. */
+  var rows = [], cache = {};
   (protocol.compounds || []).forEach(function (c) {
-    var s = tlSupply(protocol, c, entries, date);
+    var s = tlSupply(protocol, c, entries, date, cache);
     if (!s.known) return;
     s.key = c.key;
     s.name = c.name;

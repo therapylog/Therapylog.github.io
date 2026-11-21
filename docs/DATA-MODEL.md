@@ -566,7 +566,8 @@ Phase 1.
    syringe builder have `site: null`.
 8. **Doses have no slot and no scheduled date.** Past medication entries can
    be attributed to a day from `ts`, in local time, but not to a slot except
-   by nearest time.
+   by nearest time. (How the redesign does it is under "Medication entries"
+   below.)
 9. **Supply cannot be converted, only seeded.** `vials` and `sinceTs` say
    nothing about vial size or doses per vial. Doses per vial has to come from
    the user.
@@ -760,10 +761,26 @@ with up to four more fields:
 | `day` | the local day the dose was due, `YYYY-MM-DD`, which can be the day before `ts` for a bedtime dose logged after midnight |
 | `siteId` | an id from `assets/figures/injection-sites.json`, alongside the site's name in `site` |
 
-Together `key:slot:day` is the dose id. An entry without them, logged from an
-old screen, is matched to a round by compound name, local day and nearest
-time (`tlRoundsFor`). Entries logged in one tap get consecutive milliseconds
-so that no two share a `ts`.
+Together `key:slot:day` is the dose id. Entries logged in one tap get
+consecutive milliseconds so that no two share a `ts`.
+
+An entry without them, logged from an old screen, is matched to a dose by
+`tlMatchDay` (which `tlRoundsFor` reads):
+
+- **Which compounds:** every protocol line with its name, so two lines with
+  one name never both take it.
+- **Which day:** the local day of its `ts`, except before 04:00, when it is
+  the evening before's if one of those compounds is in the bedtime round and
+  was due that evening. Two exceptions keep it on its own day: a bedtime set
+  after midnight (that round is its own day's first), and an entry within the
+  hour before its own day's first round (an early dose of that round).
+  Whichever day is asked about, an entry counts for exactly one.
+- **Which dose:** the one whose round is nearest its time. If that dose is
+  already ticked, the entry is a second record of it and ticks nothing else.
+
+Supply counts an entry against the line it was matched to
+(`tlEntryOwner`), and charges today's doses only while they are pending, so
+logging today's dose does not take it off twice.
 
 ### What changed in the old code paths
 

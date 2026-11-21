@@ -122,9 +122,21 @@ function tlEntryDay(protocol, e, group) {
   var x = new Date(e.ts);
   if (isNaN(x)) return e.day ? { day: e.day, min: null } : null;
   var own = tlDayKey(x), min = tlMinuteOfDay(x), day = e.day || own;
-  if (!e.day && min < tlSlotDef('am').from) {
+  var cut = tlSlotDef('am').from;
+  /* A bedtime set after midnight (00:30) is its own day's first round, not
+     the evening before's, so nothing moves back for it. */
+  if (!e.day && min < cut && protocol.slots.bed.t >= cut) {
     var before = tlDayKey(new Date(x.getFullYear(), x.getMonth(), x.getDate() - 1));
-    if (group.some(function (c) { return (c.slots || []).indexOf('bed') >= 0 && tlDoseDueOn(protocol, c, before) !== null; })) day = before;
+    if (group.some(function (c) { return (c.slots || []).indexOf('bed') >= 0 && tlDoseDueOn(protocol, c, before) !== null; })) {
+      /* Within the hour before its own day's first round, it is an early dose
+         of that round: 03:50 with a morning round at 04:30. */
+      var first = Infinity;
+      group.forEach(function (c) {
+        if (tlDoseDueOn(protocol, c, own) === null) return;
+        (c.slots || []).forEach(function (s) { first = Math.min(first, protocol.slots[s].t); });
+      });
+      if (min < first - 60) day = before;
+    }
   }
   return { day: day, min: min + 1440 * (tlDaysBetween(day, own) || 0) };
 }
@@ -205,6 +217,26 @@ function tlMatchDay(protocol, date, entries) {
   return out;
 }
 
+/* The medication entries tlMatchDay can count for a day: those naming it, and
+   undated ones logged on it or the day after. Indexed once per `cache`, so
+   asking about many days does not read every entry for each. tlMatchDay
+   filters these the same way it filters the whole log, so the answer is the
+   same; this only saves reading the rest. */
+function tlEntriesNear(entries, day, cache) {
+  if (!cache) return entries;
+  var idx = cache.__byDay;
+  if (!idx) {
+    idx = cache.__byDay = {};
+    (entries || []).forEach(function (e) {
+      if (!tlIsMedEntry(e)) return;
+      var k = e.day || tlDayKey(e.ts);
+      if (k) (idx[k] = idx[k] || []).push(e);
+    });
+  }
+  var d0 = tlDay(day), next = tlDayKey(new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() + 1));
+  return (idx[day] || []).concat(idx[next] || []);
+}
+
 /* The compound an entry counts against in supply: the one whose dose it
    ticked, or was a second record of, on its day; failing that, the first it
    may be for. Only a name two protocol lines share needs the question asked.
@@ -216,7 +248,7 @@ function tlEntryOwner(protocol, e, entries, cache) {
   var when = tlEntryDay(protocol, e, group);
   if (when) {
     cache = cache || {};
-    var match = cache[when.day] || (cache[when.day] = tlMatchDay(protocol, when.day, entries));
+    var match = cache[when.day] || (cache[when.day] = tlMatchDay(protocol, when.day, tlEntriesNear(entries, when.day, cache)));
     for (var i = 0; i < match.hits.length; i++) if (match.hits[i].entry === e) return match.hits[i].dose.key;
   }
   return group[0].key;

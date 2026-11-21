@@ -216,3 +216,41 @@ test('a taper logs that week\'s dose, and a dose the user changed is logged as t
   assert.equal(app.tlLogDose(d, p, 'tam:am:2026-03-10', at('2026-03-10T07:00')).dose, '20mg');
   assert.equal(app.tlLogDose(d, p, 'tam:am:2026-03-11', at('2026-03-11T07:00'), { dose: '10mg' }).dose, '10mg');
 });
+
+
+/* ---- the evening before, with the protocol's own times ------------------ */
+
+test('a bedtime round set after midnight is its own day\'s: a dose at 00:35 ticks that day\'s bedtime', () => {
+  const p = protocol([gh(), ipa()], { slots: { am: { t: 420, alert: true }, mid: { t: 750, alert: true }, eve: { t: 1080, alert: true }, bed: { t: 30, alert: true } } });
+  const entries = [legacy('Ipamorelin', '2026-03-06T00:35'), legacy('Somatropin', '2026-03-06T00:35')];
+  same(ids(app.tlRoundsFor(p, FRI, entries)), ['bed: gh* ipa*', 'am: gh']);
+  same(ids(app.tlRoundsFor(p, THU, entries)), ['bed: gh ipa', 'am: gh']);
+  /* Nothing is left for an alert: the round was logged on its own day. */
+  assert.equal(app.tlDueBanner(p, entries, ms('2026-03-06T01:00')), null);
+});
+
+test('within the hour before the morning round, an early-hours dose is that morning\'s', () => {
+  const p = protocol([gh()], { slots: { am: { t: 270, alert: true }, mid: { t: 750, alert: true }, eve: { t: 1080, alert: true }, bed: { t: 1350, alert: true } } });
+  const d = { entries: [] };
+  app.tlLogDose(d, p, 'gh:bed:2026-03-05', at('2026-03-05T22:30'));
+  d.entries.unshift(legacy('Somatropin', '2026-03-06T03:50'));
+  same(ids(app.tlRoundsFor(p, FRI, d.entries)), ['am: gh*', 'bed: gh']);
+  same(ids(app.tlRoundsFor(p, THU, d.entries)), ['am: gh', 'bed: gh*']);
+  /* Earlier than the hour before, it is still last night's. */
+  same(ids(app.tlRoundsFor(p, FRI, [legacy('Somatropin', '2026-03-06T03:20')])), ['am: gh', 'bed: gh']);
+  same(ids(app.tlRoundsFor(p, THU, [legacy('Somatropin', '2026-03-06T03:20')])), ['am: gh', 'bed: gh*']);
+});
+
+test('the day an entry counts for is the same whichever day is asked, with the protocol\'s own times', () => {
+  /* Every quarter hour of a night, for a few slot settings: each entry is
+     counted on exactly one of the two days. */
+  for (const [am, bed] of [[420, 1350], [270, 1350], [420, 30], [420, 1439], [240, 1230]]) {
+    const p = protocol([gh(), ipa()], { slots: { am: { t: am, alert: true }, mid: { t: 750, alert: true }, eve: { t: 1080, alert: true }, bed: { t: bed, alert: true } } });
+    for (let m = 0; m < 300; m += 15) {
+      const hh = String(Math.floor(m / 60)).padStart(2, '0'), mm = String(m % 60).padStart(2, '0');
+      const entries = [legacy('Ipamorelin', '2026-03-06T' + hh + ':' + mm)];
+      const count = (day) => app.tlRoundsFor(p, day, entries).reduce((n, r) => n + r.doses.filter((x) => x.at).length, 0);
+      assert.equal(count(THU) + count(FRI), 1, `am ${am}, bed ${bed}, entry at ${hh}:${mm}`);
+    }
+  }
+});

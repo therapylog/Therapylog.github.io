@@ -142,3 +142,56 @@ test('an old-style after-midnight dose comes off the line whose bedtime dose it 
   const p = twins();
   same(lefts(p, [legacy('HGH', '2026-03-06T00:20')]), ['hgh 5', 'hgh-2 4']);
 });
+
+
+/* ---- today's dose, once logged, is taken out once ------------------------ */
+
+test('a course bought to fit stays "lasts the protocol" all day, before and after today\'s dose is logged', () => {
+  /* Four weeks of a taper, 28 doses, every one bought. */
+  const nol = () => protocol([compound('nol', 'Nolvadex', '20 mg', { taper: ['40mg', '40mg', '20mg', '20mg'], per: 'week' }, ['am'],
+    { per: 28, left: 28, spare: 0 })]);
+  const entries = [];
+  for (let i = 0; i < 21; i++) {
+    const day = new Date(2026, 2, 2 + i);
+    entries.push({ type: 'medication', ts: new Date(day.getFullYear(), day.getMonth(), day.getDate(), 7, 5).toISOString(),
+      medication: 'Nolvadex', dose: '', key: 'nol', slot: 'am', day: app.tlDayKey(day) });
+  }
+  const before = supply(nol(), '2026-03-23', entries);
+  assert.equal(before.left, 7);
+  same(row(before), [null, 'ok', 'Lasts the protocol']);
+  entries.push({ type: 'medication', ts: at('2026-03-23T07:05'), medication: 'Nolvadex', dose: '', key: 'nol', slot: 'am', day: '2026-03-23' });
+  const after = supply(nol(), '2026-03-23', entries);
+  assert.equal(after.left, 6);
+  same(row(after), [null, 'ok', 'Lasts the protocol']);
+  same(app.tlSupplyAlerts(nol(), entries, '2026-03-23'), []);
+});
+
+test('a daily count does not jump when today\'s dose is logged', () => {
+  const p = () => protocol([compound('bpc', 'BPC-157', '250 mcg', { daily: true }, ['am'], { per: 20, left: 6, spare: 0 })]);
+  assert.equal(supply(p(), THU, []).days, 6);
+  assert.equal(supply(p(), THU, [{ type: 'medication', ts: at('2026-03-05T07:05'), medication: 'BPC-157', dose: '', key: 'bpc', slot: 'am', day: THU }]).days, 6);
+});
+
+/* ---- two lines with one name: the same answer, quickly ------------------- */
+
+test('supply for two same-name lines over a long log gives the same answer with the shared index, and quickly', () => {
+  const p = protocol([
+    compound('hgh', 'HGH', '2 IU', { daily: true }, ['am'], { per: 2000, left: 1900, spare: 0 }),
+    compound('hgh-2', 'HGH', '1 IU', { daily: true }, ['bed'], { per: 2000, left: 1900, spare: 0 })
+  ], { start: '2023-03-01' });
+  p.compounds.forEach((c) => { c.inv.since = at('2023-03-01T00:00'); });
+  const entries = [];
+  for (let i = 0; i < 1100; i++) {
+    const day = new Date(2023, 2, 1 + i);
+    entries.push(legacy('HGH', app.tlDayKey(day) + 'T07:10'), legacy('HGH', app.tlDayKey(day) + 'T22:20'));
+  }
+  const date = app.tlDayKey(new Date(2023, 2, 1 + 1100));
+  const t0 = Date.now();
+  const rows = app.tlSupplyAll(p, entries, date);
+  const took = Date.now() - t0;
+  /* Without the shared index each line reads every entry for every day. */
+  const slow = p.compounds.map((c) => c.inv.left - app.tlDosesSince(entries, c, c.inv.since, p));
+  same(rows.map((r) => [r.key, r.left]).sort(), p.compounds.map((c, i) => [c.key, slow[i]]).sort());
+  same(slow, [1900 - 1100, 1900 - 1100]);
+  assert.ok(took < 1500, 'tlSupplyAll took ' + took + ' ms');
+});
