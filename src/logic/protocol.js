@@ -141,7 +141,12 @@ function tlSlotsFromTimes(times) {
 function tlParseDose(text) {
   var raw = String(text === null || text === undefined ? '' : text).trim();
   var out = { amount: null, unit: null, text: raw };
-  var m = raw.match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
+  /* "1,000mcg" and "10,000 IU": a comma that groups thousands, where amounts
+     that size are usual. "2,500mg" or "0,250mg" may use a decimal comma, so
+     it keeps its text and gets no amount. */
+  /* "5.000 IU" may be five thousand: it keeps its text and gets no amount. */
+  if (/^\d+\.\d{3}\s*(?:iu|units?|mcg|\u00b5g|ug)\b/i.test(raw)) return out;
+  var m = raw.replace(/^([1-9]\d{0,2}(?:,\d{3})+)(?!\d)(?=\s*(?:mcg|\u00b5g|ug|iu|units?)\b)/i, function (n) { return n.replace(/,/g, ''); }).match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
   if (!m) return out;
   var rest = m[3] || '';
   if (/\d/.test(rest) || /^\s*(\/|per\b|x\b|to\b)/i.test(rest)) return out;
@@ -247,9 +252,18 @@ function tlRuleFromLegacy(med, start, note) {
   var freq = med && med.freq;
   var type = freq && freq.type;
   var named = null;
+  /* A schedule the reader could not take, and "as needed", have no rule. The
+     old text keeps the user's words, and the screens ask about it. */
+  if (type === 'check' || type === 'asneeded') return null;
   if (type !== 'interval' && type !== 'monthly' && type !== 'pulse') {
-    if (tlDayWords(med && med.freqStr).length) named = tlWeekdaysInText(med.freqStr);
-    else if (type === 'weekly' && note) named = tlWeekdaysInText(note);
+    /* The days the reader took from the line (rest days ruled out). */
+    if (freq.named && freq.days && freq.days.length) named = freq.days.slice();
+    else if (type === 'weekly' && note) {
+      /* Only the parts of the note that say nothing but days: "Mon AM and Thu
+         PM, glute only" places the line; "refill on Fridays" does not. */
+      var dayParts = String(note).split(',').filter(function (x) { return typeof tlFreqOnlyDays !== 'function' || tlFreqOnlyDays(x); });
+      named = dayParts.length ? tlWeekdaysInText(dayParts.join(', ')) : null;
+    }
     var stated = /\b([1-7])\s*(?:x|times)\s*(?:\/|a|per|each)?\s*week/i.exec((med && med.freqStr) || '');
     if (named && type === 'weekly' && named.length !== (stated ? +stated[1] : (freq.count || 1))) named = null;
   }
@@ -374,11 +388,19 @@ function tlProtocolFromLegacy(d, env) {
   /* The same lines parseMeds reads, kept whole for what it drops: everything
      after the third comma, a note the user wrote ("glute only"). */
   var raw = String(proto.meds).split('\n').filter(function (l) { return l.trim(); });
+  var fields = function (i) { return typeof tlSplitProtocolLine === 'function' ? tlSplitProtocolLine(raw[i] || '') : String(raw[i] || '').split(','); };
 
   parseMeds(proto.meds).forEach(function (med, i) {
-    var note = String(raw[i] || '').split(',').slice(3).join(',').trim();
+    /* When the schedule was read from the dose or a later field, the frequency
+       field is part of the note too, so it is written back ("IM glute"). */
+    var parts = fields(i);
     var drugId = env.resolve ? (env.resolve(med.name) || null) : null;
-    var rule = tlRuleFromLegacy(med, proto.start, note);
+    var rule = tlRuleFromLegacy(med, proto.start, parts.slice(3).join(', ').trim());
+    /* When the schedule was read from the dose or a later field, the
+       frequency field is part of the note, so it is written back ("IM
+       glute"). Not for a line with no rule: its own words are written back
+       as its frequency (tlLegacyFreqText). */
+    var note = parts.slice(rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest') ? 2 : 3).join(', ').trim();
     /* Stored times if the user set any, else the defaults the old screens show
        and fire for this frequency. */
     var placed = tlSlotsFromTimes(times[med.name] || getDefaultTimes(med.freq));
@@ -554,7 +576,9 @@ function tlLegacyName(s) {
    so the line never states a dose the model does not. */
 function tlLegacyDoseText(dose) {
   if (!dose) return '';
-  var text = String(dose.text || '');
+  /* "50,000 IU biweekly" is written "50000 IU biweekly": a comma would start
+     the next field, and the words after the amount may be the schedule. */
+  var text = String(dose.text || '').replace(/(\d),(?=\d{3}(?!\d))/g, '$1');
   if (dose.amount === null || dose.amount === undefined) return text;
   var read = tlParseDose(tlLegacyName(text));
   return read.amount === dose.amount && read.unit === (dose.unit || null) ? text : tlDoseText(dose);
@@ -573,10 +597,25 @@ function tlLegacyDoseText(dose) {
  * ("Daily, 5 on 2 off" says daily first). An unscheduled compound whose own
  * old text was already a pulse keeps that text. */
 function tlLegacyFreqText(c, start) {
+  var text = tlLegacyFreqDays(c, start), n = ((c && c.slots) || []).length;
+  /* Two or more rounds on a line that is not daily: "Twice daily every other
+     day", read back by parseMeds with its count. */
+  if (n >= 2 && c && c.rule && !/^(?:Daily|Twice daily|\d+x daily)$/.test(text) && !/pulse/.test(text)) {
+    return (n === 2 ? 'Twice daily ' : n + 'x daily ') + text.charAt(0).toLowerCase() + text.slice(1);
+  }
+  return text;
+}
+
+function tlLegacyFreqDays(c, start) {
   var rule = c && c.rule, n = ((c && c.slots) || []).length;
   if (!tlIsObject(rule)) {
+    /* The user's own words when the line they make still reads as unscheduled
+       (a pulse, "as needed", one to check, also when the schedule was in the
+       dose: "Test C, 100mg biweekly, IM"). */
     var own = tlLegacyName(c && c.freqText);
-    return own && parseFrequency(own).type === 'pulse' ? own : tlPulseText('No schedule');
+    var line = own ? parseMeds('x, ' + tlLegacyName(tlLegacyDoseText(c && c.dose)) + ', ' + own)[0] : null;
+    var ownType = line ? line.freq.type : null;
+    return ownType === 'pulse' || ownType === 'check' || ownType === 'asneeded' ? own : tlPulseText('No schedule');
   }
   /* A rule's own start that is the protocol's start says nothing the old
      text does not: the old screens count intervals from the protocol's start. */
@@ -588,10 +627,16 @@ function tlLegacyFreqText(c, start) {
   var days = Array.isArray(rule.weekdays) ? rule.weekdays : [];
   var plain = days.every(function (d, i) { return d >= 0 && d <= 6 && d % 1 === 0 && days.indexOf(d) === i; });
   if ((only('daily') && rule.daily === true) || (only('every') && every === 1) || (only('weekdays') && plain && days.length === 7)) {
-    return n >= 2 ? 'Twice daily' : 'Daily';
+    return n >= 3 ? n + 'x daily' : n === 2 ? 'Twice daily' : 'Daily';
   }
   if (only('weekdays') && plain && days.length === 1) return 'Weekly (' + tlRuleLabel(rule) + ')';
   if (only('weekdays') && plain && days.length === 2) return 'Twice weekly (' + tlRuleLabel(rule) + ')';
+  /* Three to six named weekdays, written as the days ("Mon · Wed · Fri"),
+     which parseMeds reads back as those days. */
+  if (only('weekdays') && plain && days.length >= 3 && days.length <= 6) {
+    var named = tlRuleLabel(rule), back = parseFrequency(named);
+    if (back.type === 'weekly' && back.named && back.days.slice().sort().join() === days.slice().sort().join()) return named;
+  }
   /* The start day and three days on, as the old week view placed twice weekly.
      Written out as weekdays, so a note after the frequency cannot move them. */
   var fromStart = /^\d{4}-\d{2}-\d{2}$/.test(String(start || '')) ? tlFreqDays({ type: 'weekly', count: 2 }, start) : null;

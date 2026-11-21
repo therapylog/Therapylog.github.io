@@ -16,8 +16,8 @@ const assert = require('node:assert/strict');
 const { loadApp, same, plain } = require('./helpers/app');
 
 const app = loadApp({
-  files: ['src/logic/protocol.js', 'src/logic/rounds.js'],
-  functions: ['parseMeds', 'parseFrequency', 'getDefaultTimes', 'tlFreqDays', 'getDoseDays',
+  files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/rounds.js'],
+  functions: ['parseMeds', 'parseFrequency', 'getDefaultTimes', 'tlFreqDays', 'getDoseDays', 'tlLegacyDue',
               'tlDay', 'tlDaysBetween', 'tlNormalizeRule', 'tlWeekdaysFor', 'tlRuleWindow', 'tlDoseOn', 'tlDueOn'],
   consts: ['tlLocalDate', 'TL_DAY_MS'],
   now: '2026-11-17T12:00'
@@ -64,11 +64,14 @@ test('a range of weekdays is read as every day it covers', () => {
   same(rule('X, 1mg, Mon-Wed-Fri'), { weekdays: [1, 3, 5] });
 });
 
-test('days named after "except" or "skip" are not dose days: the line keeps its plain reading', () => {
-  same(rule('X, 1mg, Daily except Sunday'), { daily: true });
-  same(rule('X, 1mg, Daily except Sat and Sun'), { daily: true });
-  same(rule('X, 1mg, Daily, skip Sundays'), { daily: true });
-  same(rule('X, 1mg, Daily (not Sun)'), { daily: true });
+test('days named after "except", "skip" or "not" are rest days: a daily line takes the rest of the week', () => {
+  same(rule('X, 1mg, Daily except Sunday'), { weekdays: [1, 2, 3, 4, 5, 6] });
+  same(rule('X, 1mg, Daily except Sat and Sun'), { weekdays: [1, 2, 3, 4, 5] });
+  same(rule('X, 1mg, Daily (not Sun)'), { weekdays: [1, 2, 3, 4, 5, 6] });
+  /* Rest days in the next field narrow a daily line too. */
+  same(rule('X, 1mg, Daily, skip Sundays'), { weekdays: [1, 2, 3, 4, 5, 6] });
+  /* Days that are not rest days do not: they may be a note. */
+  same(rule('X, 1mg, Daily, Mon AM and Thu PM'), { daily: true });
 });
 
 test('a start day is not the only dose day: a twice-weekly line starting Monday stays twice weekly', () => {
@@ -95,11 +98,16 @@ test('a weekly line naming a different number of days than it says it takes keep
   same(rule('X, 1mg, Twice weekly (Mon/Thu)', '2026-03-06'), { weekdays: [1, 4] });
 });
 
-test('a count the line states is the count, though the old parser reads "3x weekly" as once a week', () => {
-  assert.equal(app.parseFrequency('3x weekly (Mon/Wed/Fri)').count, 1);
+test('a count the line states is the count, and named days are the days when there are as many', () => {
+  assert.equal(app.parseFrequency('3x weekly (Mon/Wed/Fri)').count, 3);
   same(rule('X, 1mg, 3x weekly (Mon/Wed/Fri)', '2026-03-06'), { weekdays: [1, 3, 5] });
-  same(rule('X, 1mg, 3 times weekly: Mon, Wed, Fri', '2026-03-06'), { weekdays: [5] });   /* a comma ends the field */
-  same(rule('X, 1mg, 3x weekly (Mon/Thu)', '2026-03-06'), { weekdays: [5] });
+  /* A comma ends the field, but days named in the rest of the line still
+     place it, in the old screens and the model alike. */
+  same(rule('X, 1mg, 3 times weekly: Mon, Wed, Fri', '2026-03-06'), { weekdays: [1, 3, 5] });
+  same(plain(app.parseMeds('X, 1mg, 3 times weekly: Mon, Wed, Fri')[0].freq.days), [1, 3, 5]);
+  /* Two days named for three doses: the count stands, spread from the start
+     day (Friday 6 March), and the days are not trusted. */
+  same(rule('X, 1mg, 3x weekly (Mon/Thu)', '2026-03-06'), { weekdays: [0, 2, 5] });
 });
 
 /* ---- 11: the text after the frequency ------------------------------------ */
@@ -151,7 +159,7 @@ const readBack = (d) => app.tlProtocolFromLegacy({ entries: [], proto: d.proto, 
 
 test('a rule the old text cannot say is written so the old screens show no dose days, not daily', () => {
   const rules = [{ every: { weeks: 2 } }, { every: { days: 4 } }, { every: { days: 10 } }, { every: { days: 3.5 } },
-    { daily: true, pattern: { on: 5, off: 2 } }, { taper: ['40mg', '20mg'], per: 'week' }, { weekdays: [1, 3, 5] }];
+    { daily: true, pattern: { on: 5, off: 2 } }, { taper: ['40mg', '20mg'], per: 'week' }];
   rules.forEach((r) => {
     const d = store([C({ rule: r })]);
     const med = app.parseMeds(d.proto.meds)[0];
@@ -162,6 +170,16 @@ test('a rule the old text cannot say is written so the old screens show no dose 
   });
   /* The label is kept where it does not read as another frequency. */
   assert.equal(app.parseMeds(store([C({ rule: { every: { weeks: 2 } } })]).proto.meds)[0].freqStr, 'Every 2 weeks (pulse - see app)');
+});
+
+test('three to six named weekdays are written as the days, and read back as them', () => {
+  for (const days of [[1, 3, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6], [0, 2, 4, 6]]) {
+    const d = store([C({ rule: { weekdays: days } })]);
+    const med = app.parseMeds(d.proto.meds)[0];
+    assert.equal(med.freq.type, 'weekly', d.proto.meds);
+    same(plain(med.freq.days).slice().sort(), days.slice().sort(), d.proto.meds);
+    same(plain(readBack(d).compounds[0].rule.weekdays).slice().sort(), days.slice().sort(), d.proto.meds);
+  }
 });
 
 test('an unscheduled compound is written as a pulse whatever its old frequency text said', () => {

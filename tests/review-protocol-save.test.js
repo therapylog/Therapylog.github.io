@@ -22,7 +22,7 @@ const { loadApp, same, plain } = require('./helpers/app');
 const A = require('../scripts/lib/app-source.js');
 
 const data = A.loadAppData();
-const LOGIC = ['src/logic/protocol.js', 'src/logic/changes.js', 'src/logic/record.js'];
+const LOGIC = ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/changes.js', 'src/logic/record.js'];
 const LEGACY = ['parseMeds', 'parseFrequency', 'getDefaultTimes', 'tlFreqDays'];
 const RESOLVER = { functions: ['pkIndex', 'pkResolve'], consts: ['pkNorm', '_pkIndex'] };
 const medium = (id) => (data.TL_PK[id] && data.TL_PK[id].medium) || data.TL_FORM[id] || null;
@@ -207,7 +207,7 @@ test('the old form saved over a stored model through the app\'s own saveProtocol
 
 test('if bringing the model up to date fails, the protocol the user typed is still saved and read from its text', () => {
   const ctx = form(v3, 'BPC-157, 300mcg, Daily', {
-    files: ['src/logic/protocol.js'],
+    files: ['src/logic/protocol.js', 'src/logic/frequency.js'],
     stubs: { tlAfterLegacyProtocolSave() { throw new Error('bad model'); } }
   });
   ctx.saveProtocol();
@@ -285,7 +285,7 @@ test('a backup whose protocol model is damaged still restores its entries and te
 
 test('if reading the protocol model fails on import, the entries are still saved and the result says so', () => {
   const ctx = importer({ entries: [], proto: null }, {
-    files: ['src/logic/protocol.js'],
+    files: ['src/logic/protocol.js', 'src/logic/frequency.js'],
     stubs: { tlImportModel() { throw new Error('bad model'); } }
   });
   ctx.run({ version: 2, data: { entries: [{ type: 'weight', ts: '2026-11-10T10:00:00.000Z', weight: 190 }],

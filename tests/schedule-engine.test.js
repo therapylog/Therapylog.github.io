@@ -20,6 +20,7 @@ const assert = require('node:assert/strict');
 const { loadApp, same } = require('./helpers/app');
 
 const app = loadApp({
+  files: ['src/logic/frequency.js'],
   functions: ['tlDay', 'tlDaysBetween', 'tlNormalizeRule', 'tlWeekdaysFor', 'tlRuleWindow',
               'tlDoseOn', 'tlDueOn', 'tlScheduleRange', 'tlExpectedDoses'],
   consts: ['TL_DAY_MS']
@@ -64,18 +65,27 @@ test('tlNormalizeRule lifts each legacy frequency into a rule', () => {
     { compound: 'X', dose: '1mg', times: ['08:00', '21:00'], daily: true });
   same(app.tlNormalizeRule(med({ type: 'interval', interval: 2 })),
     { compound: 'X', dose: '1mg', times: ['09:00'], every: { days: 2 } });
+  /* A weekly count is placed from the start day (tlWeekdaysFor), as the week
+     view places it; days the user named are the days. */
   same(app.tlNormalizeRule(med({ type: 'weekly', count: 2, days: [1, 4] })),
-    { compound: 'X', dose: '1mg', times: ['09:00'], weekdays: [1, 4], weeklyCount: 2 });
+    { compound: 'X', dose: '1mg', times: ['09:00'], weekdays: null, weeklyCount: 2 });
+  same(app.tlNormalizeRule(med({ type: 'weekly', count: 2, days: [2, 5], named: true })),
+    { compound: 'X', dose: '1mg', times: ['09:00'], weekdays: [2, 5], weeklyCount: 2 });
+  same(app.tlNormalizeRule(med({ type: 'daily', times: 3 })),
+    { compound: 'X', dose: '1mg', times: ['08:00', '14:00', '20:00'], daily: true });
+  same(app.tlNormalizeRule(med({ type: 'daily', times: 1, at: ['21:30'] })),
+    { compound: 'X', dose: '1mg', times: ['21:30'], daily: true });
   same(app.tlNormalizeRule(med({ type: 'monthly' })),
     { compound: 'X', dose: '1mg', times: ['09:00'], monthly: true });
 });
 
-test('tlNormalizeRule treats an unknown legacy type, the 10-day pulse included, as daily', () => {
-  /* PINNED, suspected bug: parseFrequency() produces type "pulse" for a
-     "10-day pulse cycle", and the engine has no pulse rule, so it is dosed
-     every day. */
-  same(app.tlNormalizeRule({ name: 'X', dose: '1mg', freq: { type: 'pulse' } }),
-    { compound: 'X', dose: '1mg', times: ['08:00'], daily: true });
+test('tlNormalizeRule gives no rule for a pulse, "as needed" or a schedule that could not be read', () => {
+  /* These used to fall through to daily, so a 10-day pulse was dosed every
+     day. A med with no frequency at all is still daily, as it always was. */
+  for (const type of ['pulse', 'check', 'asneeded']) {
+    assert.equal(app.tlNormalizeRule({ name: 'X', dose: '1mg', freq: { type } }), null, type);
+    same(fires({ name: 'X', dose: '1mg', freq: { type } }, 7), [], type);
+  }
   same(app.tlNormalizeRule({ name: 'X', dose: '1mg' }),
     { compound: 'X', dose: '1mg', times: ['08:00'], daily: true });
   assert.equal(app.tlNormalizeRule(null), null);
@@ -127,11 +137,10 @@ test('a legacy weekly frequency with no weekdays takes them from the start date'
   const weekly = (count) => ({ name: 'X', dose: '1mg', freq: { type: 'weekly', count } });
   same(fires(weekly(1), 14), [0, 7]);
   same(fires(weekly(2), 14), [0, 3, 7, 10]);
-  /* PINNED, suspected bug: a new-style rule carrying only weeklyCount is not
-     recognised as new-style (tlNormalizeRule looks for every, weekdays,
-     pattern, daily, monthly or taper), falls through to the legacy branch with
-     no freq, and is dosed every day. */
-  same(fires({ compound: 'X', dose: '1mg', weeklyCount: 2 }, 7), [0, 1, 2, 3, 4, 5, 6]);
+  /* A new-style rule carrying only weeklyCount is a weekly rule. It used to
+     fall through to the legacy branch and be dosed every day. */
+  same(fires({ compound: 'X', dose: '1mg', weeklyCount: 2 }, 7), [0, 3]);
+  same(fires({ compound: 'X', dose: '1mg', weeklyCount: 3 }, 7), [0, 2, 4]);
   /* From a Friday start (6 March): Friday and Monday. */
   same(app.tlWeekdaysFor({ weeklyCount: 2 }, '2026-03-06'), [5, 1]);
   same(app.tlWeekdaysFor({ weeklyCount: 1 }, '2026-03-06'), [5]);
@@ -139,20 +148,25 @@ test('a legacy weekly frequency with no weekdays takes them from the start date'
 
 test('explicit weekdays win over the weekly count, and no start date means Monday', () => {
   same(app.tlWeekdaysFor({ weekdays: [2, 6], weeklyCount: 2 }, '2026-03-06'), [2, 6]);
-  same(app.tlWeekdaysFor({ weeklyCount: 2 }, null), [1]);
+  /* With no start date the week starts on Monday: Monday, and Thursday. */
+  same(app.tlWeekdaysFor({ weeklyCount: 1 }, null), [1]);
+  same(app.tlWeekdaysFor({ weeklyCount: 2 }, null), [1, 4]);
 });
 
-test('"twice weekly" from the protocol text is Monday and Thursday whatever the start day', () => {
-  /* parseFrequency() gives twice-weekly days [1, 4], and tlNormalizeRule()
-     carries them as explicit weekdays, so the start date does not move them.
-     The older getDoseDays() path reads the start date instead (see
-     schedule-legacy.test.js); the two engines disagree for any start day
-     that is not a Monday. */
-  const med = { name: 'X', dose: '1mg', freq: { type: 'weekly', count: 2, days: [1, 4] } };
-  const fromFriday = [];
-  for (let n = 0; n < 14; n++) if (app.tlDueOn(med, new Date(2026, 2, 6 + n), '2026-03-06').length) fromFriday.push(n);
-  /* Friday 6 March + 3 = Monday 9, + 6 = Thursday 12, then 16 and 19. */
-  same(fromFriday, [3, 6, 10, 13]);
+test('"twice weekly" from the protocol text falls where the week view puts it, and named days stay put', () => {
+  /* This engine used to place twice weekly on Monday and Thursday whatever
+     the start day, while getDoseDays() placed it from the start day, so the
+     two disagreed for any start that was not a Monday. Both now place it
+     from the start day; days the user named are the days in both. */
+  const from = (freq) => {
+    const out = [];
+    for (let n = 0; n < 14; n++) if (app.tlDueOn({ name: 'X', dose: '1mg', freq }, new Date(2026, 2, 6 + n), '2026-03-06').length) out.push(n);
+    return out;
+  };
+  /* Friday 6 March, then three days on (Monday 9), weekly. */
+  same(from({ type: 'weekly', count: 2, days: [1, 4] }), [0, 3, 7, 10]);
+  /* Named Monday and Thursday: Monday 9, Thursday 12, 16 and 19. */
+  same(from({ type: 'weekly', count: 2, days: [1, 4], named: true }), [3, 6, 10, 13]);
 });
 
 test('monthly fires on the start date\'s day of the month', () => {
@@ -161,14 +175,15 @@ test('monthly fires on the start date\'s day of the month', () => {
   assert.equal(app.tlDueOn(rule, new Date(2026, 3, 3), START).length, 0);
 });
 
-test('monthly from the 31st skips every month that has no 31st', () => {
-  /* PINNED, suspected bug: a protocol started on 31 January is never due in
-     February, April, June, September or November. */
+test('monthly from the 31st falls on the last day of a shorter month', () => {
+  /* It used to skip February, April, June, September and November. */
   const rule = { compound: 'X', dose: '1mg', monthly: true };
   const due = (m, d) => app.tlDueOn(rule, new Date(2026, m, d), '2026-01-31').length;
-  assert.equal(due(1, 28), 0);
+  assert.equal(due(1, 28), 1);
+  assert.equal(due(1, 27), 0);
   assert.equal(due(2, 31), 1);
-  assert.equal(due(3, 30), 0);
+  assert.equal(due(2, 30), 0);
+  assert.equal(due(3, 30), 1);
 });
 
 test('a weekly taper steps through its doses and then stops', () => {

@@ -69,3 +69,8 @@ jobs:
         run: node scripts/capture-backup-fixture.js --model --check
       - name: The confirm sheet
         run: node scripts/ui-check-confirm.js
+      # The schedule reader on the home screen: the one-time note on what now
+      # reads differently, the "biweekly" question, the check on a schedule
+      # nobody can read, the calendar file, and blood pressure validation.
+      - name: Schedule reader
+        run: node scripts/ui-check-schedule.js
