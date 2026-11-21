@@ -66,7 +66,7 @@ function tlFreqNum(word) {
 
 /* How long a course runs, set aside so that "for 8 weeks" does not read as a
    weekly schedule. */
-function tlFreqStripDurations(f) {
+function tlFreqStripCourse(f) {
   var n = '(?:\\d+(?:\\s*[-\u2013]\\s*\\d+)?|a|an|one|two|three|four|five|six|eight|ten|twelve)';
   var unit = '(?:weeks?|wks?|days?|months?|mos?)';
   return f
@@ -78,17 +78,40 @@ function tlFreqStripDurations(f) {
     .replace(/\bweeks?\s*\d+\s*(?:[-\u2013]|to|through|thru)\s*\d+\b/g, ' ')
     .replace(/\b(?:in|from|until|till|starting|after|by)\s+week\s*\d+\b/g, ' ')
     .replace(/\bdays?\s*\d+\s*(?:[-\u2013]|to|through|thru)\s*\d+\b/g, ' ')
-    .replace(/\bx\s*\d+\s*(?:weeks?|wks?|days?|months?)\b/g, ' ')
+    .replace(/\bx\s*\d+\s*(?:weeks?|wks?|days?|months?)\b/g, ' ');
+}
+
+/* Notes and other phases, set aside. Each piece set aside goes into `cut`, so
+   the reader can tell when one held a schedule (tlFreqCutSchedule). */
+function tlFreqStripNotes(f, cut) {
+  var keep = function (m) { if (cut) cut.push(m); return ' '; };
+  return f
     /* A note about something else: "titrate by 2.5mg every 4 weeks", "bloods
        every 8 weeks", "increase dose monthly". */
-    .replace(/\b(?:titrat\w*|increas\w*|decreas\w*|bloods?|bloodwork|labs?|recheck\w*|refill\w*|reorder\w*|re-?order\w*|vials?|reconstitut\w*|mix\w*)\b[^,;()]*/g, ' ')
+    .replace(/\b(?:titrat\w*|increas\w*|decreas\w*|bloods?|bloodwork|labs?|recheck\w*|refill\w*|reorder\w*|re-?order\w*|vials?|reconstitut\w*|mix\w*)\b[^,;()]*/g, keep)
     /* An optional extra dose: "extra AM dose if needed". */
-    .replace(/\b(?:extra|additional|another|add|2nd|second|optional)\b[^,;()]*?\b(?:as|if|when)\s+(?:needed|required)\b/g, ' ')
+    .replace(/\b(?:extra|additional|another|add|2nd|second|optional)\b[^,;()]*?\b(?:as|if|when)\s+(?:needed|required)\b/g, keep)
     /* What comes after this phase, or instead of it, or before it: "daily for
        2 weeks then 2x weekly", "daily or 3x/week", "daily (was 2x/wk)",
        "daily (switched from 2x weekly)". The phase named first is the
        schedule. */
-    .replace(new RegExp('\\b(?:then|until|till|or|was|were|switched|previously|formerly|prior)\\b(?!\\s+(?:[\\d.,\\/]+\\s*[a-z]*\\s+)?(?:am|pm|a\\.m\\.|p\\.m\\.|morning|evening|night|noon|bed|bedtime|' + TL_FREQ_DAYWORD + ')\\b).*$'), ' ');
+    .replace(new RegExp('\\b(?:then|until|till|or|was|were|switched|previously|formerly|prior)\\b(?!\\s+(?:[\\d.,\\/]+\\s*[a-z]*\\s+)?(?:am|pm|a\\.m\\.|p\\.m\\.|morning|evening|night|noon|bed|bedtime|' + TL_FREQ_DAYWORD + ')\\b).*$'), keep);
+}
+
+function tlFreqStripDurations(f) {
+  return tlFreqStripNotes(tlFreqStripCourse(f));
+}
+
+/* Whether text set aside states a schedule: a count, a pattern, or one to
+   check. Then setting it aside was a guess, and the reader keeps the old
+   reading instead: "SubQ or IM twice weekly", "2.5mg for 4 weeks then 5mg
+   weekly", "titrating weekly", "(2x weekly with Test)". An "as needed", a
+   ten-day course or a schedule to check ("TSH every 6 months") in it is not
+   one. */
+function tlFreqCutSchedule(cut) {
+  return cut.some(function (c) {
+    return tlFreqHits(' ' + tlFreqStripCourse(c) + ' ').some(function (h) { return h.kind !== 'asneeded' && h.kind !== 'pulse' && h.kind !== 'check'; });
+  });
 }
 
 /* Days written as letters, spelled out so that one reader takes every way of
@@ -163,10 +186,18 @@ function tlFreqDayRule(f) {
   s = s.replace(new RegExp('(\\b' + day + '(?:\\s+(?:to|through|thru|until|till)\\s+|\\s*[-–]\\s*))?\\b(' + day + '(?:\\s*(?:&|and|,|\\/|\\+)\\s*' + day + ')*)\\s*[(:=\\-–]?\\s*(?:off|rest(?:\\s+days?)?|skip(?:ped)?|days?\\s+off|no\\s+doses?|none)\\b\\)?', 'g'),
     function (m, range, list, at, str) {
       var keep = '';
+      /* "M/W/F, weekends off": a comma before a list of rest days ends the
+         dose days, unless every item is one day ("Sat, Sun off"). */
+      var items = list.split(/\s*,\s*/);
+      if (items.length > 1 && items.some(function (x) { return /[&\/+]|\band\b/.test(x); })) {
+        keep = items.slice(0, -1).join(', ') + ', ';
+        list = items[items.length - 1];
+        range = null;
+      }
       if (range) {
         var first = /^\S+/.exec(list)[0];
         if (new RegExp('\\b' + day + '\\s*(?:[-–]|to|through|thru)\\s*$').test(str.slice(0, at))) {
-          keep = range.replace(/[\s\-–]+$/, '') + ' ';
+          keep += range.replace(/[\s\-–]+$/, '') + ' ';
         } else {
           exclude = exclude.concat(tlWeekdaysInText(range.replace(/\s*[-–]\s*$/, '-') + first) || []);
           list = list.slice(first.length);
@@ -309,7 +340,7 @@ function tlFreqHits(g) {
   /* "every other Friday", "first Monday of the month": a day this cannot place. */
   add(new RegExp('\\b(?:every\\s+(?:other|second|2nd|third|3rd)|alternate|alt\\.?|first|1st|second|third|fourth|4th|last)\\s+' + day + '\\b'),
     function () { return { kind: 'check' }; });
-  add(/\bevery\s+\d+\s*[-–]\s*\d+\s*(?:days?|weeks?|wks?)\b/, function () { return { kind: 'check' }; });
+  add(/\bevery\s+\d+\s*[-–]\s*\d+\s*(?:days?|weeks?|wks?)\b/, function () { return { kind: 'check', soft: true }; });
 
   /* Doses a day. */
   add(/\b(b|t|q)\.?i\.?d\b\.?/, function (m) { return { kind: 'daily', n: { b: 2, t: 3, q: 4 }[m[1]] }; });
@@ -322,7 +353,10 @@ function tlFreqHits(g) {
   add(/\bq\s?(\d+)\s?h(?:rs?|ours?)?\b/, function (m) { return tlFreqHours(+m[1]); });
   add(/\bevery\s+(\d+)\s*(?:hours?|hrs?|h)\b/, function (m) { return tlFreqHours(+m[1]); });
   add(/\b(\d+)[\s-]*hourly\b/, function (m) { return tlFreqHours(+m[1]); });
-  add(/\b(?:daily|every\s?day|each\s+day|per\s+day|qd|q\.d\.?|ed|e\.d\.|nightly|every\s+(?:night|morning|evening)|each\s+(?:night|morning|evening)|qhs|qam|qpm)\b/,
+  /* "ED" is every day, unless anything else is named ("for ED", "ED once
+     weekly"). */
+  add(/\b(?:ed|e\.d\.)(?![a-z])/, function () { return { kind: 'daily', n: 1, plain: true, weak: true }; });
+  add(/\b(?:daily|every\s?day|each\s+day|per\s+day|qd|q\.d\.?|nightly|every\s+(?:night|morning|evening)|each\s+(?:night|morning|evening)|qhs|qam|qpm)\b/,
     function () { return { kind: 'daily', n: 1, plain: true }; });
 
   /* Doses a week. */
@@ -443,6 +477,24 @@ function tlFreqCheck(text, ask) {
  * only when nothing else is named. Days are taken only from text that says
  * nothing but a schedule (tlFreqClean). */
 function tlReadFrequency(text, strict) {
+  return tlReadFrequencyDetail(text, strict).freq;
+}
+
+/* The old reading of a text, or null where it found nothing it knew, or
+   found it only inside a word ("bid" in "morbid"). */
+var TL_FREQ_OLD_WORDS = /(?:^|[^a-z0-9])(?:twice daily|2x daily|bid|daily|once daily|every day|qd|eod|every other day|every 2 day|e3d|every 3 day|every third|e3\.5d|twice week|2x week|2x\/week|biweekly|weekly|once week|1x week|per week|monthly|once month|10 day|10-day|pulse)/;
+function tlFreqOld(text) {
+  if (!TL_FREQ_OLD_WORDS.test(text.toLowerCase())) return null;
+  var old = tlReadFrequencyBefore(text);
+  return old.type === 'daily' && old.label === text ? null : old;
+}
+
+/* The reading, as { freq, unsure }. `unsure` means text the reader set aside
+   held a schedule, so the reading is the old one (tlFreqCutSchedule). */
+function tlReadFrequencyDetail(text, strict) {
+  var cut = [];
+  var aside = function (m) { cut.push(m); return ' '; };
+  var blank = function (m) { return new Array(m.length + 1).join(' '); };
   /* "2*daily" is a count; any other asterisk is a footnote mark ("Weekly*"). */
   var f = text.toLowerCase().replace(/[\u00d7\u2715]/g, 'x').replace(/(\d)\s*\*/g, '$1x').replace(/\*/g, ' ')
     .replace(/\s+/g, ' ').trim()
@@ -453,16 +505,37 @@ function tlReadFrequency(text, strict) {
     .replace(/[\d.,]+\s*(?:mcg|mg|iu|units?|ml|g)\s*(?:\/|per\s+)\s*(?:days?|d|weeks?|wks?)\b/g, ' ')
     /* "140mg weekly total", "total 140mg/wk", "(140mg a week total)". */
     .replace(/(?:\btotal\s*(?:of\s*)?)?[\d.,]+\s*(?:mcg|mg|iu|units?|ml|g)\s*(?:weekly|wkly|a\s+week|per\s+week|\/\s*wk|\/\s*week)?\s+total\b/g, ' ')
+    /* An optional time is no dose time: "PM if needed", "AM + 5mg PM as
+       needed", "PM optional", "optional PM dose", "PM on gym days". */
+    .replace(/(?:\+\s*)?(?:[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|g|tabs?|caps?)\s*)?\b(?:am|pm|a\.m\.|p\.m\.|morning|evening|night|bedtime|bed|noon|midday|afternoon)\b\s*(?:dose\s*)?(?:(?:if|as|when)\s+(?:needed|required)|optional(?:ly)?|prn|on\s+(?:gym|training|workout|lifting|lift|rest)\s+days?)\b/g, ' ')
+    .replace(/\boptional\s+(?:am|pm|a\.m\.|p\.m\.|morning|evening|night|bedtime)\b(?:\s+dose)?/g, ' ')
     /* An optional extra: "(+Sat if needed)", "AM - double if needed". */
-    .replace(/\([^()]*\b(?:if|as|when)\s+(?:needed|required)\b[^()]*\)/g, ' ')
-    .replace(/\s[-\u2013\u2014]\s[^,;()]*\b(?:if|as|when)\s+(?:needed|required)\b.*$/g, ' ')
+    .replace(/\([^()]*\b(?:if|as|when)\s+(?:needed|required)\b[^()]*\)/g, aside)
+    .replace(/\s[-\u2013\u2014]\s[^,;()]*\b(?:if|as|when)\s+(?:needed|required)\b.*$/g, aside)
     /* A note in brackets about labs or a review: "(TSH every 6 months)". */
-    .replace(/\([^()]*\b(?:tsh|a1c|hba1c|bloods?|bloodwork|labs?|panel|psa|test(?:ing|ed)?|check(?:ed)?|cycle off|recheck\w*)\b[^()]*\)/g, ' ')
+    .replace(/\([^()]*\b(?:tsh|a1c|hba1c|bloods?|bloodwork|labs?|panel|psa|test(?:ing|ed)?|check(?:ed)?|cycle off|recheck\w*)\b[^()]*\)/g, aside)
+    /* A time of day in a note about side effects is not the dose time:
+       "daily (can cause insomnia at night)". */
+    .replace(/\([^()]*\b(?:insomnia|sleep\w*|wired|awake|sweat\w*|side[\s-]?effects?|nause\w*|caus\w*|keeps?\s+me|jitter\w*|anxi\w*|headaches?)\b[^()]*\)|\s[-\u2013\u2014]\s[^,;()]*\b(?:insomnia|sleep\w*|wired|awake|sweat\w*|side[\s-]?effects?|nause\w*|caus\w*|keeps?\s+me|jitter\w*|anxi\w*|headaches?)\b[^,;()]*/g,
+      function (m) { return m.replace(/\b(?:am|pm|morning|evening|night|nights|bed|bedtime|noon|afternoon)\b/g, blank); })
     .replace(/\s+/g, ' ').trim();
   /* The app's own text for a rule the old screens cannot show. */
-  if (/\(pulse - see app\)/.test(f)) return { type: 'pulse', label: '10-day pulse cycle', days: null };
+  if (/\(pulse - see app\)/.test(f)) return { freq: { type: 'pulse', label: '10-day pulse cycle', days: null }, unsure: false };
   f = tlFreqSpellDays(f);
-  var g = ' ' + tlFreqStripDurations(f) + ' ';
+  var g = ' ' + tlFreqStripNotes(tlFreqStripCourse(f), cut) + ' ';
+  /* Text set aside held a schedule, and what is left states none: setting
+     it aside was a guess, so the reading is the old one. Where what is left
+     states one first, the first named wins ("EOD or daily"). */
+  if (tlFreqCutSchedule(cut) && !tlFreqHits(g).some(function (h) { return h.kind !== 'pulse'; }) && !tlFreqDayRule(g.trim())) {
+    var was = tlFreqOld(text);
+    return { freq: was || (strict ? null : tlReadFrequencyBefore(text)), unsure: !!was };
+  }
+  var read = tlFreqReadClean(text, f, g, strict);
+  return { freq: read, unsure: false };
+}
+
+/* The reading of text with its notes and course set aside (g). */
+function tlFreqReadClean(text, f, g, strict) {
   var hits = tlFreqHits(g);
   var first = function (kinds) { return hits.filter(function (h) { return kinds.indexOf(h.kind) >= 0; })[0] || null; };
   var special = first(['asneeded', 'check']), perDay = first(['daily']), pattern = first(['weekly', 'interval', 'monthly']);
@@ -477,6 +550,17 @@ function tlReadFrequency(text, strict) {
   if (special && special.ask === 'biweekly' && dayRule && !dayRule.rest && dayRule.days.length === 2) {
     special = null; pattern = { kind: 'weekly', n: 2, at: 0 };
   }
+  /* "Biweekly (2x/week)", "biweekly (every 2 weeks)": the text answers its
+     own question. Not the "weekly" inside "bi-weekly". */
+  if (special && special.ask === 'biweekly') {
+    var told = hits.filter(function (h) { return (h.kind === 'weekly' || h.kind === 'interval') && (h.at >= special.at + special.len || h.at + h.len <= special.at); })[0];
+    if (told) { special = null; pattern = told; }
+  }
+  /* A range ("every 3-4 days") yields to a schedule named beside it:
+     "every 3-4 days (twice weekly)". */
+  if (special && special.soft && (pattern || perDay)) special = null;
+  /* "ED" yields to any other pattern: "ED once weekly" is Cialis weekly. */
+  if (perDay && perDay.weak && pattern) perDay = hits.filter(function (h) { return h.kind === 'daily' && !h.weak; })[0] || null;
   var firstAt = function (h) { return h ? h.at : Infinity; };
   /* "As needed" is the schedule only when nothing else states one: "AM (+5mg
      if needed)" is a morning dose with an optional extra. */
@@ -515,6 +599,9 @@ function tlReadFrequency(text, strict) {
     out = { type: 'weekly', count: 1, label: 'Weekly', days: [1] };
   } else {
     if (strict && tod.doses < 2) return null;
+    /* Nothing this reads, and no time of day: what the old reader made of
+       it ("2x weeky" was twice weekly), or once a day. */
+    if (!tod.at && !hits.length) return tlFreqOld(text) || { type: 'daily', times: 1, label: text, days: null };
     out = { type: 'daily', times: 1, label: text, days: null, plain: true };
   }
 

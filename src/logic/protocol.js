@@ -400,7 +400,12 @@ function tlProtocolFromLegacy(d, env) {
        frequency field is part of the note, so it is written back ("IM
        glute"). Not for a line with no rule: its own words are written back
        as its frequency (tlLegacyFreqText). */
-    var note = parts.slice(rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest') ? 2 : 3).join(', ').trim();
+    /* So is a frequency field with an amount or an optional extra in it
+       ("AM + 5mg PM if needed"), which the written frequency cannot say. */
+    var amt = /[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|cc|g|tabs?|caps?)\b/gi;
+    var norm = function (x) { return (String(x || '').match(amt) || []).join().replace(/\s+/g, '').toLowerCase(); };
+    var says = (norm(parts[2]) && norm(parts[2]) !== norm(parts[1])) || /\b(?:if|as|when)\s+(?:needed|required)\b|\boptional\b|\bprn\b/i.test(parts[2] || '');
+    var note = parts.slice(rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest' || says) ? 2 : 3).join(', ').trim();
     /* Stored times if the user set any, else the defaults the old screens show
        and fire for this frequency. */
     var placed = tlSlotsFromTimes(times[med.name] || getDefaultTimes(med.freq));
@@ -601,7 +606,7 @@ function tlLegacyFreqText(c, start) {
   /* Two or more rounds on a line that is not daily: "Twice daily every other
      day", read back by parseMeds with its count. */
   if (n >= 2 && c && c.rule && !/^(?:Daily|Twice daily|\d+x daily)$/.test(text) && !/pulse/.test(text)) {
-    return (n === 2 ? 'Twice daily ' : n + 'x daily ') + text.charAt(0).toLowerCase() + text.slice(1);
+    return (n === 2 ? 'Twice daily ' : n + 'x daily ') + (/^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b/.test(text) ? text : text.charAt(0).toLowerCase() + text.slice(1));
   }
   return text;
 }
