@@ -156,23 +156,36 @@ function tlFreqDayRule(f) {
   var s = tlFreqSpellDays(f).replace(/\b\d+\s*(?:d|days?)?\s*-?\s*on\s*[,\/&]?\s*(?:and\s+)?\d+\s*(?:d|days?)?\s*-?\s*off\b/g, ' '), exclude = [];
   var day = '(?:' + TL_FREQ_DAYWORD + ')';
   /* "Sun off", "Sat & Sun off", "Sun rest", "Sundays skipped", "Sun: rest",
-     "Sunday = rest day". A day that ends a range before it ("Mon to Fri,
-     weekends off") is not one of them. */
-  s = s.replace(new RegExp('(\\b' + day + '(?:\\s+(?:to|through|thru|until|till)\\s+|[-–]))?\\b(' + day + '(?:\\s*(?:&|and|,|\\/|\\+)\\s*' + day + ')*)\\s*[(:=]?\\s*(?:off|rest(?:\\s+days?)?|skipped)\\b\\)?', 'g'),
-    function (m, range, list) {
+     "Sunday = rest day", "Sun - off", "Sunday day off", "Sunday: no dose",
+     and a range: "Sat-Sun off", "Fri to Sat off", "(Sat - Sun off)". A day
+     that ends a range before it is not one of them: in "Mon-Sat - Sun off"
+     the dash after Saturday only sets Sunday apart. */
+  s = s.replace(new RegExp('(\\b' + day + '(?:\\s+(?:to|through|thru|until|till)\\s+|\\s*[-–]\\s*))?\\b(' + day + '(?:\\s*(?:&|and|,|\\/|\\+)\\s*' + day + ')*)\\s*[(:=\\-–]?\\s*(?:off|rest(?:\\s+days?)?|skip(?:ped)?|days?\\s+off|no\\s+doses?|none)\\b\\)?', 'g'),
+    function (m, range, list, at, str) {
       var keep = '';
       if (range) {
         var first = /^\S+/.exec(list)[0];
-        keep = range + first + ' ';
-        list = list.slice(first.length);
+        if (new RegExp('\\b' + day + '\\s*(?:[-–]|to|through|thru)\\s*$').test(str.slice(0, at))) {
+          keep = range.replace(/[\s\-–]+$/, '') + ' ';
+        } else {
+          exclude = exclude.concat(tlWeekdaysInText(range.replace(/\s*[-–]\s*$/, '-') + first) || []);
+          list = list.slice(first.length);
+        }
       }
       exclude = exclude.concat(tlWeekdaysInText(list) || []);
       return keep + ' ';
     });
   var cut = /\b(except|excluding|but|besides|other than|w\/o|without|skip\w*|minus|apart from|rest(?:ing)?|not|no|start\w*|begin\w*|from|until|till)\b/.exec(s);
   var head = cut ? s.slice(0, cut.index) : s;
+  /* A rest word this has not placed ("Sundays are off", "Sunday not") leaves
+     it unsure which days are rest days, so it names none. */
+  if (/\b(?:off|skip\w*|rest\w*|break|holiday|none|pause\w*)\b/.test(head)) return null;
   if (cut && !/^(?:start|begin|from|until|till)/.test(cut[1])) {
-    exclude = exclude.concat(tlWeekdaysInText(s.slice(cut.index + cut[0].length)) || []);
+    var after = tlWeekdaysInText(s.slice(cut.index + cut[0].length)) || [];
+    /* "Sunday not", "Sunday - no": the day before the word is the one ruled
+       out, which this does not read. */
+    if (!after.length && new RegExp('\\b' + day + '\\s*[:=\\-–]?\\s*$').test(head)) return null;
+    exclude = exclude.concat(after);
   }
   var include = (tlWeekdaysInText(head) || []).filter(function (d) { return exclude.indexOf(d) < 0; });
   if (include.length) return { days: include, rest: false };
@@ -192,6 +205,10 @@ function tlFreqTimesOfDay(f) {
   /* A time the text rules out is no reminder time: "not at night", "avoid
      taking at night", "not PM". */
   f = f.replace(/\b(?:not|no|avoid\w*|never|don'?t|do not)\b(?:\s+\w+){0,3}?\s+(?:at\s+)?(?:night|nights|bed|bedtime|pm|p\.m\.|evening|evenings|am|a\.m\.|morning|mornings)\b/g,
+    function (m) { return new Array(m.length + 1).join(' '); });
+  /* A deadline is no reminder time either: "before 2pm", "by noon", "no later
+     than 3pm", "AM before noon". */
+  f = f.replace(/\b(?:before|by|until|till|no\s+later\s+than|not\s+after|prior\s+to)\s+(?:noon|midday|lunch|\d{1,2}(?:[:.][0-5]\d)?\s*(?:a\.?m\.?|p\.?m\.?)(?![a-z])|(?:[01]?\d|2[0-3]):[0-5]\d\b)/g,
     function (m) { return new Array(m.length + 1).join(' '); });
   /* Clock times are times: "at 2pm" is 14:00, not the evening. A number that
      ends an amount ("12.5 AM", "1/2 PM") is not an hour, nor is a small
@@ -235,10 +252,19 @@ function tlFreqTimesOfDay(f) {
   found.forEach(function (x) { if (keys.indexOf(x.key) < 0) keys.push(x.key); });
   if (keys.length < 2) return { doses: 1, at: found.length ? [found[0].time] : null };
   /* Between two listed times: a joining word, an amount, or a word that only
-     places the time ("and before bed", "AM, 1 tab PM"). Never "or". */
+     places the time ("and before bed", "AM, 1 tab PM"), with at least one
+     joining word or amount among them. Never "or". With only a placing word
+     between them, the second places the first: "PM before bed" and "evening
+     at bedtime" are one evening dose. */
   var join = /^(?:[\s,;+&\/]|\band\b|\bplus\b|\bthen\b|\bagain\b|\bin\b|\bthe\b|\bat\b|\bbefore\b|\bupon\b|\bon\b|\bone\b|\bx\b|[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|g|tabs?|caps?|pills?|doses?|sprays?)\b|[\d.,\/]+)*$/;
+  var joins = /[,;+&\/\d]|\band\b|\bplus\b|\bthen\b|\bagain\b|\bone\b|\bx\b/;
   for (var i = 1; i < found.length; i++) {
-    if (found[i].key !== found[i - 1].key && !join.test(f.slice(found[i - 1].end, found[i].at))) return { doses: 1, at: null };
+    var gap = f.slice(found[i - 1].end, found[i].at);
+    if (found[i].key !== found[i - 1].key && !(join.test(gap) && joins.test(gap))) {
+      var parts = found.map(part);
+      var onePart = parts.every(function (x) { return x === parts[0]; });
+      return { doses: 1, at: onePart ? [found[found.length - 1].time] : null };
+    }
   }
   var times = [];
   found.forEach(function (x) { if (times.indexOf(x.time) < 0) times.push(x.time); });
@@ -296,7 +322,7 @@ function tlFreqHits(g) {
   add(/\bq\s?(\d+)\s?h(?:rs?|ours?)?\b/, function (m) { return tlFreqHours(+m[1]); });
   add(/\bevery\s+(\d+)\s*(?:hours?|hrs?|h)\b/, function (m) { return tlFreqHours(+m[1]); });
   add(/\b(\d+)[\s-]*hourly\b/, function (m) { return tlFreqHours(+m[1]); });
-  add(/\b(?:daily|every\s?day|each\s+day|per\s+day|qd|q\.d\.?|nightly|every\s+(?:night|morning|evening)|each\s+(?:night|morning|evening)|qhs|qam|qpm)\b/,
+  add(/\b(?:daily|every\s?day|each\s+day|per\s+day|qd|q\.d\.?|ed|e\.d\.|nightly|every\s+(?:night|morning|evening)|each\s+(?:night|morning|evening)|qhs|qam|qpm)\b/,
     function () { return { kind: 'daily', n: 1, plain: true }; });
 
   /* Doses a week. */
@@ -305,6 +331,8 @@ function tlFreqHits(g) {
   add(new RegExp(lead + count + times + link + wk + '\\b'), function (m) { return { kind: 'weekly', n: tlFreqNum(m[1]) }; });
   add(new RegExp(lead + count + nounWk + '\\s*(?:-\\s*)?(?:a\\s+|per\\s+|each\\s+|every\\s+|in\\s+a\\s+|\\/\\s*)?' + wk + '\\b'), function (m) { return { kind: 'weekly', n: tlFreqNum(m[1]) }; });
   add(/\bx\s*(\d)\s*(?:-\s*)?(?:a\s+|per\s+|\/\s*)?(?:weekly|wkly|weeks?|wks?)\b/, function (m) { return { kind: 'weekly', n: +m[1] }; });
+  /* "5d/wk", "5 d a week": days a week. */
+  add(/(?:^|[^\d.\/a-z])([1-7])\s*d\s*(?:\/|per\s+|a\s+)\s*(?:weeks?|wks?)\b/, function (m) { return { kind: 'weekly', n: +m[1] }; });
   add(/(?:^|[^\d.\/a-z])(\d+)\s*(?:\/|per\s+)\s*(?:weeks?|wks?)\b/, function (m) { return { kind: 'weekly', n: +m[1] }; });
   add(/(?:\be3\.5d\b|\bevery\s+3\.5\s*(?:days?|d)\b)/, function () { return { kind: 'weekly', n: 2 }; });
   add(/\b(?:weekly|wkly|every\s+week|each\s+week|per\s+week|qwk|q\s?wk|qw|qweekly|q\.w\.?)(?![a-z])/, function () { return { kind: 'weekly', n: 1, plain: true }; });
@@ -355,6 +383,8 @@ function tlFreqHits(g) {
   /* Days on and off. A week of them is a weekly run. */
   add(/\b(\d+)\s*(?:d|days?)?\s*-?\s*on\s*[,\/&]?\s*(?:and\s+)?(\d+)\s*(?:d|days?)?\s*-?\s*off\b/, function (m) {
     var on = +m[1], off = +m[2];
+    /* "1 on 1 off" is every other day; "1 on 2 off", every third. */
+    if (on === 1 && off >= 1 && off <= 6) return { kind: 'interval', n: 1 + off };
     return on > 0 && on + off === 7 ? { kind: 'weekly', n: on, run: true } : { kind: 'check' };
   });
 
@@ -421,6 +451,8 @@ function tlReadFrequency(text, strict) {
     /* An amount per day or per week is a total, not a schedule: "BID
        (3.5mg/wk)", "ED, 140mg/wk". */
     .replace(/[\d.,]+\s*(?:mcg|mg|iu|units?|ml|g)\s*(?:\/|per\s+)\s*(?:days?|d|weeks?|wks?)\b/g, ' ')
+    /* "140mg weekly total", "total 140mg/wk", "(140mg a week total)". */
+    .replace(/(?:\btotal\s*(?:of\s*)?)?[\d.,]+\s*(?:mcg|mg|iu|units?|ml|g)\s*(?:weekly|wkly|a\s+week|per\s+week|\/\s*wk|\/\s*week)?\s+total\b/g, ' ')
     /* An optional extra: "(+Sat if needed)", "AM - double if needed". */
     .replace(/\([^()]*\b(?:if|as|when)\s+(?:needed|required)\b[^()]*\)/g, ' ')
     .replace(/\s[-\u2013\u2014]\s[^,;()]*\b(?:if|as|when)\s+(?:needed|required)\b.*$/g, ' ')
@@ -478,6 +510,9 @@ function tlReadFrequency(text, strict) {
     return { type: 'pulse', label: '10-day pulse cycle', days: null };
   } else if (special) {
     return special.kind === 'asneeded' ? { type: 'asneeded', label: 'As needed', days: null } : tlFreqCheck(text, special.ask);
+  } else if (/[\d.,]+\s*(?:mcg|mg|iu|units?|ml|g)\s*per\s+weeks?\b/i.test(text)) {
+    /* "100mg per week" and nothing else: once a week, as it always was. */
+    out = { type: 'weekly', count: 1, label: 'Weekly', days: [1] };
   } else {
     if (strict && tod.doses < 2) return null;
     out = { type: 'daily', times: 1, label: text, days: null, plain: true };

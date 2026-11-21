@@ -159,7 +159,7 @@ const readBack = (d) => app.tlProtocolFromLegacy({ entries: [], proto: d.proto, 
 
 test('a rule the old text cannot say is written so the old screens show no dose days, not daily', () => {
   const rules = [{ every: { weeks: 2 } }, { every: { days: 4 } }, { every: { days: 10 } }, { every: { days: 3.5 } },
-    { daily: true, pattern: { on: 5, off: 2 } }, { taper: ['40mg', '20mg'], per: 'week' }, { weekdays: [1, 3, 5] }];
+    { daily: true, pattern: { on: 5, off: 2 } }, { taper: ['40mg', '20mg'], per: 'week' }];
   rules.forEach((r) => {
     const d = store([C({ rule: r })]);
     const med = app.parseMeds(d.proto.meds)[0];
@@ -170,6 +170,16 @@ test('a rule the old text cannot say is written so the old screens show no dose 
   });
   /* The label is kept where it does not read as another frequency. */
   assert.equal(app.parseMeds(store([C({ rule: { every: { weeks: 2 } } })]).proto.meds)[0].freqStr, 'Every 2 weeks (pulse - see app)');
+});
+
+test('three to six named weekdays are written as the days, and read back as them', () => {
+  for (const days of [[1, 3, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6], [0, 2, 4, 6]]) {
+    const d = store([C({ rule: { weekdays: days } })]);
+    const med = app.parseMeds(d.proto.meds)[0];
+    assert.equal(med.freq.type, 'weekly', d.proto.meds);
+    same(plain(med.freq.days).slice().sort(), days.slice().sort(), d.proto.meds);
+    same(plain(readBack(d).compounds[0].rule.weekdays).slice().sort(), days.slice().sort(), d.proto.meds);
+  }
 });
 
 test('an unscheduled compound is written as a pulse whatever its old frequency text said', () => {

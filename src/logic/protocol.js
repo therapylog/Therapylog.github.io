@@ -576,7 +576,9 @@ function tlLegacyName(s) {
    so the line never states a dose the model does not. */
 function tlLegacyDoseText(dose) {
   if (!dose) return '';
-  var text = String(dose.text || '');
+  /* "50,000 IU biweekly" is written "50000 IU biweekly": a comma would start
+     the next field, and the words after the amount may be the schedule. */
+  var text = String(dose.text || '').replace(/(\d),(?=\d{3}(?!\d))/g, '$1');
   if (dose.amount === null || dose.amount === undefined) return text;
   var read = tlParseDose(tlLegacyName(text));
   return read.amount === dose.amount && read.unit === (dose.unit || null) ? text : tlDoseText(dose);
@@ -629,6 +631,12 @@ function tlLegacyFreqDays(c, start) {
   }
   if (only('weekdays') && plain && days.length === 1) return 'Weekly (' + tlRuleLabel(rule) + ')';
   if (only('weekdays') && plain && days.length === 2) return 'Twice weekly (' + tlRuleLabel(rule) + ')';
+  /* Three to six named weekdays, written as the days ("Mon · Wed · Fri"),
+     which parseMeds reads back as those days. */
+  if (only('weekdays') && plain && days.length >= 3 && days.length <= 6) {
+    var named = tlRuleLabel(rule), back = parseFrequency(named);
+    if (back.type === 'weekly' && back.named && back.days.slice().sort().join() === days.slice().sort().join()) return named;
+  }
   /* The start day and three days on, as the old week view placed twice weekly.
      Written out as weekdays, so a note after the frequency cannot move them. */
   var fromStart = /^\d{4}-\d{2}-\d{2}$/.test(String(start || '')) ? tlFreqDays({ type: 'weekly', count: 2 }, start) : null;
