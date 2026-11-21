@@ -112,11 +112,12 @@ test('saving the old form unchanged, or for the first time, records nothing', ()
   same(app.tlAfterLegacyProtocolSave(fresh, before, env, '2026-03-05T15:00:00.000Z'), []);
 });
 
-test('saving the old form drops a stored model, so the text just written is what is read', () => {
+test('saving the old form over a stored model reads the text just written into it', () => {
   const d = { entries: [], proto: oldProto('Old Name, 1mg, Daily'), protocol: model('Old Name'), v: 3 };
   const before = app.tlProtocol(d, env);
   d.proto = oldProto('New Name, 1mg, Daily');
   app.tlAfterLegacyProtocolSave(d, before, env, '2026-03-05T15:00:00.000Z');
-  assert.equal(d.protocol, undefined);
+  /* The model stays stored, so what the text cannot hold is not lost. */
+  same(d.protocol.compounds.map((c) => c.name), ['New Name']);
   assert.equal(app.tlProtocol(d, env).compounds[0].name, 'New Name');
 });

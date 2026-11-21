@@ -1,7 +1,9 @@
 /* The words on the confirm sheet (src/logic/confirm.js).
  *
- * The sheet itself needs a browser and is exercised there (see
- * scripts/capture-backup-fixture.js, which loads the demo data through it).
+ * The sheet itself needs a browser and is exercised there: its focus, keys,
+ * and what happens when a second sheet opens over a first in
+ * scripts/ui-check-confirm.js, and the demo data loaded through it in
+ * scripts/capture-backup-fixture.js.
  * What can be pinned here is what it says, which is the design's table for
  * screen 5d, word for word.
  *

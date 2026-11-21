@@ -30,19 +30,13 @@ function tlPkEnv() {
   };
 }
 
-function tlLabUnit(key) {
-  if (typeof LAB_FIELDS !== 'undefined') {
-    for (var i = 0; i < LAB_FIELDS.length; i++) if (LAB_FIELDS[i].key === key) return LAB_FIELDS[i].unit || '';
-  }
-  var custom = typeof getAllCustomMarkers === 'function' ? getAllCustomMarkers()[key] : null;
-  return (custom && custom.unit) || '';
-}
-
 function tlLabsEnv() {
   return {
     range: typeof labRangeFor === 'function' ? labRangeFor : function () { return null; },
     status: typeof labSt === 'function' ? labSt : function () { return 'neutral'; },
     label: tlMarkerLabel,
+    /* wire.js: the unit the value is STORED in, which for a scanned value is
+       the app's own, not the unit the lab printed. */
     unit: tlLabUnit
   };
 }

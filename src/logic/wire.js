@@ -73,10 +73,34 @@ function tlMarkerLabel(key) {
   return (custom && custom.name) || key;
 }
 
+/* The unit a stored lab value is in, for the spreadsheet. The same rule
+   entryToResults() reads a panel by.
+
+   A built-in marker's value is stored in the registry's canonicalUnit, the
+   unit of its field on the form: a scan converts to it (normalizeValue), and a
+   number typed in is in it. labMeta.unit is the unit the lab reported, so it
+   is not used here.
+
+   A user-defined marker's value is never converted. It is in the unit the
+   scan reported it in, which labMeta.unit holds, or failing that the unit the
+   marker was defined with. The order matters: a scan never overwrites a saved
+   marker's unit, so a lab reporting the same marker in another unit leaves the
+   definition saying one unit and the value in the other.
+
+   Blank for a key that is neither, rather than a guess. */
+function tlLabUnit(key, meta) {
+  var has = Object.prototype.hasOwnProperty;
+  if (typeof MARKER_REGISTRY !== 'undefined' && has.call(MARKER_REGISTRY, key)) return MARKER_REGISTRY[key].canonicalUnit || '';
+  var all = (typeof getAllCustomMarkers === 'function') ? getAllCustomMarkers() : {};
+  var custom = has.call(all, key) ? all[key] : null;
+  if (!custom) return '';
+  return (meta && meta.unit) || custom.unit || '';
+}
+
 /* Download the log as a spreadsheet. Not a backup: it cannot be restored from,
    so it does not reset the backup clock. */
 function tlExportCsv() {
-  var csv = tlLogCsv(gd(), tlMarkerLabel);
+  var csv = tlLogCsv(gd(), tlMarkerLabel, tlLabUnit);
   /* The byte-order mark makes Excel read the file as UTF-8. */
   var blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
   var url = URL.createObjectURL(blob);

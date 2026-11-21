@@ -76,7 +76,7 @@ var TL_MARKER_SHORT = {
  *
  *   labs = { range(key, entry) -> { lo, hi } | null,     labRangeFor
  *            status(key, value, entry) -> 'good' | 'warn' | 'bad' | 'neutral',   labSt
- *            label(key), unit(key) }
+ *            label(key), unit(key, labMeta[key]) }   tlMarkerLabel, tlLabUnit
  *
  * Returns { entry, date, rows, out } or null. A row is
  *   { key, name, value, unit, lo, hi, status, dir }
@@ -101,7 +101,8 @@ function tlLatestPanel(entries, labs) {
     var hi = typeof r.hi === 'number' && isFinite(r.hi) ? r.hi : null;
     var status = labs.status(k, v, latest);
     return {
-      key: k, name: TL_MARKER_SHORT[k] || labs.label(k), value: v, unit: labs.unit(k) || '',
+      key: k, name: TL_MARKER_SHORT[k] || labs.label(k), value: v,
+      unit: labs.unit(k, (latest.labMeta && latest.labMeta[k]) || {}) || '',
       lo: lo, hi: hi, status: status,
       dir: status === 'bad' ? (lo !== null && v < lo ? 'below' : hi !== null && v > hi ? 'above' : null) : null
     };

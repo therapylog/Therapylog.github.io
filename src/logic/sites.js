@@ -73,26 +73,44 @@ function tlSiteLastUsed(entries) {
   return last;
 }
 
+/* Local calendar days from one instant to another: 0 within a day, 1 from
+   last night to this morning. Counted between the two local midnights and
+   rounded, so a day that is 23 or 25 hours long, at a clock change, is one. */
+function tlSiteDaysApart(fromMs, toMs) {
+  var a = new Date(fromMs), b = new Date(toMs);
+  return Math.round((new Date(b.getFullYear(), b.getMonth(), b.getDate()) -
+    new Date(a.getFullYear(), a.getMonth(), a.getDate())) / 864e5);
+}
+
 /* Where a site stands.
  *
  *   never        no dose names it
  *   recent       used under 48 hours ago
- *   recovering   used two days ago or more, but inside its rest period
+ *   recovering   used 48 hours ago or more, but inside its rest period
  *   rested       its rest period has passed
  *
- * `days` is whole days since it was used. The line is the sentence under the
- * site's name on the map. */
+ * The state is elapsed time, because rest is: a seven-day rest is 168 hours
+ * from the dose. The words are calendar days, because that is how a person
+ * reads "today" and "yesterday": an injection at 22:00 was yesterday by 08:00
+ * the next morning, ten hours on. So the end of the rest is found in hours and
+ * then said in calendar days too, and the sentence's two halves agree: used
+ * yesterday, a seven-day rest ends in six days.
+ *
+ * `days` is calendar days since it was used, and `left` calendar days until
+ * the rest runs out (0 when that is later today); both are the numbers the
+ * line says. The line is the sentence under the site's name on the map. */
 function tlSiteStatus(site, lastIso, nowMs) {
   if (!lastIso) return { state: 'never', days: null, left: null, line: 'Not used yet.' };
-  var hours = (nowMs - new Date(lastIso).getTime()) / TL_HOUR_MS;
-  if (hours < 0) hours = 0;
-  var days = Math.floor(hours / 24), rest = site.restDays || 0;
-  var state = hours < 48 ? 'recent' : days < rest ? 'recovering' : 'rested';
+  /* A dose stamped in the future, from a clock set wrong, counts as now. */
+  var last = Math.min(new Date(lastIso).getTime(), nowMs);
+  var hours = (nowMs - last) / TL_HOUR_MS, rest = site.restDays || 0;
+  var state = hours < 48 ? 'recent' : hours < rest * 24 ? 'recovering' : 'rested';
+  var days = tlSiteDaysApart(last, nowMs);
   var ago = days === 0 ? 'today' : days === 1 ? 'yesterday' : days + ' days ago';
-  var left = Math.max(0, rest - days);
-  var line = state === 'rested' ? 'Last used ' + ago + '. Rested.'
-    : 'Used ' + ago + '. The ' + rest + '-day rest ends in ' + left + (left === 1 ? ' day.' : ' days.');
-  return { state: state, days: days, left: state === 'rested' ? 0 : left, line: line };
+  if (state === 'rested') return { state: state, days: days, left: 0, line: 'Last used ' + ago + '. Rested.' };
+  var left = Math.max(0, tlSiteDaysApart(nowMs, last + rest * 24 * TL_HOUR_MS));
+  var ends = left === 0 ? 'ends later today.' : 'ends in ' + left + (left === 1 ? ' day.' : ' days.');
+  return { state: state, days: days, left: left, line: 'Used ' + ago + '. The ' + rest + '-day rest ' + ends };
 }
 
 /* Every site for a route with its status, for drawing the map. */

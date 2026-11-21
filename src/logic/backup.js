@@ -48,11 +48,21 @@ function tlCsv(rows) {
 }
 
 /* The record as rows: Date, Time, Type, Item, Value, Unit, Notes. One row per
-   logged thing, a lab panel and a set of measurements one row per value.
-   Oldest first, the way a log is read. Dates and times are local. `label` may
-   turn a lab marker's key into its name; without it the key is shown. */
-function tlLogRows(d, label) {
+   logged thing, a lab panel, a set of measurements and a check-in's figures
+   one row per value. Oldest first, the way a log is read. Dates and times are
+   local. `label` may turn a lab marker's key into its name; without it the key
+   is shown.
+
+   `unitOf(key, meta)` gives the unit a stored lab value is in. Only the
+   caller can answer that, from the marker registry (tlLabUnit in wire.js): a
+   built-in marker's value is stored in the app's own unit for it, and
+   labMeta.unit is the unit the lab REPORTED, which for a converted value is
+   another unit altogether (75 nmol/L of vitamin D is stored as 30, in ng/mL).
+   Without `unitOf` the unit is left blank, which is less help but never
+   wrong. A converted value says what the lab reported in Notes. */
+function tlLogRows(d, label, unitOf) {
   var rows = [], name = label || function (k) { return k; };
+  var labUnit = unitOf || function () { return ''; };
   var stamp = function (ts) {
     var x = new Date(ts);
     if (isNaN(x)) return ['', ''];
@@ -89,7 +99,11 @@ function tlLogRows(d, label) {
     } else if (e.type === 'bloodwork') {
       Object.keys(e.labs || {}).forEach(function (k) {
         var meta = (e.labMeta && e.labMeta[k]) || {};
-        add(e.ts, 'Lab', name(k), e.labs[k], meta.unit || '', join([meta.method, e.notes]), e.labDate || null);
+        /* saveBloodwork sets `converted` only when the scanned number was kept,
+           so a value typed over after a scan is not called converted. */
+        var from = meta.convertedFrom || meta.unit;
+        var reported = meta.converted ? (from ? 'converted from ' + from : 'converted') : '';
+        add(e.ts, 'Lab', name(k), e.labs[k], labUnit(k, meta) || '', join([reported, meta.method, e.notes]), e.labDate || null);
       });
     }
   });
@@ -101,7 +115,15 @@ function tlLogRows(d, label) {
   });
   ((d && d.photos) || []).forEach(function (p) {
     if (!p) return;
-    add(p.ts, 'Check-in', p.week || 'Check-in', '', '', join([p.notice, p.conditions, p.notes]), p.date || null);
+    /* The check-in form's energy-and-mood choice is a number from 1 to 5. */
+    var mood = p.mood ? 'energy and mood ' + p.mood + (/^[1-5]$/.test(String(p.mood)) ? '/5' : '') : '';
+    add(p.ts, 'Check-in', p.week || 'Check-in', '', '',
+      join([p.protocol ? 'protocol ' + p.protocol : '', mood, p.notice, p.conditions, p.notes]), p.date || null);
+    /* The weight and body fat typed with a check-in are stored on it and
+       nowhere else (no weight entry, no bodyComp row), so they are rows here
+       or they are missing from the sheet. The form stores null for a blank. */
+    if (typeof p.weight === 'number' && p.weight > 0) add(p.ts, 'Check-in', 'Weight', p.weight, 'lb', '', p.date || null);
+    if (typeof p.bf === 'number' && p.bf > 0) add(p.ts, 'Check-in', 'Body fat', p.bf, '%', '', p.date || null);
   });
   ((d && d.doseChanges) || []).forEach(function (c) {
     if (!c) return;
@@ -112,7 +134,7 @@ function tlLogRows(d, label) {
   return [['Date', 'Time', 'Type', 'Item', 'Value', 'Unit', 'Notes']].concat(rows.map(function (r) { return r.row; }));
 }
 
-function tlLogCsv(d, label) { return tlCsv(tlLogRows(d, label)); }
+function tlLogCsv(d, label, unitOf) { return tlCsv(tlLogRows(d, label, unitOf)); }
 
 /* ---- theme --------------------------------------------------------------- */
 

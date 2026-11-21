@@ -83,7 +83,9 @@ const record = {
 };
 
 test('the log becomes one row per logged thing, oldest first, in local dates and times', () => {
-  const rows = app.tlLogRows(record, (k) => ({ tott: 'Total testosterone' }[k] || k));
+  /* The unit of a stored lab value comes from the caller, as the label does:
+     in the app, from the marker registry (tlLabUnit in wire.js). */
+  const rows = app.tlLogRows(record, (k) => ({ tott: 'Total testosterone' }[k] || k), (k) => ({ tott: 'ng/dL' }[k] || ''));
   same(rows[0], ['Date', 'Time', 'Type', 'Item', 'Value', 'Unit', 'Notes']);
   same(rows.slice(1), [
     ['2026-03-02', '23:30', 'Daily', 'Daily log', '', '', 'HRV 60 ms'],
@@ -120,9 +122,109 @@ test('every entry in the demo patient\'s backup makes it into the spreadsheet', 
   assert.equal(count('Symptom'), 4);
   assert.equal(count('Lab'), data.entries.filter((e) => e.type === 'bloodwork').reduce((n, e) => n + Object.keys(e.labs).length, 0));
   assert.equal(count('Body composition'), 12);
-  assert.equal(count('Check-in'), 3);
+  /* Three check-ins, each with the weight and body fat recorded with it. */
+  assert.equal(count('Check-in'), 9);
   const csv = app.tlLogCsv(data);
   assert.equal(csv.split('\r\n').length - 1, rows.length + 1);
+});
+
+test('a check-in\'s weight and body fat are rows of their own, filed under the check-in\'s date', () => {
+  const rows = app.tlLogRows({ entries: [], photos: [
+    { ts: at('2026-03-05T09:00'), date: '2026-03-04', week: 'Week 8 Check-in', weight: 195.2, bf: 16.2,
+      notice: 'leaner', conditions: 'Morning fasted', mood: '4', protocol: 'Week 8 of 16', notes: 'on track' }
+  ] }).slice(1);
+  same(rows, [
+    ['2026-03-04', '', 'Check-in', 'Week 8 Check-in', '', '', 'protocol Week 8 of 16; energy and mood 4/5; leaner; Morning fasted; on track'],
+    ['2026-03-04', '', 'Check-in', 'Weight', 195.2, 'lb', ''],
+    ['2026-03-04', '', 'Check-in', 'Body fat', 16.2, '%', '']
+  ]);
+});
+
+test('a check-in saved without numbers has no number rows', () => {
+  const rows = app.tlLogRows({ entries: [], photos: [
+    { ts: at('2026-03-05T09:00'), date: '2026-03-05', week: 'Week 8', weight: null, bf: null, notice: 'leaner', mood: '' }
+  ] }).slice(1);
+  same(rows, [['2026-03-05', '', 'Check-in', 'Week 8', '', '', 'leaner']]);
+});
+
+/* ---- the spreadsheet as the app writes it (wire.js) ----------------------- */
+
+/* A lab value is stored in the app's own unit for its marker: a scan converts
+   it, and the form's field is in that unit. labMeta.unit is the unit the lab
+   REPORTED, which for a converted value is a different unit. */
+const labRecord = {
+  entries: [
+    /* Scanned. Vitamin D and testosterone came in nmol/L and were converted. Zonulin
+       is the user's own marker, never converted, and this lab reported it in mg/L
+       although the marker was defined in ng/mL. */
+    { type: 'bloodwork', ts: at('2026-03-09T18:00'), labDate: '2026-03-06',
+      labs: { vitd: 30, tott: 747, cm_zonulin: 42 },
+      labMeta: {
+        vitd: { source: 'scan', unit: 'nmol/L', converted: true, convertedFrom: '75 nmol/L' },
+        tott: { source: 'scan', unit: 'nmol/L', converted: true, convertedFrom: '25.9 nmol/L', method: 'LC/MS-MS' },
+        cm_zonulin: { source: 'scan', unit: 'mg/L' }
+      }, notes: '' },
+    /* Scanned in pmol/L, converted, then typed over: the number is the user's, in the field's unit. */
+    { type: 'bloodwork', ts: at('2026-03-09T19:00'), labDate: '2026-03-08',
+      labs: { e2: 31 }, labMeta: { e2: { source: 'scan', unit: 'pmol/L', editedAfterScan: true } }, notes: '' },
+    /* Typed by hand: no labMeta at all. */
+    { type: 'bloodwork', ts: at('2026-03-10T09:00'), labDate: '2026-03-10', labs: { tott: 700, cm_zonulin: 40, cm_gone: 5 }, notes: '' }
+  ],
+  customMarkers: { cm_zonulin: { name: 'Zonulin', unit: 'ng/mL', lo: 0, hi: 40 } }
+};
+
+function wiredApp() {
+  const out = { blobs: [], links: [] };
+  out.app = loadApp({
+    files: ['src/logic/protocol.js', 'src/logic/rounds.js', 'src/logic/backup.js', 'src/logic/wire.js'],
+    consts: ['MARKER_REGISTRY', 'LAB_FIELDS', 'tlTodayStr'],
+    functions: ['getAllCustomMarkers'],
+    record: labRecord,
+    now: '2026-03-10T12:00',
+    stubs: {
+      Blob: function (parts, opts) { out.blobs.push({ text: parts.join(''), type: opts.type }); },
+      URL: { createObjectURL: () => 'blob:csv', revokeObjectURL() {} },
+      setTimeout: () => 0,
+      document: {
+        createElement: () => { const a = { click() {} }; out.links.push(a); return a; },
+        body: { appendChild() {}, removeChild() {} }
+      }
+    }
+  });
+  return out;
+}
+
+test('a converted lab value is written with the unit it is stored in, and the lab\'s own figure in Notes', () => {
+  const { app: w } = wiredApp();
+  const labs = w.tlLogRows(w.gd(), w.tlMarkerLabel, w.tlLabUnit).slice(1).filter((r) => r[2] === 'Lab');
+  same(labs, [
+    ['2026-03-06', '', 'Lab', 'Vitamin D 25-OH', 30, 'ng/mL', 'converted from 75 nmol/L'],
+    ['2026-03-06', '', 'Lab', 'Total Testosterone', 747, 'ng/dL', 'converted from 25.9 nmol/L; LC/MS-MS'],
+    /* A user-defined marker's value is as the lab reported it, so the lab's unit is its unit. */
+    ['2026-03-06', '', 'Lab', 'Zonulin', 42, 'mg/L', ''],
+    /* Typed over after the scan: the field's unit, and not "converted". */
+    ['2026-03-08', '', 'Lab', 'Estradiol E2', 31, 'pg/mL', ''],
+    /* Typed by hand: the field's unit, and the user's marker's own unit. */
+    ['2026-03-10', '', 'Lab', 'Total Testosterone', 700, 'ng/dL', ''],
+    ['2026-03-10', '', 'Lab', 'Zonulin', 40, 'ng/mL', ''],
+    /* A key that is no marker any more: no unit rather than a guessed one. */
+    ['2026-03-10', '', 'Lab', 'cm_gone', 5, '', '']
+  ]);
+});
+
+test('the spreadsheet download carries the stored units, behind a byte-order mark', () => {
+  const w = wiredApp();
+  const csv = w.app.tlExportCsv();
+  assert.ok(csv.includes('\r\n2026-03-06,,Lab,Vitamin D 25-OH,30,ng/mL,converted from 75 nmol/L\r\n'), csv);
+  assert.ok(csv.includes('\r\n2026-03-10,,Lab,Total Testosterone,700,ng/dL,\r\n'), csv);
+  assert.ok(!/,30,nmol\/L,/.test(csv), 'a converted value is labelled with the lab\'s unit');
+  same(w.blobs, [{ text: '﻿' + csv, type: 'text/csv;charset=utf-8' }]);
+  assert.equal(w.links[0].download, 'therapylog-log-2026-03-10.csv');
+});
+
+test('without a unit lookup a lab value has no unit, rather than the unit the lab reported', () => {
+  const rows = app.tlLogRows(labRecord).slice(1);
+  same(rows.slice(0, 2).map((r) => [r[3], r[4], r[5], r[6]]), [['vitd', 30, '', 'converted from 75 nmol/L'], ['tott', 747, '', 'converted from 25.9 nmol/L; LC/MS-MS']]);
 });
 
 /* ---- theme --------------------------------------------------------------- */

@@ -268,7 +268,11 @@ test('the design\'s own numbers: six days and no spare is danger, a spare makes 
   app.tlLogDose(d, p, 'bpc:am:2026-03-05', at('2026-03-05T07:03'));
   app.tlLogDose(d, p, 'gh:am:2026-03-05', at('2026-03-05T07:02'));
   const row = (key) => { const s = app.tlSupply(p, app.tlCompound(p, key), d.entries, THU); return [s.left, s.days, s.state, s.stock, s.note]; };
-  same(row('bpc'), [6, 6, 'danger', 'No spare vial · reorder', '6 of 20 doses left in the vial']);
+  /* Six left after today's dose cover the next six days, so the first day
+     short is day 7: still danger, with no spare. (Counting today's logged dose
+     a second time would have said 6, and made a course that fits exactly
+     look short every evening.) */
+  same(row('bpc'), [6, 7, 'danger', 'No spare vial · reorder', '6 of 20 doses left in the vial']);
   same(row('gh'), [10, 5, 'warn', '1 spare vial · open it in 5 d', '10 of 18 doses left in the vial']);
   same(row('test'), [19, 67, 'ok', 'No spare vial', '19 of 25 doses left in the vial']);
 });
@@ -301,11 +305,14 @@ test('when the open vial runs out, a spare is opened', () => {
   same([s.left, s.spare, s.stock], [9, 0, 'No spare vial']);
 });
 
-test('with nothing left and no spare, it is zero days and danger, never negative', () => {
+test('with nothing left and no spare, it is danger and never negative: out today, or tomorrow once today is taken', () => {
   const p = withInv({ bpc: { per: 10, left: 1, spare: 0 } });
-  const entries = ['2026-03-03', '2026-03-04', '2026-03-05'].map((day) => legacy('BPC-157', day + 'T07:00'));
-  const s = app.tlSupply(p, app.tlCompound(p, 'bpc'), entries, THU);
+  const s = app.tlSupply(p, app.tlCompound(p, 'bpc'),
+    ['2026-03-02', '2026-03-03', '2026-03-04'].map((day) => legacy('BPC-157', day + 'T07:00')), THU);
   same([s.left, s.days, s.state, s.stock], [0, 0, 'danger', 'No spare vial · reorder']);
+  const t = app.tlSupply(p, app.tlCompound(p, 'bpc'),
+    ['2026-03-03', '2026-03-04', '2026-03-05'].map((day) => legacy('BPC-157', day + 'T07:00')), THU);
+  same([t.left, t.days, t.state, t.stock], [0, 1, 'danger', 'No spare vial · reorder']);
 });
 
 test('the three states: danger at 7 days with no spare, ok above 21, warn between', () => {
@@ -328,7 +335,9 @@ test('several spare vials read in the plural', () => {
 
 test('the inventory list is soonest-out first, and only compounds with a count', () => {
   const p = withInv({ bpc: { per: 20, left: 7, spare: 0 }, gh: { per: 18, left: 11, spare: 1 }, test: { per: 25, left: 19, spare: 0 } });
-  same(app.tlSupplyAll(p, [], THU).map((s) => [s.key, s.days]), [['gh', 6], ['bpc', 7], ['test', 67]]);
+  /* Eleven doses at two a day cover five days and the sixth morning, so the
+     spare is needed for that sixth day's bedtime dose: day 5, not 6. */
+  same(app.tlSupplyAll(p, [], THU).map((s) => [s.key, s.days]), [['gh', 5], ['bpc', 7], ['test', 67]]);
 });
 
 test('setting the inventory refuses numbers that cannot be right, and changes nothing when it does', () => {

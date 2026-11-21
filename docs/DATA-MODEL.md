@@ -574,7 +574,8 @@ Phase 1.
    syringe builder have `site: null`.
 8. **Doses have no slot and no scheduled date.** Past medication entries can
    be attributed to a day from `ts`, in local time, but not to a slot except
-   by nearest time.
+   by nearest time. (How the redesign does it is under "Medication entries"
+   below.)
 9. **Supply cannot be converted, only seeded.** `vials` and `sinceTs` say
    nothing about vial size or doses per vial. Doses per vial has to come from
    the user.
@@ -611,8 +612,8 @@ that has them all.
 
 | Key | Type | Written by |
 |---|---|---|
-| `v` | number. Absent before the redesign; `3` once the record holds a protocol model | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel` |
-| `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol` (onboarding stores through it: `tlFinishSetup`), `tlImportModel`; deleted by `clearProtocol` and by a save from the old protocol form |
+| `v` | number. Absent before the redesign; `3` once the record holds a protocol model | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel`, `tlAfterLegacyProtocolSave` |
+| `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol` (the new screens store through it: `tlSaveProtocol`, `tlFinishSetup`), `tlImportModel`, and `tlAfterLegacyProtocolSave` when a save from the old protocol form finds one stored; deleted by `clearProtocol` |
 | `doseChanges` | array, newest first | `tlRecordDoseChanges`, `tlImportModel` |
 | `settings` | object: `{ focus, figure, units, home }` so far | `tlSetSetting` (onboarding: `tlFinishSetup`), `tlImportModel` |
 
@@ -620,7 +621,7 @@ that has them all.
 
 ```js
 { name, start, weeks, pct, created,              // carried from proto
-  discreet: false,                               // hide compound names in alerts
+  discreet: false,                               // hide compound names in alerts (so does the device's switch)
   slots: { am: { t: 480, alert: true }, mid: { t: 750, alert: true },
            eve: { t: 1200, alert: true }, bed: { t: 1290, alert: true } },   // t = minutes since midnight
   compounds: [{
@@ -631,6 +632,7 @@ that has them all.
     route: "sq",                                 // "im" | "sq" | "oral" | "topical" | null
     rule: { daily: true },                       // tlDueOn()'s rule shape; null = no schedule
     freqText: "Twice daily",                     // the old frequency text, when there was one
+    note: "glute only",                          // the old line's text after its frequency; absent if none
     slots: ["am", "eve"],
     inv: { per: 20, left: 7, spare: 0, since: "2026-11-16T15:00:00.000Z" }   // or null
   }] }
@@ -645,11 +647,79 @@ closest thing the old shape can say, for the code and the older builds that
 still read them. `supply` is not rewritten.
 
 How each old field is read is in `src/logic/protocol.js` and pinned in
-`tests/protocol.test.js`. In short: weekdays the user wrote out in the
-frequency text become the rule; otherwise weekly protocols fall on the start
-weekday, as `getDoseDays` placed them; the 10-day pulse gets no rule; a dose
-gets an amount only when the text is unambiguous; reminder times map to the
-four slots by time of day.
+`tests/protocol.test.js` and `tests/review-protocol.test.js`. In short:
+
+- **Weekdays.** Days the user wrote out in the frequency text become the rule
+  only when they are a plain list ("Mon/Thu", "Monday, Wednesday and Friday",
+  plurals such as "Sundays") or a range, which covers the days between
+  ("Mon-Fri", "Mon through Fri", "Monday to Friday"; a dash joining three days
+  or more, "Mon-Wed-Fri", is a list). They are not used, and the line is read
+  as `getDoseDays` reads it, when an exception or anchor word comes before a
+  day ("except", "excluding", "skip", "no", "not", "off", "start", "starting",
+  "begin", "from", "until", "till"), for a pulse, an interval or a monthly
+  line, or for a weekly line that names a different number of days than it
+  takes a week ("Twice weekly (Mon)"). The count is the one the text states
+  when it states one: `parseFrequency` reads "3x weekly" as once a week, but
+  "3x weekly (Mon/Wed/Fri)" is Monday, Wednesday and Friday.
+- Otherwise weekly protocols fall on the start weekday, as `getDoseDays`
+  placed them, and the 10-day pulse gets no rule.
+- **Notes.** `parseMeds` reads three comma-separated fields and ignores the
+  rest. Everything after the third comma is kept as the compound's `note`, and
+  written back after the frequency. Days in a note count only for a weekly line
+  whose frequency names none, and only as many as the line takes ("Twice
+  weekly, Mon AM and Thu PM" is Monday and Thursday); a daily line's note never
+  changes its days.
+- **Dose.** An amount is read only when the text is unambiguous. A number with
+  no unit read is left as text when a word, a `%` or a slash follows it ("250
+  mcg/day", "2 sprays", "250 mcgs", "250 twice daily"), so a dose never loses
+  its unit; "80 mg IM" is still 80 mg.
+- Reminder times map to the four slots by time of day.
+
+**Keys.** A compound's `key` is its encyclopedia id, or its name reduced to
+`a-z`, digits and hyphens, or, for a name with none of those ("Сустанон"),
+`c-` and a hash of the name (32-bit FNV-1a, base 36), so it does not depend on
+where the line is. Two lines with one id get `-2`, `-3` by position, which is
+why a model read from the text is never paired by key (`doseChanges`, below).
+`tlNormalizeProtocol` keeps a stored key that is a non-empty string with no
+colon and not already used by an earlier compound, since logged doses carry
+it; any other compound with a name gets a key made from the name, never one a
+later compound holds. A compound with neither a key nor a name is dropped.
+
+**A stored protocol from a file is not trusted to have its shape.** A field of
+the wrong type is replaced rather than read (slots that are not a list are no
+slots), so a damaged compound cannot stop the read or the import it is part
+of. Each slot's time is kept inside its own span, morning 04:00 to 10:59,
+midday 11:00 to 15:59, evening 16:00 to 20:29 and bedtime 20:30 to 03:59,
+moving to the nearer end when outside it; the derivation applies the same
+clamp. Otherwise a morning round at 11:30 would be written to `reminderTimes`
+and read back as midday.
+
+**What `tlStoreProtocol` writes into the old fields** (`tlProtocolToLegacy`):
+
+- Each line is `name, dose, frequency`, then `, note` if there is one. A comma
+  in the name or dose becomes `;`.
+- The dose is the text the user typed when it states the model's amount and
+  unit, otherwise the amount itself ("80 mg"), so the line never says a dose
+  the model does not.
+- The frequency is one the old screens and the derivation both read back as
+  the same doses on the same days: daily or twice daily, every other day and
+  every 3 days, monthly, one or two named weekdays, and weekly or twice weekly
+  from the start day written out as those weekdays. Intervals, monthly and
+  start-day weekly need `start`. **Any other rule, and a null rule, is written
+  as a pulse**, "Every 2 weeks (pulse - see app)" (or "Custom schedule (pulse -
+  see app)" where the label would read as another frequency), which every old
+  reader treats as never due: an older build shows no dose days rather than
+  dosing a fortnightly compound daily. An unscheduled compound whose own old
+  text was already a pulse keeps that text.
+- `reminderTimes` is keyed by the name exactly as the line has it, one time
+  per slot from the protocol's slot times; a scheduled compound in no slot
+  gets `[]` rather than the defaults.
+
+**`discreet`.** Two switches hide compound names: the stored protocol's
+`discreet` and the device's old discreet-reminders setting (localStorage
+`tl_notif_discreet`, section 5), passed in as `env.discreet`. `tlProtocol`
+returns `discreet: true` when either is on, so names are shown only when both
+are off. A derived protocol follows the device setting alone.
 
 `inv` is never decremented. Doses left now is `left` minus the medication
 entries for that compound since `since`, opening a spare when the open vial
@@ -663,7 +733,21 @@ runs out (`tlSupply`).
 
 One row per compound whose dose changed in a protocol save, from either the
 new model or the old protocol form (`saveProtocol` calls
-`tlAfterLegacyProtocolSave`). Unique `ts` per row.
+`tlAfterLegacyProtocolSave`). Unique `ts` per row. `from` and `to` are the
+dose as text (`tlDoseText`), so a dose read as text only keeps its unit.
+
+Which compound is which across a save is `tlPairCompounds`
+(`src/logic/changes.js`), one to one, in passes: same name, dose and
+frequency text (an unchanged line); same name and frequency text; same name,
+the rest in order; and, only when neither protocol was read from the text,
+same key. Names compare without case or spacing. Where the earlier protocol is
+a stored model, its frequency text also matches the text `tlStoreProtocol`
+wrote for it. A compound left over on either side was added or removed, and
+neither is a change. So removing, reordering or adding a line, two lines that
+resolve to one encyclopedia id ("BPC-157" and "BPC-157 Oral", "Anastrozole"
+and "Arimidex"), and a dose split over two lines with one name record nothing
+unless a dose really changed. `tests/review-protocol-save.test.js` has each
+case, with the app's own resolver.
 
 ### `settings`
 
@@ -709,22 +793,60 @@ with up to four more fields:
 | `day` | the local day the dose was due, `YYYY-MM-DD`, which can be the day before `ts` for a bedtime dose logged after midnight |
 | `siteId` | an id from `assets/figures/injection-sites.json`, alongside the site's name in `site` |
 
-Together `key:slot:day` is the dose id. An entry without them, logged from an
-old screen, is matched to a round by compound name, local day and nearest
-time (`tlRoundsFor`). Entries logged in one tap get consecutive milliseconds
-so that no two share a `ts`.
+Together `key:slot:day` is the dose id. Entries logged in one tap get
+consecutive milliseconds so that no two share a `ts`.
+
+An entry without them, logged from an old screen, is matched to a dose by
+`tlMatchDay` (which `tlRoundsFor` reads):
+
+- **Which compounds:** every protocol line with its name, so two lines with
+  one name never both take it.
+- **Which day:** the local day of its `ts`, except before 04:00, when it is
+  the evening before's if one of those compounds is in the bedtime round and
+  was due that evening. Two exceptions keep it on its own day: a bedtime set
+  after midnight (that round is its own day's first), and an entry within the
+  hour before its own day's first round (an early dose of that round).
+  Whichever day is asked about, an entry counts for exactly one.
+- **Which dose:** the one whose round is nearest its time. If that dose is
+  already ticked, the entry is a second record of it and ticks nothing else.
+
+Supply counts an entry against the line it was matched to
+(`tlEntryOwner`), and charges today's doses only while they are pending, so
+logging today's dose does not take it off twice.
 
 ### What changed in the old code paths
 
 - `importData` now calls `tlImportModel` for the four keys above, with the
-  same manners as the rest of the import: a merge, and the device wins. A
-  file's `protocol` is taken only when the device has no protocol in either
-  shape. A file whose `v` is higher than this build's is still imported, with
-  a note that some of it may not have carried over.
+  same manners as the rest of the import: a merge, and the device wins. The
+  model follows `importData`'s decision about `proto`, so the two always
+  describe one protocol: when the device takes the file's `proto` it takes the
+  file's `protocol` with it, or drops its own when the file has none; when it
+  keeps its own `proto` it keeps its own model, or lack of one; when neither
+  has a `proto`, a device model with compounds is kept and an empty one is
+  treated as no protocol. A model taken from the file also rewrites
+  `reminderTimes` for its compounds from its slots, and writes `proto` from
+  it when the device has none, so stale times on the device cannot disagree
+  with it. A file whose `v` is higher than this build's is still imported,
+  with a note that some of it may not have carried over.
+- A file whose `protocol` cannot be read is still imported: `tlImportModel`
+  skips the model and returns `skipped: true`, and `importData` also catches
+  any failure of the call on its own. Either way the entries and the rest of
+  the file are saved, and the result line says the protocol schedule was left
+  out.
 - `sd()`'s cross-tab merge unions `doseChanges` along with the four arrays it
   already did.
-- `saveProtocol` records dose changes and drops a stored `protocol`, so the
-  model is read again from the text just saved. `clearProtocol` drops it too.
+- `saveProtocol` records dose changes. With no stored `protocol` nothing is
+  stored, as before. With one, `tlAfterLegacyProtocolSave` keeps it: the model
+  is read again from the text just saved, and each compound paired with a
+  stored one (the `doseChanges` pairing) keeps its key, encyclopedia id, route
+  and `inv`, and its rule too while its frequency text is unchanged, so a rule
+  the text could only write as a pulse survives a save that left its line
+  alone. A line the text adds gets a new key, never one the stored model held.
+  The protocol keeps its slot times, alert switches and `discreet`. That is
+  stored as `protocol` (`v` 3); `proto` and `reminderTimes` keep exactly what
+  the user typed. If bringing the model up to date fails, `saveProtocol` drops
+  it rather than the save: the text is saved, and the model is read from it.
+  `clearProtocol` drops the model.
 - Item 1 of section 7 is therefore handled for these keys. It will be true
   again of any key added later: `tlImportModel` is the place to add it.
 

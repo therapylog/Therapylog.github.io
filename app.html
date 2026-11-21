@@ -1114,11 +1114,21 @@ function tlCsv(rows) {
 }
 
 /* The record as rows: Date, Time, Type, Item, Value, Unit, Notes. One row per
-   logged thing, a lab panel and a set of measurements one row per value.
-   Oldest first, the way a log is read. Dates and times are local. `label` may
-   turn a lab marker's key into its name; without it the key is shown. */
-function tlLogRows(d, label) {
+   logged thing, a lab panel, a set of measurements and a check-in's figures
+   one row per value. Oldest first, the way a log is read. Dates and times are
+   local. `label` may turn a lab marker's key into its name; without it the key
+   is shown.
+
+   `unitOf(key, meta)` gives the unit a stored lab value is in. Only the
+   caller can answer that, from the marker registry (tlLabUnit in wire.js): a
+   built-in marker's value is stored in the app's own unit for it, and
+   labMeta.unit is the unit the lab REPORTED, which for a converted value is
+   another unit altogether (75 nmol/L of vitamin D is stored as 30, in ng/mL).
+   Without `unitOf` the unit is left blank, which is less help but never
+   wrong. A converted value says what the lab reported in Notes. */
+function tlLogRows(d, label, unitOf) {
   var rows = [], name = label || function (k) { return k; };
+  var labUnit = unitOf || function () { return ''; };
   var stamp = function (ts) {
     var x = new Date(ts);
     if (isNaN(x)) return ['', ''];
@@ -1155,7 +1165,11 @@ function tlLogRows(d, label) {
     } else if (e.type === 'bloodwork') {
       Object.keys(e.labs || {}).forEach(function (k) {
         var meta = (e.labMeta && e.labMeta[k]) || {};
-        add(e.ts, 'Lab', name(k), e.labs[k], meta.unit || '', join([meta.method, e.notes]), e.labDate || null);
+        /* saveBloodwork sets `converted` only when the scanned number was kept,
+           so a value typed over after a scan is not called converted. */
+        var from = meta.convertedFrom || meta.unit;
+        var reported = meta.converted ? (from ? 'converted from ' + from : 'converted') : '';
+        add(e.ts, 'Lab', name(k), e.labs[k], labUnit(k, meta) || '', join([reported, meta.method, e.notes]), e.labDate || null);
       });
     }
   });
@@ -1167,7 +1181,15 @@ function tlLogRows(d, label) {
   });
   ((d && d.photos) || []).forEach(function (p) {
     if (!p) return;
-    add(p.ts, 'Check-in', p.week || 'Check-in', '', '', join([p.notice, p.conditions, p.notes]), p.date || null);
+    /* The check-in form's energy-and-mood choice is a number from 1 to 5. */
+    var mood = p.mood ? 'energy and mood ' + p.mood + (/^[1-5]$/.test(String(p.mood)) ? '/5' : '') : '';
+    add(p.ts, 'Check-in', p.week || 'Check-in', '', '',
+      join([p.protocol ? 'protocol ' + p.protocol : '', mood, p.notice, p.conditions, p.notes]), p.date || null);
+    /* The weight and body fat typed with a check-in are stored on it and
+       nowhere else (no weight entry, no bodyComp row), so they are rows here
+       or they are missing from the sheet. The form stores null for a blank. */
+    if (typeof p.weight === 'number' && p.weight > 0) add(p.ts, 'Check-in', 'Weight', p.weight, 'lb', '', p.date || null);
+    if (typeof p.bf === 'number' && p.bf > 0) add(p.ts, 'Check-in', 'Body fat', p.bf, '%', '', p.date || null);
   });
   ((d && d.doseChanges) || []).forEach(function (c) {
     if (!c) return;
@@ -1178,7 +1200,7 @@ function tlLogRows(d, label) {
   return [['Date', 'Time', 'Type', 'Item', 'Value', 'Unit', 'Notes']].concat(rows.map(function (r) { return r.row; }));
 }
 
-function tlLogCsv(d, label) { return tlCsv(tlLogRows(d, label)); }
+function tlLogCsv(d, label, unitOf) { return tlCsv(tlLogRows(d, label, unitOf)); }
 
 /* ---- theme --------------------------------------------------------------- */
 
@@ -1201,16 +1223,78 @@ function tlThemeFrom(saved, prefersDark) {
  *
  * `from` and `to` are the dose as text, the way the user had it. A change is
  * recorded when a compound present before and after has a different dose;
- * adding or removing a compound is not a dose change.
+ * adding or removing a compound is not a dose change. Which compound is which
+ * across a save is tlPairCompounds(), and the old protocol form's save uses
+ * the same pairing to carry a stored model over (record.js).
  */
 
-/* The same compound in another protocol: by key, and failing that by name,
-   since a protocol read from the old text has keys made from its names. */
-function tlSameCompound(list, c) {
-  var i;
-  for (i = 0; i < list.length; i++) if (list[i].key === c.key) return list[i];
-  for (i = 0; i < list.length; i++) if (list[i].name === c.name) return list[i];
-  return null;
+/* Which compound in one protocol is which in the next, one to one.
+ *
+ * Keys cannot decide it on their own. A protocol read from the old text has
+ * keys made by line position (the second "BPC-157" line is bpc-2, and so is
+ * "BPC-157 Oral" when it comes second, since both resolve to bpc), so after
+ * an edit the same key can name another line. Pairing by name alone fails
+ * too, when one compound has two lines ("Testosterone Cypionate, 100mg,
+ * Weekly (Mon)" and "..., 50mg, Weekly (Thu)").
+ *
+ * So, in passes, each compound taken at most once:
+ *   1. same name, same dose, same frequency text: an unchanged line
+ *   2. same name, same frequency text: that line's dose changed
+ *   3. same name, the rest in order
+ *   4. same key, only when neither protocol was read from the text, since
+ *      then keys are stable and a key kept across a rename is the same
+ *      compound
+ * Names compare without case or spacing, and a comma as the semicolon the
+ * old text turns it into. Where `before` is a stored model, its frequency
+ * text also matches the text tlProtocolToLegacy wrote for it, which is what
+ * the old form shows and saves back unchanged.
+ *
+ * A compound left over in `after` was added, one left over in `before` was
+ * removed; neither is a change. Returns { pairs: [{ was, now }], added,
+ * removed }, pairs in the order of `after`. */
+function tlPairCompounds(before, after) {
+  var old = (before && before.compounds) || [], now = (after && after.compounds) || [];
+  var stored = !!before && !before.derived, start = before && before.start;
+  var used = [], match = [];
+  var pass = function (same) {
+    now.forEach(function (c, j) {
+      if (match[j] !== undefined) return;
+      for (var i = 0; i < old.length; i++) {
+        if (!used[i] && same(old[i], c)) { used[i] = true; match[j] = i; return; }
+      }
+    });
+  };
+  var sameName = function (a, b) { return tlTextKey(a.name, true) === tlTextKey(b.name, true); };
+  var sameFreq = function (a, b) { return tlTextKey(a.freqText) === tlTextKey(b.freqText); };
+  var wroteFreq = function (a, b) { return stored && tlTextKey(tlLegacyFreqText(a, start)) === tlTextKey(b.freqText); };
+  pass(function (a, b) { return sameName(a, b) && tlSameDose(a.dose, b.dose) && sameFreq(a, b); });
+  pass(function (a, b) { return sameName(a, b) && tlSameDose(a.dose, b.dose) && wroteFreq(a, b); });
+  pass(function (a, b) { return sameName(a, b) && sameFreq(a, b); });
+  pass(function (a, b) { return sameName(a, b) && wroteFreq(a, b); });
+  pass(sameName);
+  if (stored && after && !after.derived) pass(function (a, b) { return !!a.key && a.key === b.key; });
+  var out = { pairs: [], added: [], removed: [] };
+  now.forEach(function (c, j) {
+    if (match[j] === undefined) out.added.push(c);
+    else out.pairs.push({ was: old[match[j]], now: c });
+  });
+  old.forEach(function (c, i) { if (!used[i]) out.removed.push(c); });
+  return out;
+}
+
+/* Text compared loosely: case and runs of space ignored, and for a name, a
+   comma read as the semicolon the old text writes for it. */
+function tlTextKey(s, isName) {
+  var t = String(s === null || s === undefined ? '' : s);
+  if (isName) t = t.replace(/,/g, ';');
+  return t.replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
+/* Has a compound's frequency text stayed what it was? The same text, or, for
+   a stored model, the text the old fields were written with for it. */
+function tlFreqUnchanged(was, now, start) {
+  var text = tlTextKey(now && now.freqText);
+  return tlTextKey(was && was.freqText) === text || tlTextKey(tlLegacyFreqText(was, start)) === text;
 }
 
 /* Two doses are the same when their amounts and units match, or, where an
@@ -1225,11 +1309,10 @@ function tlSameDose(a, b) {
 
 /* The dose changes between two protocols, as log rows stamped `nowIso`. */
 function tlDoseChangesBetween(before, after, nowIso) {
-  var out = [], old = (before && before.compounds) || [];
-  ((after && after.compounds) || []).forEach(function (c) {
-    var was = tlSameCompound(old, c);
-    if (!was || tlSameDose(was.dose, c.dose)) return;
-    out.push({ ts: nowIso, key: c.key, name: c.name, from: tlDoseText(was.dose), to: tlDoseText(c.dose) });
+  var out = [];
+  tlPairCompounds(before, after).pairs.forEach(function (p) {
+    if (tlSameDose(p.was.dose, p.now.dose)) return;
+    out.push({ ts: nowIso, key: p.now.key, name: p.now.name, from: tlDoseText(p.was.dose), to: tlDoseText(p.now.dose) });
   });
   return out;
 }
@@ -1351,15 +1434,30 @@ function tlConfirmCopy(kind, detail, nowMs) {
   return null;
 }
 
+/* The open sheet's done(), so that a sheet opened while another is up can
+   answer that one before taking its place. Removing the old sheet's node was
+   not enough: its promise never settled, and its key handler stayed on the
+   document, where a later Escape on the page was taken as "cancel" for a sheet
+   long gone and focus jumped back to what had opened it. */
+var tlConfirmOpen = null;
+
 /* Show the sheet. Resolves when the user chooses, to 'action', 'export' or
    'cancel'. Escape and a tap outside the sheet cancel. Focus starts on Cancel,
-   so a stray Enter cannot delete anything, and goes back where it was. */
+   so a stray Enter cannot delete anything, stays in the sheet, and goes back
+   where it was. One sheet at a time: a sheet already up is answered 'cancel',
+   so its caller goes on as if the user had said no. */
 function tlConfirm(opts) {
   return new Promise(function (resolve) {
     opts = opts || {};
-    var old = document.getElementById('tl-confirm');
-    if (old) old.parentNode.removeChild(old);
     var before = document.activeElement;
+    var old = document.getElementById('tl-confirm');
+    /* If focus was on the old sheet, its button is about to go. The old
+       sheet's done() puts focus back on what opened it, and that is where this
+       sheet should return it too. */
+    var fromOld = !!(old && before && old.contains(before));
+    if (tlConfirmOpen) tlConfirmOpen('cancel');
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+    if (fromOld) before = document.activeElement;
     var tone = opts.tone === 'danger' ? 'var(--danger)' : 'var(--accent3)';
     var el = function (tag, css, text) {
       var n = document.createElement(tag);
@@ -1417,12 +1515,19 @@ function tlConfirm(opts) {
     function onKey(e) {
       if (e.key === 'Escape') { e.preventDefault(); done('cancel'); return; }
       if (e.key !== 'Tab') return;
-      /* Keep Tab inside the sheet. */
+      /* Keep Tab inside the sheet: round from the last button to the first and
+         back, and from anywhere that is not one of its buttons to the first,
+         or with Shift to the last. Focus is off the buttons after a tap on the
+         sheet's text (it goes to the page's body) or when something on the
+         page took it, and from there the browser's own Tab order led to the
+         page behind the scrim, where Enter could open a second sheet. */
       var bs = sheet.querySelectorAll('button'), first = bs[0], last = bs[bs.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      var on = Array.prototype.indexOf.call(bs, document.activeElement) >= 0;
+      if (e.shiftKey && (!on || document.activeElement === first)) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (!on || document.activeElement === last)) { e.preventDefault(); first.focus(); }
     }
     function done(result) {
+      if (tlConfirmOpen === done) tlConfirmOpen = null;
       document.removeEventListener('keydown', onKey, true);
       if (wrap.parentNode) wrap.parentNode.removeChild(wrap);
       if (before && typeof before.focus === 'function') { try { before.focus(); } catch (e) {} }
@@ -1430,6 +1535,7 @@ function tlConfirm(opts) {
     }
     wrap.onclick = function (e) { if (e.target === wrap) done('cancel'); };
     document.addEventListener('keydown', onKey, true);
+    tlConfirmOpen = done;
 
     wrap.appendChild(sheet);
     document.body.appendChild(wrap);
@@ -1577,9 +1683,14 @@ function tlLeanMass(weight, bfPct) {
 
 /* A typed height as inches: 5'11", 5 ft 11, 71 in, 180 cm, 1.80 m. A bare
    number is taken as centimetres from 100 up and inches below that. Null when
-   it does not read as a height. */
+   it does not read as a height.
+
+   Curly quotes and prime marks count as the straight ones. An iPhone's Smart
+   Punctuation, on by default, turns 5'11" into 5’11” as it is typed, and the
+   profile stores the text as typed; some people type the primes, 5′11″. */
 function tlParseHeight(text) {
-  var s = String(text === null || text === undefined ? '' : text).trim().toLowerCase();
+  var s = String(text === null || text === undefined ? '' : text).trim().toLowerCase()
+    .replace(/[‘’′]/g, "'").replace(/[“”″]/g, '"');
   if (!s) return null;
   var inches = null, m;
   if ((m = s.match(/^(\d)\s*(?:'|ft|feet|foot)\s*(\d{1,2}(?:\.\d+)?)?\s*(?:"|''|in|inches)?$/))) inches = +m[1] * 12 + (m[2] ? +m[2] : 0);
@@ -1678,7 +1789,7 @@ var TL_MARKER_SHORT = {
  *
  *   labs = { range(key, entry) -> { lo, hi } | null,     labRangeFor
  *            status(key, value, entry) -> 'good' | 'warn' | 'bad' | 'neutral',   labSt
- *            label(key), unit(key) }
+ *            label(key), unit(key, labMeta[key]) }   tlMarkerLabel, tlLabUnit
  *
  * Returns { entry, date, rows, out } or null. A row is
  *   { key, name, value, unit, lo, hi, status, dir }
@@ -1703,7 +1814,8 @@ function tlLatestPanel(entries, labs) {
     var hi = typeof r.hi === 'number' && isFinite(r.hi) ? r.hi : null;
     var status = labs.status(k, v, latest);
     return {
-      key: k, name: TL_MARKER_SHORT[k] || labs.label(k), value: v, unit: labs.unit(k) || '',
+      key: k, name: TL_MARKER_SHORT[k] || labs.label(k), value: v,
+      unit: labs.unit(k, (latest.labMeta && latest.labMeta[k]) || {}) || '',
       lo: lo, hi: hi, status: status,
       dir: status === 'bad' ? (lo !== null && v < lo ? 'below' : hi !== null && v > hi ? 'above' : null) : null
     };
@@ -1879,6 +1991,7 @@ function tlLevelChart(series, w, h) {
  *       route,        'im' | 'sq' | 'oral' | 'topical' | null
  *       rule,         which days, in tlDueOn()'s rule shape; null = unscheduled
  *       freqText,     the old frequency text, when there was one
+ *       note,         what the old line said after its frequency, if anything
  *       slots,        which of the four time slots it is taken in
  *       inv           { per, left, spare, since } or null (supply.js)
  *     }],
@@ -1899,7 +2012,8 @@ function tlLevelChart(series, w, h) {
  * and the old discreet-reminders flag.
  *
  * Reads four of the app's own functions, so an old protocol means here exactly
- * what it means to the old screens: parseMeds, getDefaultTimes, tlFreqDays.
+ * what it means to the old screens: parseMeds, parseFrequency,
+ * getDefaultTimes, tlFreqDays.
  */
 
 var TL_SCHEMA = 3;
@@ -1947,6 +2061,21 @@ function tlSlotOf(min) {
   return key;
 }
 
+/* A slot's time, kept inside the slot's own span: morning 04:00 to 10:59,
+   midday 11:00 to 15:59, evening 16:00 to 20:29, bedtime 20:30 to 03:59. The
+   old fields store clock times, not slots, and are read back into slots by
+   time of day, so a morning round set to 11:30 would come back as midday and
+   take its compounds with it. A time outside the span moves to the nearer
+   end of it. */
+function tlClampSlotTime(key, min) {
+  var i = TL_SLOT_KEYS.indexOf(key);
+  var m = ((Math.round(min) % 1440) + 1440) % 1440;
+  if (i < 0 || tlSlotOf(m) === key) return m;
+  var from = TL_SLOTS[i].from, to = (TL_SLOTS[(i + 1) % 4].from + 1439) % 1440;
+  var toFrom = (from - m + 1440) % 1440, pastTo = (m - to + 1440) % 1440;
+  return toFrom <= pastTo ? from : to;
+}
+
 /* A compound's old reminder times, as slots. A compound sits in a slot at most
    once, so a second time that lands in a taken slot moves to the next free
    one: 08:00 and 10:00 become morning and midday, not one dose. More than four
@@ -1975,7 +2104,14 @@ function tlSlotsFromTimes(times) {
  * an optional unit, and then nothing that could change what the number means:
  * "250mcg twice daily" is 250 mcg, but "200mg/week" (a weekly total),
  * "250-500mcg" (a range) and "0.5ml (100mg)" (two numbers) keep the text and
- * get no amount. The app never guesses a dose. */
+ * get no amount. The app never guesses a dose.
+ *
+ * A number with no unit read is a bare amount only when nothing that could be
+ * a unit follows it. "250 mcg/day" is a unit this parser does not take (a
+ * daily total), and "2 sprays" or "250 mcgs" one it does not know; reading
+ * either as a bare 250 or 2 would drop what the number counts, and a later
+ * reader would take a bare number as milligrams. So a word, a % sign or a
+ * slash after an unread unit leaves the dose as text. */
 function tlParseDose(text) {
   var raw = String(text === null || text === undefined ? '' : text).trim();
   var out = { amount: null, unit: null, text: raw };
@@ -1983,6 +2119,7 @@ function tlParseDose(text) {
   if (!m) return out;
   var rest = m[3] || '';
   if (/\d/.test(rest) || /^\s*(\/|per\b|x\b|to\b)/i.test(rest)) return out;
+  if (!m[2] && (/^\s*(\p{L}|%)/u.test(rest) || rest.indexOf('/') >= 0)) return out;
   var amount = parseFloat(m[1]);
   if (!isFinite(amount) || amount <= 0) return out;
   var u = (m[2] || '').toLowerCase();
@@ -2013,37 +2150,84 @@ function tlDoseText(dose) {
 
 /* ---- which days ---------------------------------------------------------- */
 
-/* Weekdays the user named in words ("Twice weekly (Mon/Thu)"), as 0-6 with
-   Sunday 0, or null. "Monthly" names no weekday. */
-function tlWeekdaysInText(text) {
-  var re = /\b(sun|mon|tue|tues|wed|weds|thu|thur|thurs|fri|sat)(?:day|sday|nesday|rsday|urday)?\b/gi;
-  var found = {}, m, any = false;
-  while ((m = re.exec(String(text || '')))) {
-    found[['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(m[1].toLowerCase().slice(0, 3))] = true;
-    any = true;
+/* The day words in a text, in order, as { d, at, end } with d 0-6 and Sunday
+   0. Short and long forms and plurals: "Thu", "Thurs", "Thursday",
+   "Thursdays". "Monthly" and "thus" name no day. */
+function tlDayWords(text) {
+  var re = /\b(sun(?:days?)?|mon(?:days?)?|tue(?:s(?:days?)?)?|wed(?:s|nesdays?)?|thu(?:r(?:s(?:days?)?)?)?|fri(?:days?)?|sat(?:urdays?)?)\b/gi;
+  var s = String(text || ''), out = [], m;
+  while ((m = re.exec(s))) {
+    out.push({ d: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(m[1].toLowerCase().slice(0, 3)),
+      at: m.index, end: m.index + m[0].length });
   }
-  if (!any) return null;
+  return out;
+}
+
+/* Weekdays the user named as dose days ("Twice weekly (Mon/Thu)", "Mon-Fri"),
+   as 0-6 with Sunday 0, or null when the text names none it can take.
+ *
+ * Only a plain list of days counts, or a range: "Mon-Fri", "Mon through
+ * Fri" and "Monday to Friday" are the days between, and a dash joining three
+ * days or more ("Mon-Wed-Fri") is a list. A day named after a word that makes
+ * it an exception or a starting point ("except Sunday", "skip Sundays",
+ * "starting Mon", "from Tuesday") is not a dose day, and then the text says
+ * nothing this can trust, so it gives null and the caller falls back to the
+ * reading the old screens used. */
+function tlWeekdaysInText(text) {
+  var s = String(text || ''), words = tlDayWords(s);
+  if (!words.length) return null;
+  var guard = /\b(except|excluding|skip\w*|no|not|off|start\w*|begin\w*|from|until|till)\b/i.exec(s);
+  if (guard && guard.index < words[words.length - 1].at) return null;
+  var link = function (a, b) { return /^\s*(-|–|—|through|thru|to)\s*$/i.test(s.slice(a.end, b.at)); };
+  var found = {}, i = 0;
+  while (i < words.length) {
+    var j = i;
+    while (j + 1 < words.length && link(words[j], words[j + 1])) j++;
+    if (j === i + 1) {
+      for (var d = words[i].d; ; d = (d + 1) % 7) { found[d] = true; if (d === words[j].d) break; }
+    } else {
+      for (var k = i; k <= j; k++) found[words[k].d] = true;
+    }
+    i = j + 1;
+  }
   var days = [];
-  for (var d = 0; d < 7; d++) if (found[d]) days.push(d);
+  for (var n = 0; n < 7; n++) if (found[n]) days.push(n);
   return days;
 }
 
-/* The rule for an old protocol line.
+/* The rule for an old protocol line. `note` is whatever the line said after
+   its frequency.
  *
  * Where the user wrote weekdays in the frequency text, those are the rule:
  * they are the user's own words, and neither old schedule engine read them
  * (the visible one placed "twice weekly" from the protocol's start day, the
- * other always on Monday and Thursday).
+ * other always on Monday and Thursday). They are taken only when they can be
+ * taken safely (tlWeekdaysInText), never for a pulse, an interval or a monthly
+ * line, and for a weekly line only when there are exactly as many as it
+ * takes a week: "Twice weekly (Mon)" leaves a dose unplaced, and is read the
+ * old way instead. How many it takes is parseFrequency's count unless the
+ * text states one: parseFrequency reads "3x weekly" as once a week, and
+ * "3x weekly (Mon/Wed/Fri)" names its three days plainly.
+ *
+ * Days in the note count only for a weekly line whose frequency names none,
+ * and under the same conditions: "Twice weekly, Mon AM and Thu PM" is Monday
+ * and Thursday. A daily line is never made weekly by its note, which might
+ * say anything ("refill on Fridays").
  *
  * Otherwise this follows getDoseDays(), the engine behind every screen the
  * user has been looking at: weekly protocols fall on the start weekday, and
  * the 10-day pulse, which that engine never scheduled, has no rule. */
-function tlRuleFromLegacy(med, start) {
+function tlRuleFromLegacy(med, start, note) {
   var freq = med && med.freq;
-  var named = tlWeekdaysInText(med && med.freqStr);
-  if (named && named.length && named.length < 7 && !(freq && (freq.type === 'interval' || freq.type === 'monthly'))) {
-    return { weekdays: named };
+  var type = freq && freq.type;
+  var named = null;
+  if (type !== 'interval' && type !== 'monthly' && type !== 'pulse') {
+    if (tlDayWords(med && med.freqStr).length) named = tlWeekdaysInText(med.freqStr);
+    else if (type === 'weekly' && note) named = tlWeekdaysInText(note);
+    var stated = /\b([1-7])\s*(?:x|times)\s*(?:\/|a|per|each)?\s*week/i.exec((med && med.freqStr) || '');
+    if (named && type === 'weekly' && named.length !== (stated ? +stated[1] : (freq.count || 1))) named = null;
   }
+  if (named && named.length && named.length < 7) return { weekdays: named };
   if (!freq || freq.type === 'daily') return { daily: true };
   if (freq.type === 'interval') return { every: { days: freq.interval || 1 } };
   if (freq.type === 'weekly') {
@@ -2093,14 +2277,30 @@ function tlDefaultSlots() {
 }
 
 /* A key for a compound: the encyclopedia id when there is one, otherwise the
-   name reduced to letters, digits and hyphens. Never contains a colon, so it
-   is safe inside a dose id. `taken` is the set of keys already used. */
+   name reduced to letters, digits and hyphens. A name with none of those
+   ("Сустанон") gets "c-" and a short hash of the name, so its key is its own
+   and does not change when lines are reordered; a shared fallback with a
+   number by position would hand one compound's key to another. Never
+   contains a colon, so it is safe inside a dose id. `taken` is the set of
+   keys already used. */
 function tlCompoundKey(name, drugId, taken) {
-  var base = String(drugId || name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 24) || 'compound';
+  var text = String(drugId || name || '');
+  var base = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 24) || 'c-' + tlHash(text);
   var key = base, n = 2;
   while (taken[key]) key = base + '-' + (n++);
   taken[key] = true;
   return key;
+}
+
+/* A short stable hash of a text, in base 36: 32-bit FNV-1a over its UTF-16
+   code units. */
+function tlHash(text) {
+  var h = 0x811c9dc5, s = String(text);
+  for (var i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h.toString(36);
 }
 
 function tlRouteForMedium(medium) {
@@ -2145,10 +2345,14 @@ function tlProtocolFromLegacy(d, env) {
   var times = (d && d.reminderTimes) || {};
   var supply = (d && d.supply) || {};
   var taken = {}, bySlot = { am: [], mid: [], eve: [], bed: [] };
+  /* The same lines parseMeds reads, kept whole for what it drops: everything
+     after the third comma, a note the user wrote ("glute only"). */
+  var raw = String(proto.meds).split('\n').filter(function (l) { return l.trim(); });
 
-  parseMeds(proto.meds).forEach(function (med) {
+  parseMeds(proto.meds).forEach(function (med, i) {
+    var note = String(raw[i] || '').split(',').slice(3).join(',').trim();
     var drugId = env.resolve ? (env.resolve(med.name) || null) : null;
-    var rule = tlRuleFromLegacy(med, proto.start);
+    var rule = tlRuleFromLegacy(med, proto.start, note);
     /* Stored times if the user set any, else the defaults the old screens show
        and fire for this frequency. */
     var placed = tlSlotsFromTimes(times[med.name] || getDefaultTimes(med.freq));
@@ -2165,6 +2369,7 @@ function tlProtocolFromLegacy(d, env) {
       slots: rule ? placed.slots : [],
       inv: null
     };
+    if (note) c.note = note;
     if (placed.dropped.length) c.droppedTimes = placed.dropped;
     /* Vials on hand say nothing about doses per vial, so the count starts
        unknown: one vial open, the rest spare, and the user fills in the rest. */
@@ -2174,43 +2379,93 @@ function tlProtocolFromLegacy(d, env) {
     out.compounds.push(c);
   });
 
+  /* Clamped as a stored protocol's are (tlNormalizeProtocol), so making this
+     reading permanent does not move a round. A time is outside its slot only
+     when two of a compound's times shared one and the later moved on. */
   TL_SLOT_KEYS.forEach(function (k) {
-    out.slots[k].t = tlPickSlotTime(bySlot[k], out.slots[k].t);
+    out.slots[k].t = tlClampSlotTime(k, tlPickSlotTime(bySlot[k], out.slots[k].t));
   });
   return out;
 }
 
-/* Fill in whatever a stored protocol is missing, so readers need no guards. */
+function tlIsObject(x) { return !!x && typeof x === 'object' && !Array.isArray(x); }
+
+/* Fill in whatever a stored protocol is missing, so readers need no guards.
+ *
+ * A stored protocol can come from a backup made by another build, or edited
+ * by hand, so nothing in it is trusted to have its shape: a field of the wrong
+ * type is replaced, never read, and a bad compound loses the bad part rather
+ * than stopping the read (or the import it is part of).
+ *
+ * Keys are kept where they can be, since doses already logged carry them: a
+ * non-empty key with no colon that no earlier compound holds. A compound
+ * without one gets a key made from its name, which never takes a good key
+ * held by a later compound. A compound with neither key nor name is dropped;
+ * there is nothing to show for it. */
 function tlNormalizeProtocol(p) {
+  p = tlIsObject(p) ? p : {};
   var out = {
     name: p.name || '', start: p.start || null, weeks: p.weeks || null, pct: p.pct || '',
     created: p.created || null, compounds: [], slots: tlDefaultSlots(), discreet: !!p.discreet
   };
   TL_SLOT_KEYS.forEach(function (k) {
-    var s = p.slots && p.slots[k];
-    if (!s) return;
-    if (typeof s.t === 'number' && isFinite(s.t)) out.slots[k].t = ((Math.round(s.t) % 1440) + 1440) % 1440;
+    var s = tlIsObject(p.slots) && p.slots[k];
+    if (!tlIsObject(s)) return;
+    if (typeof s.t === 'number' && isFinite(s.t)) out.slots[k].t = tlClampSlotTime(k, s.t);
     out.slots[k].alert = s.alert !== false;
   });
-  (p.compounds || []).forEach(function (c) {
-    if (!c || !c.key) return;
+
+  var list = (Array.isArray(p.compounds) ? p.compounds : []).filter(tlIsObject);
+  var text = function (x) { return (typeof x === 'string' || typeof x === 'number') && String(x).trim() ? String(x) : ''; };
+  var taken = {}, kept = [];
+  list.forEach(function (c, i) {
+    var key = typeof c.key === 'string' ? c.key : '';
+    if (key && key.indexOf(':') < 0 && !taken[key]) { taken[key] = true; kept[i] = key; }
+  });
+  list.forEach(function (c, i) {
+    var name = text(c.name) || text(c.key);
+    if (!name) return;
     var copy = {};
     Object.keys(c).forEach(function (k) { copy[k] = c[k]; });
-    copy.name = c.name || c.key;
+    copy.name = name;
     copy.drugId = c.drugId || null;
-    copy.dose = c.dose && typeof c.dose === 'object' ? c.dose : tlParseDose(c.dose);
-    copy.route = c.route || null;
-    copy.rule = c.rule || null;
-    copy.slots = TL_SLOT_KEYS.filter(function (k) { return (c.slots || []).indexOf(k) >= 0; });
-    copy.inv = c.inv || null;
+    copy.key = kept[i] || tlCompoundKey(name, copy.drugId, taken);
+    copy.dose = tlNormalizeDose(c.dose);
+    copy.route = typeof c.route === 'string' && c.route ? c.route : null;
+    copy.rule = tlIsObject(c.rule) ? c.rule : null;
+    copy.slots = Array.isArray(c.slots) ? TL_SLOT_KEYS.filter(function (k) { return c.slots.indexOf(k) >= 0; }) : [];
+    copy.inv = tlIsObject(c.inv) ? c.inv : null;
+    if (!text(c.note)) delete copy.note;
+    else copy.note = String(c.note);
     out.compounds.push(copy);
   });
   return out;
 }
 
-/* The protocol for a record: the stored one, or the old fields read as one. */
+/* A stored dose with an amount that is a positive number or null, a unit that
+   is text or null, and text. Anything else in it is kept. */
+function tlNormalizeDose(dose) {
+  if (!tlIsObject(dose)) return tlParseDose(typeof dose === 'string' || typeof dose === 'number' ? dose : '');
+  var out = {};
+  Object.keys(dose).forEach(function (k) { out[k] = dose[k]; });
+  out.amount = typeof dose.amount === 'number' && isFinite(dose.amount) && dose.amount > 0 ? dose.amount : null;
+  out.unit = out.amount !== null && typeof dose.unit === 'string' && dose.unit ? dose.unit : null;
+  out.text = typeof dose.text === 'string' ? dose.text : (out.amount !== null ? tlDoseText(out) : '');
+  return out;
+}
+
+/* The protocol for a record: the stored one, or the old fields read as one.
+ *
+ * There are two discreet switches: the stored protocol's, and this device's
+ * old discreet-reminders setting (env.discreet), which only the device
+ * knows. Either one hides compound names. A lock screen that shows a name the
+ * user asked to hide in one place cannot be taken back. */
 function tlProtocol(d, env) {
-  if (d && d.protocol && Array.isArray(d.protocol.compounds)) return tlNormalizeProtocol(d.protocol);
+  if (d && d.protocol && Array.isArray(d.protocol.compounds)) {
+    var p = tlNormalizeProtocol(d.protocol);
+    p.discreet = p.discreet || !!(env && env.discreet);
+    return p;
+  }
   return tlProtocolFromLegacy(d, env);
 }
 
@@ -2229,28 +2484,29 @@ function tlCompound(protocol, key) {
  * calendar export, and every older build of the app, which drops keys it does
  * not know when it imports a backup. So each save also rewrites the old
  * fields as the closest thing they can say. They cannot say everything: the
- * old frequency text has no word for "Mon, Wed and Fri" or "five on, two
- * off", and an older reader will take those as daily. */
+ * old frequency text has no word for "Mon, Wed and Fri", "every two weeks" or
+ * "five on, two off", and an older reader takes any text it does not know as
+ * daily. So a rule the text cannot say exactly is written as a pulse, which
+ * every old reader treats as never due (tlLegacyFreqText): no dose days is a
+ * gap the user can see, daily dosing of a fortnightly compound is not.
+ *
+ * Each line is "name, dose, frequency" and then the compound's note, if it
+ * has one, where parseMeds ignores it. Reminder times are keyed by the name
+ * exactly as the line has it, since that is how they are looked up. */
 function tlProtocolToLegacy(p) {
-  var clean = function (s) { return String(s === null || s === undefined ? '' : s).replace(/,/g, ';').replace(/[\r\n]+/g, ' ').trim(); };
   var lines = [], reminderTimes = {};
   (p.compounds || []).forEach(function (c) {
-    var rule = c.rule, n = (c.slots || []).length, freq;
-    if (!rule) freq = c.freqText || 'No schedule (pulse)';
-    else if (rule.daily && !rule.pattern && !rule.taper) freq = n >= 2 ? 'Twice daily' : 'Daily';
-    else if (rule.weekdays && !rule.pattern && !rule.taper) {
-      freq = rule.weekdays.length === 1 ? 'Weekly (' + tlRuleLabel(rule) + ')'
-        : rule.weekdays.length === 2 ? 'Twice weekly (' + tlRuleLabel(rule) + ')'
-        : tlRuleLabel(rule);
-    }
-    else if (rule.every && rule.every.days === 3.5 && !rule.pattern) freq = 'Twice weekly';
-    else if (rule.every && rule.every.days === 7 && !rule.pattern) freq = 'Weekly';
-    else if (rule.monthly) freq = 'Monthly';
-    else freq = tlRuleLabel(rule);
-    lines.push(clean(c.name) + ', ' + clean(c.dose ? (c.dose.text || tlDoseText(c.dose)) : '') + ', ' + clean(freq));
-    if (n) {
-      reminderTimes[c.name] = c.slots.map(function (k) { return p.slots[k].t; })
+    var name = tlLegacyName(c.name), freq = tlLegacyFreqText(c, p.start), slots = c.slots || [];
+    var line = name + ', ' + tlLegacyName(tlLegacyDoseText(c.dose)) + ', ' + freq;
+    var note = String(c.note || '').replace(/[\r\n]+/g, ' ').trim();
+    if (note) line += ', ' + note;
+    lines.push(line);
+    if (slots.length) {
+      reminderTimes[name] = slots.map(function (k) { return p.slots[k].t; })
         .sort(function (a, b) { return a - b; }).map(tlMinToTime);
+    } else if (parseFrequency(freq).type !== 'pulse') {
+      /* Scheduled, but in no round: no reminder, rather than the defaults. */
+      reminderTimes[name] = [];
     }
   });
   return {
@@ -2260,6 +2516,74 @@ function tlProtocolToLegacy(p) {
     } : null,
     reminderTimes: reminderTimes
   };
+}
+
+/* Text as one field of an old line: a comma would start the next field. */
+function tlLegacyName(s) {
+  return String(s === null || s === undefined ? '' : s).replace(/,/g, ';').replace(/[\r\n]+/g, ' ').trim();
+}
+
+/* A dose for an old line: the text the user typed when it says the amount the
+   model holds ("250mcg twice daily" is 250 mcg), otherwise the amount itself,
+   so the line never states a dose the model does not. */
+function tlLegacyDoseText(dose) {
+  if (!dose) return '';
+  var text = String(dose.text || '');
+  if (dose.amount === null || dose.amount === undefined) return text;
+  var read = tlParseDose(tlLegacyName(text));
+  return read.amount === dose.amount && read.unit === (dose.unit || null) ? text : tlDoseText(dose);
+}
+
+/* The frequency an old line gets for a compound, and the only texts used are
+   ones the old screens and tlProtocolFromLegacy both read back as the same
+   doses on the same days: daily, every other day, every third day, monthly,
+   weekly and twice weekly from the start day, and one or two named weekdays.
+   Intervals and monthly need the protocol's start, which is where both
+   engines count from.
+ *
+ * Anything else, a null rule included, is written as a pulse, which every
+ * reader of the old text treats as never due: "Every 2 weeks (pulse - see
+ * app)". The label is dropped where it would read as another frequency
+ * ("Daily, 5 on 2 off" says daily first). An unscheduled compound whose own
+ * old text was already a pulse keeps that text. */
+function tlLegacyFreqText(c, start) {
+  var rule = c && c.rule, n = ((c && c.slots) || []).length;
+  if (!tlIsObject(rule)) {
+    var own = tlLegacyName(c && c.freqText);
+    return own && parseFrequency(own).type === 'pulse' ? own : tlPulseText('No schedule');
+  }
+  /* A rule's own start that is the protocol's start says nothing the old
+     text does not: the old screens count intervals from the protocol's start. */
+  var keys = Object.keys(rule).filter(function (k) {
+    return rule[k] !== undefined && rule[k] !== null && !(k === 'start' && rule.start === start);
+  });
+  var only = function (k) { return keys.length === 1 && keys[0] === k; };
+  var every = tlIsObject(rule.every) && Object.keys(rule.every).join() === 'days' ? rule.every.days : null;
+  var days = Array.isArray(rule.weekdays) ? rule.weekdays : [];
+  var plain = days.every(function (d, i) { return d >= 0 && d <= 6 && d % 1 === 0 && days.indexOf(d) === i; });
+  if ((only('daily') && rule.daily === true) || (only('every') && every === 1) || (only('weekdays') && plain && days.length === 7)) {
+    return n >= 2 ? 'Twice daily' : 'Daily';
+  }
+  if (only('weekdays') && plain && days.length === 1) return 'Weekly (' + tlRuleLabel(rule) + ')';
+  if (only('weekdays') && plain && days.length === 2) return 'Twice weekly (' + tlRuleLabel(rule) + ')';
+  /* The start day and three days on, as the old week view placed twice weekly.
+     Written out as weekdays, so a note after the frequency cannot move them. */
+  var fromStart = /^\d{4}-\d{2}-\d{2}$/.test(String(start || '')) ? tlFreqDays({ type: 'weekly', count: 2 }, start) : null;
+  if (fromStart) {
+    if (only('every') && every === 2) return 'Every other day';
+    if (only('every') && every === 3) return 'Every 3 days';
+    if ((only('every') && every === 7) || (only('weeklyCount') && rule.weeklyCount === 1)) {
+      return 'Weekly (' + TL_WEEKDAYS[fromStart[0]] + ')';
+    }
+    if (only('weeklyCount') && rule.weeklyCount === 2) return 'Twice weekly (' + tlRuleLabel({ weekdays: fromStart }) + ')';
+    if (only('monthly') && rule.monthly === true) return 'Monthly';
+  }
+  return tlPulseText(tlRuleLabel(rule));
+}
+
+function tlPulseText(label) {
+  var text = tlLegacyName(label) + ' (pulse - see app)';
+  return parseFrequency(text).type === 'pulse' ? text : 'Custom schedule (pulse - see app)';
 }
 
 /* Make the derived model the stored one. Idempotent: a record that already
@@ -2311,22 +2635,37 @@ function tlStoreProtocol(d, protocol) {
 /* Carry the redesign's keys from an imported record into the current one.
  *
  * `tookProto` says whether importData just took the file's old-style protocol
- * because this device had none. The model follows the same rule and only that
- * rule: a device that already has a protocol, in either shape, keeps it whole.
- * Taking the file's model alongside the device's old text would leave the two
- * describing different protocols.
+ * because this device had none. The model follows that decision and only
+ * that decision, so the text and the model always describe one protocol:
  *
- * Returns { added, newer }: how many log rows were added, and whether the file
- * came from a newer version of the app than this one, in which case there may
- * be keys in it this build does not know to carry. */
+ *   - the device took the file's text: it takes the file's model with it, or,
+ *     when the file has none, drops whatever model it had, so the model is
+ *     read from the text it just took;
+ *   - the device kept its own text: it keeps its own model, or lack of one;
+ *   - neither has text: a device model with compounds is a protocol and is
+ *     kept, and an empty one is not, so the file's model is taken.
+ *
+ * A model taken from the file brings the old fields with it where they could
+ * disagree: reminder times for its compounds, written from its slots, and the
+ * old text when the device has none, as tlStoreProtocol would write them.
+ *
+ * A model that cannot be read is skipped and reported, and the rest of the
+ * import goes ahead: a damaged protocol in a backup must never cost the user
+ * their entries.
+ *
+ * Returns { added, newer }, and `skipped: true` when the file's model was
+ * left out: how many log rows were added, and whether the file came from a
+ * newer version of the app than this one, in which case there may be keys in
+ * it this build does not know to carry. */
 function tlImportModel(current, imported, tookProto) {
   var out = { added: 0, newer: false };
   if (!current || !imported) return out;
 
-  var hadProtocol = !!(current.protocol && Array.isArray(current.protocol.compounds));
-  var fileHas = !!(imported.protocol && Array.isArray(imported.protocol.compounds));
-  if (!hadProtocol && fileHas && (tookProto || !current.proto)) {
-    current.protocol = tlNormalizeProtocol(imported.protocol);
+  try {
+    tlImportProtocol(current, imported, tookProto, out);
+  } catch (e) {
+    out.skipped = true;
+    if (tookProto) delete current.protocol;
   }
 
   if (Array.isArray(imported.doseChanges)) {
@@ -2354,6 +2693,37 @@ function tlImportModel(current, imported, tookProto) {
   return out;
 }
 
+/* The protocol half of tlImportModel. Everything that can fail on a damaged
+   file runs before the record is touched. */
+function tlImportProtocol(current, imported, tookProto, out) {
+  var model = null;
+  if (imported.protocol !== undefined && imported.protocol !== null) {
+    if (Array.isArray(imported.protocol.compounds)) model = tlNormalizeProtocol(imported.protocol);
+    else out.skipped = true;
+  }
+  var legacy = model ? tlProtocolToLegacy(model) : null;
+  var own = current.protocol && Array.isArray(current.protocol.compounds) ? current.protocol : null;
+
+  var take = false;
+  if (tookProto) {
+    if (model) take = true;
+    else delete current.protocol;
+  } else if (!current.proto) {
+    take = !!model && !(own && own.compounds.length);
+  }
+  if (!take) return;
+
+  current.protocol = model;
+  if (!current.proto && legacy.proto) current.proto = legacy.proto;
+  var names = model.compounds.map(function (c) { return tlLegacyName(c.name); });
+  if (!names.length) return;
+  if (!tlIsObject(current.reminderTimes)) current.reminderTimes = {};
+  names.forEach(function (name) {
+    if (Object.prototype.hasOwnProperty.call(legacy.reminderTimes, name)) current.reminderTimes[name] = legacy.reminderTimes[name];
+    else delete current.reminderTimes[name];
+  });
+}
+
 /* A setting kept in the record, with its default. */
 function tlSetting(d, name, fallback) {
   var s = d && d.settings;
@@ -2366,13 +2736,64 @@ function tlSetSetting(d, name, value) {
   return d;
 }
 
-/* The old protocol form saved new text. Record any dose that changed, and drop
-   a stored model so it is read again from the text the user just wrote.
-   `before` is tlProtocol() as it was before the save. */
+/* The old protocol form saved new text. Record any dose that changed, and
+   bring the model up to date with the text the user just wrote.
+   `before` is tlProtocol() as it was before the save.
+ *
+ * With no stored model, nothing is stored: the model is read from the text,
+ * as it always is.
+ *
+ * With a stored model, the text cannot simply replace it: the old form has no
+ * field for a compound's inventory, its key (which the doses already logged
+ * carry), a rule the text could only write as a pulse, the slot times, the
+ * alert switches or discreet. So the model is read again from the new text,
+ * and each compound paired with one of the stored model's (tlPairCompounds,
+ * the same pairing the dose-change log uses) keeps its key, encyclopedia id,
+ * route and inventory, and its rule too while its frequency text is
+ * unchanged. A compound the text adds gets a new key, never one the stored
+ * model held, so a removed compound's logged doses cannot become its. The
+ * protocol keeps its slot times, alert switches and discreet. That is stored
+ * as the model; `proto` and `reminderTimes` keep exactly what the user
+ * typed. Changes `d`; the caller saves. */
 function tlAfterLegacyProtocolSave(d, before, env, nowIso) {
-  delete d.protocol;
+  var stored = d.protocol && Array.isArray(d.protocol.compounds) ? tlNormalizeProtocol(d.protocol) : null;
   var after = tlProtocolFromLegacy(d, env);
+  if (stored) {
+    after = tlCarryModel(stored, after);
+    d.protocol = after;
+    d.v = TL_SCHEMA;
+  }
   return tlRecordDoseChanges(d, before, after, nowIso);
+}
+
+/* A model read from the old text, with what the text cannot say carried over
+   from the stored model it replaces. Pure. */
+function tlCarryModel(stored, read) {
+  var pairs = tlPairCompounds(stored, read).pairs;
+  var taken = {}, fresh = [];
+  stored.compounds.forEach(function (c) { taken[c.key] = true; });
+  var compounds = read.compounds.map(function (c) {
+    var was = null;
+    pairs.forEach(function (p) { if (p.now === c) was = p.was; });
+    if (!was) { fresh.push(c); return c; }
+    var keepRule = tlFreqUnchanged(was, c, stored.start);
+    var m = {};
+    Object.keys(was).forEach(function (k) { m[k] = was[k]; });
+    m.name = c.name;
+    m.dose = c.dose;
+    m.freqText = c.freqText;
+    m.rule = keepRule ? was.rule : c.rule;
+    /* A rule written as a pulse reads back with no slots; its own stand. */
+    m.slots = keepRule && was.rule && !c.rule ? was.slots : c.slots;
+    if (c.note) m.note = c.note; else delete m.note;
+    if (c.droppedTimes) m.droppedTimes = c.droppedTimes; else delete m.droppedTimes;
+    return m;
+  });
+  fresh.forEach(function (c) { c.key = tlCompoundKey(c.name, c.drugId, taken); });
+  return tlNormalizeProtocol({
+    name: read.name, start: read.start, weeks: read.weeks, pct: read.pct, created: read.created,
+    compounds: compounds, slots: stored.slots, discreet: stored.discreet
+  });
 }
 
 /* ---- src/logic/rounds.js ---- */
@@ -2391,10 +2812,27 @@ function tlAfterLegacyProtocolSave(d, before, env, nowIso) {
  * The dose LOG is not a new store. A logged dose is a medication entry in
  * d.entries, the same array the app has always used, with three more fields
  * (key, slot, day) saying which dose it was. So history, the level chart, the
- * report and supply all see a dose however it was logged, and a dose logged
- * from an old screen, which has no slot, still ticks its round off: an
- * unassigned entry for the same compound on the same day is matched to the
- * round nearest its time.
+ * report and supply all see a dose however it was logged. Its `dose` is the
+ * text the user typed, as the old screens wrote it.
+ *
+ * A dose logged from an old screen has no key, slot or day, only a name and a
+ * time, and it still ticks its round off (tlMatchDay):
+ *
+ *   - It counts for the local day of its time, except that before 04:00 it
+ *     is the evening before's when a compound of that name is in the bedtime
+ *     round and was due that evening. That depends on nothing but the entry
+ *     and the protocol, so whichever day is asked about, the entry is counted
+ *     for exactly one.
+ *   - It goes to the dose whose round is nearest its time, among every
+ *     compound with its name, so two protocol lines with one name never share
+ *     an entry. If that dose is already ticked, the entry is a second record
+ *     of it and ticks nothing else: the morning dose recorded twice does not
+ *     make the bedtime dose taken.
+ *
+ * An entry that names a dose already ticked is likewise a second record. An
+ * entry naming a slot its compound has since been moved out of goes to the
+ * nearest dose still pending, so a dose taken still counts when the protocol
+ * changes under it.
  *
  * Which days a compound is due is tlDueOn()'s answer, the rule engine already
  * in the app, so every-other-day, on/off cycling and tapers work here without
@@ -2451,10 +2889,168 @@ function tlIsMedEntry(e) { return !!e && e.type === 'medication'; }
 
 /* Does this entry record a dose of this compound? By key when the entry has
    one, otherwise by the exact name, which is how older entries are tied to a
-   protocol line. */
+   protocol line. Two lines can share a name; tlMatchDay gives such an entry
+   to one of them. */
 function tlEntryIsFor(e, c) {
   if (!tlIsMedEntry(e)) return false;
   return e.key ? e.key === c.key : e.medication === c.name;
+}
+
+/* The compounds an entry may be a dose of: the one with its key, or every one
+   with its name. */
+function tlEntryCompounds(protocol, e) {
+  return ((protocol && protocol.compounds) || []).filter(function (c) { return tlEntryIsFor(e, c); });
+}
+
+/* The day an entry counts for, and the minute of its time counted from the
+   start of that day: { day, min }.
+
+   An entry logged through the rounds names its day. One logged from an old
+   screen has only a time, and counts for the local day of that time, except
+   before 04:00, where the morning slot starts and bedtime's wrap past
+   midnight ends. Then it is the evening before's, if one of `group` (the
+   compounds it may be for) is in the bedtime round and was due that evening.
+   Otherwise it keeps its own day, so a morning-only compound is not moved
+   back onto a day whose dose is already taken. The evening before is the
+   calendar day before, not 24 hours earlier, which on the night the clocks
+   change is a different day.
+
+   An entry at 00:20 counted for the evening before is at minute 1460, 110
+   minutes after a 22:30 bedtime and far from a 07:00 morning. */
+function tlEntryDay(protocol, e, group) {
+  var x = new Date(e.ts);
+  if (isNaN(x)) return e.day ? { day: e.day, min: null } : null;
+  var own = tlDayKey(x), min = tlMinuteOfDay(x), day = e.day || own;
+  var cut = tlSlotDef('am').from;
+  /* A bedtime set after midnight (00:30) is its own day's first round, not
+     the evening before's, so nothing moves back for it. */
+  if (!e.day && min < cut && protocol.slots.bed.t >= cut) {
+    var before = tlDayKey(new Date(x.getFullYear(), x.getMonth(), x.getDate() - 1));
+    if (group.some(function (c) { return (c.slots || []).indexOf('bed') >= 0 && tlDoseDueOn(protocol, c, before) !== null; })) {
+      /* Within the hour before its own day's first round, it is an early dose
+         of that round: 03:50 with a morning round at 04:30. */
+      var first = Infinity;
+      group.forEach(function (c) {
+        if (tlDoseDueOn(protocol, c, own) === null) return;
+        (c.slots || []).forEach(function (s) { first = Math.min(first, protocol.slots[s].t); });
+      });
+      if (min < first - 60) day = before;
+    }
+  }
+  return { day: day, min: min + 1440 * (tlDaysBetween(day, own) || 0) };
+}
+
+/* Which entry ticks which dose on a day.
+ *
+ *   { day, doses, hits }
+ *
+ * `doses` is every dose due that day, compound by compound in protocol order,
+ * with `at` and `ts` set on each one an entry ticks. `hits` has one
+ * { entry, dose, dup } for every entry that counts for that day and has a
+ * dose to go to: `dose` is the one it ticks or, with `dup`, the one it is a
+ * second record of.
+ *
+ * Entries go in two passes, earliest first in each. First those that name a
+ * slot one of their compounds is in that day: each ticks that dose, or is a
+ * second record of it when it is already ticked. Then the rest:
+ *
+ *   - An entry with no slot goes to the dose whose round is nearest its time,
+ *     among every compound it may be for, preferring a pending dose when two
+ *     are as near. If that dose is ticked, the entry is a second record of
+ *     it, not a dose of some round hours away: an old-screen record next to a
+ *     checklist tick is the same dose twice.
+ *   - An entry naming a slot its compound has since left goes to the nearest
+ *     dose still pending. It was logged through the rounds as a dose of its
+ *     own, and the rounds never log one dose twice. */
+function tlMatchDay(protocol, date, entries) {
+  var day = tlDayKey(date), doses = [], hits = [];
+  var out = { day: day, doses: doses, hits: hits };
+  if (!day || !protocol) return out;
+  var compounds = protocol.compounds || [];
+  compounds.forEach(function (c) {
+    var text = tlDoseDueOn(protocol, c, day);
+    if (text === null) return;
+    c.slots.forEach(function (slot) {
+      doses.push({ id: tlDoseId(c.key, slot, day), key: c.key, name: c.name, dose: text, slot: slot, day: day, at: null, ts: null });
+    });
+  });
+  if (!doses.length) return out;
+
+  /* An entry from the small hours of the next day may be tonight's. */
+  var d0 = tlDay(day), next = tlDayKey(new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() + 1));
+  var mine = [];
+  (entries || []).forEach(function (e) {
+    if (!tlIsMedEntry(e)) return;
+    if (e.day ? e.day !== day : [day, next].indexOf(tlDayKey(e.ts)) < 0) return;
+    var group = tlEntryCompounds(protocol, e);
+    if (!group.length) return;
+    var when = tlEntryDay(protocol, e, group);
+    if (!when || when.day !== day) return;
+    var keys = group.map(function (c) { return c.key; });
+    var cands = doses.filter(function (x) { return keys.indexOf(x.key) >= 0; });
+    if (cands.length) mine.push({ entry: e, cands: cands, min: when.min, t: new Date(e.ts).getTime() || 0 });
+  });
+  mine.sort(function (a, b) { return a.t - b.t; });
+
+  function tick(m, x) { x.at = m.entry.ts; x.ts = m.entry.ts; hits.push({ entry: m.entry, dose: x, dup: false }); }
+  function repeat(m, x) { hits.push({ entry: m.entry, dose: x, dup: true }); }
+
+  var rest = [];
+  mine.forEach(function (m) {
+    var named = m.entry.slot ? m.cands.filter(function (x) { return x.slot === m.entry.slot; }) : [];
+    if (!named.length) { rest.push(m); return; }
+    var free = named.filter(function (x) { return !x.at; })[0];
+    if (free) tick(m, free); else repeat(m, named[0]);
+  });
+  rest.forEach(function (m) {
+    var near = null, open = null, gap = Infinity, openGap = Infinity;
+    m.cands.forEach(function (x) {
+      var g = Math.abs(protocol.slots[x.slot].t - m.min);
+      if (g < gap || (g === gap && near.at && !x.at)) { gap = g; near = x; }
+      if (!x.at && g < openGap) { openGap = g; open = x; }
+    });
+    var to = m.entry.slot ? (open || near) : near;
+    if (!to) return;
+    if (to.at) repeat(m, to); else tick(m, to);
+  });
+  return out;
+}
+
+/* The medication entries tlMatchDay can count for a day: those naming it, and
+   undated ones logged on it or the day after. Indexed once per `cache`, so
+   asking about many days does not read every entry for each. tlMatchDay
+   filters these the same way it filters the whole log, so the answer is the
+   same; this only saves reading the rest. */
+function tlEntriesNear(entries, day, cache) {
+  if (!cache) return entries;
+  var idx = cache.__byDay;
+  if (!idx) {
+    idx = cache.__byDay = {};
+    (entries || []).forEach(function (e) {
+      if (!tlIsMedEntry(e)) return;
+      var k = e.day || tlDayKey(e.ts);
+      if (k) (idx[k] = idx[k] || []).push(e);
+    });
+  }
+  var d0 = tlDay(day), next = tlDayKey(new Date(d0.getFullYear(), d0.getMonth(), d0.getDate() + 1));
+  return (idx[day] || []).concat(idx[next] || []);
+}
+
+/* The compound an entry counts against in supply: the one whose dose it
+   ticked, or was a second record of, on its day; failing that, the first it
+   may be for. Only a name two protocol lines share needs the question asked.
+   `cache` keeps each day's match for a caller asking about many entries. */
+function tlEntryOwner(protocol, e, entries, cache) {
+  var group = tlEntryCompounds(protocol, e);
+  if (!group.length) return null;
+  if (group.length === 1) return group[0].key;
+  var when = tlEntryDay(protocol, e, group);
+  if (when) {
+    cache = cache || {};
+    var match = cache[when.day] || (cache[when.day] = tlMatchDay(protocol, when.day, tlEntriesNear(entries, when.day, cache)));
+    for (var i = 0; i < match.hits.length; i++) if (match.hits[i].entry === e) return match.hits[i].dose.key;
+  }
+  return group[0].key;
 }
 
 /* The rounds for a day.
@@ -2463,55 +3059,17 @@ function tlEntryIsFor(e, c) {
  *      doses: [{ id, key, name, dose, slot, day, at, ts }] }]
  *
  * `at` is the instant the dose was logged, or null while it is pending, and
- * `ts` the entry that says so. Sorted by the slot's time. A slot with nothing
- * due that day is not a round and is left out. */
+ * `ts` the entry that says so (tlMatchDay). Sorted by the slot's time. A slot
+ * with nothing due that day is not a round and is left out. */
 function tlRoundsFor(protocol, date, entries) {
-  var day = tlDayKey(date);
-  if (!day || !protocol) return [];
-  /* An entry belongs to the day it names, or failing that the local day it
-     was logged on: a bedtime dose ticked off after midnight still belongs to
-     the evening it was due. */
-  var todays = (entries || []).filter(function (e) { return tlIsMedEntry(e) && (e.day || tlDayKey(e.ts)) === day; });
   var rounds = {};
-
-  (protocol.compounds || []).forEach(function (c) {
-    var text = tlDoseDueOn(protocol, c, day);
-    if (text === null) return;
-    var mine = todays.filter(function (e) { return tlEntryIsFor(e, c); });
-    var doses = c.slots.map(function (slot) {
-      return { id: tlDoseId(c.key, slot, day), key: c.key, name: c.name, dose: text, slot: slot, day: day, at: null, ts: null };
-    });
-
-    /* Entries that say which dose they are. */
-    var loose = [];
-    mine.forEach(function (e) {
-      var hit = null;
-      if (e.slot) doses.forEach(function (x) { if (!hit && !x.at && x.slot === e.slot) hit = x; });
-      if (hit) { hit.at = e.ts; hit.ts = e.ts; } else loose.push(e);
-    });
-    /* Entries that do not, and entries whose slot the compound has since been
-       moved out of: each goes to the pending dose whose round is nearest the
-       time it was logged, earliest entry first. A dose taken still counts when
-       the protocol changes under it. */
-    loose.sort(function (a, b) { return new Date(a.ts) - new Date(b.ts); }).forEach(function (e) {
-      var min = tlMinuteOfDay(e.ts), best = null, gap = Infinity;
-      doses.forEach(function (x) {
-        if (x.at) return;
-        var g = Math.abs(protocol.slots[x.slot].t - min);
-        if (g < gap) { gap = g; best = x; }
-      });
-      if (best) { best.at = e.ts; best.ts = e.ts; }
-    });
-
-    doses.forEach(function (x) {
-      if (!rounds[x.slot]) {
-        var def = tlSlotDef(x.slot), s = protocol.slots[x.slot];
-        rounds[x.slot] = { slot: x.slot, label: def.label, icon: def.icon, t: s.t, time: tlMinToTime(s.t), alert: s.alert !== false, doses: [] };
-      }
-      rounds[x.slot].doses.push(x);
-    });
+  tlMatchDay(protocol, date, entries).doses.forEach(function (x) {
+    if (!rounds[x.slot]) {
+      var def = tlSlotDef(x.slot), s = protocol.slots[x.slot];
+      rounds[x.slot] = { slot: x.slot, label: def.label, icon: def.icon, t: s.t, time: tlMinToTime(s.t), alert: s.alert !== false, doses: [] };
+    }
+    rounds[x.slot].doses.push(x);
   });
-
   return TL_SLOT_KEYS.filter(function (k) { return rounds[k]; }).map(function (k) { return rounds[k]; })
     .sort(function (a, b) { return a.t - b.t; });
 }
@@ -2551,18 +3109,25 @@ function tlFreshTs(entries, iso) {
 /* Log one dose. Adds a medication entry to d.entries and returns it, or null
    if the id names no dose due that day or the dose is already logged.
    `extra` may carry site, notes, and a dose that differed from the protocol's.
-   Changes `d`; the caller saves. */
+   Changes `d`; the caller saves.
+
+   The entry's dose is the text the user typed, as the old screens always
+   wrote it, not the tidied text a round shows: the level chart's parser
+   reads it, and the history shows it, so it must say what the user said. On
+   a taper it is that day's step, which is the user's own text too. */
 function tlLogDose(d, protocol, id, nowIso, extra) {
   var p = tlParseDoseId(id);
   if (!p) return null;
   var dose = tlFindDose(tlRoundsFor(protocol, p.day, d.entries), id);
   if (!dose || dose.at) return null;
   extra = extra || {};
+  var c = tlCompound(protocol, dose.key);
+  var typed = c && c.rule && c.rule.taper && c.rule.taper.length ? dose.dose : (c && c.dose && c.dose.text) || dose.dose;
   var entry = {
     type: 'medication',
     ts: tlFreshTs(d.entries, nowIso),
     medication: dose.name,
-    dose: extra.dose !== undefined && extra.dose !== null && extra.dose !== '' ? String(extra.dose) : dose.dose,
+    dose: extra.dose !== undefined && extra.dose !== null && extra.dose !== '' ? String(extra.dose) : typed,
     site: extra.site || null,
     notes: extra.notes || '',
     key: dose.key, slot: dose.slot, day: dose.day
@@ -2573,18 +3138,20 @@ function tlLogDose(d, protocol, id, nowIso, extra) {
   return entry;
 }
 
-/* Take a logged dose back. Removes the entry that ticked it off, whether that
-   entry named the dose or was matched to it, and returns it. */
+/* Take a logged dose back. Removes the one entry that ticked it off, whether
+   that entry named the dose or was matched to it, and returns it. An entry
+   that ticked another dose, of a same-name line or another round, is never
+   it. If the dose was recorded twice, the second record ticks it now, and
+   undoing again removes that one. */
 function tlUndoDose(d, protocol, id) {
   var p = tlParseDoseId(id);
   if (!p) return null;
-  var dose = tlFindDose(tlRoundsFor(protocol, p.day, d.entries), id);
-  if (!dose || !dose.ts) return null;
   var gone = null;
-  d.entries = (d.entries || []).filter(function (e) {
-    if (!gone && tlIsMedEntry(e) && e.ts === dose.ts && (e.key ? e.key === dose.key : e.medication === dose.name)) { gone = e; return false; }
-    return true;
+  tlMatchDay(protocol, p.day, d.entries).hits.forEach(function (h) {
+    if (!gone && !h.dup && h.dose.id === id) gone = h.entry;
   });
+  if (!gone) return null;
+  d.entries = (d.entries || []).filter(function (e) { return e !== gone; });
   return gone;
 }
 
@@ -2603,19 +3170,17 @@ function tlLogRound(d, protocol, slot, date, nowIso) {
   return added;
 }
 
-/* Clear a round: every dose in it goes back to pending. Returns the entries
-   removed. */
+/* Clear a round: every dose in it goes back to pending. Removes each entry
+   that ticked one of its doses and each second record of one, all at once,
+   since a second record left behind would tick the dose again. Entries for
+   doses in other rounds stay. Returns the entries removed. */
 function tlUndoRound(d, protocol, slot, date) {
-  var day = tlDayKey(date), removed = [];
-  tlRoundsFor(protocol, day, d.entries).forEach(function (r) {
-    if (r.slot !== slot) return;
-    r.doses.forEach(function (x) {
-      if (!x.at) return;
-      var e = tlUndoDose(d, protocol, x.id);
-      if (e) removed.push(e);
-    });
+  var gone = [];
+  tlMatchDay(protocol, date, d.entries).hits.forEach(function (h) {
+    if (h.dose.slot === slot) gone.push(h.entry);
   });
-  return removed;
+  if (gone.length) d.entries = (d.entries || []).filter(function (e) { return gone.indexOf(e) < 0; });
+  return gone;
 }
 
 /* How many doses fall on each of the seven days from `from`, for the week
@@ -2958,26 +3523,44 @@ function tlSiteLastUsed(entries) {
   return last;
 }
 
+/* Local calendar days from one instant to another: 0 within a day, 1 from
+   last night to this morning. Counted between the two local midnights and
+   rounded, so a day that is 23 or 25 hours long, at a clock change, is one. */
+function tlSiteDaysApart(fromMs, toMs) {
+  var a = new Date(fromMs), b = new Date(toMs);
+  return Math.round((new Date(b.getFullYear(), b.getMonth(), b.getDate()) -
+    new Date(a.getFullYear(), a.getMonth(), a.getDate())) / 864e5);
+}
+
 /* Where a site stands.
  *
  *   never        no dose names it
  *   recent       used under 48 hours ago
- *   recovering   used two days ago or more, but inside its rest period
+ *   recovering   used 48 hours ago or more, but inside its rest period
  *   rested       its rest period has passed
  *
- * `days` is whole days since it was used. The line is the sentence under the
- * site's name on the map. */
+ * The state is elapsed time, because rest is: a seven-day rest is 168 hours
+ * from the dose. The words are calendar days, because that is how a person
+ * reads "today" and "yesterday": an injection at 22:00 was yesterday by 08:00
+ * the next morning, ten hours on. So the end of the rest is found in hours and
+ * then said in calendar days too, and the sentence's two halves agree: used
+ * yesterday, a seven-day rest ends in six days.
+ *
+ * `days` is calendar days since it was used, and `left` calendar days until
+ * the rest runs out (0 when that is later today); both are the numbers the
+ * line says. The line is the sentence under the site's name on the map. */
 function tlSiteStatus(site, lastIso, nowMs) {
   if (!lastIso) return { state: 'never', days: null, left: null, line: 'Not used yet.' };
-  var hours = (nowMs - new Date(lastIso).getTime()) / TL_HOUR_MS;
-  if (hours < 0) hours = 0;
-  var days = Math.floor(hours / 24), rest = site.restDays || 0;
-  var state = hours < 48 ? 'recent' : days < rest ? 'recovering' : 'rested';
+  /* A dose stamped in the future, from a clock set wrong, counts as now. */
+  var last = Math.min(new Date(lastIso).getTime(), nowMs);
+  var hours = (nowMs - last) / TL_HOUR_MS, rest = site.restDays || 0;
+  var state = hours < 48 ? 'recent' : hours < rest * 24 ? 'recovering' : 'rested';
+  var days = tlSiteDaysApart(last, nowMs);
   var ago = days === 0 ? 'today' : days === 1 ? 'yesterday' : days + ' days ago';
-  var left = Math.max(0, rest - days);
-  var line = state === 'rested' ? 'Last used ' + ago + '. Rested.'
-    : 'Used ' + ago + '. The ' + rest + '-day rest ends in ' + left + (left === 1 ? ' day.' : ' days.');
-  return { state: state, days: days, left: state === 'rested' ? 0 : left, line: line };
+  if (state === 'rested') return { state: state, days: days, left: 0, line: 'Last used ' + ago + '. Rested.' };
+  var left = Math.max(0, tlSiteDaysApart(nowMs, last + rest * 24 * TL_HOUR_MS));
+  var ends = left === 0 ? 'ends later today.' : 'ends in ' + left + (left === 1 ? ' day.' : ' days.');
+  return { state: state, days: days, left: left, line: 'Used ' + ago + '. The ' + rest + '-day rest ' + ends };
 }
 
 /* Every site for a route with its status, for drawing the map. */
@@ -3034,18 +3617,28 @@ function tlNearestSite(map, route, view, fx, fy, aspect) {
  * logging a dose lowers the count and undoing it raises it again, with no
  * counter to drift out of step with the log. This is the same idea the old
  * refill alert used (vials on hand, minus doses logged since), with the vial
- * size coming from the user instead of a fixed table.
+ * size coming from the user instead of a fixed table. A dose logged the old
+ * way, by a name two protocol lines share, comes off the count of the line it
+ * ticked (tlEntryOwner in rounds.js), not of both.
+ *
+ * How long the open vial lasts is found by walking the protocol forward a day
+ * at a time and taking out each dose due, not from an average rate. An
+ * average hides the shape of a schedule: five doses left of a fourteen-dose
+ * taper run out on day five whatever the four-week average says, and a
+ * monthly rule averaged over four weeks can come out at nothing a day. A vial
+ * that covers every dose until its rule ends lasts the protocol.
  *
  * The numbers are the user's. Nothing here supplies a vial size or a dose.
  */
 
 var TL_SUPPLY_WINDOW_DAYS = 28;
+var TL_SUPPLY_HORIZON_DAYS = 400;
 
-/* Doses a day, averaged over the four weeks from `date`. Four weeks, because
-   that is a whole number of weeks for weekday rules and a whole number of
-   cycles for every-3.5-days, so "Mon and Thu" comes out as exactly 2/7. A
-   taper that ends inside the window lowers the average, which is right: the
-   vial then lasts longer. */
+/* Doses a day, averaged over the four weeks from `date`, for showing a rate.
+   Four weeks, because that is a whole number of weeks for weekday rules and a
+   whole number of cycles for every-3.5-days, so "Mon and Thu" comes out as
+   exactly 2/7. How long a vial lasts is not worked out from this; see
+   tlSupplyDays. */
 function tlDailyUse(protocol, c, date) {
   if (!c || !c.rule || !(c.slots || []).length) return 0;
   var start = tlDay(tlDayKey(date)), n = 0;
@@ -3056,11 +3649,62 @@ function tlDailyUse(protocol, c, date) {
   return n / TL_SUPPLY_WINDOW_DAYS;
 }
 
-/* Doses of a compound logged at or after an instant. */
-function tlDosesSince(entries, c, sinceIso) {
+/* The last day a compound can be due, or null when its rule runs on with no
+   end: the end of its window (toDay, toWeek, forWeeks) or of its taper, read
+   as tlDueOn reads them. */
+function tlRuleLastDay(protocol, c) {
+  if (!c || !c.rule) return null;
+  var rule = tlNormalizeRule(c.rule), w = tlRuleWindow(rule, tlRuleAnchor(protocol, c));
+  if (!w.anchor) return null;
+  var last = w.toDay;
+  if (rule.taper && rule.taper.length) last = Math.min(last, w.fromDay + rule.taper.length * (rule.per === 'day' ? 1 : 7) - 1);
+  return isFinite(last) ? new Date(w.anchor.getFullYear(), w.anchor.getMonth(), w.anchor.getDate() + last) : null;
+}
+
+/* How long `left` doses last from `date`: { days, lasts }.
+
+   Walks the days from `date`, taking out every dose due, and `days` is the
+   offset of the first day with a dose they cannot cover (0 when one due
+   today cannot be). On the first day only the doses still pending are taken
+   out (`todayPending`, when the caller knows it): one already logged is
+   already gone from `left`, and taking it out again would make a course
+   bought to fit run short every evening. Six left of a daily compound is six
+   days before today's dose is logged and still six after. `lasts` is true
+   when they cover every dose until the rule ends; `days` is then null.
+   `days` is also null, with `lasts` false, when they outlast the horizon on
+   a rule with no end. */
+function tlSupplyDays(protocol, c, left, date, todayPending) {
+  var start = tlDay(tlDayKey(date)), end = tlRuleLastDay(protocol, c);
+  var reach = end ? tlDaysBetween(start, end) + 1 : Infinity;
+  var span = Math.min(TL_SUPPLY_HORIZON_DAYS, reach);
+  for (var i = 0; i < span; i++) {
+    var day = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+    if (tlDoseDueOn(protocol, c, day) === null) continue;
+    var need = i === 0 && typeof todayPending === 'number' ? Math.min(todayPending, c.slots.length) : c.slots.length;
+    if (left < need) return { days: i, lasts: false };
+    left -= need;
+  }
+  return { days: null, lasts: reach <= TL_SUPPLY_HORIZON_DAYS };
+}
+
+/* Today's doses of a compound not yet logged. */
+function tlPendingToday(protocol, c, entries, date, cache) {
+  var day = tlDayKey(date);
+  var match = cache && cache[day] ? cache[day] : tlMatchDay(protocol, day, tlEntriesNear(entries, day, cache));
+  if (cache) cache[day] = match;
+  return match.doses.filter(function (x) { return x.key === c.key && !x.at; }).length;
+}
+
+/* Doses of a compound logged at or after an instant. With the protocol, a
+   dose logged the old way by a name another line shares counts only for the
+   line it was matched to. */
+function tlDosesSince(entries, c, sinceIso, protocol, cache) {
   var since = sinceIso ? new Date(sinceIso).getTime() : 0, n = 0;
+  cache = cache || {};
   (entries || []).forEach(function (e) {
-    if (tlEntryIsFor(e, c) && new Date(e.ts).getTime() >= since) n++;
+    if (!tlEntryIsFor(e, c) || !(new Date(e.ts).getTime() >= since)) return;
+    if (protocol && !e.key && tlEntryOwner(protocol, e, entries, cache) !== c.key) return;
+    n++;
   });
   return n;
 }
@@ -3071,20 +3715,25 @@ function tlDosesSince(entries, c, sinceIso) {
  *
  * `known` is false until the user has said how many doses a vial holds and
  * how many are left; nothing is estimated in its place. `days` is how long
- * the OPEN vial lasts at the protocol's rate, which is when a spare has to be
- * opened or, with none, when the compound runs out.
+ * the OPEN vial lasts on the protocol's schedule, which is when a spare has
+ * to be opened or, with none, when the compound runs out (tlSupplyDays). It
+ * is null when the vial lasts the protocol, or lasts past the 400 days looked
+ * ahead. `daily` is the average rate, for display only.
  *
  *   danger   7 days or fewer and no spare vial
- *   ok       more than 21 days
+ *   ok       more than 21 days, or null days: it lasts
  *   warn     anything else
+ *
+ * A compound with no schedule has neither days nor a state.
  */
-function tlSupply(protocol, c, entries, date) {
+function tlSupply(protocol, c, entries, date, cache) {
   var inv = c && c.inv;
   var out = { known: false, per: inv ? inv.per : null, left: null, spare: inv ? (inv.spare || 0) : 0,
               daily: tlDailyUse(protocol, c, date), days: null, state: null, stock: '', note: '' };
   if (!inv || !(inv.per > 0) || inv.left === null || inv.left === undefined) return out;
 
-  var left = inv.left - tlDosesSince(entries, c, inv.since), spare = inv.spare || 0;
+  cache = cache || {};
+  var left = inv.left - tlDosesSince(entries, c, inv.since, protocol, cache), spare = inv.spare || 0;
   while (left <= 0 && spare > 0) { left += inv.per; spare--; }
   if (left < 0) left = 0;
 
@@ -3092,13 +3741,19 @@ function tlSupply(protocol, c, entries, date) {
   out.left = left;
   out.spare = spare;
   out.note = left + ' of ' + inv.per + ' doses left in the vial';
-  if (out.daily > 0) {
-    out.days = Math.ceil(left / out.daily);
-    out.state = (out.days <= 7 && !spare) ? 'danger' : out.days > 21 ? 'ok' : 'warn';
+  var lasts = false;
+  if (c.rule && (c.slots || []).length) {
+    var run = tlSupplyDays(protocol, c, left, date, tlPendingToday(protocol, c, entries, date, cache));
+    out.days = run.days;
+    lasts = run.lasts;
+    out.state = out.days === null ? 'ok' : (out.days <= 7 && !spare) ? 'danger' : out.days > 21 ? 'ok' : 'warn';
   }
-  if (spare) {
-    out.stock = (spare === 1 ? '1 spare vial · open it' : spare + ' spare vials · open one') +
-      (out.days === null ? '' : ' in ' + out.days + ' d');
+  var vials = spare === 1 ? '1 spare vial' : spare + ' spare vials';
+  if (lasts) {
+    out.stock = 'Lasts the protocol' + (spare ? ' · ' + vials : '');
+  } else if (spare) {
+    out.stock = vials + (spare === 1 ? ' · open it' : ' · open one') +
+      (out.days === null ? '' : out.days === 0 ? ' today' : ' in ' + out.days + ' d');
   } else {
     out.stock = out.state === 'danger' ? 'No spare vial · reorder' : 'No spare vial';
   }
@@ -3108,9 +3763,10 @@ function tlSupply(protocol, c, entries, date) {
 /* Supply for every compound that has an inventory, soonest to run out first.
    The first row is Home's "Next vial needed". */
 function tlSupplyAll(protocol, entries, date) {
-  var rows = [];
+  /* One cache for every compound: each day's match is worked out once. */
+  var rows = [], cache = {};
   (protocol.compounds || []).forEach(function (c) {
-    var s = tlSupply(protocol, c, entries, date);
+    var s = tlSupply(protocol, c, entries, date, cache);
     if (!s.known) return;
     s.key = c.key;
     s.name = c.name;
@@ -3214,10 +3870,34 @@ function tlMarkerLabel(key) {
   return (custom && custom.name) || key;
 }
 
+/* The unit a stored lab value is in, for the spreadsheet. The same rule
+   entryToResults() reads a panel by.
+
+   A built-in marker's value is stored in the registry's canonicalUnit, the
+   unit of its field on the form: a scan converts to it (normalizeValue), and a
+   number typed in is in it. labMeta.unit is the unit the lab reported, so it
+   is not used here.
+
+   A user-defined marker's value is never converted. It is in the unit the
+   scan reported it in, which labMeta.unit holds, or failing that the unit the
+   marker was defined with. The order matters: a scan never overwrites a saved
+   marker's unit, so a lab reporting the same marker in another unit leaves the
+   definition saying one unit and the value in the other.
+
+   Blank for a key that is neither, rather than a guess. */
+function tlLabUnit(key, meta) {
+  var has = Object.prototype.hasOwnProperty;
+  if (typeof MARKER_REGISTRY !== 'undefined' && has.call(MARKER_REGISTRY, key)) return MARKER_REGISTRY[key].canonicalUnit || '';
+  var all = (typeof getAllCustomMarkers === 'function') ? getAllCustomMarkers() : {};
+  var custom = has.call(all, key) ? all[key] : null;
+  if (!custom) return '';
+  return (meta && meta.unit) || custom.unit || '';
+}
+
 /* Download the log as a spreadsheet. Not a backup: it cannot be restored from,
    so it does not reset the backup clock. */
 function tlExportCsv() {
-  var csv = tlLogCsv(gd(), tlMarkerLabel);
+  var csv = tlLogCsv(gd(), tlMarkerLabel, tlLabUnit);
   /* The byte-order mark makes Excel read the file as UTF-8. */
   var blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
   var url = URL.createObjectURL(blob);
@@ -4869,19 +5549,13 @@ function tlPkEnv() {
   };
 }
 
-function tlLabUnit(key) {
-  if (typeof LAB_FIELDS !== 'undefined') {
-    for (var i = 0; i < LAB_FIELDS.length; i++) if (LAB_FIELDS[i].key === key) return LAB_FIELDS[i].unit || '';
-  }
-  var custom = typeof getAllCustomMarkers === 'function' ? getAllCustomMarkers()[key] : null;
-  return (custom && custom.unit) || '';
-}
-
 function tlLabsEnv() {
   return {
     range: typeof labRangeFor === 'function' ? labRangeFor : function () { return null; },
     status: typeof labSt === 'function' ? labSt : function () { return 'neutral'; },
     label: tlMarkerLabel,
+    /* wire.js: the unit the value is STORED in, which for a scanned value is
+       the app's own, not the unit the lab printed. */
     unit: tlLabUnit
   };
 }
@@ -7084,10 +7758,16 @@ function saveProtocol() {
 const name=document.getElementById("cn").value.trim(), start=document.getElementById("cs").value, dur=parseInt(document.getElementById("cd").value);
 if (!name||!start||!dur) { toast("Fill all fields"); return; }
 const d = gd();
-/* The protocol as it stood, so a changed dose can be logged (src/logic/changes.js). */
+/* The protocol as it stood, so a changed dose can be logged and a stored
+   model brought up to date with the new text (src/logic/record.js). */
 const tlBefore = (typeof tlProtocol === 'function') ? tlProtocol(d, tlEnv()) : null;
 d.proto = { name, start, weeks:dur, meds:document.getElementById("cm").value.trim(), pct:document.getElementById("cp").value.trim(), _created:nowStr() };
-if (tlBefore) tlAfterLegacyProtocolSave(d, tlBefore, tlEnv(), nowStr());
+if (tlBefore) {
+/* What the user typed is saved whatever happens to the model. If the model
+   cannot follow the text, it goes, and is read from the text instead. */
+try { tlAfterLegacyProtocolSave(d, tlBefore, tlEnv(), nowStr()); }
+catch (modelErr) { delete d.protocol; }
+}
 sd(d); toast("Protocol saved");
 renderCycle();
 const overviewBtn = document.querySelector("#page-cycle .seg-btn");
@@ -12458,13 +13138,19 @@ current[k] = Object.assign({}, importedData[k], current[k] || {});
 }
 });
 /* The keys the redesign adds: the protocol model, the dose-change log and
-   settings. This function used to drop every key it did not name. */
-const tlModel = (typeof tlImportModel === 'function') ? tlImportModel(current, importedData, tookProto) : { added: 0, newer: false };
+   settings. This function used to drop every key it did not name. A file
+   whose protocol model cannot be read still restores everything else: the
+   failure is caught here, on its own, and reported below. */
+let tlModel = { added: 0, newer: false };
+if (typeof tlImportModel === 'function') {
+try { tlModel = tlImportModel(current, importedData, tookProto); }
+catch (modelErr) { tlModel = { added: 0, newer: false, skipped: true }; }
+}
 merged += tlModel.added;
 sd(current);
 document.getElementById('import-result').innerHTML = `
         <div style="background:rgba(74,222,154,0.08);border:1px solid rgba(74,222,154,0.25);border-radius:10px;padding:10px;font-size:13px;color:var(--accent)">
-          ✓ Import successful — ${merged} new entries added${tlModel.newer ? '<div style="margin-top:6px;color:var(--text2)">This backup was made by a newer version of TherapyLog. Everything this version understands was restored; update the app to restore the rest.</div>' : ''}
+          ✓ Import successful — ${merged} new entries added${tlModel.skipped ? '<div style="margin-top:6px;color:var(--text2)">The protocol schedule saved in this backup could not be read, so it was left out. Your entries and everything else were imported.</div>' : ''}${tlModel.newer ? '<div style="margin-top:6px;color:var(--text2)">This backup was made by a newer version of TherapyLog. Everything this version understands was restored; update the app to restore the rest.</div>' : ''}
         </div>`;
 toast(`Import complete — ${merged} entries added`);
 renderDash();

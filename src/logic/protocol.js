@@ -17,6 +17,7 @@
  *       route,        'im' | 'sq' | 'oral' | 'topical' | null
  *       rule,         which days, in tlDueOn()'s rule shape; null = unscheduled
  *       freqText,     the old frequency text, when there was one
+ *       note,         what the old line said after its frequency, if anything
  *       slots,        which of the four time slots it is taken in
  *       inv           { per, left, spare, since } or null (supply.js)
  *     }],
@@ -37,7 +38,8 @@
  * and the old discreet-reminders flag.
  *
  * Reads four of the app's own functions, so an old protocol means here exactly
- * what it means to the old screens: parseMeds, getDefaultTimes, tlFreqDays.
+ * what it means to the old screens: parseMeds, parseFrequency,
+ * getDefaultTimes, tlFreqDays.
  */
 
 var TL_SCHEMA = 3;
@@ -85,6 +87,21 @@ function tlSlotOf(min) {
   return key;
 }
 
+/* A slot's time, kept inside the slot's own span: morning 04:00 to 10:59,
+   midday 11:00 to 15:59, evening 16:00 to 20:29, bedtime 20:30 to 03:59. The
+   old fields store clock times, not slots, and are read back into slots by
+   time of day, so a morning round set to 11:30 would come back as midday and
+   take its compounds with it. A time outside the span moves to the nearer
+   end of it. */
+function tlClampSlotTime(key, min) {
+  var i = TL_SLOT_KEYS.indexOf(key);
+  var m = ((Math.round(min) % 1440) + 1440) % 1440;
+  if (i < 0 || tlSlotOf(m) === key) return m;
+  var from = TL_SLOTS[i].from, to = (TL_SLOTS[(i + 1) % 4].from + 1439) % 1440;
+  var toFrom = (from - m + 1440) % 1440, pastTo = (m - to + 1440) % 1440;
+  return toFrom <= pastTo ? from : to;
+}
+
 /* A compound's old reminder times, as slots. A compound sits in a slot at most
    once, so a second time that lands in a taken slot moves to the next free
    one: 08:00 and 10:00 become morning and midday, not one dose. More than four
@@ -113,7 +130,14 @@ function tlSlotsFromTimes(times) {
  * an optional unit, and then nothing that could change what the number means:
  * "250mcg twice daily" is 250 mcg, but "200mg/week" (a weekly total),
  * "250-500mcg" (a range) and "0.5ml (100mg)" (two numbers) keep the text and
- * get no amount. The app never guesses a dose. */
+ * get no amount. The app never guesses a dose.
+ *
+ * A number with no unit read is a bare amount only when nothing that could be
+ * a unit follows it. "250 mcg/day" is a unit this parser does not take (a
+ * daily total), and "2 sprays" or "250 mcgs" one it does not know; reading
+ * either as a bare 250 or 2 would drop what the number counts, and a later
+ * reader would take a bare number as milligrams. So a word, a % sign or a
+ * slash after an unread unit leaves the dose as text. */
 function tlParseDose(text) {
   var raw = String(text === null || text === undefined ? '' : text).trim();
   var out = { amount: null, unit: null, text: raw };
@@ -121,6 +145,7 @@ function tlParseDose(text) {
   if (!m) return out;
   var rest = m[3] || '';
   if (/\d/.test(rest) || /^\s*(\/|per\b|x\b|to\b)/i.test(rest)) return out;
+  if (!m[2] && (/^\s*(\p{L}|%)/u.test(rest) || rest.indexOf('/') >= 0)) return out;
   var amount = parseFloat(m[1]);
   if (!isFinite(amount) || amount <= 0) return out;
   var u = (m[2] || '').toLowerCase();
@@ -151,37 +176,84 @@ function tlDoseText(dose) {
 
 /* ---- which days ---------------------------------------------------------- */
 
-/* Weekdays the user named in words ("Twice weekly (Mon/Thu)"), as 0-6 with
-   Sunday 0, or null. "Monthly" names no weekday. */
-function tlWeekdaysInText(text) {
-  var re = /\b(sun|mon|tue|tues|wed|weds|thu|thur|thurs|fri|sat)(?:day|sday|nesday|rsday|urday)?\b/gi;
-  var found = {}, m, any = false;
-  while ((m = re.exec(String(text || '')))) {
-    found[['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(m[1].toLowerCase().slice(0, 3))] = true;
-    any = true;
+/* The day words in a text, in order, as { d, at, end } with d 0-6 and Sunday
+   0. Short and long forms and plurals: "Thu", "Thurs", "Thursday",
+   "Thursdays". "Monthly" and "thus" name no day. */
+function tlDayWords(text) {
+  var re = /\b(sun(?:days?)?|mon(?:days?)?|tue(?:s(?:days?)?)?|wed(?:s|nesdays?)?|thu(?:r(?:s(?:days?)?)?)?|fri(?:days?)?|sat(?:urdays?)?)\b/gi;
+  var s = String(text || ''), out = [], m;
+  while ((m = re.exec(s))) {
+    out.push({ d: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(m[1].toLowerCase().slice(0, 3)),
+      at: m.index, end: m.index + m[0].length });
   }
-  if (!any) return null;
+  return out;
+}
+
+/* Weekdays the user named as dose days ("Twice weekly (Mon/Thu)", "Mon-Fri"),
+   as 0-6 with Sunday 0, or null when the text names none it can take.
+ *
+ * Only a plain list of days counts, or a range: "Mon-Fri", "Mon through
+ * Fri" and "Monday to Friday" are the days between, and a dash joining three
+ * days or more ("Mon-Wed-Fri") is a list. A day named after a word that makes
+ * it an exception or a starting point ("except Sunday", "skip Sundays",
+ * "starting Mon", "from Tuesday") is not a dose day, and then the text says
+ * nothing this can trust, so it gives null and the caller falls back to the
+ * reading the old screens used. */
+function tlWeekdaysInText(text) {
+  var s = String(text || ''), words = tlDayWords(s);
+  if (!words.length) return null;
+  var guard = /\b(except|excluding|skip\w*|no|not|off|start\w*|begin\w*|from|until|till)\b/i.exec(s);
+  if (guard && guard.index < words[words.length - 1].at) return null;
+  var link = function (a, b) { return /^\s*(-|–|—|through|thru|to)\s*$/i.test(s.slice(a.end, b.at)); };
+  var found = {}, i = 0;
+  while (i < words.length) {
+    var j = i;
+    while (j + 1 < words.length && link(words[j], words[j + 1])) j++;
+    if (j === i + 1) {
+      for (var d = words[i].d; ; d = (d + 1) % 7) { found[d] = true; if (d === words[j].d) break; }
+    } else {
+      for (var k = i; k <= j; k++) found[words[k].d] = true;
+    }
+    i = j + 1;
+  }
   var days = [];
-  for (var d = 0; d < 7; d++) if (found[d]) days.push(d);
+  for (var n = 0; n < 7; n++) if (found[n]) days.push(n);
   return days;
 }
 
-/* The rule for an old protocol line.
+/* The rule for an old protocol line. `note` is whatever the line said after
+   its frequency.
  *
  * Where the user wrote weekdays in the frequency text, those are the rule:
  * they are the user's own words, and neither old schedule engine read them
  * (the visible one placed "twice weekly" from the protocol's start day, the
- * other always on Monday and Thursday).
+ * other always on Monday and Thursday). They are taken only when they can be
+ * taken safely (tlWeekdaysInText), never for a pulse, an interval or a monthly
+ * line, and for a weekly line only when there are exactly as many as it
+ * takes a week: "Twice weekly (Mon)" leaves a dose unplaced, and is read the
+ * old way instead. How many it takes is parseFrequency's count unless the
+ * text states one: parseFrequency reads "3x weekly" as once a week, and
+ * "3x weekly (Mon/Wed/Fri)" names its three days plainly.
+ *
+ * Days in the note count only for a weekly line whose frequency names none,
+ * and under the same conditions: "Twice weekly, Mon AM and Thu PM" is Monday
+ * and Thursday. A daily line is never made weekly by its note, which might
+ * say anything ("refill on Fridays").
  *
  * Otherwise this follows getDoseDays(), the engine behind every screen the
  * user has been looking at: weekly protocols fall on the start weekday, and
  * the 10-day pulse, which that engine never scheduled, has no rule. */
-function tlRuleFromLegacy(med, start) {
+function tlRuleFromLegacy(med, start, note) {
   var freq = med && med.freq;
-  var named = tlWeekdaysInText(med && med.freqStr);
-  if (named && named.length && named.length < 7 && !(freq && (freq.type === 'interval' || freq.type === 'monthly'))) {
-    return { weekdays: named };
+  var type = freq && freq.type;
+  var named = null;
+  if (type !== 'interval' && type !== 'monthly' && type !== 'pulse') {
+    if (tlDayWords(med && med.freqStr).length) named = tlWeekdaysInText(med.freqStr);
+    else if (type === 'weekly' && note) named = tlWeekdaysInText(note);
+    var stated = /\b([1-7])\s*(?:x|times)\s*(?:\/|a|per|each)?\s*week/i.exec((med && med.freqStr) || '');
+    if (named && type === 'weekly' && named.length !== (stated ? +stated[1] : (freq.count || 1))) named = null;
   }
+  if (named && named.length && named.length < 7) return { weekdays: named };
   if (!freq || freq.type === 'daily') return { daily: true };
   if (freq.type === 'interval') return { every: { days: freq.interval || 1 } };
   if (freq.type === 'weekly') {
@@ -231,14 +303,30 @@ function tlDefaultSlots() {
 }
 
 /* A key for a compound: the encyclopedia id when there is one, otherwise the
-   name reduced to letters, digits and hyphens. Never contains a colon, so it
-   is safe inside a dose id. `taken` is the set of keys already used. */
+   name reduced to letters, digits and hyphens. A name with none of those
+   ("Сустанон") gets "c-" and a short hash of the name, so its key is its own
+   and does not change when lines are reordered; a shared fallback with a
+   number by position would hand one compound's key to another. Never
+   contains a colon, so it is safe inside a dose id. `taken` is the set of
+   keys already used. */
 function tlCompoundKey(name, drugId, taken) {
-  var base = String(drugId || name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 24) || 'compound';
+  var text = String(drugId || name || '');
+  var base = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 24) || 'c-' + tlHash(text);
   var key = base, n = 2;
   while (taken[key]) key = base + '-' + (n++);
   taken[key] = true;
   return key;
+}
+
+/* A short stable hash of a text, in base 36: 32-bit FNV-1a over its UTF-16
+   code units. */
+function tlHash(text) {
+  var h = 0x811c9dc5, s = String(text);
+  for (var i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h.toString(36);
 }
 
 function tlRouteForMedium(medium) {
@@ -283,10 +371,14 @@ function tlProtocolFromLegacy(d, env) {
   var times = (d && d.reminderTimes) || {};
   var supply = (d && d.supply) || {};
   var taken = {}, bySlot = { am: [], mid: [], eve: [], bed: [] };
+  /* The same lines parseMeds reads, kept whole for what it drops: everything
+     after the third comma, a note the user wrote ("glute only"). */
+  var raw = String(proto.meds).split('\n').filter(function (l) { return l.trim(); });
 
-  parseMeds(proto.meds).forEach(function (med) {
+  parseMeds(proto.meds).forEach(function (med, i) {
+    var note = String(raw[i] || '').split(',').slice(3).join(',').trim();
     var drugId = env.resolve ? (env.resolve(med.name) || null) : null;
-    var rule = tlRuleFromLegacy(med, proto.start);
+    var rule = tlRuleFromLegacy(med, proto.start, note);
     /* Stored times if the user set any, else the defaults the old screens show
        and fire for this frequency. */
     var placed = tlSlotsFromTimes(times[med.name] || getDefaultTimes(med.freq));
@@ -303,6 +395,7 @@ function tlProtocolFromLegacy(d, env) {
       slots: rule ? placed.slots : [],
       inv: null
     };
+    if (note) c.note = note;
     if (placed.dropped.length) c.droppedTimes = placed.dropped;
     /* Vials on hand say nothing about doses per vial, so the count starts
        unknown: one vial open, the rest spare, and the user fills in the rest. */
@@ -312,43 +405,93 @@ function tlProtocolFromLegacy(d, env) {
     out.compounds.push(c);
   });
 
+  /* Clamped as a stored protocol's are (tlNormalizeProtocol), so making this
+     reading permanent does not move a round. A time is outside its slot only
+     when two of a compound's times shared one and the later moved on. */
   TL_SLOT_KEYS.forEach(function (k) {
-    out.slots[k].t = tlPickSlotTime(bySlot[k], out.slots[k].t);
+    out.slots[k].t = tlClampSlotTime(k, tlPickSlotTime(bySlot[k], out.slots[k].t));
   });
   return out;
 }
 
-/* Fill in whatever a stored protocol is missing, so readers need no guards. */
+function tlIsObject(x) { return !!x && typeof x === 'object' && !Array.isArray(x); }
+
+/* Fill in whatever a stored protocol is missing, so readers need no guards.
+ *
+ * A stored protocol can come from a backup made by another build, or edited
+ * by hand, so nothing in it is trusted to have its shape: a field of the wrong
+ * type is replaced, never read, and a bad compound loses the bad part rather
+ * than stopping the read (or the import it is part of).
+ *
+ * Keys are kept where they can be, since doses already logged carry them: a
+ * non-empty key with no colon that no earlier compound holds. A compound
+ * without one gets a key made from its name, which never takes a good key
+ * held by a later compound. A compound with neither key nor name is dropped;
+ * there is nothing to show for it. */
 function tlNormalizeProtocol(p) {
+  p = tlIsObject(p) ? p : {};
   var out = {
     name: p.name || '', start: p.start || null, weeks: p.weeks || null, pct: p.pct || '',
     created: p.created || null, compounds: [], slots: tlDefaultSlots(), discreet: !!p.discreet
   };
   TL_SLOT_KEYS.forEach(function (k) {
-    var s = p.slots && p.slots[k];
-    if (!s) return;
-    if (typeof s.t === 'number' && isFinite(s.t)) out.slots[k].t = ((Math.round(s.t) % 1440) + 1440) % 1440;
+    var s = tlIsObject(p.slots) && p.slots[k];
+    if (!tlIsObject(s)) return;
+    if (typeof s.t === 'number' && isFinite(s.t)) out.slots[k].t = tlClampSlotTime(k, s.t);
     out.slots[k].alert = s.alert !== false;
   });
-  (p.compounds || []).forEach(function (c) {
-    if (!c || !c.key) return;
+
+  var list = (Array.isArray(p.compounds) ? p.compounds : []).filter(tlIsObject);
+  var text = function (x) { return (typeof x === 'string' || typeof x === 'number') && String(x).trim() ? String(x) : ''; };
+  var taken = {}, kept = [];
+  list.forEach(function (c, i) {
+    var key = typeof c.key === 'string' ? c.key : '';
+    if (key && key.indexOf(':') < 0 && !taken[key]) { taken[key] = true; kept[i] = key; }
+  });
+  list.forEach(function (c, i) {
+    var name = text(c.name) || text(c.key);
+    if (!name) return;
     var copy = {};
     Object.keys(c).forEach(function (k) { copy[k] = c[k]; });
-    copy.name = c.name || c.key;
+    copy.name = name;
     copy.drugId = c.drugId || null;
-    copy.dose = c.dose && typeof c.dose === 'object' ? c.dose : tlParseDose(c.dose);
-    copy.route = c.route || null;
-    copy.rule = c.rule || null;
-    copy.slots = TL_SLOT_KEYS.filter(function (k) { return (c.slots || []).indexOf(k) >= 0; });
-    copy.inv = c.inv || null;
+    copy.key = kept[i] || tlCompoundKey(name, copy.drugId, taken);
+    copy.dose = tlNormalizeDose(c.dose);
+    copy.route = typeof c.route === 'string' && c.route ? c.route : null;
+    copy.rule = tlIsObject(c.rule) ? c.rule : null;
+    copy.slots = Array.isArray(c.slots) ? TL_SLOT_KEYS.filter(function (k) { return c.slots.indexOf(k) >= 0; }) : [];
+    copy.inv = tlIsObject(c.inv) ? c.inv : null;
+    if (!text(c.note)) delete copy.note;
+    else copy.note = String(c.note);
     out.compounds.push(copy);
   });
   return out;
 }
 
-/* The protocol for a record: the stored one, or the old fields read as one. */
+/* A stored dose with an amount that is a positive number or null, a unit that
+   is text or null, and text. Anything else in it is kept. */
+function tlNormalizeDose(dose) {
+  if (!tlIsObject(dose)) return tlParseDose(typeof dose === 'string' || typeof dose === 'number' ? dose : '');
+  var out = {};
+  Object.keys(dose).forEach(function (k) { out[k] = dose[k]; });
+  out.amount = typeof dose.amount === 'number' && isFinite(dose.amount) && dose.amount > 0 ? dose.amount : null;
+  out.unit = out.amount !== null && typeof dose.unit === 'string' && dose.unit ? dose.unit : null;
+  out.text = typeof dose.text === 'string' ? dose.text : (out.amount !== null ? tlDoseText(out) : '');
+  return out;
+}
+
+/* The protocol for a record: the stored one, or the old fields read as one.
+ *
+ * There are two discreet switches: the stored protocol's, and this device's
+ * old discreet-reminders setting (env.discreet), which only the device
+ * knows. Either one hides compound names. A lock screen that shows a name the
+ * user asked to hide in one place cannot be taken back. */
 function tlProtocol(d, env) {
-  if (d && d.protocol && Array.isArray(d.protocol.compounds)) return tlNormalizeProtocol(d.protocol);
+  if (d && d.protocol && Array.isArray(d.protocol.compounds)) {
+    var p = tlNormalizeProtocol(d.protocol);
+    p.discreet = p.discreet || !!(env && env.discreet);
+    return p;
+  }
   return tlProtocolFromLegacy(d, env);
 }
 
@@ -367,28 +510,29 @@ function tlCompound(protocol, key) {
  * calendar export, and every older build of the app, which drops keys it does
  * not know when it imports a backup. So each save also rewrites the old
  * fields as the closest thing they can say. They cannot say everything: the
- * old frequency text has no word for "Mon, Wed and Fri" or "five on, two
- * off", and an older reader will take those as daily. */
+ * old frequency text has no word for "Mon, Wed and Fri", "every two weeks" or
+ * "five on, two off", and an older reader takes any text it does not know as
+ * daily. So a rule the text cannot say exactly is written as a pulse, which
+ * every old reader treats as never due (tlLegacyFreqText): no dose days is a
+ * gap the user can see, daily dosing of a fortnightly compound is not.
+ *
+ * Each line is "name, dose, frequency" and then the compound's note, if it
+ * has one, where parseMeds ignores it. Reminder times are keyed by the name
+ * exactly as the line has it, since that is how they are looked up. */
 function tlProtocolToLegacy(p) {
-  var clean = function (s) { return String(s === null || s === undefined ? '' : s).replace(/,/g, ';').replace(/[\r\n]+/g, ' ').trim(); };
   var lines = [], reminderTimes = {};
   (p.compounds || []).forEach(function (c) {
-    var rule = c.rule, n = (c.slots || []).length, freq;
-    if (!rule) freq = c.freqText || 'No schedule (pulse)';
-    else if (rule.daily && !rule.pattern && !rule.taper) freq = n >= 2 ? 'Twice daily' : 'Daily';
-    else if (rule.weekdays && !rule.pattern && !rule.taper) {
-      freq = rule.weekdays.length === 1 ? 'Weekly (' + tlRuleLabel(rule) + ')'
-        : rule.weekdays.length === 2 ? 'Twice weekly (' + tlRuleLabel(rule) + ')'
-        : tlRuleLabel(rule);
-    }
-    else if (rule.every && rule.every.days === 3.5 && !rule.pattern) freq = 'Twice weekly';
-    else if (rule.every && rule.every.days === 7 && !rule.pattern) freq = 'Weekly';
-    else if (rule.monthly) freq = 'Monthly';
-    else freq = tlRuleLabel(rule);
-    lines.push(clean(c.name) + ', ' + clean(c.dose ? (c.dose.text || tlDoseText(c.dose)) : '') + ', ' + clean(freq));
-    if (n) {
-      reminderTimes[c.name] = c.slots.map(function (k) { return p.slots[k].t; })
+    var name = tlLegacyName(c.name), freq = tlLegacyFreqText(c, p.start), slots = c.slots || [];
+    var line = name + ', ' + tlLegacyName(tlLegacyDoseText(c.dose)) + ', ' + freq;
+    var note = String(c.note || '').replace(/[\r\n]+/g, ' ').trim();
+    if (note) line += ', ' + note;
+    lines.push(line);
+    if (slots.length) {
+      reminderTimes[name] = slots.map(function (k) { return p.slots[k].t; })
         .sort(function (a, b) { return a - b; }).map(tlMinToTime);
+    } else if (parseFrequency(freq).type !== 'pulse') {
+      /* Scheduled, but in no round: no reminder, rather than the defaults. */
+      reminderTimes[name] = [];
     }
   });
   return {
@@ -398,6 +542,74 @@ function tlProtocolToLegacy(p) {
     } : null,
     reminderTimes: reminderTimes
   };
+}
+
+/* Text as one field of an old line: a comma would start the next field. */
+function tlLegacyName(s) {
+  return String(s === null || s === undefined ? '' : s).replace(/,/g, ';').replace(/[\r\n]+/g, ' ').trim();
+}
+
+/* A dose for an old line: the text the user typed when it says the amount the
+   model holds ("250mcg twice daily" is 250 mcg), otherwise the amount itself,
+   so the line never states a dose the model does not. */
+function tlLegacyDoseText(dose) {
+  if (!dose) return '';
+  var text = String(dose.text || '');
+  if (dose.amount === null || dose.amount === undefined) return text;
+  var read = tlParseDose(tlLegacyName(text));
+  return read.amount === dose.amount && read.unit === (dose.unit || null) ? text : tlDoseText(dose);
+}
+
+/* The frequency an old line gets for a compound, and the only texts used are
+   ones the old screens and tlProtocolFromLegacy both read back as the same
+   doses on the same days: daily, every other day, every third day, monthly,
+   weekly and twice weekly from the start day, and one or two named weekdays.
+   Intervals and monthly need the protocol's start, which is where both
+   engines count from.
+ *
+ * Anything else, a null rule included, is written as a pulse, which every
+ * reader of the old text treats as never due: "Every 2 weeks (pulse - see
+ * app)". The label is dropped where it would read as another frequency
+ * ("Daily, 5 on 2 off" says daily first). An unscheduled compound whose own
+ * old text was already a pulse keeps that text. */
+function tlLegacyFreqText(c, start) {
+  var rule = c && c.rule, n = ((c && c.slots) || []).length;
+  if (!tlIsObject(rule)) {
+    var own = tlLegacyName(c && c.freqText);
+    return own && parseFrequency(own).type === 'pulse' ? own : tlPulseText('No schedule');
+  }
+  /* A rule's own start that is the protocol's start says nothing the old
+     text does not: the old screens count intervals from the protocol's start. */
+  var keys = Object.keys(rule).filter(function (k) {
+    return rule[k] !== undefined && rule[k] !== null && !(k === 'start' && rule.start === start);
+  });
+  var only = function (k) { return keys.length === 1 && keys[0] === k; };
+  var every = tlIsObject(rule.every) && Object.keys(rule.every).join() === 'days' ? rule.every.days : null;
+  var days = Array.isArray(rule.weekdays) ? rule.weekdays : [];
+  var plain = days.every(function (d, i) { return d >= 0 && d <= 6 && d % 1 === 0 && days.indexOf(d) === i; });
+  if ((only('daily') && rule.daily === true) || (only('every') && every === 1) || (only('weekdays') && plain && days.length === 7)) {
+    return n >= 2 ? 'Twice daily' : 'Daily';
+  }
+  if (only('weekdays') && plain && days.length === 1) return 'Weekly (' + tlRuleLabel(rule) + ')';
+  if (only('weekdays') && plain && days.length === 2) return 'Twice weekly (' + tlRuleLabel(rule) + ')';
+  /* The start day and three days on, as the old week view placed twice weekly.
+     Written out as weekdays, so a note after the frequency cannot move them. */
+  var fromStart = /^\d{4}-\d{2}-\d{2}$/.test(String(start || '')) ? tlFreqDays({ type: 'weekly', count: 2 }, start) : null;
+  if (fromStart) {
+    if (only('every') && every === 2) return 'Every other day';
+    if (only('every') && every === 3) return 'Every 3 days';
+    if ((only('every') && every === 7) || (only('weeklyCount') && rule.weeklyCount === 1)) {
+      return 'Weekly (' + TL_WEEKDAYS[fromStart[0]] + ')';
+    }
+    if (only('weeklyCount') && rule.weeklyCount === 2) return 'Twice weekly (' + tlRuleLabel({ weekdays: fromStart }) + ')';
+    if (only('monthly') && rule.monthly === true) return 'Monthly';
+  }
+  return tlPulseText(tlRuleLabel(rule));
+}
+
+function tlPulseText(label) {
+  var text = tlLegacyName(label) + ' (pulse - see app)';
+  return parseFrequency(text).type === 'pulse' ? text : 'Custom schedule (pulse - see app)';
 }
 
 /* Make the derived model the stored one. Idempotent: a record that already
