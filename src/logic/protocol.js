@@ -595,6 +595,16 @@ function tlLegacyDoseText(dose) {
  * ("Daily, 5 on 2 off" says daily first). An unscheduled compound whose own
  * old text was already a pulse keeps that text. */
 function tlLegacyFreqText(c, start) {
+  var text = tlLegacyFreqDays(c, start), n = ((c && c.slots) || []).length;
+  /* Two or more rounds on a line that is not daily: "Twice daily every other
+     day", read back by parseMeds with its count. */
+  if (n >= 2 && c && c.rule && !/^(?:Daily|Twice daily|\d+x daily)$/.test(text) && !/pulse/.test(text)) {
+    return (n === 2 ? 'Twice daily ' : n + 'x daily ') + text.charAt(0).toLowerCase() + text.slice(1);
+  }
+  return text;
+}
+
+function tlLegacyFreqDays(c, start) {
   var rule = c && c.rule, n = ((c && c.slots) || []).length;
   if (!tlIsObject(rule)) {
     /* The user's own words when the line they make still reads as unscheduled
