@@ -44,3 +44,4 @@
 .tl-cs-spare .ds-btn-icon{width:44px;padding:0}
 .tl-cs-spare-v{min-width:28px;text-align:center;font-size:17px;font-weight:500}
 #tl-cs-title:focus{outline:none}
+.tl-pc-note{flex:none;font-size:13px;color:var(--color-muted)}

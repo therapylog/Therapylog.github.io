@@ -115,7 +115,7 @@ function tlProtocolScreen(el) {
         : (p.compounds.length > 1 ? 'Nothing flagged across your stack in our reference' : 'Add two or more compounds to check them'),
       caret: true, attrs: 'data-pc="ix"' }) + '<div class="ds-hr"></div>' +
     tlRow({ as: 'button', hex: { icon: 'clipboard-text' }, title: 'Start from a template', sub: 'Ready-made protocols to adapt with your physician',
-      trail: free ? '<span class="ds-tag ds-tag-outline">Pro</span>' : '', caret: true, attrs: 'data-pc="templates"' }) + '<div class="ds-hr"></div>' +
+      trail: free ? '<span class="tl-pc-note">Peptides free</span>' : '', caret: true, attrs: 'data-pc="templates"' }) + '<div class="ds-hr"></div>' +
     tlRow({ as: 'button', hex: { icon: 'bell-ringing' }, title: 'Round alerts',
       sub: tlAlertsOn() ? 'On. Times and switches are in Customize Home' : 'Off. Turn on to get one alert per round',
       caret: true, attrs: 'data-pc="alerts"' }) + '<div class="ds-hr"></div>' +
@@ -266,6 +266,8 @@ function tlLoadTemplate(tid) {
   var all = [].concat(typeof TEMPLATES !== 'undefined' ? TEMPLATES : [], typeof FEMALE_TEMPLATES !== 'undefined' ? FEMALE_TEMPLATES : []);
   var t = all.filter(function (x) { return x.id === tid; })[0];
   if (!t) return;
+  /* Templates made only of peptides are free; the rest are Pro. */
+  if (typeof tlTemplateLocked === 'function' && tlTemplateLocked(t) && !TLTier.check('protocol_templates')) return;
   var d = gd(), p = tlProtocol(d, tlEnv());
   var ask = p.compounds.length && typeof tlAsk === 'function' ? tlAsk(tlConfirmCopy('template', { name: t.name })) : Promise.resolve(true);
   Promise.resolve(ask).then(function (ok) {

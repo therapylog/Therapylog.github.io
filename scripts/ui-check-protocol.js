@@ -237,7 +237,7 @@ const fitDetail = (f) => JSON.stringify(f).slice(0, 300);
     await page.waitForTimeout(300);
     d = await record(page);
     s = await screen(page);
-    const tname = await page.evaluate(() => TEMPLATES[0].name);
+    const tname = await page.evaluate(() => { const id = /loadTemplate\('([^']+)'/.exec(document.querySelector('#template-list [onclick^="loadTemplate"]').getAttribute('onclick'))[1]; return TEMPLATES.find((x) => x.id === id).name; });
     t('confirming replaces the protocol with the template and returns to Protocol', s.route === 'protocol' && d.protocol.name === tname && /physician/.test(await page.textContent('#tl-toast')),
       JSON.stringify([s.route, d.protocol.name]));
 
@@ -282,14 +282,45 @@ const fitDetail = (f) => JSON.stringify(f).slice(0, 300);
     const s = await screen(page);
     t('the Protocol tab is free: the stack editor is capture', s.route === 'protocol' && s.newScreen && !(await page.$('#tl-upgrade-overlay')));
     const pro = await page.evaluate(() => Array.from(document.querySelectorAll('.tl-pc-rows .ds-row')).filter((r) => r.querySelector('.ds-tag') && r.querySelector('.ds-tag').textContent === 'Pro').map((r) => r.getAttribute('data-pc')));
-    t('templates and the full levels chart say Pro', pro.join() === 'templates,levels', pro.join());
+    t('the full levels chart says Pro; templates say peptides are free', pro.join() === 'levels' &&
+      /Peptides free/.test(await page.textContent('[data-pc="templates"]')), pro.join());
     await page.click('[data-pc="levels"]');
     await page.waitForTimeout(200);
     t('and the levels chart is gated, leaving them on Protocol', await page.evaluate(() => !!document.getElementById('tl-upgrade-overlay') && tlRoute === 'protocol'));
     await page.evaluate(() => { const o = document.getElementById('tl-upgrade-overlay'); if (o) o.remove(); });
+
     await page.click('[data-pc="templates"]');
     await page.waitForTimeout(200);
-    t('so are templates', await page.evaluate(() => !!document.getElementById('tl-upgrade-overlay') && tlRoute === 'protocol'));
+    const tpl = await page.evaluate(() => ({
+      route: tlRoute, overlay: !!document.getElementById('tl-upgrade-overlay'),
+      cards: Array.from(document.querySelectorAll('#template-list .card')).map((c) => ({
+        name: c.querySelector('div[style*="font-size:16px"]').textContent.trim(),
+        tag: (c.querySelector('.tl-tpl-tag') || {}).textContent || '',
+        load: !!c.querySelector('[onclick^="loadTemplate"]'),
+        doses: /mcg|mg|IU/.test(c.textContent)
+      }))
+    }));
+    const free = tpl.cards.filter((c) => c.tag === 'Free'), locked = tpl.cards.filter((c) => c.tag === 'Pro');
+    t('free: templates open without the upgrade screen', tpl.route === 'library/templates' && !tpl.overlay, JSON.stringify([tpl.route, tpl.overlay]));
+    t('  the peptide-only templates come first, marked Free, with their doses and a Load button',
+      free.length === 3 && tpl.cards.slice(0, 3).every((c) => c.tag === 'Free' && c.load && c.doses) &&
+      free.map((c) => c.name).join('|') === '🩹 Injury Recovery Protocol|⏳ Anti-Aging GH Protocol|🧬 Female Peptide Protocol', free.map((c) => c.name).join('|'));
+    t('  every other template says Pro, names its compounds, and shows no doses', locked.length === tpl.cards.length - 3 &&
+      locked.every((c) => !c.load && !c.doses), JSON.stringify(locked.filter((c) => c.load || c.doses)).slice(0, 200));
+    await page.click('#template-list .card:nth-child(4) button');
+    await page.waitForTimeout(200);
+    t('  and unlocking one opens the upgrade screen', await page.evaluate(() => !!document.getElementById('tl-upgrade-overlay')));
+    await page.evaluate(() => { const o = document.getElementById('tl-upgrade-overlay'); if (o) o.remove(); });
+    await page.click('#template-list .card:nth-child(1) [onclick^="loadTemplate"]');
+    await page.waitForSelector('#tl-confirm');
+    await page.click('#tl-confirm button:has-text("Use template")');
+    await page.waitForTimeout(300);
+    const loaded = await page.evaluate(() => ({ route: tlRoute, name: (JSON.parse(localStorage.getItem('tlv2')).protocol || {}).name, overlay: !!document.getElementById('tl-upgrade-overlay') }));
+    t('  a free template loads for a free user', loaded.route === 'protocol' && loaded.name === 'Injury Recovery Protocol' && !loaded.overlay, JSON.stringify(loaded));
+    t('  a Pro template cannot be loaded by calling it directly', await page.evaluate(() => {
+      loadTemplate('trt-starter');
+      return !!document.getElementById('tl-upgrade-overlay') && JSON.parse(localStorage.getItem('tlv2')).protocol.name === 'Injury Recovery Protocol';
+    }));
     t('no page errors', !errors.length, errors.join(' | '));
     await context.close();
   }

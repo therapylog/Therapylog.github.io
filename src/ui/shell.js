@@ -27,12 +27,13 @@ var TL_ROUTES = {
   'home/customize': { title: 'Customize Home', back: 'today', bare: true, screen: 'tlCustomizeScreen' },
   /* The stack editor is free: entering a protocol is capture, as onboarding
      and Today already let anyone do. The analysis around it stays paid: the
-     full levels chart (cycle_tracker, as the old cycle page was) and
-     templates (protocol_templates). */
+     full levels chart (cycle_tracker, as the old cycle page was) and the
+     templates with a hormone, a steroid or a PCT drug in them
+     (protocol_templates, checked per template: peptide-only ones are free). */
   protocol: { title: 'Protocol', tab: 'protocol', screen: 'tlProtocolScreen', legacy: function () { showPage('cycle'); } },
   'protocol/levels': { title: 'Levels', back: 'protocol', gate: 'cycle_tracker',
     legacy: function () { showPage('cycle'); tlLegacyTab('#page-cycle', showCycleTab, 'levels'); } },
-  'library/templates': { title: 'Templates', back: 'protocol', gate: 'protocol_templates',
+  'library/templates': { title: 'Templates', back: 'protocol',
     legacy: function () { showPage('tools'); tlLegacyTab('#page-tools', showToolTab, 'templates'); } },
   'library/interactions': { title: 'Interactions', back: 'protocol',
     legacy: function () { showPage('tools'); tlLegacyTab('#page-tools', showToolTab, 'interact'); } },
