@@ -565,9 +565,12 @@ return t => t <= 0 ? 0 : (Math.exp(-ke * t) - Math.exp(-ka * t)) / peak;
 }
 
 function pkParseDose(s) {
-const t = String(s||'').replace(/(\d),(?=\d{3}(?!\d))/g, '$1');
+/* "1,000mcg" and "10,000 IU": a thousands comma, where amounts that size are
+   usual. "2,500mg" or "0,250mg" may be a decimal comma: no curve, no guess. */
+const t = String(s||'').replace(/^(\s*)([1-9]\d{0,2}(?:,\d{3})+)(?!\d)(?=\s*(?:mcg|iu|units?)\b)/i, (x, sp, n) => sp + n.replace(/,/g, ''));
 const m = t.match(/(\d+(?:\.\d+)?|\.\d+)\s*(mcg|mg|iu|units?|ml)?/i);
 if (!m) return null;
+if (/^,\d/.test(t.slice(m.index + m[1].length))) return null;
 if (/^\s*(?:-|\u2013|\u2014|to\b)\s*\.?\d/i.test(t.slice(m.index + m[0].length))) return null;
 let v = parseFloat(m[1]); const u = (m[2]||'mg').toLowerCase();
 if (!isFinite(v) || v <= 0) return null;

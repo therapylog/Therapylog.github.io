@@ -740,6 +740,9 @@ var TL_FREQ_AT = [
 ];
 
 var TL_LETTER_DAY = { su: 0, m: 1, mo: 1, t: 2, tu: 2, w: 3, we: 3, th: 4, r: 4, f: 5, fr: 5, sa: 6 };
+var TL_DAY_NAME = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+/* A day's name as tlDayWords reads it (src/logic/protocol.js). */
+var TL_FREQ_DAYWORD = 'sun(?:days?)?|mon(?:days?)?|tue(?:s(?:days?)?)?|wed(?:s|nesdays?)?|thu(?:r(?:s(?:days?)?)?)?|fri(?:days?)?|sat(?:urdays?)?';
 
 function tlFreqNum(word) {
   if (/^\d+$/.test(word)) return parseInt(word, 10);
@@ -763,35 +766,51 @@ function tlFreqStripDurations(f) {
     .replace(/\bx\s*\d+\s*(?:weeks?|wks?|days?|months?)\b/g, ' ');
 }
 
-/* Weekdays written as letters: "M/W/F", "MWF", "T/Th", "M-F". */
-function tlLetterDays(f) {
-  /* Days named after "except", "skip", "starting" and the like are not dose
-     days, as tlWeekdaysInText reads day names. */
-  var guarded = function (at) {
-    var g = /\b(except|excluding|skip\w*|no|not|off|start\w*|begin\w*|from|until|till)\b/.exec(f);
-    return !!g && g.index < at;
-  };
-  var compact = { mwf: [1, 3, 5], tuth: [2, 4], tth: [2, 4], mth: [1, 4], mtwthf: [1, 2, 3, 4, 5] };
-  var c = /(?:^|[^a-z])(mwf|tuth|tth|mth|mtwthf)(?![a-z])/.exec(f);
-  if (c) return guarded(c.index) ? null : compact[c[1]].slice();
-  var tok = '(?:su|mo|m|tu|th|t|we|w|r|fr|f|sa)';
-  var m = new RegExp('(?:^|[^a-z0-9.])(' + tok + '(?:\\s*[\\/,&-]\\s*' + tok + ')+)(?![a-z])').exec(f);
-  if (!m || guarded(m.index)) return null;
-  var parts = m[1].split(/\s*[\/,&-]\s*/);
-  var days = parts.map(function (p) { return TL_LETTER_DAY[p]; });
-  if (parts.length === 2 && /-/.test(m[1]) && days[0] === 1 && days[1] === 5) days = [1, 2, 3, 4, 5];
-  var out = [];
-  days.forEach(function (d) { if (out.indexOf(d) < 0) out.push(d); });
-  return out.sort(function (a, b) { return a - b; });
+/* Days written as letters, spelled out so that one reader takes every way of
+   writing them: "M/W/F", "T/Th", "M-Th", "M-Sat", "MWF". A letter is a day
+   only in a list of days, never on its own. */
+function tlFreqSpellDays(f) {
+  var compact = { mwf: 'mon/wed/fri', tuth: 'tue/thu', tth: 'tue/thu', mth: 'mon/thu', mtwthf: 'mon-fri' };
+  f = f.replace(/(^|[^a-z])(mwf|tuth|tth|mth|mtwthf)(?![a-z])/g, function (m, pre, w) { return pre + compact[w]; });
+  var tok = '(?:' + TL_FREQ_DAYWORD + '|su|mo|tu|th|we|fr|sa|m|t|w|r|f)';
+  var re = new RegExp('(^|[^a-z0-9.])(' + tok + '(?:\\s*[\\/,&-]\\s*' + tok + ')+)(?![a-z])', 'g');
+  return f.replace(re, function (m, pre, list) {
+    return pre + list.replace(/[a-z]+/g, function (w) {
+      return Object.prototype.hasOwnProperty.call(TL_LETTER_DAY, w) ? TL_DAY_NAME[TL_LETTER_DAY[w]] : w;
+    });
+  });
 }
 
-/* Days the user named, as 0-6 with Sunday 0, or null. Named weekdays are read
-   by the protocol model's own reader (src/logic/protocol.js), so both readings
-   take the same days from the same words. */
-function tlFreqNamedDays(f) {
-  var days = typeof tlWeekdaysInText === 'function' ? tlWeekdaysInText(f) : null;
-  if (days && days.length) return days;
-  return tlLetterDays(f);
+/* The days the text names to dose on: { days, rest }, or null.
+ *
+ * Days named after a word that rules them out ("except Sunday", "but Sun",
+ * "w/o Sunday", "other than", "rest Sunday") or before "off" ("Sun off",
+ * "Sat & Sun off") are rest days, and are never dose days. When the text
+ * names only rest days, the dose days are the rest of the week and `rest` is
+ * true ("every day but Sunday" is the six others); the caller takes that only
+ * for a daily line. Days named after "starting", "from", "until" and the like
+ * are when a course starts or stops, not a schedule, and are not read.
+ *
+ * Ranges and lists are read by tlWeekdaysInText (src/logic/protocol.js), so
+ * the old screens and the protocol model take the same days. */
+function tlFreqDayRule(f) {
+  if (typeof tlWeekdaysInText !== 'function') return null;
+  var s = tlFreqSpellDays(f), exclude = [];
+  var day = '(?:' + TL_FREQ_DAYWORD + ')';
+  s = s.replace(new RegExp('\\b(' + day + '(?:\\s*(?:&|and|,|\\/|\\+|-|–)\\s*' + day + ')*)\\s+off\\b', 'g'), function (m, list) {
+    exclude = exclude.concat(tlWeekdaysInText(list) || []);
+    return ' ';
+  });
+  var cut = /\b(except|excluding|but|besides|other than|w\/o|without|skip\w*|minus|apart from|rest(?:ing)?|not|no|start\w*|begin\w*|from|until|till)\b/.exec(s);
+  var head = cut ? s.slice(0, cut.index) : s;
+  if (cut && !/^(?:start|begin|from|until|till)/.test(cut[1])) {
+    exclude = exclude.concat(tlWeekdaysInText(s.slice(cut.index + cut[0].length)) || []);
+  }
+  var include = (tlWeekdaysInText(head) || []).filter(function (d) { return exclude.indexOf(d) < 0; });
+  if (include.length) return { days: include, rest: false };
+  if (!exclude.length) return null;
+  var rest = [0, 1, 2, 3, 4, 5, 6].filter(function (d) { return exclude.indexOf(d) < 0; });
+  return rest.length ? { days: rest, rest: true } : null;
 }
 
 /* Times of day the text names, in the order it names them. More than one is
@@ -801,6 +820,16 @@ function tlFreqNamedDays(f) {
    Gives { doses, at }; at is null when the times named are not a list. */
 function tlFreqTimesOfDay(f) {
   var found = [];
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+  /* Clock times are times: "at 2pm" is 14:00, not the evening. */
+  f = f.replace(/\b(\d{1,2})(?::([0-5]\d))?\s*(a\.?m\.?|p\.?m\.?)(?![a-z])/g, function (m, h, mi, ap, at) {
+    var hh = +h % 12 + (ap.charAt(0) === 'p' ? 12 : 0);
+    if (+h >= 1 && +h <= 12) found.push({ key: 'c' + hh + ':' + (mi || '00'), time: pad(hh) + ':' + (mi || '00'), at: at, end: at + m.length });
+    return new Array(m.length + 1).join(' ');
+  }).replace(/\b([01]?\d|2[0-3]):([0-5]\d)\b/g, function (m, h, mi, at) {
+    found.push({ key: 'c' + +h + ':' + mi, time: pad(+h) + ':' + mi, at: at, end: at + m.length });
+    return new Array(m.length + 1).join(' ');
+  });
   TL_FREQ_AT.forEach(function (w) {
     var re = new RegExp(w.re.source, 'g'), m;
     while ((m = re.exec(f))) {
@@ -843,9 +872,9 @@ function tlFreqHits(g) {
   var times = '\\s*(?:x|times)';
 
   add(/\b(?:prn|as needed|as required|when needed|if needed)\b/, function () { return { kind: 'asneeded' }; });
-  add(/\bbi[\s-]?weekly\b/, function () { return { kind: 'check', ask: 'biweekly' }; });
-  add(/\b(?:bi[\s-]?monthly|semi[\s-]?monthly)\b/, function () { return { kind: 'check' }; });
-  add(/\bsemi[\s-]?weekly\b/, function () { return { kind: 'weekly', n: 2 }; });
+  add(/\bbi[\s-]*weekly\b/, function () { return { kind: 'check', ask: 'biweekly' }; });
+  add(/\b(?:bi[\s-]*monthly|semi[\s-]*monthly)\b/, function () { return { kind: 'check' }; });
+  add(/\bsemi[\s-]*weekly\b/, function () { return { kind: 'weekly', n: 2 }; });
 
   /* Doses a day. */
   add(/\b(b|t|q)\.?i\.?d\b\.?/, function (m) { return { kind: 'daily', n: { b: 2, t: 3, q: 4 }[m[1]] }; });
@@ -862,6 +891,9 @@ function tlFreqHits(g) {
   add(/\b(once|twice|thrice)\s*weekly\b/, function (m) { return { kind: 'weekly', n: tlFreqNum(m[1]) }; });
   add(new RegExp('\\b' + count + times + link + '(?:weekly|weeks?|wks?)\\b'), function (m) { return { kind: 'weekly', n: tlFreqNum(m[1]) }; });
   add(/\b(\d+)\s*(?:\/|per\s+)\s*(?:weeks?|wks?)\b/, function (m) { return { kind: 'weekly', n: +m[1] }; });
+  /* "5 days/week", "3 days a week", "7 days per week". */
+  add(/\b(\d|one|two|three|four|five|six|seven)\s*days?\s*(?:\/|per\s+|a\s+|each\s+|every\s+|in\s+a\s+)\s*(?:weeks?|wks?)\b/,
+    function (m) { return { kind: 'weekly', n: tlFreqNum(m[1]) }; });
   add(/(?:\be3\.5d\b|\bevery\s+3\.5\s*(?:days?|d)\b)/, function () { return { kind: 'weekly', n: 2 }; });
   add(/\b(?:weekly|every\s+week|each\s+week|per\s+week|qwk|q\s?wk|qw)\b/, function () { return { kind: 'weekly', n: 1, plain: true }; });
   add(/\/\s*(?:week|wk)\b/, function () { return { kind: 'weekly', n: 1, plain: true }; });
@@ -908,7 +940,7 @@ function tlFreqHits(g) {
 /* Words a schedule is stated in. Text with one of these that matched no
    phrase above states a schedule this cannot read. */
 function tlFreqSaysSchedule(g) {
-  return /\b(?:every|weekly|monthly|weeks?|wks?|months?|hours?|hrs?)\b|\d\s*(?:x|times)\b/.test(g);
+  return /\b(?:every|weekly|monthly|weeks?|wks?|months?)\b|\d\s*(?:x|times)\b/.test(g);
 }
 
 function tlFreqCountWord(n) {
@@ -957,7 +989,9 @@ function tlReadFrequency(text, strict) {
   var g = ' ' + tlFreqStripDurations(f) + ' ';
   var hits = tlFreqHits(g);
   var base = hits[0] || null;
-  var named = tlFreqNamedDays(f);
+  var dayRule = tlFreqDayRule(f);
+  /* Rest days give the dose days only to a daily line. */
+  var named = dayRule && (!dayRule.rest || !base || base.kind === 'daily') ? dayRule.days : null;
   var tod = tlFreqTimesOfDay(f);
 
   if (base && base.kind === 'check' && base.ask === 'biweekly' && named && named.length === 2) base = { kind: 'weekly', n: 2 };
@@ -1007,14 +1041,20 @@ function tlReadFrequency(text, strict) {
    "Mon AM and Thu PM". "Refill on Fridays" says more, and does not move the
    dose to Friday. */
 function tlFreqOnlyDays(text) {
-  var s = String(text || '').toLowerCase();
-  if (!tlFreqNamedDays(s)) return false;
-  var words = typeof tlDayWords === 'function' ? tlDayWords(s) : [];
-  for (var i = words.length - 1; i >= 0; i--) s = s.slice(0, words[i].at) + ' ' + s.slice(words[i].end);
-  s = s.replace(/(^|[^a-z])(?:mwf|tuth|tth|mth|su|mo|tu|th|we|fr|sa|m|t|w|r|f)(?=$|[^a-z])/g, '$1 ')
-    .replace(/\b(?:am|pm|morning|evening|night|noon|bedtime|and|only)\b/g, ' ')
+  var s = tlFreqSpellDays(String(text || '').toLowerCase());
+  var r = tlFreqDayRule(s);
+  if (!r || r.rest) return false;
+  s = s.replace(new RegExp('\\b(?:' + TL_FREQ_DAYWORD + ')\\b', 'g'), ' ')
+    .replace(/\b(?:am|pm|morning|evening|night|noon|bedtime|and|only|to|through|thru)\b/g, ' ')
     .replace(/a\.m\.|p\.m\./g, ' ');
   return !/[a-z0-9]/.test(s);
+}
+
+/* Reminder times for N doses a day, spread through the waking day. */
+function tlFreqDoseTimes(n) {
+  return n <= 1 ? ['08:00'] : n === 2 ? ['08:00', '21:00'] : n === 3 ? ['08:00', '14:00', '20:00']
+    : n === 4 ? ['08:00', '12:00', '16:00', '20:00'] : n === 5 ? ['07:00', '10:30', '14:00', '17:30', '21:00']
+    : ['07:00', '10:00', '13:00', '16:00', '19:00', '22:00'];
 }
 
 /* Whether a reading puts doses on any day at all. */
@@ -1030,7 +1070,8 @@ function tlSplitProtocolLine(line) {
   var s = String(line), parts = [], cur = '';
   for (var i = 0; i < s.length; i++) {
     var ch = s.charAt(i);
-    if (ch === ',' && /\d/.test(s.charAt(i - 1) || '') && /^\d{3}(?!\d)/.test(s.slice(i + 1))) { cur += ch; continue; }
+    /* "1,000mcg", but not "TB-500,250mcg": the field so far must be a number. */
+    if (ch === ',' && /^\s*\d{1,3}(?:,\d{3})*$/.test(cur) && /^\d{3}(?!\d)/.test(s.slice(i + 1))) { cur += ch; continue; }
     if (ch === ',') { parts.push(cur.trim()); cur = ''; continue; }
     cur += ch;
   }
@@ -1400,8 +1441,10 @@ function tlSlotsFromTimes(times) {
 function tlParseDose(text) {
   var raw = String(text === null || text === undefined ? '' : text).trim();
   var out = { amount: null, unit: null, text: raw };
-  /* "1,000mcg": a comma that groups thousands is part of the number. */
-  var m = raw.replace(/^(\d{1,3}(?:,\d{3})+)(?!\d)/, function (n) { return n.replace(/,/g, ''); }).match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
+  /* "1,000mcg" and "10,000 IU": a comma that groups thousands, where amounts
+     that size are usual. "2,500mg" or "0,250mg" may use a decimal comma, so
+     it keeps its text and gets no amount. */
+  var m = raw.replace(/^([1-9]\d{0,2}(?:,\d{3})+)(?!\d)(?=\s*(?:mcg|\u00b5g|ug|iu|units?)\b)/i, function (n) { return n.replace(/,/g, ''); }).match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
   if (!m) return out;
   var rest = m[3] || '';
   if (/\d/.test(rest) || /^\s*(\/|per\b|x\b|to\b)/i.test(rest)) return out;
@@ -1511,7 +1554,8 @@ function tlRuleFromLegacy(med, start, note) {
      old text keeps the user's words, and the screens ask about it. */
   if (type === 'check' || type === 'asneeded') return null;
   if (type !== 'interval' && type !== 'monthly' && type !== 'pulse') {
-    if (tlDayWords(med && med.freqStr).length) named = tlWeekdaysInText(med.freqStr);
+    /* The days the reader took from the line (rest days ruled out). */
+    if (freq.named && freq.days && freq.days.length) named = freq.days.slice();
     else if (type === 'weekly' && note) {
       /* Only the parts of the note that say nothing but days: "Mon AM and Thu
          PM, glute only" places the line; "refill on Fridays" does not. */
@@ -1843,8 +1887,12 @@ function tlLegacyDoseText(dose) {
 function tlLegacyFreqText(c, start) {
   var rule = c && c.rule, n = ((c && c.slots) || []).length;
   if (!tlIsObject(rule)) {
+    /* The user's own words when the line they make still reads as unscheduled
+       (a pulse, "as needed", one to check, also when the schedule was in the
+       dose: "Test C, 100mg biweekly, IM"). */
     var own = tlLegacyName(c && c.freqText);
-    var ownType = own ? parseFrequency(own).type : null;
+    var line = own ? parseMeds('x, ' + tlLegacyName(tlLegacyDoseText(c && c.dose)) + ', ' + own)[0] : null;
+    var ownType = line ? line.freq.type : null;
     return ownType === 'pulse' || ownType === 'check' || ownType === 'asneeded' ? own : tlPulseText('No schedule');
   }
   /* A rule's own start that is the protocol's start says nothing the old
@@ -7064,17 +7112,20 @@ const parts = tlSplitProtocolLine(line);
 const name = parts[0] || 'Unknown';
 const dose = parts[1] || '';
 const freqStr = parts[2] || 'Daily';
-/* "BPC-157, 250mcg twice daily, SubQ" puts its schedule in the dose: when the
-   frequency field names none, the dose is read for one before the field's own
-   words fall back to once a day. */
-let freq = tlReadFrequency(freqStr, true) || tlReadFrequency(dose, true) || parseFrequency(freqStr);
-/* Days named in the rest of the line ("Twice weekly, Mon AM and Thu PM")
-   place a weekly line when there are as many as it takes, as the protocol
-   model reads them (tlRuleFromLegacy). */
-if (freq.type === 'weekly' && !freq.named && parts.length > 3) {
+/* "BPC-157, 250mcg twice daily, SubQ" and "Test C, 200mg every 2 weeks" put
+   the schedule in the dose: when the frequency field names none, or there is
+   no frequency field, the dose is read for one before falling back to once a
+   day. */
+let freq = (parts[2] ? tlReadFrequency(parts[2], true) : null) || tlReadFrequency(dose, true) || parseFrequency(freqStr);
+/* Fields after the frequency that name nothing but days ("Twice weekly, Mon
+   AM and Thu PM", "Mon, Thu", "3 times weekly: Mon, Wed, Fri") place a weekly
+   line: as many days as a stated count takes, or more days named one by one.
+   "Weekly, refill on Fridays" says more than days and moves nothing. */
+if (freq.type === 'weekly' && parts.length > 3) {
 const days = parts.slice(3).filter(tlFreqOnlyDays);
 const whole = days.length ? tlReadFrequency(freqStr + ', ' + days.join(', '), true) : null;
-if (whole && whole.type === 'weekly' && whole.named && whole.count === freq.count && !whole.times) freq = whole;
+if (whole && whole.type === 'weekly' && whole.named && !whole.times &&
+(freq.named ? freq.days.every(d => whole.days.indexOf(d) >= 0) : whole.count === freq.count)) freq = whole;
 }
 const colors = ['#4ade9a','#3bc4ff','#f59e0b','#f472b6','#a78bfa','#34d399','#fb923c','#22d3ee'];
 return { name, dose, freqStr, freq, color: colors[idx % colors.length], id: 'med-'+idx };
@@ -7140,9 +7191,10 @@ const rotationGroups = {
 const lastSite = medLogs[0].site;
 const usedSites = medLogs.map(e => e.site);
 let group = rotationGroups['SubQ'];
-/* "Test C", "Test E" and "Testosterone Cypionate" are intramuscular. A name
-   that merely contains the letters ("Contest Prep Blend") is not. */
-if (/\btest(?:osterone)?\b/i.test(medName))
+/* "Test C", "TestCyp", "Testo E" and "Testosterone Cypionate" are
+   intramuscular. A name that merely contains the letters ("Contest Prep
+   Blend") is not. */
+if (/\btest(?:o\w*|cyp\w*|enan\w*|prop\w*|e|c|p)?\b/i.test(medName))
 group = rotationGroups['Testosterone'];
 const leastUsed = group.filter(s => !usedSites.includes(s))[0]
 || group.find(s => s !== lastSite)
@@ -7395,7 +7447,7 @@ rrule = "RRULE:FREQ=DAILY;INTERVAL=" + (freq.interval || 1);
 const days = (tlFreqDays(freq, d.proto.start) || freq.days).map(x => dayCode[x]).join(',');
 rrule = "RRULE:FREQ=WEEKLY;BYDAY=" + days;
 } else if (freq.type === 'monthly') {
-rrule = tlMonthlyRrule(dtStart);
+rrule = tlMonthlyRrule(d.proto.start ? tlLocalDate(d.proto.start).getDate() : dtStart.getDate());
 } else {
 rrule = "RRULE:FREQ=DAILY";
 }
@@ -7430,11 +7482,11 @@ document.body.removeChild(a);
 URL.revokeObjectURL(url);
 toast("Calendar file downloaded — open it to add to your calendar");
 }
-/* A monthly repeat. Started on the 29th to 31st, it takes the last day of a
-   shorter month, as the app does, instead of skipping that month. */
-function tlMonthlyRrule(start) {
-const day = start.getDate();
-if (day < 29) return 'RRULE:FREQ=MONTHLY';
+/* A monthly repeat on the protocol's own day of the month. From the 29th to
+   the 31st it takes the last day of a shorter month, as the app does, instead
+   of skipping that month or drifting to the 28th after February. */
+function tlMonthlyRrule(day) {
+if (day < 29) return 'RRULE:FREQ=MONTHLY;BYMONTHDAY=' + day;
 const days = [];
 for (let k = 28; k <= day; k++) days.push(k);
 return 'RRULE:FREQ=MONTHLY;BYMONTHDAY=' + days.join(',') + ';BYSETPOS=-1';
@@ -7453,7 +7505,7 @@ const freq = med.freq || {};
 let recur = 'RRULE:FREQ=DAILY';
 if (freq.type === 'interval') recur = 'RRULE:FREQ=DAILY;INTERVAL=' + (freq.interval || 1);
 else if (freq.type === 'weekly' && freq.days && freq.days.length) recur = 'RRULE:FREQ=WEEKLY;BYDAY=' + (tlFreqDays(freq, (gd().proto || {}).start) || freq.days).map(x => dayCode[x]).join(',');
-else if (freq.type === 'monthly') recur = tlMonthlyRrule(start);
+else if (freq.type === 'monthly') { const ps = (gd().proto || {}).start; recur = tlMonthlyRrule(ps ? tlLocalDate(ps).getDate() : start.getDate()); }
 const params = new URLSearchParams({ action: 'TEMPLATE', text: `💉 ${med.name} — ${med.dose || 'dose'}`, details: 'TherapyLog dose reminder', dates: `${f(start)}/${f(end)}`, recur });
 return 'https://calendar.google.com/calendar/render?' + params.toString();
 }
@@ -7513,9 +7565,7 @@ return `
 function getDefaultTimes(freq) {
 /* Times the line itself named ("AM and PM", "before bed"), one per dose. */
 if (Array.isArray(freq.at) && freq.at.length && freq.at.length === (freq.times || 1)) return freq.at.slice();
-if (freq.times === 2) return ['08:00','21:00'];
-if (freq.times === 3) return ['08:00','14:00','20:00'];
-if (freq.times >= 4) return ['08:00','12:00','16:00','20:00'];
+if (freq.times >= 2) return tlFreqDoseTimes(freq.times);
 if (freq.type === 'daily') return ['08:00'];
 return ['09:00'];
 }
@@ -8444,10 +8494,7 @@ function tlNormalizeRule(m) {
 
   if (Array.isArray(f.at) && f.at.length === (f.times || 1)) r.times = f.at.slice();
   else if (Array.isArray(f.times)) r.times = f.times.slice();
-  else if (typeof f.times === 'number') {
-    r.times = f.times === 2 ? ['08:00', '21:00'] : f.times === 3 ? ['08:00', '14:00', '20:00']
-      : f.times >= 4 ? ['08:00', '12:00', '16:00', '20:00'] : ['08:00'];
-  }
+  else if (typeof f.times === 'number') r.times = tlFreqDoseTimes(f.times);
 
   /* Weekly falls on the days the user named, or else is placed from the
      protocol's start (tlWeekdaysFor), as the week view places it. */
@@ -9608,7 +9655,7 @@ let n = -1;
 const lines = d.proto.meds.split('\n').map(line => {
 if (!line.trim()) return line;
 n++;
-return n === index ? line.replace(/\bbi[\s-]?weekly\b/i, words) : line;
+return n === index ? line.replace(/\bbi[\s-]*weekly\b/i, words) : line;
 });
 d.proto = Object.assign({}, d.proto, { meds: lines.join('\n') });
 if (before) {
@@ -13364,9 +13411,12 @@ const peak = Math.exp(-ke * tmax) - Math.exp(-ka * tmax);
 return t => t <= 0 ? 0 : (Math.exp(-ke * t) - Math.exp(-ka * t)) / peak;
 }
 function pkParseDose(s) {
-const t = String(s||'').replace(/(\d),(?=\d{3}(?!\d))/g, '$1');
+/* "1,000mcg" and "10,000 IU": a thousands comma, where amounts that size are
+   usual. "2,500mg" or "0,250mg" may be a decimal comma: no curve, no guess. */
+const t = String(s||'').replace(/^(\s*)([1-9]\d{0,2}(?:,\d{3})+)(?!\d)(?=\s*(?:mcg|iu|units?)\b)/i, (x, sp, n) => sp + n.replace(/,/g, ''));
 const m = t.match(/(\d+(?:\.\d+)?|\.\d+)\s*(mcg|mg|iu|units?|ml)?/i);
 if (!m) return null;
+if (/^,\d/.test(t.slice(m.index + m[1].length))) return null;
 if (/^\s*(?:-|\u2013|\u2014|to\b)\s*\.?\d/i.test(t.slice(m.index + m[0].length))) return null;
 let v = parseFloat(m[1]); const u = (m[2]||'mg').toLowerCase();
 if (!isFinite(v) || v <= 0) return null;

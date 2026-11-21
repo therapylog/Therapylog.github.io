@@ -141,8 +141,10 @@ function tlSlotsFromTimes(times) {
 function tlParseDose(text) {
   var raw = String(text === null || text === undefined ? '' : text).trim();
   var out = { amount: null, unit: null, text: raw };
-  /* "1,000mcg": a comma that groups thousands is part of the number. */
-  var m = raw.replace(/^(\d{1,3}(?:,\d{3})+)(?!\d)/, function (n) { return n.replace(/,/g, ''); }).match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
+  /* "1,000mcg" and "10,000 IU": a comma that groups thousands, where amounts
+     that size are usual. "2,500mg" or "0,250mg" may use a decimal comma, so
+     it keeps its text and gets no amount. */
+  var m = raw.replace(/^([1-9]\d{0,2}(?:,\d{3})+)(?!\d)(?=\s*(?:mcg|\u00b5g|ug|iu|units?)\b)/i, function (n) { return n.replace(/,/g, ''); }).match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
   if (!m) return out;
   var rest = m[3] || '';
   if (/\d/.test(rest) || /^\s*(\/|per\b|x\b|to\b)/i.test(rest)) return out;
@@ -252,7 +254,8 @@ function tlRuleFromLegacy(med, start, note) {
      old text keeps the user's words, and the screens ask about it. */
   if (type === 'check' || type === 'asneeded') return null;
   if (type !== 'interval' && type !== 'monthly' && type !== 'pulse') {
-    if (tlDayWords(med && med.freqStr).length) named = tlWeekdaysInText(med.freqStr);
+    /* The days the reader took from the line (rest days ruled out). */
+    if (freq.named && freq.days && freq.days.length) named = freq.days.slice();
     else if (type === 'weekly' && note) {
       /* Only the parts of the note that say nothing but days: "Mon AM and Thu
          PM, glute only" places the line; "refill on Fridays" does not. */
@@ -584,8 +587,12 @@ function tlLegacyDoseText(dose) {
 function tlLegacyFreqText(c, start) {
   var rule = c && c.rule, n = ((c && c.slots) || []).length;
   if (!tlIsObject(rule)) {
+    /* The user's own words when the line they make still reads as unscheduled
+       (a pulse, "as needed", one to check, also when the schedule was in the
+       dose: "Test C, 100mg biweekly, IM"). */
     var own = tlLegacyName(c && c.freqText);
-    var ownType = own ? parseFrequency(own).type : null;
+    var line = own ? parseMeds('x, ' + tlLegacyName(tlLegacyDoseText(c && c.dose)) + ', ' + own)[0] : null;
+    var ownType = line ? line.freq.type : null;
     return ownType === 'pulse' || ownType === 'check' || ownType === 'asneeded' ? own : tlPulseText('No schedule');
   }
   /* A rule's own start that is the protocol's start says nothing the old

@@ -29,21 +29,48 @@ test('a line splits on its commas, except one that groups the thousands of a num
   /* Not a thousands separator: too few digits after it, or a fourth. */
   same(plain(app.tlSplitProtocolLine('A, 2,5mg, daily')), ['A', '2', '5mg', 'daily']);
   same(plain(app.tlSplitProtocolLine('A, 1,0000, daily')), ['A', '1', '0000', 'daily']);
+  /* A name ending in digits, with no space after the comma, is still a name. */
+  same(plain(app.tlSplitProtocolLine('TB-500,250mcg,2x weekly')), ['TB-500', '250mcg', '2x weekly']);
+  same(plain(app.tlSplitProtocolLine('BPC 157,250mcg,daily')), ['BPC 157', '250mcg', 'daily']);
+  same(plain(app.tlSplitProtocolLine('Sema,1,000mcg,weekly')), ['Sema', '1,000mcg', 'weekly']);
+  /* A decimal comma stays one field; what it means is left to the dose. */
+  same(plain(app.tlSplitProtocolLine('Sema, 0,250mg, weekly')), ['Sema', '0,250mg', 'weekly']);
   same(plain(app.tlSplitProtocolLine('Mon, Wed, Fri')), ['Mon', 'Wed', 'Fri']);
   same(plain(app.tlSplitProtocolLine('')), ['']);
 });
 
-test('weekdays written as letters are read; anything else with letters is not', () => {
-  same(plain(app.tlLetterDays('m/w/f')), [1, 3, 5]);
-  same(plain(app.tlLetterDays('mwf')), [1, 3, 5]);
-  same(plain(app.tlLetterDays('m-w-f')), [1, 3, 5]);
-  same(plain(app.tlLetterDays('t/th')), [2, 4]);
-  same(plain(app.tlLetterDays('tu/th')), [2, 4]);
-  same(plain(app.tlLetterDays('m-f')), [1, 2, 3, 4, 5]);
-  same(plain(app.tlLetterDays('sa/su')), [0, 6]);
-  for (const text of ['am/pm', 'a.m./p.m.', 'daily', '2x/w', 'subq', 'm', 'with food']) {
-    assert.equal(app.tlLetterDays(text), null, text);
+test('weekdays written as letters are read like day names; anything else with letters is not', () => {
+  const days = (p) => { const r = app.tlFreqDayRule(p); return r ? plain(r.days) : null; };
+  same(days('m/w/f'), [1, 3, 5]);
+  same(days('mwf'), [1, 3, 5]);
+  same(days('m-w-f'), [1, 3, 5]);
+  same(days('t/th'), [2, 4]);
+  same(days('tu/th'), [2, 4]);
+  same(days('sa/su'), [0, 6]);
+  /* Two days joined by a dash are a range, whichever days they are. */
+  same(days('m-f'), [1, 2, 3, 4, 5]);
+  same(days('m-th'), [1, 2, 3, 4]);
+  same(days('t-f'), [2, 3, 4, 5]);
+  same(days('m-sat'), [1, 2, 3, 4, 5, 6]);
+  same(days('m-sa'), [1, 2, 3, 4, 5, 6]);
+  for (const text of ['am/pm', 'a.m./p.m.', 'daily', '2x/w', 'subq', 'm', 'with food', 'w/o food', 'im']) {
+    assert.equal(app.tlFreqDayRule(text), null, text);
   }
+});
+
+test('days ruled out are rest days, never dose days; a daily line takes the rest of the week', () => {
+  const r = (p) => plain(app.parseFrequency(p));
+  for (const p of ['every day but Sunday', 'Daily (Sun off)', 'Daily - Sun off', 'Daily (Sundays off)', 'Daily w/o Sunday',
+    'Daily other than Sunday', 'daily besides Sunday', 'Daily (rest Sunday)', 'Daily except Sunday']) {
+    same([r(p).type, r(p).days], ['weekly', [1, 2, 3, 4, 5, 6]], p);
+  }
+  same(r('Daily (Sat & Sun off)').days, [1, 2, 3, 4, 5]);
+  same(r('Daily except T/Th').days, [0, 1, 3, 5, 6]);
+  same(r('Mon-Fri except Fri').days, [1, 2, 3, 4]);
+  /* A start is not a schedule. */
+  same([r('Weekly starting Monday').type, r('Weekly starting Monday').named], ['weekly', undefined]);
+  /* Rest days do not move a weekly count. */
+  assert.equal(r('Twice weekly, Sun off').named, undefined);
 });
 
 test('only a daily, interval, weekly or monthly reading puts doses on any day', () => {
@@ -52,11 +79,11 @@ test('only a daily, interval, weekly or monthly reading puts doses on any day', 
   assert.equal(app.tlFreqScheduled(null), false);
 });
 
-test('a calendar repeat started near a month\'s end takes the last day of a shorter month', () => {
-  assert.equal(app.tlMonthlyRrule(new Date(2026, 0, 15)), 'RRULE:FREQ=MONTHLY');
-  assert.equal(app.tlMonthlyRrule(new Date(2026, 0, 28)), 'RRULE:FREQ=MONTHLY');
-  assert.equal(app.tlMonthlyRrule(new Date(2026, 0, 29)), 'RRULE:FREQ=MONTHLY;BYMONTHDAY=28,29;BYSETPOS=-1');
-  assert.equal(app.tlMonthlyRrule(new Date(2026, 0, 31)), 'RRULE:FREQ=MONTHLY;BYMONTHDAY=28,29,30,31;BYSETPOS=-1');
+test('a calendar repeat falls on the protocol\'s day of the month, and the last day of a shorter one', () => {
+  assert.equal(app.tlMonthlyRrule(15), 'RRULE:FREQ=MONTHLY;BYMONTHDAY=15');
+  assert.equal(app.tlMonthlyRrule(28), 'RRULE:FREQ=MONTHLY;BYMONTHDAY=28');
+  assert.equal(app.tlMonthlyRrule(29), 'RRULE:FREQ=MONTHLY;BYMONTHDAY=28,29;BYSETPOS=-1');
+  assert.equal(app.tlMonthlyRrule(31), 'RRULE:FREQ=MONTHLY;BYMONTHDAY=28,29,30,31;BYSETPOS=-1');
 });
 
 /* ---- the note: what now reads differently -------------------------------- */
@@ -135,12 +162,12 @@ test('"every N days" keeps its interval whatever follows it', () => {
   assert.equal(app.parseFrequency('once a week 2 hours before gym').type, 'weekly');
 });
 
-test('days written as letters after "except" or "not" are not dose days', () => {
-  for (const p of ['Daily except T/Th', 'Daily, not M/W', 'daily except M-F', 'skip MWF']) {
-    assert.notEqual(app.parseFrequency(p).named, true, p);
+test('days written as letters after "except" or "not" are never dose days', () => {
+  for (const [p, off] of [['Daily except T/Th', [2, 4]], ['Daily, not M/W', [1, 3]], ['daily except M-F', [1, 2, 3, 4, 5]], ['skip MWF', [1, 3, 5]]]) {
+    const days = plain(app.parseFrequency(p).days) || [];
+    assert.ok(off.every((d) => days.indexOf(d) < 0), p + ' ' + JSON.stringify(days));
   }
 });
-
 test('times of day are doses only when the text lists them; meals are not times', () => {
   const r = (p) => plain(app.parseFrequency(p));
   assert.equal(r('AM or PM').times, 1);
@@ -158,4 +185,69 @@ test('the rest of a line moves a weekly dose only when it names nothing but days
   /* The protocol model reads the note the same way. */
   const d = { entries: [], proto: proto('Test Cyp, 100mg, Weekly, refill on Fridays') };
   same(plain(app.tlProtocolFromLegacy(d, env).compounds[0].rule), { weekdays: [1] });
+});
+
+/* ---- found in the second review ------------------------------------------ */
+
+test('a name ending in digits keeps its dose when the commas have no spaces', () => {
+  for (const [line, name, dose, type] of [['TB-500,250mcg,2x weekly', 'TB-500', '250mcg', 'weekly'], ['CJC-1295,100mcg,EOD', 'CJC-1295', '100mcg', 'interval'],
+    ['PT-141,500mcg,as needed', 'PT-141', '500mcg', 'asneeded'], ['GHRP-6,100mcg,3x daily', 'GHRP-6', '100mcg', 'daily']]) {
+    const m = app.parseMeds(line)[0];
+    same([m.name, m.dose, m.freq.type], [name, dose, type], line);
+  }
+});
+
+test('weekdays given as separate fields are all dose days', () => {
+  same(plain(app.parseMeds('Test C, 100mg, Mon, Thu')[0].freq.days), [1, 4]);
+  same(plain(app.parseMeds('Test C, 100mg, Mon, Wed, Fri')[0].freq.days), [1, 3, 5]);
+  same(plain(app.parseMeds('Test C, 100mg, Mon AM, Thu PM')[0].freq.days), [1, 4]);
+});
+
+test('"N days a week" is that many days', () => {
+  assert.equal(app.parseFrequency('7 days/week').type, 'daily');
+  assert.equal(app.parseFrequency('7 days a week').type, 'daily');
+  for (const [p, n] of [['5 days/week', 5], ['6 days/wk', 6], ['3 days per week', 3], ['5 days a week', 5]]) {
+    same([app.parseFrequency(p).type, app.parseFrequency(p).count], ['weekly', n], p);
+  }
+});
+
+test('five or six doses a day get five or six reminder times, in the engine too', () => {
+  assert.equal(app.getDefaultTimes(app.parseFrequency('5x daily')).length, 5);
+  assert.equal(app.getDefaultTimes(app.parseFrequency('q4h')).length, 6);
+});
+
+test('a time before or after something else is a time, not a schedule to check', () => {
+  same(plain(app.parseFrequency('1 hour before bed')), { type: 'daily', times: 1, label: '1 hour before bed', days: null, at: ['21:30'] });
+  for (const p of ['2 hours before bed', '1 hour pre workout', '1 hr before training', '1 hour after dinner']) {
+    assert.equal(app.parseFrequency(p).type, 'daily', p);
+  }
+});
+
+test('clock times are the reminder times; "pm" in "2pm" is not the evening', () => {
+  same(plain(app.parseFrequency('Daily at 2pm').at), ['14:00']);
+  same(plain(app.parseFrequency('Daily at 12pm').at), ['12:00']);
+  same(plain(app.parseFrequency('daily 21:00').at), ['21:00']);
+  same([app.parseFrequency('8am and 8pm').times, plain(app.parseFrequency('8am and 8pm').at)], [2, ['08:00', '20:00']]);
+  same(plain(app.parseFrequency('9am/9pm').at), ['09:00', '21:00']);
+});
+
+test('a dose that may use a decimal comma gets no amount and no curve', () => {
+  same(plain(app.tlParseDose('0,250mg')), { amount: null, unit: null, text: '0,250mg' });
+  same(plain(app.tlParseDose('2,500mg')), { amount: null, unit: null, text: '2,500mg' });
+  same(plain(app.parseMeds('Sema, 0,250mg, weekly')[0].dose), '0,250mg');
+});
+
+test('with only a name and a dose, the schedule in the dose is read', () => {
+  same(plain(app.parseMeds('Test C, 200mg every 2 weeks')[0].freq.interval), 14);
+  assert.equal(app.parseMeds('BPC-157, 250mcg twice daily')[0].freq.times, 2);
+  assert.equal(app.parseMeds('Sema, 0.25mg once weekly')[0].freq.type, 'weekly');
+  assert.equal(app.parseMeds('HCG, 500IU')[0].freq.type, 'daily');
+});
+
+test('biweekly is asked about however it is spaced, and a model round trip keeps the question', () => {
+  for (const p of ['Bi  weekly', 'bi - weekly', 'BI-WEEKLY']) assert.equal(app.parseFrequency(p).ask, 'biweekly', p);
+  const p = app.tlProtocolFromLegacy({ entries: [], proto: proto('Test C, 100mg biweekly, IM') }, env);
+  const back = app.tlProtocolToLegacy(p).proto.meds;
+  assert.equal(back, 'Test C, 100mg biweekly, IM');
+  assert.equal(app.parseMeds(back)[0].freq.ask, 'biweekly');
 });

@@ -64,11 +64,12 @@ test('a range of weekdays is read as every day it covers', () => {
   same(rule('X, 1mg, Mon-Wed-Fri'), { weekdays: [1, 3, 5] });
 });
 
-test('days named after "except" or "skip" are not dose days: the line keeps its plain reading', () => {
-  same(rule('X, 1mg, Daily except Sunday'), { daily: true });
-  same(rule('X, 1mg, Daily except Sat and Sun'), { daily: true });
+test('days named after "except", "skip" or "not" are rest days: a daily line takes the rest of the week', () => {
+  same(rule('X, 1mg, Daily except Sunday'), { weekdays: [1, 2, 3, 4, 5, 6] });
+  same(rule('X, 1mg, Daily except Sat and Sun'), { weekdays: [1, 2, 3, 4, 5] });
+  same(rule('X, 1mg, Daily (not Sun)'), { weekdays: [1, 2, 3, 4, 5, 6] });
+  /* A comma ends the field, and a note that says more than days is a note. */
   same(rule('X, 1mg, Daily, skip Sundays'), { daily: true });
-  same(rule('X, 1mg, Daily (not Sun)'), { daily: true });
 });
 
 test('a start day is not the only dose day: a twice-weekly line starting Monday stays twice weekly', () => {
