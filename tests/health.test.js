@@ -8,7 +8,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { loadApp, same, local, DAY_MS } = require('./helpers/app');
 
-const app = loadApp({ files: ['src/logic/protocol.js', 'src/logic/rounds.js', 'src/logic/health.js'], functions: ['getBPStage'] });
+const app = loadApp({ files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/rounds.js', 'src/logic/health.js'], functions: ['getBPStage'] });
 const NOW = local('2026-03-10T12:00').getTime();
 const ago = (days) => new Date(NOW - days * DAY_MS).toISOString();
 const bp = (sys, dia, days, hr) => ({ type: 'bloodpressure', ts: ago(days), sys, dia, hr: hr || null, stage: '' });

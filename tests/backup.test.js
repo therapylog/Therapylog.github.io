@@ -10,7 +10,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { loadApp, same, local, DAY_MS } = require('./helpers/app');
 
-const app = loadApp({ files: ['src/logic/protocol.js', 'src/logic/rounds.js', 'src/logic/backup.js'] });
+const app = loadApp({ files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/rounds.js', 'src/logic/backup.js'] });
 const NOW = local('2026-03-10T12:00').getTime();
 const at = (text) => local(text).toISOString();
 
@@ -176,7 +176,7 @@ const labRecord = {
 function wiredApp() {
   const out = { blobs: [], links: [] };
   out.app = loadApp({
-    files: ['src/logic/protocol.js', 'src/logic/rounds.js', 'src/logic/backup.js', 'src/logic/wire.js'],
+    files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/rounds.js', 'src/logic/backup.js', 'src/logic/wire.js'],
     consts: ['MARKER_REGISTRY', 'LAB_FIELDS', 'tlTodayStr'],
     functions: ['getAllCustomMarkers'],
     record: labRecord,

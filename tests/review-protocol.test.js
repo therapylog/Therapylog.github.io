@@ -16,8 +16,8 @@ const assert = require('node:assert/strict');
 const { loadApp, same, plain } = require('./helpers/app');
 
 const app = loadApp({
-  files: ['src/logic/protocol.js', 'src/logic/rounds.js'],
-  functions: ['parseMeds', 'parseFrequency', 'getDefaultTimes', 'tlFreqDays', 'getDoseDays',
+  files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/rounds.js'],
+  functions: ['parseMeds', 'parseFrequency', 'getDefaultTimes', 'tlFreqDays', 'getDoseDays', 'tlLegacyDue',
               'tlDay', 'tlDaysBetween', 'tlNormalizeRule', 'tlWeekdaysFor', 'tlRuleWindow', 'tlDoseOn', 'tlDueOn'],
   consts: ['tlLocalDate', 'TL_DAY_MS'],
   now: '2026-11-17T12:00'
@@ -95,11 +95,16 @@ test('a weekly line naming a different number of days than it says it takes keep
   same(rule('X, 1mg, Twice weekly (Mon/Thu)', '2026-03-06'), { weekdays: [1, 4] });
 });
 
-test('a count the line states is the count, though the old parser reads "3x weekly" as once a week', () => {
-  assert.equal(app.parseFrequency('3x weekly (Mon/Wed/Fri)').count, 1);
+test('a count the line states is the count, and named days are the days when there are as many', () => {
+  assert.equal(app.parseFrequency('3x weekly (Mon/Wed/Fri)').count, 3);
   same(rule('X, 1mg, 3x weekly (Mon/Wed/Fri)', '2026-03-06'), { weekdays: [1, 3, 5] });
-  same(rule('X, 1mg, 3 times weekly: Mon, Wed, Fri', '2026-03-06'), { weekdays: [5] });   /* a comma ends the field */
-  same(rule('X, 1mg, 3x weekly (Mon/Thu)', '2026-03-06'), { weekdays: [5] });
+  /* A comma ends the field, but days named in the rest of the line still
+     place it, in the old screens and the model alike. */
+  same(rule('X, 1mg, 3 times weekly: Mon, Wed, Fri', '2026-03-06'), { weekdays: [1, 3, 5] });
+  same(plain(app.parseMeds('X, 1mg, 3 times weekly: Mon, Wed, Fri')[0].freq.days), [1, 3, 5]);
+  /* Two days named for three doses: the count stands, spread from the start
+     day (Friday 6 March), and the days are not trusted. */
+  same(rule('X, 1mg, 3x weekly (Mon/Thu)', '2026-03-06'), { weekdays: [0, 2, 5] });
 });
 
 /* ---- 11: the text after the frequency ------------------------------------ */

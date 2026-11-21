@@ -222,7 +222,7 @@ body.og-card .wrap{display:none}
     it repeatedly, and how far the level swings between doses — for
     50 PK-modelled compounds. Free, no account.</p>
 
-    <div class="updated">Last reviewed: 8 September 2026</div>
+    <div class="updated">Last reviewed: 21 November 2026</div>
 
     <p>A half-life is the time for a level to fall by half, and on its own it answers less
     than people expect. What it actually determines are three things: how long one dose stays
@@ -330,7 +330,7 @@ body.og-card .wrap{display:none}
     </div>
     <div class="byline">
       <p><strong>Built by Joel Gonzales, founder of TherapyLog.</strong> Not a clinician.
-      Last reviewed 8 September 2026. The calculator on this page runs the same code as the app;
+      Last reviewed 21 November 2026. The calculator on this page runs the same code as the app;
       how these pages are written, sourced and corrected is set out in the
       <a href="/about/">editorial policy</a>.</p>
     </div>
@@ -565,8 +565,10 @@ return t => t <= 0 ? 0 : (Math.exp(-ke * t) - Math.exp(-ka * t)) / peak;
 }
 
 function pkParseDose(s) {
-const m = String(s||'').match(/(\d+(?:\.\d+)?|\.\d+)\s*(mcg|mg|iu|units?|ml)?/i);
+const t = String(s||'').replace(/(\d),(?=\d{3}(?!\d))/g, '$1');
+const m = t.match(/(\d+(?:\.\d+)?|\.\d+)\s*(mcg|mg|iu|units?|ml)?/i);
 if (!m) return null;
+if (/^\s*(?:-|\u2013|\u2014|to\b)\s*\.?\d/i.test(t.slice(m.index + m[0].length))) return null;
 let v = parseFloat(m[1]); const u = (m[2]||'mg').toLowerCase();
 if (!isFinite(v) || v <= 0) return null;
 if (u === 'mcg') return { v: v/1000, unit: 'mg' };
@@ -791,7 +793,7 @@ document.addEventListener('DOMContentLoaded', function () { hlCalc(); });
       "publisher": {
         "@id": "https://therapylog.app/#organization"
       },
-      "dateModified": "2026-09-08",
+      "dateModified": "2026-11-21",
       "breadcrumb": {
         "@type": "BreadcrumbList",
         "itemListElement": [

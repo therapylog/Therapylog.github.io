@@ -141,7 +141,8 @@ function tlSlotsFromTimes(times) {
 function tlParseDose(text) {
   var raw = String(text === null || text === undefined ? '' : text).trim();
   var out = { amount: null, unit: null, text: raw };
-  var m = raw.match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
+  /* "1,000mcg": a comma that groups thousands is part of the number. */
+  var m = raw.replace(/^(\d{1,3}(?:,\d{3})+)(?!\d)/, function (n) { return n.replace(/,/g, ''); }).match(/^(\d+(?:\.\d+)?|\.\d+)\s*(mcg|µg|ug|mg|g|iu|units?|ml|cc|tabs?|tablets?|caps?|capsules?|pills?|drops?|pumps?|clicks?)?(?![\w.,\/%-])(.*)$/i);
   if (!m) return out;
   var rest = m[3] || '';
   if (/\d/.test(rest) || /^\s*(\/|per\b|x\b|to\b)/i.test(rest)) return out;
@@ -247,6 +248,9 @@ function tlRuleFromLegacy(med, start, note) {
   var freq = med && med.freq;
   var type = freq && freq.type;
   var named = null;
+  /* A schedule the reader could not take, and "as needed", have no rule. The
+     old text keeps the user's words, and the screens ask about it. */
+  if (type === 'check' || type === 'asneeded') return null;
   if (type !== 'interval' && type !== 'monthly' && type !== 'pulse') {
     if (tlDayWords(med && med.freqStr).length) named = tlWeekdaysInText(med.freqStr);
     else if (type === 'weekly' && note) named = tlWeekdaysInText(note);
@@ -576,7 +580,8 @@ function tlLegacyFreqText(c, start) {
   var rule = c && c.rule, n = ((c && c.slots) || []).length;
   if (!tlIsObject(rule)) {
     var own = tlLegacyName(c && c.freqText);
-    return own && parseFrequency(own).type === 'pulse' ? own : tlPulseText('No schedule');
+    var ownType = own ? parseFrequency(own).type : null;
+    return ownType === 'pulse' || ownType === 'check' || ownType === 'asneeded' ? own : tlPulseText('No schedule');
   }
   /* A rule's own start that is the protocol's start says nothing the old
      text does not: the old screens count intervals from the protocol's start. */

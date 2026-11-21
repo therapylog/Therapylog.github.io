@@ -18,7 +18,7 @@ const assert = require('node:assert/strict');
 const { loadApp, same, local } = require('./helpers/app');
 
 const app = loadApp({
-  files: ['src/logic/protocol.js', 'src/logic/rounds.js', 'src/logic/supply.js', 'src/logic/alerts.js'],
+  files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/rounds.js', 'src/logic/supply.js', 'src/logic/alerts.js'],
   functions: ['tlDay', 'tlDaysBetween', 'tlNormalizeRule', 'tlWeekdaysFor', 'tlRuleWindow', 'tlDoseOn', 'tlDueOn'],
   consts: ['TL_DAY_MS']
 });

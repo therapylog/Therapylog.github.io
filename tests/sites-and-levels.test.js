@@ -60,15 +60,17 @@ test('every other compound rotates through belly, delts and lats', () => {
   assert.equal(suggest('BPC-157', one).suggest, 'L Delt');
 });
 
-test('"test" is matched anywhere in the name, so unrelated compounds get the intramuscular list', () => {
-  /* PINNED, suspected bug: the check is includes('test'), so a subcutaneous
-     compound whose name happens to contain those letters is sent to the
-     glutes and quads. */
+test('"test" is matched as a word, so a name that merely contains the letters keeps the subcutaneous list', () => {
+  /* The check used to be includes('test'), so "Contest Prep Blend" was sent
+     to the glutes and quads. */
   const one = [med('Contest Prep Blend', 'Sub-Q Belly', '2026-03-03T08:00:00.000Z')];
   assert.equal(suggest('Contest Prep Blend', one).suggest, 'L Delt');
   const two = [med('Contest Prep Blend', 'L Delt', '2026-03-03T08:00:00.000Z'),
                med('Contest Prep Blend', 'R Delt', '2026-03-02T08:00:00.000Z')];
-  assert.equal(suggest('Contest Prep Blend', two).suggest, 'L Glute');
+  assert.equal(suggest('Contest Prep Blend', two).suggest, 'Sub-Q Belly');
+  /* "Test C", "Test E" and testosterone are still intramuscular. */
+  const test = [med('Test C', 'L Delt', '2026-03-03T08:00:00.000Z'), med('Test C', 'R Delt', '2026-03-02T08:00:00.000Z')];
+  assert.equal(suggest('Test C', test).suggest, 'L Glute');
 });
 
 test('only the five most recent doses count, so an older site comes round again', () => {
@@ -111,17 +113,22 @@ test('pkParseDose assumes mg when there is no unit, and gives null for no number
   assert.equal(pk.pkParseDose('0mg'), null);
 });
 
-test('pkParseDose takes only the first number, so a per-week or range dose reads as that number', () => {
-  /* PINNED, suspected bug: the unit is only read when it follows the first
-     number directly. "200mg/week" logged as a dose is drawn as one 200 mg
-     administration. In "250-500mcg" the first number is followed by a hyphen,
-     so no unit is found and it is read as 250 mg, a thousand times the low end
-     of the range. "1,000mcg" stops at the comma and reads as 1 with no unit,
-     which is 1 mg: the right amount, by accident. */
+test('pkParseDose reads a thousands comma as part of the number, and draws no curve for a range', () => {
+  /* "200mg/week" logged as a dose is one 200 mg administration. */
   same(pk.pkParseDose('200mg/week'), { v: 200, unit: 'mg' });
-  same(pk.pkParseDose('250-500mcg'), { v: 250, unit: 'mg' });
+  /* A range is not one dose. "250-500mcg" used to read as 250 mg, a thousand
+     times the low end of the range, because the hyphen hid the unit. */
+  for (const range of ['250-500mcg', '10-20mg/week', '0.5-1mg', '100 to 200mg', '250 \u2013 500 mcg']) {
+    assert.equal(pk.pkParseDose(range), null, range);
+  }
+  /* "1,000mcg" used to stop at the comma: 1 with no unit, so 1 mg, right by
+     accident; "1,500mcg" read as 1 mg, a third too little. */
   same(pk.pkParseDose('1,000mcg'), { v: 1, unit: 'mg' });
-  same(pk.pkParseDose('1,500mcg'), { v: 1, unit: 'mg' });
+  same(pk.pkParseDose('1,500mcg'), { v: 1.5, unit: 'mg' });
+  same(pk.pkParseDose('10,000 IU'), { v: 10000, unit: 'IU' });
+  /* Only a range that starts at the dose is a range. */
+  same(pk.pkParseDose('5mg (weeks 1-2)'), { v: 5, unit: 'mg' });
+  same(pk.pkParseDose('40mg/day weeks 1-2; 20mg/day weeks 3-6'), { v: 40, unit: 'mg' });
 });
 
 test('pkCurve is zero at and before the dose, and peaks at exactly 1.0 at Tmax', () => {
