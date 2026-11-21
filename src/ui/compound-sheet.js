@@ -4,7 +4,11 @@
  * will. It collects the fields that setup.js turns into a compound; the
  * caller decides what saving means.
  *
- *   tlCompoundSheet({ compound, protocol, onSave(compound), onRemove() })
+ *   tlCompoundSheet({ compound, protocol, onSave(compound), onRemove(),
+ *                     supply, title, saveLabel })
+ *
+ * With `supply` (the Protocol screen) it also edits the compound's count:
+ * doses per vial, doses left now and spare vials (tlSetInventory).
  *
  * The dose field takes whatever the user's protocol says. Nothing is filled
  * in for them and nothing is suggested.
@@ -53,8 +57,20 @@ function tlCompoundSheet(opts) {
 
   var repeatOpts = [{ value: 'daily', label: 'Daily' }, { value: 'days', label: 'Set days' }, { value: 'every', label: 'Interval' }];
 
+  /* Supply, when the caller asks (the Protocol screen): the count as it
+     stands now, which a save sets afresh only if one of its fields changed. */
+  var supplyNow = null, spare = 0, supplyTouched = false;
+  if (opts.supply && prev && prev.inv && typeof tlSupply === 'function') {
+    var dd = gd();
+    supplyNow = tlSupply(opts.protocol, prev, dd.entries || [], tlDayKey(new Date()));
+    spare = supplyNow.known ? supplyNow.spare : (prev.inv.spare || 0);
+  }
+  var supplyNote = function (per, left) {
+    return per > 0 && left !== '' && left !== null && left !== undefined ? left + ' of ' + per + ' doses left in the open vial' : 'Enter both to see what is left and when to reorder.';
+  };
+
   var html = '<form class="tl-cs" novalidate>' +
-    '<h2 class="ds-h2" id="tl-cs-title">' + (prev ? 'Edit compound' : 'Add compound') + '</h2>' +
+    '<h2 class="ds-h2" id="tl-cs-title" tabindex="-1">' + tlEsc(prev ? (opts.title || 'Edit compound') : 'Add compound') + '</h2>' +
 
     '<div class="ds-field"><label for="tl-cs-name">Name</label>' +
     '<input class="ds-input" id="tl-cs-name" type="text" list="tl-cs-names" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="next" value="' + tlEsc(prev ? prev.name : '') + '">' +
@@ -89,12 +105,26 @@ function tlCompoundSheet(opts) {
     tlSlotButtons(prev ? prev.slots : ['am'], 'Times of day') +
     '<p class="ds-small ds-muted">Each time is a round. Its exact hour is set with the round.</p></div>' +
 
+    (opts.supply ? '<div class="ds-field tl-cs-supply"><span class="ds-field-label">Supply</span>' +
+      '<div class="tl-cs-supply-row">' +
+        '<div class="ds-field"><label for="tl-cs-per">Doses per vial</label>' +
+          '<input class="ds-input" id="tl-cs-per" type="text" inputmode="numeric" autocomplete="off" value="' + tlEsc(prev && prev.inv && prev.inv.per ? prev.inv.per : '') + '"></div>' +
+        '<div class="ds-field"><label for="tl-cs-left">Doses left now</label>' +
+          '<input class="ds-input" id="tl-cs-left" type="text" inputmode="numeric" autocomplete="off" value="' + tlEsc(supplyNow && supplyNow.known ? supplyNow.left : (prev && prev.inv && prev.inv.left !== null && prev.inv.left !== undefined ? prev.inv.left : '')) + '"></div>' +
+      '</div>' +
+      '<div class="tl-cs-spare"><span class="tl-cs-spare-l">Spare vials</span>' +
+        '<button type="button" class="ds-btn ds-btn-secondary ds-btn-icon" data-spare="-1" aria-label="One spare vial fewer">' + tlIcon('minus') + '</button>' +
+        '<span class="tl-cs-spare-v" aria-live="polite">' + spare + '</span>' +
+        '<button type="button" class="ds-btn ds-btn-secondary ds-btn-icon" data-spare="1" aria-label="One spare vial more">' + tlIcon('plus') + '</button></div>' +
+      '<p class="ds-small ds-muted tl-cs-supply-note">' + tlEsc(supplyNote(prev && prev.inv ? prev.inv.per : null, supplyNow && supplyNow.known ? supplyNow.left : '')) + '</p>' +
+      '</div>' : '') +
+
     '<p class="tl-cs-error" role="alert"></p>' +
-    '<button type="submit" class="ds-btn ds-btn-primary ds-btn-block tl-cs-save">' + (prev ? 'Save' : 'Add to stack') + '</button>' +
+    '<button type="submit" class="ds-btn ds-btn-primary ds-btn-block tl-cs-save">' + tlEsc(prev ? (opts.saveLabel || 'Save') : 'Add to stack') + '</button>' +
     (prev && opts.onRemove ? '<button type="button" class="ds-btn ds-btn-ghost ds-btn-block tl-cs-remove" data-cs-remove>' + tlIcon('trash') + 'Remove ' + tlEsc(prev.name) + '</button>' : '') +
     '</form>';
 
-  var sheet = tlOpenSheet(html, { label: prev ? 'Edit compound' : 'Add compound', focus: prev ? '.tl-cs-save' : '#tl-cs-name' });
+  var sheet = tlOpenSheet(html, { label: prev ? 'Edit compound' : 'Add compound', focus: prev ? '#tl-cs-title' : '#tl-cs-name' });
   var el = sheet.el, form = el.querySelector('form');
   var $ = function (sel) { return el.querySelector(sel); };
 
@@ -144,6 +174,13 @@ function tlCompoundSheet(opts) {
       toggle.setAttribute('aria-pressed', toggle.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
       return;
     }
+    var sp = t.closest('[data-spare]');
+    if (sp) {
+      spare = Math.max(0, Math.min(99, spare + (+sp.getAttribute('data-spare'))));
+      $('.tl-cs-spare-v').textContent = spare;
+      supplyTouched = true;
+      return;
+    }
     var step = t.closest('[data-every]');
     if (step) {
       every = Math.max(2, Math.min(TL_EVERY_MAX, every + (+step.getAttribute('data-every'))));
@@ -154,6 +191,17 @@ function tlCompoundSheet(opts) {
       sheet.close();
       opts.onRemove();
     }
+  });
+
+  /* Any edit to the supply fields sets the count afresh on save. */
+  ['#tl-cs-per', '#tl-cs-left'].forEach(function (sel) {
+    var f = $(sel);
+    if (!f) return;
+    f.addEventListener('input', function () {
+      supplyTouched = true;
+      var note = $('.tl-cs-supply-note');
+      if (note) note.textContent = supplyNote(+$('#tl-cs-per').value || null, $('#tl-cs-left').value.trim());
+    });
   });
 
   /* A name the encyclopedia knows says how it is usually taken. That fills
@@ -188,6 +236,13 @@ function tlCompoundSheet(opts) {
     }
     var today = typeof tlDayKey === 'function' ? tlDayKey(new Date()) : null;
     var c = tlCompoundOfFields(fields, prev, opts.protocol, env, today);
+    if (opts.supply && supplyTouched) {
+      var values = { per: $('#tl-cs-per').value, left: $('#tl-cs-left').value, spare: spare };
+      var bad = tlSupplyProblem(values);
+      if (bad) { showError(bad, /per vial/.test(bad) ? $('#tl-cs-per') : $('#tl-cs-left')); return; }
+      if (String(values.per).trim() === '' && String(values.left).trim() === '') c.inv = null;
+      else tlSetInventory(c, values, new Date().toISOString());
+    }
     sheet.close();
     if (opts.onSave) opts.onSave(c);
   });

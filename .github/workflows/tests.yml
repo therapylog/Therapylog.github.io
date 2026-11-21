@@ -92,3 +92,8 @@ jobs:
       # dose form on the user's own amount, sites by tap and by keyboard.
       - name: Log sheet and site map
         run: node scripts/ui-check-log.js
+      # The Protocol tab: the stack as the logic has it, editing doses (kept
+      # as dose changes), times and supply, add and remove with Undo, every
+      # row; free users get the editor and a gate on the analysis; 320 px.
+      - name: Protocol
+        run: node scripts/ui-check-protocol.js

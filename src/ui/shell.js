@@ -25,7 +25,17 @@
 var TL_ROUTES = {
   today: { title: 'Today', tab: 'today', screen: 'tlTodayScreen', legacy: function () { showHub('home', document.getElementById('nav-home')); } },
   'home/customize': { title: 'Customize Home', back: 'today', bare: true, screen: 'tlCustomizeScreen' },
-  protocol: { title: 'Protocol', tab: 'protocol', gate: 'cycle_tracker', legacy: function () { showPage('cycle'); } },
+  /* The stack editor is free: entering a protocol is capture, as onboarding
+     and Today already let anyone do. The analysis around it stays paid: the
+     full levels chart (cycle_tracker, as the old cycle page was) and
+     templates (protocol_templates). */
+  protocol: { title: 'Protocol', tab: 'protocol', screen: 'tlProtocolScreen', legacy: function () { showPage('cycle'); } },
+  'protocol/levels': { title: 'Levels', back: 'protocol', gate: 'cycle_tracker',
+    legacy: function () { showPage('cycle'); tlLegacyTab('#page-cycle', showCycleTab, 'levels'); } },
+  'library/templates': { title: 'Templates', back: 'protocol', gate: 'protocol_templates',
+    legacy: function () { showPage('tools'); tlLegacyTab('#page-tools', showToolTab, 'templates'); } },
+  'library/interactions': { title: 'Interactions', back: 'protocol',
+    legacy: function () { showPage('tools'); tlLegacyTab('#page-tools', showToolTab, 'interact'); } },
   log: { title: 'Log', tab: 'log', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('weight'); } },
   'log/labs': { title: 'Log labs', tab: 'log', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('labs'); } },
   'log/symptom': { title: 'Log a symptom', tab: 'log', gate: 'symptoms', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('symp'); } },
@@ -194,6 +204,17 @@ function tlBack() {
   tlGo(typeof r.back === 'string' ? r.back : tlLastTab);
 }
 
+/* An old page's tab, chosen through the page's own switcher with its own
+   button, as a tap on it would: showCycleTab and showToolTab mark the button
+   they are given, and run that tab's gate. */
+function tlLegacyTab(pageSel, show, tab) {
+  if (typeof show !== 'function') return;
+  var btn = Array.prototype.filter.call(document.querySelectorAll(pageSel + ' .seg-btn'), function (b) {
+    return (b.getAttribute('onclick') || '').indexOf("'" + tab + "'") >= 0;
+  })[0];
+  if (btn) show(btn, tab);
+}
+
 /* The old log page's tabs, without their own buttons being on screen. */
 function tlLegacyLogTab(tab) {
   if (typeof showLogTab !== 'function') return;
@@ -315,6 +336,8 @@ function tlShellInit() {
   document.body.appendChild(tabs);
 
   ['showHub', 'showPage', 'switchHubSection'].forEach(tlWrapLegacy);
+  /* A template's "Load" builds the protocol model (protocol.js). */
+  if (typeof tlLoadTemplate === 'function') window.loadTemplate = tlLoadTemplate;
   tlDecorateLegacy();
 
   document.addEventListener('click', function (e) {

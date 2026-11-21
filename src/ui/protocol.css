@@ -1,0 +1,46 @@
+/* The Protocol tab (6a): src/ui/protocol.js, and the compound sheet's supply
+   section. */
+
+.tl-pc-sum{padding-top:4px}
+.tl-pc-big{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:10px}
+.tl-pc-big-l{font-size:15px;color:var(--color-muted)}
+.tl-pc-sub{font-size:14px;color:var(--color-muted);margin-top:4px}
+
+.tl-pc-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:20px}
+.tl-pc-day{display:flex;flex-direction:column;align-items:center;gap:8px}
+.tl-pc-day-l{font-size:13px;color:var(--color-muted)}
+.tl-pc-day-n{
+  display:grid;place-items:center;width:36px;height:36px;border-radius:50%;
+  font-size:15px;font-weight:500;background:var(--color-surface);
+}
+.tl-pc-today{background:transparent;box-shadow:inset 0 0 0 1.5px var(--color-accent)}
+.tl-pc-cap{font-size:13px;line-height:1.5;color:var(--color-muted);margin-top:10px}
+
+.tl-pc-head{margin-top:24px;align-items:center}
+.tl-pc-head .ds-btn-ghost{margin-right:-8px}
+.tl-pc-row{
+  display:flex;align-items:center;gap:12px;width:100%;min-height:76px;padding:10px 0;
+  border:0;background:none;color:inherit;text-align:left;cursor:pointer;
+}
+@media (hover:hover){.tl-pc-row:hover{background:color-mix(in srgb,var(--color-text) 6%,transparent)}}
+.tl-pc-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.tl-pc-name{font-size:15px;font-weight:500;overflow-wrap:anywhere}
+.tl-pc-line{font-size:13px;color:var(--color-muted)}
+.tl-pc-times{font-size:13px;color:var(--color-accent-300)}
+.tl-pc-none{color:var(--color-muted)}
+.tl-pc-days{flex:none;font-size:14px;color:var(--color-muted)}
+.tl-pc-row>.ph{flex:none;font-size:16px;color:var(--color-neutral-500)}
+
+.tl-pc-label{margin-top:24px}
+.tl-pc-change{display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 0}
+.tl-pc-swatch{flex:none;width:40px;border-top:2px dashed var(--color-warn)}
+.tl-pc-rows{margin-top:20px}
+.tl-proto .ds-foot{margin-top:18px}
+
+/* The compound sheet's supply. */
+.tl-cs-supply-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tl-cs-spare{display:flex;align-items:center;gap:12px;margin-top:6px}
+.tl-cs-spare-l{flex:1;font-size:14px}
+.tl-cs-spare .ds-btn-icon{width:44px;padding:0}
+.tl-cs-spare-v{min-width:28px;text-align:center;font-size:17px;font-weight:500}
+#tl-cs-title:focus{outline:none}

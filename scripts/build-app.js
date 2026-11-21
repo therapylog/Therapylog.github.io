@@ -40,7 +40,7 @@ const APP = path.join(ROOT, 'app.html');
    directory files go in name order and must not depend on it. */
 const SRC_DIRS = ['src/logic', 'src/ui'];
 /* Stylesheets, in this order: the order is the cascade. */
-const CSS_FILES = ['src/ui/tokens.css', 'src/ui/icons.css', 'src/ui/components.css', 'src/ui/shell.css', 'src/ui/setup.css', 'src/ui/home.css', 'src/ui/log.css'];
+const CSS_FILES = ['src/ui/tokens.css', 'src/ui/icons.css', 'src/ui/components.css', 'src/ui/shell.css', 'src/ui/setup.css', 'src/ui/home.css', 'src/ui/log.css', 'src/ui/protocol.css'];
 
 const START = '/* TL-LOGIC:START';
 const END = '/* TL-LOGIC:END */';

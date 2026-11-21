@@ -34,7 +34,10 @@ body.tl-shell .hub-page.active{padding-top:4px}
 body.tl-r-health-bp #page-log .seg,
 body.tl-r-health-body #page-log .seg,
 body.tl-r-log-labs #page-log .seg,
-body.tl-r-log-symptom #page-log .seg{display:none!important}
+body.tl-r-log-symptom #page-log .seg,
+body.tl-r-protocol-levels #page-cycle .seg,
+body.tl-r-library-templates #page-tools .seg,
+body.tl-r-library-interactions #page-tools .seg{display:none!important}
 
 /* Rows the shell adds to old pages (Settings, Tools). */
 .tl-legacy-block{margin:0 0 14px}

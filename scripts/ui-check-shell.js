@@ -9,7 +9,7 @@
  *   Reference: Tools & Calc    -> Library: Tools (and the Stack builder from there)
  *   Health: Bloodwork          -> Health: Bloodwork
  *   BP (in the Log tab)        -> Health: BP
- *   Health: Cycle / Protocol   -> Protocol tab
+ *   Health: Cycle / Protocol   -> Protocol tab (new screen; the old levels chart under it)
  *   Health: Photos             -> Health: Photos
  *   "AI" tab                   -> profile button: Settings, then Profile and History
  *   AI chat and the 🤖 button  -> the Ask bar on Today
@@ -123,7 +123,13 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     /* Every tab and segment, by tapping. */
     const tap = async (sel) => { await page.locator(sel).click(); await page.waitForTimeout(250); return state(page); };
     s = await tap('#tl-tabs [data-ds-tab="protocol"]');
-    t('Protocol shows the old cycle page (protocol, reminders, week, levels)', s.route === 'protocol' && s.tab === 'protocol' && s.shown.includes('page-cycle'), s.shown.join(','));
+    t('Protocol is the new screen, the old cycle page out of sight', s.route === 'protocol' && s.tab === 'protocol' && !s.shown.includes('page-cycle') &&
+      (await page.locator('#tl-screen .tl-proto').count()) === 1, s.shown.join(','));
+    await page.evaluate(() => tlGo('protocol/levels')); await page.waitForTimeout(250);
+    s = await state(page);
+    t('  and the old cycle page\'s levels chart is still reachable, under Protocol', s.route === 'protocol/levels' && s.shown.includes('page-cycle'), s.shown.join(','));
+    await page.evaluate(() => tlGo('protocol')); await page.waitForTimeout(250);
+    s = await state(page);
     const before = s.route;
     s = await tap('#tl-tabs [data-ds-tab="log"]');
     t('the centre Log button opens the Log sheet over the page, without going anywhere', s.route === before &&
@@ -225,8 +231,12 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     }
     await page.locator('#tl-tabs [data-ds-tab="protocol"]').click(); await page.waitForTimeout(250);
     let s = await state(page);
-    t('free: the Protocol tab is gated as the old cycle page was', s.upgrade && s.route === 'health/bloodwork', s.route);
+    t('free: the Protocol tab is open to everyone (recording a protocol is free)', !s.upgrade && s.route === 'protocol', s.route);
+    await page.evaluate(() => tlGo('protocol/levels')); await page.waitForTimeout(250);
+    s = await state(page);
+    t('free: its full levels chart is gated, and you stay on Protocol', s.upgrade && s.route === 'protocol', s.route);
     await closeUpgrade(page);
+    await page.evaluate(() => tlGo('health/bloodwork')); await page.waitForTimeout(250);
     await page.goto(base + '/app.html#/health/bp'); await page.waitForTimeout(500);
     s = await state(page);
     t('free: changing the address to a paid route is gated, and you stay where you were', s.upgrade && s.route === 'health/bloodwork' &&

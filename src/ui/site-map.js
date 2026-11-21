@@ -16,8 +16,6 @@
 
 var TL_SITE_STATE_WORDS = { rested: 'rested', recovering: 'recovering', recent: 'used under 48 hours ago', never: 'not used yet' };
 
-function tlRouteName(route) { return route === 'im' ? 'IM' : route === 'sq' ? 'SubQ' : ''; }
-
 function tlOpenSiteMap(opts) {
   var d = gd(), p = opts.protocol, entries = d.entries || [], now = Date.now();
   var figure = tlSetting(d, 'figure', 'male') === 'female' ? 'female' : 'male';
@@ -61,7 +59,7 @@ function tlOpenSiteMap(opts) {
     return '<div class="tl-map">' +
       '<div class="tl-map-head"><button type="button" class="ds-btn ds-btn-ghost tl-back" data-map="back" aria-label="Back">' + tlIcon('caret-left') + '</button>' +
         '<h1 class="ds-h1" tabindex="-1">Injection site</h1></div>' +
-      (chipList.length > 1 ? tlChips('Compound', chipList.map(function (k) { return { value: k.key, label: k.name + ' · ' + tlRouteName(k.route) }; }), st.key, true).replace('class="ds-chips"', 'class="ds-chips tl-map-chips"') : '') +
+      (chipList.length > 1 ? tlChips('Compound', chipList.map(function (k) { return { value: k.key, label: k.name + ' · ' + tlRouteLabel(k.route) }; }), st.key, true).replace('class="ds-chips"', 'class="ds-chips tl-map-chips"') : '') +
       '<div class="tl-map-bar">' + tlSegmented('View', [{ value: 'front', label: 'Front' }, { value: 'back', label: 'Back' }], st.view, true) +
         (rest ? '<button type="button" class="tl-map-rest" data-map="rest"><span class="tl-map-rest-k">Longest rested</span>' +
           '<span class="tl-map-rest-n">' + tlEsc(rest.site.name) + '</span><span class="tl-map-rest-d">' + restLine + '</span></button>' : '') +
@@ -75,7 +73,7 @@ function tlOpenSiteMap(opts) {
           '<li><span class="tl-site tl-site-never tl-site-key"><svg class="tl-site-hex" viewBox="0 0 40 44"><polygon points="' + TL_HEX_POINTS + '"/></svg></span>Not used</li>' +
         '</ul></div>' +
       (sel ? '<div class="tl-map-card" aria-live="polite"><div class="tl-map-card-top"><span class="tl-map-card-n">' + tlEsc(sel.site.name) + '</span>' +
-          '<span class="ds-tag ds-tag-neutral">' + tlRouteName(c.route) + '</span></div>' +
+          '<span class="ds-tag ds-tag-neutral">' + tlRouteLabel(c.route) + '</span></div>' +
           '<p class="tl-map-card-s">' + tlEsc(sel.line) + '</p>' +
           '<button type="button" class="ds-btn ds-btn-primary ds-btn-block" data-map="log">Log ' + tlEsc(c.name) + ' here</button></div>'
         : '<div class="tl-map-card"><p class="tl-map-card-s">Tap a site on the figure.</p></div>') +
