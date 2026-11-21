@@ -99,13 +99,15 @@ The website does not depend on the app screens. It shares only the Phase 2 token
 - No `confirm()`, `prompt()` or `alert()`, and no emoji icons, left in the code.
 - The three AI-scan checks in `scripts/ui-check-bloodwork.js` fail, on `main` as well. Find out why before release.
 
-## 7. Decisions needed from you
+## 7. Decisions (answered 21 November)
 
-1. **Schedule accuracy (item 1): fix it now on the live app?** Recommended: yes, as a small PR to `main` ahead of everything else, with the one-time "check your protocol" note.
-2. **"Biweekly":** every two weeks, or twice a week? Recommended: ask. Read it as unknown and show "Check this" on the Protocol row until the user picks one.
-3. **Today's Levels hero for free users.** The full levels chart is paid (`cycle_tracker`), but Today's Levels card draws a level curve for everyone. "Capture is free; analysis is paid" says to gate it. Recommended: free users get the supply and labs views, and a Pro tag on Levels.
-4. **The Protocol tab is now free** (only its levels chart and templates are paid). This is done and reversible with one line, but it changes what the old app gated.
-5. **Photos:** store real images on the device, or keep written check-ins? Real images make backups much larger.
+1. **Schedule accuracy: fix it now on the live app.** Yes. Built as its own PR to `main`, with a one-time note on the home screen for anyone whose protocol now reads differently.
+2. **"Biweekly": ask.** The live app asks on the home screen ("Every 2 weeks" or "Twice a week") and writes the answer into the line. Until then the line has no reminders. The redesign's Today and Protocol still need the same question (item 3).
+3. **Today's Levels: Pro.** Done on the UI branch, for both views drawn from estimated levels (Levels and In your system). Supply and Labs stay free.
+4. **Protocol stays free; peptide templates free, the rest Pro.** Done on the UI branch: the three templates made only of peptides are free and listed first; any template with a hormone, a steroid or a PCT drug is Pro, showing its compounds but not its doses. Only three of the thirteen templates are peptide-only. Getting to six means writing new templates, and their doses need sign-off first; see the open question below.
+5. **Photos: on the device, kept out of the backup file.** See the note in the chat of 21 November: on the web, images live in the browser's private storage for this site, compressed, with their own export; in the native apps, an album or folder the app owns, read back with permission limited to the photos it made.
+
+**Open:** the Female GLP-1 template says semaglutide rises "by 0.25mg every 4 weeks to max 2.4mg". The labelled schedule is not even steps (0.25, 0.5, 1, 1.7, 2.4 mg, four weeks each). Template doses need a check by someone qualified before any new peptide template is written from them.
 
 ## 8. Parked
 
