@@ -1418,7 +1418,11 @@ function tlLegacyFreqText(c, start) {
     var own = tlLegacyName(c && c.freqText);
     return own && parseFrequency(own).type === 'pulse' ? own : tlPulseText('No schedule');
   }
-  var keys = Object.keys(rule).filter(function (k) { return rule[k] !== undefined && rule[k] !== null; });
+  /* A rule's own start that is the protocol's start says nothing the old
+     text does not: the old screens count intervals from the protocol's start. */
+  var keys = Object.keys(rule).filter(function (k) {
+    return rule[k] !== undefined && rule[k] !== null && !(k === 'start' && rule.start === start);
+  });
   var only = function (k) { return keys.length === 1 && keys[0] === k; };
   var every = tlIsObject(rule.every) && Object.keys(rule.every).join() === 'days' ? rule.every.days : null;
   var days = Array.isArray(rule.weekdays) ? rule.weekdays : [];

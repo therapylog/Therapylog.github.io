@@ -315,3 +315,15 @@ test('a name with no letters a-z gets a key of its own, the same wherever its li
   assert.notEqual(key(a, 'Сустанон'), key(a, 'Мельдоний'));
   assert.match(key(a, 'Сустанон'), /^c-[0-9a-z]+$/);
 });
+
+
+test('an interval that counts from the protocol\'s own start is written as the old text, and read back the same', () => {
+  const p = (ruleStart) => app.tlNormalizeProtocol({ name: 'P', start: '2026-03-02', compounds: [
+    { key: 'x', name: 'X', dose: { amount: 100, unit: 'mg', text: '100 mg' }, rule: { every: { days: 3 }, start: ruleStart }, slots: ['am'] }] });
+  const same0 = app.tlProtocolToLegacy(p('2026-03-02')).proto.meds;
+  assert.equal(same0, 'X, 100 mg, Every 3 days');
+  const back = app.tlProtocolFromLegacy({ entries: [], proto: { name: 'P', start: '2026-03-02', weeks: 12, meds: same0, pct: '' } }, {}).compounds[0].rule;
+  assert.deepEqual(JSON.parse(JSON.stringify(back)), { every: { days: 3 } });
+  /* Counting from another day, the old text cannot say it. */
+  assert.match(app.tlProtocolToLegacy(p('2026-03-04')).proto.meds, /\(pulse - see app\)$/);
+});
