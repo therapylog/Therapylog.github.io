@@ -16,7 +16,7 @@ const path = require('node:path');
 const { loadApp, same, plain } = require('./helpers/app');
 
 const app = loadApp({
-  files: ['src/logic/protocol.js'],
+  files: ['src/logic/protocol.js', 'src/logic/frequency.js'],
   functions: ['parseMeds', 'parseFrequency', 'getDefaultTimes', 'tlFreqDays'],
   consts: ['tlLocalDate']
 });
@@ -102,10 +102,16 @@ test('words after the dose do not stop it being read', () => {
 
 test('a dose that could mean more than one amount keeps its text and gets no amount', () => {
   for (const text of ['200mg/week', '250-500mcg', '0.5ml (100mg)', '5 mg per day', '10mg to 20mg',
-                      '2x daily', 'a little', '', '0mg', '1,000mcg']) {
+                      '2x daily', 'a little', '', '0mg', '1,5mg', '12,34mg']) {
     same(app.tlParseDose(text), { amount: null, unit: null, text }, text);
   }
   same(app.tlParseDose(null), { amount: null, unit: null, text: '' });
+});
+
+test('a comma that groups thousands is part of the number, and the text is kept as typed', () => {
+  same(app.tlParseDose('1,000mcg'), { amount: 1000, unit: 'mcg', text: '1,000mcg' });
+  same(app.tlParseDose('2,500 IU'), { amount: 2500, unit: 'IU', text: '2,500 IU' });
+  same(app.tlParseDose('1,000,000 IU'), { amount: 1000000, unit: 'IU', text: '1,000,000 IU' });
 });
 
 test('a dose is shown as its amount when there is one, and as typed when there is not', () => {
@@ -132,9 +138,26 @@ test('each old frequency becomes a rule', () => {
   same(one('X, 1mg, EOD').rule, { every: { days: 2 } });
   same(one('X, 1mg, Every 3 days').rule, { every: { days: 3 } });
   same(one('X, 1mg, Monthly').rule, { monthly: true });
-  /* An unrecognised phrase is daily today, and stays daily. */
-  same(one('X, 1mg, when needed').rule, { daily: true });
+  /* A phrase that says nothing about a schedule is daily, as it always was. */
+  same(one('X, 1mg, with food').rule, { daily: true });
+  assert.equal(one('X, 1mg, with food').freqText, 'with food');
+  /* "As needed" and a schedule the reader cannot take have no rule: no round,
+     no reminder. The text is kept, so the screens can ask about it. */
+  assert.equal(one('X, 1mg, when needed').rule, null);
   assert.equal(one('X, 1mg, when needed').freqText, 'when needed');
+  assert.equal(one('X, 1mg, every 4.5 days').rule, null);
+  assert.equal(one('X, 1mg, biweekly').rule, null);
+});
+
+test('counts the old reader dropped are read as the line states them', () => {
+  same(one('X, 1mg, once a week').rule, { weekdays: [1] });
+  same(one('X, 1mg, 3x weekly').rule, { weekdays: [1, 3, 5] });
+  same(one('X, 1mg, every 2 weeks').rule, { every: { days: 14 } });
+  same(one('X, 1mg, M/W/F').rule, { weekdays: [1, 3, 5] });
+  same(one('X, 1mg, 5 on 2 off').rule, { weekdays: [1, 2, 3, 4, 5] });
+  /* Three doses a day are three rounds; the record has no stored times. */
+  same(plain(one('X, 1mg, TID').slots), ['am', 'mid', 'eve']);
+  same(plain(one('X, 1mg, Before bed').slots), ['bed']);
 });
 
 test('a weekly protocol with no days named falls where the old week view put it: from the start day', () => {
@@ -288,7 +311,7 @@ test('storing a protocol rewrites the old fields so older readers still see it',
   app.tlStoreProtocol(d, p);
   same(d.proto.meds.split('\n'), [
     'Testosterone Cypionate, 200mg/week, Twice weekly (Mon · Thu)',
-    'BPC-157, 250mcg twice daily, Twice daily',
+    'BPC-157, 250mcg twice daily, 3x daily',
     'CJC-1295, 200mcg, Daily',
     'Ipamorelin, 200mcg, Daily',
     'Anastrozole, 0.5mg, Twice weekly (Thu · Sun)',

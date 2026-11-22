@@ -15,7 +15,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { loadApp, same, local } = require('./helpers/app');
 
-const app = loadApp({ files: ['src/logic/protocol.js', 'src/logic/confirm.js'] });
+const app = loadApp({ files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/confirm.js'] });
 const NOW = local('2026-11-16T09:00').getTime();
 const at = (text) => local(text).toISOString();
 const copy = (kind, detail) => app.tlConfirmCopy(kind, detail, NOW);

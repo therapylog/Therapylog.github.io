@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "197c7f5e9d2224dc",
+ "generated": "1c5a6cc3400d1e40",
  "counts": {
   "compound": 131,
   "marker": 100,
@@ -9693,7 +9693,7 @@
     "clomipheneclomid",
     "clomiphene clomid"
    ],
-   "text": "Standard PCT Protocol — Intermediate, 6 weeks\n\nEvidence-based post-cycle therapy for restoring the HPTA after a testosterone cycle.\n\nCompounds:\n• HCG: 500IU 3x/week — Final 2 weeks of cycle (then stop completely) (Primes testes before SERM PCT begins. Do NOT use during actual PCT.)\n• Tamoxifen (Nolvadex): 40mg/day weeks 1-2, 20mg/day weeks 3-6 — Daily oral — start 2 weeks after last long-ester injection (Primary HPTA restart agent.)\n• Clomiphene (Clomid): 50mg/day weeks 1-2, 25mg/day weeks 3-4 — Daily oral concurrent with Nolvadex (Stimulates LH/FSH production. Run alongside Nolvadex.)\n\nPCT: This IS the PCT.\n\nBloodwork: Total T, LH, FSH, E2 at end of PCT and 4 weeks post-PCT. Goal: T returning toward baseline, LH/FSH rising.\n\nNotes: Timing critical: HCG in last 2 weeks of cycle, stop HCG, wait 2 weeks, start SERMs. Support with Zinc 30mg/day, Vitamin D 5000IU, Ashwagandha 600mg for natural testosterone support.",
+   "text": "Standard PCT Protocol — Intermediate, 6 weeks\n\nEvidence-based post-cycle therapy for restoring the HPTA after a testosterone cycle.\n\nCompounds:\n• HCG: 500IU 3x/week — Final 2 weeks of cycle (then stop completely) (Primes testes before SERM PCT begins. Do NOT use during actual PCT.)\n• Tamoxifen (Nolvadex): 40mg/day weeks 1-2; 20mg/day weeks 3-6 — Daily oral — start 2 weeks after last long-ester injection (Primary HPTA restart agent.)\n• Clomiphene (Clomid): 50mg/day weeks 1-2; 25mg/day weeks 3-4 — Daily oral concurrent with Nolvadex (Stimulates LH/FSH production. Run alongside Nolvadex.)\n\nPCT: This IS the PCT.\n\nBloodwork: Total T, LH, FSH, E2 at end of PCT and 4 weeks post-PCT. Goal: T returning toward baseline, LH/FSH rising.\n\nNotes: Timing critical: HCG in last 2 weeks of cycle, stop HCG, wait 2 weeks, start SERMs. Support with Zinc 30mg/day, Vitamin D 5000IU, Ashwagandha 600mg for natural testosterone support.",
    "route": {
     "view": "protocol",
     "template": "pct-protocol"
