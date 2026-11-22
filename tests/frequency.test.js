@@ -777,3 +777,75 @@ test('the model never doses on rest days, keeps a decimal comma, and a save is s
   }
   assert.equal(back('HCG, 250iu M/W/F, SubQ'), 'HCG, 250iu M/W/F, Mon · Wed · Fri, SubQ');
 });
+
+/* ---- found in the ninth review -------------------------------------------- */
+
+test('a day the rest of the line names and the reading leaves out keeps the old reading', () => {
+  for (const l of ['Test C, 100mg, Mon, Thu (with food)', 'Test C, 100mg, Mon, Thu - rotate sites', 'Test C, 100mg, Sun, Wed (rotate)',
+    'HCG, 250iu, Mon, Wed, Fri (with Test)', 'HCG, 500iu, Tues, Fri with Test', 'Test C, 100mg Mon, Thu - rotate', 'Test C, 100mg, Mon (with food), Thu',
+    'Levothyroxine, 100mcg Mon-Sat, 150mcg Sun', 'Levothyroxine, 88mcg weekdays, 100mcg weekends', 'Levothyroxine, 1 tab M-Sa, 1.5 tabs Su',
+    'HCG, 250iu M/W/F, 500iu Sat', 'Levothyroxine, 100mcg, Mon-Sat, 1.5 Sun', 'Levothyroxine, 100mcg, Mon-Fri, 1.5 on weekends',
+    'Test E, 250mg every 14 days, Friday', 'Test C, 100mg EOD, Mon', 'Test C, 200mg every 2 weeks, Mon, Thu',
+    'HGH, 2iu, Sat, Sun off', 'HGH, 2iu, AM, Sat, Sun off', 'HGH, 2iu, Tue, Thu off', 'HGH, 2iu, Wed, Sat & Sun off']) {
+    same(line(l), ['daily', 1, null, null, null], l);
+  }
+});
+
+test('a time of day in the field and the days in a later one are read together', () => {
+  same(line('Kisspeptin-10, 100mcg, AM & PM, EOD'), ['interval', 2, 2, null, null]);
+  same(line('Ipamorelin, 100mcg, AM and PM, Mon/Thu'), ['weekly', 2, null, 2, [1, 4]]);
+  same(line('Ipamorelin, 100mcg, AM and PM, twice weekly'), ['weekly', 2, null, 2, [1, 4]]);
+  same(at('Ipamorelin, 100mcg, morning and night, EOD'), ['08:00', '21:30']);
+});
+
+test('two schedule words in one field keep the old reading', () => {
+  for (const l of ['Test C, 140mg, weekly (E3.5D)', 'Test C, 140mg, weekly (2x/week)', 'HCG, 1000iu, weekly (2x weekly)']) same(line(l), ['weekly', 1, null, 2, [1, 4]], l);
+  same(line('HCG, 1500iu, weekly (EOD)'), ['interval', 1, 2, null, null]);
+  for (const l of ['HGH, 14iu, weekly split daily', 'Test C, 140mg, weekly (daily injections)', 'HGH, 14iu weekly (daily)']) same(line(l), ['daily', 1, null, null, null], l);
+  for (const l of ['BPC-157, 500mcg, daily (BID)', 'BPC-157, 500mcg, Daily - BID', 'Ipamorelin, 100mcg, nightly (BID)']) same(line(l), ['daily', 2, null, null, null], l);
+  /* A daily word that is a time gives the time; the pattern gives the days. */
+  same(line('Ipamorelin, 200mcg, nightly EOD'), ['interval', 1, 2, null, null]);
+  same(at('Ipamorelin, 200mcg, nightly EOD'), ['21:30']);
+  same(at('DHEA, 25mg, every morning (EOD)'), ['08:00']);
+  same(line('Cabergoline, 0.25mg, nightly weekly'), ['weekly', 1, null, 1, [1]]);
+});
+
+test('days placed by something else, the sun, and a second dose on named days are not the dose days', () => {
+  for (const l of ['Anastrozole, 0.25mg, day after Mon/Thu pins', 'Anastrozole, 0.25mg, morning after Mon/Thu pins', 'HCG, 500iu, night before Mon/Thu injections',
+    'Melanotan II, 250mcg, before sun', 'Vitamin D3, 5000IU, days without sun', 'DHEA, 25mg, daily + PM Mon/Wed/Fri', 'DHEA, 25mg, daily AM + PM Mon/Wed/Fri',
+    'Ipamorelin, 100mcg, nightly + AM Mon-Fri', 'HCG, 500iu, Mon/Thu every 2 weeks', 'Test C, 200mg, every 2 weeks on Sunday',
+    'BPC-157, 250mcg, AM daily, PM Mon-Fri', 'Ipamorelin, 100mcg, nightly, Mon/Wed/Fri AM', 'HGH, 2iu, daily AM, M-F PM']) {
+    same(line(l), ['daily', 1, null, null, null], l);
+  }
+  /* "Sun" on its own is still Sunday. */
+  same(line('Sema, 0.5mg, Sun'), ['weekly', 1, null, 1, [0]]);
+});
+
+test('rest lists, counts glued to their word, and a count spread from its one day', () => {
+  same(line('HGH, 2iu, AM (Wed, Sat & Sun off)'), ['weekly', 1, null, 4, [1, 2, 4, 5]]);
+  same(line('Ipamorelin, 100mcg, before bed (Mon, Wed & Fri off)'), ['weekly', 1, null, 4, [0, 2, 4, 6]]);
+  same(line('HGH, 2iu, daily (Mon-Fri, weekends off)'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
+  same(line('B12, 1000mcg, 1xmonthly'), ['monthly', 1, null, null, null]);
+  same(line('HCG, 500iu, 3xweekly per doc'), ['weekly', 1, null, 3, [1, 3, 5]]);
+  same(line('Test C, 100mg twice weekly, Monday'), ['weekly', 1, null, 2, [1, 4]]);
+  same(line('X, 1mg, twice weekly, Thu'), ['weekly', 1, null, 2, [4, 0]]);
+  same(line('X, 1mg, 3x weekly, Mon'), ['weekly', 1, null, 3, [1, 3, 5]]);
+});
+
+test('days each with a time in the dose keep the days', () => {
+  for (const l of ['Test C, 100mg Mon AM, Thu PM', 'Test C, 100mg Mon AM, 100mg Thu PM', 'Test C, 100mg (Mon AM), 100mg (Thu PM)']) {
+    same(line(l), ['weekly', 1, null, 2, [1, 4]], l);
+  }
+  same(at('Test C, 100mg Mon AM, Thu AM'), ['08:00']);
+  same(at('Test C, 100mg Sunday night, Wednesday night'), ['21:30']);
+});
+
+test('a save of a line with a second time or a restated schedule reads back the same', () => {
+  const back = (meds) => app.tlProtocolToLegacy(app.tlProtocolFromLegacy({ entries: [], proto: proto(meds) }, env)).proto.meds;
+  for (const l of ['BPC, 250mcg, Daily AM, 3x/week PM', 'BPC-157, 250mcg, AM daily, PM Mon-Fri', 'Ipamorelin, 100mcg, nightly, Mon/Wed/Fri AM',
+    'Kisspeptin-10, 100mcg, AM & PM, EOD', 'Test C, 100mg Mon AM, Thu PM', 'Tirz, 5mg, weekly, Sun at 8pm']) {
+    const once = back(l);
+    assert.equal(back(once), once, l);
+    same(line(once), line(l), l);
+  }
+});
