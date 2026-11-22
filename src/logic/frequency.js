@@ -325,7 +325,7 @@ function tlFreqTimesOfDay(f) {
  * (8am weekends)" and "daily AM (PM on Sundays)" say different things on
  * different days, which the old screens cannot hold. Anything else ("or",
  * "then", a site, a note, a bare number) leaves the old reading. */
-var TL_FREQ_FILLER = /^(?:subq|sq|sc|im|iv|oral|orally|po|topical|topically|sublingual|sl|nasal|intranasal|transdermal|inject|injection|injections|inj|pin|pins|shot|shots|dose|doses|dosing|with|food|meal|meals|breakfast|lunch|dinner|water|fasted|fasting|empty|before|after|upon|at|on|in|the|a|an|every|each|per|x|only|split|day|days|sleep|once|one|apply|applied|gym|workout|workouts|training|exercise|cardio|pre|post|preworkout|postworkout)$/;
+var TL_FREQ_FILLER = /^(?:subq|sq|sc|im|iv|oral|orally|po|topical|topically|sublingual|sl|nasal|intranasal|transdermal|inject|injection|injections|inj|pin|pins|shot|shots|dose|doses|dosing|with|food|meal|meals|breakfast|lunch|dinner|water|fasted|fasting|empty|before|after|upon|at|on|in|the|a|an|every|each|per|x|only|split|day|days|sleep|once|one|apply|applied|gym|workout|workouts|training|exercise|cardio|pre|post|preworkout|postworkout|as|doc|doctor|dr|clinic|md|physician|prescribed|prescription|directed)$/;
 /* Sites say where, not when. Between two lists of days they are a rotation
    ("M/W/F glute, T/Th delt"), which this does not read. */
 var TL_FREQ_SITE = /^(?:glute|glutes|delt|delts|quad|quads|ventroglute|vg|belly|abdomen|abdominal|abs|stomach|tummy|thigh|thighs|arm|arms|lat|lats|pec|pecs|left|right|l|r|near|injury|site|sites|area|face|neck|shoulder|knee|elbow|tendon)$/;
