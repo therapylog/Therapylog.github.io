@@ -1,6 +1,6 @@
 # Roadmap: what is left before the redesign ships
 
-Updated 21 November 2026. This follows the build sequence in the design handoff's README (Phases 0 to 7). Each item says where it stands in the code today, not in the handoff's November counts.
+Updated 22 November 2026. This follows the build sequence in the design handoff's README (Phases 0 to 7). Each item says where it stands in the code today, not in the handoff's November counts.
 
 Sizes: **S** is part of one working session, **M** is about one session, **L** is several sessions.
 
@@ -10,6 +10,7 @@ Sizes: **S** is part of one working session, **M** is about one session, **L** i
 |---|---|---|
 | Phase 0: baseline (backup fixture, data-model inventory, mobile-fit patch, test runner) | `main`, [#59](https://github.com/therapylog/Therapylog.github.io/pull/59) | **Live** |
 | Phase 1: logic layer (protocol model, rounds, supply, alerts, sites, dose changes, confirm sheet, gates, backup, theme) and its review fixes | `main`, [#59](https://github.com/therapylog/Therapylog.github.io/pull/59) | **Live** |
+| Schedule accuracy (section 1) | `main`, [#61](https://github.com/therapylog/Therapylog.github.io/pull/61), merged into the UI branch | **Live** since 22 November |
 | Phase 2: design foundation (tokens, fonts, icons, components) | UI branch, [#60](https://github.com/therapylog/Therapylog.github.io/pull/60) | Done, not live |
 | Phase 3: shell and navigation (five tabs, router, Ask bar, segments) | UI branch | Done, not live |
 | Phase 4: screens | UI branch | **8 of 18 screens done:** Onboarding 3d + 4b, Today 2a, Customize Home 2b, Round alert 2c, Log sheet 5a, Injection site 4a, Protocol 6a |
@@ -20,6 +21,13 @@ Sizes: **S** is part of one working session, **M** is about one session, **L** i
 The new UI goes live in one release, when #60 merges. Until then the live app is the old UI running on the new logic.
 
 ## 1. Schedule accuracy: fix now, on the live app (before the visual work)
+
+**Done: live since 22 November ([#61](https://github.com/therapylog/Therapylog.github.io/pull/61)).** The reader replaces the old reading only for text it reads in full, and keeps the old reading for everything else. Nine review rounds, a sweep of every line they reported and a generated corpus of 22,866 lines found no line that reads differently and wrong. The one-time note, the "biweekly" question and the check on an unreadable schedule show on the old home screen and at the top of the redesign's Today. Left for the redesign:
+
+- **A line the reader keeps the old reading for becomes a fixed rule when the model is stored.** "2x weekly, Sat & Sun off" keeps its old reading (twice weekly from the start day), and storing the model writes that as named days, which can fall on a rest day, and drops the note on the next save. In the new UI such a line should be a compound to check, with no rule until the user chooses one, as "biweekly" is. **S.**
+- **"Every 2 weeks" and other whole-number intervals are written to the old text as a pulse** (never due on the old screens) when the model is stored, as designed before the reader could read them back. The reader now reads "Every 14 days" from the start day; writing it would keep them scheduled on the old screens, but a note naming days after it then reads as a conflict and the line falls back to daily. Revisit with the item above. **S.**
+
+The original analysis follows.
 
 **This is what live users notice.** The old app reads a protocol from free text with `parseFrequency()` and `parseMeds()`. Phase 1 pinned about twenty of its misreadings in the tests as suspected bugs, and left fixing them as a product call. The new protocol model reads an existing user's protocol through the same parser, so it inherits most of the same mistakes (it does read weekday names like `Mon/Thu` correctly). The new screens show a wrong reading plainly ("Daily" where the user wrote "once a week"), but the reading stays wrong until the user corrects it by hand.
 
