@@ -849,3 +849,13 @@ test('a save of a line with a second time or a restated schedule reads back the 
     same(line(once), line(l), l);
   }
 });
+
+/* ---- found in the self-review sweep --------------------------------------- */
+
+test('a weekly total in a dose that names days takes the days, and a count that rest days do not fit keeps the old reading', () => {
+  same(line('Test C, 200mg weekly Mon/Thu'), ['weekly', 1, null, 2, [1, 4]]);
+  /* "Weekly (Mon/Thu)" may be either day: once a week, as before. */
+  same(line('X, 1mg, Weekly (Mon/Thu)'), ['weekly', 1, null, 1, [1]]);
+  same(line('Test C, 100mg, 3x weekly, Fri/Sat/Sun off'), ['weekly', 1, null, 1, [1]]);
+  same(line('HGH, 3iu, 5x weekly, Sat/Sun off'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
+});

@@ -715,6 +715,12 @@ function tlFreqReadClean(text, f, g, strict) {
      both hold, and named days beside a count a day and more than one time
      ("daily AM + PM Mon/Wed/Fri") are a second dose on those days. */
   if (pattern && pattern.kind === 'interval' && pattern.n !== 7 && dayRule && !dayRule.rest) return 'unsure';
+  /* A count a week that the named days do not fit: rest days that leave
+     another number of days ("3x weekly, Fri/Sat/Sun off" could land on a
+     rest day), or more days named than the count ("twice weekly
+     Mon/Wed/Fri", "weekly (Mon/Thu)", which may be either day). */
+  if (pattern && pattern.kind === 'weekly' && !pattern.run && dayRule && dayRule.days.length !== pattern.n &&
+      (dayRule.rest || dayRule.days.length > pattern.n)) return 'unsure';
   if (perDay && dayRule && !dayRule.rest && tod.doses > 1 && !(perDay.n > 1)) return 'unsure';
 
   var perDayN = perDay ? perDay.n : null;
