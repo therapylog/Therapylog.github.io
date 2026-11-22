@@ -873,13 +873,14 @@ function tlFreqDayRule(f) {
      and a range: "Sat-Sun off", "Fri to Sat off", "(Sat - Sun off)". A day
      that ends a range before it is not one of them: in "Mon-Sat - Sun off"
      the dash after Saturday only sets Sunday apart. */
-  s = s.replace(new RegExp('(\\b' + day + '(?:\\s+(?:to|through|thru|until|till)\\s+|\\s*[-–]\\s*))?\\b(' + day + '(?:\\s*(?:&|and|,|\\/|\\+)\\s*' + day + ')*)\\s*[(:=\\-–]?\\s*(?:off|rest(?:\\s+days?)?|skip(?:ped)?|days?\\s+off|no\\s+doses?|none)\\b\\)?', 'g'),
+  s = s.replace(new RegExp('(\\b' + day + '(?:\\s+(?:to|through|thru|until|till)\\s+|\\s*[-–]\\s*))?\\b(' + day + '(?:\\s*(?:&|and|,|\\/|\\+|·)\\s*' + day + ')*)\\s*[(:=\\-–]?\\s*(?:off|rest(?:\\s+days?)?|skip(?:ped)?|days?\\s+off|no\\s+doses?|none)\\b\\)?', 'g'),
     function (m, range, list, at, str) {
       var keep = '';
-      /* "M/W/F, weekends off": a comma before a list of rest days ends the
-         dose days, unless every item is one day ("Sat, Sun off"). */
+      /* "M/W/F, weekends off", "Mon-Fri, weekends off": a comma after a
+         list or range of dose days ends them. Items of one day each before
+         the last are rest days too: "Sat, Sun off", "Wed, Sat & Sun off". */
       var items = list.split(/\s*,\s*/);
-      if (items.length > 1 && items.some(function (x) { return /[&\/+]|\band\b/.test(x); })) {
+      if (items.length > 1 && (range || items.slice(0, -1).some(function (x) { return /[&\/+·]|\band\b/.test(x); }))) {
         keep = (range || '') + items.slice(0, -1).join(', ') + ', ';
         list = items[items.length - 1];
         range = null;
@@ -1052,6 +1053,23 @@ function tlFreqSimple(g, hits) {
     return 'X';
   });
   if (kind.indexOf('X') >= 0) return false;
+  /* "day after Mon/Thu pins", "night before Mon", "before sun": days that
+     say when relative to something else, or the sun itself. */
+  for (var z = 0; z < toks.length; z++) {
+    if (kind[z] !== 'D') continue;
+    var prev = toks[z - 1], prev2 = toks[z - 2];
+    if (/^(?:before|after|upon)$/.test(prev || '') || (prev === 'each' && /^(?:before|after)$/.test(prev2 || ''))) return false;
+    if (toks[z] === 'sun' && /^(?:without|no|in|the|from|of|avoid)$/.test(prev || '') && kind.filter(function (k) { return k === 'D'; }).length === 1) return false;
+  }
+  /* "daily + PM Mon/Wed/Fri", "daily and before bed": a count a day joined
+     to another time or other days is a second dose. */
+  for (var y = 0; y < toks.length; y++) {
+    if (!/^(?:\+|and|&|plus)$/.test(toks[y])) continue;
+    var left = -1, right = -1;
+    for (var u = y - 1; u >= 0; u--) if (kind[u] !== 'F' && kind[u] !== 'B') { left = u; break; }
+    for (var w2 = y + 1; w2 < toks.length; w2++) if (kind[w2] !== 'F' && kind[w2] !== 'B') { right = w2; break; }
+    if (left >= 0 && right >= 0 && kind[left] === 'H' && (kind[right] === 'T' || kind[right] === 'D')) return false;
+  }
   var between = function (i, j) { return kind.slice(i + 1, j); };
   var idx = function (k) { var out = []; kind.forEach(function (x, i) { if (x === k) out.push(i); }); return out; };
   var T = idx('T'), D = idx('D');
@@ -1131,6 +1149,11 @@ function tlFreqHits(g) {
   add(new RegExp(lead + count + times + link + wk + '\\b'), function (m) { return { kind: 'weekly', n: tlFreqNum(m[1]) }; });
   add(new RegExp(lead + count + nounWk + '\\s*(?:-\\s*)?(?:a\\s+|per\\s+|each\\s+|every\\s+|in\\s+a\\s+|\\/\\s*)?' + wk + '\\b'), function (m) { return { kind: 'weekly', n: tlFreqNum(m[1]) }; });
   add(/\bx\s*(\d)\s*(?:-\s*)?(?:a\s+|per\s+|\/\s*)?(?:weekly|wkly|weeks?|wks?)\b/, function (m) { return { kind: 'weekly', n: +m[1] }; });
+  /* "2xweekly", "3xdaily", "1xmonthly": a count glued to its word. */
+  add(/(?:^|[^\d.\/a-z])([1-6])x(daily|weekly|monthly)\b/, function (m) {
+    var n = +m[1];
+    return m[2] === 'daily' ? { kind: 'daily', n: n } : m[2] === 'weekly' ? { kind: 'weekly', n: n } : n === 1 ? { kind: 'monthly' } : { kind: 'check' };
+  });
   /* "5d/wk", "5 d a week": days a week. */
   add(/(?:^|[^\d.\/a-z])([1-7])\s*d\s*(?:\/|per\s+|a\s+)\s*(?:weeks?|wks?)\b/, function (m) { return { kind: 'weekly', n: +m[1] }; });
   add(/(?:^|[^\d.\/a-z])(\d+)\s*(?:\/|per\s+)\s*(?:weeks?|wks?)\b/, function (m) { return { kind: 'weekly', n: +m[1] }; });
@@ -1248,7 +1271,7 @@ function tlReadFrequency(text, strict) {
 
 /* The old reading of a text, or null where it found nothing it knew, or
    found it only inside a word ("bid" in "morbid"). */
-var TL_FREQ_OLD_WORDS = /(?:^|[^a-z0-9])(?:twice daily|2x daily|bid|daily|once daily|every day|qd|eod|every other day|every 2 day|e3d|every 3 day|every third|e3\.5d|twice week|2x week|2x\/week|biweekly|weekly|once week|1x week|per week|monthly|once month|10 day|10-day|pulse)/;
+var TL_FREQ_OLD_WORDS = /(?:^|[^a-z0-9]|\dx)(?:twice daily|2x daily|bid|daily|once daily|every day|qd|eod|every other day|every 2 day|e3d|every 3 day|every third|e3\.5d|twice week|2x week|2x\/week|biweekly|weekly|once week|1x week|per week|monthly|once month|10 day|10-day|pulse)/;
 function tlFreqOld(text) {
   if (!TL_FREQ_OLD_WORDS.test(text.toLowerCase())) return null;
   var old = tlReadFrequencyBefore(text);
@@ -1347,10 +1370,37 @@ function tlFreqReadClean(text, f, g, strict) {
     if (special.kind === 'asneeded') return { type: 'asneeded', label: 'As needed', days: null };
     return tlFreqCheck(text, special.ask);
   }
-  /* A plain "daily" and a different pattern: the first named wins, unless the
-     pattern narrows a daily line: a run ("daily 5 on 2 off") or a count of
-     days ("nightly, 5 nights a week"). */
-  if (perDay && pattern && perDay.plain && !pattern.run && !(pattern.kind === 'weekly' && pattern.n >= 2) && perDay.at < pattern.at) pattern = null;
+  /* Two different patterns ("weekly (E3.5D)", "weekly (2x/week)"), or two
+     different counts a day ("daily (BID)"): which one is the schedule is a
+     guess. Every 7 days is weekly, every 3.5 days twice weekly. */
+  var norm = function (h) {
+    if (h.kind === 'interval' && h.n === 7) return 'weekly1';
+    if (h.kind === 'interval' && h.n === 1) return 'daily1';
+    return h.kind + (h.n || '') + (h.run ? 'r' : '');
+  };
+  var pats = [], counts = [], end = -1;
+  /* One phrase can match more than one way ("twice weekly" holds "weekly"):
+     only phrases that do not overlap count. */
+  var apart = hits.filter(function (h) { if (h.at < end) return false; end = h.at + h.len; return true; });
+  apart.forEach(function (h) {
+    if (h.kind === 'weekly' || h.kind === 'interval' || h.kind === 'monthly') { if (pats.indexOf(norm(h)) < 0) pats.push(norm(h)); }
+    if (h.kind === 'daily' && !h.weak) { var c = h.n || 1; if (counts.indexOf(c) < 0) counts.push(c); }
+  });
+  if (pats.length > 1 || counts.length > 1) return 'unsure';
+  /* A plain "daily" and a different pattern. A run ("daily 5 on 2 off") or
+     a count of days ("nightly, 5 nights a week") narrows the daily line. A
+     daily word that is a time ("nightly EOD", "every morning (EOD)") gives
+     the time and the pattern the days. Any other, in either order ("daily
+     EOD", "14iu weekly split daily"), is a guess. */
+  if (perDay && pattern && perDay.plain && !perDay.weak && !pattern.run && !(pattern.kind === 'weekly' && pattern.n >= 2)) {
+    if (/^\W*(?:nightly|every\s+(?:night|morning|evening)|each\s+(?:night|morning|evening)|qhs|qam|qpm)/.test(g.slice(perDay.at, perDay.at + perDay.len))) perDay = null;
+    else return 'unsure';
+  }
+  /* Named days beside a count every N days ("Mon/Thu every 2 weeks") cannot
+     both hold, and named days beside a count a day and more than one time
+     ("daily AM + PM Mon/Wed/Fri") are a second dose on those days. */
+  if (pattern && pattern.kind === 'interval' && pattern.n !== 7 && dayRule && !dayRule.rest) return 'unsure';
+  if (perDay && dayRule && !dayRule.rest && tod.doses > 1 && !(perDay.n > 1)) return 'unsure';
 
   var perDayN = perDay ? perDay.n : null;
   /* What follows schedules doses. It does so only from text this fully
