@@ -781,14 +781,24 @@ test('the model never doses on rest days, keeps a decimal comma, and a save is s
 /* ---- found in the ninth review -------------------------------------------- */
 
 test('a day the rest of the line names and the reading leaves out keeps the old reading', () => {
-  for (const l of ['Test C, 100mg, Mon, Thu (with food)', 'Test C, 100mg, Mon, Thu - rotate sites', 'Test C, 100mg, Sun, Wed (rotate)',
-    'HCG, 250iu, Mon, Wed, Fri (with Test)', 'HCG, 500iu, Tues, Fri with Test', 'Test C, 100mg Mon, Thu - rotate', 'Test C, 100mg, Mon (with food), Thu',
-    'Levothyroxine, 100mcg Mon-Sat, 150mcg Sun', 'Levothyroxine, 88mcg weekdays, 100mcg weekends', 'Levothyroxine, 1 tab M-Sa, 1.5 tabs Su',
+  for (const l of ['Levothyroxine, 100mcg Mon-Sat, 150mcg Sun', 'Levothyroxine, 88mcg weekdays, 100mcg weekends', 'Levothyroxine, 1 tab M-Sa, 1.5 tabs Su',
     'HCG, 250iu M/W/F, 500iu Sat', 'Levothyroxine, 100mcg, Mon-Sat, 1.5 Sun', 'Levothyroxine, 100mcg, Mon-Fri, 1.5 on weekends',
     'Test E, 250mg every 14 days, Friday', 'Test C, 100mg EOD, Mon', 'Test C, 200mg every 2 weeks, Mon, Thu',
     'HGH, 2iu, Sat, Sun off', 'HGH, 2iu, AM, Sat, Sun off', 'HGH, 2iu, Tue, Thu off', 'HGH, 2iu, Wed, Sat & Sun off']) {
     same(line(l), ['daily', 1, null, null, null], l);
   }
+});
+
+test('days in a comma list with a note beside one of them are all dose days', () => {
+  for (const l of ['Test C, 100mg, Mon, Thu (with food)', 'Test C, 100mg, Mon, Thu - rotate sites', 'Test C, 100mg Mon, Thu - rotate',
+    'Test C, 100mg, Mon (with food), Thu']) {
+    same(line(l), ['weekly', 1, null, 2, [1, 4]], l);
+  }
+  same(line('Test C, 100mg, Sun, Wed (rotate)'), ['weekly', 1, null, 2, [0, 3]]);
+  same(line('HCG, 250iu, Mon, Wed, Fri (with Test)'), ['weekly', 1, null, 3, [1, 3, 5]]);
+  same(line('HCG, 500iu, Tues, Fri with Test'), ['weekly', 1, null, 2, [2, 5]]);
+  /* A note this does not read still keeps the old reading. */
+  same(line('Test C, 100mg, Mon, Thu (ongoing)'), ['daily', 1, null, null, null]);
 });
 
 test('a time of day in the field and the days in a later one are read together', () => {

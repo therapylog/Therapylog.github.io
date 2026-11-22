@@ -328,7 +328,7 @@ function tlFreqTimesOfDay(f) {
 var TL_FREQ_FILLER = /^(?:subq|sq|sc|im|iv|oral|orally|po|topical|topically|sublingual|sl|nasal|intranasal|transdermal|inject|injection|injections|inj|pin|pins|shot|shots|dose|doses|dosing|with|food|meal|meals|breakfast|lunch|dinner|water|fasted|fasting|empty|before|after|upon|at|on|in|the|a|an|every|each|per|x|only|split|day|days|sleep|once|one|apply|applied|gym|workout|workouts|training|exercise|cardio|pre|post|preworkout|postworkout|as|doc|doctor|dr|clinic|md|physician|prescribed|prescription|directed)$/;
 /* Sites say where, not when. Between two lists of days they are a rotation
    ("M/W/F glute, T/Th delt"), which this does not read. */
-var TL_FREQ_SITE = /^(?:glute|glutes|delt|delts|quad|quads|ventroglute|vg|belly|abdomen|abdominal|abs|stomach|tummy|thigh|thighs|arm|arms|lat|lats|pec|pecs|left|right|l|r|near|injury|site|sites|area|face|neck|shoulder|knee|elbow|tendon)$/;
+var TL_FREQ_SITE = /^(?:rotate|rotating|rotation|glute|glutes|delt|delts|quad|quads|ventroglute|vg|belly|abdomen|abdominal|abs|stomach|tummy|thigh|thighs|arm|arms|lat|lats|pec|pecs|left|right|l|r|near|injury|site|sites|area|face|neck|shoulder|knee|elbow|tendon)$/;
 var TL_FREQ_REST = /^(?:off|except|excluding|but|besides|without|no|not|skip|skipping|skipped|rest|resting|minus|other|than|apart|from)$/;
 var TL_FREQ_TIME = /^(?:am|pm|morning|mornings|evening|evenings|night|nights|noon|midday|afternoon|bed|bedtime|prebed|waking|wake|qhs|qam|qpm)$/;
 var TL_FREQ_JOIN = /^(?:to|through|thru|and|plus|&|\+|\/|,|;|:|-|\u2013|\u00b7|=)$/;
@@ -654,7 +654,7 @@ function tlFreqReadClean(text, f, g, strict) {
   var tod = tlFreqTimesOfDay(g.trim());
   /* Days come from the same text as the schedule, with notes set aside:
      "daily (labs Monday)" names no dose day. */
-  var dayRule = tlFreqClean(g.slice(1, -1), hits) ? tlFreqDayRule(g.trim()) : null;
+  var dayRule = tlFreqClean(g.slice(1, -1), hits) || tlFreqSimple(g, hits) ? tlFreqDayRule(g.trim()) : null;
 
   if (special && special.ask === 'biweekly' && dayRule && !dayRule.rest && dayRule.days.length === 2) {
     special = null; pattern = { kind: 'weekly', n: 2, at: 0 };
@@ -803,7 +803,7 @@ function tlFreqPattern(p, dayRule, text) {
 function tlFreqOnlyDays(text) {
   var s = tlFreqSpellDays(String(text || '').toLowerCase().replace(/\s+/g, ' ').trim());
   var hits = tlFreqHits(' ' + s + ' ');
-  return !!tlFreqDayRule(s) && tlFreqClean(s, []) && tlFreqSimple(' ' + s + ' ', hits) && !hits.some(function (h) { return h.kind !== 'daily' || !h.plain; });
+  return !!tlFreqDayRule(s) && tlFreqSimple(' ' + s + ' ', hits) && !hits.some(function (h) { return h.kind !== 'daily' || !h.plain; });
 }
 
 /* Whether a later field of a line says nothing but a schedule: days, rest
@@ -813,7 +813,7 @@ function tlFreqScheduleOnly(text) {
   if (TL_FREQ_NOTE.test(String(text || ''))) return false;
   var f = tlFreqSpellDays(String(text || '').toLowerCase().replace(/\s+/g, ' ').trim());
   var g = ' ' + f + ' ', hits = tlFreqHits(g);
-  if (!tlFreqClean(f, hits) || !tlFreqSimple(g, hits)) return false;
+  if (!tlFreqSimple(g, hits)) return false;
   return !!tlFreqDayRule(f) || hits.some(function (h) { return h.kind === 'weekly' && (h.run || h.n >= 2); });
 }
 
@@ -826,7 +826,7 @@ function tlFreqStatesSchedule(text) {
   if (TL_FREQ_NOTE.test(String(text || ''))) return false;
   var f = tlFreqSpellDays(String(text || '').toLowerCase().replace(/\s+/g, ' ').trim());
   var g = ' ' + tlFreqStripDurations(f) + ' ', hits = tlFreqHits(g);
-  if (!tlFreqClean(g.slice(1, -1), hits) || !tlFreqSimple(g, hits)) return false;
+  if (!tlFreqSimple(g, hits)) return false;
   return !!tlFreqDayRule(g.trim()) || hits.some(function (h) { return h.kind === 'daily' || h.kind === 'weekly' || h.kind === 'interval' || h.kind === 'monthly'; });
 }
 
