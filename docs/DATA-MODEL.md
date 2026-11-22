@@ -471,6 +471,7 @@ None of these is in a backup or restored by import. "Reset" is whether
 | `tl_ios_receipt` | App Store receipt | `TLIAP.validate` | `TLIAP.appReceipt` | **no** |
 | `tl_attr` | first-touch `{utm_*, ref, landedAt, landingPage}` | `tlCaptureAttribution` | `tlAttribution` | yes |
 | `tl_fab_pos` | position of the floating assistant button | `savePos` | `loadPos` | yes |
+| `tl-sched-read` | `"2"` once the note on what the fixed schedule reader reads differently has been seen, or was never needed (no protocol yet, or one saved after the fix) | `renderScheduleCheck`, `tlDismissScheduleNote`, `saveProtocol` | `renderScheduleCheck` | yes |
 
 **`tl_ent`**, the entitlement:
 

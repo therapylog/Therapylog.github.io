@@ -13,7 +13,7 @@ const assert = require('node:assert/strict');
 const { loadApp, same, plain } = require('./helpers/app');
 
 const app = loadApp({
-  files: ['src/logic/protocol.js', 'src/logic/changes.js', 'src/logic/record.js'],
+  files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/changes.js', 'src/logic/record.js'],
   functions: ['parseMeds', 'parseFrequency', 'getDefaultTimes', 'tlFreqDays'],
   consts: ['tlLocalDate']
 });

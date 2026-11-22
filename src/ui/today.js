@@ -256,6 +256,9 @@ function tlTodayScreen(el) {
   if (tlTodayState.hero >= heroes.length) tlTodayState.hero = 0;
   var sections = { doses: tlDosesHtml, inventory: tlInventoryHtml, flags: tlFlagsHtml };
   el.innerHTML = '<div class="ds-screen tl-today ds-under-tabbar">' +
+    /* What the schedule reader has to tell or ask: the one-time note on what
+       now reads differently, "biweekly", a schedule it cannot read. */
+    '<div id="tl-today-sched" class="tl-today-sched"></div>' +
     (heroes.length ? tlHeroHtml(heroes, x) : '') +
     x.layout.sections.filter(function (s) { return s.on; }).map(function (s) { return sections[s.key](x); }).join('') +
     '<button type="button" class="ds-btn ds-btn-secondary ds-btn-block tl-home-custom" data-tl-go="home/customize">' + tlIcon('sliders-horizontal') + 'Customize Home</button>' +
@@ -264,6 +267,7 @@ function tlTodayScreen(el) {
      the host they would pile up, one more per redraw, and a tap would toggle
      a dose twice. */
   tlTodayWire(el.firstChild, heroes);
+  if (typeof renderScheduleCheck === 'function') { try { renderScheduleCheck(); } catch (e) {} }
 }
 
 /* Draw Today again in place, keeping the scroll position and the focus. */

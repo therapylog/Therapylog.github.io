@@ -25,7 +25,8 @@ const ago = (days) => new Date(local(NOW).getTime() - days * DAY_MS).toISOString
 const dose = (name, days) => ({ type: 'medication', ts: ago(days), medication: name, dose: '', site: '', notes: '' });
 
 const alerts = (record) => loadApp({
-  functions: ['calcRefillAlerts', 'parseMeds', 'parseFrequency'],
+  files: ['src/logic/protocol.js', 'src/logic/frequency.js'],
+  functions: ['calcRefillAlerts', 'tlCostKey', 'parseMeds', 'parseFrequency'],
   consts: ['DRUG_COSTS'],
   record, now: NOW
 }).calcRefillAlerts();
@@ -43,12 +44,15 @@ test('no protocol, or a protocol with no text, gives no alerts', () => {
   same(alerts({ entries: [], proto: proto('') }), []);
 });
 
-test('a compound missing from the cost table never alerts, however long ago it was logged', () => {
-  /* PINNED, suspected bug: the name must match a DRUG_COSTS key exactly, so a
-     compound the table does not list, or one typed with different spelling or
-     case, has no refill tracking at all. */
+test('a compound missing from the cost table never alerts; one typed another way is found', () => {
   same(alerts({ entries: [dose('Mystery Peptide', 60)], proto: proto('Mystery Peptide, 1mg, Daily') }), []);
-  same(alerts({ entries: [dose('bpc-157', 9)], proto: proto('bpc-157, 250mcg, Daily') }), []);
+  /* The name used to have to match a DRUG_COSTS key exactly, so "bpc-157"
+     had no refill tracking at all. */
+  same(alerts({ entries: [dose('bpc-157', 9)], proto: proto('bpc-157, 250mcg, Daily') }), [{
+    name: 'bpc-157', daysRemaining: 1, urgent: true, dose: '250mcg', freq: 'Daily',
+    cost: 45, unit: '5mg vial', estimate: true, vials: null, since: null
+  }]);
+  same(alerts({ entries: [dose('BPC 157', 9)], proto: proto('BPC 157, 250mcg, Daily') }).length, 1);
 });
 
 test('with no inventory entered, it estimates from the last logged dose alone', () => {

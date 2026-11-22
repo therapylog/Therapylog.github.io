@@ -14,7 +14,7 @@ const assert = require('node:assert/strict');
 const { loadApp, same, plain, local } = require('./helpers/app');
 
 const app = loadApp({
-  files: ['src/logic/protocol.js', 'src/logic/rounds.js', 'src/logic/changes.js', 'src/logic/record.js', 'src/logic/setup.js', 'src/logic/protocol-view.js'],
+  files: ['src/logic/protocol.js', 'src/logic/frequency.js', 'src/logic/rounds.js', 'src/logic/changes.js', 'src/logic/record.js', 'src/logic/setup.js', 'src/logic/protocol-view.js'],
   functions: ['parseMeds', 'parseFrequency', 'getDefaultTimes', 'tlFreqDays',
     'tlDay', 'tlDaysBetween', 'tlNormalizeRule', 'tlWeekdaysFor', 'tlRuleWindow', 'tlDoseOn', 'tlDueOn'],
   consts: ['tlLocalDate', 'TL_DAY_MS']
@@ -119,7 +119,9 @@ test('a template becomes the protocol its lines describe, starting on the day gi
   same([p.name, p.start, p.weeks, p.pct, p.derived], ['Starter', '2026-03-05', 12, 'None', undefined]);
   same(p.compounds.map((c) => [c.name, c.dose.text, plain(c.rule)]), [
     ['Testosterone Cypionate', '100mg', { weekdays: [1, 4] }],
-    ['Anastrozole', '0.25mg', { daily: true }]
+    /* "As needed" has no schedule, so no rule: the line asks rather than
+       reminds every day. */
+    ['Anastrozole', '0.25mg', null]
   ]);
   assert.equal(app.tlTemplateProtocol(Object.assign({}, t, { duration: 'Ongoing' }), '2026-03-05', env).weeks, null);
 });

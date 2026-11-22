@@ -170,3 +170,8 @@
 .tl-lock-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .tl-lock-text{margin:0;font-size:15px;line-height:1.5;color:var(--color-text)}
 .tl-hero-locked .ds-btn{align-self:flex-start}
+
+/* The schedule reader's notes on Today: the one-time note, "biweekly", a
+   schedule it cannot read. Nothing to say takes no room. */
+.tl-today-sched:empty { display: none; }
+.tl-today-sched { display: grid; gap: var(--ds-space-3, 12px); margin-bottom: var(--ds-space-4, 16px); }

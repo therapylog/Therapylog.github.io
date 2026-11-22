@@ -97,3 +97,8 @@ jobs:
       # row; free users get the editor and a gate on the analysis; 320 px.
       - name: Protocol
         run: node scripts/ui-check-protocol.js
+      # The schedule reader on the home screen: the one-time note on what now
+      # reads differently, the "biweekly" question, the check on a schedule
+      # nobody can read, the calendar file, and blood pressure validation.
+      - name: Schedule reader
+        run: node scripts/ui-check-schedule.js
