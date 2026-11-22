@@ -651,7 +651,8 @@ test('"weekends off" after named days leaves the days, and a written day list re
   for (const l of ['HGH, 2iu, daily, weekends off', 'HGH, 2iu, M-F, weekends off', 'BPC-157, 250mcg, 2x daily, Sat/Sun off']) {
     same(plain(app.parseMeds(back(l))[0].freq.days), [1, 2, 3, 4, 5], l);
   }
-  assert.equal(back('BPC-157, 250mcg, 2x daily, Sat/Sun off'), 'BPC-157, 250mcg, Twice daily Mon · Tue · Wed · Thu · Fri, Sat/Sun off');
+  /* The rest days are in the written days, so they are not written again. */
+  assert.equal(back('BPC-157, 250mcg, 2x daily, Sat/Sun off'), 'BPC-157, 250mcg, Twice daily Mon · Tue · Wed · Thu · Fri');
 });
 
 test('a second schedule on other days keeps the old reading, and an amount or another time on some days moves no days', () => {
@@ -868,4 +869,20 @@ test('a weekly total in a dose that names days takes the days, and a count that 
   same(line('X, 1mg, Weekly (Mon/Thu)'), ['weekly', 1, null, 1, [1]]);
   same(line('Test C, 100mg, 3x weekly, Fri/Sat/Sun off'), ['weekly', 1, null, 1, [1]]);
   same(line('HGH, 3iu, 5x weekly, Sat/Sun off'), ['weekly', 1, null, 5, [1, 2, 3, 4, 5]]);
+});
+
+test('a save writes the rule once, keeps amounts, and never reads back as more days', () => {
+  const back = (meds) => app.tlProtocolToLegacy(app.tlProtocolFromLegacy({ entries: [], proto: proto(meds) }, env)).proto.meds;
+  for (const l of ['BPC-157, 250mcg BID, M-F', 'CJC/Ipa, 100mcg 2x daily, 5 on 2 off', 'Ipamorelin, 100mcg AM and PM, Mon-Fri',
+    'Enclomiphene, 12.5mg, daily except Sat, Sun', 'HGH, 3iu, daily except Sunday, Wed', 'HGH, 2iu, Sat, Sun off',
+    'HCG, 500iu Mon/Thu, 250iu Sat', 'HCG, 1500IU weekly, 500IU M/W/F']) {
+    const once = back(l);
+    same(line(once), line(l), l);
+    assert.equal(back(once), once, l);
+  }
+  assert.equal(back('Enclomiphene, 12.5mg, daily except Sat, Sun'), 'Enclomiphene, 12.5mg, Mon · Tue · Wed · Thu · Fri');
+  /* "Sat, Sun off" reads as once a day; written as "Daily, Sun off" it would
+     read as six days, so the user's words are kept. */
+  assert.equal(back('HGH, 2iu, Sat, Sun off'), 'HGH, 2iu, Sat, Sun off');
+  assert.match(back('HCG, 500iu Mon/Thu, 250iu Sat'), /250iu Sat/);
 });

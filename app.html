@@ -2197,13 +2197,14 @@ function tlProtocolFromLegacy(d, env) {
     var amt = /[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|cc|g|tabs?|caps?)\b/gi;
     var norm = function (x) { return (String(x || '').match(amt) || []).join().replace(/\s+/g, '').toLowerCase(); };
     var says = (norm(parts[2]) && norm(parts[2]) !== norm(parts[1])) || /\b(?:if|as|when)\s+(?:needed|required)\b|\boptional\b|\bprn\b/i.test(parts[2] || '');
-    var noteParts = parts.slice(rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest' || says) ? 2 : 3);
-    /* Days read with the dose ("HCG, 250iu M/W/F, Mon · Wed · Fri") are the
-       rule, which the written frequency says: not a note to write again. */
-    if (rule && med.freqFrom === 'dose' && typeof tlFreqOnlyDays === 'function') {
-      var amt0 = /[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|cc|g|tabs?|caps?)\b/gi;
-      while (noteParts.length && (tlFreqOnlyDays(noteParts[0]) || tlFreqOnlyDays(String(noteParts[0]).replace(amt0, ' ')))) noteParts.shift();
-    }
+    var from = rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest' || says) ? 2 : 3;
+    /* Fields the reading came from are the rule, which the written frequency
+       says: not a note to write again, where they could read as more days
+       ("daily except Sat, Sun" leaves "Sun" in its own field). A field that
+       says more than the rule ("AM + 5mg PM if needed", "250iu Sat") stays. */
+    var usedAt = rule && med.used ? med.used : [];
+    var ownAmount = function (x) { return !!norm(x) && norm(x) !== norm(parts[1]); };
+    var noteParts = parts.filter(function (x, k) { return k >= from && !(usedAt.indexOf(k) >= 0 && !(k === 2 && says) && !ownAmount(x)); });
     var note = noteParts.join(', ').trim();
     /* Stored times if the user set any, else the defaults the old screens show
        and fire for this frequency. */
@@ -2349,9 +2350,17 @@ function tlProtocolToLegacy(p) {
   var lines = [], reminderTimes = {};
   (p.compounds || []).forEach(function (c) {
     var name = tlLegacyName(c.name), freq = tlLegacyFreqText(c, p.start), slots = c.slots || [];
-    var line = name + ', ' + tlLegacyName(tlLegacyDoseText(c.dose)) + ', ' + freq;
+    var head = name + ', ' + tlLegacyName(tlLegacyDoseText(c.dose)) + ', ';
     var note = String(c.note || '').replace(/[\r\n]+/g, ' ').trim();
-    if (note) line += ', ' + note;
+    var line = head + freq + (note ? ', ' + note : '');
+    /* The line must read back as the rule. Where the written frequency and
+       the note read as something else together ("Daily, Sun off" from "Sat,
+       Sun off"), the user's own words do, as they did before the save. */
+    var own = tlLegacyName(c.freqText);
+    if (c.rule && own && own !== freq && !tlLegacySame(line, c, p.start)) {
+      var mine = head + own + (note ? ', ' + note : '');
+      if (tlLegacySame(mine, c, p.start)) { line = mine; freq = own; }
+    }
     lines.push(line);
     if (slots.length) {
       reminderTimes[name] = slots.map(function (k) { return p.slots[k].t; })
@@ -2368,6 +2377,20 @@ function tlProtocolToLegacy(p) {
     } : null,
     reminderTimes: reminderTimes
   };
+}
+
+/* Whether a written line reads back as the compound's rule. */
+function tlLegacySame(line, c, start) {
+  var med = parseMeds(line)[0];
+  if (!med) return false;
+  var parts = typeof tlSplitProtocolLine === 'function' ? tlSplitProtocolLine(line) : line.split(',');
+  var back = tlRuleFromLegacy(med, start, parts.slice(3).join(', ').trim());
+  var key = function (r) {
+    if (Array.isArray(r)) return '[' + r.map(key).join(',') + ']';
+    if (tlIsObject(r)) return '{' + Object.keys(r).sort().map(function (k) { return k + ':' + key(r[k]); }).join(',') + '}';
+    return JSON.stringify(r);
+  };
+  return !!back && key(back) === key(c.rule);
 }
 
 /* Text as one field of an old line: a comma would start the next field. */
@@ -7686,6 +7709,7 @@ let doseFreq = sure(amountless(doseSchedule), true);
 if (doseFreq && doseFreq.type === 'pulse') doseFreq = null;
 const noTimes = (x) => String(x).replace(/\b\d{1,2}(?::\d\d)?\s*(?:am|pm)\b|\b(?:am|pm|a\.m\.|p\.m\.|morning|evening|night|bedtime|before\s+bed|bed)\b/gi, ' ');
 const timesOf = (x) => String(tlFreqTimesOfDay(String(x).toLowerCase()).at || '');
+let used = [];
 if (dayFields.length && (doseDay || (doseFreq && doseFreq.type === 'weekly') || weeklyTotal.test(dose))) {
 let joined = sure(amountless(doseSchedule) + '; ' + dayFields.join('; '), true);
 /* "Test C, 100mg Mon AM, Thu PM": the days, at their time when it is the
@@ -7695,7 +7719,7 @@ joined = sure(noTimes(amountless(doseSchedule)) + '; ' + dayFields.map(noTimes).
 const t = timesOf(amountless(doseSchedule));
 if (joined && joined.type === 'weekly' && !(joined.times > 1) && t && t.indexOf(',') < 0 && dayFields.every(x => timesOf(x) === t)) joined.at = [t];
 }
-if (joined && joined.type === 'weekly') { freq = joined; freqFrom = 'dose'; }
+if (joined && joined.type === 'weekly') { freq = joined; freqFrom = 'dose'; used = dayFields.map((x, k) => 2 + k); }
 }
 /* The frequency field. Where the reader was unsure of it ("SubQ or IM twice
    weekly", "2.5mg for 4 weeks then 5mg weekly"), its old reading, and
@@ -7720,14 +7744,14 @@ fieldFreq = sure(amountless(parts[2]), true);
 if (!freq && fieldFreq && fieldFreq.type === 'daily' && doseFreq && doseFreq.type !== 'daily' && tlFreqScheduled(doseFreq) && !weeklyTotal.test(dose) &&
 !tlFreqHits(' ' + parts[2].toLowerCase() + ' ').length && !tlFreqDayRule(tlFreqSpellDays(parts[2].toLowerCase()))) {
 const j = sure(amountless(doseSchedule) + ', ' + parts[2], true);
-if (j && tlFreqScheduled(j)) { freq = j; freqFrom = 'dose'; }
+if (j && tlFreqScheduled(j)) { freq = j; freqFrom = 'dose'; used = [2]; }
 }
 /* Doses a day in the dose, days in the field: "CJC/Ipa, 100mcg 2x daily, 5
    on 2 off", "BPC-157, 250mcg BID, M-F", "Sermorelin, 200mcg nightly, M-F". */
 if (!freq && fieldFreq && doseFreq && doseFreq.type === 'daily' && (doseFreq.times > 1 || doseFreq.at) && !amounts(parts[2]) &&
 (fieldFreq.type === 'weekly' || fieldFreq.type === 'interval') && !(fieldFreq.times > 1) && !fieldFreq.at) {
 const j = sure(amountless(doseSchedule) + ', ' + parts[2], true);
-if (j && j.type === fieldFreq.type && tlFreqScheduled(j)) { freq = j; freqFrom = 'dose'; }
+if (j && j.type === fieldFreq.type && tlFreqScheduled(j)) { freq = j; freqFrom = 'dose'; used = [2]; }
 }
 /* A schedule in the dose and another, with another amount, in the field:
    "BPC-157, 500mcg daily, 250mcg twice daily", "HGH, 2iu daily, 4iu
@@ -7744,7 +7768,7 @@ else freq = null;
    PM" is two doses, labelled as the user wrote them. */
 if (!freq && parts[2]) {
 const both = sure(amountless(dose) + ', ' + amountless(parts[2]), true);
-if (both && both.type === 'daily' && both.times >= 2 && both.at) { both.label = freqStr; freq = both; freqFrom = 'dose'; }
+if (both && both.type === 'daily' && both.times >= 2 && both.at) { both.label = freqStr; freq = both; freqFrom = 'dose'; used = [2]; }
 }
 if (!freq) { freq = parseFrequency(freqStr); freqFrom = 'field'; }
 /* Fields after the schedule that say nothing but a schedule refine it, read
@@ -7862,7 +7886,10 @@ const unused = rest.some(x => merged.indexOf(x) < 0 && !asNote(x) && freqFrom !=
 /* Nor is a dose that names days the reading doses on ("100mg Mon AM, Twice
    weekly (Mon · Thu)"). */
 const within = doseFreq && doseFreq.named && freq.named && doseFreq.days.every(dd => freq.days.indexOf(dd) >= 0);
-const doseUnused = freqFrom === 'field' && doseFreq && tlFreqScheduled(doseFreq) && fieldFreq && !weeklyTotal.test(dose) && !same(doseFreq, freq) && !within;
+/* Nor a count a day in the dose that the field gives its days ("250mcg
+   BID, Twice daily Mon · Tue · Wed · Thu · Fri"). */
+const perDayOnly = doseFreq && doseFreq.type === 'daily' && (doseFreq.times || 1) === (freq.times || 1);
+const doseUnused = freqFrom === 'field' && doseFreq && tlFreqScheduled(doseFreq) && fieldFreq && !weeklyTotal.test(dose) && !same(doseFreq, freq) && !within && !perDayOnly;
 /* Rest days named in a field the reading did not take: a count spread
    from the start day could land on them ("3x weekly, Fri/Sat/Sun off"). */
 const restLeft = !freq.named && freq.type === 'weekly' && rest.some(x => merged.indexOf(x) < 0 && !asNote(x) && restOnly(x));
@@ -7881,7 +7908,15 @@ return /^(?:mo|tu|we|th|fr|sa|su)[a-z]{1,8}$/.test(t) && !tlFreqClean(t, []);
 freq = tlReadFrequencyBefore(freqStr); freqFrom = 'field';
 }
 const colors = ['#4ade9a','#3bc4ff','#f59e0b','#f472b6','#a78bfa','#34d399','#fb923c','#22d3ee'];
-return { name, dose, freqStr, freq, freqFrom, color: colors[idx % colors.length], id: 'med-'+idx };
+/* The fields the reading came from, for the model's note
+   (tlProtocolFromLegacy): not enumerable, so the med is what it was. */
+const usedAt = used.slice();
+if (freqFrom === 'field' || freqFrom === 'rest') usedAt.push(2);
+if (freqFrom === 'rest') rest.forEach((x, k) => { if (tlFreqStatesSchedule(x)) usedAt.push(3 + k); });
+if (!final) merged.forEach(x => { for (let k = 2; k < parts.length; k++) if (parts[k] === x && usedAt.indexOf(k) < 0) { usedAt.push(k); break; } });
+const med = { name, dose, freqStr, freq, freqFrom, color: colors[idx % colors.length], id: 'med-'+idx };
+Object.defineProperty(med, 'used', { value: usedAt, enumerable: false });
+return med;
 });
 }
 function tlFreqDays(freq, startDate) {

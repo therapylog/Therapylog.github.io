@@ -410,13 +410,14 @@ function tlProtocolFromLegacy(d, env) {
     var amt = /[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|cc|g|tabs?|caps?)\b/gi;
     var norm = function (x) { return (String(x || '').match(amt) || []).join().replace(/\s+/g, '').toLowerCase(); };
     var says = (norm(parts[2]) && norm(parts[2]) !== norm(parts[1])) || /\b(?:if|as|when)\s+(?:needed|required)\b|\boptional\b|\bprn\b/i.test(parts[2] || '');
-    var noteParts = parts.slice(rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest' || says) ? 2 : 3);
-    /* Days read with the dose ("HCG, 250iu M/W/F, Mon · Wed · Fri") are the
-       rule, which the written frequency says: not a note to write again. */
-    if (rule && med.freqFrom === 'dose' && typeof tlFreqOnlyDays === 'function') {
-      var amt0 = /[\d.,\/]+\s*(?:mcg|mg|iu|units?|ml|cc|g|tabs?|caps?)\b/gi;
-      while (noteParts.length && (tlFreqOnlyDays(noteParts[0]) || tlFreqOnlyDays(String(noteParts[0]).replace(amt0, ' ')))) noteParts.shift();
-    }
+    var from = rule && (med.freqFrom === 'dose' || med.freqFrom === 'rest' || says) ? 2 : 3;
+    /* Fields the reading came from are the rule, which the written frequency
+       says: not a note to write again, where they could read as more days
+       ("daily except Sat, Sun" leaves "Sun" in its own field). A field that
+       says more than the rule ("AM + 5mg PM if needed", "250iu Sat") stays. */
+    var usedAt = rule && med.used ? med.used : [];
+    var ownAmount = function (x) { return !!norm(x) && norm(x) !== norm(parts[1]); };
+    var noteParts = parts.filter(function (x, k) { return k >= from && !(usedAt.indexOf(k) >= 0 && !(k === 2 && says) && !ownAmount(x)); });
     var note = noteParts.join(', ').trim();
     /* Stored times if the user set any, else the defaults the old screens show
        and fire for this frequency. */
@@ -562,9 +563,17 @@ function tlProtocolToLegacy(p) {
   var lines = [], reminderTimes = {};
   (p.compounds || []).forEach(function (c) {
     var name = tlLegacyName(c.name), freq = tlLegacyFreqText(c, p.start), slots = c.slots || [];
-    var line = name + ', ' + tlLegacyName(tlLegacyDoseText(c.dose)) + ', ' + freq;
+    var head = name + ', ' + tlLegacyName(tlLegacyDoseText(c.dose)) + ', ';
     var note = String(c.note || '').replace(/[\r\n]+/g, ' ').trim();
-    if (note) line += ', ' + note;
+    var line = head + freq + (note ? ', ' + note : '');
+    /* The line must read back as the rule. Where the written frequency and
+       the note read as something else together ("Daily, Sun off" from "Sat,
+       Sun off"), the user's own words do, as they did before the save. */
+    var own = tlLegacyName(c.freqText);
+    if (c.rule && own && own !== freq && !tlLegacySame(line, c, p.start)) {
+      var mine = head + own + (note ? ', ' + note : '');
+      if (tlLegacySame(mine, c, p.start)) { line = mine; freq = own; }
+    }
     lines.push(line);
     if (slots.length) {
       reminderTimes[name] = slots.map(function (k) { return p.slots[k].t; })
@@ -581,6 +590,20 @@ function tlProtocolToLegacy(p) {
     } : null,
     reminderTimes: reminderTimes
   };
+}
+
+/* Whether a written line reads back as the compound's rule. */
+function tlLegacySame(line, c, start) {
+  var med = parseMeds(line)[0];
+  if (!med) return false;
+  var parts = typeof tlSplitProtocolLine === 'function' ? tlSplitProtocolLine(line) : line.split(',');
+  var back = tlRuleFromLegacy(med, start, parts.slice(3).join(', ').trim());
+  var key = function (r) {
+    if (Array.isArray(r)) return '[' + r.map(key).join(',') + ']';
+    if (tlIsObject(r)) return '{' + Object.keys(r).sort().map(function (k) { return k + ':' + key(r[k]); }).join(',') + '}';
+    return JSON.stringify(r);
+  };
+  return !!back && key(back) === key(c.rule);
 }
 
 /* Text as one field of an old line: a comma would start the next field. */
