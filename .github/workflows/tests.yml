@@ -101,6 +101,12 @@ jobs:
       # chips, a compound's page at its own address, Back; 320 px light.
       - name: Library
         run: node scripts/ui-check-library.js
+      # Tools: the reconstitution arithmetic on typed numbers (never a
+      # pre-filled dose), the syringe chips and the over-capacity warning,
+      # every other tool a row that opens it, Pro tags and gates, Back to
+      # where a tool was opened from; 320 px light.
+      - name: Tools
+        run: node scripts/ui-check-tools.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.

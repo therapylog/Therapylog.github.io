@@ -153,10 +153,12 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     t('Library opens on Compounds, the new Library screen', s.route === 'library/compounds' && s.seg === 'compounds' &&
       await page.evaluate(() => document.body.classList.contains('tl-new-screen') && !!document.querySelector('#tl-screen .tl-lib')) && !s.shown.includes('page-encyclopedia'));
     s = await tap('#tl-top .ds-seg-opt[data-value="tools"]');
-    t('Library: Tools shows the old tools page', s.route === 'library/tools' && s.shown.includes('page-tools'));
-    const tools = await page.evaluate(() => Array.from(document.querySelectorAll('#page-tools .seg-btn')).map((b) => (b.getAttribute('onclick') || '').match(/'([a-z]+)'/)[1]));
-    t('  every tool is still on it, the PCT builder included', ['calc', 'interact', 'templates', 'body', 'symptom', 'cost', 'pct'].every((x) => tools.includes(x)), tools.join(','));
-    s = await tap('#tl-tools-links [data-tl-go="library/stack"]');
+    t('Library: Tools is the new Tools screen', s.route === 'library/tools' && !s.shown.includes('page-tools') &&
+      await page.evaluate(() => document.body.classList.contains('tl-new-screen') && !!document.querySelector('#tl-screen .tl-tools')));
+    const tools = await page.evaluate(() => Array.from(document.querySelectorAll('.tl-tools-list [data-tl-go]')).map((b) => b.getAttribute('data-tl-go')));
+    t('  every tool is a row on it, the PCT builder included', ['library/interactions', 'library/templates', 'library/bodycomp', 'library/symptoms', 'library/cost', 'library/pct',
+      'library/steady', 'library/syringe', 'library/sidefx', 'library/stack'].every((x) => tools.includes(x)), tools.join(','));
+    s = await tap('.tl-tools-list [data-tl-go="library/stack"]');
     t('  and the Stack builder is a row there', s.route === 'library/stack' && s.shown.includes('page-stack') && s.title === 'Stack builder');
     s = await tap('#tl-top [data-tl-back]');
     t('  whose Back returns to Tools', s.route === 'library/tools');
@@ -201,11 +203,11 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     /* Deep links. */
     await page.goto(base + '/app.html#/library/tools'); await page.waitForTimeout(500);
     s = await state(page);
-    t('changing the address to #/library/tools goes there', s.route === 'library/tools' && s.seg === 'tools' && s.shown.includes('page-tools'));
+    t('changing the address to #/library/tools goes there', s.route === 'library/tools' && s.seg === 'tools' && !!(await page.$('#tl-screen .tl-tools')));
     await page.reload({ waitUntil: 'load' });
     await page.waitForFunction(() => document.body.classList.contains('tl-shell')); await page.waitForTimeout(600);
     s = await state(page);
-    t('opening the app on #/library/tools starts there, after the old start-up has run', s.route === 'library/tools' && s.shown.includes('page-tools') &&
+    t('opening the app on #/library/tools starts there, after the old start-up has run', s.route === 'library/tools' && !!(await page.$('#tl-screen .tl-tools')) &&
       !s.shown.includes('page-dashboard'), JSON.stringify(s.shown));
     await page.goto(base + '/app.html#/library'); await page.waitForTimeout(800);
     s = await state(page);

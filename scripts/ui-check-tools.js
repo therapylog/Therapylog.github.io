@@ -1,353 +1,330 @@
 #!/usr/bin/env node
-/*
- * Drive the generated /tools/ pages in a real browser. OPTIONAL — needs
- * playwright-core, and skips with exit 0 without it, like the other
- * ui-check-* scripts here.
+/* Library -> Tools, in a browser (src/ui/tools.js).
  *
- *     npm install playwright-core && node scripts/ui-check-tools.js
+ * The reconstitution calculator: empty fields that are never pre-filled, the
+ * design's arithmetic on what is typed (strength, volume, units, doses in the
+ * vial), the syringe chips and the over-capacity warning, a comma decimal,
+ * nonsense and zero, Clear, and the numbers kept while the app is open. Then
+ * "More tools": every tool a row that opens it, a Pro tag on the gated ones
+ * for someone without a plan (whose tap opens the upgrade screen), and Back
+ * returning to where the tool was opened from. Fit at 320 px, light.
  *
- * Why this exists on top of validate-public-pages.js: that script compares every
- * inlined function against app.html and runs them against a DOM stub, and it
- * still could not see that the syringe-planner page had interpolated the widget
- * OBJECT instead of its HTML — the script was present and correct, the markup
- * was simply absent. A browser notices. So this loads each page, watches for
- * page errors and 4xx requests, and works the widgets the way a visitor would.
- *
- * Run: node scripts/ui-check-tools.js
+ *   node scripts/ui-check-tools.js
+ *   SHOTS=dir node scripts/ui-check-tools.js
  */
-const fs = require("fs");
-const path = require("path");
-const http = require("http");
-
 let chromium;
-try { ({ chromium } = require("playwright-core")); }
-catch (e) { console.error("ui-check-tools: playwright-core not installed — skipping."); process.exit(0); }
-
-const ROOT = path.join(__dirname, "..");
-const EXE = ["/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
-             "/opt/pw-browsers/chromium/chrome-linux/chrome",
-             process.env.CHROMIUM_PATH].filter(Boolean).find((p) => fs.existsSync(p));
-const TYPES = { ".html": "text/html", ".js": "text/javascript", ".json": "application/json",
-  ".css": "text/css", ".png": "image/png", ".svg": "image/svg+xml", ".xml": "application/xml",
-  ".txt": "text/plain", ".ico": "image/x-icon", ".webmanifest": "application/manifest+json" };
-
-/* /_vercel/insights/script.js 404s off Vercel and every page loads it on
-   purpose — ui-check-site.js asserts it is there. Not a broken link. */
-const EXPECTED_404 = /\/_vercel\/insights\//;
+try { ({ chromium } = require('playwright-core')); }
+catch (e) {
+  try { ({ chromium } = require('playwright')); }
+  catch (e2) { console.error('ui-check-tools: playwright is not installed — skipping.'); process.exit(0); }
+}
+const http = require('http'), fs = require('fs'), path = require('path');
+const ROOT = path.resolve(__dirname, '..');
+const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png',
+               '.svg': 'image/svg+xml', '.json': 'application/json', '.woff2': 'font/woff2' };
+const SHOTS = process.env.SHOTS || null;
+const DEMO = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests', 'fixtures', 'demo-backup.json'), 'utf8')).data;
 
 function serve() {
-  const server = http.createServer((req, res) => {
-    let rel = decodeURIComponent(req.url.split("?")[0]);
-    if (rel === "/app") rel = "/app.html";
-    if (rel.endsWith("/")) rel += "index.html";
-    const file = path.join(ROOT, rel.replace(/^\/+/, ""));
-    if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
-      res.writeHead(404); return res.end("not found");
-    }
-    res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream" });
-    fs.createReadStream(file).pipe(res);
+  return new Promise((resolve) => {
+    const server = http.createServer((req, res) => {
+      const file = path.join(ROOT, decodeURIComponent(req.url.split('?')[0]));
+      if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end(); }
+      res.writeHead(200, { 'content-type': MIME[path.extname(file)] || 'application/octet-stream' });
+      fs.createReadStream(file).pipe(res);
+    });
+    server.listen(0, '127.0.0.1', () => resolve({ server, base: 'http://127.0.0.1:' + server.address().port }));
   });
-  return new Promise((r) => server.listen(0, "127.0.0.1",
-    () => r({ server, base: `http://127.0.0.1:${server.address().port}` })));
 }
 
 const results = [];
-const t = (name, pass, detail) => {
-  results.push(!!pass);
-  if (!pass) console.log(`FAIL  ${name}${detail ? "  — " + detail : ""}`);
-};
-const near = (a, b, tol) => Number.isFinite(a) && Math.abs(a - b) <= tol;
+const t = (name, ok, detail) => { results.push(!!ok); console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? '  — ' + detail : ''}`); };
+const PAID = (now) => JSON.stringify({ tier: 'pro', status: 'active', expires: null, plan: 'yearly', lifetime: false,
+  willRenew: true, key: 'TL-TEST-TEST-TEST', email: null, verifiedAt: now - 60000, source: 'license' });
+/* Thursday 19 November 2026, 06:00: no round due yet, so no banner. */
+const CLOCK = new Date(2026, 10, 19, 6, 0, 0);
 
-/* A page plus its error watchers. Set once the server and browser are up. */
-let BROWSER = null;
-let BASE = null;
-async function open(url, viewport) {
-  const page = await BROWSER.newPage({ viewport: viewport || { width: 1000, height: 900 } });
-
-  /* No off-origin requests. The Google Fonts stylesheet cannot resolve on an
-     offline or sandboxed machine, and waiting for it to time out is most of
-     the run. Per-file API stubs are registered separately and still win,
-     because routes registered earlier take precedence. */
-  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
-  const errs = [];
-  page.on("pageerror", (e) => errs.push("js: " + String(e.message || e).slice(0, 160)));
-  page.on("response", (r) => {
-    if (r.status() >= 400 && !EXPECTED_404.test(r.url())) errs.push(r.status() + " " + r.url());
-  });
-  const resp = await page.goto(BASE + url, { waitUntil: "load" });
-  await page.waitForTimeout(200);
-  return { page, errs, status: resp && resp.status() };
+async function open(browser, base, opts) {
+  const context = await browser.newContext({ viewport: { width: opts.width || 390, height: 844 }, serviceWorkers: 'block' });
+  const page = await context.newPage();
+  const errors = [], dialogs = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  page.on('dialog', (d) => { dialogs.push(d.message()); d.dismiss().catch(() => {}); });
+  await page.route('**/*', (route) => (route.request().url().startsWith(base + '/') || /^(blob|data|about):/.test(route.request().url())
+    ? route.continue() : route.abort()));
+  await page.clock.install({ time: CLOCK });
+  await page.addInitScript(([record, theme, ent]) => {
+    try {
+      if (sessionStorage.getItem('tl-test-seeded')) return;
+      sessionStorage.setItem('tl-test-seeded', '1');
+      localStorage.setItem('tl-ob-done', '1');
+      localStorage.setItem('tl-theme', theme);
+      localStorage.setItem('tl-disclaimer-done', JSON.stringify({ v: 2, at: new Date().toISOString(), age18: true }));
+      localStorage.setItem('tlv2', record);
+      if (ent) localStorage.setItem('tl_ent', ent);
+    } catch (e) {}
+  }, [JSON.stringify(opts.record || DEMO), opts.theme || 'dark', opts.paid ? PAID(CLOCK.getTime()) : null]);
+  await page.goto(base + '/app.html' + (opts.hash || '#/library/tools'), { waitUntil: 'load' });
+  await page.waitForFunction(() => document.body.classList.contains('tl-shell') && !!document.getElementById('tl-tabs').firstChild);
+  await page.waitForTimeout(250);
+  return { context, page, errors, dialogs };
 }
 
+const shot = async (page, name, full) => {
+  if (!SHOTS) return;
+  fs.mkdirSync(SHOTS, { recursive: true });
+  await page.mouse.move(0, 0);
+  await page.waitForTimeout(250);
+  await page.screenshot({ path: path.join(SHOTS, name + '.png'), fullPage: !!full });
+};
+const record = (page) => page.evaluate(() => JSON.parse(localStorage.getItem('tlv2') || 'null'));
+
+const fit = (page, sel) => page.evaluate((sel) => {
+  const box = document.querySelector(sel);
+  const out = { unnamed: [], small: [], tiny: [], overflow: 0 };
+  if (!box) return { missing: sel };
+  box.querySelectorAll('button,a,input,select,textarea').forEach((el) => {
+    if (el.offsetParent === null) return;
+    const r = (el.closest('.ds-seg') || el).getBoundingClientRect();
+    const name = (el.getAttribute('aria-label') || el.textContent || el.value || el.placeholder || '').trim() ||
+      (el.id && document.querySelector('label[for="' + el.id + '"]') ? 'label' : '');
+    if (!name) out.unnamed.push(el.outerHTML.slice(0, 80));
+    if (r.height < 43.5) out.small.push((name || el.tagName).slice(0, 30) + ' ' + Math.round(r.height));
+  });
+  const walk = document.createTreeWalker(box, NodeFilter.SHOW_TEXT);
+  while (walk.nextNode()) {
+    const n = walk.currentNode, el = n.parentElement;
+    if (!n.textContent.trim() || !el || el.offsetParent === null || el.closest('.ds-sr')) continue;
+    const size = parseFloat(getComputedStyle(el).fontSize);
+    if (size < 12) out.tiny.push(n.textContent.trim().slice(0, 20) + ' ' + size);
+  }
+  out.overflow = Math.max(0, document.documentElement.scrollWidth - innerWidth);
+  return out;
+}, sel);
+const fitOk = (f) => f && !f.missing && !f.unnamed.length && !f.small.length && !f.tiny.length && f.overflow <= 0;
+const fitDetail = (f) => JSON.stringify(f).slice(0, 300);
+
+
+const fill = async (page, mg, ml, dose) => {
+  for (const [id, v] of [['tl-recon-mg', mg], ['tl-recon-ml', ml], ['tl-recon-dose', dose]]) await page.fill('#' + id, v);
+  await page.waitForTimeout(60);
+};
+const out = (page) => page.evaluate(() => {
+  const o = document.getElementById('tl-recon-out');
+  const dd = Array.from(o.querySelectorAll('.tl-recon-stat dd')).map((x) => x.textContent.replace(/\s+/g, ' ').trim());
+  const fillEl = o.querySelector('.tl-recon-fill'), bar = o.querySelector('.tl-recon-bar');
+  return {
+    empty: !!o.querySelector('.tl-recon-empty'), text: o.textContent.replace(/\s+/g, ' ').trim(),
+    big: (o.querySelector('.ds-big') || {}).textContent || null,
+    strength: dd[0] || null, volume: dd[1] || null, doses: dd[2] || null,
+    fill: fillEl ? parseFloat(fillEl.style.width) : null,
+    scale: (o.querySelector('.tl-recon-scale span:last-child') || {}).textContent || null,
+    over: !!o.querySelector('.tl-recon-over'), barOver: !!bar && bar.classList.contains('tl-recon-bar-over')
+  };
+});
+const values = (page) => page.evaluate(() => ['tl-recon-mg', 'tl-recon-ml', 'tl-recon-dose'].map((id) => document.getElementById(id).value));
+/* The typed number ends before its unit begins. */
+const unitsClear = (page) => page.evaluate(() => ['tl-recon-mg', 'tl-recon-ml', 'tl-recon-dose'].every((id) => {
+  const el = document.getElementById(id), unit = el.parentNode.querySelector('.tl-recon-unit');
+  return el.getBoundingClientRect().right - parseFloat(getComputedStyle(el).paddingRight) <= unit.getBoundingClientRect().left - 2;
+}));
+const syringe = async (page, v) => { await page.click(`.tl-recon-syr .ds-chip[data-value="${v}"]`); await page.waitForTimeout(60); };
+const tools = (page) => page.evaluate(() => Array.from(document.querySelectorAll('.tl-tools-list [data-tl-go]')).map((r) => ({
+  route: r.getAttribute('data-tl-go'), title: r.querySelector('.ds-row-title').textContent,
+  sub: (r.querySelector('.ds-row-sub') || {}).textContent || '', tags: Array.from(r.querySelectorAll('.ds-tag')).map((x) => x.textContent)
+})));
+const where = (page) => page.evaluate(() => {
+  const vis = (id) => { const el = document.getElementById(id); return !!el && el.offsetParent !== null && el.getBoundingClientRect().height > 0; };
+  return {
+    route: tlRoute, hash: location.hash, title: (document.querySelector('#tl-top h1') || {}).textContent || null,
+    shown: ['tool-calc', 'tool-interact', 'tool-templates', 'tool-body', 'tool-symptom', 'tool-cost', 'tool-pct', 'tool-syringe', 'tool-manage',
+      'page-tools', 'page-stack', 'page-cycle', 'pk-ss'].filter(vis),
+    oldTabs: Array.from(document.querySelectorAll('#page-tools .seg, #page-cycle .seg')).some((s) => s.offsetParent !== null),
+    upgrade: (document.getElementById('tl-upgrade-overlay') || {}).textContent || null,
+    tools: !!document.querySelector('#tl-screen .tl-tools')
+  };
+});
+const tap = async (page, sel) => { await page.click(sel); await page.waitForTimeout(250); return where(page); };
+const back = (page) => tap(page, '#tl-top [data-tl-back]');
+const closeUpgrade = (page) => page.evaluate(() => { const o = document.getElementById('tl-upgrade-overlay'); if (o) o.remove(); });
+
 (async () => {
-  const datesFile = path.join(ROOT, "scripts", "page-dates.json");
-  if (!fs.existsSync(datesFile)) {
-    console.error("ui-check-tools: scripts/page-dates.json is missing — run node scripts/build-pages.js first.");
-    process.exit(1);
-  }
-  const urls = Object.keys(JSON.parse(fs.readFileSync(datesFile, "utf8"))).sort();
-
   const { server, base } = await serve();
-  const browser = await chromium.launch(EXE ? { executablePath: EXE } : {});
-  BROWSER = browser;
-  BASE = base;
+  const launch = { args: ['--no-sandbox'] };
+  if (process.env.CHROMIUM_PATH) launch.executablePath = process.env.CHROMIUM_PATH;
+  const browser = await chromium.launch(launch);
 
-  /* ---- 1. every page loads clean, on desktop and on a phone ------------ */
-  for (const url of urls) {
-    const { page, errs, status } = await open(url);
-    t(`${url} returns 200`, status === 200, String(status));
-    t(`${url} loads with no page errors or broken requests`, errs.length === 0,
-      errs.slice(0, 2).join(" | "));
-    const shape = await page.evaluate(() => ({
-      h1: document.querySelectorAll("h1").length,
-      /* the widget markup has to be in the DOM, not just its script */
-      widgets: document.querySelectorAll(".widget").length,
-      objectLeak: document.body.innerText.indexOf("[object Object]") >= 0,
-      overflow: document.documentElement.scrollWidth > window.innerWidth + 1
-    }));
-    t(`${url} has exactly one h1`, shape.h1 === 1, String(shape.h1));
-    t(`${url} leaks no "[object Object]" into the page`, !shape.objectLeak);
-    t(`${url} does not scroll sideways`, !shape.overflow);
-    await page.close();
-  }
-
-  /* Widget-bearing pages must actually contain their widget. */
-  for (const url of ["/tools/peptide-reconstitution-calculator/", "/tools/syringe-builder/",
-                     "/tools/stack-checker/", "/tools/half-life-calculator/",
-                     "/tools/free-testosterone-calculator/", "/tools/trt-dose-calculator/",
-                     "/tools/insulin-syringe-units-calculator/"]) {
-    const { page } = await open(url);
-    const n = await page.evaluate(() =>
-      document.querySelectorAll(".widget input, .widget select, #syr-rows select").length);
-    t(`${url} renders an interactive widget`, n > 0, n + " controls found");
-    await page.close();
-  }
-
-  /* ---- 2. reconstitution, through the app's own calcUnified() ---------- */
+  /* ===== no plan, dark ===== */
   {
-    const { page, errs } = await open("/tools/peptide-reconstitution-calculator/");
-    const r = await page.evaluate(() => {
-      document.getElementById("uc-vial").value = "5";
-      document.getElementById("uc-water").value = "2";
-      document.getElementById("uc-dose").value = "250";
-      document.getElementById("uc-unit").value = "mcg";
-      document.getElementById("uc-syringe").value = "100";
-      calcUnified();
-      return { units: document.getElementById("uc-units").textContent.trim(),
-               conc: document.getElementById("uc-conc-val").textContent.trim(),
-               shown: document.getElementById("uc-s2").style.display,
-               diagram: document.getElementById("uc-syringe-diagram").innerHTML.length,
-               solved: tlReconSolve(5, 250, 100, 10) };
-    });
-    t("recon: 5 mg in 2 ml reads 2,500 mcg/ml", /2,?500/.test(r.conc), r.conc);
-    t("recon: 250 mcg is 10 units", near(parseFloat(r.units), 10, 0.001), r.units);
-    t("recon: the result block is revealed", r.shown !== "none", r.shown);
-    t("recon: the syringe diagram draws", r.diagram > 50, String(r.diagram));
-    t("recon: the reverse solver returns 2 ml", near(r.solved && r.solved.bacMl, 2, 1e-9),
-      JSON.stringify(r.solved));
-    const rev = await page.evaluate(() => {
-      tlReconToggle();
-      document.getElementById("uc-solve-dose").value = "250";
-      tlReconRender();
-      return { open: document.getElementById("uc-solve-panel").style.display,
-               out: document.getElementById("uc-solve-out").innerText.trim().length };
-    });
-    t("recon: the reverse panel opens and lists options", rev.open !== "none" && rev.out > 20,
-      JSON.stringify(rev));
-    t("recon: no errors", errs.length === 0, errs.join(" | "));
-    await page.close();
+    const { context, page, errors, dialogs } = await open(browser, base, {});
+    let w = await where(page);
+    t('#/library/tools is the new Tools screen, under the Library\'s Tools segment', w.route === 'library/tools' && w.tools && !w.shown.includes('page-tools') &&
+      await page.evaluate(() => (document.querySelector('#tl-top .ds-seg [aria-selected="true"]') || {}).getAttribute('data-value') === 'tools'), JSON.stringify(w));
+    const before = await record(page);
+    t('the three fields start empty, with nothing suggested', JSON.stringify(await values(page)) === '["","",""]' &&
+      await page.evaluate(() => ['tl-recon-mg', 'tl-recon-ml', 'tl-recon-dose'].every((id) => !/\d/.test(document.getElementById(id).placeholder || ''))));
+    t('  each takes decimals, at 16 px so iOS does not zoom, and is labelled with its unit', await page.evaluate(() => ['tl-recon-mg', 'tl-recon-ml', 'tl-recon-dose'].every((id) => {
+      const el = document.getElementById(id), label = document.querySelector('label[for="' + id + '"]');
+      return el.inputMode === 'decimal' && getComputedStyle(el).fontSize === '16px' && !!label && /\((mg|mL|mcg)\)/.test(label.textContent);
+    })));
+    let o = await out(page);
+    t('  and the result says what it needs', o.empty && o.text === 'Enter your vial, water and dose to see the draw.', o.text);
+    t('  the 1 mL syringe is the one chosen to begin with', await page.evaluate(() => document.querySelector('.tl-recon-syr .ds-chip[aria-pressed="true"]').getAttribute('data-value') === '100'));
+    t('the footer says it is arithmetic', /Arithmetic on your numbers\. It does not suggest a dose\./.test(await page.textContent('.tl-recon')));
+    await shot(page, 'tools-empty-dark');
+
+    await fill(page, '5', '2', '250');
+    o = await out(page);
+    t('5 mg in 2 mL, 250 mcg: 10 units, 2,500 mcg/mL, 0.1 mL, 20 doses', o.big === '10' && o.strength === '2,500 mcg/mL' && o.volume === '0.1 mL' && o.doses === '20', JSON.stringify(o));
+    t('  at 390 px each unit sits clear of its number', await unitsClear(page));
+    t('  the bar is a tenth full, on a 100 unit scale', Math.abs(o.fill - 10) < 0.01 && o.scale === '100 units' && !o.over, JSON.stringify(o));
+    await shot(page, 'tools-filled-dark');
+    await syringe(page, '30');
+    o = await out(page);
+    t('a 0.3 mL syringe: the same 10 units, a third of a 30 unit scale', o.big === '10' && Math.abs(o.fill - 33.33) < 0.01 && o.scale === '30 units' && !o.over, JSON.stringify(o));
+    await page.fill('#tl-recon-dose', '1000');
+    await page.waitForTimeout(60);
+    o = await out(page);
+    t('  40 units on it is more than it holds, and it says so', o.big === '40' && o.over && o.barOver && o.fill === 100 &&
+      /More than this syringe holds\. Pick a larger one or add less water\./.test(o.text), JSON.stringify(o));
+    await shot(page, 'tools-over-dark');
+    await syringe(page, '50');
+    o = await out(page);
+    t('  and on a 0.5 mL one it fits', o.big === '40' && !o.over && !o.barOver && Math.abs(o.fill - 80) < 0.01 && o.scale === '50 units', JSON.stringify(o));
+    await syringe(page, '30');
+    await page.fill('#tl-recon-dose', '300');
+    await page.waitForTimeout(60);
+    o = await out(page);
+    t('  exactly 30 units on 0.3 mL is not over', o.big === '12' && !o.over, JSON.stringify(o));
+    await fill(page, '2,5', '1', '250');
+    o = await out(page);
+    t('a comma decimal reads as a point: 2,5 mg in 1 mL, 250 mcg is 10 units', o.big === '10' && o.strength === '2,500 mcg/mL' && o.doses === '10', JSON.stringify(o));
+    await fill(page, '2', '1.5', '250');
+    o = await out(page);
+    t('uneven numbers: 18.8 units, 1,333 mcg/mL, 0.188 mL, 8 doses', o.big === '18.8' && o.strength === '1,333 mcg/mL' && o.volume === '0.188 mL' && o.doses === '8', JSON.stringify(o));
+    await fill(page, '0.7', '1', '100');
+    o = await out(page);
+    t('  0.7 mg at 100 mcg is 7 doses, not 6', o.doses === '7', JSON.stringify(o));
+    await fill(page, '5', '2', '6000');
+    o = await out(page);
+    t('  a dose larger than the vial: 0 doses in it', o.doses === '0', JSON.stringify(o));
+    for (const [mg, ml, dose, why] of [['5', '0', '250', 'no water'], ['abc', '2', '250', 'a word'], ['5', '2', '-250', 'a negative dose'], ['5', '2', '', 'no dose'], ['1.2.3', '2', '250', 'two points']]) {
+      await fill(page, mg, ml, dose);
+      o = await out(page);
+      t(`  ${why}: no result, only what it needs`, o.empty && o.big === null, JSON.stringify(o));
+    }
+
+    await fill(page, '10', '2', '500');
+    await page.click('#tl-recon-clear');
+    await page.waitForTimeout(60);
+    o = await out(page);
+    t('Clear empties the three fields and the result, and puts the cursor in the first', JSON.stringify(await values(page)) === '["","",""]' && o.empty &&
+      await page.evaluate(() => document.activeElement && document.activeElement.id === 'tl-recon-mg'));
+    await fill(page, '10', '2', '500');
+    await page.click('#tl-top .ds-seg-opt[data-value="compounds"]');
+    await page.waitForTimeout(200);
+    await page.click('#tl-top .ds-seg-opt[data-value="tools"]');
+    await page.waitForTimeout(200);
+    o = await out(page);
+    t('the numbers stay while the app is open: Compounds and back', JSON.stringify(await values(page)) === '["10","2","500"]' && o.big === '10', JSON.stringify(await values(page)));
+    t('  and none of it is saved to the record', JSON.stringify(await record(page)) === JSON.stringify(before));
+    await page.focus('#tl-recon-mg');
+    await page.keyboard.press('Enter');
+    t('Enter moves to the next field', await page.evaluate(() => document.activeElement.id === 'tl-recon-ml'));
+
+    /* More tools. */
+    const list = await tools(page);
+    const nIx = await page.evaluate(() => INTERACTIONS.length), nTpl = await page.evaluate(() => TEMPLATES.length);
+    t('More tools lists every tool once', JSON.stringify(list.map((r) => r.title)) === JSON.stringify(['Interaction checker', 'Protocol templates', 'Steady state', 'Cost and supply',
+      'PCT builder', 'Body composition', 'Symptom patterns', 'Combined syringe', 'Stack builder', 'Side effects guide']), list.map((r) => r.title).join(', '));
+    t('  with the counts from the app\'s own lists', list[0].sub === nIx + ' rules, checked against your stack' && list[1].sub === nTpl + ' starting points for a stack',
+      list[0].sub + ' / ' + list[1].sub);
+    const tags = Object.fromEntries(list.map((r) => [r.title, r.tags.join(',')]));
+    t('  Pro on the gated tools, "Some Pro" on templates, nothing on the free ones', tags['Steady state'] === 'Pro' && tags['Cost and supply'] === 'Pro' && tags['PCT builder'] === 'Pro' &&
+      tags['Symptom patterns'] === 'Pro' && tags['Protocol templates'] === 'Some Pro' && ['Interaction checker', 'Body composition', 'Combined syringe', 'Stack builder', 'Side effects guide'].every((x) => tags[x] === ''),
+      JSON.stringify(tags));
+
+    for (const [route, id, title] of [['library/interactions', 'tool-interact', 'Interactions'], ['library/templates', 'tool-templates', 'Templates'],
+      ['library/bodycomp', 'tool-body', 'Body composition'], ['library/syringe', 'tool-syringe', 'Combined syringe'], ['library/sidefx', 'tool-manage', 'Side effects guide'],
+      ['library/stack', 'page-stack', 'Stack builder']]) {
+      w = await tap(page, `.tl-tools-list [data-tl-go="${route}"]`);
+      t(`${title} opens, without the old page's row of tabs`, w.route === route && w.shown.includes(id) && !w.oldTabs && w.title === title, JSON.stringify(w));
+      w = await back(page);
+      t('  and Back returns to Tools', w.route === 'library/tools' && w.tools, w.route);
+    }
+    for (const [route, name] of [['library/steady', 'Steady-State'], ['library/cost', 'Cost & Supply'], ['library/pct', 'PCT Protocol Builder'], ['library/symptoms', 'Symptom Correlations']]) {
+      w = await tap(page, `.tl-tools-list [data-tl-go="${route}"]`);
+      t(`without a plan, ${route.split('/')[1]} opens the upgrade screen with its name, and stays on Tools`, !!w.upgrade && w.upgrade.includes(name) && w.route === 'library/tools' && w.tools,
+        JSON.stringify({ route: w.route, upgrade: (w.upgrade || '').slice(0, 60) }));
+      await closeUpgrade(page);
+    }
+
+    /* Back goes to where the tool was opened from. */
+    await page.evaluate(() => tlGo('protocol'));
+    await page.waitForTimeout(200);
+    await page.evaluate(() => tlGo('library/interactions'));
+    await page.waitForTimeout(200);
+    w = await back(page);
+    t('the interaction checker opened from Protocol goes Back to Protocol', w.route === 'protocol', w.route);
+    await page.evaluate(() => tlGo('library/compound/tc'));
+    await page.waitForTimeout(200);
+    await page.click('.tl-lib-page [data-tl-go="library/interactions"]');
+    await page.waitForTimeout(250);
+    w = await back(page);
+    t('  and from a compound\'s page, back to that compound', w.route === 'library/compound' && w.hash === '#/library/compound/tc' &&
+      await page.evaluate(() => document.querySelector('.tl-lib-name').textContent === 'Testosterone Cypionate'), w.hash);
+    await page.evaluate(() => { location.hash = '#/library/templates'; });
+    await page.waitForTimeout(250);
+    w = await back(page);
+    t('  and when the address went straight there, Back to Protocol', w.route === 'protocol', w.route);
+    t('no page errors, no browser dialogs', !errors.length && !dialogs.length, errors.concat(dialogs).join(' | '));
+    await context.close();
   }
 
-  /* ---- 3. insulin units ------------------------------------------------ */
+  /* ===== a plan ===== */
   {
-    const { page, errs } = await open("/tools/insulin-syringe-units-calculator/");
-    const r = await page.evaluate(() => {
-      document.getElementById("isu-conc").value = "2500";
-      document.getElementById("isu-dose").value = "250";
-      isuCalc();
-      document.getElementById("isu-ml").value = "0.25"; isuMlToUnits();
-      document.getElementById("isu-units").value = "30"; isuUnitsToMl();
-      return { out: document.getElementById("isu-out").innerText,
-               ml: document.getElementById("isu-ml-out").textContent.trim(),
-               u: document.getElementById("isu-units-out").textContent.trim() };
-    });
-    t("insulin: 250 mcg at 2,500 mcg/ml is 10 units", /\b10\b/.test(r.out),
-      r.out.replace(/\n/g, " ").slice(0, 110));
-    t("insulin: 0.25 ml is 25 units", r.ml === "25 units", r.ml);
-    t("insulin: 30 units is 0.300 ml", r.u === "0.300 ml", r.u);
-    t("insulin: no errors", errs.length === 0, errs.join(" | "));
-    await page.close();
+    const { context, page, errors, dialogs } = await open(browser, base, { paid: true });
+    const list = await tools(page);
+    t('with a plan: no Pro tags', list.every((r) => !r.tags.length), JSON.stringify(list.map((r) => r.tags)));
+    let w = await tap(page, '.tl-tools-list [data-tl-go="library/pct"]');
+    const pct = await page.evaluate(() => (document.getElementById('tool-pct') || {}).textContent || '');
+    t('the PCT builder opens, drawn', w.route === 'library/pct' && w.shown.includes('tool-pct') && !w.oldTabs && w.title === 'PCT builder' && pct.trim().length > 40 && !w.upgrade,
+      JSON.stringify(w));
+    await shot(page, 'tools-pct-dark', true);
+    w = await back(page);
+    t('  and Back returns to Tools', w.route === 'library/tools' && w.tools);
+    for (const [route, id, title] of [['library/cost', 'tool-cost', 'Cost and supply'], ['library/symptoms', 'tool-symptom', 'Symptom patterns'], ['library/steady', 'page-cycle', 'Steady state']]) {
+      w = await tap(page, `.tl-tools-list [data-tl-go="${route}"]`);
+      t(`${title} opens`, w.route === route && w.shown.includes(id) && !w.oldTabs && w.title === title && !w.upgrade, JSON.stringify(w));
+      w = await back(page);
+      t('  and Back returns to Tools', w.route === 'library/tools' && w.tools, w.route);
+    }
+    await page.evaluate(() => { location.hash = '#/library/pct'; });
+    await page.waitForTimeout(300);
+    w = await where(page);
+    t('an address can link straight to a tool', w.route === 'library/pct' && w.shown.includes('tool-pct'), JSON.stringify(w));
+    t('no page errors, no browser dialogs', !errors.length && !dialogs.length, errors.concat(dialogs).join(' | '));
+    await context.close();
   }
 
-  /* ---- 4. testosterone dose ------------------------------------------- */
+  /* ===== light, 320 px ===== */
   {
-    const { page, errs } = await open("/tools/trt-dose-calculator/");
-    const r = await page.evaluate(() => {
-      document.getElementById("trt-weekly").value = "120";
-      document.getElementById("trt-conc").value = "200";
-      document.getElementById("trt-freq").value = "2";
-      document.getElementById("trt-ester").value = "tc";
-      trtCalc();
-      const f = pkCurve(TRT_PK.tc.hl, TRT_PK.tc.tmax);
-      return { out: document.getElementById("trt-out").innerText, ss: steadyState(f, TRT_PK.tc.hl, 84) };
-    });
-    t("TRT: 120 mg twice weekly is 60 mg per shot", /\b60\b/.test(r.out),
-      r.out.replace(/\n/g, " ").slice(0, 140));
-    t("TRT: 0.300 ml and 30 units", /0\.300 ml/.test(r.out) && /30 units/.test(r.out),
-      r.out.replace(/\n/g, " ").slice(0, 180));
-    t("TRT: twice-weekly cypionate is a 1.21x swing", r.ss && r.ss.ratio === 1.21,
-      JSON.stringify(r.ss));
-    t("TRT: no errors", errs.length === 0, errs.join(" | "));
-    await page.close();
-  }
-
-  /* ---- 5. free testosterone ------------------------------------------- */
-  {
-    const { page, errs } = await open("/tools/free-testosterone-calculator/");
-    const r = await page.evaluate(() => {
-      const a = tlVermeulen(600, 30, 4.3);
-      document.getElementById("ft-total").value = "20.8";
-      document.getElementById("ft-total-unit").value = "nmol/L";
-      document.getElementById("ft-shbg").value = "30";
-      document.getElementById("ft-alb").value = "4.3";
-      ftCalc();
-      return { a, nmol: document.getElementById("ft-out").innerText };
-    });
-    t("free-T: 600/30/4.3 gives about 134 pg/mL", near(r.a && r.a.freePgMl, 134, 4),
-      r.a && String(r.a.freePgMl));
-    t("free-T: the free fraction is about 2.2%", near(r.a && r.a.freePct, 2.23, 0.2),
-      r.a && String(r.a.freePct));
-    t("free-T: bioavailable is about 325 ng/dL", near(r.a && r.a.bioNgDl, 325, 15),
-      r.a && String(r.a.bioNgDl));
-    t("free-T: nmol/L input gives the same answer as ng/dL",
-      /13[0-9]\.\d|12[5-9]\.\d/.test(r.nmol), r.nmol.replace(/\n/g, " ").slice(0, 140));
-    t("free-T: the optimal band is labelled non-diagnostic",
-      /non-diagnostic/i.test(r.nmol), r.nmol.replace(/\n/g, " ").slice(0, 200));
-    t("free-T: no errors", errs.length === 0, errs.join(" | "));
-    await page.close();
-  }
-
-  /* ---- 6. the combined draw planner ---------------------------------- */
-  {
-    const { page, errs } = await open("/tools/syringe-builder/");
-    const r = await page.evaluate(() => {
-      const rows = document.querySelectorAll("#syr-rows select").length;
-      syrField(0, "name", "Testosterone Cypionate");
-      syrField(0, "dose", "60");
-      syrField(0, "conc", "200");
-      syrAddRow();
-      syrField(1, "name", "BPC-157");
-      syrField(1, "dose", "0.25");
-      syrField(1, "conc", "2.5");
-      syrRecalc();
-      const blocked = document.getElementById("syr-result").innerText;
-      /* two aqueous peptides should co-draw and total correctly */
-      syrField(0, "name", "CJC-1295");
-      syrField(0, "dose", "0.1");
-      syrField(0, "conc", "1");
-      syrRecalc();
-      return { rows, blocked, ok: document.getElementById("syr-result").innerText,
-               inj: syrInjectables().length };
-    });
-    t("planner: a row renders on load", r.rows > 0, String(r.rows));
-    t("planner: the injectables list is populated", r.inj > 40, String(r.inj));
-    t("planner: oil plus water is blocked", /cannot share a syringe/i.test(r.blocked),
-      r.blocked.replace(/\n/g, " ").slice(0, 160));
-    t("planner: two aqueous peptides co-draw", !/cannot share a syringe/i.test(r.ok),
-      r.ok.replace(/\n/g, " ").slice(0, 160));
-    t("planner: no errors", errs.length === 0, errs.join(" | "));
-    await page.close();
-  }
-
-  /* ---- 7. the half-life calculator, with Chart.js from /vendor -------- */
-  {
-    const { page, errs } = await open("/tools/half-life-calculator/");
-    await page.waitForTimeout(600);
-    const r = await page.evaluate(() => ({
-      chart: typeof Chart !== "undefined",
-      instance: !!window.hlChart,
-      out: document.getElementById("hl-out").innerText,
-      options: document.querySelectorAll("#hl-compound option").length
-    }));
-    t("half-life: Chart.js loads from /vendor", r.chart);
-    t("half-life: a chart instance is created", r.instance);
-    t("half-life: the fact rows render", /half-life/i.test(r.out),
-      r.out.replace(/\n/g, " ").slice(0, 140));
-    t("half-life: the compound list is populated", r.options >= 45, String(r.options));
-    /* a short-acting compound at a long interval must not report a peak:trough */
-    const cleared = await page.evaluate(() => {
-      document.getElementById("hl-compound").value = "cjc";
-      document.getElementById("hl-freq").value = "7";
-      hlCalc();
-      return document.getElementById("hl-out").innerText;
-    });
-    t("half-life: a compound that clears between doses reports no peak:trough ratio",
-      /not meaningful/i.test(cleared) && !/\d{6,}/.test(cleared),
-      cleared.replace(/\n/g, " ").slice(0, 200));
-    t("half-life: no errors", errs.length === 0, errs.join(" | "));
-    await page.close();
-  }
-
-  /* ---- 8. the combination checker ------------------------------------- */
-  {
-    const { page, errs } = await open("/tools/stack-checker/");
-    const r = await page.evaluate(() => {
-      document.getElementById("ix-d1").value = "Semaglutide";
-      document.getElementById("ix-d2").value = "Tirzepatide";
-      checkInteractions();
-      const hit = document.getElementById("ix-result").innerText;
-      document.getElementById("ix-d2").value = "Ipamorelin";
-      checkInteractions();
-      return { hit, miss: document.getElementById("ix-result").innerText,
-               pairs: INTERACTIONS.length,
-               options: document.querySelectorAll("#ix-d1 option").length };
-    });
-    t("checker: a documented danger pair is found", /GLP-1|Never Combine/i.test(r.hit),
-      r.hit.replace(/\n/g, " ").slice(0, 140));
-    t("checker: an empty result still says it is not a clearance",
-      /not a complete list/i.test(r.miss) && /not a safety clearance/i.test(r.miss),
-      r.miss.replace(/\n/g, " ").slice(0, 200));
-    t("checker: pairs are inlined", r.pairs > 30, String(r.pairs));
-    t("checker: the pickers are populated", r.options > 20, String(r.options));
-    t("checker: no errors", errs.length === 0, errs.join(" | "));
-    await page.close();
-  }
-
-  /* ---- 9. the share card renders, and its text is not mangled --------- */
-  {
-    const { page, errs } = await open(
-      "/tools/half-life/testosterone-cypionate/?og=1", { width: 1200, height: 630 });
-    const r = await page.evaluate(() => {
-      const c = document.querySelector(".og");
-      return c ? { h2: c.querySelector("h2").textContent, p: c.querySelector("p").textContent } : null;
-    });
-    t("share card: renders at ?og=1", !!r);
-    t("share card: carries the page's own heading",
-      r && /Testosterone Cypionate half-life/.test(r.h2), r && r.h2);
-    /* the escape-loss bug turned "6 days ... a dose" into "6 day ... a do e" */
-    t("share card: the subtitle text is intact",
-      r && /\bdays\b/.test(r.p) && /\bdose\b/.test(r.p) && /\blasts\b/.test(r.p),
-      r && r.p);
-    t("share card: no errors", errs.length === 0, errs.join(" | "));
-    await page.close();
-  }
-
-  /* ---- 10. a phone-width pass over the widget pages ------------------- */
-  for (const url of ["/tools/", "/tools/peptide-reconstitution-calculator/",
-                     "/tools/half-life/testosterone-cypionate/", "/tools/stack-checker/"]) {
-    const { page, errs } = await open(url, { width: 390, height: 844 });
-    const wide = await page.evaluate(() =>
-      document.documentElement.scrollWidth > window.innerWidth + 1);
-    t(`${url} does not scroll sideways at 390px`, !wide);
-    t(`${url} has no errors at 390px`, errs.length === 0, errs.slice(0, 2).join(" | "));
-    await page.close();
+    const { context, page, errors } = await open(browser, base, { width: 320, theme: 'light' });
+    let f = await fit(page, '#tl-screen');
+    t('light at 320 px: Tools fits, every control named and 44 px, no text under 12 px', fitOk(f), fitDetail(f));
+    await fill(page, '10', '3', '10000');
+    await syringe(page, '30');
+    f = await fit(page, '#tl-screen');
+    t('  and with large numbers and the warning showing', fitOk(f), fitDetail(f));
+    t('  a field\'s unit never sits over its number', await unitsClear(page));
+    await shot(page, 'tools-light-320', true);
+    t('no page errors', !errors.length, errors.join(' | '));
+    await context.close();
   }
 
   await browser.close();
   server.close();
-
   const failed = results.filter((x) => !x).length;
-  console.log(`\nui-check-tools: ${results.length - failed}/${results.length} checks passed ` +
-              `across ${urls.length} generated pages`);
+  console.log(`\nui-check-tools: ${results.length - failed}/${results.length} passed`);
   process.exit(failed ? 1 : 0);
-})().catch((e) => { console.error("ui-check-tools:", (e && e.message) || e); process.exit(1); });
+})().catch((e) => { console.error(e); process.exit(1); });

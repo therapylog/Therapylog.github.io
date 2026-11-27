@@ -33,10 +33,12 @@ var TL_ROUTES = {
   protocol: { title: 'Protocol', tab: 'protocol', screen: 'tlProtocolScreen', legacy: function () { showPage('cycle'); } },
   'protocol/levels': { title: 'Levels', back: 'protocol', gate: 'cycle_tracker',
     legacy: function () { showPage('cycle'); tlLegacyTab('#page-cycle', showCycleTab, 'levels'); } },
-  'library/templates': { title: 'Templates', back: 'protocol',
-    legacy: function () { showPage('tools'); tlLegacyTab('#page-tools', showToolTab, 'templates'); } },
-  'library/interactions': { title: 'Interactions', back: 'protocol',
-    legacy: function () { showPage('tools'); tlLegacyTab('#page-tools', showToolTab, 'interact'); } },
+  /* Reached from Protocol and from Tools: `backs` lists the routes Back
+     returns to when that is where it came from; otherwise `back`. */
+  'library/templates': { title: 'Templates', back: 'protocol', backs: ['library/tools'],
+    legacy: function () { tlLegacyTool('templates'); } },
+  'library/interactions': { title: 'Interactions', back: 'protocol', backs: ['library/tools', 'library/compound'],
+    legacy: function () { tlLegacyTool('interact'); } },
   log: { title: 'Log', tab: 'log', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('weight'); } },
   'log/labs': { title: 'Log labs', tab: 'log', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('labs'); } },
   'log/symptom': { title: 'Log a symptom', tab: 'log', gate: 'symptoms', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('symp'); } },
@@ -58,7 +60,20 @@ var TL_ROUTES = {
   /* One compound: #/library/compound/tc. `param` takes the last part of the
      address as the compound's id (tlRouteArg). */
   'library/compound': { title: 'Library', back: 'library/compounds', bare: true, param: true, screen: 'tlCompoundScreen' },
-  'library/tools': { title: 'Library', tab: 'library', segs: 'library', legacy: function () { showPage('tools'); } },
+  'library/tools': { title: 'Library', tab: 'library', segs: 'library', screen: 'tlToolsScreen', legacy: function () { showPage('tools'); } },
+  /* The tools listed under the calculator (src/ui/tools.js). Each is still
+     the old page's tab for now, shown without the old page's row of tabs. */
+  'library/steady': { title: 'Steady state', back: 'library/tools', gate: 'pk_advanced',
+    legacy: function () {
+      showPage('cycle'); tlLegacyTab('#page-cycle', showCycleTab, 'levels');
+      setTimeout(function () { var el = document.getElementById('pk-ss'); if (el && el.scrollIntoView) el.scrollIntoView({ block: 'start' }); }, 0);
+    } },
+  'library/cost': { title: 'Cost and supply', back: 'library/tools', gate: 'cost_tracking', legacy: function () { tlLegacyTool('cost'); } },
+  'library/pct': { title: 'PCT builder', back: 'library/tools', gate: 'pct_builder', legacy: function () { tlLegacyTool('pct'); } },
+  'library/bodycomp': { title: 'Body composition', back: 'library/tools', legacy: function () { tlLegacyTool('body'); } },
+  'library/symptoms': { title: 'Symptom patterns', back: 'library/tools', gate: 'correlations', legacy: function () { tlLegacyTool('symptom'); } },
+  'library/syringe': { title: 'Combined syringe', back: 'library/tools', legacy: function () { tlLegacyTool('syringe'); } },
+  'library/sidefx': { title: 'Side effects guide', back: 'library/tools', legacy: function () { tlLegacyTool('manage'); } },
   'library/stack': { title: 'Stack builder', back: 'library/tools', legacy: function () { showPage('stack'); } },
   settings: { title: 'Settings', back: true, legacy: function () { showPage('settings'); } },
   profile: { title: 'Profile', back: 'settings', legacy: function () { showPage('profile'); } },
@@ -87,6 +102,7 @@ var TL_SEGS = {
 var tlRoute = null;          /* the route showing now */
 var tlRouteArg = null;       /* a param route's argument: the compound's id */
 var tlLastTab = 'today';     /* where Back goes from Settings */
+var tlBackTo = null;         /* where Back goes from a route with `backs`, when it came from one */
 var tlRouting = false;       /* true while the router itself drives the old show functions */
 
 /* ---- routes ------------------------------------------------------------ */
@@ -179,6 +195,7 @@ function tlShow(name) {
   var r = TL_ROUTES[name];
   if (!r) return false;
   if (r.gate && window.TLTier && !TLTier.check(r.gate)) return false;
+  if (name !== tlRoute) tlBackTo = r.backs && r.backs.indexOf(tlRoute) >= 0 ? tlRoute : null;
   tlRoute = name;
   if (r.tab) tlLastTab = name;
   tlShellChrome(name);
@@ -221,6 +238,9 @@ function tlGo(path, replace) {
 
 function tlBack() {
   var r = TL_ROUTES[tlRoute] || {};
+  /* A param route (a compound's page) goes back to the same argument, which
+     tlRouteArg still holds. */
+  if (tlBackTo && r.backs && r.backs.indexOf(tlBackTo) >= 0) { tlGo(tlBackTo); return; }
   tlGo(typeof r.back === 'string' ? r.back : tlLastTab);
 }
 
@@ -233,6 +253,12 @@ function tlLegacyTab(pageSel, show, tab) {
     return (b.getAttribute('onclick') || '').indexOf("'" + tab + "'") >= 0;
   })[0];
   if (btn) show(btn, tab);
+}
+
+/* One of the old tools page's tabs. */
+function tlLegacyTool(tab) {
+  showPage('tools');
+  if (typeof showToolTab === 'function') tlLegacyTab('#page-tools', showToolTab, tab);
 }
 
 /* The old log page's tabs, without their own buttons being on screen. */
@@ -326,14 +352,6 @@ function tlDecorateLegacy() {
     box.addEventListener('ds-change', function (e) {
       if (e.detail && (e.detail.value === 'dark' || e.detail.value === 'light')) tlSetTheme(e.detail.value);
     });
-  }
-  var tools = document.getElementById('page-tools');
-  if (tools && !document.getElementById('tl-tools-links')) {
-    var t = document.createElement('div');
-    t.id = 'tl-tools-links';
-    t.className = 'ds-ui tl-legacy-block';
-    t.innerHTML = tlRow({ as: 'button', icon: 'stack', title: 'Stack builder', sub: 'Compounds grouped by goal', caret: true, attrs: 'data-tl-go="library/stack"' });
-    tools.insertBefore(t, tools.firstChild);
   }
 }
 

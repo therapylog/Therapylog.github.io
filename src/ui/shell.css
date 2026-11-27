@@ -36,10 +36,17 @@ body.tl-r-health-body #page-log .seg,
 body.tl-r-log-labs #page-log .seg,
 body.tl-r-log-symptom #page-log .seg,
 body.tl-r-protocol-levels #page-cycle .seg,
+body.tl-r-library-steady #page-cycle .seg,
 body.tl-r-library-templates #page-tools .seg,
-body.tl-r-library-interactions #page-tools .seg{display:none!important}
+body.tl-r-library-interactions #page-tools .seg,
+body.tl-r-library-cost #page-tools .seg,
+body.tl-r-library-pct #page-tools .seg,
+body.tl-r-library-bodycomp #page-tools .seg,
+body.tl-r-library-symptoms #page-tools .seg,
+body.tl-r-library-syringe #page-tools .seg,
+body.tl-r-library-sidefx #page-tools .seg{display:none!important}
 
-/* Rows the shell adds to old pages (Settings, Tools). */
+/* Rows the shell adds to an old page (Settings). */
 .tl-legacy-block{margin:0 0 14px}
 .tl-legacy-block .ds-seg{margin:4px 0 10px}
 
