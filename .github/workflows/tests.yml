@@ -97,6 +97,10 @@ jobs:
       # row; free users get the editor and a gate on the analysis; 320 px.
       - name: Protocol
         run: node scripts/ui-check-protocol.js
+      # The Library: every compound once with one status tag, search, the class
+      # chips, a compound's page at its own address, Back; 320 px light.
+      - name: Library
+        run: node scripts/ui-check-library.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.

@@ -150,7 +150,8 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     t('Health: Photos shows the old progress check-ins', s.route === 'health/photos' && s.shown.includes('page-photos'));
     t('  no Cycle segment for a male profile', (await page.locator('#tl-top .ds-seg-opt[data-value="cycle"]').count()) === 0);
     s = await tap('#tl-tabs [data-ds-tab="library"]');
-    t('Library opens on Compounds', s.route === 'library/compounds' && s.seg === 'compounds' && s.shown.includes('page-encyclopedia'));
+    t('Library opens on Compounds, the new Library screen', s.route === 'library/compounds' && s.seg === 'compounds' &&
+      await page.evaluate(() => document.body.classList.contains('tl-new-screen') && !!document.querySelector('#tl-screen .tl-lib')) && !s.shown.includes('page-encyclopedia'));
     s = await tap('#tl-top .ds-seg-opt[data-value="tools"]');
     t('Library: Tools shows the old tools page', s.route === 'library/tools' && s.shown.includes('page-tools'));
     const tools = await page.evaluate(() => Array.from(document.querySelectorAll('#page-tools .seg-btn')).map((b) => (b.getAttribute('onclick') || '').match(/'([a-z]+)'/)[1]));

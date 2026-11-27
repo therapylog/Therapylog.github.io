@@ -1,0 +1,37 @@
+/* The Library (3a) and a compound's page: src/ui/library.js. */
+
+.tl-lib .ds-search{margin-top:4px}
+.tl-lib-chips{margin:14px calc(-1 * var(--gutter, 20px)) 4px;padding:0 var(--gutter, 20px);overflow-x:auto;scrollbar-width:none}
+.tl-lib-chips::-webkit-scrollbar{display:none}
+.tl-lib-chips .ds-chips{flex-wrap:nowrap}
+.tl-lib-list .ds-row{min-height:66px}
+.tl-lib-list .ds-tag{flex:none}
+.tl-lib-empty{font-size:14.5px;line-height:1.55;color:var(--color-muted);padding:24px 0}
+.tl-lib .ds-foot{margin-top:18px}
+
+.tl-lib-page{padding-bottom:calc(96px + env(safe-area-inset-bottom, 0px))}
+.tl-lib-page .tl-back{margin-left:-8px;gap:2px;font-size:15px}
+.tl-lib-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tl-lib-name{font-size:28px;line-height:1.15;font-weight:500;letter-spacing:-0.02em;margin:12px 0 0;overflow-wrap:anywhere}
+.tl-lib-aka{font-size:14px;color:var(--color-muted);margin:6px 0 0;line-height:1.5}
+.tl-lib-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:18px;
+  background:var(--color-divider);border:1px solid var(--color-divider);border-radius:8px;overflow:hidden;
+}
+.tl-lib-stat{display:flex;flex-direction:column;gap:4px;padding:12px;background:var(--color-bg)}
+.tl-lib-stat-v{font-size:15px;font-weight:500;overflow-wrap:anywhere}
+.tl-lib-h{margin-top:24px}
+.tl-lib-body{font-size:14.5px;line-height:1.55;margin:8px 0 0}
+.tl-lib-bullets{margin:8px 0 0;padding-left:20px;font-size:14.5px;line-height:1.55}
+.tl-lib-bullets li{margin:2px 0}
+.tl-lib-callout{
+  display:flex;gap:12px;margin-top:20px;padding:14px;border-radius:8px;
+  background:color-mix(in srgb,var(--color-warn) 8%,transparent);
+  border:1px solid color-mix(in srgb,var(--color-warn) 30%,transparent);
+}
+.tl-lib-callout>.ph{flex:none;font-size:20px;color:var(--color-warn);margin-top:1px}
+.tl-lib-callout-t{font-size:13px;font-weight:500;color:var(--color-warn)}
+.tl-lib-callout p{margin:4px 0 0;font-size:14px;line-height:1.5}
+.tl-lib-doses{margin-top:6px}
+.tl-lib-links{margin-top:22px}
+.tl-lib-page .ds-foot{margin-top:18px}

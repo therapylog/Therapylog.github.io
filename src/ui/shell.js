@@ -54,7 +54,10 @@ var TL_ROUTES = {
   'health/photos': { title: 'Health', tab: 'health', segs: 'health', gate: 'progress_photos', legacy: function () { showPage('photos'); } },
   'health/cycle': { title: 'Health', tab: 'health', segs: 'health', gate: 'cycle_tracker', legacy: function () { showPage('femcycle'); } },
   library: { title: 'Library', tab: 'library', segs: 'library', seg: 'compounds' },
-  'library/compounds': { title: 'Library', tab: 'library', segs: 'library', legacy: function () { showPage('encyclopedia'); } },
+  'library/compounds': { title: 'Library', tab: 'library', segs: 'library', screen: 'tlLibraryScreen', legacy: function () { showPage('encyclopedia'); } },
+  /* One compound: #/library/compound/tc. `param` takes the last part of the
+     address as the compound's id (tlRouteArg). */
+  'library/compound': { title: 'Library', back: 'library/compounds', bare: true, param: true, screen: 'tlCompoundScreen' },
   'library/tools': { title: 'Library', tab: 'library', segs: 'library', legacy: function () { showPage('tools'); } },
   'library/stack': { title: 'Stack builder', back: 'library/tools', legacy: function () { showPage('stack'); } },
   settings: { title: 'Settings', back: true, legacy: function () { showPage('settings'); } },
@@ -82,6 +85,7 @@ var TL_SEGS = {
 };
 
 var tlRoute = null;          /* the route showing now */
+var tlRouteArg = null;       /* a param route's argument: the compound's id */
 var tlLastTab = 'today';     /* where Back goes from Settings */
 var tlRouting = false;       /* true while the router itself drives the old show functions */
 
@@ -90,8 +94,17 @@ var tlRouting = false;       /* true while the router itself drives the old show
 /* "#/health/bp" -> "health/bp". A tab with segments resolves to its default
    segment. Anything unknown is Today. */
 function tlRouteFromHash(hash) {
-  var name = String(hash || '').replace(/^#\/?/, '').replace(/\/+$/, '').toLowerCase();
-  if (!TL_ROUTES[name]) return 'today';
+  var raw = String(hash || '').replace(/^#\/?/, '').replace(/[?].*$/, '').replace(/\/+$/, '');
+  var name = raw.toLowerCase();
+  if (!TL_ROUTES[name]) {
+    /* "library/compound/tc": a param route and its argument. */
+    var cut = name.lastIndexOf('/'), parent = cut > 0 ? name.slice(0, cut) : '';
+    if (parent && TL_ROUTES[parent] && TL_ROUTES[parent].param && cut < name.length - 1) {
+      try { tlRouteArg = decodeURIComponent(raw.slice(cut + 1)); } catch (e) { tlRouteArg = raw.slice(cut + 1); }
+      return parent;
+    }
+    return 'today';
+  }
   if (TL_ROUTES[name].seg) return name + '/' + TL_ROUTES[name].seg;
   return name;
 }
@@ -188,11 +201,17 @@ function tlShow(name) {
   return true;
 }
 
+/* A route's address: "#/library/compound/tc" for a param route. */
+function tlRouteHash(name) {
+  var r = TL_ROUTES[name];
+  return '#/' + name + (r && r.param && tlRouteArg ? '/' + encodeURIComponent(tlRouteArg) : '');
+}
+
 /* Go to a route, as a new entry in the browser's history. */
 function tlGo(path, replace) {
   var name = tlRouteFromHash('#/' + path);
   if (!tlShow(name)) return false;
-  var hash = '#/' + name;
+  var hash = tlRouteHash(name);
   if (location.hash !== hash) {
     if (replace) history.replaceState(null, '', hash);
     else history.pushState(null, '', hash);
@@ -365,9 +384,10 @@ function tlShellInit() {
   });
   window.addEventListener('popstate', function () {
     var name = tlRouteFromHash(location.hash);
-    if (name !== tlRoute && !tlShow(name)) name = tlRoute;
+    /* A param route shows again for another argument (one compound to the next). */
+    if ((name !== tlRoute || (TL_ROUTES[name] && TL_ROUTES[name].param)) && !tlShow(name)) name = tlRoute;
     /* "#/library" becomes "#/library/compounds"; an unknown address, "#/today". */
-    if (location.hash !== '#/' + name) history.replaceState(null, '', '#/' + name);
+    if (location.hash !== tlRouteHash(name)) history.replaceState(null, '', tlRouteHash(name));
   });
 
   /* A notification's action can arrive in the address ("#/today?round=…"),
@@ -376,7 +396,7 @@ function tlShellInit() {
 
   var first = tlRouteFromHash(location.hash);
   if (!tlShow(first)) tlShow('today');
-  history.replaceState(null, '', '#/' + tlRoute);
+  history.replaceState(null, '', tlRouteHash(tlRoute));
 
   /* A first run, or terms accepted under an older version: onboarding. */
   if (typeof tlObStart === 'function') tlObStart();
