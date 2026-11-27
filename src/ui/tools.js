@@ -66,10 +66,35 @@ function tlReconField(id, label, unit, value) {
     '<span class="tl-recon-unit" aria-hidden="true">' + tlEsc(unit) + '</span></div></div>';
 }
 
+/* With the vial and the dose typed and no water yet: the water amounts from
+   0.5 to 5 mL that put that dose on this syringe, and the draw each gives.
+   The old calculator's water helper, by the same arithmetic
+   (tlReconOptions, which the public calculator pages also carry, so it stays
+   where it is). Easy-to-read draws first: 2 units or more, on a half unit.
+   Tapping one fills in the water. */
+function tlReconWater(mg, dose, cap) {
+  if (typeof tlReconOptions !== 'function') return '';
+  var opts = tlReconOptions(mg, dose, cap);
+  if (!opts.length) {
+    return '<p class="tl-recon-empty">No amount of water from 0.5 to 5 mL puts this dose on a ' + cap +
+      ' unit syringe. Pick a larger one.</p>';
+  }
+  var easy = opts.filter(function (o) { return o.practical; });
+  var show = easy.length ? easy : opts;
+  return '<div class="tl-recon-water"><p class="tl-recon-water-t">No water amount yet? Each of these puts your dose on this syringe. Tap one to use it.</p>' +
+    '<div class="tl-recon-picks">' + show.map(function (o) {
+      return '<button type="button" class="tl-recon-pick" data-ml="' + o.bacMl + '">' +
+        '<span class="tl-recon-pick-ml">' + tlReconFmt(o.bacMl, 2) + ' mL</span>' +
+        '<span class="tl-recon-pick-u">' + tlReconUnits(o.units) + ' units</span></button>';
+    }).join('') + '</div></div>';
+}
+
 /* The result, or what is missing. */
 function tlReconOutput(st) {
   var cap = parseInt(st.cap, 10) || 100;
-  var r = tlReconMath(tlReconNum(st.mg), tlReconNum(st.ml), tlReconNum(st.dose), cap);
+  var mg = tlReconNum(st.mg), dose = tlReconNum(st.dose);
+  var r = tlReconMath(mg, tlReconNum(st.ml), dose, cap);
+  if (!r && mg > 0 && dose > 0 && !String(st.ml).trim()) return tlReconWater(mg, dose, cap);
   if (!r) return '<p class="tl-recon-empty">Enter your vial, water and dose to see the draw.</p>';
   var units = tlReconUnits(r.units);
   var fill = Math.min(100, Math.max(0, r.units / cap * 100));
@@ -169,6 +194,15 @@ function tlToolsScreen(el) {
   root.addEventListener('ds-change', function (e) {
     if (!e.detail || !e.target.closest('.tl-recon-syr')) return;
     tlReconState.cap = e.detail.value;
+    redraw();
+  });
+  /* A water amount from the helper. */
+  out.addEventListener('click', function (e) {
+    var pick = e.target.closest ? e.target.closest('.tl-recon-pick') : null;
+    if (!pick) return;
+    var ml = pick.getAttribute('data-ml');
+    tlReconState.ml = ml;
+    root.querySelector('#tl-recon-ml').value = ml;
     redraw();
   });
   root.querySelector('#tl-recon-clear').addEventListener('click', function () {

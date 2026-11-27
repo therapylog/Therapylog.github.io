@@ -64,7 +64,7 @@ Each screen is wired to the Phase 1 logic, matched to the design and its screens
 | # | Screen | What it involves | Size |
 |---|---|---|---|
 | 5 | ~~**Library 3a** and the compound page~~ **Done** | The 131-compound encyclopedia in the new list and page layout: classes, search, one status tag. The content is unchanged. `scripts/ui-check-library.js`. | M |
-| 5 | ~~**Tools 3c**~~ **Done** | Reconstitution calculator plus the tools list, the PCT builder included. Each other tool is its own route (`#/library/pct` and so on) showing the old tool's panel without the old row of tabs, until Phase 5 restyles them. `scripts/ui-check-tools.js`. | M |
+| 5 | ~~**Tools 3c**~~ **Done** | Reconstitution calculator plus the tools list, the PCT builder included. Each other tool is its own route (`#/library/pct` and so on) showing the old tool's panel without the old row of tabs, until Phase 5 restyles them. `scripts/ui-check-library-tools.js`. | M |
 | 6 | **Health: Bloodwork 3b** | Lab panels and range bars. Phase 1 `health.js` and Today's lab code already have the logic. | M |
 | 6 | **Health: BP 4c** | Staging (already in Phase 1), input limits (item 1), the "Order labs: coming soon" switch, kept on the device. | S |
 | 6 | **Health: Body 6c** | Weight and body measurements. | S |

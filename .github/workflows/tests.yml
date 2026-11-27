@@ -106,7 +106,7 @@ jobs:
       # every other tool a row that opens it, Pro tags and gates, Back to
       # where a tool was opened from; 320 px light.
       - name: Tools
-        run: node scripts/ui-check-tools.js
+        run: node scripts/ui-check-library-tools.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.
