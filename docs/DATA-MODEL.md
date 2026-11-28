@@ -29,6 +29,7 @@ parts to re-check when the code changes.
 | IndexedDB | `TherapyLogDB`, object store `appdata`, key `tlv2` | A mirror of the main record, as a JSON string. |
 | localStorage | 19 other keys (section 5) | Flags, settings, the entitlement, assistant state. **Not in any backup.** |
 | IndexedDB | `TherapyLogBackup`, object store `handles` | One File System Access handle for the linked backup file. |
+| IndexedDB | `TherapyLogPhotos`, object store `photos` | Progress photos (Health → Photos, 6d), as JPEG blobs. **Not in the record and not in any backup**; exported on their own as a zip. See 3.8. |
 | Memory | `_memCache`, `S`, `clinicModeActive`, `labScanMeta` | Lost on reload. |
 
 There is no account and no server copy. The assistant sends parts of the
@@ -395,8 +396,29 @@ sets `hidden: true` on one that past panels reference.
 
 **There are no photos in `photos`.** It is a list of written progress
 check-ins: `savePhotoEntry` stores text and two numbers, and no image
-data exists anywhere in the app's storage. `deletePhotoEntry` removes
+data is in the record. `deletePhotoEntry` removes
 by array index. Newest first by `unshift`; import appends without re-sorting.
+The redesign shows these as "Written check-ins" (`#/health/checkins`).
+
+#### Progress photos: IndexedDB `TherapyLogPhotos`
+
+The images themselves (src/ui/photos.js), one record per photo in object
+store `photos`, key `id`:
+
+```js
+{ id: "pmiab3k2x9f1q", ts: "2026-11-16T14:02:11.000Z",
+  pose: "front",                 // "front" | "side" | "back"
+  w: 1200, h: 1600,              // the stored image's size
+  blob: Blob,                    // JPEG, long edge at most 1600 px, quality 0.82
+  thumb: Blob }                  // JPEG, long edge at most 360 px
+```
+
+`ts` is when the photo was taken: now for the camera, the file's own date
+for an import when that is plausible. The record never refers to these, a
+backup never carries them (a year of photos would make the file too large
+to keep or email), and a restore leaves them as they are. "Export photos"
+writes every photo to a stored zip (`tlZip`, src/logic/photos.js), named
+by day and pose. "Delete all data" deletes this database with the others.
 
 ### 3.9 `bodyComp`
 
@@ -589,7 +611,8 @@ Phase 1.
     places.
 13. **Photos are text.** The Photos screen in the redesign needs image
     storage that does not exist, and that a JSON backup cannot reasonably
-    carry.
+    carry. *Resolved:* the images live in IndexedDB `TherapyLogPhotos`,
+    outside the record and the backup, with their own zip export (3.8).
 14. **Settings in localStorage are not backed up.** Where the redesign's new
     settings live decides whether a restore brings them back: slot times, the
     discreet flag, the figure and the theme are part of the user's setup, and

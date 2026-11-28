@@ -120,6 +120,11 @@ jobs:
       # the 60-700 lb limit, metric both ways, measurements and back.
       - name: Blood pressure and Body
         run: node scripts/ui-check-health-bp-body.js
+      # Photos: imported and taken photos compressed into IndexedDB and kept
+      # out of the record, compare gated, open and delete, the zip export
+      # read back, a reload, "Delete all data"; 320 px light.
+      - name: Photos
+        run: node scripts/ui-check-health-photos.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.

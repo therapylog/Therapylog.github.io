@@ -63,7 +63,7 @@ test('deleting a check-in names it', () => {
 
 test('deleting everything is one question, not two, and offers a backup first', () => {
   same(copy('wipe'), { kind: 'wipe', tone: 'danger', icon: 'ph-trash', title: 'Delete all TherapyLog data?',
-    body: 'Every entry, your profile and your protocol. Nothing is kept anywhere else, so this cannot be undone.',
+    body: 'Every entry, your profile, your protocol and your progress photos. Nothing is kept anywhere else, so this cannot be undone. A backup does not include photos.',
     action: 'Delete everything', exportFirst: true });
 });
 

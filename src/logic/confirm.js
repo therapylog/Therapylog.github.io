@@ -71,7 +71,7 @@ function tlConfirmCopy(kind, detail, nowMs) {
   }
   if (kind === 'wipe') {
     return { kind: kind, tone: 'danger', icon: 'ph-trash', title: 'Delete all TherapyLog data?',
-      body: 'Every entry, your profile and your protocol. Nothing is kept anywhere else, so this cannot be undone.',
+      body: 'Every entry, your profile, your protocol and your progress photos. Nothing is kept anywhere else, so this cannot be undone. A backup does not include photos.',
       action: 'Delete everything', exportFirst: true };
   }
   if (kind === 'template') {

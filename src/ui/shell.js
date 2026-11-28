@@ -78,7 +78,10 @@ var TL_ROUTES = {
       var body = document.getElementById('lt-body');
       if (body) body.style.display = '';
     } },
-  'health/photos': { title: 'Health', tab: 'health', segs: 'health', gate: 'progress_photos', legacy: function () { showPage('photos'); } },
+  /* Taking photos is capture, and free; comparing them is gated on the
+     screen (photos.js). The old page's written check-ins keep their gate. */
+  'health/photos': { title: 'Health', tab: 'health', segs: 'health', screen: 'tlPhotosScreen', legacy: function () { showPage('photos'); } },
+  'health/checkins': { title: 'Written check-ins', back: 'health/photos', gate: 'progress_photos', legacy: function () { showPage('photos'); } },
   'health/cycle': { title: 'Health', tab: 'health', segs: 'health', gate: 'cycle_tracker', legacy: function () { showPage('femcycle'); } },
   library: { title: 'Library', tab: 'library', segs: 'library', seg: 'compounds' },
   'library/compounds': { title: 'Library', tab: 'library', segs: 'library', screen: 'tlLibraryScreen', legacy: function () { showPage('encyclopedia'); } },

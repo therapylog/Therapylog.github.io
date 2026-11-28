@@ -156,7 +156,11 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     t('  whose "Measure" is the old measurement form', s.route === 'health/measure' && s.shown.includes('lt-body') && !s.shown.includes('lt-weight'));
     s = await tap('#tl-top [data-tl-back]');
     s = await tap('#tl-top .ds-seg-opt[data-value="photos"]');
-    t('Health: Photos shows the old progress check-ins', s.route === 'health/photos' && s.shown.includes('page-photos'));
+    t('Health: Photos is the new Photos screen', s.route === 'health/photos' && !s.shown.includes('page-photos') &&
+      await page.evaluate(() => !!document.querySelector('#tl-screen .tl-photo')));
+    s = await tap('#tl-screen [data-tl-go="health/checkins"]');
+    t('  whose written check-ins are the old Photos page', s.route === 'health/checkins' && s.shown.includes('page-photos'));
+    s = await tap('#tl-top [data-tl-back]');
     t('  no Cycle segment for a male profile', (await page.locator('#tl-top .ds-seg-opt[data-value="cycle"]').count()) === 0);
     s = await tap('#tl-tabs [data-ds-tab="library"]');
     t('Library opens on Compounds, the new Library screen', s.route === 'library/compounds' && s.seg === 'compounds' &&
@@ -234,13 +238,23 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
   {
     const { context, page, errors } = await open(browser, base, { record: DEMO, paid: false });
     await page.locator('#tl-tabs [data-ds-tab="health"]').click(); await page.waitForTimeout(200);
-    for (const seg of ['bp', 'photos']) {
+    for (const seg of ['bp']) {
       await page.locator(`#tl-top .ds-seg-opt[data-value="${seg}"]`).click(); await page.waitForTimeout(250);
       const s = await state(page);
       t(`free: Health ${seg} opens the upgrade screen and leaves you on Bloodwork`, s.upgrade && s.route === 'health/bloodwork' && s.seg === 'bloodwork' &&
         s.hash === '#/health/bloodwork', JSON.stringify({ upgrade: s.upgrade, route: s.route, seg: s.seg }));
       await closeUpgrade(page);
     }
+    /* Taking photos is capture, and free; comparing them and the written
+       check-ins are not (ui-check-health-photos.js has the rest). */
+    await page.locator('#tl-top .ds-seg-opt[data-value="photos"]').click(); await page.waitForTimeout(300);
+    let p = await state(page);
+    t('free: Health photos opens, to take photos; comparing them is offered with Pro', !p.upgrade && p.route === 'health/photos' &&
+      await page.evaluate(() => !!document.querySelector('#tl-screen .tl-photo [data-photo="compare"]')), JSON.stringify({ upgrade: p.upgrade, route: p.route }));
+    await page.evaluate(() => tlGo('health/checkins')); await page.waitForTimeout(250);
+    p = await state(page);
+    t('free: the written check-ins stay gated', p.upgrade && p.route === 'health/photos', p.route);
+    await closeUpgrade(page);
     await page.locator('#tl-tabs [data-ds-tab="protocol"]').click(); await page.waitForTimeout(250);
     let s = await state(page);
     t('free: the Protocol tab is open to everyone (recording a protocol is free)', !s.upgrade && s.route === 'protocol', s.route);
