@@ -177,22 +177,23 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     t('  whose Back returns to Tools', s.route === 'library/tools');
 
     s = await tap('#tl-top .ds-avatar');
-    t('the profile button opens Settings, with a Back button and no tab lit', s.route === 'settings' && s.tab === null && s.shown.includes('page-settings') &&
+    t('the profile button opens Settings, with a Back button and no tab lit', s.route === 'settings' && s.tab === null && !s.shown.includes('page-settings') &&
+      await page.evaluate(() => !!document.querySelector('#tl-screen .tl-set')) &&
       (await page.locator('#tl-top [data-tl-back]').count()) === 1);
-    s = await tap('#tl-settings-links [data-tl-go="profile"]');
+    s = await tap('#tl-screen .tl-set [data-tl-go="profile"]');
     t('Settings leads to Profile', s.route === 'profile' && s.shown.includes('page-profile'));
     s = await tap('#tl-top [data-tl-back]');
     t('  and back to Settings', s.route === 'settings');
-    s = await tap('#tl-settings-links [data-tl-go="history"]');
+    s = await tap('#tl-screen .tl-set [data-tl-go="history"]');
     t('Settings leads to History', s.route === 'history' && s.shown.includes('page-history'));
     await page.goBack(); await page.waitForTimeout(250);
     s = await state(page);
-    t('the browser\'s Back button works too', s.route === 'settings' && s.shown.includes('page-settings'), s.route);
+    t('the browser\'s Back button works too', s.route === 'settings' && await page.evaluate(() => !!document.querySelector('#tl-screen .tl-set')), s.route);
 
-    const theme = page.locator('#tl-settings-links .ds-seg-opt[data-value="light"]');
+    const theme = page.locator('#tl-screen .tl-set .ds-seg-opt[data-value="light"]');
     await theme.click(); await page.waitForTimeout(200);
     t('Settings: Appearance switches the theme, and it is kept', await page.evaluate(() => document.body.classList.contains('light-mode') && localStorage.getItem('tl-theme') === 'light'));
-    await page.locator('#tl-settings-links .ds-seg-opt[data-value="dark"]').click(); await page.waitForTimeout(200);
+    await page.locator('#tl-screen .tl-set .ds-seg-opt[data-value="dark"]').click(); await page.waitForTimeout(200);
     t('  and back', await page.evaluate(() => !document.body.classList.contains('light-mode') && localStorage.getItem('tl-theme') === 'dark'));
     s = await tap('#tl-top [data-tl-back]');
     t('Back from Settings returns to the last tab', s.route === 'library/tools', s.route);

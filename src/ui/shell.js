@@ -103,7 +103,8 @@ var TL_ROUTES = {
   'library/syringe': { title: 'Combined syringe', back: 'library/tools', legacy: function () { tlLegacyTool('syringe'); } },
   'library/sidefx': { title: 'Side effects guide', back: 'library/tools', legacy: function () { tlLegacyTool('manage'); } },
   'library/stack': { title: 'Stack builder', back: 'library/tools', legacy: function () { showPage('stack'); } },
-  settings: { title: 'Settings', back: true, legacy: function () { showPage('settings'); } },
+  settings: { title: 'Settings', back: true, screen: 'tlSettingsScreen', legacy: function () { showPage('settings'); } },
+  'settings/rounds': { title: 'Rounds and alerts', back: 'settings', screen: 'tlSettingsRoundsScreen' },
   /* Opens on the profile itself, even after the report (health/report) left
      the old page on its Report tab. */
   profile: { title: 'Profile', back: 'settings', legacy: function () { showPage('profile'); tlLegacyTab('#page-profile', showProfileTab, 'patient'); } },
@@ -364,29 +365,9 @@ function tlWrapLegacy(fnName) {
 
 /* ---- old pages, given the new way in ------------------------------------ */
 
-/* Settings is reached from the profile button. Until its new screen lands,
-   the old page gets the rows that used to live in other places: Profile and
-   History (from the "AI" tab), and the theme (from the old header). */
-function tlDecorateLegacy() {
-  var settings = document.getElementById('page-settings');
-  if (settings && !document.getElementById('tl-settings-links')) {
-    var box = document.createElement('div');
-    box.id = 'tl-settings-links';
-    box.className = 'ds-ui tl-legacy-block';
-    box.innerHTML = '<div class="ds-list">' +
-      tlRow({ as: 'button', icon: 'person-simple', title: 'Profile', sub: 'Name, age, physician; sets your lab reference ranges', caret: true, attrs: 'data-tl-go="profile"' }) +
-      '<div class="ds-hr"></div>' +
-      tlRow({ as: 'button', icon: 'clock-counter-clockwise', title: 'History', sub: 'Every entry, newest first', caret: true, attrs: 'data-tl-go="history"' }) +
-      '<div class="ds-hr"></div>' +
-      '<div class="ds-row"><span class="ds-row-icon">' + tlIcon('circle-half') + '</span><span class="ds-row-main"><span class="ds-row-title">Appearance</span></span></div>' +
-      tlSegmented('Appearance', [{ value: 'dark', label: 'Dark' }, { value: 'light', label: 'Light' }], tlTheme(), true) +
-      '</div>';
-    settings.insertBefore(box, settings.firstChild);
-    box.addEventListener('ds-change', function (e) {
-      if (e.detail && (e.detail.value === 'dark' || e.detail.value === 'light')) tlSetTheme(e.detail.value);
-    });
-  }
-}
+/* Rows the shell used to add to old pages went with the pages: Settings
+   (settings.js) and Tools (tools.js) are new screens now. */
+function tlDecorateLegacy() {}
 
 /* ---- start ------------------------------------------------------------- */
 

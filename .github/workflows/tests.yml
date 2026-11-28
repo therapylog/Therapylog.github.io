@@ -130,6 +130,11 @@ jobs:
       # the iOS and Android variants; 320 px light.
       - name: Pro
         run: node scripts/ui-check-pro.js
+      # Settings: profile, plan card (free and paid), backup and restore,
+      # exports, rounds and alerts, discreet, calendar, display, clinic
+      # mode, demo and delete asking first, About; 320 px light.
+      - name: Settings
+        run: node scripts/ui-check-settings.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.

@@ -27,7 +27,7 @@ parts to re-check when the code changes.
 |---|---|---|
 | localStorage | `tlv2` | The main record: one JSON object with everything the user logged. |
 | IndexedDB | `TherapyLogDB`, object store `appdata`, key `tlv2` | A mirror of the main record, as a JSON string. |
-| localStorage | 19 other keys (section 5) | Flags, settings, the entitlement, assistant state. **Not in any backup.** |
+| localStorage | 20 other keys (section 5) | Flags, settings, the entitlement, assistant state. **Not in any backup.** |
 | IndexedDB | `TherapyLogBackup`, object store `handles` | One File System Access handle for the linked backup file. |
 | IndexedDB | `TherapyLogPhotos`, object store `photos` | Progress photos (Health → Photos, 6d), as JPEG blobs. **Not in the record and not in any backup**; exported on their own as a zip. See 3.8. |
 | Memory | `_memCache`, `S`, `clinicModeActive`, `labScanMeta` | Lost on reload. |
@@ -492,6 +492,7 @@ None of these is in a backup or restored by import. "Reset" is whether
 | `tl_iap_active` | set by `TLIAP.init` on iOS | `TLIAP` | nothing in `app.html` | **no** |
 | `tl_ios_receipt` | App Store receipt | `TLIAP.validate` | `TLIAP.appReceipt` | **no** |
 | `tl_attr` | first-touch `{utm_*, ref, landedAt, landingPage}` | `tlCaptureAttribution` | `tlAttribution` | yes |
+| `tl_ref` | an affiliate code, lower-case | pro.html (`getRef`), not the app | `tlProRef` (the Pro screen's checkout, 5c) | no |
 | `tl_fab_pos` | position of the floating assistant button | `savePos` | `loadPos` | yes |
 | `tl-sched-read` | `"2"` once the note on what the fixed schedule reader reads differently has been seen, or was never needed (no protocol yet, or one saved after the fix) | `renderScheduleCheck`, `tlDismissScheduleNote`, `saveProtocol` | `renderScheduleCheck` | yes |
 
