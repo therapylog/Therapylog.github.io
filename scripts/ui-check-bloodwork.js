@@ -233,11 +233,18 @@ async function openLabsTab(page, port) {
   if (await newHealth.count()) await newHealth.click();
   else await page.locator('.nav-btn', { hasText: 'Health' }).first().click();
   await page.waitForTimeout(700);
-  const grid = await page.locator('#bw-grid').textContent().catch(() => '');
-  t('bloodwork grid shows a built-in marker', /Total T/.test(grid), grid.slice(0, 120));
+  /* The redesign's Bloodwork screen (src/ui/bloodwork.js) when it is there,
+     the old page's grid when it is not. */
+  const redesign = (await page.locator('#tl-screen .tl-bw').count()) > 0;
+  const grid = redesign ? await page.locator('#tl-screen .tl-bw-list').textContent().catch(() => '')
+    : await page.locator('#bw-grid').textContent().catch(() => '');
+  t('bloodwork grid shows a built-in marker', /Total T/i.test(grid), grid.slice(0, 120));
   t('bloodwork grid shows the user-defined marker', /Zonulin/.test(grid), grid.slice(0, 200));
-  t('the user-defined marker is flagged against its own range', /Zonulin/.test(grid) && /Out of Range/.test(grid));
-  await page.locator('#bw-grid').scrollIntoViewIfNeeded();
+  const flagged = redesign
+    ? await page.locator('[data-bw-trend="cm_zonulin"] .tl-bw-status-out').count() === 1
+    : /Zonulin/.test(grid) && /Out of Range/.test(grid);
+  t('the user-defined marker is flagged against its own range', flagged);
+  await page.locator(redesign ? '#tl-screen .tl-bw-list' : '#bw-grid').scrollIntoViewIfNeeded();
   await page.waitForTimeout(200);
   await shot(page, 'ui-bloodwork-grid.png');
 

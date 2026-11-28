@@ -21,7 +21,7 @@
  * code in Phase 5.
  */
 
-/* name -> { title, tab, segs, back, gate, legacy() } */
+/* name -> { title, tab, segs, seg, back, backs, bare, param, gate, screen, actions, legacy() } */
 var TL_ROUTES = {
   today: { title: 'Today', tab: 'today', screen: 'tlTodayScreen', legacy: function () { showHub('home', document.getElementById('nav-home')); } },
   'home/customize': { title: 'Customize Home', back: 'today', bare: true, screen: 'tlCustomizeScreen' },
@@ -43,7 +43,20 @@ var TL_ROUTES = {
   'log/labs': { title: 'Log labs', tab: 'log', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('labs'); } },
   'log/symptom': { title: 'Log a symptom', tab: 'log', gate: 'symptoms', legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('symp'); } },
   health: { title: 'Health', tab: 'health', segs: 'health', seg: 'bloodwork' },
-  'health/bloodwork': { title: 'Health', tab: 'health', segs: 'health', legacy: function () { showPage('bloodwork'); } },
+  'health/bloodwork': { title: 'Health', tab: 'health', segs: 'health', screen: 'tlBloodworkScreen', actions: 'tlBloodworkActions',
+    legacy: function () { showPage('bloodwork'); } },
+  /* A marker's trend (#/health/trend/tott) and every panel: the old
+     bloodwork page's tabs, without its row of tabs. */
+  'health/trend': { title: 'Trend', back: 'health/bloodwork', param: true, gate: 'bloodwork_trends',
+    legacy: function () {
+      showPage('bloodwork'); tlLegacyTab('#page-bloodwork', showBWTab, 'trends');
+      if (tlRouteArg && typeof showTrend === 'function') showTrend(tlRouteArg);
+    } },
+  'health/panels': { title: 'All panels', back: 'health/bloodwork',
+    legacy: function () { showPage('bloodwork'); tlLegacyTab('#page-bloodwork', showBWTab, 'history'); } },
+  /* The report builder, which lives on the old profile page: shown alone. */
+  'health/report': { title: 'Report', back: 'health/bloodwork', gate: 'clinical_reports',
+    legacy: function () { showPage('profile'); tlLegacyTab('#page-profile', showProfileTab, 'report'); } },
   'health/bp': { title: 'Health', tab: 'health', segs: 'health', gate: 'blood_pressure',
     legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('bp'); } },
   'health/body': { title: 'Health', tab: 'health', segs: 'health',
@@ -76,7 +89,9 @@ var TL_ROUTES = {
   'library/sidefx': { title: 'Side effects guide', back: 'library/tools', legacy: function () { tlLegacyTool('manage'); } },
   'library/stack': { title: 'Stack builder', back: 'library/tools', legacy: function () { showPage('stack'); } },
   settings: { title: 'Settings', back: true, legacy: function () { showPage('settings'); } },
-  profile: { title: 'Profile', back: 'settings', legacy: function () { showPage('profile'); } },
+  /* Opens on the profile itself, even after the report (health/report) left
+     the old page on its Report tab. */
+  profile: { title: 'Profile', back: 'settings', legacy: function () { showPage('profile'); tlLegacyTab('#page-profile', showProfileTab, 'patient'); } },
   history: { title: 'History', back: 'settings', legacy: function () { showPage('history'); } },
   ask: { title: 'Ask', back: 'today', legacy: function () { showPage('ai'); } }
 };
@@ -167,8 +182,11 @@ function tlTopBar(name, d) {
     return '<div class="ds-header tl-top-row"><button type="button" class="ds-btn ds-btn-ghost tl-back" data-tl-back>' +
       tlIcon('caret-left') + '<span class="ds-sr">Back</span></button><h1 class="ds-h1">' + tlEsc(r.title) + '</h1></div>';
   }
+  /* A route can put its own buttons where the profile button goes
+     (Bloodwork's scan and "+ Log labs"): `actions` names the function. */
+  var right = r.actions && typeof window[r.actions] === 'function' ? window[r.actions](d) : tlAvatar(d);
   var html = '<div class="ds-header tl-top-row"><h1 class="ds-h1">' + tlEsc(r.title) + '</h1>' +
-    tlAvatar(d) + '</div>';
+    right + '</div>';
   var segs = tlSegsFor(name, d);
   if (segs) html += '<div class="tl-top-seg">' + tlSegmented(r.title + ' section', segs, name.split('/')[1]) + '</div>';
   return html;
@@ -376,6 +394,8 @@ function tlShellInit() {
   ['showHub', 'showPage', 'switchHubSection'].forEach(tlWrapLegacy);
   /* A template's "Load" builds the protocol model (protocol.js). */
   if (typeof tlLoadTemplate === 'function') window.loadTemplate = tlLoadTemplate;
+  /* Saving labs shows the panel saved (bloodwork.js). */
+  if (typeof tlWrapSaveBloodwork === 'function') tlWrapSaveBloodwork();
   tlDecorateLegacy();
 
   document.addEventListener('click', function (e) {
@@ -384,6 +404,14 @@ function tlShellInit() {
     var go = el.closest('[data-tl-go]');
     if (go) { e.preventDefault(); tlGo(go.getAttribute('data-tl-go')); return; }
     if (el.closest('[data-tl-back]')) { e.preventDefault(); tlBack(); return; }
+    /* A button that runs one of the new screens' functions by name, so a
+       button in the top bar works without its screen wiring the bar. */
+    var call = el.closest('[data-tl-call]');
+    if (call) {
+      var fn = call.getAttribute('data-tl-call');
+      if (/^tl[A-Z]\w*$/.test(fn) && typeof window[fn] === 'function') { e.preventDefault(); window[fn](call); }
+      return;
+    }
     var tab = el.closest('[data-ds-tab]');
     if (tab) {
       e.preventDefault();

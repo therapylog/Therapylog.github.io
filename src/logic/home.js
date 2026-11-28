@@ -72,45 +72,135 @@ var TL_MARKER_SHORT = {
   creat: 'Creatinine', egfr: 'eGFR', prolactin: 'Prolactin', dht: 'DHT', ferritin: 'Ferritin'
 };
 
-/* The newest bloodwork entry with a value in it, read for Home.
+/* The names the bloodwork screen lists markers by, where the form's label
+   reads badly as a row title ("SHBG Sex Hormone Binding"). */
+var TL_MARKER_FULL = {
+  tott: 'Total testosterone', freet: 'Free testosterone', bioavailt: 'Bioavailable testosterone',
+  e2: 'Estradiol (E2)', shbg: 'SHBG', lh: 'LH', fsh: 'FSH', psa: 'PSA', igf1: 'IGF-1', dheas: 'DHEA-S',
+  cortam: 'Cortisol (morning)', prolactin: 'Prolactin', tsh: 'TSH', ft4: 'Free T4', ft3: 'Free T3',
+  hct: 'Hematocrit', hgb: 'Hemoglobin', rbc: 'Red blood cells', wbc: 'White blood cells', plt: 'Platelets',
+  chol: 'Total cholesterol', ldl: 'LDL cholesterol', hdl: 'HDL cholesterol', trig: 'Triglycerides',
+  apob: 'ApoB', glucose: 'Glucose', hba1c: 'HbA1c', alt: 'ALT', ast: 'AST', crp: 'hs-CRP',
+  vitd: 'Vitamin D', b12: 'Vitamin B12', creat: 'Creatinine', egfr: 'eGFR', dht: 'DHT', ferritin: 'Ferritin'
+};
+
+function tlLabHasValue(e) {
+  return !!(e && e.type === 'bloodwork' && e.labs && Object.keys(e.labs).some(function (k) {
+    return typeof e.labs[k] === 'number' && isFinite(e.labs[k]);
+  }));
+}
+
+/* When a panel was drawn: its lab date, or when it was logged. -Infinity for
+   neither, so it sorts last rather than poisoning the sort with NaN. */
+function tlLabWhen(e) {
+  var t = e.labDate ? tlDay(e.labDate).getTime() : new Date(e.ts).getTime();
+  return typeof t === 'number' && isFinite(t) ? t : -Infinity;
+}
+
+/* Every bloodwork entry with a value in it, newest first: by lab date, then,
+   for two on the same date, the one logged later. */
+function tlLabPanels(entries) {
+  var list = (entries || []).filter(tlLabHasValue);
+  return list.map(function (e, i) { return { e: e, t: tlLabWhen(e), ts: new Date(e.ts).getTime() || 0, i: i }; })
+    .sort(function (a, b) {
+      if (a.t !== b.t) return a.t === -Infinity ? 1 : b.t === -Infinity ? -1 : b.t - a.t;
+      return (b.ts - a.ts) || (a.i - b.i);
+    })
+    .map(function (x) { return x.e; });
+}
+
+/* One bloodwork entry, read for display.
  *
  *   labs = { range(key, entry) -> { lo, hi } | null,     labRangeFor
  *            status(key, value, entry) -> 'good' | 'warn' | 'bad' | 'neutral',   labSt
  *            label(key), unit(key, labMeta[key]) }   tlMarkerLabel, tlLabUnit
  *
- * Returns { entry, date, rows, out } or null. A row is
- *   { key, name, value, unit, lo, hi, status, dir }
- * with dir 'below' or 'above' when the value is outside the range. `out` is
- * the rows outside it. Out of range means what the bloodwork screen means by
- * it (labSt's 'bad'), so the two never disagree. */
-function tlLatestPanel(entries, labs) {
-  var latest = null, when = -Infinity;
-  (entries || []).forEach(function (e) {
-    if (!e || e.type !== 'bloodwork' || !e.labs) return;
-    var any = Object.keys(e.labs).some(function (k) { return typeof e.labs[k] === 'number' && isFinite(e.labs[k]); });
-    if (!any) return;
-    var t = e.labDate ? tlDay(e.labDate).getTime() : new Date(e.ts).getTime();
-    if (t > when || (t === when && latest && new Date(e.ts) > new Date(latest.ts))) { when = t; latest = e; }
-  });
-  if (!latest) return null;
-  var rows = Object.keys(latest.labs).filter(function (k) {
-    return typeof latest.labs[k] === 'number' && isFinite(latest.labs[k]);
+ * Returns { entry, date, rows, out }. A row is
+ *   { key, name, full, value, unit, lo, hi, status, dir }
+ * name is short (Home), full the bloodwork screen's. dir is 'below' or
+ * 'above' when the value is outside the range. `out` is the rows outside it.
+ * Out of range means what the bloodwork screen means by it (labSt's 'bad'),
+ * so the two never disagree. */
+function tlPanelOf(entry, labs) {
+  var rows = Object.keys(entry.labs).filter(function (k) {
+    return typeof entry.labs[k] === 'number' && isFinite(entry.labs[k]);
   }).map(function (k) {
-    var v = latest.labs[k], r = labs.range(k, latest) || {};
+    var v = entry.labs[k], r = labs.range(k, entry) || {};
     var lo = typeof r.lo === 'number' && isFinite(r.lo) ? r.lo : null;
     var hi = typeof r.hi === 'number' && isFinite(r.hi) ? r.hi : null;
-    var status = labs.status(k, v, latest);
+    var status = labs.status(k, v, entry);
+    var label = labs.label(k);
     return {
-      key: k, name: TL_MARKER_SHORT[k] || labs.label(k), value: v,
-      unit: labs.unit(k, (latest.labMeta && latest.labMeta[k]) || {}) || '',
+      key: k, name: TL_MARKER_SHORT[k] || label, full: TL_MARKER_FULL[k] || TL_MARKER_SHORT[k] || label, value: v,
+      unit: labs.unit(k, (entry.labMeta && entry.labMeta[k]) || {}) || '',
       lo: lo, hi: hi, status: status,
       dir: status === 'bad' ? (lo !== null && v < lo ? 'below' : hi !== null && v > hi ? 'above' : null) : null
     };
   });
   return {
-    entry: latest, date: latest.labDate || tlDayKey(latest.ts), rows: rows,
+    entry: entry, date: entry.labDate || tlDayKey(entry.ts), rows: rows,
     out: rows.filter(function (r) { return r.status === 'bad'; })
   };
+}
+
+/* The newest bloodwork entry with a value in it, read for Home. Null when
+   there is none. */
+function tlLatestPanel(entries, labs) {
+  var panels = tlLabPanels(entries);
+  return panels.length ? tlPanelOf(panels[0], labs) : null;
+}
+
+/* A panel's count for the bloodwork summary: the markers that have a range,
+   how many sit inside it, and the names below and above it. */
+function tlPanelSummary(panel) {
+  var ranged = panel ? panel.rows.filter(function (r) { return r.lo !== null || r.hi !== null; }) : [];
+  var names = function (dir) { return panel.out.filter(function (r) { return r.dir === dir; }).map(function (r) { return r.name; }); };
+  return {
+    ranged: ranged,
+    inRange: ranged.filter(function (r) { return r.status !== 'bad'; }).length,
+    below: panel ? names('below') : [],
+    above: panel ? names('above') : []
+  };
+}
+
+/* The bloodwork screen's range bar (3b): the reference band from 20% to 80%
+   of the width, the value at 20% + 60% x (v - lo)/(hi - lo), kept between 3%
+   and 97% so a value far outside still shows. A one-sided range is open on
+   its other side: "40 or more" runs from 20% to the end, with twice the floor
+   at 80%; "up to 100" from the start to 80%, with zero at 20%. Null without
+   a range. */
+function tlMarkerBar(row) {
+  var lo = row.lo, hi = row.hi, v = row.value, from = 0.2, to = 0.8, at;
+  if (lo !== null && hi !== null) {
+    if (!(hi > lo)) return null;
+    at = 0.2 + 0.6 * (v - lo) / (hi - lo);
+  } else if (lo !== null) {
+    to = 1;
+    at = 0.2 + 0.6 * (v - lo) / (lo > 0 ? lo : 1);
+  } else if (hi !== null) {
+    if (!(hi > 0)) return null;
+    from = 0;
+    at = 0.2 + 0.6 * v / hi;
+  } else {
+    return null;
+  }
+  return { from: from, to: to, at: Math.max(0.03, Math.min(0.97, at)) };
+}
+
+/* "Reference 300–950", "Reference 40 or more", "Reference up to 100". */
+function tlRangeText(row) {
+  var n = function (x) { return String(Math.round(x * 1000) / 1000); };
+  if (row.lo !== null && row.hi !== null) return 'Reference ' + n(row.lo) + '\u2013' + n(row.hi);
+  if (row.lo !== null) return 'Reference ' + n(row.lo) + ' or more';
+  if (row.hi !== null) return 'Reference up to ' + n(row.hi);
+  return 'No reference range on file';
+}
+
+/* "In range", "Below range", "Above range", or nothing without a range. */
+function tlRangeStatus(row) {
+  if (row.lo === null && row.hi === null) return '';
+  if (row.status === 'bad') return row.dir === 'below' ? 'Below range' : row.dir === 'above' ? 'Above range' : 'Out of range';
+  return 'In range';
 }
 
 /* Up to `n` rows for the Labs view: those out of range first, then the rest

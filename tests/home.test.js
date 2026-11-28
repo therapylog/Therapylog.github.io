@@ -199,3 +199,73 @@ test('the range bar puts the range in the middle half and keeps the value on the
   assert.equal(app.tlRangeBar({ lo: 10, hi: 20, value: 500 }).at, 0.98);
   assert.equal(app.tlRangeBar({ lo: null, hi: null, value: 5 }), null);
 });
+
+/* ---- the bloodwork screen (3b) ----------------------------------------------- */
+
+test('every panel, newest lab date first; two on one date, the later logged first', () => {
+  const entries = [
+    panel('2026-10-01', '2026-11-15T10:00:00.000Z', { tott: 500 }),
+    panel('2026-11-11', '2026-11-12T10:00:00.000Z', { tott: 748 }),
+    panel('2026-11-11', '2026-11-13T10:00:00.000Z', { tott: 760 }),
+    panel('', '2026-09-01T10:00:00.000Z', { tott: 900 }),
+    { type: 'bloodwork', ts: '2026-11-16T10:00:00.000Z', labDate: '2026-11-16', labs: { tott: null } },
+    { type: 'bloodwork', ts: 'not a date', labs: { tott: 1 } },
+    { type: 'medication', ts: '2026-11-17T10:00:00.000Z' }
+  ];
+  same(app.tlLabPanels(entries).map((e) => e.labs.tott), [760, 748, 500, 900, 1]);
+  same(app.tlLabPanels([]), []);
+  same(app.tlLabPanels(null), []);
+  assert.equal(app.tlLatestPanel(entries, labs).rows[0].value, 760, 'Home reads the same newest panel');
+});
+
+test('a panel row carries the screen\'s full name as well as Home\'s short one', () => {
+  const p = app.tlPanelOf(panel('2026-11-11', '2026-11-12T10:00:00.000Z', { tott: 748, e2: 28, cm_x: 3 }), labs);
+  same(p.rows.map((r) => [r.key, r.name, r.full]), [['tott', 'Total T', 'Total testosterone'], ['e2', 'Estradiol', 'Estradiol (E2)'], ['cm_x', 'My marker', 'My marker']]);
+});
+
+test('the summary counts only markers with a range, and names those below and above', () => {
+  const p = app.tlPanelOf(panel('2026-11-11', '2026-11-12T10:00:00.000Z', { tott: 748, lh: 0.3, fsh: 0.4, hct: 52, cm_x: 3 }), labs);
+  const s = app.tlPanelSummary(p);
+  same([s.ranged.length, s.inRange], [4, 1]);
+  same(plain(s.below), ['LH', 'FSH']);
+  same(plain(s.above), ['Hematocrit']);
+  const none = app.tlPanelSummary(null);
+  same([none.ranged.length, none.inRange, none.below.length, none.above.length], [0, 0, 0, 0]);
+});
+
+test('the 3b range bar: the band from 20% to 80%, the value by the design\'s formula, kept within 3–97%', () => {
+  same(plain(app.tlMarkerBar({ lo: 300, hi: 950, value: 625 })), { from: 0.2, to: 0.8, at: 0.5 });
+  assert.equal(app.tlMarkerBar({ lo: 300, hi: 950, value: 300 }).at, 0.2);
+  assert.ok(Math.abs(app.tlMarkerBar({ lo: 300, hi: 950, value: 950 }).at - 0.8) < 1e-12);
+  assert.ok(Math.abs(app.tlMarkerBar({ lo: 300, hi: 950, value: 748 }).at - (0.2 + 0.6 * 448 / 650)) < 1e-12);
+  assert.ok(Math.abs(app.tlMarkerBar({ lo: 1.5, hi: 9.3, value: 0.3 }).at - (0.2 + 0.6 * (0.3 - 1.5) / 7.8)) < 1e-12, 'LH 0.3 below 1.5–9.3 sits left of the band');
+  assert.equal(app.tlMarkerBar({ lo: 10, hi: 20, value: -500 }).at, 0.03);
+  assert.equal(app.tlMarkerBar({ lo: 10, hi: 20, value: 500 }).at, 0.97);
+  assert.equal(app.tlMarkerBar({ lo: null, hi: null, value: 5 }), null);
+  assert.equal(app.tlMarkerBar({ lo: 20, hi: 20, value: 5 }), null, 'a range with no width');
+});
+
+test('a one-sided range is open on its other side', () => {
+  /* "40 or more": the band runs to the end; twice the floor sits at 80%. */
+  same(plain(app.tlMarkerBar({ lo: 40, hi: null, value: 80 })), { from: 0.2, to: 1, at: 0.8 });
+  assert.equal(app.tlMarkerBar({ lo: 40, hi: null, value: 40 }).at, 0.2);
+  assert.ok(app.tlMarkerBar({ lo: 40, hi: null, value: 30 }).at < 0.2);
+  /* "up to 100": the band starts at the left; zero sits at 20%. */
+  same(plain(app.tlMarkerBar({ lo: null, hi: 100, value: 100 })), { from: 0, to: 0.8, at: 0.8 });
+  assert.equal(app.tlMarkerBar({ lo: null, hi: 100, value: 0 }).at, 0.2);
+  assert.ok(app.tlMarkerBar({ lo: null, hi: 100, value: 150 }).at > 0.8);
+  assert.equal(app.tlMarkerBar({ lo: null, hi: 0, value: 1 }), null);
+});
+
+test('a row says its reference and where the value sits in words', () => {
+  assert.equal(app.tlRangeText({ lo: 300, hi: 950 }), 'Reference 300–950');
+  assert.equal(app.tlRangeText({ lo: 0.5, hi: 1.25 }), 'Reference 0.5–1.25');
+  assert.equal(app.tlRangeText({ lo: 40, hi: null }), 'Reference 40 or more');
+  assert.equal(app.tlRangeText({ lo: null, hi: 100 }), 'Reference up to 100');
+  assert.equal(app.tlRangeText({ lo: null, hi: null }), 'No reference range on file');
+  assert.equal(app.tlRangeStatus({ lo: 300, hi: 950, status: 'good' }), 'In range');
+  assert.equal(app.tlRangeStatus({ lo: 300, hi: 950, status: 'warn' }), 'In range', 'outside the optimal band is still inside the reference range');
+  assert.equal(app.tlRangeStatus({ lo: 1.5, hi: 9.3, status: 'bad', dir: 'below' }), 'Below range');
+  assert.equal(app.tlRangeStatus({ lo: 38, hi: 50, status: 'bad', dir: 'above' }), 'Above range');
+  assert.equal(app.tlRangeStatus({ lo: null, hi: null, status: 'neutral' }), '');
+});

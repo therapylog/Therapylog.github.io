@@ -107,6 +107,13 @@ jobs:
       # where a tool was opened from; 320 px light.
       - name: Tools
         run: node scripts/ui-check-library-tools.js
+      # Bloodwork: the panel picker and whose ranges, the summary and its
+      # pips, each marker's range bar by the design's formula, the filter,
+      # another panel, "Notify me", the scan and Log labs buttons, a marker's
+      # trend, the report and every panel, with and without a plan; saving
+      # labs lands on the new panel; no labs; 320 px light.
+      - name: Bloodwork
+        run: node scripts/ui-check-health-bloodwork.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.

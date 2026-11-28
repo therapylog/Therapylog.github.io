@@ -616,7 +616,7 @@ that has them all.
 | `v` | number. Absent before the redesign; `3` once the record holds a protocol model | `tlMigrateRecord`, `tlStoreProtocol`, `tlImportModel`, `tlAfterLegacyProtocolSave` |
 | `protocol` | object, below | `tlMigrateRecord`, `tlStoreProtocol` (the new screens store through it: `tlSaveProtocol`, `tlFinishSetup`), `tlImportModel`, and `tlAfterLegacyProtocolSave` when a save from the old protocol form finds one stored; deleted by `clearProtocol` |
 | `doseChanges` | array, newest first | `tlRecordDoseChanges`, `tlImportModel` |
-| `settings` | object: `{ focus, figure, units, home }` so far | `tlSetSetting` (onboarding: `tlFinishSetup`), `tlImportModel` |
+| `settings` | object: `{ focus, figure, units, home, labsNotify }` so far | `tlSetSetting` (onboarding: `tlFinishSetup`), `tlImportModel` |
 
 ### `protocol`
 
@@ -767,6 +767,9 @@ the record so that a restored backup brings them back. Defined so far:
   (`TL_HOME_HERO`, `TL_HOME_SECTIONS` in `src/logic/home.js`). Absent means
   all of them, in that order; `tlHomeLayout` drops unknown keys and appends
   missing ones, switched on.
+- `labsNotify`: when "Notify me" on Bloodwork's "Order labs" row was
+  switched on, as an ISO string; absent when it is off. Ordering labs is
+  planned, not built: this only remembers the wish, and nothing is sent.
 
 The theme stays in localStorage `tl-theme`, where it has to be readable
 before the record loads.

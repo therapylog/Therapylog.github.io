@@ -1,0 +1,90 @@
+/* Health -> Bloodwork (3b): src/ui/bloodwork.js. */
+
+/* The header's buttons, where the profile button goes. */
+.tl-bw-actions{display:flex;align-items:center;gap:8px;flex:none}
+.tl-bw-scan{width:44px;min-width:44px;padding:0;justify-content:center}
+.tl-bw-scan>.ph{font-size:20px}
+.tl-bw-add{gap:6px;padding:0 14px;white-space:nowrap}
+
+/* The panel picker: a real select under its own label. */
+.tl-bw-pick{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 12px}
+.tl-bw-select{position:relative;display:flex;align-items:center;min-height:44px;flex:none}
+.tl-bw-select-t{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:500;color:var(--color-text);white-space:nowrap}
+.tl-bw-select-t>.ph{font-size:15px;color:var(--color-accent)}
+.tl-bw-select select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px}
+.tl-bw-select select:disabled{cursor:default}
+.tl-bw-select:focus-within .tl-bw-select-t{outline:2px solid var(--color-accent);outline-offset:4px;border-radius:var(--radius-sm)}
+.tl-bw-ranges{font-size:12.5px;line-height:1.35;color:var(--color-muted);text-align:right;min-width:0}
+.tl-bw-ranges-link{
+  min-height:44px;padding:0;border:0;background:none;cursor:pointer;font:inherit;font-size:12.5px;
+  color:var(--color-accent);text-align:right;text-decoration:underline;text-underline-offset:3px;
+}
+
+/* The summary. */
+.tl-bw-sum{border:1px solid var(--color-divider)}
+.tl-bw-sum-big{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 2px}
+.tl-bw-sum-big .ds-big-unit{font-size:30px}
+.tl-bw-sum-l{margin-left:8px;font-size:15px;color:var(--color-muted)}
+.tl-bw-pips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tl-bw-pip.ds-hex{width:20px;height:22px}
+.tl-bw-pip.ds-hex>svg polygon{fill-opacity:.18}
+.tl-bw-sum-t{margin:12px 0 0;font-size:14.5px;line-height:1.5}
+.tl-bw-flag{color:var(--color-danger);font-weight:500}
+
+/* Order labs: planned, not built. */
+.tl-bw-order{display:flex;align-items:center;gap:12px;margin-top:12px;border:1px solid var(--color-divider)}
+.tl-bw-order>.ds-hex{flex:none}
+.tl-bw-order-main{flex:1;min-width:0}
+.tl-bw-order-h{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px}
+.tl-bw-order-t{font-size:15px;font-weight:500}
+.tl-bw-order-s{margin:4px 0 0;font-size:13px;line-height:1.45;color:var(--color-muted)}
+.tl-bw-order-note{color:var(--color-accent)}
+.tl-bw-notify{flex:none;gap:6px;padding:0 12px;white-space:nowrap}
+.tl-bw-notify[aria-pressed="true"]{color:var(--color-accent);border-color:var(--color-accent)}
+
+.tl-bw-chips{margin:18px 0 4px}
+
+/* A marker. */
+.tl-bw-list{display:flex;flex-direction:column}
+.tl-bw-row{
+  display:flex;flex-direction:column;gap:8px;width:100%;padding:14px 0;cursor:pointer;
+  font:inherit;color:inherit;text-align:left;background:none;border:0;border-bottom:1px solid var(--color-divider);
+}
+.tl-bw-row:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-radius:var(--radius-sm)}
+.tl-bw-row-top{display:flex;align-items:baseline;gap:8px}
+.tl-bw-name{flex:1;min-width:0;font-size:15px;font-weight:500;overflow-wrap:anywhere}
+.tl-bw-val{flex:none;font-size:17px;font-weight:500;font-variant-numeric:tabular-nums}
+.tl-bw-unit{flex:none;width:50px;font-size:12px;color:var(--color-muted);overflow-wrap:anywhere}
+
+/* The range bar: a 2 px track, the reference band (6 px, accent at 30%), and
+   the value as a 12 px dot: a hollow ring inside the range, filled danger
+   outside it. */
+.tl-bw-bar{position:relative;display:block;height:16px}
+.tl-bw-bar::before{content:"";position:absolute;left:0;right:0;top:7px;height:2px;border-radius:1px;background:var(--color-neutral-800)}
+.tl-bw-band{position:absolute;top:5px;height:6px;border-radius:3px;background:color-mix(in srgb,var(--color-accent) 30%,transparent)}
+.tl-bw-dot{
+  position:absolute;top:2px;width:12px;height:12px;margin-left:-6px;border-radius:50%;
+  background:var(--color-bg);box-shadow:inset 0 0 0 2px var(--color-accent);
+}
+.tl-bw-dot-out{background:var(--color-danger);box-shadow:0 0 0 2px var(--color-bg)}
+.tl-bw-row-foot{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--color-muted)}
+.tl-bw-status{flex:none}
+.tl-bw-status-out{color:var(--color-danger);font-weight:500}
+.tl-bw-none{margin:12px 0;font-size:14.5px;line-height:1.55;color:var(--color-muted)}
+
+.tl-bw .ds-foot{margin-top:18px}
+.tl-bw-more{margin-top:14px}
+
+/* No labs yet. */
+.tl-bw-empty{border:1px solid var(--color-divider)}
+.tl-bw-empty-t{margin:0;font-size:18px;font-weight:500}
+.tl-bw-empty-s{margin:6px 0 0;font-size:14.5px;line-height:1.5;color:var(--color-muted)}
+.tl-bw-empty-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tl-bw-empty-b .ds-btn{gap:6px}
+
+@media (max-width:359px){
+  .tl-bw-add{padding:0 10px}
+  .tl-bw-order{flex-wrap:wrap}
+  .tl-bw-order-main{flex:1 1 calc(100% - 56px)}
+  .tl-bw-notify{margin-left:56px}
+}

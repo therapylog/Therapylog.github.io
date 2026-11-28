@@ -36,6 +36,8 @@ body.tl-r-health-body #page-log .seg,
 body.tl-r-log-labs #page-log .seg,
 body.tl-r-log-symptom #page-log .seg,
 body.tl-r-protocol-levels #page-cycle .seg,
+body.tl-r-health-trend #page-bloodwork .seg,
+body.tl-r-health-panels #page-bloodwork .seg,
 body.tl-r-library-steady #page-cycle .seg,
 body.tl-r-library-templates #page-tools .seg,
 body.tl-r-library-interactions #page-tools .seg,
@@ -45,6 +47,10 @@ body.tl-r-library-bodycomp #page-tools .seg,
 body.tl-r-library-symptoms #page-tools .seg,
 body.tl-r-library-syringe #page-tools .seg,
 body.tl-r-library-sidefx #page-tools .seg{display:none!important}
+
+/* Health's report: the old profile page's report builder, without the
+   profile form above it. */
+body.tl-r-health-report #page-profile>:not(#prof-report){display:none!important}
 
 /* Rows the shell adds to an old page (Settings). */
 .tl-legacy-block{margin:0 0 14px}

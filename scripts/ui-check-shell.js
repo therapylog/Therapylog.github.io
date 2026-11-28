@@ -140,7 +140,8 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     t('  and #/log still shows the old log page, its tabs included', s.route === 'log' && s.shown.includes('page-log') && s.shown.includes('lt-weight') &&
       (await page.locator('#page-log .seg').first().isVisible()));
     s = await tap('#tl-tabs [data-ds-tab="health"]');
-    t('Health opens on Bloodwork', s.route === 'health/bloodwork' && s.seg === 'bloodwork' && s.shown.includes('page-bloodwork'), s.shown.join(','));
+    t('Health opens on Bloodwork, the new Bloodwork screen', s.route === 'health/bloodwork' && s.seg === 'bloodwork' && !s.shown.includes('page-bloodwork') &&
+      await page.evaluate(() => !!document.querySelector('#tl-screen .tl-bw')), s.shown.join(','));
     s = await tap('#tl-top .ds-seg-opt[data-value="bp"]');
     t('Health: BP shows the old BP log without the log page\'s own tabs', s.route === 'health/bp' && s.tab === 'health' && s.shown.includes('lt-bp') &&
       !s.shown.includes('lt-weight') && !(await page.locator('#page-log .seg').first().isVisible()));
