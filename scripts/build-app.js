@@ -40,7 +40,7 @@ const APP = path.join(ROOT, 'app.html');
    directory files go in name order and must not depend on it. */
 const SRC_DIRS = ['src/logic', 'src/ui'];
 /* Stylesheets, in this order: the order is the cascade. */
-const CSS_FILES = ['src/ui/tokens.css', 'src/ui/icons.css', 'src/ui/components.css', 'src/ui/shell.css', 'src/ui/setup.css', 'src/ui/home.css', 'src/ui/log.css', 'src/ui/protocol.css', 'src/ui/library.css', 'src/ui/tools.css', 'src/ui/bloodwork.css', 'src/ui/bp.css', 'src/ui/body.css', 'src/ui/photos.css', 'src/ui/pro.css', 'src/ui/settings.css', 'src/ui/confirm.css', 'src/ui/ask.css'];
+const CSS_FILES = ['src/ui/tokens.css', 'src/ui/icons.css', 'src/ui/components.css', 'src/ui/shell.css', 'src/ui/setup.css', 'src/ui/home.css', 'src/ui/log.css', 'src/ui/protocol.css', 'src/ui/library.css', 'src/ui/tools.css', 'src/ui/bloodwork.css', 'src/ui/bp.css', 'src/ui/body.css', 'src/ui/photos.css', 'src/ui/pro.css', 'src/ui/settings.css', 'src/ui/confirm.css', 'src/ui/ask.css', 'src/ui/legacy.css'];
 
 const START = '/* TL-LOGIC:START';
 const END = '/* TL-LOGIC:END */';

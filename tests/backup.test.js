@@ -236,3 +236,12 @@ test('the theme is the user\'s choice, and the device\'s preference until they m
   assert.equal(app.tlThemeFrom(null, false), 'light');
   assert.equal(app.tlThemeFrom('purple', true), 'dark');
 });
+
+test('a weight entry\'s mood reaches the spreadsheet whether it was stored as the form\'s object or as a word', () => {
+  const rows = app.tlLogRows({ entries: [
+    { type: 'weight', ts: at('2026-03-05T09:00'), weight: 195.2, mood: { e: '🙂', l: 'Good' } },
+    { type: 'weight', ts: at('2026-03-04T09:00'), weight: 196, mood: 'great' }
+  ] }).slice(1);
+  assert.ok(/mood Good/.test(rows[0][6]) || /mood Good/.test(rows[1][6]), JSON.stringify(rows));
+  assert.ok(rows.some((r) => /mood great/.test(r[6])), JSON.stringify(rows));
+});

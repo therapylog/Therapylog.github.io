@@ -185,6 +185,13 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     s = await tap('#tl-top [data-tl-back]');
     t('  and back to Settings', s.route === 'settings');
     s = await tap('#tl-screen .tl-set [data-tl-go="history"]');
+    /* The old pages wear the design's tokens (src/ui/legacy.css). */
+    const skin = await page.evaluate(() => {
+      const color = (v) => { const p = document.createElement('div'); p.style.background = v; document.body.appendChild(p); const c = getComputedStyle(p).backgroundColor; p.remove(); return c; };
+      return { old: color('var(--surface)'), now: color('var(--color-surface)'), oldText: color('var(--text)'), nowText: color('var(--color-text)'),
+        font: getComputedStyle(document.querySelector('#page-history')).fontFamily };
+    });
+    t('  the old pages wear the new tokens: the old palette is the new one, and the type is Inter', skin.old === skin.now && skin.oldText === skin.nowText && /^Inter/.test(skin.font), JSON.stringify(skin));
     t('Settings leads to History', s.route === 'history' && s.shown.includes('page-history'));
     await page.goBack(); await page.waitForTimeout(250);
     s = await state(page);
