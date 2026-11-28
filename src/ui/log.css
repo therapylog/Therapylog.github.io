@@ -1,0 +1,114 @@
+/* The Log sheet (5a) and the injection-site map (4a): src/ui/log-sheet.js,
+   site-map.js. */
+
+/* ---- the sheet --------------------------------------------------------- */
+.tl-log{display:flex;flex-direction:column;gap:12px}
+.tl-log-head{display:flex;align-items:center;gap:8px;min-height:44px}
+.tl-log-head .ds-h1{flex:1;min-width:0}
+.tl-log-head .ds-h1:focus{outline:none}
+.tl-log-x{width:44px;padding:0;margin-right:-10px}
+.tl-log-x .ph{font-size:20px}
+.tl-log-back{width:44px;padding:0;margin-left:-12px;color:var(--color-text)}
+.tl-log-back .ph{font-size:18px}
+.tl-log-saved{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--color-accent)}
+.tl-log-saved .ph{font-size:16px}
+
+.tl-log-due{
+  display:flex;flex-direction:column;gap:4px;padding:12px 14px 14px;border-radius:var(--radius-lg);
+  background:var(--color-bg);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--color-accent) 45%,transparent);
+}
+.tl-log-due-at{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--color-muted)}
+.tl-log-due-at .ph{font-size:17px;color:var(--color-accent)}
+.tl-log-due-t{font-size:17px;font-weight:500}
+.tl-log-due-list{font-size:13.5px;color:var(--color-muted);margin-bottom:8px}
+.tl-log-due-done{flex-direction:row;align-items:center;gap:8px;font-size:14px;color:var(--color-muted)}
+.tl-log-due-done .ph-fill,.tl-log-due-done .ph{font-size:20px;color:var(--color-accent);flex:none}
+
+.tl-log-label{margin-top:8px}
+.tl-log-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.tl-log-tile{
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;
+  min-height:92px;padding:6px 2px;border:0;border-radius:var(--radius-md);background:none;color:var(--color-text);cursor:pointer;
+}
+.tl-log-tile .ds-hex{width:40px;height:44px}
+.tl-log-tile-l{font-size:13.5px;line-height:1.2;text-align:center}
+.tl-log-pro{font-size:12px;color:var(--color-accent)}
+@media (hover:hover){.tl-log-tile:hover{background:color-mix(in srgb,var(--color-text) 6%,transparent)}}
+
+.tl-log-chips{margin-top:-4px}
+.tl-log-form{display:flex;flex-direction:column;gap:14px}
+.tl-log-line{display:flex;align-items:center;justify-content:space-between;min-height:44px;font-size:15px}
+.tl-log-form .ds-row{border-top:0}
+.tl-log-map{color:var(--color-accent);font-size:14px}
+
+/* ---- the map: a full-screen layer, made from the sheet ----------------- */
+.tl-layer{align-items:stretch;background:var(--color-bg)}
+.tl-layer .ds-sheet{
+  max-width:none;max-height:none;height:100%;border-radius:0;box-shadow:none;
+  background:var(--color-bg);padding:0;animation:none;
+}
+.tl-layer .ds-grabber{display:none}
+.tl-map{
+  max-width:560px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:10px;
+  padding:calc(env(safe-area-inset-top, 0px) + 8px) var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 16px);
+}
+.tl-map-head{display:flex;align-items:center;gap:6px;min-height:44px}
+.tl-map-head .tl-back{width:44px;padding:0;margin-left:-12px}
+.tl-map-head .ds-h1:focus{outline:none}
+.tl-map-bar{display:flex;align-items:flex-start;gap:12px}
+.tl-map-bar .ds-seg{flex:0 0 auto;min-width:150px}
+.tl-map-rest{
+  margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;min-height:44px;padding:0;
+  border:0;background:none;text-align:right;cursor:pointer;color:var(--color-muted);font-size:12.5px;line-height:1.3;
+}
+.tl-map-rest-n{font-size:14px;font-weight:500;color:var(--color-accent-300)}
+.tl-map-rest-d{font-variant-numeric:tabular-nums}
+
+.tl-map-stage{position:relative;display:flex;justify-content:center;padding:4px 0}
+/* The figure box is the art's own proportion (478 x 1038), 236 px wide at
+   most, and smaller when the screen is short. */
+.tl-fig{
+  position:relative;flex:none;width:min(236px, 56vw, calc((100dvh - 360px) * 0.4605));min-width:150px;aspect-ratio:478/1038;
+  background:radial-gradient(52% 42% at 50% 42%, color-mix(in srgb,var(--color-accent) 13%,transparent), transparent);
+  cursor:pointer;touch-action:manipulation;
+}
+.tl-fig-img{
+  position:absolute;inset:0;opacity:.55;
+  background:linear-gradient(180deg,var(--color-accent-400),var(--color-accent-600));
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+}
+.tl-fig-male-front .tl-fig-img{-webkit-mask-image:url(/assets/figures/male-front.png);mask-image:url(/assets/figures/male-front.png)}
+.tl-fig-male-back .tl-fig-img{-webkit-mask-image:url(/assets/figures/male-back.png);mask-image:url(/assets/figures/male-back.png)}
+.tl-fig-female-front .tl-fig-img{-webkit-mask-image:url(/assets/figures/female-front.png);mask-image:url(/assets/figures/female-front.png)}
+.tl-fig-female-back .tl-fig-img{-webkit-mask-image:url(/assets/figures/female-back.png);mask-image:url(/assets/figures/female-back.png)}
+
+/* A site: a 22 x 24 hexagon at its point. The figure takes the taps (the
+   nearest site within reach), so the marker itself is for the keyboard. */
+.tl-site{
+  position:absolute;width:22px;height:24px;margin:-12px 0 0 -11px;padding:0;border:0;background:none;
+  display:grid;place-items:center;pointer-events:none;
+}
+.tl-site:focus-visible{outline:2px solid var(--color-accent);outline-offset:6px;border-radius:4px}
+.tl-site svg{position:absolute;overflow:visible}
+.tl-site-hex{width:22px;height:24px}
+.tl-site-hex polygon{stroke-width:1.5;vector-effect:non-scaling-stroke}
+.tl-site-sel{width:36px;height:40px}
+.tl-site-sel polygon{fill:none;stroke:var(--color-text);stroke-width:2;vector-effect:non-scaling-stroke}
+.tl-site-rested .tl-site-hex polygon{fill:var(--color-accent);stroke:color-mix(in srgb,var(--color-bg) 60%,transparent)}
+.tl-site-recovering .tl-site-hex polygon{fill:color-mix(in srgb,var(--color-warn) 34%,transparent);stroke:var(--color-warn)}
+.tl-site-recent .tl-site-hex{filter:drop-shadow(0 0 5px color-mix(in srgb,var(--color-danger) 42%,transparent))}
+.tl-site-recent .tl-site-hex polygon{fill:var(--color-danger);stroke:color-mix(in srgb,var(--color-danger) 42%,transparent)}
+.tl-site-never .tl-site-hex polygon{fill:color-mix(in srgb,var(--color-bg) 55%,transparent);stroke:var(--color-neutral-300)}
+
+.tl-map-legend{position:absolute;left:0;bottom:4px;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-muted)}
+.tl-map-legend li{display:flex;align-items:center;gap:8px}
+.tl-site-key{position:relative;margin:0;flex:none}
+
+.tl-map-card{margin-top:auto;padding:12px 14px 14px;border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:6px}
+.tl-map-card-top{display:flex;align-items:center;gap:8px}
+.tl-map-card-n{flex:1;min-width:0;font-size:17px;font-weight:500}
+.tl-map-card-s{font-size:13.5px;color:var(--color-muted);margin-bottom:6px}
+@media (max-width:360px){
+  .tl-map-legend{position:static;flex-direction:row;flex-wrap:wrap;gap:6px 12px;margin-top:8px}
+  .tl-map-stage{flex-direction:column;align-items:center}
+}

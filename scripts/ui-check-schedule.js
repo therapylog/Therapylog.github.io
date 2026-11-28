@@ -79,13 +79,20 @@ async function open(browser, base, opts) {
   return { context, page, errors, dialogs };
 }
 
+/* The redesign's Today shows the notes at its top; the old home screen at
+   its own place. Whichever is on screen is the one a person sees. */
+const HOSTS = ['#tl-today-sched', '#dash-sched-check'];
+const pickHost = () => ['tl-today-sched', 'dash-sched-check'].map((id) => document.getElementById(id))
+  .filter((el) => el && el.offsetParent !== null)[0] || document.getElementById('dash-sched-check');
+const button = (page, text) => page.locator(HOSTS.map((h) => h + ' button:has-text("' + text + '"):visible').join(', ')).first();
 const shot = async (page, name) => {
   if (!SHOTS) return;
   fs.mkdirSync(SHOTS, { recursive: true });
-  await page.locator('#dash-sched-check').screenshot({ path: path.join(SHOTS, name + '.png') });
+  await page.locator(HOSTS.map((h) => h + ':visible').join(', ')).first().screenshot({ path: path.join(SHOTS, name + '.png') });
 };
 const record = (page) => page.evaluate(() => JSON.parse(localStorage.getItem('tlv2') || 'null'));
-const cards = (page) => page.evaluate(() => Array.from(document.querySelectorAll('#dash-sched-check .next-dose-card')).map((c) => c.textContent.replace(/\s+/g, ' ').trim()));
+const cards = (page) => page.evaluate((src) => Array.from((new Function('return (' + src + ')()'))().querySelectorAll('.next-dose-card'))
+  .map((c) => c.textContent.replace(/\s+/g, ' ').trim()), pickHost.toString());
 
 (async () => {
   const { server, base } = await serve();
@@ -133,7 +140,7 @@ const cards = (page) => page.evaluate(() => Array.from(document.querySelectorAll
     t('  weekly on its day, three a day as three events', /RRULE:FREQ=WEEKLY;BYDAY=MO/.test(ics) && (ics.match(/SUMMARY:💉 BPC-157/g) || []).length === 3);
 
     /* Answering biweekly. */
-    await page.click('#dash-sched-check button:has-text("Twice a week")');
+    await button(page, 'Twice a week').click();
     await page.waitForTimeout(300);
     let d = await record(page);
     t('answering "twice a week" writes it into that line and nothing else', d.proto.meds.split('\n')[2] === 'Tesa, 1mg, twice weekly' &&
@@ -142,7 +149,7 @@ const cards = (page) => page.evaluate(() => Array.from(document.querySelectorAll
     t('  and the question goes', !c.some((x) => /biweekly means/.test(x)));
     t('  and the line is scheduled', await page.evaluate(() => getDoseDays(parseMeds(gd().proto.meds)[2], gd().proto.start, 7).length === 2));
 
-    await page.click('#dash-sched-check button:has-text("Got it")');
+    await button(page, 'Got it').click();
     t('"Got it" puts the note away for good', !(await cards(page)).some((x) => /more accurately/.test(x)) &&
       await page.evaluate(() => localStorage.getItem('tl-sched-read')) === '2');
     t('the check on the unreadable line stays until it is rewritten', (await cards(page)).some((x) => /Epitalon: check this schedule/.test(x)));
@@ -170,8 +177,8 @@ const cards = (page) => page.evaluate(() => Array.from(document.querySelectorAll
   {
     const { context, page, errors } = await open(browser, base, { record: { entries: [], proto: PROTO }, width: 320, light: true,
       storage: { 'tl-theme': 'light' } });
-    const fit = await page.evaluate(() => {
-      const box = document.getElementById('dash-sched-check');
+    const fit = await page.evaluate((src) => {
+      const box = (new Function('return (' + src + ')()'))();
       const out = { small: [], tiny: [], overflow: Math.max(0, document.documentElement.scrollWidth - innerWidth) };
       box.querySelectorAll('button').forEach((b) => { const h = b.getBoundingClientRect().height; if (h < 43.5) out.small.push(b.textContent + ' ' + h); });
       const walk = document.createTreeWalker(box, NodeFilter.SHOW_TEXT);
@@ -182,7 +189,7 @@ const cards = (page) => page.evaluate(() => Array.from(document.querySelectorAll
         if (size < 12) out.tiny.push(n.textContent.trim().slice(0, 20) + ' ' + size);
       }
       return out;
-    });
+    }, pickHost.toString());
     t('light at 320 px: the cards fit, every button 44 px, no text under 12 px', !fit.overflow && !fit.tiny.length && !fit.small.length, JSON.stringify(fit));
     await shot(page, 'schedule-cards-light-320');
     t('no page errors', !errors.length, errors.join(' | '));

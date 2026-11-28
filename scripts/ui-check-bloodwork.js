@@ -118,13 +118,31 @@ async function openLabsTab(page, port) {
   });
   await page.goto(`http://127.0.0.1:${port}/app.html`);
   await page.waitForTimeout(1200);
-  await page.locator('button[onclick="acceptDisclaimer()"]').first().click();
-  await page.waitForTimeout(250);
-  await page.locator('button:has-text("Skip setup, explore first")').first().click();
+  if (await page.locator('#tl-ob').count()) {
+    /* The redesign's onboarding: accept the terms, then skip setup (no
+       compounds) the way a user would. */
+    for (const step of ['accept', 'next', 'next', 'next', 'next', 'finish']) {
+      await page.locator(`#tl-ob [data-ob="${step}"]`).click();
+      await page.waitForTimeout(80);
+    }
+  } else {
+    await page.locator('button[onclick="acceptDisclaimer()"]').first().click();
+    await page.waitForTimeout(250);
+    await page.locator('button:has-text("Skip setup, explore first")').first().click();
+  }
   await page.waitForTimeout(400);
-  await page.locator('.nav-btn', { hasText: 'Log' }).first().click();
-  await page.waitForTimeout(250);
-  await page.locator('#page-log .seg-btn', { hasText: 'Labs' }).click();
+  /* The redesign's tab bar replaces the old bottom nav; use whichever the
+     page has, the way a user would. */
+  const newLog = page.locator('#tl-tabs [data-ds-tab="log"]');
+  if (await newLog.count()) {
+    /* The centre button opens the Log sheet; its Labs tile opens the form. */
+    await newLog.click();
+    await page.locator('[data-log-tile="labs"]').click();
+  } else {
+    await page.locator('.nav-btn', { hasText: 'Log' }).first().click();
+    await page.waitForTimeout(250);
+    await page.locator('#page-log .seg-btn', { hasText: 'Labs' }).click();
+  }
   await page.waitForTimeout(400);
 }
 
@@ -211,13 +229,22 @@ async function openLabsTab(page, port) {
   t('assay method saved', !!saved && saved.meta && saved.meta.tott && saved.meta.tott.method === 'lc-ms-ms', JSON.stringify(saved && saved.meta));
   t('the form was cleared after saving', (await page.inputValue('#ll-tott')) === '');
 
-  await page.locator('.nav-btn', { hasText: 'Health' }).first().click();
+  const newHealth = page.locator('#tl-tabs [data-ds-tab="health"]');
+  if (await newHealth.count()) await newHealth.click();
+  else await page.locator('.nav-btn', { hasText: 'Health' }).first().click();
   await page.waitForTimeout(700);
-  const grid = await page.locator('#bw-grid').textContent().catch(() => '');
-  t('bloodwork grid shows a built-in marker', /Total T/.test(grid), grid.slice(0, 120));
+  /* The redesign's Bloodwork screen (src/ui/bloodwork.js) when it is there,
+     the old page's grid when it is not. */
+  const redesign = (await page.locator('#tl-screen .tl-bw').count()) > 0;
+  const grid = redesign ? await page.locator('#tl-screen .tl-bw-list').textContent().catch(() => '')
+    : await page.locator('#bw-grid').textContent().catch(() => '');
+  t('bloodwork grid shows a built-in marker', /Total T/i.test(grid), grid.slice(0, 120));
   t('bloodwork grid shows the user-defined marker', /Zonulin/.test(grid), grid.slice(0, 200));
-  t('the user-defined marker is flagged against its own range', /Zonulin/.test(grid) && /Out of Range/.test(grid));
-  await page.locator('#bw-grid').scrollIntoViewIfNeeded();
+  const flagged = redesign
+    ? await page.locator('[data-bw-trend="cm_zonulin"] .tl-bw-status-out').count() === 1
+    : /Zonulin/.test(grid) && /Out of Range/.test(grid);
+  t('the user-defined marker is flagged against its own range', flagged);
+  await page.locator(redesign ? '#tl-screen .tl-bw-list' : '#bw-grid').scrollIntoViewIfNeeded();
   await page.waitForTimeout(200);
   await shot(page, 'ui-bloodwork-grid.png');
 

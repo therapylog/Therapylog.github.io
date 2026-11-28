@@ -8,6 +8,8 @@ on:
       - 'scripts/**'
       - 'docs/DATA-MODEL.md'
       - 'assets/figures/injection-sites.json'
+      - 'vendor/fonts/**'
+      - 'sw.js'
       - '.github/workflows/tests.yml'
   pull_request:
 jobs:
@@ -69,6 +71,75 @@ jobs:
         run: node scripts/capture-backup-fixture.js --model --check
       - name: The confirm sheet
         run: node scripts/ui-check-confirm.js
+      # The redesign's shared components in both themes: fonts and icons load
+      # from /vendor, 44 px targets, 12 px text, names, keyboard and touch.
+      - name: The design foundation
+        run: node scripts/ui-check-kit.js
+      # The handoff's navigation map: every old page reachable through the
+      # new tabs, paid features still gated, links and Back.
+      - name: The shell and navigation
+        run: node scripts/ui-check-shell.js
+      # A first run from an empty browser to the stored protocol, the backup
+      # restore instead of setup, and returning users; both themes, 320 px.
+      - name: Onboarding
+        run: node scripts/ui-check-onboarding.js
+      # Today, Customize Home and round alerts on the demo record with the
+      # clock fixed: ticking doses, Log all and Undo, the hero, the due
+      # banner, a notification's actions; light theme at 320 px.
+      - name: Today
+        run: node scripts/ui-check-today.js
+      # The Log sheet and the injection-site map: the due card, the tiles, the
+      # dose form on the user's own amount, sites by tap and by keyboard.
+      - name: Log sheet and site map
+        run: node scripts/ui-check-log.js
+      # The Protocol tab: the stack as the logic has it, editing doses (kept
+      # as dose changes), times and supply, add and remove with Undo, every
+      # row; free users get the editor and a gate on the analysis; 320 px.
+      - name: Protocol
+        run: node scripts/ui-check-protocol.js
+      # The Library: every compound once with one status tag, search, the class
+      # chips, a compound's page at its own address, Back; 320 px light.
+      - name: Library
+        run: node scripts/ui-check-library.js
+      # Tools: the reconstitution arithmetic on typed numbers (never a
+      # pre-filled dose), the syringe chips and the over-capacity warning,
+      # every other tool a row that opens it, Pro tags and gates, Back to
+      # where a tool was opened from; 320 px light.
+      - name: Tools
+        run: node scripts/ui-check-library-tools.js
+      # Bloodwork: the panel picker and whose ranges, the summary and its
+      # pips, each marker's range bar by the design's formula, the filter,
+      # another panel, "Notify me", the scan and Log labs buttons, a marker's
+      # trend, the report and every panel, with and without a plan; saving
+      # labs lands on the new panel; no labs; 320 px light.
+      - name: Bloodwork
+        run: node scripts/ui-check-health-bloodwork.js
+      # Blood pressure and Body: the latest reading and its category, the
+      # fortnight's bars and a dose-change marker, the averages, the form's
+      # limits, a saved reading; weight, its change and chart, the stats,
+      # the 60-700 lb limit, metric both ways, measurements and back.
+      - name: Blood pressure and Body
+        run: node scripts/ui-check-health-bp-body.js
+      # Photos: imported and taken photos compressed into IndexedDB and kept
+      # out of the record, compare gated, open and delete, the zip export
+      # read back, a reload, "Delete all data"; 320 px light.
+      - name: Photos
+        run: node scripts/ui-check-health-photos.js
+      # Pro: every gate opens it naming the feature, the plans and prices,
+      # the web checkout with the plan chosen, Restore, close, "Pro is on",
+      # the iOS and Android variants; 320 px light.
+      - name: Pro
+        run: node scripts/ui-check-pro.js
+      # Settings: profile, plan card (free and paid), backup and restore,
+      # exports, rounds and alerts, discreet, calendar, display, clinic
+      # mode, demo and delete asking first, About; 320 px light.
+      - name: Settings
+        run: node scripts/ui-check-settings.js
+      # Ask: the assistant's own thread and input borrowed into the new
+      # screen and given back; the gate; a local answer; consent, then an
+      # assistant answer (stubbed) with where it came from; Clear; settings.
+      - name: Ask
+        run: node scripts/ui-check-ask.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.

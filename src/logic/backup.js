@@ -81,7 +81,7 @@ function tlLogRows(d, label, unitOf) {
         e.energy ? 'energy ' + e.energy + '/10' : '', e.sleep ? 'sleep ' + e.sleep + ' h' : '',
         e.hrv ? 'HRV ' + e.hrv + ' ms' : '', e.steps ? 'steps ' + e.steps : '',
         e.stress ? 'stress ' + e.stress + '/10' : '', e.alcohol ? 'alcohol ' + e.alcohol : '',
-        e.mood && e.mood.l ? 'mood ' + e.mood.l : '', e.notes
+        e.mood ? 'mood ' + (typeof e.mood === 'string' ? e.mood : (e.mood.l || '')) : '', e.notes
       ]);
       if (e.weight > 0) add(e.ts, 'Weight', 'Weight', e.weight, 'lb', extra);
       else if (extra) add(e.ts, 'Daily', 'Daily log', '', '', extra);

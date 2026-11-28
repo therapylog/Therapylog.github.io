@@ -1,0 +1,177 @@
+/* Today (2a), Customize Home (2b) and the round-due banner (src/ui/today.js,
+   round-alerts.js). */
+
+.tl-danger{color:var(--color-danger)}
+.tl-warn{color:var(--color-warn)}
+.tl-ok{color:var(--color-text)}
+
+/* ---- the hero ---------------------------------------------------------- */
+.tl-hero{padding-top:4px}
+.tl-hero-head{position:relative;display:flex;align-items:center;min-height:44px}
+.tl-hero-title{
+  display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 4px;margin-left:-4px;
+  border:0;background:none;color:var(--color-text);font-size:17px;font-weight:500;cursor:pointer;border-radius:var(--radius-md);
+}
+.tl-hero-title .ph{font-size:16px;color:var(--color-accent)}
+.tl-dots{margin-left:auto;display:flex;align-items:center}
+.tl-dot{width:24px;height:44px;padding:0;border:0;background:none;display:grid;place-items:center;cursor:pointer}
+.tl-dot>span{display:block;width:6px;height:3px;border-radius:2px;background:var(--color-neutral-700);transition:width .18s var(--ease-out),background-color .18s var(--ease-out)}
+.tl-dot[aria-current="true"]>span{width:16px;background:var(--color-accent)}
+.tl-hero-menu{
+  position:absolute;top:44px;left:0;z-index:20;min-width:230px;padding:6px;
+  display:flex;flex-direction:column;
+  background:var(--color-surface);border-radius:var(--radius-md);box-shadow:var(--shadow-md);
+}
+.tl-hero-menu[hidden]{display:none}
+.tl-menu-item{justify-content:flex-start;min-height:44px;padding-inline:10px;font-weight:400}
+.tl-hero-menu .ds-hr{margin:4px 0}
+@media (hover:hover){.tl-menu-item:not(.ds-btn-ghost):hover{background:color-mix(in srgb,var(--color-text) 7%,transparent)}}
+
+/* Each card is the width of the content; the next one shows at the edge. */
+/* position and contain: a visually hidden label (.ds-sr is absolute) in a card
+   further along would otherwise be placed against the page and widen it. */
+.tl-hero-track{
+  position:relative;contain:paint;
+  display:flex;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;
+  margin:4px calc(var(--gutter) * -1) 0;padding:0 var(--gutter) 4px;scroll-padding-inline:var(--gutter);
+}
+.tl-hero-track::-webkit-scrollbar{display:none}
+.tl-hero-card{
+  position:relative;flex:0 0 100%;min-width:0;min-height:306px;scroll-snap-align:start;
+  display:flex;flex-direction:column;gap:8px;
+  background:linear-gradient(180deg,var(--color-surface),color-mix(in srgb,var(--color-surface) 35%,var(--color-bg)));
+}
+.tl-hero-sub{font-size:13px;color:var(--color-muted)}
+.tl-hero-foot{margin-top:auto;font-size:12.5px;line-height:1.45;color:var(--color-muted)}
+.tl-hero-card .ds-foot{margin-top:auto}
+.tl-hero-chips{margin:0 -4px;padding:0 4px;gap:6px}
+
+/* Levels */
+.tl-lv-big{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:8px}
+.tl-lv-of{font-size:13px;color:var(--color-muted)}
+.tl-lv-chart{display:block;width:100%;height:140px;overflow:visible}
+.tl-lv-stop-a{stop-color:var(--color-accent);stop-opacity:.32}
+.tl-lv-stop-b{stop-color:var(--color-accent);stop-opacity:0}
+.tl-lv-area{fill:url(#tl-lv-grad);stroke:none}
+.tl-lv-line{fill:none;stroke:var(--color-accent);stroke-width:1.75;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.tl-lv-proj{fill:none;stroke:var(--color-accent);stroke-width:1.5;stroke-dasharray:3 4;opacity:.7;vector-effect:non-scaling-stroke}
+.tl-lv-now{stroke:var(--color-neutral-500);stroke-width:1;vector-effect:non-scaling-stroke}
+.tl-lv-dot{fill:var(--color-bg);stroke:var(--color-accent);stroke-width:2;vector-effect:non-scaling-stroke}
+.tl-lv-axis{position:relative;display:flex;justify-content:space-between;font-size:12px;color:var(--color-muted);margin-top:-14px}
+.tl-lv-axis-now{position:absolute;top:0;transform:translateX(-50%);color:var(--color-text)}
+
+/* In your system */
+.tl-gauges{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:12px 8px;margin-top:6px}
+.tl-gauge{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
+.tl-gauge svg{display:block;overflow:visible}
+.tl-gauge-fill{fill:var(--color-accent);fill-opacity:.55}
+.tl-gauge-edge{fill:none;stroke:var(--color-accent);stroke-width:1.25;vector-effect:non-scaling-stroke}
+.tl-gauge-pct{font-size:15px;font-weight:500;margin-top:4px}
+.tl-gauge-name{font-size:12.5px;color:var(--color-text);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl-gauge-half{font-size:12px;color:var(--color-muted)}
+
+/* Supply and Labs */
+.tl-sup-big{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px}
+.tl-sup-row,.tl-lab-row{display:flex;align-items:center;gap:10px;min-height:40px}
+.tl-sup-name,.tl-lab-name{flex:1;min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl-sup-left{font-size:12.5px;color:var(--color-muted)}
+.tl-sup-days{min-width:40px;text-align:right;font-size:14px;font-weight:500}
+.tl-lab-name{flex:0 1 96px}
+.tl-lab-bar{position:relative;flex:1;min-width:48px;height:6px;border-radius:3px;background:var(--color-neutral-800)}
+.tl-lab-bar-none{background:none}
+.tl-lab-range{position:absolute;top:0;bottom:0;border-radius:3px;background:color-mix(in srgb,var(--color-accent) 40%,transparent)}
+.tl-lab-dot{position:absolute;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--color-text);box-shadow:0 0 0 2px var(--color-surface)}
+.tl-lab-dot.tl-danger{background:var(--color-danger)}
+.tl-lab-dot.tl-warn{background:var(--color-warn)}
+.tl-lab-val{flex:none;min-width:64px;text-align:right;font-size:14px;font-weight:500}
+.tl-lab-unit{font-size:12px;font-weight:400;color:var(--color-muted)}
+
+/* ---- sections ---------------------------------------------------------- */
+.tl-sec{margin-top:22px}
+.tl-sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;min-height:32px}
+.tl-sec-note{font-size:13px;color:var(--color-muted)}
+.tl-empty{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.tl-empty-t{font-size:15px;font-weight:500}
+.tl-empty-line{font-size:13.5px;line-height:1.5;color:var(--color-muted);padding:8px 0}
+
+.tl-round-h{display:flex;align-items:center;gap:8px;min-height:44px;margin-top:8px;color:var(--color-muted);font-size:14px}
+.tl-round-h>.ph{font-size:18px}
+.tl-round-h-t{flex:1}
+.tl-log-all{margin-right:-8px}
+.tl-dose{display:flex;align-items:center;gap:8px;min-height:56px}
+.tl-dose-check{flex:none;width:44px;height:44px;margin-left:-10px;padding:0;border:0;background:none;display:grid;place-items:center;cursor:pointer}
+.tl-dose-check .ph-fill{font-size:24px;color:var(--color-accent)}
+.tl-dose-check .ph{font-size:24px;color:var(--color-neutral-500)}
+.tl-dose-main{flex:1;min-width:0}
+.tl-dose-name{font-size:15px;font-weight:500;overflow-wrap:anywhere}
+.tl-dose-amt{font-size:12.5px;color:var(--color-muted)}
+.tl-dose-at{font-size:12.5px;color:var(--color-muted);white-space:nowrap}
+.tl-dose-log{min-width:64px}
+
+.tl-inv{padding:10px 0 8px}
+.tl-inv-top{display:flex;align-items:baseline;gap:10px}
+.tl-inv-name{flex:1;min-width:0;font-size:15px;font-weight:500}
+.tl-inv-state{font-size:12.5px;text-align:right}
+.tl-inv-state.tl-ok,.tl-inv-state:not(.tl-danger):not(.tl-warn){color:var(--color-muted)}
+.tl-pips{display:flex;flex-wrap:wrap;gap:3px;margin:8px 0 6px}
+.tl-pips>span{width:8px;height:8px;border-radius:2px;background:var(--color-neutral-800)}
+.tl-pips>span.on{background:color-mix(in srgb,var(--color-accent) 55%,transparent)}
+.tl-pips.tl-danger>span.on{background:var(--color-danger)}
+.tl-pips.tl-warn>span.on{background:var(--color-warn)}
+.tl-fillbar{height:8px;border-radius:2px;background:var(--color-neutral-800);margin:8px 0 6px;overflow:hidden}
+.tl-fillbar>span{display:block;height:100%;background:color-mix(in srgb,var(--color-accent) 55%,transparent)}
+.tl-fillbar.tl-danger>span{background:var(--color-danger)}
+.tl-fillbar.tl-warn>span{background:var(--color-warn)}
+.tl-inv-note{font-size:12.5px;color:var(--color-muted)}
+
+.tl-home-custom{margin-top:24px}
+
+/* ---- Customize Home ---------------------------------------------------- */
+.tl-custom{padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 40px)}
+.tl-custom-head{display:flex;align-items:center;gap:12px;padding-top:calc(env(safe-area-inset-top, 0px) + 12px)}
+.tl-custom-head .ds-h1{flex:1;min-width:0}
+.tl-custom-head .ds-btn-ghost{margin-right:-8px}
+.tl-custom-lede{font-size:14px;margin-top:2px}
+.tl-custom-label{margin-top:24px;margin-bottom:4px}
+.tl-custom-note{margin-bottom:8px}
+.tl-cust-list{display:flex;flex-direction:column}
+.tl-cust-row{position:relative;display:flex;align-items:center;gap:8px;min-height:66px;padding:8px 0}
+/* The divider between rows, drawn by the row so rows can be moved alone. */
+.tl-cust-row+.tl-cust-row::before,.tl-cust-list+.tl-cust-row::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--color-divider) 48px,var(--color-divider) calc(100% - 48px),transparent);
+}
+.tl-handle{
+  flex:none;width:44px;height:44px;margin-left:-12px;padding:0;border:0;background:none;
+  display:grid;place-items:center;color:var(--color-neutral-500);font-size:18px;cursor:grab;touch-action:none;
+}
+.tl-dragging{z-index:2;background:var(--color-bg);box-shadow:var(--shadow-md);border-radius:var(--radius-md)}
+.tl-dragging .tl-handle{cursor:grabbing}
+.tl-cust-soon{opacity:.5}
+.tl-cust-soon .tl-handle{cursor:default}
+.tl-cust-rounds{margin-top:4px}
+
+/* ---- the round-due banner ---------------------------------------------- */
+.tl-due{
+  position:fixed;left:50%;transform:translateX(-50%);z-index:950;
+  bottom:calc(env(safe-area-inset-bottom, 0px) + 84px);
+  width:calc(100% - 2 * var(--gutter));max-width:520px;padding:10px 14px 12px;
+  background:var(--color-surface);color:var(--color-text);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+}
+.tl-due-head{display:flex;align-items:center;gap:8px}
+.tl-due-title{flex:1;font-size:15px;font-weight:500}
+.tl-due-x{width:44px;margin:-6px -12px -6px 0;padding:0;color:var(--color-muted)}
+.tl-due-lines{font-size:13px;line-height:1.45;color:var(--color-muted);margin:2px 0 10px}
+.tl-due-actions{display:flex;gap:8px}
+.tl-due-actions .ds-btn-primary{flex:1}
+
+/* A view a free user sees the way to, not the content of. */
+.tl-hero-locked{gap:12px}
+.tl-lock-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tl-lock-text{margin:0;font-size:15px;line-height:1.5;color:var(--color-text)}
+.tl-hero-locked .ds-btn{align-self:flex-start}
+
+/* The schedule reader's notes on Today: the one-time note, "biweekly", a
+   schedule it cannot read. Nothing to say takes no room. */
+.tl-today-sched:empty { display: none; }
+.tl-today-sched { display: grid; gap: var(--ds-space-3, 12px); margin-bottom: var(--ds-space-4, 16px); }

@@ -151,3 +151,58 @@ function tlFFMI(weightLb, bfPct, heightIn) {
   var metres = tlInToCm(heightIn) / 100;
   return Math.round(tlLbToKg(lean) / (metres * metres) * 10) / 10;
 }
+
+/* The measurements the old form takes, in the order Body lists them. Inches. */
+var TL_MEASURES = [
+  { key: 'waist', label: 'Waist' }, { key: 'chest', label: 'Chest' }, { key: 'hips', label: 'Hips' },
+  { key: 'neck', label: 'Neck' }, { key: 'larm', label: 'Left arm' }, { key: 'rarm', label: 'Right arm' },
+  { key: 'lthigh', label: 'Left thigh' }, { key: 'rthigh', label: 'Right thigh' }
+];
+
+function tlHealthNum(v) { return typeof v === 'number' && isFinite(v) && v > 0; }
+
+/* The newest body-fat figure and when, from wherever it was logged: the
+   body-composition tool (bodyComp) or a measurement entry's `bf`. The record
+   keeps both and nothing reconciles them (docs/DATA-MODEL.md 3.9), so the
+   newer one wins. Null when there is none. */
+function tlLatestBodyFat(d) {
+  var best = null;
+  var take = function (ts, bf) {
+    var t = new Date(ts).getTime();
+    if (!isFinite(t) || !(bf > 0 && bf < 100)) return;
+    if (!best || t > best.t) best = { t: t, ts: ts, bf: bf };
+  };
+  ((d && d.bodyComp) || []).forEach(function (b) { if (b) take(b.ts, b.bf); });
+  ((d && d.entries) || []).forEach(function (e) { if (e && e.type === 'body' && e.measurements) take(e.ts, e.measurements.bf); });
+  return best ? { ts: best.ts, bf: best.bf } : null;
+}
+
+/* Measurement entries with at least one measurement, oldest first. */
+function tlMeasureEntries(entries) {
+  return (entries || []).filter(function (e) {
+    return e && e.type === 'body' && e.measurements && isFinite(new Date(e.ts).getTime()) &&
+      TL_MEASURES.some(function (m) { return tlHealthNum(e.measurements[m.key]); });
+  }).slice().sort(function (a, b) { return new Date(a.ts) - new Date(b.ts); });
+}
+
+/* The newest value of one measurement, from whichever entry last had it. */
+function tlLatestMeasure(entries, key) {
+  var list = tlMeasureEntries(entries);
+  for (var i = list.length - 1; i >= 0; i--) if (tlHealthNum(list[i].measurements[key])) return { ts: list[i].ts, value: list[i].measurements[key] };
+  return null;
+}
+
+/* The newest measurement entry, each measurement in it with its change since
+   the last entry before it that had that measurement (null when none did).
+   { ts, rows: [{ key, label, value, change }] } or null. */
+function tlLatestMeasurements(entries) {
+  var list = tlMeasureEntries(entries);
+  if (!list.length) return null;
+  var last = list[list.length - 1];
+  var rows = TL_MEASURES.filter(function (m) { return tlHealthNum(last.measurements[m.key]); }).map(function (m) {
+    var v = last.measurements[m.key], prev = null;
+    for (var i = list.length - 2; i >= 0; i--) if (tlHealthNum(list[i].measurements[m.key])) { prev = list[i].measurements[m.key]; break; }
+    return { key: m.key, label: m.label, value: v, change: prev === null ? null : Math.round((v - prev) * 10) / 10 };
+  });
+  return { ts: last.ts, rows: rows };
+}

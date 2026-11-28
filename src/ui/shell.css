@@ -1,0 +1,80 @@
+/* The shell's layout (src/ui/shell.js). The old chrome is hidden, not
+   deleted: it goes with the old code in Phase 5. */
+
+/* The old header, bottom nav, hub button grids and floating assistant button. */
+body.tl-shell .header,
+body.tl-shell .nav,
+body.tl-shell #fab-ai,
+body.tl-shell .hub-nav{display:none!important}
+
+/* The top bar: the tab's title and the profile button, the Ask bar on Today,
+   a back button on pushed views, and Health's and Library's segments. */
+#tl-top{
+  position:sticky;top:0;z-index:95;
+  padding:0 var(--gutter) 10px;
+  background:var(--color-bg);
+}
+#tl-top .ds-header{padding-bottom:8px}
+#tl-top .tl-top-seg{padding-top:2px}
+#tl-top .tl-back{width:44px;padding:0;margin-left:-12px;font-size:20px}
+#tl-top .tl-back .ph{font-size:20px}
+
+/* A new screen replaces the old pages; until one exists, the old page shows. */
+body.tl-shell #tl-screen:empty{display:none}
+body.tl-new-screen #app>.page,
+body.tl-new-screen .hub-page{display:none!important}
+body.tl-shell #tl-screen{min-height:100dvh}
+
+/* The old pages start below the new top bar, not below the old header. */
+body.tl-shell #app>.page,
+body.tl-shell .hub-page.active{padding-top:4px}
+
+/* Health's BP and Body segments show parts of the old log page, without its
+   own row of tabs. */
+body.tl-r-health-bp #page-log .seg,
+body.tl-r-health-body #page-log .seg,
+body.tl-r-log-labs #page-log .seg,
+body.tl-r-log-symptom #page-log .seg,
+body.tl-r-protocol-levels #page-cycle .seg,
+body.tl-r-health-readings #page-log .seg,
+body.tl-r-health-measure #page-log .seg,
+body.tl-r-health-trend #page-bloodwork .seg,
+body.tl-r-health-panels #page-bloodwork .seg,
+body.tl-r-library-steady #page-cycle .seg,
+body.tl-r-library-templates #page-tools .seg,
+body.tl-r-library-interactions #page-tools .seg,
+body.tl-r-library-cost #page-tools .seg,
+body.tl-r-library-pct #page-tools .seg,
+body.tl-r-library-bodycomp #page-tools .seg,
+body.tl-r-library-symptoms #page-tools .seg,
+body.tl-r-library-syringe #page-tools .seg,
+body.tl-r-library-sidefx #page-tools .seg{display:none!important}
+
+/* Body's "Measure": the measurement form without the weight form above it. */
+body.tl-r-health-measure #lt-weight{display:none!important}
+
+/* The assistant's settings: the old page without its intro or its chat
+   (Ask shows the chat). */
+body.tl-r-ask-settings #page-ai>.card:first-child,
+body.tl-r-ask-settings #page-ai .chat-card{display:none!important}
+
+/* Health's report: the old profile page's report builder, without the
+   profile form above it. */
+body.tl-r-health-report #page-profile>:not(#prof-report){display:none!important}
+
+/* Rows the shell adds to an old page (Settings). */
+.tl-legacy-block{margin:0 0 14px}
+.tl-legacy-block .ds-seg{margin:4px 0 10px}
+
+/* A bare route (Customize Home) has its own header and no tab bar. */
+body.tl-bare #tl-top{display:none}
+body.tl-bare #tl-tabs{display:none}
+
+/* The ground. A new screen sits on the redesign's background, edge to edge.
+   Over an old page the top bar takes the old page's background instead, so
+   the two do not meet in a seam; the old pages and their ground go together
+   in Phase 5. (The old stylesheet sets body's background with !important.) */
+body.tl-shell.tl-new-screen{background:var(--color-bg)!important}
+body.tl-shell:not(.tl-new-screen) #tl-top{background:var(--bg)}
+/* The old app's coloured glow behind every page is not part of the redesign. */
+body.tl-shell.tl-new-screen::before{display:none}

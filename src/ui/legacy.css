@@ -1,0 +1,88 @@
+/* The old screens, in the redesign's clothes.
+ *
+ * Until each old screen is rebuilt or removed (Phase 5), the ones still shown
+ * (History, Profile, the cycle tracker, clinic mode, the lab form, the trend
+ * and tool panels) wear the design's tokens: the old palette's variables are
+ * pointed at the new ones, and the old shared classes (card, field, button,
+ * segmented tabs) take the new shapes and type. Only under the shell, so the
+ * old app without it is untouched. Specificity does the work: body.tl-shell
+ * outranks the old single-class rules, and nothing here needs !important
+ * except where the old rule had it.
+ */
+
+/* The palette, both themes: old names, new values. */
+body.tl-shell,
+body.tl-shell.light-mode{
+  --bg:var(--color-bg);
+  --surface:var(--color-surface);
+  --surface2:color-mix(in srgb,var(--color-surface) 60%,var(--color-bg));
+  --surface3:var(--color-neutral-800);
+  --border:var(--color-divider);
+  --border2:var(--color-divider);
+  --accent:var(--color-accent);
+  --accent3:var(--color-warn);
+  --danger:var(--color-danger);
+  --text:var(--color-text);
+  --text2:var(--color-muted);
+  --text3:var(--color-muted);
+  --r:var(--radius-lg);
+  --r2:var(--radius-md);
+}
+
+/* Type: Inter everywhere, the old serif headings included. */
+body.tl-shell,
+body.tl-shell button,
+body.tl-shell input,
+body.tl-shell select,
+body.tl-shell textarea{font-family:var(--font-ui)}
+body.tl-shell .page [style*="DM Serif"]{font-family:var(--font-ui)!important;font-weight:500!important;letter-spacing:-0.01em}
+
+/* Cards and section labels. */
+body.tl-shell .page .card{
+  background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-sm);padding:14px 16px;
+}
+body.tl-shell .page .card-title,
+body.tl-shell .page .sec-label{
+  font-size:13px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--color-accent-300);
+}
+
+/* Fields: the 5a pattern. Labels in sentence case, inputs 44 px with 16 px
+   text so iOS does not zoom. */
+body.tl-shell .page .il{font-size:12.5px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--color-muted)}
+body.tl-shell .page input[type=text],
+body.tl-shell .page input[type=number],
+body.tl-shell .page input[type=date],
+body.tl-shell .page input[type=time],
+body.tl-shell .page input[type=password],
+body.tl-shell .page input[type=email],
+body.tl-shell .page textarea,
+body.tl-shell .page select{
+  min-height:44px;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-md);
+  color:var(--color-text);font-size:16px;caret-color:var(--color-accent);
+}
+body.tl-shell .page input:focus,
+body.tl-shell .page textarea:focus,
+body.tl-shell .page select:focus{border-color:var(--color-accent);outline:none}
+
+/* Buttons: primary is an outline in the accent, never a fill. */
+body.tl-shell .page .btn{
+  min-height:48px;border-radius:var(--radius-md);font-size:15px;font-weight:500;letter-spacing:0;
+}
+body.tl-shell .page .btn-p{background:transparent;color:var(--color-accent);border:1px solid var(--color-accent)}
+body.tl-shell .page .btn-s{background:transparent;color:var(--color-text);border:1px solid var(--color-divider)}
+@media (hover:hover){
+  body.tl-shell .page .btn-p:hover{background:color-mix(in srgb,var(--color-accent) 12%,transparent)}
+  body.tl-shell .page .btn-s:hover{background:color-mix(in srgb,var(--color-text) 7%,transparent)}
+}
+
+/* The old segmented tabs, where an old page still shows them. */
+body.tl-shell .page .seg{background:var(--color-surface);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);padding:3px;gap:4px}
+body.tl-shell .page .seg-btn{min-height:38px;padding:0 12px;border-radius:6px;font-size:13.5px;font-weight:500;color:var(--color-muted)}
+body.tl-shell .page .seg-btn.active{
+  background:color-mix(in srgb,var(--color-accent) 18%,transparent);color:var(--color-text);
+  box-shadow:inset 0 0 0 1px var(--color-accent);
+}
+
+/* Empty states. */
+body.tl-shell .page .empty{color:var(--color-muted);font-size:14.5px;line-height:1.5}
