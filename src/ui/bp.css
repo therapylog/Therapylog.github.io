@@ -1,0 +1,48 @@
+/* Health -> Blood pressure (4c): src/ui/bp.js. */
+
+.tl-bp-hero{border:1px solid var(--color-divider)}
+.tl-bp-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 12px}
+.tl-bp-big{display:flex;align-items:baseline;gap:8px}
+.tl-bp-slash{color:var(--color-accent)}
+.tl-bp-mmhg{font-size:15px;color:var(--color-muted)}
+.tl-bp-stage{flex:none}
+.tl-bp-meta{margin:6px 0 0;font-size:14px;color:var(--color-muted);font-variant-numeric:tabular-nums}
+.tl-bp-none{margin:0;font-size:15px;line-height:1.5;color:var(--color-muted)}
+.tl-bp-crisis{
+  display:flex;gap:10px;margin-top:12px;padding:12px;border-radius:var(--radius-md);
+  background:color-mix(in srgb,var(--color-danger) 10%,transparent);border:1px solid color-mix(in srgb,var(--color-danger) 40%,transparent);
+}
+.tl-bp-crisis>.ph{flex:none;font-size:20px;color:var(--color-danger)}
+.tl-bp-crisis p{margin:0;font-size:13.5px;line-height:1.5}
+
+/* The chart: 120 px of plot, the reference labels to its right. */
+.tl-bp-chart{position:relative;height:120px;margin-top:18px;padding-right:34px}
+.tl-bp-plot{position:relative;height:100%}
+.tl-bp-ref{position:absolute;left:0;right:0;height:0;border-top:1px dashed var(--color-neutral-600)}
+.tl-bp-reflabel{position:absolute;right:0;transform:translateY(-50%);font-size:12.5px;color:var(--color-muted);font-variant-numeric:tabular-nums}
+.tl-bp-bar{
+  position:absolute;width:6px;margin-left:-3px;border-radius:3px;min-height:6px;
+  background:color-mix(in srgb,var(--color-accent) 55%,transparent);
+}
+.tl-bp-bar-last{background:var(--color-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-accent) 30%,transparent)}
+.tl-bp-change{position:absolute;top:-8px;bottom:-8px;width:0;border-left:1.5px dashed var(--color-warn)}
+.tl-bp-axis{display:flex;justify-content:space-between;margin:10px 34px 0 0;font-size:12.5px;color:var(--color-muted)}
+.tl-bp-legend{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:13px;color:var(--color-muted)}
+.tl-bp-legend-key{flex:none;width:16px;height:0;border-top:1.5px dashed var(--color-warn)}
+
+/* The averages: two cells with a 1 px gap. */
+.tl-bp-avgs{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:12px;overflow:hidden;
+  background:var(--color-divider);border:1px solid var(--color-divider);border-radius:var(--radius-lg);
+}
+.tl-bp-avg{display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:var(--color-surface)}
+.tl-bp-avg-l{font-size:12.5px;color:var(--color-muted)}
+.tl-bp-avg-v{font-size:20px;font-weight:500;font-variant-numeric:tabular-nums}
+.tl-bp-avg-none{font-size:14px;font-weight:400;color:var(--color-muted)}
+
+.tl-bp-h{margin:24px 0 10px}
+.tl-bp-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tl-bp-fields .ds-input.ds-input.ds-input{font-size:16px;font-variant-numeric:tabular-nums}
+.tl-bp-err{min-height:20px;margin:8px 0 6px;font-size:13.5px;color:var(--color-danger)}
+.tl-bp .ds-foot{margin-top:16px}
+.tl-bp-more{margin-top:14px}

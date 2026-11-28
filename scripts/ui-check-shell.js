@@ -143,10 +143,18 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
     t('Health opens on Bloodwork, the new Bloodwork screen', s.route === 'health/bloodwork' && s.seg === 'bloodwork' && !s.shown.includes('page-bloodwork') &&
       await page.evaluate(() => !!document.querySelector('#tl-screen .tl-bw')), s.shown.join(','));
     s = await tap('#tl-top .ds-seg-opt[data-value="bp"]');
-    t('Health: BP shows the old BP log without the log page\'s own tabs', s.route === 'health/bp' && s.tab === 'health' && s.shown.includes('lt-bp') &&
+    t('Health: BP is the new Blood pressure screen', s.route === 'health/bp' && s.tab === 'health' && !s.shown.includes('lt-bp') &&
+      await page.evaluate(() => !!document.querySelector('#tl-screen .tl-bp')));
+    s = await tap('#tl-screen [data-tl-go="health/readings"]');
+    t('  whose "All readings" is the old BP log, without the log page\'s own tabs', s.route === 'health/readings' && s.shown.includes('lt-bp') &&
       !s.shown.includes('lt-weight') && !(await page.locator('#page-log .seg').first().isVisible()));
+    s = await tap('#tl-top [data-tl-back]');
     s = await tap('#tl-top .ds-seg-opt[data-value="body"]');
-    t('Health: Body shows weight and measurements', s.route === 'health/body' && s.shown.includes('lt-weight') && s.shown.includes('lt-body') && !s.shown.includes('lt-bp'));
+    t('Health: Body is the new Body screen', s.route === 'health/body' && !s.shown.includes('lt-weight') && !s.shown.includes('lt-bp') &&
+      await page.evaluate(() => !!document.querySelector('#tl-screen .tl-body')));
+    s = await tap('#tl-screen [data-tl-go="health/measure"]');
+    t('  whose "Measure" is the old measurement form', s.route === 'health/measure' && s.shown.includes('lt-body') && !s.shown.includes('lt-weight'));
+    s = await tap('#tl-top [data-tl-back]');
     s = await tap('#tl-top .ds-seg-opt[data-value="photos"]');
     t('Health: Photos shows the old progress check-ins', s.route === 'health/photos' && s.shown.includes('page-photos'));
     t('  no Cycle segment for a male profile', (await page.locator('#tl-top .ds-seg-opt[data-value="cycle"]').count()) === 0);

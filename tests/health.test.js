@@ -152,3 +152,37 @@ test('FFMI is lean mass in kilograms over height in metres squared', () => {
   assert.equal(app.tlFFMI(195.2, 16.2, null), null);
   assert.equal(app.tlFFMI(195.2, NaN, 71), null);
 });
+
+/* ---- Body (6c) --------------------------------------------------------------- */
+
+test('the newest body fat wins, from the tool or a measurement entry', () => {
+  const d = {
+    bodyComp: [{ ts: '2026-11-16T15:00:00.000Z', weight: 195.2, bf: 16.2 }, { ts: '2026-11-02T15:00:00.000Z', weight: 197.5, bf: 17.1 }],
+    entries: [{ type: 'body', ts: '2026-11-10T15:00:00.000Z', measurements: { waist: 34, bf: 18 } }]
+  };
+  assert.deepEqual(JSON.parse(JSON.stringify(app.tlLatestBodyFat(d))), { ts: '2026-11-16T15:00:00.000Z', bf: 16.2 });
+  d.entries.push({ type: 'body', ts: '2026-11-18T15:00:00.000Z', measurements: { bf: 15.9 } });
+  assert.equal(app.tlLatestBodyFat(d).bf, 15.9);
+  assert.equal(app.tlLatestBodyFat({ entries: [], bodyComp: [{ ts: 'x', bf: 16 }, { ts: '2026-11-01T00:00:00.000Z', bf: 0 }, { ts: '2026-11-02T00:00:00.000Z', bf: 120 }] }), null);
+  assert.equal(app.tlLatestBodyFat(null), null);
+});
+
+test('the newest measurements, each with its change since it was last measured', () => {
+  const entries = [
+    { type: 'body', ts: '2026-10-20T15:00:00.000Z', measurements: { waist: 35, chest: 44, neck: 16 } },
+    { type: 'body', ts: '2026-11-01T15:00:00.000Z', measurements: { waist: 34, bf: 17 } },
+    { type: 'body', ts: '2026-11-09T15:00:00.000Z', measurements: { chest: 44.5, waist: 33.5, larm: 15.5 } },
+    { type: 'body', ts: '2026-11-12T15:00:00.000Z', measurements: { bf: 16 } },
+    { type: 'weight', ts: '2026-11-13T15:00:00.000Z', weight: 190 }
+  ];
+  const m = app.tlLatestMeasurements(entries);
+  assert.equal(m.ts, '2026-11-09T15:00:00.000Z', 'an entry with only body fat is not a measurement');
+  assert.deepEqual(JSON.parse(JSON.stringify(m.rows)), [
+    { key: 'waist', label: 'Waist', value: 33.5, change: -0.5 },
+    { key: 'chest', label: 'Chest', value: 44.5, change: 0.5 },
+    { key: 'larm', label: 'Left arm', value: 15.5, change: null }
+  ]);
+  assert.deepEqual(JSON.parse(JSON.stringify(app.tlLatestMeasure(entries, 'neck'))), { ts: '2026-10-20T15:00:00.000Z', value: 16 });
+  assert.equal(app.tlLatestMeasure(entries, 'hips'), null);
+  assert.equal(app.tlLatestMeasurements([]), null);
+});

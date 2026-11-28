@@ -114,6 +114,12 @@ jobs:
       # labs lands on the new panel; no labs; 320 px light.
       - name: Bloodwork
         run: node scripts/ui-check-health-bloodwork.js
+      # Blood pressure and Body: the latest reading and its category, the
+      # fortnight's bars and a dose-change marker, the averages, the form's
+      # limits, a saved reading; weight, its change and chart, the stats,
+      # the 60-700 lb limit, metric both ways, measurements and back.
+      - name: Blood pressure and Body
+        run: node scripts/ui-check-health-bp-body.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.

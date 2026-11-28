@@ -57,9 +57,21 @@ var TL_ROUTES = {
   /* The report builder, which lives on the old profile page: shown alone. */
   'health/report': { title: 'Report', back: 'health/bloodwork', gate: 'clinical_reports',
     legacy: function () { showPage('profile'); tlLegacyTab('#page-profile', showProfileTab, 'report'); } },
-  'health/bp': { title: 'Health', tab: 'health', segs: 'health', gate: 'blood_pressure',
+  'health/bp': { title: 'Health', tab: 'health', segs: 'health', gate: 'blood_pressure', screen: 'tlBpScreen',
     legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('bp'); } },
-  'health/body': { title: 'Health', tab: 'health', segs: 'health',
+  /* The old BP section: device, notes, the full history, the Apple Health
+     import. */
+  'health/readings': { title: 'All readings', back: 'health/bp', gate: 'blood_pressure',
+    legacy: function () { showHub('log', document.getElementById('nav-log')); tlLegacyLogTab('bp'); } },
+  'health/body': { title: 'Health', tab: 'health', segs: 'health', screen: 'tlBodyScreen',
+    legacy: function () {
+      showHub('log', document.getElementById('nav-log'));
+      tlLegacyLogTab('weight');
+      var body = document.getElementById('lt-body');
+      if (body) body.style.display = '';
+    } },
+  /* The old measurement form alone. */
+  'health/measure': { title: 'Measurements', back: 'health/body',
     legacy: function () {
       showHub('log', document.getElementById('nav-log'));
       tlLegacyLogTab('weight');
@@ -396,6 +408,8 @@ function tlShellInit() {
   if (typeof tlLoadTemplate === 'function') window.loadTemplate = tlLoadTemplate;
   /* Saving labs shows the panel saved (bloodwork.js). */
   if (typeof tlWrapSaveBloodwork === 'function') tlWrapSaveBloodwork();
+  /* Saving measurements from Body's "Measure" goes back to Body (body.js). */
+  if (typeof tlWrapSaveBody === 'function') tlWrapSaveBody();
   tlDecorateLegacy();
 
   document.addEventListener('click', function (e) {
