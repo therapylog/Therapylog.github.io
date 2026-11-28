@@ -109,7 +109,15 @@ var TL_ROUTES = {
      the old page on its Report tab. */
   profile: { title: 'Profile', back: 'settings', legacy: function () { showPage('profile'); tlLegacyTab('#page-profile', showProfileTab, 'patient'); } },
   history: { title: 'History', back: 'settings', legacy: function () { showPage('history'); } },
-  ask: { title: 'Ask', back: 'today', legacy: function () { showPage('ai'); } }
+  ask: { title: 'Ask', back: 'today', bare: true, screen: 'tlAskScreen', legacy: function () { showPage('ai'); } },
+  /* The assistant's settings: who pays (managed or your own key) and what
+     is sent (personalized or general), on the old page without its chat. */
+  'ask/settings': { title: 'Assistant settings', back: 'ask',
+    legacy: function () {
+      showPage('ai');
+      var b = document.getElementById('ai-settings-body');
+      if (b && b.style.display === 'none' && typeof toggleAISettings === 'function') toggleAISettings();
+    } }
 };
 
 /* A route's new screen is named in TL_ROUTES (`screen`: the name of a
@@ -195,8 +203,9 @@ function tlTopBar(name, d) {
       tlAvatar(d) + '</div>';
   }
   if (r.back) {
+    var acts = r.actions && typeof window[r.actions] === 'function' ? window[r.actions](d) : '';
     return '<div class="ds-header tl-top-row"><button type="button" class="ds-btn ds-btn-ghost tl-back" data-tl-back>' +
-      tlIcon('caret-left') + '<span class="ds-sr">Back</span></button><h1 class="ds-h1">' + tlEsc(r.title) + '</h1></div>';
+      tlIcon('caret-left') + '<span class="ds-sr">Back</span></button><h1 class="ds-h1">' + tlEsc(r.title) + '</h1>' + acts + '</div>';
   }
   /* A route can put its own buttons where the profile button goes
      (Bloodwork's scan and "+ Log labs"): `actions` names the function. */
@@ -221,6 +230,28 @@ function tlShellChrome(name) {
   body.classList.toggle('tl-bare', !!r.bare);
 }
 
+/* ---- borrowed nodes ----------------------------------------------------- */
+
+/* A new screen can show a live element of an old page in place (Ask shows the
+   assistant's own thread and input, which the old code finds by id). It is
+   moved, not copied, and goes back where it came from before the next screen
+   is drawn, so the old page always has it again. */
+var tlBorrowed = [];
+function tlBorrow(el, into) {
+  if (!el || !into) return null;
+  tlBorrowed.push({ el: el, parent: el.parentNode, next: el.nextSibling });
+  into.appendChild(el);
+  return el;
+}
+function tlReturnBorrowed() {
+  while (tlBorrowed.length) {
+    var b = tlBorrowed.pop();
+    if (!b.parent) continue;
+    if (b.next && b.next.parentNode === b.parent) b.parent.insertBefore(b.el, b.next);
+    else b.parent.appendChild(b.el);
+  }
+}
+
 /* ---- going places ------------------------------------------------------ */
 
 /* Show a route. Returns false when a paid-feature gate refused it, in which
@@ -234,6 +265,7 @@ function tlShow(name) {
   if (r.tab) tlLastTab = name;
   tlShellChrome(name);
   var screen = tlScreenFor(name), host = document.getElementById('tl-screen');
+  tlReturnBorrowed();
   if (screen && host) {
     document.body.classList.add('tl-new-screen');
     host.innerHTML = '';
@@ -346,6 +378,7 @@ function tlSyncFromLegacy() {
   /* The new screen that was showing (Today, say) goes, or it would sit above
      the old page the old app just opened. */
   var host = document.getElementById('tl-screen');
+  tlReturnBorrowed();
   if (host) host.innerHTML = '';
   tlShellChrome(name);
   history.pushState(null, '', '#/' + name);

@@ -135,6 +135,11 @@ jobs:
       # mode, demo and delete asking first, About; 320 px light.
       - name: Settings
         run: node scripts/ui-check-settings.js
+      # Ask: the assistant's own thread and input borrowed into the new
+      # screen and given back; the gate; a local answer; consent, then an
+      # assistant answer (stubbed) with where it came from; Clear; settings.
+      - name: Ask
+        run: node scripts/ui-check-ask.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.

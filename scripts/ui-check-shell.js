@@ -200,12 +200,13 @@ const closeUpgrade = (page) => page.evaluate(() => { const o = document.getEleme
 
     await page.locator('#tl-tabs [data-ds-tab="today"]').click(); await page.waitForTimeout(200);
     s = await tap('#tl-top .ds-askbar');
-    t('the Ask bar opens the assistant', s.route === 'ask' && s.shown.includes('page-ai'));
-    const chat = await page.evaluate(() => { const c = document.querySelector('.chat-card'); return !!c && !!c.closest('#page-ai'); });
-    t('  whose chat lives inside its own page', chat);
+    t('the Ask bar opens Ask, the new screen', s.route === 'ask' && !s.shown.includes('page-ai') && await page.evaluate(() => !!document.querySelector('#tl-screen .tl-ask')));
+    const chat = await page.evaluate(() => !!document.querySelector('#tl-screen .tl-ask #chat-msgs') && !!document.querySelector('.chat-card') && !!document.querySelector('.chat-card').closest('#page-ai'));
+    t('  showing the assistant\'s own thread, whose card stays on its page', chat);
+    s = await tap('#tl-screen .tl-ask-back');
+    t('  and its own Back returns to Today (Ask has no tab bar)', s.route === 'today');
 
     /* The old app navigating by itself. */
-    await page.locator('#tl-tabs [data-ds-tab="today"]').click(); await page.waitForTimeout(200);
     await page.evaluate(() => showPage('bloodwork')); await page.waitForTimeout(250);
     s = await state(page);
     t('an old button that opens Bloodwork moves the tab bar and the address with it', s.route === 'health/bloodwork' && s.tab === 'health' && s.hash === '#/health/bloodwork', JSON.stringify(s));

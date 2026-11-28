@@ -244,11 +244,11 @@ const fitDetail = (f) => JSON.stringify(f).slice(0, 300);
       !(await page.$('#tl-due')) && d.entries.some((x) => x.slot === 'am' && x.day === DAY), '');
 
     /* The old app navigating by itself away from Today: Today goes. */
-    await page.evaluate(() => { tlGo('today'); showPage('ai'); });
+    await page.evaluate(() => { tlGo('today'); showPage('history'); });
     await page.waitForTimeout(100);
     t('when the old app opens one of its pages from Today, Today is cleared away', await page.evaluate(() =>
-      tlRoute === 'ask' && !document.querySelector('#tl-screen .tl-today') && !document.body.classList.contains('tl-new-screen') &&
-      document.getElementById('page-ai').offsetParent !== null));
+      tlRoute === 'history' && !document.querySelector('#tl-screen .tl-today') && !document.body.classList.contains('tl-new-screen') &&
+      document.getElementById('page-history').offsetParent !== null));
 
     /* The old app's own navigation lands on the new Today. */
     await page.evaluate(() => showHub('home', document.getElementById('nav-home')));

@@ -53,6 +53,11 @@ body.tl-r-library-sidefx #page-tools .seg{display:none!important}
 /* Body's "Measure": the measurement form without the weight form above it. */
 body.tl-r-health-measure #lt-weight{display:none!important}
 
+/* The assistant's settings: the old page without its intro or its chat
+   (Ask shows the chat). */
+body.tl-r-ask-settings #page-ai>.card:first-child,
+body.tl-r-ask-settings #page-ai .chat-card{display:none!important}
+
 /* Health's report: the old profile page's report builder, without the
    profile form above it. */
 body.tl-r-health-report #page-profile>:not(#prof-report){display:none!important}
