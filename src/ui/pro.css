@@ -1,0 +1,56 @@
+/* Pro (5c): src/ui/pro.js. A full screen over everything. */
+
+.tl-pro{
+  position:fixed;inset:0;z-index:9999;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:radial-gradient(70% 30% at 24% 6%,color-mix(in srgb,var(--color-accent) 16%,transparent),transparent),var(--color-bg);
+  color:var(--color-text);
+}
+.tl-pro-in{max-width:520px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top,0px)) var(--gutter,20px) calc(32px + env(safe-area-inset-bottom,0px))}
+.tl-pro-top{display:flex;align-items:center;justify-content:space-between;margin:0 -10px 6px}
+.tl-pro-x{width:44px;min-width:44px;padding:0;justify-content:center;color:var(--color-accent)}
+.tl-pro-x>.ph{font-size:22px}
+.tl-pro-restore{color:var(--color-accent)}
+.tl-pro-lock{display:flex;align-items:center;gap:8px;margin:4px 0 6px;font-size:14.5px;color:var(--color-accent-300)}
+.tl-pro-lock>.ph{flex:none;font-size:18px}
+.tl-pro-h{margin:0;font-size:30px;font-weight:500;letter-spacing:-0.03em;line-height:1.15}
+.tl-pro-sub{margin:8px 0 0;font-size:15.5px;line-height:1.5;color:var(--color-muted)}
+.tl-pro-feats{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:16px}
+.tl-pro-feats li{display:flex;gap:14px}
+.tl-pro-feats li>.ph{flex:none;font-size:20px;color:var(--color-accent);margin-top:2px}
+.tl-pro-feat-t{display:block;font-size:16px;font-weight:500}
+.tl-pro-feat-s{display:block;margin-top:2px;font-size:13.5px;line-height:1.45;color:var(--color-muted)}
+
+.tl-pro-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.tl-pro-card{
+  display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:96px;padding:12px 14px;cursor:pointer;text-align:left;
+  font:inherit;color:inherit;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-lg);
+}
+.tl-pro-card[aria-checked="true"]{background:color-mix(in srgb,var(--color-accent) 8%,var(--color-surface));border-color:transparent;box-shadow:inset 0 0 0 1.5px var(--color-accent)}
+.tl-pro-card:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.tl-pro-card-top{display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;flex-wrap:wrap}
+.tl-pro-card-l{font-size:13.5px;color:var(--color-muted)}
+.tl-pro-card-p{margin-top:6px;font-size:24px;font-weight:500;font-variant-numeric:tabular-nums}
+.tl-pro-card-s{font-size:12.5px;color:var(--color-muted)}
+
+.tl-pro-own{
+  display:flex;align-items:flex-start;gap:12px;width:100%;margin-top:10px;padding:12px 14px;cursor:pointer;text-align:left;
+  font:inherit;color:inherit;background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-lg);
+}
+.tl-pro-own:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.tl-pro-own-box{flex:none;display:flex;align-items:center;justify-content:center;width:22px;height:22px;margin-top:1px;border-radius:6px;border:1.5px solid var(--color-neutral-500);color:transparent}
+.tl-pro-own[aria-checked="true"]{box-shadow:inset 0 0 0 1.5px var(--color-accent);border-color:transparent}
+.tl-pro-own[aria-checked="true"] .tl-pro-own-box{background:var(--color-accent);border-color:var(--color-accent);color:var(--color-bg)}
+.tl-pro-own-t{display:block;font-size:15px;font-weight:500}
+.tl-pro-own-s{display:block;margin-top:2px;font-size:13px;line-height:1.45;color:var(--color-muted)}
+
+.tl-pro-cta{margin-top:16px;min-height:52px;font-size:16px}
+.tl-pro-err{margin:8px 0 0;min-height:0;font-size:13.5px;color:var(--color-danger)}
+.tl-pro-err:empty{display:none}
+.tl-pro-note{margin:24px 0 0;font-size:14.5px;line-height:1.5;color:var(--color-muted)}
+.tl-pro-fine{margin:12px 0 0;font-size:13px;line-height:1.5;color:var(--color-muted)}
+.tl-pro-links{display:flex;gap:24px;margin:12px 0 0;font-size:14px}
+.tl-pro-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--color-accent);text-decoration:underline;text-underline-offset:3px}
+
+.tl-pro-done{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding-top:30vh}
+.tl-pro-done .ds-hex{margin-bottom:12px}
+.tl-pro-done .ds-btn{margin-top:20px}

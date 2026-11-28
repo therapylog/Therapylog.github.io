@@ -30,10 +30,12 @@ function tlCurrentProtocol() {
 
 /* The one way into the upgrade screen. Every feature gate arrives here through
    TLTier.prompt(), carrying the gated feature's display name, which tier
-   unlocks it ('pro' or 'std') and the feature's key.
-   For now the screen is the overlay TLTier has always shown; the redesign's
-   Pro screen replaces the body of this function and nothing else changes. */
+   unlocks it ('pro' or 'std') and the feature's key; Settings' "Upgrade to
+   Pro" row arrives with no feature. The screen is the redesign's Pro screen
+   (src/ui/pro.js), or the overlay TLTier has always shown where that is not
+   loaded. */
 function openUpgrade(featureName, tier, featureKey) {
+  if (typeof tlProScreen === 'function') { tlProScreen(tier === 'pro' ? 'pro' : 'std', featureKey || null); return; }
   if (window.TLTier && typeof TLTier._overlay === 'function') {
     TLTier._overlay(tier === 'pro' ? 'pro' : 'std', featureKey || featureName);
   }

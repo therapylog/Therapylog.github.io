@@ -125,6 +125,11 @@ jobs:
       # read back, a reload, "Delete all data"; 320 px light.
       - name: Photos
         run: node scripts/ui-check-health-photos.js
+      # Pro: every gate opens it naming the feature, the plans and prices,
+      # the web checkout with the plan chosen, Restore, close, "Pro is on",
+      # the iOS and Android variants; 320 px light.
+      - name: Pro
+        run: node scripts/ui-check-pro.js
       # The schedule reader on the home screen: the one-time note on what now
       # reads differently, the "biweekly" question, the check on a schedule
       # nobody can read, the calendar file, and blood pressure validation.
