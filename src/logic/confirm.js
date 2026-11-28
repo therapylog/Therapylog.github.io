@@ -112,59 +112,55 @@ function tlConfirm(opts) {
     if (tlConfirmOpen) tlConfirmOpen('cancel');
     if (old && old.parentNode) old.parentNode.removeChild(old);
     if (fromOld) before = document.activeElement;
-    var tone = opts.tone === 'danger' ? 'var(--danger)' : 'var(--accent3)';
-    var el = function (tag, css, text) {
+    /* The design's 5d sheet (src/ui/confirm.css): a hexagon in the tone, the
+       title and body, then the buttons stacked: "Export a backup first"
+       (secondary), the action (an outline in the tone), Cancel (ghost). */
+    var tone = opts.tone === 'danger' ? 'danger' : 'warn';
+    var el = function (tag, cls, text) {
       var n = document.createElement(tag);
-      if (css) n.style.cssText = css;
+      if (cls) n.className = cls;
       if (text !== undefined) n.textContent = text;
       return n;
     };
 
-    var wrap = el('div', 'position:fixed;inset:0;z-index:10000;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,0.5)');
+    var wrap = el('div', 'ds-ui tl-confirm tl-confirm-' + tone);
     wrap.id = 'tl-confirm';
     wrap.setAttribute('data-kind', opts.kind || '');
 
-    var sheet = el('div', 'width:100%;max-width:520px;box-sizing:border-box;background:var(--surface);color:var(--text);' +
-      'border-radius:16px 16px 0 0;border:1px solid var(--border2);border-bottom:none;' +
-      'padding:10px 20px calc(20px + env(safe-area-inset-bottom)) 20px;max-height:86%;overflow-y:auto');
+    var sheet = el('div', 'tl-confirm-sheet');
     sheet.setAttribute('role', 'alertdialog');
     sheet.setAttribute('aria-modal', 'true');
     sheet.setAttribute('aria-labelledby', 'tl-confirm-title');
     sheet.setAttribute('aria-describedby', 'tl-confirm-body');
 
-    sheet.appendChild(el('div', 'width:36px;height:5px;border-radius:3px;background:var(--border2);margin:0 auto 16px'));
+    sheet.appendChild(el('div', 'tl-confirm-grab'));
 
-    var hex = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    hex.setAttribute('viewBox', '0 0 40 44');
-    hex.setAttribute('width', '44');
-    hex.setAttribute('height', '48');
+    var hex = el('span', 'tl-confirm-hex');
     hex.setAttribute('aria-hidden', 'true');
     hex.setAttribute('data-icon', opts.icon || '');
-    hex.style.cssText = 'display:block;margin-bottom:12px;color:' + tone;
-    hex.innerHTML = '<polygon points="20,1.5 38,12 38,32 20,42.5 2,32 2,12" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="1.25"/>' +
-      '<path d="M20 12.5v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="20" cy="30" r="1.4" fill="currentColor"/>';
+    var icon = String(opts.icon || 'ph-warning').replace(/[^a-z-]/g, '');
+    hex.innerHTML = '<svg viewBox="0 0 40 44" focusable="false"><polygon points="20,1.5 38,12 38,32 20,42.5 2,32 2,12"/></svg>' +
+      '<i class="ph ' + (/^ph-/.test(icon) ? icon : 'ph-' + icon) + '"></i>';
     sheet.appendChild(hex);
 
-    var title = el('div', 'font-size:20px;font-weight:500;line-height:1.25;margin-bottom:8px', opts.title || '');
+    var title = el('div', 'tl-confirm-title', opts.title || '');
     title.id = 'tl-confirm-title';
     sheet.appendChild(title);
-    var body = el('div', 'font-size:14.5px;line-height:1.5;color:var(--text2);margin-bottom:18px', opts.body || '');
+    var body = el('div', 'tl-confirm-body', opts.body || '');
     body.id = 'tl-confirm-body';
     sheet.appendChild(body);
 
-    var base = 'display:block;width:100%;box-sizing:border-box;min-height:48px;margin-top:8px;padding:10px 14px;border-radius:8px;' +
-      'font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;background:transparent;';
-    var button = function (id, text, css) {
-      var b = el('button', base + css, text);
+    var button = function (id, text, cls) {
+      var b = el('button', 'ds-btn ds-btn-block tl-confirm-btn ' + cls, text);
       b.type = 'button';
       b.setAttribute('data-tl-confirm', id);
       b.onclick = function () { done(id); };
       sheet.appendChild(b);
       return b;
     };
-    if (opts.exportFirst) button('export', 'Export a backup first', 'border:1px solid var(--border2);color:var(--text)');
-    button('action', opts.action || 'Continue', 'border:1px solid ' + tone + ';color:' + tone);
-    var cancel = button('cancel', 'Cancel', 'border:1px solid transparent;color:var(--accent)');
+    if (opts.exportFirst) button('export', 'Export a backup first', 'ds-btn-secondary');
+    button('action', opts.action || 'Continue', 'tl-confirm-action');
+    var cancel = button('cancel', 'Cancel', 'ds-btn-ghost tl-confirm-cancel');
 
     function onKey(e) {
       if (e.key === 'Escape') { e.preventDefault(); done('cancel'); return; }
